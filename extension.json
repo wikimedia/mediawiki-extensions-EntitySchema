@@ -1,0 +1,26 @@
+{
+	"name": "WikibaseSchema",
+	"version": "0.0.0",
+	"author": [
+		"The Wikidata team"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:WikibaseSchema",
+	"descriptionmsg": "wikibaseschema-desc",
+	"license-name": "GPL-2.0-or-later",
+	"type": "wikibase",
+	"requires": {
+		"MediaWiki": ">= 1.32.0"
+	},
+	"AutoloadNamespaces": {
+		"Wikibase\\Schema\\": "src/"
+	},
+	"ExtensionMessagesFiles": {
+		"WikibaseSchemaAlias": "WikibaseSchema.i18n.alias.php"
+	},
+	"MessagesDirs": {
+		"WikibaseSchema": [
+			"i18n"
+		]
+	},
+	"manifest_version": 2
+}
