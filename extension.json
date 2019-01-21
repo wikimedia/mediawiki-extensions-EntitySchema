@@ -22,5 +22,26 @@
 			"i18n"
 		]
 	},
+	"ContentHandlers": {
+		"WikibaseSchema": "Wikibase\\Schema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"
+	},
+	"namespaces": [
+		{
+			"id": 12300,
+			"constant": "NS_WBSCHEMA_JSON",
+			"name": "Schema",
+			"subpages": false,
+			"content": true,
+			"defaultcontentmodel": "WikibaseSchema"
+		},
+		{
+			"id": 12301,
+			"constant": "NS_WBSCHEMA_JSON_TALK",
+			"name": "Schema_talk",
+			"subpages": true,
+			"content": false,
+			"defaultcontentmodel": "wikitext"
+		}
+	],
 	"manifest_version": 2
 }
