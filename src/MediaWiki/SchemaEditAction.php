@@ -13,7 +13,18 @@ class SchemaEditAction extends FormAction {
 
 	protected function getFormFields() {
 
-		$schema = json_decode( $this->getContext()->getWikiPage()->getContent()->getNativeData(), true );
+		$content = $this->getContext()->getWikiPage()->getContent();
+		if ( $content ) {
+			// FIXME: handle this better
+			$schema = json_decode( $content->getNativeData(), true );
+		} else {
+			$schema = [
+				'description' => [
+					'en' => '',
+				],
+				'schema' => '',
+			];
+		}
 
 		return [
 			'description' => [
@@ -47,8 +58,12 @@ class SchemaEditAction extends FormAction {
 		 * @var $content WikibaseSchemaContent
 		 */
 		$content = $this->getContext()->getWikiPage()->getContent();
-
-		$content->setNativeData( json_encode( $this->formDataToSchemaArray( $data ) ) );
+		$dataToSave = json_encode( $this->formDataToSchemaArray( $data ) );
+		if ( $content ) {
+			$content->setNativeData( $dataToSave );
+		} else {
+			$content = new WikibaseSchemaContent( $dataToSave );
+		}
 
 		$updater = $this->page->getPage()->newPageUpdater( $this->context->getUser() );
 		$updater->setContent( 'main', $content );
@@ -61,9 +76,9 @@ class SchemaEditAction extends FormAction {
 
 	private function formDataToSchemaArray( array $formData ) {
 		return [
-			'schema' => $formData['schema'],
+			'schema' => $formData[ 'schema' ],
 			'description' => [
-				'en' => $formData['description'],
+				'en' => $formData[ 'description' ],
 			],
 		];
 	}
