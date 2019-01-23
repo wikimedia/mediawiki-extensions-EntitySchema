@@ -4,5 +4,12 @@
 			"The Wikidata Team"
 		]
 	},
-	"wikibaseschema-desc": "{{desc|name=WikibaseSchema|url=https://www.mediawiki.org/wiki/Extension:WikibaseSchema}}"
+	"wikibaseschema-desc": "{{desc|name=WikibaseSchema|url=https://www.mediawiki.org/wiki/Extension:WikibaseSchema}}",
+	"wikibaseschema-label-edit-placeholder": "Placeholder to add the label in English",
+	"wikibaseschema-description-edit-placeholder": "Placeholder to add the description in English",
+	"wikibaseschema-aliases-edit-placeholder": "Placeholder to add aliases for the Schema in English",
+	"wikibaseschema-editpage-label-inputlabel": "Input label for the label field on the edit page",
+	"wikibaseschema-editpage-description-inputlabel": "Input label for the description field on the edit page",
+	"wikibaseschema-editpage-aliases-inputlabel": "Input label for the aliases field on the edit page",
+	"wikibaseschema-editpage-schema-inputlabel": "Input label for the Schema field on the edit page"
 }

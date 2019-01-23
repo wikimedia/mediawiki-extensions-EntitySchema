@@ -11,34 +11,6 @@ use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
  */
 class SchemaEditAction extends FormAction {
 
-	protected function getFormFields() {
-
-		/** @var WikibaseSchemaContent $content */
-		$content = $this->getContext()->getWikiPage()->getContent();
-		if ( $content ) {
-			// FIXME: handle this better
-			$schema = json_decode( $content->getText(), true );
-		} else {
-			$schema = [
-				'description' => [
-					'en' => '',
-				],
-				'schema' => '',
-			];
-		}
-
-		return [
-			'description' => [
-				'type' => 'text',
-				'default' => $schema[ 'description' ][ 'en' ],
-			],
-			'schema' => [
-				'type' => 'textarea',
-				'default' => $schema[ 'schema' ],
-			],
-		];
-	}
-
 	/**
 	 * Process the form on POST submission.
 	 *
@@ -75,12 +47,65 @@ class SchemaEditAction extends FormAction {
 		return true;
 	}
 
+	protected function getFormFields() {
+		$schema = [
+			'labels' => [
+				'en' => '',
+			],
+			'descriptions' => [
+				'en' => '',
+			],
+			'aliases' => [
+				'en' => [],
+			],
+			'schema' => '',
+		];
+		/** @var WikibaseSchemaContent $content */
+		$content = $this->getContext()->getWikiPage()->getContent();
+		if ( $content ) {
+			// FIXME: handle this better
+			$schema = array_merge( $schema, json_decode( $content->getText(), true ) );
+		}
+
+		return [
+			'label' => [
+				'type' => 'text',
+				'default' => $schema[ 'labels' ][ 'en' ],
+				'label-message' => 'wikibaseschema-editpage-label-inputlabel',
+				'placeholder-message' => 'wikibaseschema-label-edit-placeholder'
+			],
+			'description' => [
+				'type' => 'text',
+				'default' => $schema[ 'descriptions' ][ 'en' ],
+				'label-message' => 'wikibaseschema-editpage-description-inputlabel',
+				'placeholder-message' => 'wikibaseschema-description-edit-placeholder'
+			],
+			'aliases' => [
+				'type' => 'text',
+				'default' => implode( ' | ', $schema[ 'aliases' ][ 'en' ] ),
+				'label-message' => 'wikibaseschema-editpage-aliases-inputlabel',
+				'placeholder-message' => 'wikibaseschema-aliases-edit-placeholder'
+			],
+			'schema' => [
+				'type' => 'textarea',
+				'default' => $schema[ 'schema' ],
+				'label-message' => 'wikibaseschema-editpage-schema-inputlabel',
+			],
+		];
+	}
+
 	private function formDataToSchemaArray( array $formData ) {
 		return [
-			'schema' => $formData[ 'schema' ],
-			'description' => [
+			'labels' => [
+				'en' => $formData[ 'label' ],
+			],
+			'descriptions' => [
 				'en' => $formData[ 'description' ],
 			],
+			'aliases' => [
+				'en' => array_filter( array_map( 'trim', explode( '|', $formData[ 'aliases' ] ) ) ),
+			],
+			'schema' => $formData[ 'schema' ],
 		];
 	}
 

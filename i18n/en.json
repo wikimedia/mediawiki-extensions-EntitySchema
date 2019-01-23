@@ -4,5 +4,12 @@
 			"The Wikidata team"
 		]
 	},
-	"wikibaseschema-desc": "Store and discuss schemas for Wikibase entities"
+	"wikibaseschema-desc": "Store and discuss schemas for Wikibase entities",
+	"wikibaseschema-label-edit-placeholder": "The label for the Schema in English",
+	"wikibaseschema-description-edit-placeholder": "The description for the Schema in English",
+	"wikibaseschema-aliases-edit-placeholder": "Alternative labels for the Schema in English",
+	"wikibaseschema-editpage-label-inputlabel": "Label:",
+	"wikibaseschema-editpage-description-inputlabel": "Description:",
+	"wikibaseschema-editpage-aliases-inputlabel": "Aliases (pipe separated):",
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx:"
 }

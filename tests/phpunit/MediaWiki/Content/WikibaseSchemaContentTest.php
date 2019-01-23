@@ -29,28 +29,29 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 		return [
 			[
 				[
-					'description' => [ 'en' => 'test' ],
+					'descriptions' => [ 'en' => 'test' ],
 					'schema' => '',
 				],
-				'<h3>test</h3>',
+				'<abstract id="wbschema-heading-description">test</abstract>',
 			],
 			[
 				[
-					'description' => [ 'en' => '<script>alert("description XSS")</script>' ],
+					'descriptions' => [ 'en' => '<script>alert("description XSS")</script>' ],
 					'schema' => '',
 				],
-				'<h3>&lt;script', // exact details of escaping beyond this (> vs &gt;) don’t matter
+				// exact details of escaping beyond this (> vs &gt;) don’t matter
+				'<abstract id="wbschema-heading-description">&lt;script',
 			],
 			[
 				[
-					'description' => [ 'en' => 'test' ],
+					'descriptions' => [ 'en' => 'test' ],
 					'schema' => '# basic schema\n_:empty {}',
 				],
 				'<pre># basic schema\n_:empty {}</pre>',
 			],
 			[
 				[
-					'description' => [ 'en' => 'test' ],
+					'descriptions' => [ 'en' => 'test' ],
 					'schema' => '<script>alert("schema XSS")</script>',
 				],
 				'<pre>&lt;script', // exact details of escaping beyond this (> vs &gt;) don’t matter

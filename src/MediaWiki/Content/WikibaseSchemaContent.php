@@ -38,16 +38,45 @@ class WikibaseSchemaContent extends JsonContent {
 	}
 
 	private function schemaJsonToHtml( array $schema ) {
+		$schema = array_merge( [
+			'labels' => [
+				'en' => '',
+			],
+			'descriptions' => [
+				'en' => '',
+			],
+			'aliases' => [
+				'en' => [],
+			],
+			'schema' => '',
+		], $schema );
+
 		return Html::element(
-				'h3',
-				[],
-				$schema['description']['en']
+				'h1',
+				[
+					'id' => 'wbschema-title-label'
+				],
+				$schema[ 'labels' ][ 'en' ]
+			) .
+			Html::element(
+				'abstract',
+				[
+					'id' => 'wbschema-heading-description'
+				],
+				$schema[ 'descriptions' ][ 'en' ]
+			) .
+			Html::element(
+				'p',
+				[
+					'id' => 'wbschema-heading-aliases'
+				],
+				implode( ' | ', $schema[ 'aliases' ][ 'en' ] )
 			)
 			. Html::element(
-			'pre',
-			[],
-			$schema['schema']
-		);
+				'pre',
+				[],
+				$schema[ 'schema' ]
+			);
 	}
 
 	public function setNativeData( $data ) {
