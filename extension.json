@@ -22,6 +22,9 @@
 			"i18n"
 		]
 	},
+	"Hooks": {
+		"LoadExtensionSchemaUpdates": "Wikibase\\Schema\\WikibaseSchemaHooks::onCreateDBSchema"
+	},
 	"ContentHandlers": {
 		"WikibaseSchema": "Wikibase\\Schema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"
 	},
