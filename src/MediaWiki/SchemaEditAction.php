@@ -94,6 +94,10 @@ class SchemaEditAction extends FormAction {
 		];
 	}
 
+	protected function usesOOUI() {
+		return true;
+	}
+
 	private function formDataToSchemaArray( array $formData ) {
 		return [
 			'labels' => [
