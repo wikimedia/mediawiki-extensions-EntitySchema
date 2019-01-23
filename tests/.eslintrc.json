@@ -1,0 +1,12 @@
+{
+	"parserOptions": {
+		"ecmaVersion": 6
+	},
+	"rules": {
+		"no-unused-vars": "off",
+		"promise/no-native": "off",
+		"compat/compat": "off",
+		"no-restricted-properties": "off",
+		"no-restricted-syntax": "off"
+	}
+}

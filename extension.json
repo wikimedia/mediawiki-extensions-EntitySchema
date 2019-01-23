@@ -23,7 +23,8 @@
 		]
 	},
 	"Hooks": {
-		"LoadExtensionSchemaUpdates": "Wikibase\\Schema\\WikibaseSchemaHooks::onCreateDBSchema"
+		"LoadExtensionSchemaUpdates": "Wikibase\\Schema\\WikibaseSchemaHooks::onCreateDBSchema",
+		"ExtensionTypes": "Wikibase\\Schema\\WikibaseSchemaHooks::onExtensionTypes"
 	},
 	"ContentHandlers": {
 		"WikibaseSchema": "Wikibase\\Schema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"
@@ -46,5 +47,8 @@
 			"defaultcontentmodel": "wikitext"
 		}
 	],
+	"SpecialPages": {
+		"NewSchema": "Wikibase\\Schema\\MediaWiki\\Specials\\NewSchema"
+	},
 	"manifest_version": 2
 }

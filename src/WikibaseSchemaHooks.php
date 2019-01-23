@@ -19,4 +19,8 @@ final class WikibaseSchemaHooks {
 		);
 	}
 
+	public static function onExtensionTypes( array &$extTypes ) {
+		$extTypes['wikibase'] = 'Wikibase';
+	}
+
 }

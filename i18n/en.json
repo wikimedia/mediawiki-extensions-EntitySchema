@@ -5,6 +5,10 @@
 		]
 	},
 	"wikibaseschema-desc": "Store and discuss schemas for Wikibase entities",
+	"special-newschema": "Create a new Schema",
+	"wikibaseschema-newschema-label": "Label:",
+	"wikibaseschema-newschema-description": "Description:",
+	"wikibaseschema-newschema-aliases": "Aliases, pipe-separated:",
 	"wikibaseschema-label-edit-placeholder": "The label for the Schema in English",
 	"wikibaseschema-description-edit-placeholder": "The description for the Schema in English",
 	"wikibaseschema-aliases-edit-placeholder": "Alternative labels for the Schema in English",
