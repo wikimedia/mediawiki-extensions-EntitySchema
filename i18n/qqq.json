@@ -4,6 +4,10 @@
 			"The Wikidata Team"
 		]
 	},
+	"special-newschema": "Title for the new Schema Special Page",
+	"wikibaseschema-newschema-label": "Input label for the label field on Special:NewSchema",
+	"wikibaseschema-newschema-description": "Input label for the description field on Special:NewSchema",
+	"wikibaseschema-newschema-aliases": "Input label for the aliases field on Special:NewSchema",
 	"wikibaseschema-desc": "{{desc|name=WikibaseSchema|url=https://www.mediawiki.org/wiki/Extension:WikibaseSchema}}",
 	"wikibaseschema-label-edit-placeholder": "Placeholder to add the label in English",
 	"wikibaseschema-description-edit-placeholder": "Placeholder to add the description in English",
