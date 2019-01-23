@@ -30,7 +30,7 @@ class WikibaseSchemaContent extends JsonContent {
 
 		if ( $generateHtml && $this->isValid() ) {
 			$output->setText( $this->schemaJsonToHtml(
-				json_decode( $this->getNativeData(), true )
+				json_decode( $this->getText(), true )
 			) );
 		} else {
 			$output->setText( '' );

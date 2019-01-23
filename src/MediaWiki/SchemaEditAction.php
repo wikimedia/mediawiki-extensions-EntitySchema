@@ -13,10 +13,11 @@ class SchemaEditAction extends FormAction {
 
 	protected function getFormFields() {
 
+		/** @var WikibaseSchemaContent $content */
 		$content = $this->getContext()->getWikiPage()->getContent();
 		if ( $content ) {
 			// FIXME: handle this better
-			$schema = json_decode( $content->getNativeData(), true );
+			$schema = json_decode( $content->getText(), true );
 		} else {
 			$schema = [
 				'description' => [
