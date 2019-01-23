@@ -9,7 +9,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "wikibase",
 	"requires": {
-		"MediaWiki": ">= 1.32.0"
+		"MediaWiki": ">= 1.33.0"
 	},
 	"AutoloadNamespaces": {
 		"Wikibase\\Schema\\": "src/"
