@@ -8,6 +8,7 @@ class NewSchemaPage extends Page {
 			LABEL: '#wbschema-newschema-label',
 			DESCRIPTION: '#wbschema-newschema-description',
 			ALIASES: '#wbschema-newschema-aliases',
+			SCHEMA_SHEXC: '#wbschema-newschema-schema-shexc',
 			SUBMIT_BUTTON: '#wbschema-newschema-submit'
 		};
 	}
@@ -20,6 +21,7 @@ class NewSchemaPage extends Page {
 		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.LABEL ).waitForVisible();
 		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.DESCRIPTION ).waitForVisible();
 		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.ALIASES ).waitForVisible();
+		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_SHEXC ).waitForVisible();
 
 		return true;
 	}
@@ -34,6 +36,10 @@ class NewSchemaPage extends Page {
 
 	setAliases( aliases ) {
 		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.ALIASES + ' input' ).setValue( aliases );
+	}
+
+	setShExC( shExC ) {
+		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_SHEXC + ' textarea' ).setValue( shExC );
 	}
 
 	clickSubmit() {

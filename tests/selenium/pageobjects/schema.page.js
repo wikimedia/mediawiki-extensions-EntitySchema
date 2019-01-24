@@ -8,7 +8,8 @@ class SchemaPage extends Page {
 		return {
 			LABEL: '#wbschema-title-label',
 			DESCRIPTION: '#wbschema-heading-description',
-			ALIASES: '#wbschema-heading-aliases'
+			ALIASES: '#wbschema-heading-aliases',
+			SCHEMA_SHEXC: '#wbschema-schema-shexc'
 		};
 	}
 
@@ -25,6 +26,11 @@ class SchemaPage extends Page {
 	getAliases() {
 		browser.$( this.constructor.SCHEMA_SELECTORS.ALIASES ).waitForVisible();
 		return browser.$( this.constructor.SCHEMA_SELECTORS.ALIASES ).getText();
+	}
+
+	getShExC() {
+		browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).waitForVisible();
+		return browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).getText();
 	}
 
 }

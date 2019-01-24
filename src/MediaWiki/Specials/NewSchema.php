@@ -5,6 +5,7 @@ namespace Wikibase\Schema\MediaWiki\Specials;
 use CommentStoreComment;
 use Html;
 use HTMLForm;
+use HTMLTextAreaField;
 use HTMLTextField;
 use MediaWiki\MediaWikiServices;
 use OutputPage;
@@ -28,6 +29,8 @@ class NewSchema extends SpecialPage {
 	const FIELD_LABEL = 'label';
 	/* public */
 	const FIELD_ALIASES = 'aliases';
+	/* public */
+	const FIELD_SCHEMA_SHEXC = 'schema-shexc';
 
 	public function __construct(
 		$name = '',
@@ -93,7 +96,7 @@ class NewSchema extends SpecialPage {
 			'aliases' => [
 				'en' => array_filter( array_map( 'trim', explode( '|', $data[ self::FIELD_ALIASES ] ) ) ),
 			],
-			'schema' => '',
+			'schema' => $data[ self::FIELD_SCHEMA_SHEXC ],
 		];
 
 		$updater->setContent( 'main', new WikibaseSchemaContent( json_encode( $dataToSave ) ) );
@@ -139,6 +142,14 @@ class NewSchema extends SpecialPage {
 				'id' => 'wbschema-newschema-aliases',
 				'placeholder-message' => 'wikibaseschema-aliases-edit-placeholder',
 				'label-message' => 'wikibaseschema-newschema-aliases',
+			],
+			self::FIELD_SCHEMA_SHEXC => [
+				'name' => self::FIELD_SCHEMA_SHEXC,
+				'class' => HTMLTextAreaField::class,
+				'id' => 'wbschema-newschema-schema-shexc',
+				'placeholder' => "<human> {\n  wdt:P31 [wd:Q5]\n}",
+				'label-message' => 'wikibaseschema-newschema-schema-shexc',
+				'useeditfont' => true,
 			],
 		];
 	}

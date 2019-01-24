@@ -74,7 +74,9 @@ class WikibaseSchemaContent extends JsonContent {
 			)
 			. Html::element(
 				'pre',
-				[],
+				[
+					'id' => 'wbschema-schema-shexc'
+				],
 				$schema[ 'schema' ]
 			);
 	}

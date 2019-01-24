@@ -47,14 +47,15 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'descriptions' => [ 'en' => 'test' ],
 					'schema' => '# basic schema\n_:empty {}',
 				],
-				'<pre># basic schema\n_:empty {}</pre>',
+				'<pre id="wbschema-schema-shexc"># basic schema\n_:empty {}</pre>',
 			],
 			[
 				[
 					'descriptions' => [ 'en' => 'test' ],
 					'schema' => '<script>alert("schema XSS")</script>',
 				],
-				'<pre>&lt;script', // exact details of escaping beyond this (> vs &gt;) don’t matter
+				// exact details of escaping beyond this (> vs &gt;) don’t matter
+				'<pre id="wbschema-schema-shexc">&lt;script',
 			],
 		];
 	}
