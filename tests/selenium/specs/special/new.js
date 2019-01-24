@@ -12,6 +12,11 @@ describe( 'NewSchema:Page', () => {
 		assert.ok( NewSchemaPage.showsForm() );
 	} );
 
+	it( 'shows a submit button', () => {
+		NewSchemaPage.open();
+		NewSchemaPage.schemaSubmitButton.waitForVisible();
+	} );
+
 	describe( 'FIXME', () => {
 		it( 'is possible to create a new schema', () => {
 			NewSchemaPage.open();

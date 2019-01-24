@@ -16,6 +16,9 @@ class NewSchemaPage extends Page {
 	open() {
 		super.openTitle( 'Special:NewSchema' );
 	}
+	get schemaSubmitButton() {
+		return browser.element( this.constructor.NEW_SCHEMA_SELECTORS.SUBMIT_BUTTON );
+	}
 
 	showsForm() {
 		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.LABEL ).waitForVisible();
@@ -43,7 +46,7 @@ class NewSchemaPage extends Page {
 	}
 
 	clickSubmit() {
-		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SUBMIT_BUTTON ).click();
+		this.schemaSubmitButton.click();
 	}
 }
 
