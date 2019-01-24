@@ -1,6 +1,7 @@
 {
 	"private": true,
 	"scripts": {
+		"fix": "grunt fix",
 		"test": "grunt test",
 		"selenium-test": "echo Please run \\`npm run selenium-test -- --spec extensions/WikibaseSchema/tests/selenium/spec\\` in the mediawiki directory."
 	},

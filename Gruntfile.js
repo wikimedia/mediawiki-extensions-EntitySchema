@@ -12,7 +12,13 @@ module.exports = function ( grunt ) {
 			options: {
 				reportUnusedDisableDirectives: true
 			},
-			all: '.'
+			all: '.',
+			fix: {
+				options: {
+					fix: true
+				},
+				src: '.'
+			}
 		},
 		jsonlint: {
 			all: [
@@ -31,6 +37,7 @@ module.exports = function ( grunt ) {
 		banana: conf.MessagesDirs
 	} );
 
-	grunt.registerTask( 'test', [ 'eslint', 'stylelint', 'jsonlint', 'banana' ] );
+	grunt.registerTask( 'test', [ 'eslint:all', 'stylelint', 'jsonlint', 'banana' ] );
+	grunt.registerTask( 'fix', 'eslint:fix' );
 	grunt.registerTask( 'default', 'test' );
 };
