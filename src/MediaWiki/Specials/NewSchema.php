@@ -3,9 +3,11 @@
 namespace Wikibase\Schema\MediaWiki\Specials;
 
 use CommentStoreComment;
+use Html;
 use HTMLForm;
 use HTMLTextField;
 use MediaWiki\MediaWikiServices;
+use OutputPage;
 use SpecialPage;
 use Status;
 use Title;
@@ -49,6 +51,7 @@ class NewSchema extends SpecialPage {
 		$form = HTMLForm::factory( 'ooui', $this->getFormFields(), $this->getContext() )
 			->setSubmitName( 'submit' )
 			->setSubmitID( 'wbschema-newschema-submit' )
+			->setSubmitTextMsg( 'wikibaseschema-newschema-submit' )
 			->setSubmitCallback( [ $this, 'submitCallback' ] );
 		$form->prepareForm();
 
@@ -62,8 +65,7 @@ class NewSchema extends SpecialPage {
 			return;
 		}
 
-//		$out = $this->getOutput();
-//		$this->displayBeforeForm( $out ); // fixme: add copyright etc.
+		$this->displayBeforeForm( $this->getOutput() );
 
 		$form->displayForm( Status::newGood() );
 	}
@@ -139,6 +141,40 @@ class NewSchema extends SpecialPage {
 				'label-message' => 'wikibaseschema-newschema-aliases',
 			],
 		];
+	}
+
+	private function displayBeforeForm( OutputPage $output ) {
+		$output->addHTML( $this->getCopyrightHTML() );
+
+		foreach ( $this->getWarnings() as $warning ) {
+			$output->addHTML( Html::rawElement( 'div', [ 'class' => 'warning' ], $warning ) );
+		}
+	}
+
+	/**
+	 * @return string HTML
+	 */
+	private function getCopyrightHTML() {
+		return $this->msg( 'wikibaseschema-newschema-copyright' )
+			->params(
+				$this->msg( 'wikibaseschema-newschema-submit' )->text(),
+				$this->msg( 'copyrightpage' )->text(),
+				// FIXME: make license configurable
+				'[https://creativecommons.org/publicdomain/zero/1.0/ Creative Commons CC0 License]'
+			)
+			->parse();
+	}
+
+	private function getWarnings(): array {
+		if ( $this->getUser()->isAnon() ) {
+			return [
+				$this->msg(
+					'wikibaseschema-anonymouseditwarning'
+				)->parse(),
+			];
+		}
+
+		return [];
 	}
 
 }
