@@ -77,7 +77,7 @@ class NewSchema extends SpecialPage {
 			'wbschema_id_counter'
 		);
 		$id = 'O' . $idGenerator->getNewId();
-		$title = Title::makeTitle( 12300, $id );
+		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id );
 		$wikipage = WikiPage::factory( $title );
 		$updater = $wikipage->newPageUpdater( $this->getContext()->getUser() );
 
