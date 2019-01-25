@@ -13,6 +13,10 @@ class SchemaPage extends Page {
 		};
 	}
 
+	open( schemaId, query = {}, fragment = '' ) {
+		super.openTitle( `Schema:${schemaId}`, query, fragment );
+	}
+
 	getNamespace() {
 		const namespace = browser.executeAsync( ( done ) => {
 			done( window.mw.config.get( 'wgCanonicalNamespace' ) );
