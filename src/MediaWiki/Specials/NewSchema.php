@@ -12,6 +12,7 @@ use OutputPage;
 use SpecialPage;
 use Status;
 use Title;
+use UserBlockedError;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use Wikibase\Schema\SqlIdGenerator;
 use WikiPage;
@@ -49,7 +50,9 @@ class NewSchema extends SpecialPage {
 	public function execute( $subPage ) {
 		parent::execute( $subPage );
 
-		// fixme: check permissions
+		$this->checkPermissions();
+		$this->checkBlocked( $subPage );
+		$this->checkReadOnly();
 
 		$form = HTMLForm::factory( 'ooui', $this->getFormFields(), $this->getContext() )
 			->setSubmitName( 'submit' )
@@ -186,6 +189,18 @@ class NewSchema extends SpecialPage {
 		}
 
 		return [];
+	}
+
+	/**
+	 * Checks if the user is blocked from this page,
+	 * and if they are, throws a {@link UserBlockedError}.
+	 *
+	 * @throws UserBlockedError
+	 */
+	protected function checkBlocked( $subPage ) {
+		if ( $this->getUser()->isBlockedFrom( $this->getPageTitle( $subPage ) ) ) {
+			throw new UserBlockedError( $this->getUser()->getBlock() );
+		}
 	}
 
 }
