@@ -77,4 +77,19 @@ describe( 'NewSchema:Page', () => {
 		} );
 	} );
 
+	it( 'is possible to create a schema only with a label', () => {
+		NewSchemaPage.open();
+		NewSchemaPage.setLabel( 'Testlabel' );
+		NewSchemaPage.clickSubmit();
+
+		const actualLabel = ViewSchemaPage.getLabel(),
+			actualDescription = ViewSchemaPage.getDescription(),
+			actualAliases = ViewSchemaPage.getAliases(),
+			actualNamespace = ViewSchemaPage.getNamespace();
+		assert.strictEqual( actualLabel, 'Testlabel' );
+		assert.strictEqual( actualDescription, '' );
+		assert.strictEqual( actualAliases, '' );
+		assert.strictEqual( actualNamespace, 'Schema' );
+	} );
+
 } );
