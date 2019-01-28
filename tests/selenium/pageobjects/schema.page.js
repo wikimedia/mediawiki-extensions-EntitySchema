@@ -13,6 +13,13 @@ class SchemaPage extends Page {
 		};
 	}
 
+	getNamespace() {
+		const namespace = browser.executeAsync( ( done ) => {
+			done( window.mw.config.get( 'wgCanonicalNamespace' ) );
+		} ).value;
+		return namespace;
+	}
+
 	getLabel() {
 		browser.$( this.constructor.SCHEMA_SELECTORS.LABEL ).waitForVisible();
 		return browser.$( this.constructor.SCHEMA_SELECTORS.LABEL ).getText();
