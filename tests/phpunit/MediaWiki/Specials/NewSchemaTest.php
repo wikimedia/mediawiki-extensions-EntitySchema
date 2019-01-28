@@ -3,6 +3,7 @@
 namespace Wikibase\Schema\Tests\MediaWiki\Specials;
 
 use MediaWikiTestCase;
+use PermissionsError;
 use ReadOnlyError;
 use ReadOnlyMode;
 use Wikibase\Schema\MediaWiki\Specials\NewSchema;
@@ -23,6 +24,20 @@ class NewSchemaTest extends MediaWikiTestCase {
 			->getMock();
 		$readOnlyMode->method( 'isReadOnly' )->willReturn( true );
 		$this->setService( 'ReadOnlyMode', $readOnlyMode );
+		$special = new NewSchema();
+
+		$special->run( null );
+	}
+
+	/**
+	 * @expectedException PermissionsError
+	 */
+	public function testNoRights() {
+		global $wgGroupPermissions;
+
+		$groupPermissions = $wgGroupPermissions;
+		$groupPermissions['*']['createpage'] = false;
+		$this->setMwGlobals( 'wgGroupPermissions', $groupPermissions );
 		$special = new NewSchema();
 
 		$special->run( null );
