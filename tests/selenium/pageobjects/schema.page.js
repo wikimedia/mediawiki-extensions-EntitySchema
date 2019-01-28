@@ -13,6 +13,12 @@ class SchemaPage extends Page {
 		};
 	}
 
+	static get MEDIAWIKI_SELECTORS() {
+		return {
+			EDIT_LINK: '#ca-edit > span > a'
+		};
+	}
+
 	open( schemaId, query = {}, fragment = '' ) {
 		super.openTitle( `Schema:${schemaId}`, query, fragment );
 	}
@@ -42,6 +48,10 @@ class SchemaPage extends Page {
 	getShExC() {
 		browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).waitForVisible();
 		return browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).getText();
+	}
+
+	get editLink() {
+		return browser.$( this.constructor.MEDIAWIKI_SELECTORS.EDIT_LINK );
 	}
 
 }
