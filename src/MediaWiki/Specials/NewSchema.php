@@ -73,7 +73,7 @@ class NewSchema extends SpecialPage {
 
 		$this->displayBeforeForm( $this->getOutput() );
 
-		$form->displayForm( Status::newGood() );
+		$form->displayForm( $submitStatus ?: Status::newGood() );
 	}
 
 	public function submitCallback( $data, HTMLForm $form ) {
@@ -129,12 +129,14 @@ class NewSchema extends SpecialPage {
 				'class' => HTMLTextField::class,
 				'id' => 'wbschema-newschema-label',
 				'required' => true,
+				'default' => '',
 				'placeholder-message' => 'wikibaseschema-label-edit-placeholder',
 				'label-message' => 'wikibaseschema-newschema-label',
 			],
 			self::FIELD_DESCRIPTION => [
 				'name' => self::FIELD_DESCRIPTION,
 				'class' => HTMLTextField::class,
+				'default' => '',
 				'id' => 'wbschema-newschema-description',
 				'placeholder-message' => 'wikibaseschema-description-edit-placeholder',
 				'label-message' => 'wikibaseschema-newschema-description',
@@ -142,6 +144,7 @@ class NewSchema extends SpecialPage {
 			self::FIELD_ALIASES => [
 				'name' => self::FIELD_ALIASES,
 				'class' => HTMLTextField::class,
+				'default' => '',
 				'id' => 'wbschema-newschema-aliases',
 				'placeholder-message' => 'wikibaseschema-aliases-edit-placeholder',
 				'label-message' => 'wikibaseschema-newschema-aliases',
@@ -149,6 +152,7 @@ class NewSchema extends SpecialPage {
 			self::FIELD_SCHEMA_SHEXC => [
 				'name' => self::FIELD_SCHEMA_SHEXC,
 				'class' => HTMLTextAreaField::class,
+				'default' => '',
 				'id' => 'wbschema-newschema-schema-shexc',
 				'placeholder' => "<human> {\n  wdt:P31 [wd:Q5]\n}",
 				'label-message' => 'wikibaseschema-newschema-schema-shexc',

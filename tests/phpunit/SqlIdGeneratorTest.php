@@ -22,11 +22,11 @@ class SqlIdGeneratorTest extends MediaWikiTestCase {
 		);
 
 		$id1 = $generator->getNewId();
-		$this->assertSame( 1, $id1 );
+		$this->assertInternalType( 'int', $id1 );
 		$id2 = $generator->getNewId();
-		$this->assertSame( 2, $id2 );
+		$this->assertSame( $id1 + 1, $id2 );
 		$id3 = $generator->getNewId();
-		$this->assertSame( 3, $id3 );
+		$this->assertSame( $id2 + 1, $id3 );
 	}
 
 }
