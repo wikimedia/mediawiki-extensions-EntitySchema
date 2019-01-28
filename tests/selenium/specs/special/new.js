@@ -30,11 +30,11 @@ describe( 'NewSchema:Page', () => {
 			actualAliases = SchemaPage.getAliases(),
 			actualShExC = SchemaPage.getShExC(),
 			actualNamespace = SchemaPage.getNamespace();
-		assert.equal( 'Testlabel', actualLabel );
-		assert.equal( 'A schema created with selenium browser tests', actualDescription );
-		assert.equal( 'Testschema | Schema created by test', actualAliases );
-		assert.equal( '<empty> {}', actualShExC );
-		assert.equal( 'Schema', actualNamespace );
+		assert.strictEqual( actualLabel, 'Testlabel' );
+		assert.strictEqual( actualDescription, 'A schema created with selenium browser tests' );
+		assert.strictEqual( actualAliases, 'Testschema | Schema created by test' );
+		assert.strictEqual( actualShExC, '<empty> {}' );
+		assert.strictEqual( actualNamespace, 'Schema' );
 	} );
 
 } );
