@@ -50,6 +50,14 @@ class SchemaPage extends Page {
 		return browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).getText();
 	}
 
+	getId() {
+		browser.$( this.constructor.SCHEMA_SELECTORS.LABEL ).waitForVisible();
+		let id = browser.execute( () => {
+			return window.mw.config.get( 'wgTitle' );
+		} );
+		return id.value;
+	}
+
 	get editLink() {
 		return browser.$( this.constructor.MEDIAWIKI_SELECTORS.EDIT_LINK );
 	}
