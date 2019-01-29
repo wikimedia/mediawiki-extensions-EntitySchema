@@ -134,4 +134,8 @@ class SchemaEditAction extends FormAction {
 		return 'edit';
 	}
 
+	public function getRestriction() {
+		return $this->getName();
+	}
+
 }

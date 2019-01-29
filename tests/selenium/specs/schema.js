@@ -17,8 +17,9 @@ describe( 'Schema Editing page', () => {
 			LoginPage.loginAdmin();
 			SchemaPage.open( 'O1', { action: 'edit' } );
 
-			$( '#mw-returnto' ).waitForVisible();
-			assert.strictEqual( $( '#firstHeading' ).getText(), 'User is blocked' );
+			const firstHeading = $( '#firstHeading' );
+			firstHeading.waitForVisible();
+			assert.strictEqual( firstHeading.getText(), 'Permission error' );
 		} );
 
 	} );
