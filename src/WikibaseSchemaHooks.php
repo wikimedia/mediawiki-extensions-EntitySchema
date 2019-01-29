@@ -17,6 +17,12 @@ final class WikibaseSchemaHooks {
 			'wbschema_id_counter',
 			__DIR__ . '/../sql/WikibaseSchema.sql'
 		);
+
+		$updater->modifyExtensionField(
+			'page',
+			'page_namespace',
+			__DIR__ . '/../sql/patch-move-page-namespace.sql'
+		);
 	}
 
 	public static function onExtensionTypes( array &$extTypes ) {

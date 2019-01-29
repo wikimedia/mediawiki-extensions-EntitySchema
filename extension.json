@@ -31,7 +31,7 @@
 	},
 	"namespaces": [
 		{
-			"id": 12300,
+			"id": 640,
 			"constant": "NS_WBSCHEMA_JSON",
 			"name": "Schema",
 			"subpages": false,
@@ -39,7 +39,7 @@
 			"defaultcontentmodel": "WikibaseSchema"
 		},
 		{
-			"id": 12301,
+			"id": 641,
 			"constant": "NS_WBSCHEMA_JSON_TALK",
 			"name": "Schema_talk",
 			"subpages": true,
