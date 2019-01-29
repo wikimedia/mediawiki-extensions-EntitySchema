@@ -29,14 +29,24 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 		return [
 			[
 				[
-					'descriptions' => [ 'en' => 'test' ],
+					'descriptions' => [
+						'en' => [
+							'language' => 'en',
+							'value' => 'test',
+						],
+					],
 					'schema' => '',
 				],
 				'<abstract id="wbschema-heading-description">test</abstract>',
 			],
 			[
 				[
-					'descriptions' => [ 'en' => '<script>alert("description XSS")</script>' ],
+					'descriptions' => [
+						'en' => [
+							'language' => 'en',
+							'value' => '<script>alert("description XSS")</script>',
+						],
+					],
 					'schema' => '',
 				],
 				// exact details of escaping beyond this (> vs &gt;) don’t matter
@@ -44,14 +54,24 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 			],
 			[
 				[
-					'descriptions' => [ 'en' => 'test' ],
+					'descriptions' => [
+						'en' => [
+							'language' => 'en',
+							'value' => 'test',
+						],
+					],
 					'schema' => '# basic schema\n_:empty {}',
 				],
 				'<pre id="wbschema-schema-shexc"># basic schema\n_:empty {}</pre>',
 			],
 			[
 				[
-					'descriptions' => [ 'en' => 'test' ],
+					'descriptions' => [
+						'en' => [
+							'language' => 'en',
+							'value' => 'test',
+						],
+					],
 					'schema' => '<script>alert("schema XSS")</script>',
 				],
 				// exact details of escaping beyond this (> vs &gt;) don’t matter

@@ -19,5 +19,6 @@
 	"wikibaseschema-editpage-label-inputlabel": "Label:",
 	"wikibaseschema-editpage-description-inputlabel": "Description:",
 	"wikibaseschema-editpage-aliases-inputlabel": "Aliases (pipe separated):",
-	"wikibaseschema-editpage-schema-inputlabel": "ShEx:"
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
+	"wikibaseschema-error-schemadeleted": "The schema you tried to edit doesn't exist. Maybe it was deleted?"
 }
