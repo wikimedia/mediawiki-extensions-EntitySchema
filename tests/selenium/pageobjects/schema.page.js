@@ -31,22 +31,22 @@ class SchemaPage extends Page {
 	}
 
 	getLabel() {
-		browser.$( this.constructor.SCHEMA_SELECTORS.LABEL ).waitForVisible();
+		browser.$( this.constructor.SCHEMA_SELECTORS.LABEL ).waitForExist();
 		return browser.$( this.constructor.SCHEMA_SELECTORS.LABEL ).getText();
 	}
 
 	getDescription() {
-		browser.$( this.constructor.SCHEMA_SELECTORS.DESCRIPTION ).waitForVisible();
+		browser.$( this.constructor.SCHEMA_SELECTORS.DESCRIPTION ).waitForExist();
 		return browser.$( this.constructor.SCHEMA_SELECTORS.DESCRIPTION ).getText();
 	}
 
 	getAliases() {
-		browser.$( this.constructor.SCHEMA_SELECTORS.ALIASES ).waitForVisible();
+		browser.$( this.constructor.SCHEMA_SELECTORS.ALIASES ).waitForExist();
 		return browser.$( this.constructor.SCHEMA_SELECTORS.ALIASES ).getText();
 	}
 
 	getShExC() {
-		browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).waitForVisible();
+		browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).waitForExist();
 		return browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).getText();
 	}
 
