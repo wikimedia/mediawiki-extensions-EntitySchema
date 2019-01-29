@@ -2,6 +2,7 @@
 
 namespace Wikibase\Schema\MediaWiki\Content;
 
+use Deserializers\Exceptions\DeserializationException;
 use Html;
 use JsonContent;
 use ParserOptions;
@@ -42,8 +43,14 @@ class WikibaseSchemaContent extends JsonContent {
 
 	private function schemaSerializationToHtml( array $schemaSerialization ) {
 		$deserializer = DeserializerFactory::newSchemaDeserializer();
-		$schema = $deserializer->deserialize( $schemaSerialization );
-
+		try {
+			$schema = $deserializer->deserialize( $schemaSerialization );
+		} catch ( DeserializationException $e ) {
+			// FIXME remove this try catch by 2019-02-11 !
+			return HTML::element( 'h1', [], 'We changed the schema. Please go to edit and resave!' )
+				. HTML::element( 'div', [ 'class' => 'warning' ],
+					'FIXME: Remove this workaround in WikibaseSchemaContent::schemaSerializationToHtml' );
+		}
 		return Html::element(
 				'h1',
 				[

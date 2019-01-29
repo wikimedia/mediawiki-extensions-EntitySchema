@@ -3,6 +3,7 @@
 namespace Wikibase\Schema\MediaWiki;
 
 use CommentStoreComment;
+use Deserializers\Exceptions\DeserializationException;
 use FormAction;
 use RuntimeException;
 use Status;
@@ -60,7 +61,41 @@ class SchemaEditAction extends FormAction {
 
 		$deserializer = DeserializerFactory::newSchemaDeserializer();
 		$serializedContent = json_decode( $content->getText(), true );
-		$schema = $deserializer->deserialize( $serializedContent );
+		try {
+			$schema = $deserializer->deserialize( $serializedContent );
+		} catch ( DeserializationException $e ) {
+			// FIXME remove this try catch by 2019-02-11 !
+			return [
+				'warning' => [
+					'type' => 'info',
+					'default' => 'FIXME: Please remove this workaround in SchemaEditAction::getFormFields!',
+					'cssclass' => 'warning'
+				],
+				'label' => [
+					'type' => 'text',
+					'default' => $serializedContent[ 'labels' ][ 'en' ],
+					'label-message' => 'wikibaseschema-editpage-label-inputlabel',
+					'placeholder-message' => 'wikibaseschema-label-edit-placeholder',
+				],
+				'description' => [
+					'type' => 'text',
+					'default' => $serializedContent[ 'descriptions' ][ 'en' ],
+					'label-message' => 'wikibaseschema-editpage-description-inputlabel',
+					'placeholder-message' => 'wikibaseschema-description-edit-placeholder',
+				],
+				'aliases' => [
+					'type' => 'text',
+					'default' => implode( ' | ', $serializedContent[ 'aliases' ][ 'en' ] ),
+					'label-message' => 'wikibaseschema-editpage-aliases-inputlabel',
+					'placeholder-message' => 'wikibaseschema-aliases-edit-placeholder',
+				],
+				'schema' => [
+					'type' => 'textarea',
+					'default' => $serializedContent[ 'schema' ],
+					'label-message' => 'wikibaseschema-editpage-schema-inputlabel',
+				],
+			];
+		}
 
 		return [
 			'label' => [
