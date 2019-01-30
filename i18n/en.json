@@ -20,5 +20,6 @@
 	"wikibaseschema-editpage-description-inputlabel": "Description:",
 	"wikibaseschema-editpage-aliases-inputlabel": "Aliases (pipe separated):",
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
-	"wikibaseschema-error-schemadeleted": "The schema you tried to edit doesn't exist. Maybe it was deleted?"
+	"wikibaseschema-error-schemadeleted": "The schema you tried to edit doesn't exist. Maybe it was deleted?",
+	"wikibaseschema-noschema": "There is no Schema here. Go to [[Special:NewSchema]] to create a new one."
 }

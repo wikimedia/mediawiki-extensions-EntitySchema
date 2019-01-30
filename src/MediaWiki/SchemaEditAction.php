@@ -7,6 +7,9 @@ use Deserializers\Exceptions\DeserializationException;
 use FormAction;
 use RuntimeException;
 use Status;
+use IContextSource;
+use Page;
+use ViewAction;
 use Wikibase\Schema\DataModel\Schema;
 use Wikibase\Schema\Deserializers\DeserializerFactory;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
@@ -15,6 +18,17 @@ use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
  * Edit a Wikibase Schema via the mediawiki editing action
  */
 class SchemaEditAction extends FormAction {
+
+	public static function getEditOrViewAction( Page $page, IContextSource $context = null ) {
+		if ( $page->getRevision() === null ) {
+			return new ViewAction( $page, $context );
+		}
+
+		// ToDo: check redirect?
+		// !$page->isRedirect()
+
+		return new self( $page, $context );
+	}
 
 	/**
 	 * Process the form on POST submission.
@@ -69,29 +83,29 @@ class SchemaEditAction extends FormAction {
 				'warning' => [
 					'type' => 'info',
 					'default' => 'FIXME: Please remove this workaround in SchemaEditAction::getFormFields!',
-					'cssclass' => 'warning'
+					'cssclass' => 'warning',
 				],
 				'label' => [
 					'type' => 'text',
-					'default' => $serializedContent[ 'labels' ][ 'en' ],
+					'default' => $serializedContent['labels']['en'],
 					'label-message' => 'wikibaseschema-editpage-label-inputlabel',
 					'placeholder-message' => 'wikibaseschema-label-edit-placeholder',
 				],
 				'description' => [
 					'type' => 'text',
-					'default' => $serializedContent[ 'descriptions' ][ 'en' ],
+					'default' => $serializedContent['descriptions']['en'],
 					'label-message' => 'wikibaseschema-editpage-description-inputlabel',
 					'placeholder-message' => 'wikibaseschema-description-edit-placeholder',
 				],
 				'aliases' => [
 					'type' => 'text',
-					'default' => implode( ' | ', $serializedContent[ 'aliases' ][ 'en' ] ),
+					'default' => implode( ' | ', $serializedContent['aliases']['en'] ),
 					'label-message' => 'wikibaseschema-editpage-aliases-inputlabel',
 					'placeholder-message' => 'wikibaseschema-aliases-edit-placeholder',
 				],
 				'schema' => [
 					'type' => 'textarea',
-					'default' => $serializedContent[ 'schema' ],
+					'default' => $serializedContent['schema'],
 					'label-message' => 'wikibaseschema-editpage-schema-inputlabel',
 				],
 			];
@@ -130,13 +144,13 @@ class SchemaEditAction extends FormAction {
 
 	private function formDataToSchema( array $formData ) {
 		$schema = new Schema();
-		$schema->setLabel( 'en', $formData[ 'label' ] );
-		$schema->setDescription( 'en', $formData[ 'description' ] );
+		$schema->setLabel( 'en', $formData['label'] );
+		$schema->setDescription( 'en', $formData['description'] );
 		$schema->setAliases(
 			'en',
-			array_filter( array_map( 'trim', explode( '|', $formData[ 'aliases' ] ) ) )
+			array_filter( array_map( 'trim', explode( '|', $formData['aliases'] ) ) )
 		);
-		$schema->setSchema( $formData[ 'schema' ] );
+		$schema->setSchema( $formData['schema'] );
 		return $schema;
 	}
 

@@ -20,5 +20,6 @@
 	"wikibaseschema-editpage-description-inputlabel": "Input label for the description field on the edit page",
 	"wikibaseschema-editpage-aliases-inputlabel": "Input label for the aliases field on the edit page",
 	"wikibaseschema-editpage-schema-inputlabel": "Input label for the Schema field on the edit page",
-	"wikibaseschema-error-schemadeleted": "Error message when trying to edit a schema that doesn't exist."
+	"wikibaseschema-error-schemadeleted": "Error message when trying to edit a schema that doesn't exist.",
+	"wikibaseschema-noschema": "Text that is shown on a non-existant page in the Schema namespace"
 }

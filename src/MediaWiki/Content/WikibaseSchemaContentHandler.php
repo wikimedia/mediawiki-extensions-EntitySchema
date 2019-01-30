@@ -21,7 +21,7 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 
 	public function getActionOverrides() {
 		return [
-			'edit' => SchemaEditAction::class,
+			'edit' => [ SchemaEditAction::class, 'getEditOrViewAction' ],
 			'submit' => SchemaSubmitAction::class,
 		];
 	}
