@@ -4,7 +4,7 @@ const assert = require( 'assert' ),
 	Api = require( 'wdio-mediawiki/Api.js' ),
 	LoginPage = require( 'wdio-mediawiki/LoginPage.js' ),
 	NewSchemaPage = require( '../../pageobjects/newschema.page' ),
-	SchemaPage = require( '../../pageobjects/schema.page' );
+	ViewSchemaPage = require( '../../pageobjects/view.schema.page' );
 
 describe( 'NewSchema:Page', () => {
 
@@ -27,11 +27,11 @@ describe( 'NewSchema:Page', () => {
 		NewSchemaPage.setShExC( '<empty> {}' );
 		NewSchemaPage.clickSubmit();
 
-		const actualLabel = SchemaPage.getLabel(),
-			actualDescription = SchemaPage.getDescription(),
-			actualAliases = SchemaPage.getAliases(),
-			actualShExC = SchemaPage.getShExC(),
-			actualNamespace = SchemaPage.getNamespace();
+		const actualLabel = ViewSchemaPage.getLabel(),
+			actualDescription = ViewSchemaPage.getDescription(),
+			actualAliases = ViewSchemaPage.getAliases(),
+			actualShExC = ViewSchemaPage.getShExC(),
+			actualNamespace = ViewSchemaPage.getNamespace();
 		assert.strictEqual( actualLabel, 'Testlabel' );
 		assert.strictEqual( actualDescription, 'A schema created with selenium browser tests' );
 		assert.strictEqual( actualAliases, 'Testschema | Schema created by test' );

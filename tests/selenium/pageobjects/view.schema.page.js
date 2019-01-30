@@ -2,7 +2,7 @@
 
 const Page = require( 'wdio-mediawiki/Page' );
 
-class SchemaPage extends Page {
+class ViewSchemaPage extends Page {
 
 	static get SCHEMA_SELECTORS() {
 		return {
@@ -64,4 +64,4 @@ class SchemaPage extends Page {
 
 }
 
-module.exports = new SchemaPage();
+module.exports = new ViewSchemaPage();
