@@ -26,4 +26,8 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 		];
 	}
 
+	public function supportsDirectApiEditing() {
+		return false;
+	}
+
 }
