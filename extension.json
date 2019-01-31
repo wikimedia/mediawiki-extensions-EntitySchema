@@ -24,6 +24,7 @@
 		]
 	},
 	"Hooks": {
+		"SkinTemplateNavigation": "Wikibase\\Schema\\WikibaseSchemaHooks::onSkinTemplateNavigation",
 		"LoadExtensionSchemaUpdates": "Wikibase\\Schema\\WikibaseSchemaHooks::onCreateDBSchema",
 		"ExtensionTypes": "Wikibase\\Schema\\WikibaseSchemaHooks::onExtensionTypes"
 	},

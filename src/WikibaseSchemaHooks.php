@@ -3,6 +3,7 @@
 namespace Wikibase\Schema;
 
 use DatabaseUpdater;
+use SkinTemplate;
 
 /**
  * Hooks utilized by the WikibaseSchema extension
@@ -27,6 +28,19 @@ final class WikibaseSchemaHooks {
 
 	public static function onExtensionTypes( array &$extTypes ) {
 		$extTypes['wikibase'] = 'Wikibase';
+	}
+
+	public static function onSkinTemplateNavigation( SkinTemplate &$skinTemplate, array &$links ) {
+		$title = $skinTemplate->getRelevantTitle();
+		if ( !$title->inNamespace( NS_WBSCHEMA_JSON ) ) {
+			return true;
+		}
+
+		if ( $title->getLength() != 0 ) {
+			return true;
+		}
+
+		unset( $links['views']['edit'] );
 	}
 
 }
