@@ -33,14 +33,7 @@ class NewSchema extends SpecialPage {
 	/* public */
 	const FIELD_SCHEMA_SHEXC = 'schema-shexc';
 
-	public function __construct(
-		$name = '',
-		$restriction = '',
-		$listed = true,
-		$function = false,
-		$file = '',
-		$includable = false
-	) {
+	public function __construct() {
 		parent::__construct(
 			'NewSchema',
 			'createpage'
