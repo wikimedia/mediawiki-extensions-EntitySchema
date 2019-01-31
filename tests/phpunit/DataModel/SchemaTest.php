@@ -9,6 +9,8 @@ use Wikibase\Schema\DataModel\Schema;
  * Class SchemaTest
  *
  * @covers \Wikibase\Schema\DataModel\Schema
+ *
+ * @license GPL-2.0-or-later
  */
 class SchemaTest extends MediaWikiTestCase {
 
