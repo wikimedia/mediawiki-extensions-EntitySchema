@@ -1,4 +1,8 @@
 {
+	"require": {
+		"wikibase/data-model": "^9.0.1",
+		"wikibase/data-model-serialization": "^2.9.1"
+	},
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "1.0.0",
 		"wikibase/wikibase-codesniffer": "^0.5.1",
