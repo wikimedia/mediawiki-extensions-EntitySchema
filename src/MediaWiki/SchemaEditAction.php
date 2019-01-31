@@ -4,6 +4,10 @@ namespace Wikibase\Schema\MediaWiki;
 
 use CommentStoreComment;
 use FormAction;
+use RuntimeException;
+use Status;
+use Wikibase\Schema\DataModel\Schema;
+use Wikibase\Schema\Deserializers\DeserializerFactory;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 
 /**
@@ -31,12 +35,12 @@ class SchemaEditAction extends FormAction {
 		 * @var $content WikibaseSchemaContent
 		 */
 		$content = $this->getContext()->getWikiPage()->getContent();
-		$dataToSave = json_encode( $this->formDataToSchemaArray( $data ) );
-		if ( $content ) {
-			$content->setNativeData( $dataToSave );
-		} else {
-			$content = new WikibaseSchemaContent( $dataToSave );
+		if ( !$content instanceof WikibaseSchemaContent ) {
+			return Status::newFatal( $this->msg( 'wikibaseschema-error-schemadeleted' ) );
 		}
+
+		$schema = $this->formDataToSchema( $data );
+		$content->setContentFromSchema( $schema );
 
 		$updater = $this->page->getPage()->newPageUpdater( $this->context->getUser() );
 		$updater->setContent( 'main', $content );
@@ -44,51 +48,42 @@ class SchemaEditAction extends FormAction {
 			CommentStoreComment::newUnsavedComment( 'FIXME in SchemaEditAction::onSubmit' )
 		);
 
-		return true;
+		return Status::newGood();
 	}
 
 	protected function getFormFields() {
-		$schema = [
-			'labels' => [
-				'en' => '',
-			],
-			'descriptions' => [
-				'en' => '',
-			],
-			'aliases' => [
-				'en' => [],
-			],
-			'schema' => '',
-		];
 		/** @var WikibaseSchemaContent $content */
 		$content = $this->getContext()->getWikiPage()->getContent();
-		if ( $content ) {
-			// FIXME: handle this better
-			$schema = array_merge( $schema, json_decode( $content->getText(), true ) );
+		if ( !$content ) {
+			throw new RuntimeException( $this->msg( 'wikibaseschema-error-schemadeleted' ) );
 		}
+
+		$deserializer = DeserializerFactory::newSchemaDeserializer();
+		$serializedContent = json_decode( $content->getText(), true );
+		$schema = $deserializer->deserialize( $serializedContent );
 
 		return [
 			'label' => [
 				'type' => 'text',
-				'default' => $schema[ 'labels' ][ 'en' ],
+				'default' => $schema->getLabel( 'en' )->getText(),
 				'label-message' => 'wikibaseschema-editpage-label-inputlabel',
-				'placeholder-message' => 'wikibaseschema-label-edit-placeholder'
+				'placeholder-message' => 'wikibaseschema-label-edit-placeholder',
 			],
 			'description' => [
 				'type' => 'text',
-				'default' => $schema[ 'descriptions' ][ 'en' ],
+				'default' => $schema->getDescription( 'en' )->getText(),
 				'label-message' => 'wikibaseschema-editpage-description-inputlabel',
-				'placeholder-message' => 'wikibaseschema-description-edit-placeholder'
+				'placeholder-message' => 'wikibaseschema-description-edit-placeholder',
 			],
 			'aliases' => [
 				'type' => 'text',
-				'default' => implode( ' | ', $schema[ 'aliases' ][ 'en' ] ),
+				'default' => implode( ' | ', $schema->getAliasGroup( 'en' )->getAliases() ),
 				'label-message' => 'wikibaseschema-editpage-aliases-inputlabel',
-				'placeholder-message' => 'wikibaseschema-aliases-edit-placeholder'
+				'placeholder-message' => 'wikibaseschema-aliases-edit-placeholder',
 			],
 			'schema' => [
 				'type' => 'textarea',
-				'default' => $schema[ 'schema' ],
+				'default' => $schema->getSchema(),
 				'label-message' => 'wikibaseschema-editpage-schema-inputlabel',
 			],
 		];
@@ -98,19 +93,16 @@ class SchemaEditAction extends FormAction {
 		return true;
 	}
 
-	private function formDataToSchemaArray( array $formData ) {
-		return [
-			'labels' => [
-				'en' => $formData[ 'label' ],
-			],
-			'descriptions' => [
-				'en' => $formData[ 'description' ],
-			],
-			'aliases' => [
-				'en' => array_filter( array_map( 'trim', explode( '|', $formData[ 'aliases' ] ) ) ),
-			],
-			'schema' => $formData[ 'schema' ],
-		];
+	private function formDataToSchema( array $formData ) {
+		$schema = new Schema();
+		$schema->setLabel( 'en', $formData[ 'label' ] );
+		$schema->setDescription( 'en', $formData[ 'description' ] );
+		$schema->setAliases(
+			'en',
+			array_filter( array_map( 'trim', explode( '|', $formData[ 'aliases' ] ) ) )
+		);
+		$schema->setSchema( $formData[ 'schema' ] );
+		return $schema;
 	}
 
 	/**

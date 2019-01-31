@@ -7,6 +7,9 @@ use JsonContent;
 use ParserOptions;
 use ParserOutput;
 use Title;
+use Wikibase\Schema\DataModel\Schema;
+use Wikibase\Schema\Deserializers\DeserializerFactory;
+use Wikibase\Schema\Serializers\SerializerFactory;
 
 /**
  * Represents the content of a Wikibase Schema page
@@ -29,7 +32,7 @@ class WikibaseSchemaContent extends JsonContent {
 	) {
 
 		if ( $generateHtml && $this->isValid() ) {
-			$output->setText( $this->schemaJsonToHtml(
+			$output->setText( $this->schemaSerializationToHtml(
 				json_decode( $this->getText(), true )
 			) );
 		} else {
@@ -37,52 +40,46 @@ class WikibaseSchemaContent extends JsonContent {
 		}
 	}
 
-	private function schemaJsonToHtml( array $schema ) {
-		$schema = array_merge( [
-			'labels' => [
-				'en' => '',
-			],
-			'descriptions' => [
-				'en' => '',
-			],
-			'aliases' => [
-				'en' => [],
-			],
-			'schema' => '',
-		], $schema );
+	private function schemaSerializationToHtml( array $schemaSerialization ) {
+		$deserializer = DeserializerFactory::newSchemaDeserializer();
+		$schema = $deserializer->deserialize( $schemaSerialization );
 
 		return Html::element(
 				'h1',
 				[
-					'id' => 'wbschema-title-label'
+					'id' => 'wbschema-title-label',
 				],
-				$schema[ 'labels' ][ 'en' ]
+				$schema->getLabel( 'en' )->getText()
 			) .
 			Html::element(
 				'abstract',
 				[
-					'id' => 'wbschema-heading-description'
+					'id' => 'wbschema-heading-description',
 				],
-				$schema[ 'descriptions' ][ 'en' ]
+				$schema->getDescription( 'en' )->getText()
 			) .
 			Html::element(
 				'p',
 				[
-					'id' => 'wbschema-heading-aliases'
+					'id' => 'wbschema-heading-aliases',
 				],
-				implode( ' | ', $schema[ 'aliases' ][ 'en' ] )
+				implode( ' | ', $schema->getAliasGroup( 'en' )->getAliases() )
 			)
 			. Html::element(
 				'pre',
 				[
-					'id' => 'wbschema-schema-shexc'
+					'id' => 'wbschema-schema-shexc',
 				],
-				$schema[ 'schema' ]
+				$schema->getSchema()
 			);
 	}
 
-	public function setNativeData( $data ) {
-		$this->mText = $data;
+	/**
+	 * @param Schema $schema
+	 */
+	public function setContentFromSchema( Schema $schema ) {
+		$serializer = SerializerFactory::newSchemaSerializer();
+		$this->mText = json_encode( $serializer->serialize( $schema ) );
 	}
 
 }

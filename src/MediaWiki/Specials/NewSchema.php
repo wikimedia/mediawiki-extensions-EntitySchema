@@ -13,7 +13,9 @@ use SpecialPage;
 use Status;
 use Title;
 use UserBlockedError;
+use Wikibase\Schema\DataModel\Schema;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use Wikibase\Schema\Serializers\SerializerFactory;
 use Wikibase\Schema\SqlIdGenerator;
 use WikiPage;
 
@@ -82,22 +84,15 @@ class NewSchema extends SpecialPage {
 		$wikipage = WikiPage::factory( $title );
 		$updater = $wikipage->newPageUpdater( $this->getContext()->getUser() );
 
-		$dataToSave = [
-			'labels' => [
-				'en' => $data[ self::FIELD_LABEL ],
-			],
-			'descriptions' => [
-				'en' => $data[ self::FIELD_DESCRIPTION ],
-			],
-			'aliases' => [
-				'en' => array_filter( array_map( 'trim', explode( '|', $data[ self::FIELD_ALIASES ] ) ) ),
-			],
-			'schema' => $data[ self::FIELD_SCHEMA_SHEXC ],
-		];
+		$schema = $this->createSchemaFromFormData( $data );
+		$serializer = SerializerFactory::newSchemaSerializer();
+		$dataToSave = $serializer->serialize( $schema );
 
 		$updater->setContent( 'main', new WikibaseSchemaContent( json_encode( $dataToSave ) ) );
 		$updater->saveRevision(
-			CommentStoreComment::newUnsavedComment( 'abc' )
+			CommentStoreComment::newUnsavedComment(
+				'FIXME in NewSchema::submitCallback'
+			)
 		);
 
 		if ( !$updater->wasSuccessful() ) {
@@ -105,6 +100,23 @@ class NewSchema extends SpecialPage {
 		}
 
 		return Status::newGood( $title ); // fixme add redirect here!
+	}
+
+	/**
+	 * @param array $formData
+	 *
+	 * @return Schema
+	 */
+	public function createSchemaFromFormData( array $formData ) {
+		$schema = new Schema();
+		$schema->setLabel( 'en', $formData[ self::FIELD_LABEL ] );
+		$schema->setDescription( 'en', $formData[ self::FIELD_DESCRIPTION ] );
+		$schema->setAliases(
+			'en',
+			array_filter( array_map( 'trim', explode( '|', $formData[ self::FIELD_ALIASES ] ) ) )
+		);
+		$schema->setSchema( $formData[ self::FIELD_SCHEMA_SHEXC ] );
+		return $schema;
 	}
 
 	public function getDescription() {
