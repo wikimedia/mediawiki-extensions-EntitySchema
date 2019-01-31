@@ -11,6 +11,7 @@
 	"requires": {
 		"MediaWiki": ">= 1.33.0"
 	},
+	"load_composer_autoloader": true,
 	"AutoloadNamespaces": {
 		"Wikibase\\Schema\\": "src/"
 	},
