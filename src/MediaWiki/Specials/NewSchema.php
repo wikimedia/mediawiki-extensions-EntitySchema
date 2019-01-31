@@ -100,9 +100,9 @@ class NewSchema extends SpecialPage {
 			CommentStoreComment::newUnsavedComment( 'abc' )
 		);
 
-//		if ( !$saveStatus->isGood() ) {
-//			return $saveStatus;
-//		}
+		if ( !$updater->wasSuccessful() ) {
+			return $updater->getStatus();
+		}
 
 		return Status::newGood( $title ); // fixme add redirect here!
 	}
