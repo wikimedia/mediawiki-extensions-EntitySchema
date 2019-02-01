@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Deserializers;
+namespace Wikibase\Schema\Serialization;
 
 use Wikibase\DataModel\Deserializers\AliasGroupListDeserializer;
 use Wikibase\DataModel\Deserializers\TermDeserializer;

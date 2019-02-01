@@ -8,9 +8,9 @@ use JsonContent;
 use ParserOptions;
 use ParserOutput;
 use Title;
-use Wikibase\Schema\Deserializers\DeserializerFactory;
 use Wikibase\Schema\Domain\Model\Schema;
-use Wikibase\Schema\Serializers\SerializerFactory;
+use Wikibase\Schema\Serialization\DeserializerFactory;
+use Wikibase\Schema\Serialization\SerializerFactory;
 
 /**
  * Represents the content of a Wikibase Schema page

@@ -1,17 +1,16 @@
 <?php
 
-namespace Wikibase\Schema\Tests\Serializers;
+namespace Wikibase\Schema\Tests\Serialization;
 
 use MediaWikiTestCase;
-use Wikibase\Schema\Domain\Model\Schema;
-use Wikibase\Schema\Serializers\SerializerFactory;
+use Wikibase\Schema\Serialization\DeserializerFactory;
 
 /**
- * @covers \Wikibase\Schema\Serializers\SchemaSerializer
+ * @covers \Wikibase\Schema\Serialization\SchemaDeserializer
  *
  * @license GPL-2.0-or-later
  */
-class SchemaSerializerTest extends MediaWikiTestCase {
+class SchemaDeserializerTest extends MediaWikiTestCase {
 
 	public function testDeserialization() {
 		$testShExC = 'PREFIX wdt: <http://www.wikidata.org/prop/direct/>
@@ -26,13 +25,7 @@ PREFIX wd: <http://www.wikidata.org/entity/>
 		$testAlias1 = 'alias1';
 		$testAlias2 = 'alias2';
 
-		$testSchema = new Schema();
-		$testSchema->setLabel( $langcode, $testLabel );
-		$testSchema->setDescription( $langcode, $testdescription );
-		$testSchema->setAliases( $langcode, [ $testAlias1, $testAlias2 ] );
-		$testSchema->setSchema( $testShExC );
-
-		$expectedSerialization = [
+		$testSerialization = [
 			'labels' => [
 				$langcode => [
 					'language' => $langcode,
@@ -62,10 +55,16 @@ PREFIX wd: <http://www.wikidata.org/entity/>
 			'serializationVersion' => '1.0',
 		];
 
-		$serializer = SerializerFactory::newSchemaSerializer();
-		$actualSerialization = $serializer->serialize( $testSchema );
+		$deserializer = DeserializerFactory::newSchemaDeserializer();
+		$actualSchema = $deserializer->deserialize( $testSerialization );
 
-		$this->assertArrayEquals( $expectedSerialization, $actualSerialization );
+		$this->assertSame( $testLabel, $actualSchema->getLabel( $langcode )->getText() );
+		$this->assertSame( $testdescription, $actualSchema->getDescription( $langcode )->getText() );
+		$this->assertSame(
+			[ $testAlias1, $testAlias2 ],
+			$actualSchema->getAliasGroup( $langcode )->getAliases()
+		);
+		$this->assertSame( $testShExC, $actualSchema->getSchema() );
 	}
 
 }

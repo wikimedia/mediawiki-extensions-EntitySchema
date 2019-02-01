@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Serializers;
+namespace Wikibase\Schema\Serialization;
 
 use Wikibase\DataModel\Serializers\AliasGroupListSerializer;
 use Wikibase\DataModel\Serializers\AliasGroupSerializer;

@@ -7,13 +7,13 @@ use MediaWiki\Revision\SlotRecord;
 use RuntimeException;
 use Title;
 use User;
-use Wikibase\Schema\Deserializers\DeserializerFactory;
 use Wikibase\Schema\Domain\Model\Schema;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\Domain\Storage\SchemaRepository;
-use WikiPage;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Serializers\SerializerFactory;
+use Wikibase\Schema\Serialization\DeserializerFactory;
+use Wikibase\Schema\Serialization\SerializerFactory;
+use WikiPage;
 
 /**
  * @license GPL-2.0-or-later

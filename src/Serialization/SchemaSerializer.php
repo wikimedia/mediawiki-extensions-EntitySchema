@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Serializers;
+namespace Wikibase\Schema\Serialization;
 
 use Serializers\Exceptions\SerializationException;
 use Serializers\Exceptions\UnsupportedObjectException;

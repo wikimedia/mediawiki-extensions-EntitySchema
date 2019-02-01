@@ -7,9 +7,9 @@ use Deserializers\Exceptions\DeserializationException;
 use FormAction;
 use RuntimeException;
 use Status;
-use Wikibase\Schema\Deserializers\DeserializerFactory;
 use Wikibase\Schema\Domain\Model\Schema;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use Wikibase\Schema\Serialization\DeserializerFactory;
 
 /**
  * Edit a Wikibase Schema via the mediawiki editing action
