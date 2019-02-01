@@ -2,9 +2,14 @@
 
 namespace Wikibase\Schema\MediaWiki\Content;
 
+use Action;
+use Article;
+use IContextSource;
 use JsonContentHandler;
+use Page;
 use Wikibase\Schema\MediaWiki\SchemaEditAction;
 use Wikibase\Schema\MediaWiki\SchemaSubmitAction;
+use WikiPage;
 
 /**
  * Content handler for the Wikibase Schema content
@@ -21,7 +26,17 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 
 	public function getActionOverrides() {
 		return [
-			'edit' => [ SchemaEditAction::class, 'getEditOrViewAction' ],
+			'edit' => function ( Page $page, IContextSource $context = null ) {
+				/** @var Article|WikiPage $page */
+				if ( $page->getRevision() === null ) {
+					return Action::factory( 'view', $page, $context );
+				}
+
+				// TODo: check redirect?
+				// !$page->isRedirect()
+
+				return new SchemaEditAction( $page, $context );
+			},
 			'submit' => SchemaSubmitAction::class,
 		];
 	}

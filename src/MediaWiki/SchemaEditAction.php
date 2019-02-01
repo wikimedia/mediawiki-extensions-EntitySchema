@@ -5,11 +5,8 @@ namespace Wikibase\Schema\MediaWiki;
 use CommentStoreComment;
 use Deserializers\Exceptions\DeserializationException;
 use FormAction;
-use IContextSource;
-use Page;
 use RuntimeException;
 use Status;
-use ViewAction;
 use Wikibase\Schema\Deserializers\DeserializerFactory;
 use Wikibase\Schema\Domain\Model\Schema;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
@@ -18,17 +15,6 @@ use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
  * Edit a Wikibase Schema via the mediawiki editing action
  */
 class SchemaEditAction extends FormAction {
-
-	public static function getEditOrViewAction( Page $page, IContextSource $context = null ) {
-		if ( $page->getRevision() === null ) {
-			return new ViewAction( $page, $context );
-		}
-
-		// ToDo: check redirect?
-		// !$page->isRedirect()
-
-		return new self( $page, $context );
-	}
 
 	/**
 	 * Process the form on POST submission.
