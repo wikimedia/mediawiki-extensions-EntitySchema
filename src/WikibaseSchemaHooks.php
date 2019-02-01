@@ -30,14 +30,14 @@ final class WikibaseSchemaHooks {
 		$extTypes['wikibase'] = 'Wikibase';
 	}
 
-	public static function onSkinTemplateNavigation( SkinTemplate &$skinTemplate, array &$links ) {
+	public static function onSkinTemplateNavigation( SkinTemplate $skinTemplate, array &$links ) {
 		$title = $skinTemplate->getRelevantTitle();
 		if ( !$title->inNamespace( NS_WBSCHEMA_JSON ) ) {
-			return true;
+			return;
 		}
 
-		if ( $title->getLength() != 0 ) {
-			return true;
+		if ( $title->getLength() !== 0 ) {
+			return;
 		}
 
 		unset( $links['views']['edit'] );
