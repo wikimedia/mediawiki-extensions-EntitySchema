@@ -3,7 +3,7 @@
 namespace Wikibase\Schema\Tests\Serializers;
 
 use MediaWikiTestCase;
-use Wikibase\Schema\DataModel\Schema;
+use Wikibase\Schema\Domain\Model\Schema;
 use Wikibase\Schema\Serializers\SerializerFactory;
 
 /**

@@ -1,14 +1,14 @@
 <?php
 
-namespace Wikibase\Schema\Tests\DataModel;
+namespace Wikibase\Schema\Tests\Domain\Model;
 
 use MediaWikiTestCase;
-use Wikibase\Schema\DataModel\Schema;
+use Wikibase\Schema\Domain\Model\Schema;
 
 /**
  * Class SchemaTest
  *
- * @covers \Wikibase\Schema\DataModel\Schema
+ * @covers \Wikibase\Schema\Domain\Model\Schema
  *
  * @license GPL-2.0-or-later
  */

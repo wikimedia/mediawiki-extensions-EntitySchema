@@ -8,8 +8,8 @@ use JsonContent;
 use ParserOptions;
 use ParserOutput;
 use Title;
-use Wikibase\Schema\DataModel\Schema;
 use Wikibase\Schema\Deserializers\DeserializerFactory;
+use Wikibase\Schema\Domain\Model\Schema;
 use Wikibase\Schema\Serializers\SerializerFactory;
 
 /**

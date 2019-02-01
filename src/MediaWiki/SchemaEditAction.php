@@ -5,13 +5,13 @@ namespace Wikibase\Schema\MediaWiki;
 use CommentStoreComment;
 use Deserializers\Exceptions\DeserializationException;
 use FormAction;
-use RuntimeException;
-use Status;
 use IContextSource;
 use Page;
+use RuntimeException;
+use Status;
 use ViewAction;
-use Wikibase\Schema\DataModel\Schema;
 use Wikibase\Schema\Deserializers\DeserializerFactory;
+use Wikibase\Schema\Domain\Model\Schema;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 
 /**

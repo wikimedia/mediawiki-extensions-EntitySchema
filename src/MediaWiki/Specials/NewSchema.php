@@ -11,7 +11,6 @@ use SpecialPage;
 use Status;
 use Title;
 use UserBlockedError;
-use Wikibase\Schema\DataModel\Schema;
 use Wikibase\Schema\UseCases\CreateSchema\CreateSchemaRequest;
 use Wikibase\Schema\UseCases\UseCaseFactory;
 

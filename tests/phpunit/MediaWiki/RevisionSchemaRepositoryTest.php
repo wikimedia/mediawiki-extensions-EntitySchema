@@ -4,7 +4,7 @@ namespace Wikibase\Schema\Tests\MediaWiki;
 
 use MediaWiki\MediaWikiServices;
 use RequestContext;
-use Wikibase\Schema\DataModel\Schema;
+use Wikibase\Schema\Domain\Model\Schema;
 use Wikibase\Schema\MediaWiki\RevisionSchemaRepository;
 
 /**

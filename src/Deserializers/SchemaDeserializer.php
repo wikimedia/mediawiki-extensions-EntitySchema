@@ -7,7 +7,7 @@ use Deserializers\Exceptions\DeserializationException;
 use Deserializers\Exceptions\InvalidAttributeException;
 use Wikibase\DataModel\Term\AliasGroupList;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Schema\DataModel\Schema;
+use Wikibase\Schema\Domain\Model\Schema;
 
 /**
  * Serialize a PHP array into a Schema

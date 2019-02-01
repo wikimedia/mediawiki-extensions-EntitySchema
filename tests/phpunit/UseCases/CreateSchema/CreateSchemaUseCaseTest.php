@@ -3,7 +3,7 @@
 namespace Wikibase\Schema\Tests\UseCases\CreateSchema;
 
 use MediaWikiTestCase;
-use Wikibase\Schema\DataModel\SchemaRepository;
+use Wikibase\Schema\Domain\Storage\SchemaRepository;
 use Wikibase\Schema\UseCases\CreateSchema\CreateSchemaRequest;
 use Wikibase\Schema\UseCases\CreateSchema\CreateSchemaUseCase;
 

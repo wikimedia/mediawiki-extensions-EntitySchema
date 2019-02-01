@@ -5,7 +5,7 @@ namespace Wikibase\Schema\Serializers;
 use Serializers\Exceptions\SerializationException;
 use Serializers\Exceptions\UnsupportedObjectException;
 use Serializers\Serializer;
-use Wikibase\Schema\DataModel\Schema;
+use Wikibase\Schema\Domain\Model\Schema;
 
 /**
  * Serialize a Schema into a PHP array

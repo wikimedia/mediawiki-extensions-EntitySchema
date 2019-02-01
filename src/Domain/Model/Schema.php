@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\DataModel;
+namespace Wikibase\Schema\Domain\Model;
 
 use InvalidArgumentException;
 use Wikibase\DataModel\Term\AliasGroup;

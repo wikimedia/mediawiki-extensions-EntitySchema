@@ -2,8 +2,8 @@
 
 namespace Wikibase\Schema\UseCases\CreateSchema;
 
-use Wikibase\Schema\DataModel\Schema;
-use Wikibase\Schema\DataModel\SchemaRepository;
+use Wikibase\Schema\Domain\Model\Schema;
+use Wikibase\Schema\Domain\Storage\SchemaRepository;
 
 /**
  * @license GPL-2.0-or-later

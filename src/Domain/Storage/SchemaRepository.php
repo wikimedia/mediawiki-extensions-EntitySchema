@@ -1,6 +1,8 @@
 <?php
 
-namespace Wikibase\Schema\DataModel;
+namespace Wikibase\Schema\Domain\Storage;
+
+use Wikibase\Schema\Domain\Model\Schema;
 
 /**
  * @license GPL-2.0-or-later
