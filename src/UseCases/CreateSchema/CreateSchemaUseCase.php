@@ -3,22 +3,33 @@
 namespace Wikibase\Schema\UseCases\CreateSchema;
 
 use Wikibase\Schema\Domain\Model\Schema;
+use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\Domain\Storage\SchemaRepository;
+use Wikibase\Schema\SqlIdGenerator;
 
 /**
  * @license GPL-2.0-or-later
  */
 class CreateSchemaUseCase {
 
+	/** @var SchemaRepository */
 	private $schemaRepository;
+	/** @var SqlIdGenerator */
+	private $idGenerator;
 
-	public function __construct( SchemaRepository $schemaRepository ) {
+	public function __construct( SchemaRepository $schemaRepository, SqlIdGenerator $idGenerator ) {
 		$this->schemaRepository = $schemaRepository;
+		$this->idGenerator = $idGenerator;
 	}
 
 	public function createSchema( CreateSchemaRequest $request ): CreateSchemaResponse {
 		$schema = $this->newSchemaFromRequest( $request );
-		$id = $this->schemaRepository->storeSchema( $schema );
+
+		$id = new SchemaId( 'O' . $this->idGenerator->getNewId() );
+		$schema->setId( $id );
+
+		$this->schemaRepository->storeSchema( $schema );
+
 		return CreateSchemaResponse::newSuccessResponse( $id );
 	}
 

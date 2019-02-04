@@ -2,14 +2,17 @@
 
 namespace Wikibase\Schema\UseCases\CreateSchema;
 
+use Wikibase\Schema\Domain\Model\SchemaId;
+
 /**
  * @license GPL-2.0-or-later
  */
 class CreateSchemaResponse {
 
+	/** @var SchemaId */
 	private $id;
 
-	public static function newSuccessResponse( $id ) {
+	public static function newSuccessResponse( SchemaId $id ) {
 		$response = new self();
 		$response->id = $id;
 		return $response;
@@ -17,7 +20,7 @@ class CreateSchemaResponse {
 
 	// ToDO add failure response
 
-	public function getId() {
+	public function getId(): SchemaId {
 		return $this->id;
 	}
 

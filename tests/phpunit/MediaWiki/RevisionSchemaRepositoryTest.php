@@ -2,9 +2,10 @@
 
 namespace Wikibase\Schema\Tests\MediaWiki;
 
-use MediaWiki\MediaWikiServices;
 use RequestContext;
+use TitleValue;
 use Wikibase\Schema\Domain\Model\Schema;
+use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\RevisionSchemaRepository;
 
 /**
@@ -20,37 +21,32 @@ class RevisionSchemaRepositoryTest extends \MediaWikiTestCase {
 	 */
 	public function testStoreValidSchema() {
 		$repository = new RevisionSchemaRepository(
-			MediaWikiServices::getInstance()->getDBLoadBalancer(),
 			RequestContext::getMain()->getUser()
 		);
 		$testSchema = new Schema();
 		$testLabel = uniqid( 'testLabel_' . __FUNCTION__ . '_' );
 		$testSchema->setLabel( 'en', $testLabel );
+		$testId = new SchemaId( 'O' . rand() );
+		$testSchema->setId( $testId );
 
-		$actualId = $repository->storeSchema( $testSchema );
+		$repository->storeSchema( $testSchema );
 
-		$this->assertRegExp( '/^O\d+$/', $actualId );
-
-		$textOfNewestPage = $this->getLastCreatedPageText();
-		$this->assertContains( $testLabel, $textOfNewestPage );
+		$text = $this->getLatestPageText(
+			new TitleValue( NS_WBSCHEMA_JSON, $testId->getId() )
+		);
+		$this->assertContains( $testLabel, $text );
 	}
 
-	protected function getLastCreatedPageText() {
-		$row = $this->db->select(
+	private function getLatestPageText( TitleValue $title ) {
+		return $this->db->selectField(
 			[ 'page', 'revision', 'text' ],
+			'old_text',
 			[
-				'page_namespace',
-				'page_title',
-				'old_text',
+				'page_namespace' => $title->getNamespace(),
+				'page_title' => $title->getDBkey(),
 			],
-			[],
 			__METHOD__,
-			[
-				'ORDER BY' => [
-					'page_id DESC',
-				],
-				'LIMIT' => 1,
-			],
+			[],
 			[
 				'revision' => [
 					'INNER JOIN',
@@ -61,11 +57,7 @@ class RevisionSchemaRepositoryTest extends \MediaWikiTestCase {
 					'rev_text_id=old_id',
 				],
 			]
-
 		);
-		$data = $row->fetchRow();
-
-		return $data['old_text'];
 	}
 
 }

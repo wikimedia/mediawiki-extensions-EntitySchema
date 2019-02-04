@@ -5,6 +5,7 @@ namespace Wikibase\Schema\UseCases;
 use MediaWiki\MediaWikiServices;
 use RequestContext;
 use Wikibase\Schema\MediaWiki\RevisionSchemaRepository;
+use Wikibase\Schema\SqlIdGenerator;
 use Wikibase\Schema\UseCases\CreateSchema\CreateSchemaUseCase;
 
 /**
@@ -15,8 +16,11 @@ class UseCaseFactory {
 	public static function newCreateSchemaUseCase(): CreateSchemaUseCase {
 		return new CreateSchemaUseCase(
 			new RevisionSchemaRepository(
-				MediaWikiServices::getInstance()->getDBLoadBalancer(),
 				RequestContext::getMain()->getUser()
+			),
+			new SqlIdGenerator(
+				MediaWikiServices::getInstance()->getDBLoadBalancer(),
+				'wbschema_id_counter'
 			)
 		);
 	}

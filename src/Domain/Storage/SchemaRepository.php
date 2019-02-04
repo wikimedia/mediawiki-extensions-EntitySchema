@@ -11,8 +11,6 @@ interface SchemaRepository {
 
 	/**
 	 * @param Schema $schema
-	 *
-	 * @return string
 	 */
 	public function storeSchema( Schema $schema );
 

@@ -71,7 +71,7 @@ class NewSchema extends SpecialPage {
 
 		$createSchemaRequest = $this->createNewSchemaRequestFromFormData( $data );
 		$responseModel = UseCaseFactory::newCreateSchemaUseCase()->createSchema( $createSchemaRequest );
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $responseModel->getId() );
+		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $responseModel->getId()->getId() );
 
 		return Status::newGood( $title->getFullURL() );
 	}

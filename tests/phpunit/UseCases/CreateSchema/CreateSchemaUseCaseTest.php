@@ -4,6 +4,7 @@ namespace Wikibase\Schema\Tests\UseCases\CreateSchema;
 
 use MediaWikiTestCase;
 use Wikibase\Schema\Domain\Storage\SchemaRepository;
+use Wikibase\Schema\SqlIdGenerator;
 use Wikibase\Schema\UseCases\CreateSchema\CreateSchemaRequest;
 use Wikibase\Schema\UseCases\CreateSchema\CreateSchemaUseCase;
 
@@ -15,10 +16,19 @@ use Wikibase\Schema\UseCases\CreateSchema\CreateSchemaUseCase;
 class CreateSchemaUseCaseTest extends MediaWikiTestCase {
 
 	public function testGivenValidRequest_idIsReturned() {
-		$schemaRepository = $this->getMockBuilder( SchemaRepository::class )->getMock();
-		$schemaRepository->method( 'storeSchema' )->willReturn( 'O1' );
+		$schemaRepository = $this->getMockBuilder( SchemaRepository::class )
+			->getMock();
+		$schemaRepository->expects( $this->once() )
+			->method( 'storeSchema' );
+		$idGenerator = $this->getMockBuilder( SqlIdGenerator::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$idGenerator->expects( $this->once() )
+			->method( 'getNewId' )
+			->willReturn( 1 );
 		$usecase = new CreateSchemaUseCase(
-			$schemaRepository
+			$schemaRepository,
+			$idGenerator
 		);
 		$request = new CreateSchemaRequest();
 		$request->setLanguageCode( 'en' );
@@ -26,7 +36,7 @@ class CreateSchemaUseCaseTest extends MediaWikiTestCase {
 
 		$actualResponse = $usecase->createSchema( $request );
 
-		$this->assertSame( 'O1', $actualResponse->getId() );
+		$this->assertSame( 'O1', $actualResponse->getId()->getId() );
 	}
 
 }
