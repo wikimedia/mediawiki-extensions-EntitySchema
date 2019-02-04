@@ -7,7 +7,9 @@ use MediaWiki\Revision\SlotRecord;
 use RuntimeException;
 use Title;
 use User;
+use Wikibase\Schema\Deserializers\DeserializerFactory;
 use Wikibase\Schema\Domain\Model\Schema;
+use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\Domain\Storage\SchemaRepository;
 use WikiPage;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
@@ -47,6 +49,19 @@ class RevisionSchemaRepository implements SchemaRepository {
 		if ( !$updater->wasSuccessful() ) {
 			throw new RuntimeException( 'Storing the Schema failed!' );
 		}
+	}
+
+	public function loadSchema( SchemaId $id ): Schema {
+		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id->getId() );
+		$wikiPage = WikiPage::factory( $title );
+		/** @var WikibaseSchemaContent $content */
+		$content = $wikiPage->getContent(); // TODO don’t we have to specify SlotRecord::MAIN?
+
+		$deserializer = DeserializerFactory::newSchemaDeserializer(); // TODO inject
+		$schema = $deserializer->deserialize( json_decode( $content->getText(), true ) );
+		// TODO use $content->getData() instead of decoding the text? but that returns objects
+		$schema->setId( $id ); // TODO should this happen during deserialization?
+		return $schema;
 	}
 
 }

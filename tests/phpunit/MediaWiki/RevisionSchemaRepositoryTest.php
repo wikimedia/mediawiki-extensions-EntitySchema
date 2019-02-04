@@ -60,4 +60,20 @@ class RevisionSchemaRepositoryTest extends \MediaWikiTestCase {
 		);
 	}
 
+	/**
+	 * TODO use more dependency injection in RevSchRep so it’s easier to test store/load separately
+	 */
+	public function testStoreAndLoadValidSchema() {
+		$repository = new RevisionSchemaRepository( $this->getTestUser()->getUser() );
+		$schema = new Schema();
+		$schema->setLabel( 'en', uniqid( 'testLabel_' . __FUNCTION__ . '_' ) );
+		$id = new SchemaId( 'O' . rand() );
+		$schema->setId( $id );
+
+		$repository->storeSchema( $schema );
+		$loadedSchema = $repository->loadSchema( $id );
+
+		$this->assertEquals( $schema, $loadedSchema );
+	}
+
 }
