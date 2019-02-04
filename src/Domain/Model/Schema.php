@@ -14,6 +14,8 @@ use Wikibase\DataModel\Term\Term;
  */
 class Schema {
 
+	/** @var SchemaId|null the schema ID */
+	private $id;
 	/** @var string the actual ShEx schema string */
 	private $schema;
 	/** @var Fingerprint the labels, descriptions and aliases of the schema */
@@ -22,10 +24,12 @@ class Schema {
 	/**
 	 * Schema constructor.
 	 *
+	 * @param SchemaId|null $id
 	 * @param string $schema the actual ShEx schema string
 	 * @param Fingerprint $fingerprint
 	 */
 	public function __construct(
+		SchemaId $id = null,
 		$schema = '',
 		Fingerprint $fingerprint = null
 	) {
@@ -34,8 +38,20 @@ class Schema {
 			throw new InvalidArgumentException( '$schema must be a string' );
 		}
 
+		$this->id = $id;
 		$this->schema = $schema;
 		$this->fingerprint = $fingerprint ?: new Fingerprint();
+	}
+
+	/**
+	 * @return SchemaId|null
+	 */
+	public function getId() {
+		return $this->id;
+	}
+
+	public function setId( SchemaId $id ) {
+		$this->id = $id;
 	}
 
 	public function getFingerprint() {

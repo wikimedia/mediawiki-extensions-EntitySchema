@@ -4,6 +4,7 @@ namespace Wikibase\Schema\Tests\Domain\Model;
 
 use MediaWikiTestCase;
 use Wikibase\Schema\Domain\Model\Schema;
+use Wikibase\Schema\Domain\Model\SchemaId;
 
 /**
  * Class SchemaTest
@@ -21,6 +22,7 @@ class SchemaTest extends MediaWikiTestCase {
 		$this->assertSame( '', $schema->getDescription( 'en' )->getText() );
 		$this->assertSame( [], $schema->getAliasGroup( 'en' )->getAliases() );
 		$this->assertSame( '', $schema->getSchema() );
+		$this->assertNull( $schema->getId() );
 	}
 
 	public function testSettingAndRetrieving() {
@@ -32,6 +34,7 @@ PREFIX wd: <http://www.wikidata.org/entity/>
   wdt:P31 [wd:Q5]
 }
 SCHEMA;
+		$testId = new SchemaId( 'O100' );
 
 		$schema = new Schema();
 
@@ -39,11 +42,13 @@ SCHEMA;
 		$schema->setDescription( 'en', 'testDescription' );
 		$schema->setAliases( 'en', [ 'testlabel', 'foobar' ] );
 		$schema->setSchema( $testShEx );
+		$schema->setId( $testId );
 
 		$this->assertSame( 'testlabel', $schema->getLabel( 'en' )->getText() );
 		$this->assertSame( 'testDescription', $schema->getDescription( 'en' )->getText() );
 		$this->assertSame( [ 'testlabel', 'foobar' ], $schema->getAliasGroup( 'en' )->getAliases() );
 		$this->assertSame( $testShEx, $schema->getSchema() );
+		$this->assertSame( $testId, $schema->getId() );
 	}
 
 }
