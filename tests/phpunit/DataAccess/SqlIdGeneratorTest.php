@@ -4,7 +4,9 @@ namespace Wikibase\Schema\Tests\DataAccess;
 
 use MediaWiki\MediaWikiServices;
 use MediaWikiTestCase;
+use RuntimeException;
 use Wikibase\Schema\DataAccess\SqlIdGenerator;
+use Wikimedia\Rdbms\LoadBalancerSingle;
 
 /**
  * @covers \Wikibase\Schema\DataAccess\SqlIdGenerator
@@ -14,6 +16,11 @@ use Wikibase\Schema\DataAccess\SqlIdGenerator;
  * @license GPL-2.0-or-later
  */
 class SqlIdGeneratorTest extends MediaWikiTestCase {
+
+	public function tearDown() {
+		$this->db->setLBInfo( 'readOnlyMode', false );
+		parent::tearDown();
+	}
 
 	public function testGetNewId() {
 		$generator = new SqlIdGenerator(
@@ -27,6 +34,22 @@ class SqlIdGeneratorTest extends MediaWikiTestCase {
 		$this->assertSame( $id1 + 1, $id2 );
 		$id3 = $generator->getNewId();
 		$this->assertSame( $id2 + 1, $id3 );
+	}
+
+	/**
+	 * @expectedException RuntimeException
+	 * @expectedExceptionMessage read-only for test
+	 */
+	public function testExceptionReadOnlyDB() {
+		$generator = new SqlIdGenerator(
+			new LoadBalancerSingle( [
+				'connection' => $this->db,
+				'readOnlyReason' => 'read-only for test',
+			] ),
+			'wbschema_id_counter'
+		);
+
+		$generator->getNewId();
 	}
 
 }
