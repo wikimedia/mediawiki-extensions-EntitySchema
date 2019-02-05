@@ -10,6 +10,8 @@ use Wikibase\Schema\UseCases\CreateSchema\CreateSchemaUseCase;
 
 /**
  * @covers \Wikibase\Schema\UseCases\CreateSchema\CreateSchemaUseCase
+ * @covers \Wikibase\Schema\UseCases\CreateSchema\CreateSchemaRequest
+ * @covers \Wikibase\Schema\UseCases\CreateSchema\CreateSchemaResponse
  *
  * @license GPL-2.0-or-later
  */
