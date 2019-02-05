@@ -2,6 +2,7 @@
 
 namespace Wikibase\Schema;
 
+use Wikibase\Schema\Domain\Storage\IdGenerator;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\LoadBalancer;
 
@@ -13,7 +14,7 @@ use Wikimedia\Rdbms\LoadBalancer;
  * based on
  * @see \Wikibase\SqlIdGenerator
  */
-class SqlIdGenerator {
+class SqlIdGenerator implements IdGenerator {
 	/** @var LoadBalancer */
 	private $loadBalancer;
 

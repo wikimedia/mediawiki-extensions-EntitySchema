@@ -4,8 +4,8 @@ namespace Wikibase\Schema\UseCases\CreateSchema;
 
 use Wikibase\Schema\Domain\Model\Schema;
 use Wikibase\Schema\Domain\Model\SchemaId;
+use Wikibase\Schema\Domain\Storage\IdGenerator;
 use Wikibase\Schema\Domain\Storage\SchemaRepository;
-use Wikibase\Schema\SqlIdGenerator;
 
 /**
  * @license GPL-2.0-or-later
@@ -14,10 +14,10 @@ class CreateSchemaUseCase {
 
 	/** @var SchemaRepository */
 	private $schemaRepository;
-	/** @var SqlIdGenerator */
+	/** @var IdGenerator */
 	private $idGenerator;
 
-	public function __construct( SchemaRepository $schemaRepository, SqlIdGenerator $idGenerator ) {
+	public function __construct( SchemaRepository $schemaRepository, IdGenerator $idGenerator ) {
 		$this->schemaRepository = $schemaRepository;
 		$this->idGenerator = $idGenerator;
 	}

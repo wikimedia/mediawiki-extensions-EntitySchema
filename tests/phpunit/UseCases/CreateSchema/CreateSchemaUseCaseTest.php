@@ -3,8 +3,8 @@
 namespace Wikibase\Schema\Tests\UseCases\CreateSchema;
 
 use MediaWikiTestCase;
+use Wikibase\Schema\Domain\Storage\IdGenerator;
 use Wikibase\Schema\Domain\Storage\SchemaRepository;
-use Wikibase\Schema\SqlIdGenerator;
 use Wikibase\Schema\UseCases\CreateSchema\CreateSchemaRequest;
 use Wikibase\Schema\UseCases\CreateSchema\CreateSchemaUseCase;
 
@@ -22,7 +22,7 @@ class CreateSchemaUseCaseTest extends MediaWikiTestCase {
 			->getMock();
 		$schemaRepository->expects( $this->once() )
 			->method( 'storeSchema' );
-		$idGenerator = $this->getMockBuilder( SqlIdGenerator::class )
+		$idGenerator = $this->getMockBuilder( IdGenerator::class )
 			->disableOriginalConstructor()
 			->getMock();
 		$idGenerator->expects( $this->once() )
