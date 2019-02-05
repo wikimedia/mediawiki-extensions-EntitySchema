@@ -1,13 +1,13 @@
 <?php
 
-namespace Wikibase\Repo\Tests\Store\Sql;
+namespace Wikibase\Schema\Tests\DataAccess;
 
 use MediaWiki\MediaWikiServices;
 use MediaWikiTestCase;
-use Wikibase\Schema\SqlIdGenerator;
+use Wikibase\Schema\DataAccess\SqlIdGenerator;
 
 /**
- * @covers \Wikibase\Schema\SqlIdGenerator
+ * @covers \Wikibase\Schema\DataAccess\SqlIdGenerator
  *
  * @group Database
  *

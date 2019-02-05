@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema;
+namespace Wikibase\Schema\DataAccess;
 
 use Wikibase\Schema\Domain\Storage\IdGenerator;
 use Wikimedia\Rdbms\IDatabase;

@@ -5,7 +5,7 @@ namespace Wikibase\Schema\UseCases;
 use MediaWiki\MediaWikiServices;
 use RequestContext;
 use Wikibase\Schema\MediaWiki\RevisionSchemaRepository;
-use Wikibase\Schema\SqlIdGenerator;
+use Wikibase\Schema\DataAccess\SqlIdGenerator;
 use Wikibase\Schema\UseCases\CreateSchema\CreateSchemaUseCase;
 
 /**
