@@ -132,7 +132,7 @@ class SchemaEditAction extends FormAction {
 		$schema = new Schema();
 		$schema->setLabel( 'en', $formData['label'] );
 		$schema->setDescription( 'en', $formData['description'] );
-		$schema->setAliases(
+		$schema->setAliasGroup(
 			'en',
 			array_filter( array_map( 'trim', explode( '|', $formData['aliases'] ) ) )
 		);

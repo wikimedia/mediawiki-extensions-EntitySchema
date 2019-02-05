@@ -29,7 +29,7 @@ PREFIX wd: <http://www.wikidata.org/entity/>
 		$testSchema = new Schema();
 		$testSchema->setLabel( $langcode, $testLabel );
 		$testSchema->setDescription( $langcode, $testdescription );
-		$testSchema->setAliases( $langcode, [ $testAlias1, $testAlias2 ] );
+		$testSchema->setAliasGroup( $langcode, [ $testAlias1, $testAlias2 ] );
 		$testSchema->setSchema( $testShExC );
 
 		$expectedSerialization = [

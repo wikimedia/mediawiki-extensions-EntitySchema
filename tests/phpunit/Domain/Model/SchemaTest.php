@@ -40,7 +40,7 @@ SCHEMA;
 
 		$schema->setLabel( 'en', 'testlabel' );
 		$schema->setDescription( 'en', 'testDescription' );
-		$schema->setAliases( 'en', [ 'testlabel', 'foobar' ] );
+		$schema->setAliasGroup( 'en', [ 'testlabel', 'foobar' ] );
 		$schema->setSchema( $testShEx );
 		$schema->setId( $testId );
 

@@ -135,7 +135,7 @@ class Schema {
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function setAliases( $languageCode, array $aliases ) {
+	public function setAliasGroup( $languageCode, array $aliases ) {
 		$this->fingerprint->setAliasGroup( $languageCode, $aliases );
 	}
 

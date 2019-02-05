@@ -37,7 +37,7 @@ class CreateSchemaUseCase {
 		$schema = new Schema();
 		$schema->setLabel( $request->getLanguageCode(), $request->getLabel() );
 		$schema->setDescription( $request->getLanguageCode(), $request->getDescription() );
-		$schema->setAliases( $request->getLanguageCode(), $request->getAliases() );
+		$schema->setAliasGroup( $request->getLanguageCode(), $request->getAliases() );
 		$schema->setSchema( $request->getSchema() );
 
 		return $schema;
