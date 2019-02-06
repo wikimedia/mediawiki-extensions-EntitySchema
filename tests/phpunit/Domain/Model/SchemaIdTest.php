@@ -26,6 +26,7 @@ class SchemaIdTest extends TestCase {
 		yield 'missing prefix' => [ '1' ];
 		yield 'missing number' => [ 'O' ];
 		yield 'malformed number' => [ 'O01' ];
+		yield 'trailing newline' => [ "O1\n" ];
 		yield 'extra whitespace' => [ ' O1 ' ];
 		yield 'sub-ID' => [ 'O1-R1' ];
 		yield 'local repository' => [ ':O1' ]; // this is not a Wikibase entity (ID),
