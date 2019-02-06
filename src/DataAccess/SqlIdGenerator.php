@@ -4,7 +4,7 @@ namespace Wikibase\Schema\DataAccess;
 
 use Wikibase\Schema\Domain\Storage\IdGenerator;
 use Wikimedia\Rdbms\IDatabase;
-use Wikimedia\Rdbms\LoadBalancer;
+use Wikimedia\Rdbms\ILoadBalancer;
 
 /**
  * Unique Id generator implemented using an SQL table.
@@ -15,17 +15,17 @@ use Wikimedia\Rdbms\LoadBalancer;
  * @see \Wikibase\SqlIdGenerator
  */
 class SqlIdGenerator implements IdGenerator {
-	/** @var LoadBalancer */
+	/** @var ILoadBalancer */
 	private $loadBalancer;
 
 	/** @var string */
 	private $tableName;
 
 	/**
-	 * @param LoadBalancer $loadBalancer
+	 * @param ILoadBalancer $loadBalancer
 	 * @param string       $tableName
 	 */
-	public function __construct( LoadBalancer $loadBalancer, $tableName ) {
+	public function __construct( ILoadBalancer $loadBalancer, $tableName ) {
 		$this->loadBalancer = $loadBalancer;
 		$this->tableName = $tableName;
 	}
