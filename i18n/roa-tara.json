@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"special-newschema": "Ccreje 'nu schema nuève",
+	"wikibaseschema-newschema-label": "Etichette:",
+	"wikibaseschema-newschema-description": "Descrizione:",
+	"wikibaseschema-newschema-submit": "Ccreje",
+	"wikibaseschema-label-edit-placeholder": "L'etichette pu scheme in 'nglese",
+	"wikibaseschema-editpage-label-inputlabel": "Etichette:",
+	"wikibaseschema-editpage-description-inputlabel": "Descrizione:",
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx:"
+}

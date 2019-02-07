@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Gomoko"
+		]
+	},
+	"wikibaseschema-desc": "Stocker et discuter des schémas pour les entités de Wikibase",
+	"special-newschema": "Créer un nouveau schéma",
+	"wikibaseschema-newschema-label": "Libellé :",
+	"wikibaseschema-newschema-description": "Description :",
+	"wikibaseschema-newschema-aliases": "Alias séparés par des barres verticales :",
+	"wikibaseschema-newschema-schema-shexc": "Code d’expressions de forme :",
+	"wikibaseschema-newschema-submit": "Créer",
+	"wikibaseschema-newschema-copyright": "En cliquant sur « $1 », vous acceptez les [[$2|conditions d’utilisation]], et acceptez de façon irrévocable de mettre votre contribution sous $3.",
+	"wikibaseschema-anonymouseditwarning": "Attention : Vous n’êtes pas connecté. Votre adresse IP sera enregistrée dans l’historique des modifications de ce schéma.",
+	"wikibaseschema-label-edit-placeholder": "Le libellé pour le schéma en anglais",
+	"wikibaseschema-description-edit-placeholder": "La description pour le schéma en anglais",
+	"wikibaseschema-aliases-edit-placeholder": "Libellés alternatifs pour le schéma en anglais",
+	"wikibaseschema-editpage-label-inputlabel": "Libellé :",
+	"wikibaseschema-editpage-description-inputlabel": "Description :",
+	"wikibaseschema-editpage-aliases-inputlabel": "Alias (séparés par des barres verticales) :",
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx :",
+	"wikibaseschema-error-schemadeleted": "Le schéma que vous essayez de modifier n’existe pas. Peut-être a-t-il été supprimé ?",
+	"wikibaseschema-noschema": "Il n’y a pas de schéma ici. Allez sur [[Special:NewSchema]] pour en créer un nouveau."
+}

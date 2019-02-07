@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"BadDog"
+		]
+	},
+	"wikibaseschema-newschema-description": "Опис:",
+	"wikibaseschema-editpage-label-inputlabel": "Ознака:",
+	"wikibaseschema-editpage-description-inputlabel": "Опис:",
+	"wikibaseschema-editpage-aliases-inputlabel": "Псеудоними (раздвојени усправном цртом):"
+}

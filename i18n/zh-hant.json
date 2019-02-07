@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kly"
+		]
+	},
+	"wikibaseschema-desc": "儲存並討論用於 Wikibase 實體的架構",
+	"special-newschema": "建立一個新架構",
+	"wikibaseschema-newschema-label": "標籤：",
+	"wikibaseschema-newschema-description": "描述：",
+	"wikibaseschema-newschema-aliases": "別名，以豎線符號分隔：",
+	"wikibaseschema-newschema-schema-shexc": "形態表達代碼：",
+	"wikibaseschema-newschema-submit": "建立",
+	"wikibaseschema-newschema-copyright": "點選\"$1\"代表您接受[[$2|使用條款]]，並不反悔接受使用$3發佈您的貢獻。",
+	"wikibaseschema-anonymouseditwarning": "警告：您尚未登入。您的 IP 位址將會被記錄在此架構的編輯歷史中。",
+	"wikibaseschema-label-edit-placeholder": "用於在英語架構的標籤",
+	"wikibaseschema-description-edit-placeholder": "用於在英語架構的描述",
+	"wikibaseschema-aliases-edit-placeholder": "用於在英語架構的替代標籤",
+	"wikibaseschema-editpage-label-inputlabel": "標籤：",
+	"wikibaseschema-editpage-description-inputlabel": "描述：",
+	"wikibaseschema-editpage-aliases-inputlabel": "別名（以豎線符號分隔）：",
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx：",
+	"wikibaseschema-error-schemadeleted": "您嘗試編輯的架構不存在，也許是已被刪除了？",
+	"wikibaseschema-noschema": "目前沒有架構。前往 [[Special:NewSchema]] 來建立一個新的。"
+}

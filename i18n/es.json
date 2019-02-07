@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fitoschido"
+		]
+	},
+	"wikibaseschema-newschema-label": "Etiqueta:",
+	"wikibaseschema-newschema-description": "Descripción:",
+	"wikibaseschema-newschema-aliases": "Alias, separados por plecas:",
+	"wikibaseschema-newschema-submit": "Crear",
+	"wikibaseschema-editpage-label-inputlabel": "Etiqueta:",
+	"wikibaseschema-editpage-description-inputlabel": "Descripción:",
+	"wikibaseschema-editpage-aliases-inputlabel": "Alias (separados por plecas):"
+}

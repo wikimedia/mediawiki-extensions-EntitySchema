@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robby"
+		]
+	},
+	"wikibaseschema-newschema-label": "Etikett:",
+	"wikibaseschema-newschema-description": "Beschreiwung:",
+	"wikibaseschema-editpage-label-inputlabel": "Etikett:",
+	"wikibaseschema-editpage-description-inputlabel": "Beschreiwung:"
+}

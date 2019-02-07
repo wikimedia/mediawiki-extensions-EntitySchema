@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Metalhead64"
+		]
+	},
+	"wikibaseschema-desc": "Ermöglicht die Speicherung und Diskussion von Schemata für Wikibase-Objekte",
+	"special-newschema": "Ein neues Schema erstellen",
+	"wikibaseschema-newschema-label": "Bezeichnung:",
+	"wikibaseschema-newschema-description": "Beschreibung:",
+	"wikibaseschema-newschema-aliases": "Aliasse, durch senkrechte Striche getrennt:",
+	"wikibaseschema-newschema-schema-shexc": "Shape-Expressions-Code:",
+	"wikibaseschema-newschema-submit": "Erstellen",
+	"wikibaseschema-newschema-copyright": "Durch das Anklicken von „$1“ stimmst du den [[$2|Nutzungsbedingungen]] und der unwiderruflichen Veröffentlichung deines Beitrags unter der Lizenz $3 zu.",
+	"wikibaseschema-anonymouseditwarning": "Warnung: Du bist nicht angemeldet. Deine IP-Adresse wird in der Versionsgeschichte dieses Schemas aufgezeichnet.",
+	"wikibaseschema-label-edit-placeholder": "Die Bezeichnung für das Schema auf Englisch",
+	"wikibaseschema-description-edit-placeholder": "Die Beschreibung für das Schema auf Englisch",
+	"wikibaseschema-aliases-edit-placeholder": "Alternative Bezeichnungen für das Schema auf Englisch",
+	"wikibaseschema-editpage-label-inputlabel": "Bezeichnung:",
+	"wikibaseschema-editpage-description-inputlabel": "Beschreibung:",
+	"wikibaseschema-editpage-aliases-inputlabel": "Aliasse (durch senkrechte Striche getrennt):",
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
+	"wikibaseschema-error-schemadeleted": "Das Schema, das du versuchst zu bearbeiten, ist nicht vorhanden. Vielleicht wurde es gelöscht?",
+	"wikibaseschema-noschema": "Es gibt hier kein Schema. Gehe auf [[Special:NewSchema]], um ein neues zu erstellen."
+}

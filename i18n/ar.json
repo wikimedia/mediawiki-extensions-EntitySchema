@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"ديفيد"
+		]
+	},
+	"wikibaseschema-desc": "تخزين ومناقشة المخططات لكيانات قاعدة الويكي",
+	"special-newschema": "إنشاء مخطط جديد",
+	"wikibaseschema-newschema-label": "التسمية:",
+	"wikibaseschema-newschema-description": "الوصف:",
+	"wikibaseschema-newschema-aliases": "الأسماء المستعارة، مفصولة بأنابيب:",
+	"wikibaseschema-newschema-schema-shexc": "رمز تعبيرات الشكل:",
+	"wikibaseschema-newschema-submit": "إنشاء",
+	"wikibaseschema-newschema-copyright": "بالنقر على \"$1\"، فإنك توافق على [[$2| شروط الاستخدام]]، وتوافق بشكل لا رجعة فيه على نشر مساهمتك تحت $3.",
+	"wikibaseschema-anonymouseditwarning": "تحذير: لم تقم بتسجيل الدخول؛ سيتم تسجيل عنوان الآيني الخاص بك في تاريخ تحرير هذا المخطط.",
+	"wikibaseschema-label-edit-placeholder": "تسمية المخطط بالإنجليزية",
+	"wikibaseschema-description-edit-placeholder": "وصف المخطط بالإنجليزية",
+	"wikibaseschema-aliases-edit-placeholder": "التسميات البديلة للمخطط بالإنجليزية",
+	"wikibaseschema-editpage-label-inputlabel": "التسمية:",
+	"wikibaseschema-editpage-description-inputlabel": "الوصف:",
+	"wikibaseschema-editpage-aliases-inputlabel": "الأسماء المستعارة (مفصولة بأنابيب):",
+	"wikibaseschema-editpage-schema-inputlabel": "تعبيرات الشكل:",
+	"wikibaseschema-error-schemadeleted": "المخطط الذي حاولت تحريره غير موجود، ربما تم حذفه؟",
+	"wikibaseschema-noschema": "لا يوجد مخطط هنا، انتقل إلى [[Special:NewSchema]] لإنشاء واحد جديد."
+}

@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mainframe98"
+		]
+	},
+	"special-newschema": "Nieuw schema aanmaken",
+	"wikibaseschema-newschema-label": "Label:",
+	"wikibaseschema-newschema-description": "Beschrijving:",
+	"wikibaseschema-newschema-aliases": "Aliassen, gescheiden door een sluisteken (|):",
+	"wikibaseschema-newschema-submit": "Aanmaken",
+	"wikibaseschema-newschema-copyright": "Door te klikken op \"$1\" gaat u akkoord met de [[$2|gebruiksvoorwaarden]] en gaat u onherroepelijk akkoord met het vrijgeven van uw bijdrage onder de $3.",
+	"wikibaseschema-anonymouseditwarning": "Waarschuwing: u bent niet aangemeld.\nUw IP-adres wordt opgeslagen in bewerkingsgeschiedenis van dit schema.",
+	"wikibaseschema-label-edit-placeholder": "Het label van het schema in het Engels.",
+	"wikibaseschema-description-edit-placeholder": "De beschrijving van het schema in het Engels.",
+	"wikibaseschema-aliases-edit-placeholder": "Alternatieve labels voor het schema in het Engels.",
+	"wikibaseschema-editpage-label-inputlabel": "Label:",
+	"wikibaseschema-editpage-description-inputlabel": "Beschrijving:",
+	"wikibaseschema-editpage-aliases-inputlabel": "Aliassen, gescheiden door een sluisteken (|):",
+	"wikibaseschema-error-schemadeleted": "Het schema dat u probeerde te bewerken bestaat niet. Misschien is het verwijderd?",
+	"wikibaseschema-noschema": "Dit schema bestaat niet. Ga naar [[Special:NewSchema]] om een nieuw schema aan te maken."
+}

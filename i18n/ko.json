@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ykhwong"
+		]
+	},
+	"special-newschema": "새 스키마 만들기",
+	"wikibaseschema-newschema-label": "레이블:",
+	"wikibaseschema-newschema-description": "설명:",
+	"wikibaseschema-newschema-submit": "만들기",
+	"wikibaseschema-anonymouseditwarning": "경고: 로그인이 되어 있지 않습니다. IP 주소가 이 스키마의 편집 역사에 남게 됩니다.",
+	"wikibaseschema-editpage-label-inputlabel": "레이블:",
+	"wikibaseschema-editpage-description-inputlabel": "설명:",
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx:"
+}

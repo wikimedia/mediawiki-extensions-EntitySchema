@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eduardo Addad de Oliveira"
+		]
+	},
+	"wikibaseschema-desc": "Armazenar e discutir esquemas para entidades do Wikibase",
+	"special-newschema": "Criar um nova Schema",
+	"wikibaseschema-newschema-label": "Etiqueta:",
+	"wikibaseschema-newschema-description": "Descrição:",
+	"wikibaseschema-newschema-aliases": "Nomes alternativos, separados por barras:",
+	"wikibaseschema-newschema-schema-shexc": "Código de expressões de forma:",
+	"wikibaseschema-newschema-submit": "Criar",
+	"wikibaseschema-newschema-copyright": "Ao clicar em \"$1\", você concorda com os [[$2|termos de uso]] e irrevogavelmente aceita disponibilizar sua contribuição sob $3.",
+	"wikibaseschema-anonymouseditwarning": "Aviso: Você não está logado. Seu endereço IP será registrado no histórico de edição deste Esquema.",
+	"wikibaseschema-label-edit-placeholder": "O rótulo para o schema em inglês",
+	"wikibaseschema-description-edit-placeholder": "A descrição para o schema em inglês",
+	"wikibaseschema-aliases-edit-placeholder": "Rótulos alternativos para o schema em inglês",
+	"wikibaseschema-editpage-label-inputlabel": "Etiqueta:",
+	"wikibaseschema-editpage-description-inputlabel": "Descrição:",
+	"wikibaseschema-editpage-aliases-inputlabel": "Aliases (separados por barras):",
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
+	"wikibaseschema-error-schemadeleted": "O schema que você tentou editar não existe. Talvez tenha sido apagado?",
+	"wikibaseschema-noschema": "Não há schema aqui. Vá para [[Special:NewSchema]] para criar um novo."
+}

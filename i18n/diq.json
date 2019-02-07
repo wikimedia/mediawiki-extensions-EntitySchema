@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mirzali"
+		]
+	},
+	"wikibaseschema-newschema-label": "Etiket:",
+	"wikibaseschema-newschema-description": "Şınasnayış",
+	"wikibaseschema-newschema-submit": "Vıraze",
+	"wikibaseschema-editpage-label-inputlabel": "Etiket:",
+	"wikibaseschema-editpage-description-inputlabel": "Şınasnayış:"
+}
