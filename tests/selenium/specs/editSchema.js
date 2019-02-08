@@ -25,7 +25,7 @@ describe( 'Schema Edit Page', () => {
 			let id = ViewSchemaPage.getId();
 			EditSchemaPage.open( id );
 			EditSchemaPage.schemaTextArea.waitForVisible();
-			assert.strictEqual( EditSchemaPage.shExCContent, ShExCContent );
+			assert.strictEqual( EditSchemaPage.ShExCContent, ShExCContent );
 			// todo assert that contents are there using api call
 		} );
 
