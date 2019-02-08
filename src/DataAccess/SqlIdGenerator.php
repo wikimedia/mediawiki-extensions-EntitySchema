@@ -2,6 +2,7 @@
 
 namespace Wikibase\Schema\DataAccess;
 
+use RuntimeException;
 use Wikibase\Schema\Domain\Storage\IdGenerator;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\ILoadBalancer;
@@ -32,9 +33,12 @@ class SqlIdGenerator implements IdGenerator {
 
 	/**
 	 * @return int
+	 *
+	 * @throws RuntimeException
 	 */
 	public function getNewId() {
 		$database = $this->loadBalancer->getConnection( DB_MASTER );
+
 		$id = $this->generateNewId( $database );
 		$this->loadBalancer->reuseConnection( $database );
 
@@ -47,7 +51,7 @@ class SqlIdGenerator implements IdGenerator {
 	 * @param IDatabase $database
 	 * @param bool $retry Retry once in case of e.g. race conditions. Defaults to true.
 	 *
-	 * @throws MWException
+	 * @throws RuntimeException
 	 * @return int
 	 */
 	private function generateNewId( IDatabase $database, $retry = true ) {
@@ -90,7 +94,7 @@ class SqlIdGenerator implements IdGenerator {
 		$database->endAtomic( __METHOD__ );
 
 		if ( !$success ) {
-			throw new MWException( 'Could not generate a reliably unique ID.' );
+			throw new RuntimeException( 'Could not generate a reliably unique ID.' );
 		}
 
 		return $id;
