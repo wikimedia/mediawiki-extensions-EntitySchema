@@ -13,4 +13,14 @@ describe( 'Schema Viewing Page', () => {
 		NewSchemaPage.clickSubmit();
 		assert.ok( ViewSchemaPage.editLink.waitForVisible() );
 	} );
+
+	it( 'doesn\'t touch the whitespace inside the schema', () => {
+		const ShExCWithSpaces = 'content\t is \n\n\n here';
+		NewSchemaPage.open();
+		NewSchemaPage.showsForm();
+		NewSchemaPage.setLabel( 'Testing inner whitespace' );
+		NewSchemaPage.pasteShExC( ShExCWithSpaces );
+		NewSchemaPage.clickSubmit();
+		assert.strictEqual( ShExCWithSpaces, ViewSchemaPage.getShExCHTML() );
+	} );
 } );

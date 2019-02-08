@@ -45,6 +45,19 @@ class NewSchemaPage extends Page {
 		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_SHEXC + ' textarea' ).setValue( shExC );
 	}
 
+	/**
+	 * Inserts the shExC via javascript/jQuery instead of "typing" it
+	 *
+	 * This method enables inserting the tab character
+	 *
+	 * @param {string} shExC
+	 */
+	pasteShExC( shExC ) {
+		browser.executeAsync( ( query, shExC, done ) => {
+			done( window.$( query ).val( shExC ) );
+		}, this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_SHEXC + ' textarea', shExC );
+	}
+
 	clickSubmit() {
 		this.schemaSubmitButton.click();
 	}
