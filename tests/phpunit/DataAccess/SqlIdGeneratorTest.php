@@ -41,6 +41,8 @@ class SqlIdGeneratorTest extends MediaWikiTestCase {
 	 * @expectedExceptionMessage read-only for test
 	 */
 	public function testExceptionReadOnlyDB() {
+		$this->markTestSkipped( 'requires I481553fac4' );
+
 		$generator = new SqlIdGenerator(
 			new LoadBalancerSingle( [
 				'connection' => $this->db,
