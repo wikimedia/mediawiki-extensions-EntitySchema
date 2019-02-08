@@ -2,11 +2,13 @@
 
 namespace Wikibase\Schema\Tests\DataAccess;
 
+use DBReadOnlyError;
 use MediaWiki\MediaWikiServices;
 use MediaWikiTestCase;
 use RuntimeException;
 use Wikibase\Schema\DataAccess\SqlIdGenerator;
-use Wikimedia\Rdbms\LoadBalancerSingle;
+use Wikimedia\Rdbms\IDatabase;
+use Wikimedia\Rdbms\ILoadBalancer;
 
 /**
  * @covers \Wikibase\Schema\DataAccess\SqlIdGenerator
@@ -16,11 +18,6 @@ use Wikimedia\Rdbms\LoadBalancerSingle;
  * @license GPL-2.0-or-later
  */
 class SqlIdGeneratorTest extends MediaWikiTestCase {
-
-	public function tearDown() {
-		$this->db->setLBInfo( 'readOnlyMode', false );
-		parent::tearDown();
-	}
 
 	public function testGetNewId() {
 		$generator = new SqlIdGenerator(
@@ -41,13 +38,15 @@ class SqlIdGeneratorTest extends MediaWikiTestCase {
 	 * @expectedExceptionMessage read-only for test
 	 */
 	public function testExceptionReadOnlyDB() {
-		$this->markTestSkipped( 'requires I481553fac4' );
+		$database = $this->createMock( IDatabase::class );
+		$database->method( 'insert' )
+			->willThrowException( new DBReadOnlyError( $database, 'read-only for test' ) );
+		$loadBalancer = $this->createMock( ILoadBalancer::class );
+		$loadBalancer->method( 'getConnection' )
+			->willReturn( $database );
 
 		$generator = new SqlIdGenerator(
-			new LoadBalancerSingle( [
-				'connection' => $this->db,
-				'readOnlyReason' => 'read-only for test',
-			] ),
+			$loadBalancer,
 			'wbschema_id_counter'
 		);
 
