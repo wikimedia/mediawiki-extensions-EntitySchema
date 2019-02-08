@@ -45,9 +45,27 @@ class ViewSchemaPage extends Page {
 		return browser.$( this.constructor.SCHEMA_SELECTORS.ALIASES ).getText();
 	}
 
+	/**
+	 * Note: This method unfortunately trims the content of the element
+	 *
+	 * @return {string}
+	 */
 	getShExC() {
 		browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).waitForExist();
 		return browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).getText();
+	}
+
+	/**
+	 * Return the ShExC as it is in the HTML
+	 *
+	 * Note:
+	 * that will return it without the webdriver mangling the whitespace, but with HTML entities
+	 *
+	 * @return {string}
+	 */
+	getShExCHTML() {
+		browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).waitForExist();
+		return browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).getHTML( false );
 	}
 
 	getId() {
