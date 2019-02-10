@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mirzali"
+		]
+	},
+	"wikibaseschema-newschema-label": "Etîket:",
+	"wikibaseschema-newschema-description": "Danasîn:",
+	"wikibaseschema-editpage-label-inputlabel": "Etîket:",
+	"wikibaseschema-editpage-description-inputlabel": "Danasîn:",
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx:"
+}

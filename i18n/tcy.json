@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ravi Mundkur"
+		]
+	},
+	"wikibaseschema-desc": "ವಿಕಿಬೇಸ್ ವಸ್ತುಲೆಗ್ ಯೋಜಲೆನ್ ಕೂಡಾದ್ ಬೊಕ ಚರ್ಚಿಸಾವುನಿ",
+	"special-newschema": "ಒಂಜಿ ಪೊಸ ಯೋಜ ರಚಿಸಾವುನಿ",
+	"wikibaseschema-newschema-label": "ಶಿರಪಟ್ಟಿ:",
+	"wikibaseschema-newschema-description": "ವಿವರ",
+	"wikibaseschema-newschema-aliases": "ಕೊಳವೆ-ಪ್ರತ್ಯೇಕಿತ ಯಾನೆಲು:",
+	"wikibaseschema-newschema-schema-shexc": "ಆಕಾರ ಅಭಿವ್ಯಕ್ತಿಲು ಅಂಕೇತ:",
+	"wikibaseschema-newschema-submit": "ರಚಿಸಾಲೆ",
+	"wikibaseschema-newschema-copyright": " \"$1\" ಒತ್ತುದು, ಈರ್  [[$2| ಬಳಕೆದ ಶರ್ತೊಲು]]ಒಪ್ಪುವರ್, ಬೊಕ ಈರ್ ಪಿರತಿರ್ಗಾವಂದೆ $3 ಅಡಿಟ್ ಇರೆನ ಕಾಣಿಕೆ ಬುಡಿಯರೆ ಒಪ್ಪುವರ್.",
+	"wikibaseschema-anonymouseditwarning": "ಎಚ್ಚರಿಕೆ: ಈರ್ ಉಳಗಮನ ಆತಿಜರ್. ಇರೆನ ಐಪಿ ವಿಳಾಸ ಈ ಯೋಜದ ಸಂಪಾದಿ ಚರಿತ್ರೆಡ್ ದಾಖಲಾಪುಂಡು.",
+	"wikibaseschema-label-edit-placeholder": "ಇಂಗ್ಲೀಷಿಡ್ ಯೋಜೊಗು ಶಿರಪಟ್ಟಿ",
+	"wikibaseschema-description-edit-placeholder": "ಇಂಗ್ಲಿಷಿಡ್ ಯೋಜೊಗು ವಿವರಣೆ",
+	"wikibaseschema-aliases-edit-placeholder": "ಇಂಗ್ಲೀಷಿಡ್ ಯೋಜಲೆಗ್ ಪರ್ಯಾಯ ಶಿರಪಟ್ಟಿಲು",
+	"wikibaseschema-editpage-label-inputlabel": "ಶಿರಪಟ್ಟಿ:",
+	"wikibaseschema-editpage-description-inputlabel": "ವಿವರಣೆ:",
+	"wikibaseschema-editpage-aliases-inputlabel": "ಯಾನೆಲು (ಕೊಳವೆ-ಪ್ರತ್ಯೇಕಿತ)",
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
+	"wikibaseschema-error-schemadeleted": "ಈರ್ ಸಂಪಾದೆರೆ ಯತ್ನ ಮಲ್ತಿನ ಯೋಜ ಇಜ್ಜಿ. ಅವೆನ್ ಮಾಜಾದುಪ್ಪುರೆ ಯಾವು.",
+	"wikibaseschema-noschema": "ಮುಲ್ಪ ಯೋಜ ಇಜ್ಜಿ.  [[Special:NewSchema]] ಗು ಪೋದು ಒಂಜಿ ಪೊಸ ಯೋಜ ರಚಿಸಾಲೆ."
+}

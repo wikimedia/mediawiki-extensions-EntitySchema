@@ -6,7 +6,9 @@
 	},
 	"wikibaseschema-newschema-label": "Etiket:",
 	"wikibaseschema-newschema-description": "Şınasnayış",
+	"wikibaseschema-newschema-schema-shexc": "Kodê ifadeyanê şeklan:",
 	"wikibaseschema-newschema-submit": "Vıraze",
 	"wikibaseschema-editpage-label-inputlabel": "Etiket:",
-	"wikibaseschema-editpage-description-inputlabel": "Şınasnayış:"
+	"wikibaseschema-editpage-description-inputlabel": "Şınasnayış:",
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx:"
 }

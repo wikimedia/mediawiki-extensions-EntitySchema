@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"আফতাবুজ্জামান"
+		]
+	},
+	"wikibaseschema-newschema-label": "লেবেল:",
+	"wikibaseschema-newschema-description": "বিবরণ:",
+	"wikibaseschema-newschema-aliases": "উপনাম, উল্লম্ব দণ্ড দ্বারা বিভাজিত:",
+	"wikibaseschema-newschema-submit": "তৈরি করুন",
+	"wikibaseschema-anonymouseditwarning": "সতর্কতা: আপনি প্রবেশ করেননি। এই স্কিমার সম্পাদনার ইতিহাসে আপনার আইপি ঠিকানা সংরক্ষিত হবে।",
+	"wikibaseschema-editpage-label-inputlabel": "লেবেল:",
+	"wikibaseschema-editpage-description-inputlabel": "বিবরণ:",
+	"wikibaseschema-editpage-aliases-inputlabel": "উপনাম (উল্লম্ব দণ্ড দ্বারা বিভাজিত):"
+}

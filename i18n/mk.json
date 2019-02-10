@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"wikibaseschema-desc": "Складирање на и расправа по шеми за единици на Викибазата",
+	"special-newschema": "Создај нова шема",
+	"wikibaseschema-newschema-label": "Натпис:",
+	"wikibaseschema-newschema-description": "Опис:",
+	"wikibaseschema-newschema-aliases": "Истозначници, одделени со прави црти:",
+	"wikibaseschema-newschema-schema-shexc": "Код за изразот на обликот:",
+	"wikibaseschema-newschema-submit": "Создај",
+	"wikibaseschema-newschema-copyright": "Стискајќи на „$1“, се согласувате со [[$2|условите на употреба]] и неотповикливо се согласувате вашите придонеси да се нудат под условите на $3.",
+	"wikibaseschema-anonymouseditwarning": "Предупредување: Не сте најавени. Вашата IP-адреса ќе биде заведена во историјата на оваа шема.",
+	"wikibaseschema-label-edit-placeholder": "Натпис за шемата на англиски",
+	"wikibaseschema-description-edit-placeholder": "Опис за шемата на англиски",
+	"wikibaseschema-aliases-edit-placeholder": "Алтернативни натписи за шемата на англиски",
+	"wikibaseschema-editpage-label-inputlabel": "Натпис:",
+	"wikibaseschema-editpage-description-inputlabel": "Опис:",
+	"wikibaseschema-editpage-aliases-inputlabel": "Истозначници (одделени со прави црти):",
+	"wikibaseschema-editpage-schema-inputlabel": "ИзрОбл:",
+	"wikibaseschema-error-schemadeleted": "Шемата што сакате да ја уредите не постои. Да не е избришана?",
+	"wikibaseschema-noschema": "Тука нема шема. Појдете на [[Special:NewSchema]] за да создадете нова."
+}
