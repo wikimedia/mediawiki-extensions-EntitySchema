@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vlad5250"
+		]
+	},
+	"wikibaseschema-desc": "Складиране на и дискусия по схеми за единици на Уикибазата",
+	"special-newschema": "Създаване на нова схема",
+	"wikibaseschema-newschema-label": "Етикети:",
+	"wikibaseschema-newschema-description": "Описание:",
+	"wikibaseschema-newschema-aliases": "Псевдоними, отделени с вертикални черти:",
+	"wikibaseschema-newschema-schema-shexc": "Код за израза на облика:",
+	"wikibaseschema-newschema-submit": "Създаване",
+	"wikibaseschema-newschema-copyright": "Натискайки „$1“, се съгласявате с [[$2|Условията за ползване]] и безвъзвратно публикувате приноса си под условията на $3.",
+	"wikibaseschema-anonymouseditwarning": "Предупреждение: Не сте влезли. Вашият IP-адрес ще бъде запазен в историята на тази схема.",
+	"wikibaseschema-label-edit-placeholder": "Етикет за схемата на английски",
+	"wikibaseschema-description-edit-placeholder": "Описание за схемата на английски",
+	"wikibaseschema-aliases-edit-placeholder": "Алтернативни етикети за схемата на английски",
+	"wikibaseschema-editpage-label-inputlabel": "Етикети:",
+	"wikibaseschema-editpage-description-inputlabel": "Описание:",
+	"wikibaseschema-editpage-aliases-inputlabel": "Псевдоними (отделени с вертикални черти):",
+	"wikibaseschema-editpage-schema-inputlabel": "ИзрОбл:"
+}
