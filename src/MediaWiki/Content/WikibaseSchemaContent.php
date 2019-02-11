@@ -2,15 +2,15 @@
 
 namespace Wikibase\Schema\MediaWiki\Content;
 
-use Deserializers\Exceptions\DeserializationException;
 use Html;
 use JsonContent;
 use ParserOptions;
 use ParserOutput;
 use Title;
 use Wikibase\Schema\Domain\Model\Schema;
-use Wikibase\Schema\Serialization\DeserializerFactory;
 use Wikibase\Schema\Serialization\SerializerFactory;
+use Wikibase\Schema\Services\SchemaDispatcher\MonolingualSchemaData;
+use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
 
 /**
  * Represents the content of a Wikibase Schema page
@@ -34,50 +34,42 @@ class WikibaseSchemaContent extends JsonContent {
 
 		if ( $generateHtml && $this->isValid() ) {
 			$output->setText( $this->schemaSerializationToHtml(
-				json_decode( $this->getText(), true )
+				( new SchemaDispatcher() )
+					->getMonolingualSchemaData( $this->getText(), 'en' )
 			) );
 		} else {
 			$output->setText( '' );
 		}
 	}
 
-	private function schemaSerializationToHtml( array $schemaSerialization ) {
-		$deserializer = DeserializerFactory::newSchemaDeserializer();
-		try {
-			$schema = $deserializer->deserialize( $schemaSerialization );
-		} catch ( DeserializationException $e ) {
-			// FIXME remove this try catch by 2019-02-11 !
-			return HTML::element( 'h1', [], 'We changed the schema. Please go to edit and resave!' )
-				. HTML::element( 'div', [ 'class' => 'warning' ],
-					'FIXME: Remove this workaround in WikibaseSchemaContent::schemaSerializationToHtml' );
-		}
+	private function schemaSerializationToHtml( MonolingualSchemaData $schemaData ) {
 		return Html::element(
 				'h1',
 				[
 					'id' => 'wbschema-title-label',
 				],
-				$schema->getLabel( 'en' )->getText()
+				$schemaData->nameBadge->label
 			) .
 			Html::element(
 				'abstract',
 				[
 					'id' => 'wbschema-heading-description',
 				],
-				$schema->getDescription( 'en' )->getText()
+				$schemaData->nameBadge->description
 			) .
 			Html::element(
 				'p',
 				[
 					'id' => 'wbschema-heading-aliases',
 				],
-				implode( ' | ', $schema->getAliasGroup( 'en' )->getAliases() )
+				implode( ' | ', $schemaData->nameBadge->aliases )
 			)
 			. Html::element(
 				'pre',
 				[
 					'id' => 'wbschema-schema-shexc',
 				],
-				$schema->getSchema()
+				$schemaData->schema
 			);
 	}
 
