@@ -3,13 +3,12 @@
 namespace Wikibase\Schema\MediaWiki;
 
 use CommentStoreComment;
-use Deserializers\Exceptions\DeserializationException;
 use FormAction;
 use RuntimeException;
 use Status;
 use Wikibase\Schema\Domain\Model\Schema;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Serialization\DeserializerFactory;
+use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
 
 /**
  * Edit a Wikibase Schema via the mediawiki editing action
@@ -59,66 +58,30 @@ class SchemaEditAction extends FormAction {
 			throw new RuntimeException( $this->msg( 'wikibaseschema-error-schemadeleted' ) );
 		}
 
-		$deserializer = DeserializerFactory::newSchemaDeserializer();
-		$serializedContent = json_decode( $content->getText(), true );
-		try {
-			$schema = $deserializer->deserialize( $serializedContent );
-		} catch ( DeserializationException $e ) {
-			// FIXME remove this try catch by 2019-02-11 !
-			return [
-				'warning' => [
-					'type' => 'info',
-					'default' => 'FIXME: Please remove this workaround in SchemaEditAction::getFormFields!',
-					'cssclass' => 'warning',
-				],
-				'label' => [
-					'type' => 'text',
-					'default' => $serializedContent['labels']['en'],
-					'label-message' => 'wikibaseschema-editpage-label-inputlabel',
-					'placeholder-message' => 'wikibaseschema-label-edit-placeholder',
-				],
-				'description' => [
-					'type' => 'text',
-					'default' => $serializedContent['descriptions']['en'],
-					'label-message' => 'wikibaseschema-editpage-description-inputlabel',
-					'placeholder-message' => 'wikibaseschema-description-edit-placeholder',
-				],
-				'aliases' => [
-					'type' => 'text',
-					'default' => implode( ' | ', $serializedContent['aliases']['en'] ),
-					'label-message' => 'wikibaseschema-editpage-aliases-inputlabel',
-					'placeholder-message' => 'wikibaseschema-aliases-edit-placeholder',
-				],
-				'schema' => [
-					'type' => 'textarea',
-					'default' => $serializedContent['schema'],
-					'label-message' => 'wikibaseschema-editpage-schema-inputlabel',
-				],
-			];
-		}
+		$schemaData = ( new SchemaDispatcher() )->getMonolingualSchemaData( $content->getText(), 'en' );
 
 		return [
 			'label' => [
 				'type' => 'text',
-				'default' => $schema->getLabel( 'en' )->getText(),
+				'default' => $schemaData->nameBadge->label,
 				'label-message' => 'wikibaseschema-editpage-label-inputlabel',
 				'placeholder-message' => 'wikibaseschema-label-edit-placeholder',
 			],
 			'description' => [
 				'type' => 'text',
-				'default' => $schema->getDescription( 'en' )->getText(),
+				'default' => $schemaData->nameBadge->description,
 				'label-message' => 'wikibaseschema-editpage-description-inputlabel',
 				'placeholder-message' => 'wikibaseschema-description-edit-placeholder',
 			],
 			'aliases' => [
 				'type' => 'text',
-				'default' => implode( ' | ', $schema->getAliasGroup( 'en' )->getAliases() ),
+				'default' => implode( ' | ', $schemaData->nameBadge->aliases ),
 				'label-message' => 'wikibaseschema-editpage-aliases-inputlabel',
 				'placeholder-message' => 'wikibaseschema-aliases-edit-placeholder',
 			],
 			'schema' => [
 				'type' => 'textarea',
-				'default' => $schema->getSchema(),
+				'default' => $schemaData->schema,
 				'label-message' => 'wikibaseschema-editpage-schema-inputlabel',
 			],
 		];
