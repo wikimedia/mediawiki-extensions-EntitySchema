@@ -6,13 +6,15 @@ use Html;
 use HTMLForm;
 use HTMLTextAreaField;
 use HTMLTextField;
+use MediaWiki\MediaWikiServices;
 use OutputPage;
 use SpecialPage;
 use Status;
 use Title;
 use UserBlockedError;
-use Wikibase\Schema\UseCases\CreateSchema\CreateSchemaRequest;
-use Wikibase\Schema\UseCases\UseCaseFactory;
+use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
+use Wikibase\Schema\DataAccess\SqlIdGenerator;
 
 /**
  * Page for creating a new Wikibase Schema.
@@ -69,23 +71,25 @@ class NewSchema extends SpecialPage {
 	public function submitCallback( $data, HTMLForm $form ) {
 		// TODO: no form data validation??
 
-		$createSchemaRequest = $this->createNewSchemaRequestFromFormData( $data );
-		$responseModel = UseCaseFactory::newCreateSchemaUseCase()->createSchema( $createSchemaRequest );
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $responseModel->getId()->getId() );
+		$idGenerator = new SqlIdGenerator(
+			MediaWikiServices::getInstance()->getDBLoadBalancer(),
+			'wbschema_id_counter'
+		);
+
+		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $this->getUser() );
+
+		$schemaWriter = new MediawikiRevisionSchemaWriter( $pageUpdaterFactory, $idGenerator );
+		$newId = $schemaWriter->insertSchema(
+			'en',
+			$data[self::FIELD_LABEL],
+			$data[self::FIELD_DESCRIPTION],
+			array_filter( array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) ) ),
+			$data[self::FIELD_SCHEMA_SHEXC]
+		);
+
+		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $newId->getId() );
 
 		return Status::newGood( $title->getFullURL() );
-	}
-
-	public function createNewSchemaRequestFromFormData( array $formData ): CreateSchemaRequest {
-		$createSchemaRequest = new CreateSchemaRequest();
-		$createSchemaRequest->setLanguageCode( 'en' );
-		$createSchemaRequest->setLabel( $formData[self::FIELD_LABEL] );
-		$createSchemaRequest->setDescription( $formData[self::FIELD_DESCRIPTION] );
-		$createSchemaRequest->setAliases(
-			array_filter( array_map( 'trim', explode( '|', $formData[self::FIELD_ALIASES] ) ) )
-		);
-		$createSchemaRequest->setSchema( $formData[self::FIELD_SCHEMA_SHEXC] );
-		return $createSchemaRequest;
 	}
 
 	public function getDescription() {
