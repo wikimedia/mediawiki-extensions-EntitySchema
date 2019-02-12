@@ -41,21 +41,21 @@ class NewSchemaPage extends Page {
 		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.ALIASES + ' input' ).setValue( aliases );
 	}
 
-	setShExC( shExC ) {
-		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_SHEXC + ' textarea' ).setValue( shExC );
+	setShExC( ShExC ) {
+		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_SHEXC + ' textarea' ).setValue( ShExC );
 	}
 
 	/**
-	 * Inserts the shExC via javascript/jQuery instead of "typing" it
+	 * Inserts the ShExC via javascript/jQuery instead of "typing" it
 	 *
 	 * This method enables inserting the tab character
 	 *
-	 * @param {string} shExC
+	 * @param {string} ShExC
 	 */
-	pasteShExC( shExC ) {
-		browser.executeAsync( ( query, shExC, done ) => {
-			done( window.$( query ).val( shExC ) );
-		}, this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_SHEXC + ' textarea', shExC );
+	pasteShExC( ShExC ) {
+		browser.executeAsync( ( query, ShExC, done ) => {
+			done( window.$( query ).val( ShExC ) );
+		}, this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_SHEXC + ' textarea', ShExC );
 	}
 
 	clickSubmit() {
