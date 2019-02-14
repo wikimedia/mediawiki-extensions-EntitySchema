@@ -7,6 +7,7 @@ use Article;
 use IContextSource;
 use JsonContentHandler;
 use Page;
+use SlotDiffRenderer;
 use Wikibase\Schema\MediaWiki\SchemaEditAction;
 use Wikibase\Schema\MediaWiki\SchemaSubmitAction;
 use WikiPage;
@@ -22,6 +23,10 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 
 	protected function getContentClass() {
 		return WikibaseSchemaContent::class;
+	}
+
+	protected function getSlotDiffRendererInternal( IContextSource $context ): SlotDiffRenderer {
+		return new WikibaseSchemaSlotDiffRenderer( $context );
 	}
 
 	public function getActionOverrides() {

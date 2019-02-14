@@ -21,5 +21,9 @@
 	"wikibaseschema-editpage-aliases-inputlabel": "Input label for the aliases field on the edit page",
 	"wikibaseschema-editpage-schema-inputlabel": "Input label for the Schema field on the edit page",
 	"wikibaseschema-error-schemadeleted": "Error message when trying to edit a schema that doesn't exist.",
-	"wikibaseschema-noschema": "Text that is shown on a non-existant page in the Schema namespace"
+	"wikibaseschema-noschema": "Text that is shown on a non-existant page in the Schema namespace",
+	"wikibaseschema-diff-label": "Label designating the change in the Labels when viewing a diff of two Schemas",
+	"wikibaseschema-diff-description": "Label designating the change in the Description when viewing a diff of two Schemas",
+	"wikibaseschema-diff-aliases": "Label designating the change in the Aliases when viewing a diff of two Schemas",
+	"wikibaseschema-diff-schema": "Label designating the change in the Schema code when viewing a diff of two Schemas"
 }

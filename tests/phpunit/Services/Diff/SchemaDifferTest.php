@@ -24,6 +24,20 @@ class SchemaDifferTest extends TestCase {
 			new Diff( [], true ),
 		];
 
+		yield 'add label' => [
+			[],
+			[
+				'labels' => [
+					'en' => 'testlabel'
+				]
+			],
+			new Diff( [
+				'labels' => new Diff( [
+					'en' => new DiffOpAdd( 'testlabel' ),
+				], true ),
+			], true )
+		];
+
 		$schemaEn = [
 			'labels' => [
 				'en' => 'test label',
@@ -47,7 +61,7 @@ class SchemaDifferTest extends TestCase {
 			$schemaEn,
 			[
 				'labels' => [
-					'en' => 'label for test',
+					'en' => 'updated label',
 				],
 				'descriptions' => [
 					'de' => 'Testbeschreibung',
@@ -56,11 +70,11 @@ class SchemaDifferTest extends TestCase {
 					'en' => [ 'test alias', 'test alias 3' ],
 					'de' => [ 'Testalias' ],
 				],
-				'schema' => 'schema for test',
+				'schema' => 'updated schema',
 			],
 			new Diff( [
 				'labels' => new Diff( [
-					'en' => new DiffOpChange( 'test label', 'label for test' ),
+					'en' => new DiffOpChange( 'test label', 'updated label' ),
 				], true ),
 				'descriptions' => new Diff( [
 					'en' => new DiffOpRemove( 'test description' ),
@@ -75,7 +89,7 @@ class SchemaDifferTest extends TestCase {
 						new DiffOpAdd( 'Testalias' ),
 					], false ),
 				], true ),
-				'schema' => new DiffOpChange( 'test schema', 'schema for test' ),
+				'schema' => new DiffOpChange( 'test schema', 'updated schema' ),
 			], true )
 		];
 
@@ -93,6 +107,23 @@ class SchemaDifferTest extends TestCase {
 			new Diff( [
 				'schema' => new DiffOpRemove( 'test schema' ),
 			], true ),
+		];
+
+		yield 'change order of aliases' => [
+			$schemaEn,
+			[
+				'labels' => [
+					'en' => 'test label',
+				],
+				'descriptions' => [
+					'en' => 'test description',
+				],
+				'aliases' => [
+					'en' => [ 'test alias 2', 'test alias' ],
+				],
+				'schema' => 'test schema',
+			],
+			new Diff( [], true )
 		];
 	}
 
