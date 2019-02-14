@@ -4,9 +4,10 @@ namespace Wikibase\Schema\Services\Diff;
 
 use Diff\Differ\MapDiffer;
 use Diff\DiffOp\Diff\Diff;
+use Wikibase\Schema\Services\SchemaDispatcher\FullArraySchemaData;
 
 /**
- * Computes the difference between two schemas, which are represented as arrays.
+ * Computes the difference between two schemas.
  * The difference is represented as an associative {@link Diff} with the following operations:
  *
  * - labels: an associative {@link Diff} where the keys are language codes
@@ -30,7 +31,10 @@ class SchemaDiffer {
 		$this->recursiveMapDiffer = new MapDiffer( true );
 	}
 
-	public function diffSchemas( array $from, array $to ): Diff {
+	public function diffSchemas( FullArraySchemaData $from, FullArraySchemaData $to ): Diff {
+		$from = $from->data;
+		$to = $to->data;
+
 		if ( array_key_exists( 'schema', $from ) && $from['schema'] === '' ) {
 			unset( $from['schema'] );
 		}

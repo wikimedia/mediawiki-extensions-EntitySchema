@@ -8,6 +8,7 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Schema\Services\Diff\SchemaDiffer;
+use Wikibase\Schema\Services\SchemaDispatcher\FullArraySchemaData;
 
 /**
  * @covers Wikibase\Schema\Services\Diff\SchemaDiffer
@@ -99,6 +100,8 @@ class SchemaDifferTest extends TestCase {
 	 * @dataProvider provideSchemaDiffs
 	 */
 	public function testDiffSchemas( array $from, array $to, Diff $expected ) {
+		$from = new FullArraySchemaData( $from );
+		$to = new FullArraySchemaData( $to );
 		$schemaDiffer = new SchemaDiffer();
 
 		$actual = $schemaDiffer->diffSchemas( $from, $to );
