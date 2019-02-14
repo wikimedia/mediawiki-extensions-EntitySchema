@@ -61,6 +61,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 							$language => $aliases
 						],
 						'schema' => $schemaContent,
+						'type' => 'ShExC'
 					]
 				)
 			)

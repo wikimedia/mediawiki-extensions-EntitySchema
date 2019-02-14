@@ -37,7 +37,8 @@ class MediawikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 					'aliases' => [
 						$language => $aliases
 					],
-					'schema' => $schemaContent
+					'schema' => $schemaContent,
+					'type' => 'ShExC',
 				]
 			)
 		);
