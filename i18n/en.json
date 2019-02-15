@@ -22,11 +22,19 @@
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
 	"wikibaseschema-error-schemadeleted": "The schema you tried to edit doesn't exist. Maybe it was deleted?",
 	"wikibaseschema-error-schemaupdate-failed": "The Schema could not be updated",
+	"wikibaseschema-error-saving-failed": "Saving the Schema failed with the following message: $1",
+	"wikibaseschema-error-not-post": "This action must be done with a post request.",
 	"wikibaseschema-noschema": "There is no Schema here. Go to [[Special:NewSchema]] to create a new one.",
+	"wikibaseschema-summary-generated": "Summary (will be appended to an automatically generated summary):",
 	"wikibaseschema-diff-label": "Labels",
 	"wikibaseschema-diff-description": "Descriptions",
 	"wikibaseschema-diff-aliases": "Aliases",
 	"wikibaseschema-diff-schema": "Schema",
 	"wikibaseschema-summary-newschema": "Created a new Schema: \"$1\"",
-	"wikibaseschema-summary-update": "Updated Schema"
+	"wikibaseschema-summary-update": "Updated Schema",
+	"wikibaseschema-undo-heading": "Undoing edit to $1",
+	"wikibaseschema-undo-heading-failed": "Undo failed",
+	"wikibaseschema-undo-bad-revisions": "The edit could not be undone because it does not exist or was deleted.",
+	"wikibaseschema-undo-cannot-apply-patch": "The edit could not be undone because it has been changed.",
+	"wikibaseschema-undo-old-revision": "Revision to be undone"
 }
