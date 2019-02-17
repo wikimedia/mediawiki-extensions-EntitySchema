@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joao Xavier"
+		]
+	},
+	"wikibaseschema-newschema-label": "Etiketo:",
+	"wikibaseschema-newschema-submit": "Krear",
+	"wikibaseschema-anonymouseditwarning": "Atencez: Vu ne facis 'login'. Vua IP-adreso enrejistresos kande vu redaktos ca skemo.",
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx:"
+}
