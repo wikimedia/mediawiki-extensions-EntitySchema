@@ -50,9 +50,37 @@ class SchemaDispatcher {
 		);
 	}
 
+	public function getFullArraySchemaData( $schemaJSON ): FullArraySchemaData {
+		$schema = json_decode( $schemaJSON, true );
+
+		$data = [
+			'labels' => [],
+			'descriptions' => [],
+			'aliases' => [],
+			'schema' => $schema['schema'] ?? '',
+		];
+
+		foreach ( $this->getSchemaLanguages( $schema ) as $languageCode ) {
+			$label = $this->getLabelFromSchema( $schema, $languageCode );
+			if ( $label ) {
+				$data['labels'][$languageCode] = $label;
+			}
+			$description = $this->getDescriptionFromSchema( $schema, $languageCode );
+			if ( $description ) {
+				$data['descriptions'][$languageCode] = $description;
+			}
+			$aliases = $this->getAliasGroupFromSchema( $schema, $languageCode );
+			if ( $aliases ) {
+				$data['aliases'][$languageCode] = $aliases;
+			}
+		}
+
+		return new FullArraySchemaData( $data );
+	}
+
 	/**
 	 * @param array $schema
-	 * @param string $interfaceLanguage
+	 * @param string|null $interfaceLanguage
 	 *
 	 * @return NameBadge[]
 	 *
@@ -71,8 +99,14 @@ class SchemaDispatcher {
 		return $nameBadges;
 	}
 
-	private function getSchemaLanguages( $schema, $interfaceLanguage ) {
-		$langs = [ $interfaceLanguage ];
+	/**
+	 * @param array $schema
+	 * @param string|null $interfaceLanguage
+	 *
+	 * @return string[]
+	 */
+	private function getSchemaLanguages( $schema, $interfaceLanguage = null ) {
+		$langs = $interfaceLanguage ? [ $interfaceLanguage ] : [];
 		if ( !empty( $schema['labels'] ) ) {
 			$langs = array_merge(
 				$langs,

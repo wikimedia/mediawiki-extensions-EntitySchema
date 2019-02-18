@@ -239,4 +239,150 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 		$this->assertEquals( $expectedSchemaData, $actualSchema );
 	}
 
+	public function provideFullArraySchemaData() {
+		yield 'single language' => [
+			[
+				'labels' => [
+					'en' => 'english test label',
+				],
+				'descriptions' => [
+					'en' => 'english test description',
+				],
+				'aliases' => [
+					'en' => [ 'english test alias' ],
+				],
+				'schema' => 'test schema',
+				'serializationVersion' => '2.0',
+			],
+			[
+				'labels' => [
+					'en' => 'english test label',
+				],
+				'descriptions' => [
+					'en' => 'english test description',
+				],
+				'aliases' => [
+					'en' => [ 'english test alias' ],
+				],
+				'schema' => 'test schema',
+			],
+		];
+
+		yield 'multiple languages' => [
+			[
+				'labels' => [
+					'en' => 'english test label',
+				],
+				'descriptions' => [
+					'de' => 'deutsche Testbeschreibung',
+				],
+				'aliases' => [
+					'pt' => [ 'alias de teste em português' ],
+				],
+				'schema' => 'test schema',
+				'serializationVersion' => '2.0',
+			],
+			[
+				'labels' => [
+					'en' => 'english test label',
+				],
+				'descriptions' => [
+					'de' => 'deutsche Testbeschreibung',
+				],
+				'aliases' => [
+					'pt' => [ 'alias de teste em português' ],
+				],
+				'schema' => 'test schema',
+			],
+		];
+
+		yield 'multiple languages with extra empty entries' => [
+			[
+				'labels' => [
+					'en' => 'english test label',
+					'de' => '',
+					'pt' => '',
+				],
+				'descriptions' => [
+					'en' => '',
+					'de' => 'deutsche Testbeschreibung',
+					'pt' => '',
+				],
+				'aliases' => [
+					'en' => [],
+					'de' => [],
+					'pt' => [ 'alias de teste em português' ],
+				],
+				'schema' => 'test schema',
+				'serializationVersion' => '2.0',
+			],
+			[
+				'labels' => [
+					'en' => 'english test label',
+				],
+				'descriptions' => [
+					'de' => 'deutsche Testbeschreibung',
+				],
+				'aliases' => [
+					'pt' => [ 'alias de teste em português' ],
+				],
+				'schema' => 'test schema',
+			],
+		];
+
+		yield 'doesn’t just remove the serialization version' => [
+			[
+				'labels' => [
+					'en' => [
+						'language' => 'en',
+						'value' => 'english test label',
+					],
+				],
+				'descriptions' => [
+					'en' => [
+						'language' => 'en',
+						'value' => 'english test description',
+					],
+				],
+				'aliases' => [
+					'en' => [
+						[
+							'language' => 'en',
+							'value' => 'english test alias',
+						],
+					],
+				],
+				'schema' => 'test schema',
+				'serializationVersion' => '1.0',
+			],
+			[
+				'labels' => [
+					'en' => 'english test label',
+				],
+				'descriptions' => [
+					'en' => 'english test description',
+				],
+				'aliases' => [
+					'en' => [ 'english test alias' ],
+				],
+				'schema' => 'test schema',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideFullArraySchemaData
+	 */
+	public function testFullArraySchemaData(
+		array $schema,
+		array $expectedSchemaData
+	) {
+		$schemaJSON = json_encode( $schema );
+		$dispatcher = new SchemaDispatcher();
+
+		$actualSchemaData = $dispatcher->getFullArraySchemaData( $schemaJSON )->data;
+
+		$this->assertSame( $expectedSchemaData, $actualSchemaData );
+	}
+
 }
