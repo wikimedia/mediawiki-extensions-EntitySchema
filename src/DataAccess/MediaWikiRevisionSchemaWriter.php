@@ -131,6 +131,12 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 				)
 			)
 		);
+
+		$updater->saveRevision(
+			CommentStoreComment::newUnsavedComment(
+				'FIXME: there should be a translatable comment here.'
+			)
+		);
 	}
 
 	private function validateParameters(
