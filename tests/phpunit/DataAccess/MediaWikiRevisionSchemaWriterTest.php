@@ -72,6 +72,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$revisionRecord = $this->createMock( RevisionRecord::class );
 			$revisionRecord->method( 'getContent' )->willReturn( $existingContent );
 			$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
+			$pageUpdater->method( 'wasSuccessful' )->willReturn( true );
 		}
 		$pageUpdater->expects( $this->once() )
 			->method( 'setContent' )
@@ -172,8 +173,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		) );
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
-		$idGenerator = $this->createMock( IdGenerator::class );
-		$writer = new MediaWikiRevisionSchemaWriter( $pageUpdaterFactory, $idGenerator );
+		$writer = new MediaWikiRevisionSchemaWriter( $pageUpdaterFactory );
 		$writer->updateSchema(
 			new SchemaId( 'O1' ),
 			'en',

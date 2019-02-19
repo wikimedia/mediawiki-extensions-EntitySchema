@@ -20,7 +20,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
-		IdGenerator $idGenerator
+		IdGenerator $idGenerator = null
 	) {
 		$this->idGenerator = $idGenerator;
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
@@ -137,6 +137,9 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 				'FIXME: there should be a translatable comment here.'
 			)
 		);
+	  if ( !$updater->wasSuccessful() ) {
+		  throw new RuntimeException( 'The revision could not be saved' );
+	  }
 	}
 
 	private function validateParameters(

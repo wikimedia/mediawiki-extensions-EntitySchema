@@ -2,13 +2,15 @@
 
 namespace Wikibase\Schema\MediaWiki;
 
-use CommentStoreComment;
 use FormAction;
 use RuntimeException;
 use Status;
+use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\Domain\Model\Schema;
+use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 
 /**
  * Edit a Wikibase Schema via the mediawiki editing action
@@ -39,14 +41,22 @@ class SchemaEditAction extends FormAction {
 			return Status::newFatal( $this->msg( 'wikibaseschema-error-schemadeleted' ) );
 		}
 
-		$schema = $this->formDataToSchema( $data );
-		$content->setContentFromSchema( $schema );
-
-		$updater = $this->page->getPage()->newPageUpdater( $this->context->getUser() );
-		$updater->setContent( 'main', $content );
-		$updater->saveRevision(
-			CommentStoreComment::newUnsavedComment( 'FIXME in SchemaEditAction::onSubmit' )
-		);
+		$updaterFactory = new MediaWikiPageUpdaterFactory( $this->context->getUser() );
+		$id = new SchemaId( $this->getTitle()->getText() );
+		$aliases = array_filter( array_map( 'trim', explode( '|', $data['aliases'] ) ) );
+		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory );
+		try {
+			$schemaWriter->updateSchema(
+				$id,
+				'en',
+				$data['label'],
+				$data['description'],
+				$aliases,
+				$data['schema']
+			);
+		} catch ( RunTimeException $e ) {
+			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
+		}
 
 		return Status::newGood();
 	}
@@ -89,18 +99,6 @@ class SchemaEditAction extends FormAction {
 
 	protected function usesOOUI() {
 		return true;
-	}
-
-	private function formDataToSchema( array $formData ) {
-		$schema = new Schema();
-		$schema->setLabel( 'en', $formData['label'] );
-		$schema->setDescription( 'en', $formData['description'] );
-		$schema->setAliasGroup(
-			'en',
-			array_filter( array_map( 'trim', explode( '|', $formData['aliases'] ) ) )
-		);
-		$schema->setSchema( $formData['schema'] );
-		return $schema;
 	}
 
 	/**
