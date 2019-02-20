@@ -8,7 +8,6 @@ use ParserOptions;
 use ParserOutput;
 use Title;
 use Wikibase\Schema\Domain\Model\Schema;
-use Wikibase\Schema\Serialization\SerializerFactory;
 use Wikibase\Schema\Services\SchemaDispatcher\MonolingualSchemaData;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
 
@@ -71,14 +70,6 @@ class WikibaseSchemaContent extends JsonContent {
 				],
 				$schemaData->schema
 			);
-	}
-
-	/**
-	 * @param Schema $schema
-	 */
-	public function setContentFromSchema( Schema $schema ) {
-		$serializer = SerializerFactory::newSchemaSerializer();
-		$this->mText = json_encode( $serializer->serialize( $schema ) );
 	}
 
 }
