@@ -4,11 +4,11 @@ namespace Wikibase\Schema\MediaWiki\Content;
 
 use Html;
 use JsonContent;
+use MediaWiki\MediaWikiServices;
 use ParserOptions;
 use ParserOutput;
 use Title;
 use Wikibase\Schema\Domain\Model\Schema;
-use Wikibase\Schema\Services\SchemaDispatcher\MonolingualSchemaData;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
 
 /**
@@ -32,44 +32,73 @@ class WikibaseSchemaContent extends JsonContent {
 	) {
 
 		if ( $generateHtml && $this->isValid() ) {
-			$output->setText( $this->schemaSerializationToHtml(
-				( new SchemaDispatcher() )
-					->getMonolingualSchemaData( $this->getText(), 'en' )
-			) );
+			$output->addModuleStyles( 'ext.WikibaseSchema.view' );
+			$schemaData = ( new SchemaDispatcher() )
+				->getMonolingualSchemaData( $this->getText(), 'en' );
+			$output->setText(
+				$this->renderNameBadge( $schemaData->nameBadge ) .
+				$this->renderSchemaSection( $title, $schemaData->schema )
+			);
 		} else {
 			$output->setText( '' );
 		}
 	}
 
-	private function schemaSerializationToHtml( MonolingualSchemaData $schemaData ) {
+	private function renderNameBadge( $nameBadge ) {
 		return Html::element(
 				'h1',
 				[
 					'id' => 'wbschema-title-label',
 				],
-				$schemaData->nameBadge->label
+				$nameBadge->label
 			) .
 			Html::element(
 				'abstract',
 				[
 					'id' => 'wbschema-heading-description',
 				],
-				$schemaData->nameBadge->description
+				$nameBadge->description
 			) .
 			Html::element(
 				'p',
 				[
 					'id' => 'wbschema-heading-aliases',
 				],
-				implode( ' | ', $schemaData->nameBadge->aliases )
-			)
-			. Html::element(
+				implode( ' | ', $nameBadge->aliases )
+			);
+	}
+
+	private function renderSchemaSection( Title $title , $schemaContent ) {
+		return Html::rawElement( 'div', [
+			'id' => 'wbschema-schema-view-section',
+			'class' => 'wbschema-section',
+		],
+			$this->renderSchema( $schemaContent ) .
+			$this->renderSchemaEditLink( $title )
+		);
+	}
+
+	private function renderSchema( $schemaContent ) {
+		return Html::element(
 				'pre',
 				[
 					'id' => 'wbschema-schema-shexc',
+					'class' => 'wbschema-shexc',
 				],
-				$schemaData->schema
+				$schemaContent
 			);
+	}
+
+	private function renderSchemaEditLink( Title $title ) {
+		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+		return Html::rawElement(
+			'div',
+			[
+				'id' => 'wbschema-edit-shexc',
+				'class' => 'wbschema-edit-button',
+			],
+			$linkRenderer->makeLink( $title, 'edit', [ 'class' => 'edit-icon' ], [ 'action' => 'edit' ] )
+		);
 	}
 
 }

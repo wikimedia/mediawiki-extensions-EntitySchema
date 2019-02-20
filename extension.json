@@ -50,6 +50,13 @@
 			"defaultcontentmodel": "wikitext"
 		}
 	],
+	"ResourceModules": {
+		"ext.WikibaseSchema.view": {
+			"styles": [ "viewSchema.less" ],
+			"localBasePath": "src/MediaWiki/Resources",
+			"remoteExtPath": "WikibaseSchema/src/MediaWiki/Resources"
+		}
+	},
 	"SpecialPages": {
 		"NewSchema": "Wikibase\\Schema\\MediaWiki\\Specials\\NewSchema"
 	},
