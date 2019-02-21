@@ -78,7 +78,7 @@ class NewSchema extends SpecialPage {
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $this->getUser() );
 
-		$schemaWriter = new MediawikiRevisionSchemaWriter( $pageUpdaterFactory, $idGenerator );
+		$schemaWriter = new MediawikiRevisionSchemaWriter( $pageUpdaterFactory, $this, $idGenerator );
 		$newId = $schemaWriter->insertSchema(
 			'en',
 			$data[self::FIELD_LABEL],

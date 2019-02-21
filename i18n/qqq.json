@@ -26,5 +26,7 @@
 	"wikibaseschema-diff-label": "Label designating the change in the Labels when viewing a diff of two Schemas",
 	"wikibaseschema-diff-description": "Label designating the change in the Description when viewing a diff of two Schemas",
 	"wikibaseschema-diff-aliases": "Label designating the change in the Aliases when viewing a diff of two Schemas",
-	"wikibaseschema-diff-schema": "Label designating the change in the Schema code when viewing a diff of two Schemas"
+	"wikibaseschema-diff-schema": "Label designating the change in the Schema code when viewing a diff of two Schemas",
+	"wikibaseschema-summary-newschema": "A generic message for the recent changes or page history, stating that the Schema was created. \n\nParameters:\n* $1 - the label of the Schema",
+	"wikibaseschema-summary-update": "A generic message used when different parts of a Schema may have been updated."
 }

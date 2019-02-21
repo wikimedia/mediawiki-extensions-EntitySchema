@@ -26,5 +26,7 @@
 	"wikibaseschema-diff-label": "Labels",
 	"wikibaseschema-diff-description": "Descriptions",
 	"wikibaseschema-diff-aliases": "Aliases",
-	"wikibaseschema-diff-schema": "Schema"
+	"wikibaseschema-diff-schema": "Schema",
+	"wikibaseschema-summary-newschema": "Created a new Schema: \"$1\"",
+	"wikibaseschema-summary-update": "Updated Schema"
 }

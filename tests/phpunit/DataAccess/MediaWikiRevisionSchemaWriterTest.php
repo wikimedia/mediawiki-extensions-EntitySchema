@@ -3,6 +3,8 @@
 namespace Wikibase\Schema\Tests\DataAccess;
 
 use MediaWiki\Storage\RevisionRecord;
+use Message;
+use MessageLocalizer;
 use \RuntimeException;
 use MediaWiki\Storage\PageUpdater;
 use stdClass;
@@ -53,7 +55,11 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$idGenerator = $this->createMock( IdGenerator::class );
 		$idGenerator->method( 'getNewId' )->willReturn( '123' );
 
-		$writer = new MediaWikiRevisionSchemaWriter( $pageUpdaterFactory, $idGenerator );
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$idGenerator
+		);
 
 		$writer->insertSchema( $language,
 			$label,
@@ -93,11 +99,22 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		return $pageUpdaterFactory;
 	}
 
+	private function getMessageLocalizer(): MessageLocalizer {
+		$msgLocalizer = $this->createMock( MessageLocalizer::class );
+		$msgLocalizer->method( 'msg' )->willReturn( new Message( '' ) );
+
+		return $msgLocalizer;
+	}
+
 	public function testUpdateSchema_throwsForNonExistantPage() {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 		$idGenerator = $this->createMock( IdGenerator::class );
-		$writer = new MediaWikiRevisionSchemaWriter( $pageUpdaterFactory, $idGenerator );
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$idGenerator
+		);
 
 		$this->expectException( RuntimeException::class );
 		$writer->updateSchema(
@@ -134,7 +151,11 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 	) {
 		$pageUpdaterFactory = $this->getPageUpdaterFactory();
 		$idGenerator = $this->createMock( IdGenerator::class );
-		$writer = new MediaWikiRevisionSchemaWriter( $pageUpdaterFactory, $idGenerator );
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$idGenerator
+		);
 		$this->expectException( RuntimeException::class );
 		$writer->updateSchema(
 			new SchemaId( 'O1' ),
@@ -173,7 +194,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		) );
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
-		$writer = new MediaWikiRevisionSchemaWriter( $pageUpdaterFactory );
+		$writer = new MediaWikiRevisionSchemaWriter( $pageUpdaterFactory, $this->getMessageLocalizer() );
 		$writer->updateSchema(
 			new SchemaId( 'O1' ),
 			'en',

@@ -44,7 +44,7 @@ class SchemaEditAction extends FormAction {
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $this->context->getUser() );
 		$id = new SchemaId( $this->getTitle()->getText() );
 		$aliases = array_filter( array_map( 'trim', explode( '|', $data['aliases'] ) ) );
-		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory );
+		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory, $this );
 		try {
 			$schemaWriter->updateSchema(
 				$id,

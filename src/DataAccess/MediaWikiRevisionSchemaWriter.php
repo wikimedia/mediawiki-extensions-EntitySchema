@@ -5,6 +5,7 @@ namespace Wikibase\Schema\DataAccess;
 use CommentStoreComment;
 use InvalidArgumentException;
 use MediaWiki\Revision\SlotRecord;
+use MessageLocalizer;
 use RuntimeException;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\Domain\Storage\IdGenerator;
@@ -17,13 +18,16 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 
 	private $pageUpdaterFactory;
 	private $idGenerator;
+	private $msgLocalizer;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
+		MessageLocalizer $msgLocalizer,
 		IdGenerator $idGenerator = null
 	) {
 		$this->idGenerator = $idGenerator;
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
+		$this->msgLocalizer = $msgLocalizer;
 	}
 
 	/**
@@ -68,9 +72,12 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 				)
 			)
 		);
+
 		$updater->saveRevision(
 			CommentStoreComment::newUnsavedComment(
-				'FIXME: there should be a translatable comment here.'
+				$this->msgLocalizer->msg(
+					'wikibaseschema-summary-newschema'
+				)->plaintextParams( $label )
 			)
 		);
 
@@ -134,7 +141,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 
 		$updater->saveRevision(
 			CommentStoreComment::newUnsavedComment(
-				'FIXME: there should be a translatable comment here.'
+				$this->msgLocalizer->msg( 'wikibaseschema-summary-update' )
 			)
 		);
 	  if ( !$updater->wasSuccessful() ) {
