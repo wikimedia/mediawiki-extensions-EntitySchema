@@ -60,7 +60,8 @@
 	},
 	"SpecialPages": {
 		"NewSchema": "Wikibase\\Schema\\MediaWiki\\Specials\\NewSchema",
-		"SchemaText": "Wikibase\\Schema\\MediaWiki\\Specials\\SchemaText"
+		"SchemaText": "Wikibase\\Schema\\MediaWiki\\Specials\\SchemaText",
+		"SetSchemaLabelDescriptionAliases": "Wikibase\\Schema\\MediaWiki\\Specials\\SetSchemaLabelDescriptionAliases"
 	},
 	"manifest_version": 2
 }

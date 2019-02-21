@@ -12,4 +12,5 @@ $specialPageAliases = [];
 $specialPageAliases['en'] = [
 	'NewSchema' => [ 'NewSchema' ],
 	'SchemaText' => [ 'SchemaText' ],
+	'SetSchemaLabelDescriptionAliases' => [ 'SetSchemaLabelDescriptionAliases' ],
 ];

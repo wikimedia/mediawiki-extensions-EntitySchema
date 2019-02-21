@@ -17,6 +17,7 @@
 	"wikibaseschema-label-edit-placeholder": "Placeholder to add the label in English",
 	"wikibaseschema-description-edit-placeholder": "Placeholder to add the description in English",
 	"wikibaseschema-aliases-edit-placeholder": "Placeholder to add aliases for the Schema in English",
+	"wikibaseschema-id-edit-placeholder": "Input label for the ID field on the edit page",
 	"wikibaseschema-editpage-label-inputlabel": "Input label for the label field on the edit page",
 	"wikibaseschema-editpage-description-inputlabel": "Input label for the description field on the edit page",
 	"wikibaseschema-editpage-aliases-inputlabel": "Input label for the aliases field on the edit page",
@@ -50,5 +51,17 @@
 	"wikibaseschema-restoreold": "Link text shown on the link that lets the user restore the page's content to an old revision. Must be distinct from undo and revert. Used on the diff views.\n{{Identical|Restore}}",
 	"special-schematext": "Title for the Special Page that gives access to the raw Schema text.",
 	"wikibaseschema-schematext-text": "Explanatory text to access the raw Schema text on the special page.",
-	"wikibaseschema-schematext-missing": "Error message if raw text of a non-existant Schema is requested."
+	"wikibaseschema-schematext-missing": "Error message if raw text of a non-existant Schema is requested.",
+	"wikibaseschema-special-setlabeldescriptionaliases": "The title for Special:SetSchemaLabelDescriptionAliases in which the label, description and aliases of a Schema could be added or edited",
+	"wikibaseschema-special-id-inputlabel": "Field label for the ID field of Special:SetSchemaLabelDescriptionAliases",
+	"wikibaseschema-special-language-inputlabel": "Field label for the language code field of Special:SetSchemaLabelDescriptionAliases",
+	"wikibaseschema-special-id-submit": "Name of the submit button for the Schema selection phase of Special:SetSchemaLabelDescriptionAliases which leads to the edit field for label, description and aliases",
+	"wikibaseschema-special-setlabeldescriptionaliases-warning": "Warning displayed when the wrong ID or language code were used in Special:SetSchemaLabelDescriptionAliases",
+	"wikibaseschema-special-label": "Input label for the label field on Special:SetSchemaLabelDescriptionAliases",
+	"wikibaseschema-special-description": "Input label for the description field on Special:SetSchemaLabelDescriptionAliases:",
+	"wikibaseschema-special-aliases": "Input label for the aliases field on Special:SetSchemaLabelDescriptionAliases",
+	"wikibaseschema-special-label-edit-placeholder": "Placeholder to add the label in English on Special:SetSchemaLabelDescriptionAliases",
+	"wikibaseschema-special-description-edit-placeholder": "Placeholder to add the description in English on Special:SetSchemaLabelDescriptionAliases",
+	"wikibaseschema-special-aliases-edit-placeholder": "Placeholder to add the aliases in English on Special:SetSchemaLabelDescriptionAliases",
+	"wikibaseschema-special-id-placeholder": "Placeholder for the Schema ID field when retrieving a Schema to edit on Special:SetSchemaLabelDescriptionAliases"
 }
