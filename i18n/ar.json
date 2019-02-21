@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"ديفيد"
+			"ديفيد",
+			"Meno25"
 		]
 	},
 	"wikibaseschema-desc": "تخزين ومناقشة المخططات لكيانات قاعدة الويكي",
@@ -21,5 +22,10 @@
 	"wikibaseschema-editpage-aliases-inputlabel": "الأسماء المستعارة (مفصولة بأنابيب):",
 	"wikibaseschema-editpage-schema-inputlabel": "تعبيرات الشكل:",
 	"wikibaseschema-error-schemadeleted": "المخطط الذي حاولت تحريره غير موجود، ربما تم حذفه؟",
-	"wikibaseschema-noschema": "لا يوجد مخطط هنا، انتقل إلى [[Special:NewSchema]] لإنشاء واحد جديد."
+	"wikibaseschema-error-schemaupdate-failed": "السكيما لم يمكن تحديثها",
+	"wikibaseschema-noschema": "لا يوجد مخطط هنا، انتقل إلى [[Special:NewSchema]] لإنشاء واحد جديد.",
+	"wikibaseschema-diff-label": "تسميات",
+	"wikibaseschema-diff-description": "الوصوفات",
+	"wikibaseschema-diff-aliases": "الأسماء المستعارة",
+	"wikibaseschema-diff-schema": "المخطط"
 }

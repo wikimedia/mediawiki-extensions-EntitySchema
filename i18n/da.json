@@ -7,5 +7,8 @@
 	"wikibaseschema-newschema-label": "Etiket:",
 	"wikibaseschema-newschema-description": "Beskrivelse:",
 	"wikibaseschema-newschema-submit": "Opret",
-	"wikibaseschema-editpage-description-inputlabel": "Beskrivelse:"
+	"wikibaseschema-editpage-description-inputlabel": "Beskrivelse:",
+	"wikibaseschema-diff-label": "Mærkater",
+	"wikibaseschema-diff-description": "Beskrivelse",
+	"wikibaseschema-diff-aliases": "Aliasser"
 }

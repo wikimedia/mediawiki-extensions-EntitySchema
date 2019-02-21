@@ -21,5 +21,10 @@
 	"wikibaseschema-editpage-aliases-inputlabel": "Aliases (separados por barras):",
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
 	"wikibaseschema-error-schemadeleted": "O schema que você tentou editar não existe. Talvez tenha sido apagado?",
-	"wikibaseschema-noschema": "Não há schema aqui. Vá para [[Special:NewSchema]] para criar um novo."
+	"wikibaseschema-error-schemaupdate-failed": "O esquema não pôde ser atualizado",
+	"wikibaseschema-noschema": "Não há schema aqui. Vá para [[Special:NewSchema]] para criar um novo.",
+	"wikibaseschema-diff-label": "Etiquetas",
+	"wikibaseschema-diff-description": "Descrições",
+	"wikibaseschema-diff-aliases": "Nomes alternativos",
+	"wikibaseschema-diff-schema": "Esquema"
 }

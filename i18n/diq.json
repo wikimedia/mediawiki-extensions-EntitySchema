@@ -10,5 +10,9 @@
 	"wikibaseschema-newschema-submit": "Vıraze",
 	"wikibaseschema-editpage-label-inputlabel": "Etiket:",
 	"wikibaseschema-editpage-description-inputlabel": "Şınasnayış:",
-	"wikibaseschema-editpage-schema-inputlabel": "ShEx:"
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
+	"wikibaseschema-diff-label": "Etiketi",
+	"wikibaseschema-diff-description": "Şınasnayışi",
+	"wikibaseschema-diff-aliases": "Nameyê bini",
+	"wikibaseschema-diff-schema": "Teslağ"
 }

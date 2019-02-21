@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fitoschido"
+			"Fitoschido",
+			"Ihojose"
 		]
 	},
 	"wikibaseschema-newschema-label": "Etiqueta:",
@@ -10,5 +11,6 @@
 	"wikibaseschema-newschema-submit": "Crear",
 	"wikibaseschema-editpage-label-inputlabel": "Etiqueta:",
 	"wikibaseschema-editpage-description-inputlabel": "Descripción:",
-	"wikibaseschema-editpage-aliases-inputlabel": "Alias (separados por plecas):"
+	"wikibaseschema-editpage-aliases-inputlabel": "Alias (separados por plecas):",
+	"wikibaseschema-error-schemaupdate-failed": "El esquema no puede ser actualizado"
 }

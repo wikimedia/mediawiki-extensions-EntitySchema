@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Gomoko"
+			"Gomoko",
+			"Wladek92"
 		]
 	},
 	"wikibaseschema-desc": "Stocker et discuter des schémas pour les entités de Wikibase",
@@ -21,5 +22,10 @@
 	"wikibaseschema-editpage-aliases-inputlabel": "Alias (séparés par des barres verticales) :",
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx :",
 	"wikibaseschema-error-schemadeleted": "Le schéma que vous essayez de modifier n’existe pas. Peut-être a-t-il été supprimé ?",
-	"wikibaseschema-noschema": "Il n’y a pas de schéma ici. Allez sur [[Special:NewSchema]] pour en créer un nouveau."
+	"wikibaseschema-error-schemaupdate-failed": "Le schéma n'a pas pu être mis à jour",
+	"wikibaseschema-noschema": "Il n’y a pas de schéma ici. Allez sur [[Special:NewSchema]] pour en créer un nouveau.",
+	"wikibaseschema-diff-label": "Étiquettes",
+	"wikibaseschema-diff-description": "Descriptions",
+	"wikibaseschema-diff-aliases": "Alias",
+	"wikibaseschema-diff-schema": "Schéma"
 }

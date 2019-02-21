@@ -21,5 +21,12 @@
 	"wikibaseschema-editpage-aliases-inputlabel": "Aliasse (durch senkrechte Striche getrennt):",
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
 	"wikibaseschema-error-schemadeleted": "Das Schema, das du versuchst zu bearbeiten, ist nicht vorhanden. Vielleicht wurde es gelöscht?",
-	"wikibaseschema-noschema": "Es gibt hier kein Schema. Gehe auf [[Special:NewSchema]], um ein neues zu erstellen."
+	"wikibaseschema-error-schemaupdate-failed": "Das Schema konnte nicht aktualisiert werden",
+	"wikibaseschema-noschema": "Es gibt hier kein Schema. Gehe auf [[Special:NewSchema]], um ein neues zu erstellen.",
+	"wikibaseschema-diff-label": "Bezeichnungen",
+	"wikibaseschema-diff-description": "Beschreibungen",
+	"wikibaseschema-diff-aliases": "Aliasse",
+	"wikibaseschema-diff-schema": "Schema",
+	"wikibaseschema-summary-newschema": "Neues Schema erstellt: „$1“",
+	"wikibaseschema-summary-update": "Schema aktualisiert"
 }

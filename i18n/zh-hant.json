@@ -21,5 +21,10 @@
 	"wikibaseschema-editpage-aliases-inputlabel": "別名（以豎線符號分隔）：",
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx：",
 	"wikibaseschema-error-schemadeleted": "您嘗試編輯的架構不存在，也許是已被刪除了？",
-	"wikibaseschema-noschema": "目前沒有架構。前往 [[Special:NewSchema]] 來建立一個新的。"
+	"wikibaseschema-error-schemaupdate-failed": "架構無法更新",
+	"wikibaseschema-noschema": "目前沒有架構。前往 [[Special:NewSchema]] 來建立一個新的。",
+	"wikibaseschema-diff-label": "標籤",
+	"wikibaseschema-diff-description": "描述",
+	"wikibaseschema-diff-aliases": "別名",
+	"wikibaseschema-diff-schema": "架構"
 }
