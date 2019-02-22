@@ -7,7 +7,10 @@ use Article;
 use IContextSource;
 use JsonContentHandler;
 use Page;
+use RequestContext;
 use SlotDiffRenderer;
+use Wikibase\Schema\MediaWiki\Actions\UndoSubmitAction;
+use Wikibase\Schema\MediaWiki\Actions\UndoViewAction;
 use Wikibase\Schema\MediaWiki\SchemaEditAction;
 use Wikibase\Schema\MediaWiki\SchemaSubmitAction;
 use WikiPage;
@@ -31,10 +34,28 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 
 	public function getActionOverrides() {
 		return [
-			'edit' => function ( Page $page, IContextSource $context = null ) {
+			'edit' => function( Page $page, IContextSource $context = null ) {
+				if ( $context === null ) {
+					$context = RequestContext::getMain();
+				}
+
 				/** @var Article|WikiPage $page */
 				if ( $page->getRevision() === null ) {
 					return Action::factory( 'view', $page, $context );
+				}
+
+				$req = $context->getRequest();
+
+				if (
+					$req->getCheck( 'undo' )
+					|| $req->getCheck( 'undoafter' )
+					|| $req->getCheck( 'restore' )
+				) {
+					return new UndoViewAction(
+						$page,
+						new WikibaseSchemaSlotDiffRenderer( $context ),
+						$context
+					);
 				}
 
 				// TODo: check redirect?
@@ -42,7 +63,23 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 
 				return new SchemaEditAction( $page, $context );
 			},
-			'submit' => SchemaSubmitAction::class,
+			'submit' => function( Page $page, IContextSource $context = null ) {
+				if ( $context === null ) {
+					$context = RequestContext::getMain();
+				}
+
+				$req = $context->getRequest();
+
+				if (
+					$req->getCheck( 'undo' )
+					|| $req->getCheck( 'undoafter' )
+					|| $req->getCheck( 'restore' )
+				) {
+					return new UndoSubmitAction( $page, $context );
+				}
+
+				return SchemaSubmitAction::class;
+			},
 		];
 	}
 
