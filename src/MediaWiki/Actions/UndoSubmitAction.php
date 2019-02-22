@@ -3,6 +3,7 @@
 namespace Wikibase\Schema\MediaWiki\Actions;
 
 use MediaWiki\MediaWikiServices;
+use Message;
 use PermissionsError;
 use ReadOnlyError;
 use RuntimeException;
@@ -95,6 +96,11 @@ class UndoSubmitAction extends AbstractUndoAction {
 			)
 		);
 
+		$submitMessage = $this->createSummaryMessageForUndoRev(
+			$this->context->getRequest()->getText( 'wpSummary' ),
+			$this->context->getRequest()->getInt( 'undo' )
+			);
+
 		try {
 			$schemaWriter->updateSchema(
 				new SchemaId( $this->getTitle()->getTitleValue()->getText() ),
@@ -102,13 +108,25 @@ class UndoSubmitAction extends AbstractUndoAction {
 				isset( $patchedSchema['labels'] ) ? $patchedSchema['labels']['en'] : '',
 				isset( $patchedSchema['descriptions'] ) ? $patchedSchema['descriptions']['en'] : '',
 				isset( $patchedSchema['aliases'] ) ? $patchedSchema['aliases']['en'] : [],
-				$patchedSchema['schema'] ?? ''
+				$patchedSchema['schema'] ?? '',
+				$submitMessage
 			);
 		} catch ( RuntimeException $e ) {
 			return Status::newFatal( 'wikibaseschema-error-saving-failed', $e->getMessage() );
 		}
 
 		return Status::newGood();
+	}
+
+	private function createSummaryMessageForUndoRev( $userSummary, $undoRevId ): Message {
+		$revToBeUndone = MediaWikiServices::getInstance()
+			->getRevisionStore()
+			->getRevisionById( $undoRevId );
+		$user = $revToBeUndone->getUser();
+		return $this->msg( 'wikibaseschema-summary-undo' )
+			->params( $revToBeUndone->getId() )
+			->params( $user )
+			->plaintextParams( $userSummary );
 	}
 
 }

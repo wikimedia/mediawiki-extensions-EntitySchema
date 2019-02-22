@@ -5,6 +5,7 @@ namespace Wikibase\Schema\DataAccess;
 use CommentStoreComment;
 use InvalidArgumentException;
 use MediaWiki\Revision\SlotRecord;
+use Message;
 use MessageLocalizer;
 use RuntimeException;
 use Wikibase\Schema\Domain\Model\SchemaId;
@@ -91,6 +92,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 	 * @param string $description
 	 * @param string[] $aliases
 	 * @param string $schemaContent
+	 * @param Message|null $message
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
 	 * @throws RuntimeException if Schema to update does not exist or saving fails
@@ -102,7 +104,9 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		$label,
 		$description,
 		array $aliases,
-		$schemaContent ) {
+		$schemaContent,
+		Message $message = null
+	) {
 		$this->validateParameters(
 			$language,
 			$label,
@@ -110,6 +114,10 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 			$aliases,
 			$schemaContent
 		);
+
+		if ( $message === null ) {
+			$message = $this->msgLocalizer->msg( 'wikibaseschema-summary-update' );
+		}
 
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		if ( $updater->grabParentRevision() === null ) {
@@ -140,9 +148,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		);
 
 		$updater->saveRevision(
-			CommentStoreComment::newUnsavedComment(
-				$this->msgLocalizer->msg( 'wikibaseschema-summary-update' )
-			)
+			CommentStoreComment::newUnsavedComment( $message )
 		);
 	  if ( !$updater->wasSuccessful() ) {
 		  throw new RuntimeException( 'The revision could not be saved' );
