@@ -23,9 +23,19 @@
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx :",
 	"wikibaseschema-error-schemadeleted": "Le schéma que vous essayez de modifier n’existe pas. Peut-être a-t-il été supprimé ?",
 	"wikibaseschema-error-schemaupdate-failed": "Le schéma n'a pas pu être mis à jour",
+	"wikibaseschema-error-saving-failed": "Echec d'enregistrement du schéma avec le message suivant : $1",
+	"wikibaseschema-error-not-post": "Cette action doit être faite à l'aide d'une requête Post.",
 	"wikibaseschema-noschema": "Il n’y a pas de schéma ici. Allez sur [[Special:NewSchema]] pour en créer un nouveau.",
+	"wikibaseschema-summary-generated": "Résumé (sera ajouté à un résumé généré automatiquement) :",
 	"wikibaseschema-diff-label": "Étiquettes",
 	"wikibaseschema-diff-description": "Descriptions",
 	"wikibaseschema-diff-aliases": "Alias",
-	"wikibaseschema-diff-schema": "Schéma"
+	"wikibaseschema-diff-schema": "Schéma",
+	"wikibaseschema-summary-newschema": "Un nouveau schéma créé : « $1 »",
+	"wikibaseschema-summary-update": "Schéma mis à jour",
+	"wikibaseschema-undo-heading": "Annulation en cours de la modification de $1",
+	"wikibaseschema-undo-heading-failed": "Echec de l'annulation",
+	"wikibaseschema-undo-bad-revisions": "La modification n’a pas pu être annulée parce qu’elle est inexistante ou elle a été supprimée.",
+	"wikibaseschema-undo-cannot-apply-patch": "La modification n'a pas pu être annulée car elle a été changée.",
+	"wikibaseschema-undo-old-revision": "Révision à annuler"
 }

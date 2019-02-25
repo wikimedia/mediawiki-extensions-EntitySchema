@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"The Wikidata Team"
+			"The Wikidata Team",
+			"Robby"
 		]
 	},
 	"wikibaseschema-desc": "{{desc|name=WikibaseSchema|url=https://www.mediawiki.org/wiki/Extension:WikibaseSchema}}",
@@ -25,9 +26,9 @@
 	"wikibaseschema-error-saving-failed": "Error message when saving a schema has failed.\n\nParameters:\n* $1 - the message of the exception",
 	"wikibaseschema-error-not-post": "Error message when a HTTP POST request is expected but something else was received.",
 	"wikibaseschema-noschema": "Text that is shown on a non-existant page in the Schema namespace",
-	"wikibaseschema-summary-generated": "The label above the summary input, stating that will be appended to a generated summary. ",
+	"wikibaseschema-summary-generated": "The label above the summary input, stating that will be appended to a generated summary.",
 	"wikibaseschema-diff-label": "Label designating the change in the Labels when viewing a diff of two Schemas",
-	"wikibaseschema-diff-description": "Label designating the change in the Description when viewing a diff of two Schemas",
+	"wikibaseschema-diff-description": "Label designating the change in the Description when viewing a diff of two Schemas\n{{Identical|Description}}",
 	"wikibaseschema-diff-aliases": "Label designating the change in the Aliases when viewing a diff of two Schemas",
 	"wikibaseschema-diff-schema": "Label designating the change in the Schema code when viewing a diff of two Schemas",
 	"wikibaseschema-summary-newschema": "A generic message for the recent changes or page history, stating that the Schema was created. \n\nParameters:\n* $1 - the label of the Schema",

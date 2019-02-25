@@ -11,5 +11,18 @@
 	"wikibaseschema-anonymouseditwarning": "경고: 로그인이 되어 있지 않습니다. IP 주소가 이 스키마의 편집 역사에 남게 됩니다.",
 	"wikibaseschema-editpage-label-inputlabel": "레이블:",
 	"wikibaseschema-editpage-description-inputlabel": "설명:",
-	"wikibaseschema-editpage-schema-inputlabel": "ShEx:"
+	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
+	"wikibaseschema-error-schemaupdate-failed": "스키마를 업데이트할 수 없습니다",
+	"wikibaseschema-error-not-post": "이 동작은 POST 요청으로 완료되어야 합니다.",
+	"wikibaseschema-summary-generated": "요약 (자동으로 생성되는 요약 뒤에 추가됩니다):",
+	"wikibaseschema-diff-label": "레이블",
+	"wikibaseschema-diff-description": "설명",
+	"wikibaseschema-diff-aliases": "다른 이름",
+	"wikibaseschema-diff-schema": "스키마",
+	"wikibaseschema-summary-newschema": "새 스키마를 만들었습니다: \"$1\"",
+	"wikibaseschema-undo-heading": "$1(으)로 편집을 되돌립니다",
+	"wikibaseschema-undo-heading-failed": "실행 취소를 실패했습니다",
+	"wikibaseschema-undo-bad-revisions": "이 편집은 존재하지 않거나 삭제되었기 때문에 취소하지 못했습니다.",
+	"wikibaseschema-undo-cannot-apply-patch": "이 편집은 변경되었기 때문에 취소하지 못했습니다.",
+	"wikibaseschema-undo-old-revision": "편집을 취소할 판"
 }

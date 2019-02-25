@@ -19,5 +19,20 @@
 	"wikibaseschema-editpage-label-inputlabel": "Етикети:",
 	"wikibaseschema-editpage-description-inputlabel": "Описание:",
 	"wikibaseschema-editpage-aliases-inputlabel": "Псевдоними (отделени с вертикални черти):",
-	"wikibaseschema-editpage-schema-inputlabel": "ИзрОбл:"
+	"wikibaseschema-editpage-schema-inputlabel": "ИзрОбл:",
+	"wikibaseschema-error-schemaupdate-failed": "Не можах да обновя схемата",
+	"wikibaseschema-error-saving-failed": "Не успях да запазя схемата, със следното съобщение: $1",
+	"wikibaseschema-error-not-post": "Това действие трябва да се извърши с заявка от POST.",
+	"wikibaseschema-summary-generated": "Описание (за прикачване към автоматично генерирано описание):",
+	"wikibaseschema-diff-label": "Надписи",
+	"wikibaseschema-diff-description": "Описания",
+	"wikibaseschema-diff-aliases": "Псевдоними",
+	"wikibaseschema-diff-schema": "Схема",
+	"wikibaseschema-summary-newschema": "Създадена нова схема: „$1“",
+	"wikibaseschema-summary-update": "Обновена схема",
+	"wikibaseschema-undo-heading": "Отмяна на редакцията на $1",
+	"wikibaseschema-undo-heading-failed": "Неуспех при отмяната",
+	"wikibaseschema-undo-bad-revisions": "Редакцията не може да бъде отменена, тъй като не съществува или е изтрита.",
+	"wikibaseschema-undo-cannot-apply-patch": "Редакцията не може да бъде отменена, тъй като е модифицирана.",
+	"wikibaseschema-undo-old-revision": "Версията за връщане"
 }

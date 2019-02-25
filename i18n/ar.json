@@ -23,9 +23,19 @@
 	"wikibaseschema-editpage-schema-inputlabel": "تعبيرات الشكل:",
 	"wikibaseschema-error-schemadeleted": "المخطط الذي حاولت تحريره غير موجود، ربما تم حذفه؟",
 	"wikibaseschema-error-schemaupdate-failed": "السكيما لم يمكن تحديثها",
+	"wikibaseschema-error-saving-failed": "فشل حفظ المخطط مع الرسالة التالية: $1",
+	"wikibaseschema-error-not-post": "يجب أن يتم هذا الإجراء مع طلب مشاركة.",
 	"wikibaseschema-noschema": "لا يوجد مخطط هنا، انتقل إلى [[Special:NewSchema]] لإنشاء واحد جديد.",
+	"wikibaseschema-summary-generated": "ملخص (سيتم إلحاقه بملخص مولد تلقائيا):",
 	"wikibaseschema-diff-label": "تسميات",
 	"wikibaseschema-diff-description": "الوصوفات",
 	"wikibaseschema-diff-aliases": "الأسماء المستعارة",
-	"wikibaseschema-diff-schema": "المخطط"
+	"wikibaseschema-diff-schema": "المخطط",
+	"wikibaseschema-summary-newschema": "إنشاء مخطط جديد: \"$1\"",
+	"wikibaseschema-summary-update": "تحديث المخطط",
+	"wikibaseschema-undo-heading": "التراجع عن التعديل إلى $1",
+	"wikibaseschema-undo-heading-failed": "فشل التراجع",
+	"wikibaseschema-undo-bad-revisions": "لا يمكن التراجع عن التعديل لأنه غير موجود أو تم حذفه.",
+	"wikibaseschema-undo-cannot-apply-patch": "لا يمكن التراجع عن التعديل لأنه تغير.",
+	"wikibaseschema-undo-old-revision": "مراجعة للتراجع عنها"
 }

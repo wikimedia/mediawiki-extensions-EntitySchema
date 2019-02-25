@@ -15,7 +15,9 @@
 	"wikibaseschema-editpage-label-inputlabel": "Etichetta:",
 	"wikibaseschema-editpage-description-inputlabel": "Descrizione:",
 	"wikibaseschema-error-schemadeleted": "Lo schema che hai provato a modificare non esiste. Forse è stato cancellato?",
+	"wikibaseschema-summary-generated": "Oggetto (verrà aggiunto all'oggetto generato automaticamente):",
 	"wikibaseschema-diff-label": "Etichette",
 	"wikibaseschema-diff-description": "Descrizioni",
-	"wikibaseschema-diff-aliases": "Alias"
+	"wikibaseschema-diff-aliases": "Alias",
+	"wikibaseschema-undo-heading-failed": "Annullamento fallito"
 }

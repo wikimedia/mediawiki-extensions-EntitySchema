@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Olghinabella"
+			"Olghinabella",
+			"Vlad5250"
 		]
 	},
-	"wikibaseschema-error-schemaupdate-failed": "Схема не може бути обновлена"
+	"wikibaseschema-error-schemaupdate-failed": "Схема не може бути оновлена"
 }

@@ -22,11 +22,19 @@
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
 	"wikibaseschema-error-schemadeleted": "Das Schema, das du versuchst zu bearbeiten, ist nicht vorhanden. Vielleicht wurde es gelöscht?",
 	"wikibaseschema-error-schemaupdate-failed": "Das Schema konnte nicht aktualisiert werden",
+	"wikibaseschema-error-saving-failed": "Das Speichern des Schemas ist mit der folgenden Meldung fehlgeschlagen: $1",
+	"wikibaseschema-error-not-post": "Diese Aktion muss mit einer POST-Anfrage durchgeführt werden.",
 	"wikibaseschema-noschema": "Es gibt hier kein Schema. Gehe auf [[Special:NewSchema]], um ein neues zu erstellen.",
+	"wikibaseschema-summary-generated": "Zusammenfassung (wird einer automatisch erzeugten Zusammenfassung angehängt):",
 	"wikibaseschema-diff-label": "Bezeichnungen",
 	"wikibaseschema-diff-description": "Beschreibungen",
 	"wikibaseschema-diff-aliases": "Aliasse",
 	"wikibaseschema-diff-schema": "Schema",
 	"wikibaseschema-summary-newschema": "Neues Schema erstellt: „$1“",
-	"wikibaseschema-summary-update": "Schema aktualisiert"
+	"wikibaseschema-summary-update": "Schema aktualisiert",
+	"wikibaseschema-undo-heading": "Bearbeitung an $1 rückgängig machen",
+	"wikibaseschema-undo-heading-failed": "Rückgängigmachung fehlgeschlagen",
+	"wikibaseschema-undo-bad-revisions": "Die Bearbeitung konnte nicht rückgängig gemacht werden, da sie nicht vorhanden ist oder gelöscht wurde.",
+	"wikibaseschema-undo-cannot-apply-patch": "Die Bearbeitung konnte nicht rückgängig gemacht werden, da sie geändert wurde.",
+	"wikibaseschema-undo-old-revision": "Zu rückgängig machende Version"
 }

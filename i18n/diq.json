@@ -4,6 +4,7 @@
 			"Mirzali"
 		]
 	},
+	"special-newschema": "Yew şemaya newiye vıraze",
 	"wikibaseschema-newschema-label": "Etiket:",
 	"wikibaseschema-newschema-description": "Şınasnayış",
 	"wikibaseschema-newschema-schema-shexc": "Kodê ifadeyanê şeklan:",
@@ -14,5 +15,6 @@
 	"wikibaseschema-diff-label": "Etiketi",
 	"wikibaseschema-diff-description": "Şınasnayışi",
 	"wikibaseschema-diff-aliases": "Nameyê bini",
-	"wikibaseschema-diff-schema": "Teslağ"
+	"wikibaseschema-diff-schema": "Teslağ",
+	"wikibaseschema-undo-heading-failed": "Peyser nêgêriya"
 }

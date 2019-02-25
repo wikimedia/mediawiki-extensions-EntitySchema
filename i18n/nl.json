@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mainframe98"
+			"Mainframe98",
+			"Elroy"
 		]
 	},
 	"special-newschema": "Nieuw schema aanmaken",
@@ -18,5 +19,6 @@
 	"wikibaseschema-editpage-description-inputlabel": "Beschrijving:",
 	"wikibaseschema-editpage-aliases-inputlabel": "Aliassen, gescheiden door een sluisteken (|):",
 	"wikibaseschema-error-schemadeleted": "Het schema dat u probeerde te bewerken bestaat niet. Misschien is het verwijderd?",
-	"wikibaseschema-noschema": "Dit schema bestaat niet. Ga naar [[Special:NewSchema]] om een nieuw schema aan te maken."
+	"wikibaseschema-noschema": "Dit schema bestaat niet. Ga naar [[Special:NewSchema]] om een nieuw schema aan te maken.",
+	"wikibaseschema-undo-heading": "De bewerking naar $1 ongedaan maken"
 }

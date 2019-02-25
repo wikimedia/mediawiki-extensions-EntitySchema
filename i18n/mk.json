@@ -21,5 +21,20 @@
 	"wikibaseschema-editpage-aliases-inputlabel": "Истозначници (одделени со прави црти):",
 	"wikibaseschema-editpage-schema-inputlabel": "ИзрОбл:",
 	"wikibaseschema-error-schemadeleted": "Шемата што сакате да ја уредите не постои. Да не е избришана?",
-	"wikibaseschema-noschema": "Тука нема шема. Појдете на [[Special:NewSchema]] за да создадете нова."
+	"wikibaseschema-error-schemaupdate-failed": "Не можев да ја подновам шемата",
+	"wikibaseschema-error-saving-failed": "Не успеав да ја зачувам шемата, со следнава порака: $1",
+	"wikibaseschema-error-not-post": "Ова дејство мора да се изврши со барање од POST.",
+	"wikibaseschema-noschema": "Тука нема шема. Појдете на [[Special:NewSchema]] за да создадете нова.",
+	"wikibaseschema-summary-generated": "Опис (ќе се приложи кон автоматски создаден опис):",
+	"wikibaseschema-diff-label": "Натписи",
+	"wikibaseschema-diff-description": "Описи",
+	"wikibaseschema-diff-aliases": "Истозначници",
+	"wikibaseschema-diff-schema": "Шема",
+	"wikibaseschema-summary-newschema": "Создадена нова шема: „$1“",
+	"wikibaseschema-summary-update": "Подновена шема",
+	"wikibaseschema-undo-heading": "Отповикување на уредувањето на $1",
+	"wikibaseschema-undo-heading-failed": "Отповикувањето не успеа",
+	"wikibaseschema-undo-bad-revisions": "Уредувањето не можеше да се отповика бидејќи не постои или е избришано.",
+	"wikibaseschema-undo-cannot-apply-patch": "Уредувањето не можеше да се отповика бидејќи е изменето.",
+	"wikibaseschema-undo-old-revision": "Преработка за отповикување"
 }

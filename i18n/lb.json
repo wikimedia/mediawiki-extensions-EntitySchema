@@ -7,5 +7,9 @@
 	"wikibaseschema-newschema-label": "Etikett:",
 	"wikibaseschema-newschema-description": "Beschreiwung:",
 	"wikibaseschema-editpage-label-inputlabel": "Etikett:",
-	"wikibaseschema-editpage-description-inputlabel": "Beschreiwung:"
+	"wikibaseschema-editpage-description-inputlabel": "Beschreiwung:",
+	"wikibaseschema-diff-label": "Etiketten",
+	"wikibaseschema-diff-description": "Beschreiwungen",
+	"wikibaseschema-diff-aliases": "Aliasen",
+	"wikibaseschema-diff-schema": "Schema"
 }
