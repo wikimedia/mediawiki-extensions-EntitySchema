@@ -20,6 +20,7 @@ use WikiPage;
  * @license GPL-2.0-or-later
  *
  * @covers \Wikibase\Schema\MediaWiki\Actions\UndoSubmitAction
+ * @covers \Wikibase\Schema\MediaWiki\Actions\AbstractUndoAction
  */
 class UndoSubmitActionTest extends MediaWikiTestCase {
 

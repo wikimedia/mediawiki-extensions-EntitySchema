@@ -18,6 +18,8 @@ use WikiPage;
  * @license GPL-2.0-or-later
  *
  * @covers \Wikibase\Schema\MediaWiki\Actions\UndoViewAction
+ * @covers \Wikibase\Schema\MediaWiki\Actions\AbstractUndoAction
+ * @covers \Wikibase\Schema\Services\RenderDiffHelper\RenderDiffHelper
  */
 class UndoViewActionTest extends MediaWikiTestCase {
 
