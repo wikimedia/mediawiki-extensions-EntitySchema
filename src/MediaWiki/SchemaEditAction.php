@@ -45,16 +45,11 @@ class SchemaEditAction extends FormAction {
 		$user = $this->getUser();
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$id = new SchemaId( $this->getTitle()->getText() );
-		$aliases = array_filter( array_map( 'trim', explode( '|', $data['aliases'] ) ) );
 		$watchListUpdater = new WatchlistUpdater( $user, NS_WBSCHEMA_JSON );
 		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory, $this, $watchListUpdater );
 		try {
-			$schemaWriter->updateSchema(
+			$schemaWriter->updateSchemaContent(
 				$id,
-				'en',
-				$data['label'],
-				$data['description'],
-				$aliases,
 				$data['schema']
 			);
 		} catch ( RunTimeException $e ) {
@@ -72,30 +67,12 @@ class SchemaEditAction extends FormAction {
 		}
 
 		// @phan-suppress-next-line PhanUndeclaredMethod
-		$schemaData = ( new SchemaDispatcher() )->getMonolingualSchemaData( $content->getText(), 'en' );
+		$schemaText = ( new SchemaDispatcher() )->getSchemaText( $content->getText() );
 
 		return [
-			'label' => [
-				'type' => 'text',
-				'default' => $schemaData->nameBadge->label,
-				'label-message' => 'wikibaseschema-editpage-label-inputlabel',
-				'placeholder-message' => 'wikibaseschema-label-edit-placeholder',
-			],
-			'description' => [
-				'type' => 'text',
-				'default' => $schemaData->nameBadge->description,
-				'label-message' => 'wikibaseschema-editpage-description-inputlabel',
-				'placeholder-message' => 'wikibaseschema-description-edit-placeholder',
-			],
-			'aliases' => [
-				'type' => 'text',
-				'default' => implode( ' | ', $schemaData->nameBadge->aliases ),
-				'label-message' => 'wikibaseschema-editpage-aliases-inputlabel',
-				'placeholder-message' => 'wikibaseschema-aliases-edit-placeholder',
-			],
 			'schema' => [
 				'type' => 'textarea',
-				'default' => $schemaData->schema,
+				'default' => $schemaText,
 				'label-message' => 'wikibaseschema-editpage-schema-inputlabel',
 			],
 		];
