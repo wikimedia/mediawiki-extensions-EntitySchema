@@ -4,8 +4,12 @@ namespace Wikibase\Schema;
 
 use Article;
 use DatabaseUpdater;
+use HistoryPager;
 use Html;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\RevisionRecord;
 use SkinTemplate;
+use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 
 /**
  * Hooks utilized by the WikibaseSchema extension
@@ -70,6 +74,46 @@ final class WikibaseSchemaHooks {
 		);
 
 		return false;
+	}
+
+	/**
+	 * Modify line endings on history page.
+	 *
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageHistoryLineEnding
+	 *
+	 * @param HistoryPager $history
+	 * @param object &$row
+	 * @param string &$html
+	 * @param array &$classes
+	 */
+	public static function onPageHistoryLineEnding(
+		HistoryPager $history,
+		&$row,
+		&$html,
+		array &$classes
+	) {
+		$rev = MediaWikiServices::getInstance()->getRevisionStore()->newRevisionFromRow( $row );
+
+		$wikiPage = $history->getWikiPage();
+
+		if ( $wikiPage->getContentModel() === WikibaseSchemaContent::CONTENT_MODEL_ID
+			&& $wikiPage->getLatest() !== $rev->getId()
+			&& $wikiPage->getTitle()->quickUserCan( 'edit', $history->getUser() )
+			&& !$rev->isDeleted( RevisionRecord::DELETED_TEXT )
+		) {
+			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+			$link = $linkRenderer->makeKnownLink(
+				$wikiPage->getTitle(),
+				$history->msg( 'wikibaseschema-restoreold' )->text(),
+				[],
+				[
+					'action' => 'edit',
+					'restore' => $rev->getId(),
+				]
+			);
+
+			$html .= ' ' . $history->msg( 'parentheses' )->rawParams( $link )->escaped();
+		}
 	}
 
 }

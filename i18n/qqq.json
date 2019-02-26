@@ -25,6 +25,7 @@
 	"wikibaseschema-error-schemaupdate-failed": "Error message when saving the Schema after edit wasn't successful",
 	"wikibaseschema-error-saving-failed": "Error message when saving a schema has failed.\n\nParameters:\n* $1 - the message of the exception",
 	"wikibaseschema-error-not-post": "Error message when a HTTP POST request is expected but something else was received.",
+	"wikibaseschema-error-wrong-page-revisions": "Error message when a given revision (e.g. for restoring) does not belong to the current page.",
 	"wikibaseschema-noschema": "Text that is shown on a non-existant page in the Schema namespace",
 	"wikibaseschema-summary-generated": "The label above the summary input, stating that will be appended to a generated summary.",
 	"wikibaseschema-diff-label": "Label designating the change in the Labels when viewing a diff of two Schemas",
@@ -34,9 +35,16 @@
 	"wikibaseschema-summary-newschema": "A generic message for the recent changes or page history, stating that the Schema was created. \n\nParameters:\n* $1 - the label of the Schema",
 	"wikibaseschema-summary-update": "A generic message used when different parts of a Schema may have been updated.",
 	"wikibaseschema-summary-undo": "Summary message for an undo to be shown in Schema history, recent changes etc. .\n\nParameters:\n* $1 - The ID of the revision that is undone\n* $2 Name of the user that created that revision\n* $3 The user summary message",
+	"wikibaseschema-summary-restore": "Summary message for a restore to be shown in Schema history, recent changes etc. .\n\nParameters:\n* $1 - The ID of the revision that is restored\n* $2 Name of the user that created that revision\n* $3 The user summary message",
 	"wikibaseschema-undo-heading": "Heading for the undo view.\n\nParameters:\n* $1 - The ID of the Schema",
 	"wikibaseschema-undo-heading-failed": "Heading if the change cannot be undone for some reason",
 	"wikibaseschema-undo-bad-revisions": "Error message saying that the given revision versions don't work out.",
 	"wikibaseschema-undo-cannot-apply-patch": "Error message saying that the change cannot be undone because it was further changed later.",
-	"wikibaseschema-undo-old-revision": "short message for the undo view designating the left side as the revision that the user tries to undo"
+	"wikibaseschema-undo-old-revision": "short message for the undo view designating the left side as the revision that the user tries to undo",
+	"wikibaseschema-restore-heading": "Heading for the restore view.\n\nParameters:\n* $1 - The ID of the Schema",
+	"wikibaseschema-restore-bad-revisions": "Error message saying that the given revision cannot be restored.",
+	"wikibaseschema-restore-changed": "Error message saying that the Schema has changed since starting the restore action.",
+	"wikibaseschema-restore-heading-failed": "Heading if the revision cannot be restored for some reason",
+	"wikibaseschema-restore-empty": "Error message to be shown if the user tries to restore a revision that is identical to the current revision.",
+	"wikibaseschema-restoreold": "Link text shown on the link that lets the user restore the page's content to an old revision. Must be distinct from undo and revert. Used on the diff views.\n{{Identical|Restore}}"
 }
