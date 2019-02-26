@@ -20,15 +20,18 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 	private $pageUpdaterFactory;
 	private $idGenerator;
 	private $msgLocalizer;
+	private $watchListUpdater;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
 		MessageLocalizer $msgLocalizer,
+		WatchlistUpdater $watchListUpdater,
 		IdGenerator $idGenerator = null
 	) {
 		$this->idGenerator = $idGenerator;
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
 		$this->msgLocalizer = $msgLocalizer;
+		$this->watchListUpdater = $watchListUpdater;
 	}
 
 	/**
@@ -81,6 +84,8 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 				)->plaintextParams( $label )
 			)
 		);
+
+		$this->watchListUpdater->optionallyWatchNewSchema( $id );
 
 		return $id;
 	}
@@ -150,9 +155,11 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		$updater->saveRevision(
 			CommentStoreComment::newUnsavedComment( $message )
 		);
-	  if ( !$updater->wasSuccessful() ) {
-		  throw new RuntimeException( 'The revision could not be saved' );
-	  }
+		if ( !$updater->wasSuccessful() ) {
+			throw new RuntimeException( 'The revision could not be saved' );
+		}
+
+		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
 	}
 
 	private function validateParameters(

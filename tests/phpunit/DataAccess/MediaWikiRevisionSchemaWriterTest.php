@@ -10,6 +10,7 @@ use MediaWiki\Storage\PageUpdater;
 use stdClass;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
+use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\Domain\Storage\IdGenerator;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
@@ -58,6 +59,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$writer = new MediaWikiRevisionSchemaWriter(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater( 'optionallyWatchNewSchema' ),
 			$idGenerator
 		);
 
@@ -113,6 +115,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$writer = new MediaWikiRevisionSchemaWriter(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater(),
 			$idGenerator
 		);
 
@@ -154,6 +157,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$writer = new MediaWikiRevisionSchemaWriter(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater(),
 			$idGenerator
 		);
 		$this->expectException( RuntimeException::class );
@@ -194,7 +198,11 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		) );
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
-		$writer = new MediaWikiRevisionSchemaWriter( $pageUpdaterFactory, $this->getMessageLocalizer() );
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
+		);
 		$writer->updateSchema(
 			new SchemaId( 'O1' ),
 			'en',
@@ -203,6 +211,23 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$aliases,
 			$schemaContent
 		);
+	}
+
+	/**
+	 * @param string|null $methodToExpect
+	 *
+	 * @return WatchlistUpdater
+	 */
+	private function getMockWatchlistUpdater( $methodToExpect = null ): WatchlistUpdater {
+		$mockWatchlistUpdater = $this->getMockBuilder( WatchlistUpdater::class )
+			->disableOriginalConstructor()
+			->getMock();
+		if ( $methodToExpect === null ) {
+			$mockWatchlistUpdater->expects( $this->never() )->method( $this->anything() );
+		} else {
+			$mockWatchlistUpdater->expects( $this->once() )->method( $methodToExpect );
+		}
+		return $mockWatchlistUpdater;
 	}
 
 }

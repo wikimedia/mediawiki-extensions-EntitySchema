@@ -15,6 +15,7 @@ use UserBlockedError;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\DataAccess\SqlIdGenerator;
+use Wikibase\Schema\DataAccess\WatchlistUpdater;
 
 /**
  * Page for creating a new Wikibase Schema.
@@ -78,7 +79,12 @@ class NewSchema extends SpecialPage {
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $this->getUser() );
 
-		$schemaWriter = new MediawikiRevisionSchemaWriter( $pageUpdaterFactory, $this, $idGenerator );
+		$schemaWriter = new MediawikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this,
+			new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON ),
+			$idGenerator
+		);
 		$newId = $schemaWriter->insertSchema(
 			'en',
 			$data[self::FIELD_LABEL],

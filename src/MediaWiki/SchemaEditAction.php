@@ -6,6 +6,7 @@ use FormAction;
 use RuntimeException;
 use Status;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
+use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\Schema;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
@@ -41,10 +42,12 @@ class SchemaEditAction extends FormAction {
 			return Status::newFatal( $this->msg( 'wikibaseschema-error-schemadeleted' ) );
 		}
 
-		$updaterFactory = new MediaWikiPageUpdaterFactory( $this->context->getUser() );
+		$user = $this->getUser();
+		$updaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$id = new SchemaId( $this->getTitle()->getText() );
 		$aliases = array_filter( array_map( 'trim', explode( '|', $data['aliases'] ) ) );
-		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory, $this );
+		$watchListUpdater = new WatchlistUpdater( $user, NS_WBSCHEMA_JSON );
+		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory, $this, $watchListUpdater );
 		try {
 			$schemaWriter->updateSchema(
 				$id,
