@@ -17,13 +17,9 @@ use Diff\Patcher\PatcherException;
 class AliasGroupListPatcher {
 
 	/**
-	 *
-	 * @param array $groups
-	 * @param Diff $patch
-	 *
 	 * @throws PatcherException
 	 */
-	public function patchAliasGroupList( array $groups, Diff $patch = null ) {
+	public function patchAliasGroupList( array $groups, Diff $patch = null ): array {
 		if ( $patch === null ) {
 			return $groups;
 		}
