@@ -73,10 +73,10 @@ class WikibaseSchemaSlotDiffRenderer extends SlotDiffRenderer {
 			$this->schemaDispatcher->getFullArraySchemaData( $newContent->getText() )
 		);
 
-		return $this->renderSchemaDiff( $diff );
+		return $this->renderSchemaDiffRows( $diff );
 	}
 
-	public function renderSchemaDiff( Diff $diff ) {
+	public function renderSchemaDiffRows( Diff $diff ) {
 		// split $diff into labels/descriptions/aliases (renderDiffOp())
 		// and schema (renderTextDiff())
 		$nameBadgeDiffOps = [];
