@@ -60,6 +60,8 @@ class WikibaseSchemaSlotDiffRenderer extends SlotDiffRenderer {
 	}
 
 	/**
+	 * @phan-suppress PhanParamSignatureMismatch
+	 *
 	 * @param WikibaseSchemaContent|null $oldContent
 	 * @param WikibaseSchemaContent|null $newContent
 	 *
