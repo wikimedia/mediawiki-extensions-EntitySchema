@@ -2,6 +2,7 @@
 
 namespace Wikibase\Schema\Tests\DataAccess;
 
+use InvalidArgumentException;
 use MediaWiki\Storage\RevisionRecord;
 use Message;
 use MessageLocalizer;
@@ -228,6 +229,89 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$mockWatchlistUpdater->expects( $this->once() )->method( $methodToExpect );
 		}
 		return $mockWatchlistUpdater;
+	}
+
+	public function testUpdateSchemaContent_throwsForInvalidParams() {
+		$pageUpdaterFactory = $this->getPageUpdaterFactory();
+		$idGenerator = $this->createMock( IdGenerator::class );
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater(),
+			$idGenerator
+		);
+
+		$this->expectException( InvalidArgumentException::class );
+		$writer->updateSchemaContent(
+			new SchemaId( 'O1' ),
+			null
+		);
+	}
+
+	public function testUpdateSchemaContent_throwsForUnknownSerializationVersion() {
+		$revisionRecord = $this->createMock( RevisionRecord::class );
+		$revisionRecord->method( 'getContent' )->willReturn(
+			new WikibaseSchemaContent( json_encode( [
+				'serializationVersion' => '3.0',
+				'schema' => [
+					'replacing this' => 'with the new text',
+					'would be a' => 'grave mistake',
+				],
+			] ) )
+		);
+		$pageUpdater = $this->createMock( PageUpdater::class );
+		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
+		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
+		$idGenerator = $this->createMock( IdGenerator::class );
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater(),
+			$idGenerator
+		);
+
+		$this->expectException( RuntimeException::class );
+		$writer->updateSchemaContent( new SchemaId( 'O1' ), '' );
+	}
+
+	public function testUpdateSchema_WritesExpectedContentForOverwritingSchemaContent() {
+		$id = 'O1';
+		$language = 'en';
+		$labels = [ $language => 'englishLabel' ];
+		$descriptions = [ $language => 'englishDescription' ];
+		$aliases = [ $language => [ 'englishAlias' ] ];
+		$existingContent = new WikibaseSchemaContent( json_encode( [
+			'id' => $id,
+			'serializationVersion' => '2.0',
+			'labels' => $labels,
+			'descriptions' => $descriptions,
+			'aliases' => $aliases,
+			'schema' => '# some schema about goats',
+			'type' => 'ShExC',
+		] ) );
+		$newSchemaContent = '# some schema about cats';
+		$expectedContent = new WikibaseSchemaContent( json_encode( [
+			'id' => $id,
+			'serializationVersion' => '2.0',
+			'labels' => $labels,
+			'descriptions' => $descriptions,
+			'aliases' => $aliases,
+			'schema' => $newSchemaContent,
+			'type' => 'ShExC',
+		] ) );
+
+		$pageUpdaterFactory = $this
+			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
+		);
+
+		$writer->updateSchemaContent(
+			new SchemaId( $id ),
+			$newSchemaContent
+		);
 	}
 
 }

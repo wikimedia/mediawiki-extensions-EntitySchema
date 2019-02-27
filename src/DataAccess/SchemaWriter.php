@@ -50,4 +50,16 @@ interface SchemaWriter {
 		$schemaContent
 	);
 
+	/**
+	 * @param SchemaId $id
+	 * @param string $schemaContent
+	 *
+	 * @throws InvalidArgumentException if bad parameters are passed
+	 * @throws RuntimeException if Schema to update does not exist or saving fails
+	 */
+	public function updateSchemaContent(
+		SchemaId $id,
+		$schemaContent
+	);
+
 }

@@ -6,6 +6,7 @@ use CommentStoreComment;
 use InvalidArgumentException;
 use MediaWiki\Revision\SlotRecord;
 use Message;
+use MediaWiki\Storage\PageUpdater;
 use MessageLocalizer;
 use RuntimeException;
 use Wikibase\Schema\Domain\Model\SchemaId;
@@ -125,9 +126,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		}
 
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
-		if ( $updater->grabParentRevision() === null ) {
-			throw new RuntimeException( 'Schema to update does not exist' );
-		}
+		$this->checkSchemaExists( $updater );
 
 		$updater->setContent(
 			SlotRecord::MAIN,
@@ -193,6 +192,59 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * @param SchemaId $id
+	 * @param string $schemaContent
+	 *
+	 * @throws RuntimeException if Schema to update does not exist or saving fails
+	 * @throws InvalidArgumentException if bad parameters are passed
+	 */
+	public function updateSchemaContent( SchemaId $id, $schemaContent ) {
+		if ( !is_string( $schemaContent ) ) {
+			throw new InvalidArgumentException( 'schema content must be a string' );
+		}
+
+		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
+		$this->checkSchemaExists( $updater );
+
+		/** @var WikibaseSchemaContent $content */
+		$content = $updater->grabParentRevision()->getContent( SlotRecord::MAIN );
+		$data = json_decode( $content->getText(), true );
+		if ( !array_key_exists( 'serializationVersion', $data ) || (
+			$data['serializationVersion'] !== '1.0' &&
+			$data['serializationVersion'] !== '2.0' ) ) {
+			throw new RuntimeException( 'Unknown or missing serialization version' );
+		}
+
+		// TODO check $updater->hasEditConflict()! (T217338)
+
+		// in serialization version 1.0 or 2.0, the schema content is stored the same way,
+		// so just update that and leave the rest unchanged
+		$data['schema'] = $schemaContent;
+		$updater->setContent(
+			SlotRecord::MAIN,
+			new WikibaseSchemaContent( json_encode( $data ) )
+		);
+
+		$updater->saveRevision( CommentStoreComment::newUnsavedComment(
+			// TODO specific message (T214887)
+			$this->msgLocalizer->msg( 'wikibaseschema-summary-update' )
+		), EDIT_UPDATE | EDIT_INTERNAL );
+
+		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
+	}
+
+	/**
+	 * @param PageUpdater $updater
+	 *
+	 * @throws RuntimeException
+	 */
+	private function checkSchemaExists( PageUpdater $updater ) {
+		if ( $updater->grabParentRevision() === null ) {
+			throw new RuntimeException( 'Schema to update does not exist' );
+		}
 	}
 
 }
