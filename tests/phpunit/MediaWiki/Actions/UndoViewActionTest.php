@@ -19,6 +19,7 @@ use WikiPage;
  *
  * @covers \Wikibase\Schema\MediaWiki\Actions\UndoViewAction
  * @covers \Wikibase\Schema\MediaWiki\Actions\AbstractUndoAction
+ * @covers \Wikibase\Schema\MediaWiki\UndoHandler
  * @covers \Wikibase\Schema\Services\RenderDiffHelper\RenderDiffHelper
  */
 class UndoViewActionTest extends MediaWikiTestCase {

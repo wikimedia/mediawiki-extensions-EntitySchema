@@ -21,6 +21,7 @@ use WikiPage;
  *
  * @covers \Wikibase\Schema\MediaWiki\Actions\UndoSubmitAction
  * @covers \Wikibase\Schema\MediaWiki\Actions\AbstractUndoAction
+ * @covers \Wikibase\Schema\MediaWiki\UndoHandler
  */
 class UndoSubmitActionTest extends MediaWikiTestCase {
 

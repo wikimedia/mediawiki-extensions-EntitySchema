@@ -3,16 +3,13 @@
 namespace Wikibase\Schema\MediaWiki\Actions;
 
 use Diff\DiffOp\Diff\Diff;
-use Diff\Patcher\PatcherException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use Status;
 use ViewAction;
 use WebRequest;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Services\Diff\SchemaDiffer;
-use Wikibase\Schema\Services\Diff\SchemaPatcher;
-use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
+use Wikibase\Schema\MediaWiki\UndoHandler;
 
 /**
  * @license GPL-2.0-or-later
@@ -41,39 +38,19 @@ abstract class AbstractUndoAction extends ViewAction {
 		$undoFromContent = $newerRevision->getContent( SlotRecord::MAIN );
 		/** @var WikibaseSchemaContent $undoToContent */
 		$undoToContent = $olderRevision->getContent( SlotRecord::MAIN );
+		$undoHandler = new UndoHandler();
 
-		$differ = new SchemaDiffer();
-		$dispatcher = new SchemaDispatcher();
-		$diff = $differ->diffSchemas(
-			$dispatcher->getFullArraySchemaData( $undoFromContent->getText() ),
-			$dispatcher->getFullArraySchemaData( $undoToContent->getText() )
-		);
-
-		return Status::newGood( $diff );
+		return $undoHandler->getDiffFromContents( $undoFromContent, $undoToContent );
 	}
 
 	protected function tryPatching( Diff $diff ): Status {
-
 		$revStore = MediaWikiServices::getInstance()->getRevisionStore();
 		/** @var WikibaseSchemaContent $baseContent */
 		$baseContent = $revStore
 			->getRevisionById( $this->getTitle()->getLatestRevID() )
 			->getContent( SlotRecord::MAIN );
-		$patcher = new SchemaPatcher();
-		$dispatcher = new SchemaDispatcher();
-
-		try {
-			$patchedSchema = $patcher->patchSchema(
-				// @phan-suppress-next-line PhanUndeclaredMethod
-				$dispatcher->getFullArraySchemaData( $baseContent->getText() ),
-				$diff
-			);
-		} catch ( PatcherException $e ) {
-			// show error here
-			return Status::newFatal( 'wikibaseschema-undo-cannot-apply-patch' );
-		}
-
-		return Status::newGood( $patchedSchema );
+		$undoHandler = new UndoHandler();
+		return $undoHandler->tryPatching( $diff, $baseContent );
 	}
 
 	/**
