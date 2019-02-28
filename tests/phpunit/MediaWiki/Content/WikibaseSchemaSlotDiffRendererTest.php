@@ -44,16 +44,16 @@ class WikibaseSchemaSlotDiffRendererTest extends TestCase {
 		];
 
 		yield 'change from empty schema counts as addition (not change)' => [
-			[ 'schema' => '' ],
-			[ 'schema' => 'test schema' ],
+			[ 'schema' => '', 'serializationVersion' => '2.0' ],
+			[ 'schema' => 'test schema', 'serializationVersion' => '2.0' ],
 			// phpcs:disable Generic.Files.LineLength.MaxExceeded
 			'<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Schema</td></tr><tr><td colspan="2"></td><td class="diff-marker">+</td><td class="diff-addedline">test schema</td></tr>',
 			// phpcs:enable
 		];
 
 		yield 'change to empty schema counts as removal (not change)' => [
-			[ 'schema' => 'test schema' ],
-			[ 'schema' => '' ],
+			[ 'schema' => 'test schema', 'serializationVersion' => '2.0' ],
+			[ 'schema' => '', 'serializationVersion' => '2.0' ],
 			// phpcs:disable Generic.Files.LineLength.MaxExceeded
 			'<tr><td colspan="2" class="diff-lineno">Schema</td><td colspan="2" class="diff-lineno"></td></tr><tr><td class="diff-marker">−</td><td class="diff-deletedline">test schema</td><td colspan="2"></td></tr>',
 			// phpcs:enable
