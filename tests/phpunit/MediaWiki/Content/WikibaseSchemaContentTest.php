@@ -56,7 +56,7 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'schema' => '# basic schema\n_:empty {}',
 					'serializationVersion' => '2.0',
 				],
-				'<pre id="wbschema-schema-shexc"># basic schema\n_:empty {}</pre>',
+				'<pre id="wbschema-schema-shexc" class="wbschema-shexc"># basic schema\n_:empty {}</pre>',
 			],
 			[
 				[
@@ -67,7 +67,7 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'serializationVersion' => '2.0',
 				],
 				// exact details of escaping beyond this (> vs &gt;) don’t matter
-				'<pre id="wbschema-schema-shexc">&lt;script',
+				'<pre id="wbschema-schema-shexc" class="wbschema-shexc">&lt;script',
 			],
 		];
 	}
