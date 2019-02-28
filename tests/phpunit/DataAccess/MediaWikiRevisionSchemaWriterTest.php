@@ -2,6 +2,7 @@
 
 namespace Wikibase\Schema\Tests\DataAccess;
 
+use DomainException;
 use InvalidArgumentException;
 use MediaWiki\Storage\RevisionRecord;
 use Message;
@@ -273,7 +274,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$idGenerator
 		);
 
-		$this->expectException( RuntimeException::class );
+		$this->expectException( DomainException::class );
 		$writer->updateSchemaContent( new SchemaId( 'O1' ), '' );
 	}
 

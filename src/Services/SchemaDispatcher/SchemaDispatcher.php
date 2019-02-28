@@ -6,6 +6,8 @@ use DomainException;
 use LogicException;
 
 /**
+ * Convert schema data for different uses from the persistence format
+ *
  * @license GPL-2.0-or-later
  */
 class SchemaDispatcher {
@@ -74,6 +76,29 @@ class SchemaDispatcher {
 		}
 
 		return new FullArraySchemaData( $data );
+	}
+
+	public function getPersistenceSchemaData( $schemaJSON ): PersistenceSchemaData {
+		$schema = json_decode( $schemaJSON, true );
+		$persistenceSchemaData = new PersistenceSchemaData();
+		$persistenceSchemaData->schemaText = $this->getSchemaTextFromSchema( $schema );
+
+		foreach ( $this->getSchemaLanguages( $schema ) as $languageCode ) {
+			$label = $this->getLabelFromSchema( $schema, $languageCode );
+			if ( $label ) {
+				$persistenceSchemaData->labels[$languageCode] = $label;
+			}
+			$description = $this->getDescriptionFromSchema( $schema, $languageCode );
+			if ( $description ) {
+				$persistenceSchemaData->descriptions[$languageCode] = $description;
+			}
+			$aliases = $this->getAliasGroupFromSchema( $schema, $languageCode );
+			if ( $aliases ) {
+				$persistenceSchemaData->aliases[$languageCode] = $aliases;
+			}
+		}
+
+		return $persistenceSchemaData;
 	}
 
 	private function getSchemaTextFromSchema( array $schema ) {
