@@ -13,12 +13,6 @@ class ViewSchemaPage extends Page {
 		};
 	}
 
-	static get MEDIAWIKI_SELECTORS() {
-		return {
-			EDIT_LINK: '#ca-edit > span > a'
-		};
-	}
-
 	open( schemaId, query = {}, fragment = '' ) {
 		super.openTitle( `Schema:${schemaId}`, query, fragment );
 	}
@@ -74,10 +68,6 @@ class ViewSchemaPage extends Page {
 			return window.mw.config.get( 'wgTitle' );
 		} );
 		return id.value;
-	}
-
-	get editLink() {
-		return browser.$( this.constructor.MEDIAWIKI_SELECTORS.EDIT_LINK );
 	}
 
 }

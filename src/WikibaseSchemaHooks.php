@@ -38,10 +38,6 @@ final class WikibaseSchemaHooks {
 			return;
 		}
 
-		if ( $title->getLength() !== 0 ) {
-			return;
-		}
-
 		unset( $links['views']['edit'] );
 	}
 

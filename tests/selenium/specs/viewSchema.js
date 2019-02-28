@@ -5,15 +5,6 @@ const assert = require( 'assert' ),
 	ViewSchemaPage = require( '../pageobjects/view.schema.page' );
 
 describe( 'Schema Viewing Page', () => {
-	it( 'has an edit link', () => {
-		NewSchemaPage.open();
-		NewSchemaPage.showsForm();
-		NewSchemaPage.setLabel( 'foo' );
-		NewSchemaPage.setShExC( '<content:here>' );
-		NewSchemaPage.clickSubmit();
-		assert.ok( ViewSchemaPage.editLink.waitForVisible() );
-	} );
-
 	it( 'doesn\'t touch the whitespace inside the schema', () => {
 		const ShExCWithSpaces = 'content\t is \n\n\n here';
 		NewSchemaPage.open();
