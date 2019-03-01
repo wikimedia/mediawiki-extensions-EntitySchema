@@ -27,7 +27,8 @@
 		"SkinTemplateNavigation": "Wikibase\\Schema\\WikibaseSchemaHooks::onSkinTemplateNavigation",
 		"LoadExtensionSchemaUpdates": "Wikibase\\Schema\\WikibaseSchemaHooks::onCreateDBSchema",
 		"ExtensionTypes": "Wikibase\\Schema\\WikibaseSchemaHooks::onExtensionTypes",
-		"BeforeDisplayNoArticleText": "\\Wikibase\\Schema\\WikibaseSchemaHooks::onBeforeDisplayNoArticleText"
+		"BeforeDisplayNoArticleText": "\\Wikibase\\Schema\\WikibaseSchemaHooks::onBeforeDisplayNoArticleText",
+		"PageHistoryLineEnding": "\\Wikibase\\Schema\\WikibaseSchemaHooks::onPageHistoryLineEnding"
 	},
 	"ContentHandlers": {
 		"WikibaseSchema": "Wikibase\\Schema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"

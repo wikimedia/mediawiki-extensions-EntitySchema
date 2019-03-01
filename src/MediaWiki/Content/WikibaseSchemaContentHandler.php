@@ -9,6 +9,8 @@ use JsonContentHandler;
 use Page;
 use RequestContext;
 use SlotDiffRenderer;
+use Wikibase\Schema\MediaWiki\Actions\RestoreViewAction;
+use Wikibase\Schema\MediaWiki\Actions\RestoreSubmitAction;
 use Wikibase\Schema\MediaWiki\Actions\UndoSubmitAction;
 use Wikibase\Schema\MediaWiki\Actions\UndoViewAction;
 use Wikibase\Schema\MediaWiki\SchemaEditAction;
@@ -50,9 +52,16 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 				if (
 					$req->getCheck( 'undo' )
 					|| $req->getCheck( 'undoafter' )
-					|| $req->getCheck( 'restore' )
 				) {
 					return new UndoViewAction(
+						$page,
+						new WikibaseSchemaSlotDiffRenderer( $context ),
+						$context
+					);
+				}
+
+				if ( $req->getCheck( 'restore' ) ) {
+					return new RestoreViewAction(
 						$page,
 						new WikibaseSchemaSlotDiffRenderer( $context ),
 						$context
@@ -74,9 +83,12 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 				if (
 					$req->getCheck( 'undo' )
 					|| $req->getCheck( 'undoafter' )
-					|| $req->getCheck( 'restore' )
 				) {
 					return new UndoSubmitAction( $page, $context );
+				}
+
+				if ( $req->getCheck( 'restore' ) ) {
+					return new RestoreSubmitAction( $page, $context );
 				}
 
 				return SchemaSubmitAction::class;
