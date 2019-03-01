@@ -23,6 +23,9 @@ abstract class AbstractUndoAction extends ViewAction {
 		return $this->getName();
 	}
 
+	/**
+	 * @suppress PhanUndeclaredMethod
+	 */
 	protected function getDiffFromRequest( WebRequest $req ): Status {
 
 		$revStore = MediaWikiServices::getInstance()->getRevisionStore();
@@ -61,6 +64,7 @@ abstract class AbstractUndoAction extends ViewAction {
 
 		try {
 			$patchedSchema = $patcher->patchSchema(
+				// @phan-suppress-next-line PhanUndeclaredMethod
 				$dispatcher->getFullArraySchemaData( $baseContent->getText() ),
 				$diff
 			);

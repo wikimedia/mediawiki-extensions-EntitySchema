@@ -71,6 +71,7 @@ class SchemaEditAction extends FormAction {
 			throw new RuntimeException( $this->msg( 'wikibaseschema-error-schemadeleted' ) );
 		}
 
+		// @phan-suppress-next-line PhanUndeclaredMethod
 		$schemaData = ( new SchemaDispatcher() )->getMonolingualSchemaData( $content->getText(), 'en' );
 
 		return [

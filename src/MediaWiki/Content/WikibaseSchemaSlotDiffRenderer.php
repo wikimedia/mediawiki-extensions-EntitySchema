@@ -144,6 +144,9 @@ class WikibaseSchemaSlotDiffRenderer extends SlotDiffRenderer {
 		return $context . $changes;
 	}
 
+	/**
+	 * @suppress PhanUndeclaredMethod
+	 */
 	private function renderTextDiff( $key, AtomicDiffOp $diffOp ) {
 		if ( $diffOp instanceof DiffOpAdd || $diffOp instanceof DiffOpRemove ) {
 			return $this->renderDiffOp( [ $key ], $diffOp );

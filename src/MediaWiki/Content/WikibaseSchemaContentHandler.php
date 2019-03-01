@@ -40,6 +40,7 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 				}
 
 				/** @var Article|WikiPage $page */
+				// @phan-suppress-next-line PhanUndeclaredMethod
 				if ( $page->getRevision() === null ) {
 					return Action::factory( 'view', $page, $context );
 				}

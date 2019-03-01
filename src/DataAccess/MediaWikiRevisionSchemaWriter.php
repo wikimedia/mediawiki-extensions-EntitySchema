@@ -211,6 +211,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 
 		/** @var WikibaseSchemaContent $content */
 		$content = $updater->grabParentRevision()->getContent( SlotRecord::MAIN );
+		// @phan-suppress-next-line PhanUndeclaredMethod
 		$data = json_decode( $content->getText(), true );
 		if ( !array_key_exists( 'serializationVersion', $data ) || (
 			$data['serializationVersion'] !== '1.0' &&
