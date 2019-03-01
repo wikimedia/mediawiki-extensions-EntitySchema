@@ -153,6 +153,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {
+		$content['serializationVersion'] = '2.0';
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
 		$updater->setContent( SlotRecord::MAIN, new WikibaseSchemaContent( json_encode( $content ) ) );
 		$firstRevRecord = $updater->saveRevision(

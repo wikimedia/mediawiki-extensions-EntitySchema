@@ -20,11 +20,10 @@ class SchemaDispatcher {
 	 */
 	public function getFullViewSchemaData( $schemaJSON, $interfaceLanguage ): FullViewSchemaData {
 		$schema = json_decode( $schemaJSON, true );
-		$schemaCode = $schema['schema'] ?? '';
 
 		return new FullViewSchemaData(
 			$this->getNameBadgesFromSchema( $schema, $interfaceLanguage ),
-			$schemaCode
+			$this->getSchemaTextFromSchema( $schema )
 		);
 	}
 
@@ -38,7 +37,6 @@ class SchemaDispatcher {
 	 */
 	public function getMonolingualSchemaData( $schemaJSON, $langCode ): MonolingualSchemaData {
 		$schema = json_decode( $schemaJSON, true );
-		$schemaCode = $schema['schema'] ?? '';
 
 		return new MonolingualSchemaData(
 			new NameBadge(
@@ -46,7 +44,7 @@ class SchemaDispatcher {
 				$this->getDescriptionFromSchema( $schema, $langCode ),
 				$this->getAliasGroupFromSchema( $schema, $langCode )
 			),
-			$schemaCode
+			$this->getSchemaTextFromSchema( $schema )
 		);
 	}
 
@@ -57,7 +55,7 @@ class SchemaDispatcher {
 			'labels' => [],
 			'descriptions' => [],
 			'aliases' => [],
-			'schema' => $schema['schema'] ?? '',
+			'schema' => $this->getSchemaTextFromSchema( $schema ),
 		];
 
 		foreach ( $this->getSchemaLanguages( $schema ) as $languageCode ) {
@@ -76,6 +74,22 @@ class SchemaDispatcher {
 		}
 
 		return new FullArraySchemaData( $data );
+	}
+
+	private function getSchemaTextFromSchema( array $schema ) {
+		if ( !isset( $schema['serializationVersion'] ) ) {
+			return '';
+		}
+
+		switch ( $schema['serializationVersion'] ) {
+			case '1.0':
+			case '2.0':
+				return $schema['schema'] ?? '';
+			default:
+				throw new DomainException(
+					'Unknown schema serialization version ' . $schema['serializationVersion']
+				);
+		}
 	}
 
 	/**
