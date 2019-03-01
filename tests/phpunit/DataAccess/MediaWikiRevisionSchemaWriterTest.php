@@ -153,15 +153,18 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$testAliases,
 		$testSchemaContent
 	) {
-		$pageUpdaterFactory = $this->getPageUpdaterFactory();
-		$idGenerator = $this->createMock( IdGenerator::class );
+		$pageUpdater = $this->createMock( PageUpdater::class );
+		$pageUpdater->method( 'grabParentRevision' )->willReturn(
+			$this->createMock( RevisionRecord::class )
+		);
+		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
+
 		$writer = new MediaWikiRevisionSchemaWriter(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
-			$this->getMockWatchlistUpdater(),
-			$idGenerator
+			$this->getMockWatchlistUpdater()
 		);
-		$this->expectException( RuntimeException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$writer->updateSchema(
 			new SchemaId( 'O1' ),
 			$testLanguage,
