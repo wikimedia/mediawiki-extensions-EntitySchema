@@ -8,7 +8,6 @@ use MediaWiki\MediaWikiServices;
 use ParserOptions;
 use ParserOutput;
 use Title;
-use Wikibase\Schema\Domain\Model\Schema;
 use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
 
@@ -81,11 +80,11 @@ class WikibaseSchemaContent extends JsonContent {
 			);
 	}
 
-	private function renderSchemaSection( Title $title , $schemaContent ) {
+	private function renderSchemaSection( Title $title, $schemaContent ) {
 		return Html::rawElement( 'div', [
 			'id' => 'wbschema-schema-view-section',
 			'class' => 'wbschema-section',
-		],
+			],
 			$this->renderSchema( $schemaContent ) .
 			$this->renderSchemaEditLink( $title )
 		);
@@ -104,13 +103,19 @@ class WikibaseSchemaContent extends JsonContent {
 
 	private function renderSchemaEditLink( Title $title ) {
 		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+
 		return Html::rawElement(
 			'div',
 			[
 				'id' => 'wbschema-edit-schema-text',
 				'class' => 'wbschema-edit-button',
 			],
-			$linkRenderer->makeLink( $title, 'edit', [ 'class' => 'edit-icon' ], [ 'action' => 'edit' ] )
+			$linkRenderer->makeLink(
+				$title,
+				wfMessage( 'wikibaseschema-edit' )->inContentLanguage(),
+				[ 'class' => 'edit-icon' ],
+				[ 'action' => 'edit' ]
+			)
 		);
 	}
 
