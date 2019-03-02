@@ -24,6 +24,7 @@
 	"wikibaseschema-error-schemaupdate-failed": "Das Schema konnte nicht aktualisiert werden",
 	"wikibaseschema-error-saving-failed": "Das Speichern des Schemas ist mit der folgenden Meldung fehlgeschlagen: $1",
 	"wikibaseschema-error-not-post": "Diese Aktion muss mit einer POST-Anfrage durchgeführt werden.",
+	"wikibaseschema-error-wrong-page-revisions": "Die angegebene Version gehört nicht zur aktuellen Seite.",
 	"wikibaseschema-noschema": "Es gibt hier kein Schema. Gehe auf [[Special:NewSchema]], um ein neues zu erstellen.",
 	"wikibaseschema-summary-generated": "Zusammenfassung (wird einer automatisch erzeugten Zusammenfassung angehängt):",
 	"wikibaseschema-diff-label": "Bezeichnungen",
@@ -32,9 +33,17 @@
 	"wikibaseschema-diff-schema": "Schema",
 	"wikibaseschema-summary-newschema": "Neues Schema erstellt: „$1“",
 	"wikibaseschema-summary-update": "Schema aktualisiert",
+	"wikibaseschema-summary-undo": "Version $1 von [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|Diskussion]]) wurde rückgängig gemacht: $3",
+	"wikibaseschema-summary-restore": "Version $1 von [[Special:Contributions/$2|{{GENDER:$2|$2}}]] wiederhergestellt: $3",
 	"wikibaseschema-undo-heading": "Bearbeitung an $1 rückgängig machen",
 	"wikibaseschema-undo-heading-failed": "Rückgängigmachung fehlgeschlagen",
 	"wikibaseschema-undo-bad-revisions": "Die Bearbeitung konnte nicht rückgängig gemacht werden, da sie nicht vorhanden ist oder gelöscht wurde.",
 	"wikibaseschema-undo-cannot-apply-patch": "Die Bearbeitung konnte nicht rückgängig gemacht werden, da sie geändert wurde.",
-	"wikibaseschema-undo-old-revision": "Zu rückgängig machende Version"
+	"wikibaseschema-undo-old-revision": "Zu rückgängig machende Version",
+	"wikibaseschema-restore-heading": "Alte Version von „$1“ wiederherstellen",
+	"wikibaseschema-restore-bad-revisions": "Die Bearbeitung konnte nicht wiederhergestellt werden, da sie nicht vorhanden ist oder gelöscht wurde.",
+	"wikibaseschema-restore-changed": "Das Schema wurde in der Zwischenzeit verändert. Bitte erneut überprüfen.",
+	"wikibaseschema-restore-heading-failed": "Wiederherstellung fehlgeschlagen",
+	"wikibaseschema-restore-empty": "Die Version, die du wiederherstellen wolltest, ist mit der aktuellen Version identisch. Es gibt nichts zu tun.",
+	"wikibaseschema-restoreold": "wiederherstellen"
 }

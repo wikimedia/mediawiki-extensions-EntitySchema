@@ -2,8 +2,36 @@
 	"@metadata": {
 		"authors": [
 			"Olghinabella",
-			"Vlad5250"
+			"Vlad5250",
+			"Andrew J.Kurbiko"
 		]
 	},
-	"wikibaseschema-error-schemaupdate-failed": "Схема не може бути оновлена"
+	"wikibaseschema-desc": "Зберігання та обговорення схем для сутностей Вікібази",
+	"special-newschema": "Створити нову схему",
+	"wikibaseschema-newschema-label": "Мітка:",
+	"wikibaseschema-newschema-description": "Опис:",
+	"wikibaseschema-newschema-aliases": "Альтернативні назви, через вертикальну риску:",
+	"wikibaseschema-newschema-submit": "Створити",
+	"wikibaseschema-newschema-copyright": "Натиснувши «$1», Ви погоджуєтесь із [[$2|умовами використання]], і погоджуєтесь поширювати Ваше редагування на умовах $3.",
+	"wikibaseschema-anonymouseditwarning": "Увага: Ви не увійшли до системи. Вашу IP-адресу буде записано у історії редагування цієї схеми.",
+	"wikibaseschema-editpage-label-inputlabel": "Назва:",
+	"wikibaseschema-editpage-description-inputlabel": "Опис:",
+	"wikibaseschema-editpage-aliases-inputlabel": "Альтернативні назви (через вертикальну риску):",
+	"wikibaseschema-error-schemadeleted": "Схема, яку Ви намагаєтесь редагувати, не існує. Можливо, її вилучено?",
+	"wikibaseschema-error-schemaupdate-failed": "Схема не може бути оновлена",
+	"wikibaseschema-error-saving-failed": "Не вдалося зберегти схему, із наступним повідомленням: $1",
+	"wikibaseschema-error-not-post": "Цю дію потрібно виконати за допомогою POST-запиту.",
+	"wikibaseschema-noschema": "Тут немає схеми. Перейдіть на [[Special:NewSchema]], аби створити нову.",
+	"wikibaseschema-summary-generated": "Короткий опис (буде додано до автоматично згенерованого опису):",
+	"wikibaseschema-diff-label": "Мітки",
+	"wikibaseschema-diff-description": "Описи",
+	"wikibaseschema-diff-aliases": "Псевдоніми",
+	"wikibaseschema-diff-schema": "Схема",
+	"wikibaseschema-summary-newschema": "Створено нову схему: «$1»",
+	"wikibaseschema-summary-update": "Оновлена схема",
+	"wikibaseschema-summary-undo": "Скасування редагування № $1 користувача [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|обговорення]]): $3",
+	"wikibaseschema-undo-heading": "Скасування редагування на $1",
+	"wikibaseschema-undo-heading-failed": "Помилка скасування",
+	"wikibaseschema-undo-bad-revisions": "Редагування не може бути скасоване, бо його не існує або було вилучено.",
+	"wikibaseschema-undo-cannot-apply-patch": "Редагування не може бути скасоване, оскільки було змінено."
 }

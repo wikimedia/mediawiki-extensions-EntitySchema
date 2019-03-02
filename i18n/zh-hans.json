@@ -3,12 +3,14 @@
 		"authors": [
 			"Angrydog001",
 			"94rain",
-			"Zazzzz"
+			"Zazzzz",
+			"A Chinese Wikipedian"
 		]
 	},
 	"wikibaseschema-newschema-submit": "创建",
 	"wikibaseschema-editpage-label-inputlabel": "标签：",
 	"wikibaseschema-summary-generated": "摘要（将附加于自动生成的摘要中）：",
+	"wikibaseschema-undo-heading": "正在撤销到“$1”的编辑",
 	"wikibaseschema-undo-heading-failed": "撤销失败",
 	"wikibaseschema-undo-old-revision": "撤销的修订版本"
 }

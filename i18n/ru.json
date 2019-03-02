@@ -4,5 +4,6 @@
 			"Vlad5250"
 		]
 	},
-	"special-newschema": "Создать новую схему"
+	"special-newschema": "Создать новую схему",
+	"wikibaseschema-summary-undo": "Отмена правки $1, сделанной [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|обсуждение]]): $3"
 }

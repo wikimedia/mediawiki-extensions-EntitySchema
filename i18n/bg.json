@@ -30,6 +30,7 @@
 	"wikibaseschema-diff-schema": "Схема",
 	"wikibaseschema-summary-newschema": "Създадена нова схема: „$1“",
 	"wikibaseschema-summary-update": "Обновена схема",
+	"wikibaseschema-summary-undo": "Премахната редакция $1 на [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|беседа]]): $3",
 	"wikibaseschema-undo-heading": "Отмяна на редакцията на $1",
 	"wikibaseschema-undo-heading-failed": "Неуспех при отмяната",
 	"wikibaseschema-undo-bad-revisions": "Редакцията не може да бъде отменена, тъй като не съществува или е изтрита.",

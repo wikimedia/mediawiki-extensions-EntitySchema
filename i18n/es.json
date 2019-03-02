@@ -12,5 +12,8 @@
 	"wikibaseschema-editpage-label-inputlabel": "Etiqueta:",
 	"wikibaseschema-editpage-description-inputlabel": "Descripción:",
 	"wikibaseschema-editpage-aliases-inputlabel": "Alias (separados por plecas):",
-	"wikibaseschema-error-schemaupdate-failed": "El esquema no puede ser actualizado"
+	"wikibaseschema-error-schemaupdate-failed": "El esquema no puede ser actualizado",
+	"wikibaseschema-diff-label": "Etiquetas",
+	"wikibaseschema-diff-description": "Descripciones",
+	"wikibaseschema-diff-aliases": "Alias"
 }

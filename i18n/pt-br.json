@@ -24,6 +24,7 @@
 	"wikibaseschema-error-schemaupdate-failed": "O esquema não pôde ser atualizado",
 	"wikibaseschema-error-saving-failed": "Salvando o esquema falhou com a seguinte mensagem: $1",
 	"wikibaseschema-error-not-post": "Esta ação deve ser feita com uma solicitação de postagem.",
+	"wikibaseschema-error-wrong-page-revisions": "A revisão fornecida não pertence à página atual.",
 	"wikibaseschema-noschema": "Não há schema aqui. Vá para [[Special:NewSchema]] para criar um novo.",
 	"wikibaseschema-summary-generated": "Resumo (será anexado a um resumo gerado automaticamente):",
 	"wikibaseschema-diff-label": "Etiquetas",
@@ -32,9 +33,16 @@
 	"wikibaseschema-diff-schema": "Esquema",
 	"wikibaseschema-summary-newschema": "Criado um novo esquema: \"$1\"",
 	"wikibaseschema-summary-update": "Esquema atualizado",
+	"wikibaseschema-summary-undo": "Desfazer revisão $1 por [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|discussão]]): $3",
 	"wikibaseschema-undo-heading": "Desfazendo a edição para $1",
 	"wikibaseschema-undo-heading-failed": "A ação de desfazer falhou",
 	"wikibaseschema-undo-bad-revisions": "A edição não pôde ser desfeita porque não existe ou foi apagada.",
 	"wikibaseschema-undo-cannot-apply-patch": "A edição não pode ser desfeita porque foi alterada.",
-	"wikibaseschema-undo-old-revision": "Revisão a ser desfeita"
+	"wikibaseschema-undo-old-revision": "Revisão a ser desfeita",
+	"wikibaseschema-restore-heading": "Restaurando antiga revisão de \"$1\"",
+	"wikibaseschema-restore-bad-revisions": "A edição não pôde ser restaurada porque não existe ou foi excluída.",
+	"wikibaseschema-restore-changed": "O esquema foi alterado nesse meio tempo. Por favor, cheque novamente.",
+	"wikibaseschema-restore-heading-failed": "Restauração falhou",
+	"wikibaseschema-restore-empty": "A revisão que você tentou restaurar é idêntica à revisão atual. Nada para fazer.",
+	"wikibaseschema-restoreold": "restaurar"
 }

@@ -33,6 +33,7 @@
 	"wikibaseschema-diff-schema": "Schéma",
 	"wikibaseschema-summary-newschema": "Un nouveau schéma créé : « $1 »",
 	"wikibaseschema-summary-update": "Schéma mis à jour",
+	"wikibaseschema-summary-undo": "Annuler la révision $1 par [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|discussion]]) : $3",
 	"wikibaseschema-undo-heading": "Annulation en cours de la modification de $1",
 	"wikibaseschema-undo-heading-failed": "Echec de l'annulation",
 	"wikibaseschema-undo-bad-revisions": "La modification n’a pas pu être annulée parce qu’elle est inexistante ou elle a été supprimée.",

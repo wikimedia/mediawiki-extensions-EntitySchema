@@ -32,6 +32,7 @@
 	"wikibaseschema-diff-schema": "Шема",
 	"wikibaseschema-summary-newschema": "Создадена нова шема: „$1“",
 	"wikibaseschema-summary-update": "Подновена шема",
+	"wikibaseschema-summary-undo": "Откажана преработката $1 на уредникот [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|разговор]]): $3",
 	"wikibaseschema-undo-heading": "Отповикување на уредувањето на $1",
 	"wikibaseschema-undo-heading-failed": "Отповикувањето не успеа",
 	"wikibaseschema-undo-bad-revisions": "Уредувањето не можеше да се отповика бидејќи не постои или е избришано.",

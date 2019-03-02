@@ -32,9 +32,10 @@
 	"wikibaseschema-diff-schema": "架構",
 	"wikibaseschema-summary-newschema": "已建立新架構：「$1」",
 	"wikibaseschema-summary-update": "更新架構",
+	"wikibaseschema-summary-undo": "撤銷由[[Special:Contributions/$2|{{GENDER:$2|$2}}]]（[[User talk:$2|對話]]）做出的修訂$1：$3",
 	"wikibaseschema-undo-heading": "還原編輯至$1",
-	"wikibaseschema-undo-heading-failed": "還原失敗",
-	"wikibaseschema-undo-bad-revisions": "此編輯不存在或已被刪除，無法還原。",
+	"wikibaseschema-undo-heading-failed": "撤銷失敗",
+	"wikibaseschema-undo-bad-revisions": "此編輯不存在或已被刪除，無法撤銷。",
 	"wikibaseschema-undo-cannot-apply-patch": "因為已被更改，無法還原編輯。",
-	"wikibaseschema-undo-old-revision": "要還原的修訂"
+	"wikibaseschema-undo-old-revision": "要撤銷的修訂"
 }

@@ -19,6 +19,11 @@
 	"wikibaseschema-editpage-description-inputlabel": "Beschrijving:",
 	"wikibaseschema-editpage-aliases-inputlabel": "Aliassen, gescheiden door een sluisteken (|):",
 	"wikibaseschema-error-schemadeleted": "Het schema dat u probeerde te bewerken bestaat niet. Misschien is het verwijderd?",
+	"wikibaseschema-error-schemaupdate-failed": "Kan het schema niet bijwerken",
 	"wikibaseschema-noschema": "Dit schema bestaat niet. Ga naar [[Special:NewSchema]] om een nieuw schema aan te maken.",
+	"wikibaseschema-diff-label": "Etiketten",
+	"wikibaseschema-diff-description": "Beschrijvingen",
+	"wikibaseschema-diff-aliases": "Schuilnamen",
+	"wikibaseschema-diff-schema": "Schema",
 	"wikibaseschema-undo-heading": "De bewerking naar $1 ongedaan maken"
 }
