@@ -25,6 +25,7 @@
 	"wikibaseschema-error-schemaupdate-failed": "Le schéma n'a pas pu être mis à jour",
 	"wikibaseschema-error-saving-failed": "Echec d'enregistrement du schéma avec le message suivant : $1",
 	"wikibaseschema-error-not-post": "Cette action doit être faite à l'aide d'une requête Post.",
+	"wikibaseschema-error-wrong-page-revisions": "La version fournie ne correspond pas à la page actuelle.",
 	"wikibaseschema-noschema": "Il n’y a pas de schéma ici. Allez sur [[Special:NewSchema]] pour en créer un nouveau.",
 	"wikibaseschema-summary-generated": "Résumé (sera ajouté à un résumé généré automatiquement) :",
 	"wikibaseschema-diff-label": "Étiquettes",
@@ -38,5 +39,8 @@
 	"wikibaseschema-undo-heading-failed": "Echec de l'annulation",
 	"wikibaseschema-undo-bad-revisions": "La modification n’a pas pu être annulée parce qu’elle est inexistante ou elle a été supprimée.",
 	"wikibaseschema-undo-cannot-apply-patch": "La modification n'a pas pu être annulée car elle a été changée.",
-	"wikibaseschema-undo-old-revision": "Révision à annuler"
+	"wikibaseschema-undo-old-revision": "Révision à annuler",
+	"wikibaseschema-restore-heading": "Rétablissement de l'ancienne version de « $1 »",
+	"wikibaseschema-restore-heading-failed": "Echec du rétablissment",
+	"wikibaseschema-restoreold": "rétablir"
 }
