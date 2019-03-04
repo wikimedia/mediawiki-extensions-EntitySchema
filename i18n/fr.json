@@ -35,12 +35,16 @@
 	"wikibaseschema-summary-newschema": "Un nouveau schéma créé : « $1 »",
 	"wikibaseschema-summary-update": "Schéma mis à jour",
 	"wikibaseschema-summary-undo": "Annuler la révision $1 par [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|discussion]]) : $3",
+	"wikibaseschema-summary-restore": "Rétablir la révision $1 par [[Special:Contributions/$2|{{GENDER:$2|$2}}]] : $3",
 	"wikibaseschema-undo-heading": "Annulation en cours de la modification de $1",
 	"wikibaseschema-undo-heading-failed": "Echec de l'annulation",
 	"wikibaseschema-undo-bad-revisions": "La modification n’a pas pu être annulée parce qu’elle est inexistante ou elle a été supprimée.",
 	"wikibaseschema-undo-cannot-apply-patch": "La modification n'a pas pu être annulée car elle a été changée.",
 	"wikibaseschema-undo-old-revision": "Révision à annuler",
 	"wikibaseschema-restore-heading": "Rétablissement de l'ancienne version de « $1 »",
+	"wikibaseschema-restore-bad-revisions": "La modification n’a pas pu être restaurée parce qu’elle n’existe pas ou a été supprimée.",
+	"wikibaseschema-restore-changed": "Le schéma a été modifié pendant ce temps. Veuillez revérifier.",
 	"wikibaseschema-restore-heading-failed": "Echec du rétablissment",
+	"wikibaseschema-restore-empty": "La révision que vous essayez de restaurer est identique à la révision actuelle. Rien à faire.",
 	"wikibaseschema-restoreold": "rétablir"
 }

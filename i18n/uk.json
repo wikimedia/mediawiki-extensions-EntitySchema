@@ -21,6 +21,7 @@
 	"wikibaseschema-error-schemaupdate-failed": "Схема не може бути оновлена",
 	"wikibaseschema-error-saving-failed": "Не вдалося зберегти схему, із наступним повідомленням: $1",
 	"wikibaseschema-error-not-post": "Цю дію потрібно виконати за допомогою POST-запиту.",
+	"wikibaseschema-error-wrong-page-revisions": "Вказана версія не належить поточній сторінці.",
 	"wikibaseschema-noschema": "Тут немає схеми. Перейдіть на [[Special:NewSchema]], аби створити нову.",
 	"wikibaseschema-summary-generated": "Короткий опис (буде додано до автоматично згенерованого опису):",
 	"wikibaseschema-diff-label": "Мітки",
@@ -30,8 +31,14 @@
 	"wikibaseschema-summary-newschema": "Створено нову схему: «$1»",
 	"wikibaseschema-summary-update": "Оновлена схема",
 	"wikibaseschema-summary-undo": "Скасування редагування № $1 користувача [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|обговорення]]): $3",
+	"wikibaseschema-summary-restore": "Відновлена версія $1, зроблена [[Special:Contributions/$2|{{GENDER:$2|$2}}]]: $3",
 	"wikibaseschema-undo-heading": "Скасування редагування на $1",
 	"wikibaseschema-undo-heading-failed": "Помилка скасування",
 	"wikibaseschema-undo-bad-revisions": "Редагування не може бути скасоване, бо його не існує або було вилучено.",
-	"wikibaseschema-undo-cannot-apply-patch": "Редагування не може бути скасоване, оскільки було змінено."
+	"wikibaseschema-undo-cannot-apply-patch": "Редагування не може бути скасоване, оскільки було змінено.",
+	"wikibaseschema-undo-old-revision": "Версія для скасування",
+	"wikibaseschema-restore-heading": "Відновлення старої версії «$1»",
+	"wikibaseschema-restore-bad-revisions": "Редагування не може бути відновлене, бо його не існує або було вилучено.",
+	"wikibaseschema-restore-heading-failed": "Відновлення не вдалося",
+	"wikibaseschema-restoreold": "відновити"
 }

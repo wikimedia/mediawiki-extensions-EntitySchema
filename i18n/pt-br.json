@@ -34,6 +34,7 @@
 	"wikibaseschema-summary-newschema": "Criado um novo esquema: \"$1\"",
 	"wikibaseschema-summary-update": "Esquema atualizado",
 	"wikibaseschema-summary-undo": "Desfazer revisão $1 por [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|discussão]]): $3",
+	"wikibaseschema-summary-restore": "Restaure a revisão $1 por [[Special:Contributions/$2|{{GENDER:$2|$2}}]]: $3",
 	"wikibaseschema-undo-heading": "Desfazendo a edição para $1",
 	"wikibaseschema-undo-heading-failed": "A ação de desfazer falhou",
 	"wikibaseschema-undo-bad-revisions": "A edição não pôde ser desfeita porque não existe ou foi apagada.",

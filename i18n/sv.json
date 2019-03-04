@@ -4,5 +4,7 @@
 			"WikiPhoenix"
 		]
 	},
-	"wikibaseschema-undo-heading-failed": "Misslyckades att ångra"
+	"wikibaseschema-undo-heading-failed": "Misslyckades att ångra",
+	"wikibaseschema-restore-heading-failed": "Återställning misslyckades",
+	"wikibaseschema-restoreold": "återställ"
 }
