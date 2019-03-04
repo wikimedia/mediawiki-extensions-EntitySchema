@@ -318,4 +318,46 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testUpdateSchemaNameBadgeSuccess() {
+		$id = 'O1';
+		$language = 'en';
+		$labels = [ $language => 'englishLabel' ];
+		$descriptions = [ $language => 'englishDescription' ];
+		$aliases = [ $language => [ 'englishAlias' ] ];
+		$existingContent = new WikibaseSchemaContent( json_encode( [
+			'id' => $id,
+			'serializationVersion' => '2.0',
+			'labels' => [ 'en' => 'Cat' ],
+			'descriptions' => [ 'en' => 'This is what a cat look like' ],
+			'aliases' => [ 'en' => [ 'Tiger', 'Lion' ] ],
+			'schema' => '# some schema about goats',
+			'type' => 'ShExC',
+		] ) );
+		$expectedContent = new WikibaseSchemaContent( json_encode( [
+			'id' => $id,
+			'serializationVersion' => '2.0',
+			'labels' => $labels,
+			'descriptions' => $descriptions,
+			'aliases' => $aliases,
+			'schema' => '# some schema about goats',
+			'type' => 'ShExC',
+		] ) );
+
+		$pageUpdaterFactory = $this
+			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
+		);
+
+		$writer->updateSchemaNameBadge(
+			new SchemaId( $id ),
+			$language,
+			$labels['en'],
+			$descriptions['en'],
+			$aliases['en']
+		);
+	}
+
 }

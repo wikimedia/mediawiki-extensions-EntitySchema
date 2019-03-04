@@ -5,8 +5,8 @@ namespace Wikibase\Schema\DataAccess;
 use CommentStoreComment;
 use InvalidArgumentException;
 use MediaWiki\Revision\SlotRecord;
-use Message;
 use MediaWiki\Storage\PageUpdater;
+use Message;
 use MessageLocalizer;
 use RuntimeException;
 use Wikibase\Schema\Domain\Model\SchemaId;
@@ -130,6 +130,55 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 
 		$updater->saveRevision(
 			CommentStoreComment::newUnsavedComment( $message )
+		);
+		if ( !$updater->wasSuccessful() ) {
+			throw new RuntimeException( 'The revision could not be saved' );
+		}
+
+		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
+	}
+
+	public function updateSchemaNameBadge(
+		SchemaId $id,
+		$langCode,
+		$label,
+		$description,
+		array $aliases
+	) {
+
+		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
+		$this->checkSchemaExists( $updater );
+		/** @var WikibaseSchemaContent $content */
+		$content = $updater->grabParentRevision()->getContent( SlotRecord::MAIN );
+
+		// TODO check $updater->hasEditConflict()! (T217338)
+
+		$dispatcher = new SchemaDispatcher();
+		// @phan-suppress-next-line PhanUndeclaredMethod
+		$schemaData = $dispatcher->getPersistenceSchemaData( $content->getText() );
+		$schemaData->labels[$langCode] = $label;
+		$schemaData->descriptions[$langCode] = $description;
+		$schemaData->aliases[$langCode] = $aliases;
+
+		$updater->setContent(
+			SlotRecord::MAIN,
+			new WikibaseSchemaContent(
+				SchemaEncoder::getPersistentRepresentation(
+					$id,
+					$schemaData->labels,
+					$schemaData->descriptions,
+					$schemaData->aliases,
+					$schemaData->schemaText
+				)
+			)
+		);
+
+		$updater->saveRevision(
+			CommentStoreComment::newUnsavedComment(
+			// TODO specific message (T214887)
+				$this->msgLocalizer->msg( 'wikibaseschema-summary-update' )
+			),
+			EDIT_UPDATE | EDIT_INTERNAL
 		);
 		if ( !$updater->wasSuccessful() ) {
 			throw new RuntimeException( 'The revision could not be saved' );

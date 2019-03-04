@@ -52,6 +52,21 @@ interface SchemaWriter {
 
 	/**
 	 * @param SchemaId $id
+	 * @param string   $langCode
+	 * @param string   $label
+	 * @param string   $description
+	 * @param string[] $aliases
+	 */
+	public function updateSchemaNameBadge(
+		SchemaId $id,
+		$langCode,
+		$label,
+		$description,
+		array $aliases
+	);
+
+	/**
+	 * @param SchemaId $id
 	 * @param string $schemaContent
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
