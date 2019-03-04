@@ -15,14 +15,16 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideJsonAndHtmlFragments
 	 */
-	public function testGetParserOutput( array $json, $fragment ) {
+	public function testGetParserOutput( array $json, array $fragments ) {
 		$text = json_encode( $json );
 		$content = new WikibaseSchemaContent( $text );
 
 		$parserOutput = $content->getParserOutput( Title::newMainPage() );
 		$html = $parserOutput->getText();
 
-		$this->assertContains( $fragment, $html );
+		foreach ( $fragments as $fragment ) {
+			$this->assertContains( $fragment, $html );
+		}
 	}
 
 	public function provideJsonAndHtmlFragments() {
@@ -35,7 +37,7 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'schema' => '',
 					'serializationVersion' => '2.0',
 				],
-				'<abstract id="wbschema-heading-description">test</abstract>',
+				[ '<abstract id="wbschema-heading-description">test</abstract>' ],
 			],
 			[
 				[
@@ -46,17 +48,17 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'serializationVersion' => '2.0',
 				],
 				// exact details of escaping beyond this (> vs &gt;) don’t matter
-				'<abstract id="wbschema-heading-description">&lt;script',
+				[ '<abstract id="wbschema-heading-description">&lt;script' ],
 			],
 			[
 				[
 					'descriptions' => [
 						'en' => 'test',
 					],
-					'schema' => '# basic schema\n_:empty {}',
+					'schema' => '_:empty {}',
 					'serializationVersion' => '2.0',
 				],
-				'<pre id="wbschema-schema-text" class="wbschema-schema-text"># basic schema\n_:empty {}</pre>',
+				[ '<pre id="wbschema-schema-text" class="wbschema-schema-text">_:empty {}</pre>' ],
 			],
 			[
 				[
@@ -67,7 +69,21 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'serializationVersion' => '2.0',
 				],
 				// exact details of escaping beyond this (> vs &gt;) don’t matter
-				'<pre id="wbschema-schema-text" class="wbschema-schema-text">&lt;script',
+				[ '<pre id="wbschema-schema-text" class="wbschema-schema-text">&lt;script' ],
+			],
+			[
+				[
+					'descriptions' => [
+						'en' => 'english description',
+						'de' => 'deutsche Beschreibung',
+					],
+					'schema' => '',
+					'serializationVersion' => '2.0',
+				],
+				[
+					'<abstract id="wbschema-heading-description">english description</abstract>',
+					'<abstract id="wbschema-heading-description">deutsche Beschreibung</abstract>',
+				]
 			],
 		];
 	}
