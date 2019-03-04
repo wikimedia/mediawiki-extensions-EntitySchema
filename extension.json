@@ -59,7 +59,8 @@
 		}
 	},
 	"SpecialPages": {
-		"NewSchema": "Wikibase\\Schema\\MediaWiki\\Specials\\NewSchema"
+		"NewSchema": "Wikibase\\Schema\\MediaWiki\\Specials\\NewSchema",
+		"SchemaText": "Wikibase\\Schema\\MediaWiki\\Specials\\SchemaText"
 	},
 	"manifest_version": 2
 }

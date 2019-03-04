@@ -47,5 +47,8 @@
 	"wikibaseschema-restore-changed": "Error message saying that the Schema has changed since starting the restore action.",
 	"wikibaseschema-restore-heading-failed": "Heading if the revision cannot be restored for some reason",
 	"wikibaseschema-restore-empty": "Error message to be shown if the user tries to restore a revision that is identical to the current revision.",
-	"wikibaseschema-restoreold": "Link text shown on the link that lets the user restore the page's content to an old revision. Must be distinct from undo and revert. Used on the diff views.\n{{Identical|Restore}}"
+	"wikibaseschema-restoreold": "Link text shown on the link that lets the user restore the page's content to an old revision. Must be distinct from undo and revert. Used on the diff views.\n{{Identical|Restore}}",
+	"special-schematext": "Title for the Special Page that gives access to the raw Schema text.",
+	"wikibaseschema-schematext-text": "Explanatory text to access the raw Schema text on the special page.",
+	"wikibaseschema-schematext-missing": "Error message if raw text of a non-existant Schema is requested."
 }

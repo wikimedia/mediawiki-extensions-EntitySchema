@@ -121,6 +121,16 @@ class SchemaDispatcher {
 		}
 	}
 
+	/**
+	 * @param string $schemaJSON
+	 *
+	 * @return string
+	 */
+	public function getSchemaText( $schemaJSON ) {
+		$schema = json_decode( $schemaJSON, true );
+		return $this->getSchemaTextFromSchema( $schema );
+	}
+
 	private function getSchemaTextFromSchema( array $schema ) {
 		if ( !isset( $schema['serializationVersion'] ) ) {
 			return '';

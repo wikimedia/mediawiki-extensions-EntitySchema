@@ -11,4 +11,5 @@ $specialPageAliases = [];
 /** English (English) */
 $specialPageAliases['en'] = [
 	'NewSchema' => [ 'NewSchema' ],
+	'SchemaText' => [ 'SchemaText' ],
 ];

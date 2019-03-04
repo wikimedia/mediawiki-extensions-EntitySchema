@@ -46,5 +46,8 @@
 	"wikibaseschema-restore-changed": "The Schema has been changed in the meantime. Please recheck.",
 	"wikibaseschema-restore-heading-failed": "Restore failed",
 	"wikibaseschema-restore-empty": "The revision you tried to restore is identical to the current revision. Nothing to do.",
-	"wikibaseschema-restoreold": "restore"
+	"wikibaseschema-restoreold": "restore",
+	"special-schematext": "Schema text",
+	"wikibaseschema-schematext-text": "This page provides an interface to the raw text of a schema. Please provide the Schema ID in the URL, using subpage syntax.",
+	"wikibaseschema-schematext-missing": "Missing or deleted Schema: $1."
 }
