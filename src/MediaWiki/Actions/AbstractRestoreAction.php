@@ -17,7 +17,7 @@ use WebRequest;
 abstract class AbstractRestoreAction extends EditAction {
 
 	public function getRestriction() {
-		return $this->getName();
+		return 'edit';
 	}
 
 	protected function getRevisionFromRequest( WebRequest $req ): Status {

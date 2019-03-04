@@ -22,6 +22,10 @@ use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
  */
 final class RestoreSubmitAction extends AbstractRestoreAction {
 
+	public function getName() {
+		return 'submit';
+	}
+
 	public function show() {
 		$checkMethodStatus = $this->checkMethod();
 		if ( !$checkMethodStatus->isOK() ) {

@@ -2,6 +2,7 @@
 
 namespace Wikibase\Schema\Tests\MediaWiki\Actions;
 
+use Action;
 use Block;
 use CommentStoreComment;
 use FauxRequest;
@@ -138,6 +139,17 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 		);
 
 		return $firstRevRecord->getId();
+	}
+
+	public function testActionName() {
+		$title = Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' );
+		$requestParameters = [ 'action' => 'submit', 'restore' => 1 ];
+		$context = RequestContext::newExtraneousContext( $title, $requestParameters );
+
+		$actionName = Action::getActionName( $context );
+		$action = Action::factory( $actionName, $context->getWikiPage(), $context );
+
+		$this->assertInstanceOf( RestoreSubmitAction::class, $action );
 	}
 
 }
