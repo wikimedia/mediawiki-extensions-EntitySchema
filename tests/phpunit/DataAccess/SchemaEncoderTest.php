@@ -2,6 +2,7 @@
 
 namespace phpunit\DataAccess;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\Schema\DataAccess\SchemaEncoder;
 use Wikibase\Schema\Domain\Model\SchemaId;
 
@@ -10,7 +11,7 @@ use Wikibase\Schema\Domain\Model\SchemaId;
  *
  * @license GPL-2.0-or-later
  */
-class SchemaEncoderTest {
+class SchemaEncoderTest extends TestCase {
 
 	public function testGetPersistentRepresentation() {
 		$id = 'O1';
