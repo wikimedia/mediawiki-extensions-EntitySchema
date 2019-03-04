@@ -12,6 +12,7 @@ use RuntimeException;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\Domain\Storage\IdGenerator;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -154,22 +155,24 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 
 		/** @var WikibaseSchemaContent $content */
 		$content = $updater->grabParentRevision()->getContent( SlotRecord::MAIN );
+		$dispatcher = new SchemaDispatcher();
 		// @phan-suppress-next-line PhanUndeclaredMethod
-		$data = json_decode( $content->getText(), true );
-		if ( !array_key_exists( 'serializationVersion', $data ) || (
-			$data['serializationVersion'] !== '1.0' &&
-			$data['serializationVersion'] !== '2.0' ) ) {
-			throw new RuntimeException( 'Unknown or missing serialization version' );
-		}
+		$schemaData = $dispatcher->getPersistenceSchemaData( $content->getText() );
+		$schemaData->schemaText = $schemaContent;
 
 		// TODO check $updater->hasEditConflict()! (T217338)
 
-		// in serialization version 1.0 or 2.0, the schema content is stored the same way,
-		// so just update that and leave the rest unchanged
-		$data['schema'] = $schemaContent;
 		$updater->setContent(
 			SlotRecord::MAIN,
-			new WikibaseSchemaContent( json_encode( $data ) )
+			new WikibaseSchemaContent(
+				SchemaEncoder::getPersistentRepresentation(
+					$id,
+					$schemaData->labels,
+					$schemaData->descriptions,
+					$schemaData->aliases,
+					$schemaData->schemaText
+				)
+			)
 		);
 
 		$updater->saveRevision( CommentStoreComment::newUnsavedComment(

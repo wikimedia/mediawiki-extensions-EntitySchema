@@ -6,6 +6,7 @@ use MediaWikiTestCase;
 use Wikibase\Schema\Services\SchemaDispatcher\FullViewSchemaData;
 use Wikibase\Schema\Services\SchemaDispatcher\MonolingualSchemaData;
 use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
+use Wikibase\Schema\Services\SchemaDispatcher\PersistenceSchemaData;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
 
 /**
@@ -383,6 +384,71 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 		$actualSchemaData = $dispatcher->getFullArraySchemaData( $schemaJSON )->data;
 
 		$this->assertSame( $expectedSchemaData, $actualSchemaData );
+	}
+
+	public function providePersistenceSchemaData() {
+		$expectedSchemaData = new PersistenceSchemaData();
+		$expectedSchemaData->labels = [ 'en' => 'english test label' ];
+		$expectedSchemaData->descriptions = [ 'en' => 'english test description' ];
+		$expectedSchemaData->aliases = [ 'en' => [ 'english test alias' ] ];
+		$expectedSchemaData->schemaText = 'test schema';
+		yield 'single language' => [
+			[
+				'labels' => [
+					'en' => 'english test label',
+				],
+				'descriptions' => [
+					'en' => 'english test description',
+				],
+				'aliases' => [
+					'en' => [ 'english test alias' ],
+				],
+				'schema' => 'test schema',
+				'serializationVersion' => '2.0',
+			],
+			$expectedSchemaData,
+		];
+
+		$expectedSchemaData = new PersistenceSchemaData();
+		$expectedSchemaData->labels = [
+			'de' => 'deutsche Testbezeichnung',
+			'en' => 'english test label'
+		];
+		$expectedSchemaData->descriptions = [ 'de' => 'deutsche Testbeschreibung', ];
+		$expectedSchemaData->aliases = [ 'pt' => [ 'alias de teste em português' ], ];
+		$expectedSchemaData->schemaText = 'test schema';
+		yield 'multiple languages' => [
+			[
+				'labels' => [
+					'en' => 'english test label',
+					'de' => 'deutsche Testbezeichnung',
+				],
+				'descriptions' => [
+					'de' => 'deutsche Testbeschreibung',
+				],
+				'aliases' => [
+					'pt' => [ 'alias de teste em português' ],
+				],
+				'schema' => 'test schema',
+				'serializationVersion' => '2.0',
+			],
+			$expectedSchemaData,
+		];
+	}
+
+	/**
+	 * @dataProvider providePersistenceSchemaData
+	 */
+	public function testPersistenceSchemaData(
+		array $schema,
+		PersistenceSchemaData $expectedSchemaData
+	) {
+		$schemaJSON = json_encode( $schema );
+		$dispatcher = new SchemaDispatcher();
+
+		$actualSchemaData = $dispatcher->getPersistenceSchemaData( $schemaJSON );
+
+		$this->assertEquals( $expectedSchemaData, $actualSchemaData );
 	}
 
 }
