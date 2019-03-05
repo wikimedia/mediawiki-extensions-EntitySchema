@@ -10,13 +10,13 @@ const assert = require( 'assert' ),
 describe( 'Schema Edit Page', () => {
 
 	describe( 'given that a user is allowed', () => {
-		let ShExCContent = '<some shex>';
+		let schemaText = '<some shex>';
 
 		beforeEach( 'create new schema page and open', () => {
 			NewSchemaPage.open();
 			NewSchemaPage.showsForm();
 			NewSchemaPage.setLabel( 'foo' );
-			NewSchemaPage.setSchemaText( ShExCContent );
+			NewSchemaPage.setSchemaText( schemaText );
 			NewSchemaPage.clickSubmit();
 			// todo make with Api call
 		} );
@@ -25,7 +25,7 @@ describe( 'Schema Edit Page', () => {
 			let id = ViewSchemaPage.getId();
 			EditSchemaPage.open( id );
 			EditSchemaPage.schemaTextArea.waitForVisible();
-			assert.strictEqual( EditSchemaPage.ShExCContent, ShExCContent );
+			assert.strictEqual( EditSchemaPage.schemaText, schemaText );
 			// todo assert that contents are there using api call
 		} );
 

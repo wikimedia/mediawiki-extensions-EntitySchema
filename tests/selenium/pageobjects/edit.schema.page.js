@@ -19,7 +19,7 @@ class EditSchemaPage extends Page {
 		return browser.element( this.constructor.SCHEMA_EDIT_SELECTORS.SUBMIT_BUTTON );
 	}
 
-	get ShExCContent() {
+	get schemaText() {
 		return this.schemaTextArea.getValue();
 	}
 
