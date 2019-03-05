@@ -79,6 +79,12 @@ class SchemaEncoder {
 				. 'and aliases must be an array of strings'
 			);
 		}
+
+		foreach ( $aliasGroups as $languageCode => $aliasGroup ) {
+			if ( array_unique( $aliasGroup ) !== $aliasGroup ) {
+				throw new InvalidArgumentException( 'aliases must be unique (distinct)' );
+			}
+		}
 	}
 
 	private static function isSequentialArrayOfStrings( array $array ) {
