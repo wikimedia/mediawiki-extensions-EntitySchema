@@ -24,6 +24,7 @@
 	"wikibaseschema-error-schemaupdate-failed": "O esquema não pôde ser atualizado",
 	"wikibaseschema-error-saving-failed": "Salvando o esquema falhou com a seguinte mensagem: $1",
 	"wikibaseschema-error-not-post": "Esta ação deve ser feita com uma solicitação de postagem.",
+	"wikibaseschema-error-inconsistent-id": "As revisões fornecidas não pertencem todas ao título dado.",
 	"wikibaseschema-error-wrong-page-revisions": "A revisão fornecida não pertence à página atual.",
 	"wikibaseschema-noschema": "Não há schema aqui. Vá para [[Special:NewSchema]] para criar um novo.",
 	"wikibaseschema-summary-generated": "Resumo (será anexado a um resumo gerado automaticamente):",

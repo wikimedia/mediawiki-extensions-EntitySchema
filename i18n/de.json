@@ -24,6 +24,7 @@
 	"wikibaseschema-error-schemaupdate-failed": "Das Schema konnte nicht aktualisiert werden",
 	"wikibaseschema-error-saving-failed": "Das Speichern des Schemas ist mit der folgenden Meldung fehlgeschlagen: $1",
 	"wikibaseschema-error-not-post": "Diese Aktion muss mit einer POST-Anfrage durchgeführt werden.",
+	"wikibaseschema-error-inconsistent-id": "Nicht alle angegebenen Versionen gehören zum angegebenen Titel.",
 	"wikibaseschema-error-wrong-page-revisions": "Die angegebene Version gehört nicht zur aktuellen Seite.",
 	"wikibaseschema-noschema": "Es gibt hier kein Schema. Gehe auf [[Special:NewSchema]], um ein neues zu erstellen.",
 	"wikibaseschema-summary-generated": "Zusammenfassung (wird einer automatisch erzeugten Zusammenfassung angehängt):",
