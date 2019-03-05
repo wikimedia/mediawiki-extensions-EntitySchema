@@ -26,10 +26,11 @@ class UndoViewActionTest extends MediaWikiTestCase {
 
 	public function test_UndoView() {
 		// arrange
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
+		$schemaId = 'O123';
+		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schema' => 'abc' ] );
-		$secondId = $this->saveSchemaPageContent( $page, [ 'schema' => 'def' ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schema' => 'abc', 'id' => $schemaId ] );
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schema' => 'def', 'id' => $schemaId ] );
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
@@ -39,6 +40,7 @@ class UndoViewActionTest extends MediaWikiTestCase {
 					'action' => 'edit',
 					'undoafter' => $firstID,
 					'undo' => $secondId,
+					'title' => 'Schema:' . $schemaId
 				],
 				false
 			)

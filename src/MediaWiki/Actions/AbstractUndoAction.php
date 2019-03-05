@@ -3,6 +3,7 @@
 namespace Wikibase\Schema\MediaWiki\Actions;
 
 use Diff\DiffOp\Diff\Diff;
+use DomainException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use Status;
@@ -39,6 +40,11 @@ abstract class AbstractUndoAction extends ViewAction {
 		/** @var WikibaseSchemaContent $undoToContent */
 		$undoToContent = $olderRevision->getContent( SlotRecord::MAIN );
 		$undoHandler = new UndoHandler();
+		try {
+			$undoHandler->validateContentIds( $undoFromContent, $undoToContent );
+		} catch ( DomainException $e ) {
+			return Status::newFatal( 'wikibaseschema-error-inconsistent-id' );
+		}
 
 		return $undoHandler->getDiffFromContents( $undoFromContent, $undoToContent );
 	}

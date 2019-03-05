@@ -4,6 +4,7 @@ namespace phpunit\MediaWiki;
 
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpChange;
+use DomainException;
 use MediaWikiTestCase;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use Wikibase\Schema\MediaWiki\UndoHandler;
@@ -14,6 +15,75 @@ use Wikibase\Schema\MediaWiki\UndoHandler;
  * @covers \Wikibase\Schema\MediaWiki\UndoHandler
  */
 class UndoHandlerTest extends MediaWikiTestCase {
+
+	public function testAssertSameId() {
+		$id = 'O123';
+
+		$content1 = new WikibaseSchemaContent(
+			json_encode( [
+				'id' => $id,
+				'serializationVersion' => '2.0',
+			] )
+		);
+		$content2 = new WikibaseSchemaContent(
+			json_encode( [
+				'id' => $id,
+				'serializationVersion' => '2.0',
+			] )
+		);
+		$contentBase = new WikibaseSchemaContent(
+			json_encode( [
+				'id' => $id,
+				'serializationVersion' => '2.0',
+			] )
+		);
+
+		$undoHandler = new UndoHandler();
+		$actualSchemaId = $undoHandler->validateContentIds( $content1, $content2, $contentBase );
+
+		$this->assertSame( $id, $actualSchemaId->getId() );
+	}
+
+	public function inconsistentIdProvider() {
+		yield 'invalidWithoutThirdId' => [
+			'O12', 'O123', null
+		];
+
+		yield 'thirdIdDifferent' => [
+			'O123', 'O123', 'O12'
+		];
+	}
+
+	/**
+	 * @dataProvider inconsistentIdProvider
+	 */
+	public function testAssertSameIdFail( $firstID, $secondID, $thirdID ) {
+		$content1 = new WikibaseSchemaContent(
+			json_encode( [
+				'id' => $firstID,
+				'serializationVersion' => '2.0',
+			] )
+		);
+		$content2 = new WikibaseSchemaContent(
+			json_encode( [
+				'id' => $secondID,
+				'serializationVersion' => '2.0',
+			] )
+		);
+		$contentBase = null;
+		if ( $thirdID !== null ) {
+			$contentBase = new WikibaseSchemaContent(
+				json_encode( [
+					'id' => $thirdID,
+					'serializationVersion' => '2.0',
+				] )
+			);
+		}
+
+		$undoHandler = new UndoHandler();
+		$this->expectException( DomainException::class );
+		$undoHandler->validateContentIds( $content1, $content2, $contentBase );
+	}
 
 	public function testGetDiffFromContents() {
 		$goodContent = new WikibaseSchemaContent(

@@ -451,4 +451,29 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 		$this->assertEquals( $expectedSchemaData, $actualSchemaData );
 	}
 
+	public function provideSerializationsWithId() {
+		yield [
+			[
+				'id' => 'O123',
+				'serializationVersion' => '2.0',
+			],
+			'O123'
+		];
+	}
+
+	/**
+	 * @dataProvider provideSerializationsWithId
+	 */
+	public function testGetID(
+		array $schema,
+		$expectedID
+	) {
+		$schemaJSON = json_encode( $schema );
+		$dispatcher = new SchemaDispatcher();
+
+		$actualSchemaId = $dispatcher->getSchemaID( $schemaJSON );
+
+		$this->assertSame( $expectedID, $actualSchemaId );
+	}
+
 }

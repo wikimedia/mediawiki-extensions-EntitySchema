@@ -101,6 +101,26 @@ class SchemaDispatcher {
 		return $persistenceSchemaData;
 	}
 
+	public function getSchemaID( $schemaJSON ) {
+		return $this->getIdFromSchema( json_decode( $schemaJSON, true ) );
+	}
+
+	private function getIdFromSchema( array $schema ) {
+		if ( !isset( $schema['serializationVersion'] ) ) {
+			return null;
+		}
+
+		switch ( $schema['serializationVersion'] ) {
+			case '1.0':
+			case '2.0':
+				return $schema['id'] ?? null;
+			default:
+				throw new DomainException(
+					'Unknown schema serialization version ' . $schema['serializationVersion']
+				);
+		}
+	}
+
 	private function getSchemaTextFromSchema( array $schema ) {
 		if ( !isset( $schema['serializationVersion'] ) ) {
 			return '';

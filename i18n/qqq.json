@@ -25,6 +25,7 @@
 	"wikibaseschema-error-schemaupdate-failed": "Error message when saving the Schema after edit wasn't successful",
 	"wikibaseschema-error-saving-failed": "Error message when saving a schema has failed.\n\nParameters:\n* $1 - the message of the exception",
 	"wikibaseschema-error-not-post": "Error message when a HTTP POST request is expected but something else was received.",
+	"wikibaseschema-error-inconsistent-id": "Error message if revisions belonging to different pages were provided",
 	"wikibaseschema-error-wrong-page-revisions": "Error message when a given revision (e.g. for restoring) does not belong to the current page.",
 	"wikibaseschema-noschema": "Text that is shown on a non-existant page in the Schema namespace",
 	"wikibaseschema-summary-generated": "The label above the summary input, stating that will be appended to a generated summary.",

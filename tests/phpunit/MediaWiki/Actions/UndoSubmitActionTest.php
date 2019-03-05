@@ -37,10 +37,11 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	public function testUndoSubmit() {
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
+		$schemaId = 'O123';
+		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schema' => 'abc' ] );
-		$secondId = $this->saveSchemaPageContent( $page, [ 'schema' => 'def' ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schema' => 'abc', 'id' => $schemaId ] );
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schema' => 'def', 'id' => $schemaId ] );
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
@@ -48,6 +49,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 				'action' => 'submit',
 				'undoafter' => $firstID,
 				'undo' => $secondId,
+				'title' => 'Schema:' . $schemaId
 			], true )
 		);
 
@@ -55,7 +57,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 
 		$undoSubmitAction->show();
 
-		$actualSchema = $this->getCurrentSchemaContent( 'O123' );
+		$actualSchema = $this->getCurrentSchemaContent( $schemaId );
 		$this->assertSame( 'abc', $actualSchema['schema'] );
 	}
 
