@@ -24,7 +24,7 @@ describe( 'NewSchema:Page', () => {
 		NewSchemaPage.setLabel( 'Testlabel' );
 		NewSchemaPage.setDescription( 'A schema created with selenium browser tests' );
 		NewSchemaPage.setAliases( 'Testschema |Schema created by test' );
-		NewSchemaPage.setShExC( '<empty> {}' );
+		NewSchemaPage.setSchemaText( '<empty> {}' );
 		NewSchemaPage.clickSubmit();
 
 		const actualLabel = ViewSchemaPage.getLabel(),

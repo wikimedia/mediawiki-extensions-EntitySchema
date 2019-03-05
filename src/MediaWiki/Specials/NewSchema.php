@@ -31,7 +31,7 @@ class NewSchema extends SpecialPage {
 	/* public */
 	const FIELD_ALIASES = 'aliases';
 	/* public */
-	const FIELD_SCHEMA_SHEXC = 'schema-shexc';
+	const FIELD_SCHEMA_TEXT = 'schema-text';
 
 	public function __construct() {
 		parent::__construct(
@@ -90,7 +90,7 @@ class NewSchema extends SpecialPage {
 			$data[self::FIELD_LABEL],
 			$data[self::FIELD_DESCRIPTION],
 			array_filter( array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) ) ),
-			$data[self::FIELD_SCHEMA_SHEXC]
+			$data[self::FIELD_SCHEMA_TEXT]
 		);
 
 		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $newId->getId() );
@@ -133,11 +133,11 @@ class NewSchema extends SpecialPage {
 				'placeholder-message' => 'wikibaseschema-aliases-edit-placeholder',
 				'label-message' => 'wikibaseschema-newschema-aliases',
 			],
-			self::FIELD_SCHEMA_SHEXC => [
-				'name' => self::FIELD_SCHEMA_SHEXC,
+			self::FIELD_SCHEMA_TEXT => [
+				'name' => self::FIELD_SCHEMA_TEXT,
 				'class' => HTMLTextAreaField::class,
 				'default' => '',
-				'id' => 'wbschema-newschema-schema-shexc',
+				'id' => 'wbschema-newschema-schema-text',
 				'placeholder' => "<human> {\n  wdt:P31 [wd:Q5]\n}",
 				'label-message' => 'wikibaseschema-newschema-schema-shexc',
 				'useeditfont' => true,

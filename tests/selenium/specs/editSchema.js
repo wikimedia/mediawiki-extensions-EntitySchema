@@ -16,7 +16,7 @@ describe( 'Schema Edit Page', () => {
 			NewSchemaPage.open();
 			NewSchemaPage.showsForm();
 			NewSchemaPage.setLabel( 'foo' );
-			NewSchemaPage.setShExC( ShExCContent );
+			NewSchemaPage.setSchemaText( ShExCContent );
 			NewSchemaPage.clickSubmit();
 			// todo make with Api call
 		} );

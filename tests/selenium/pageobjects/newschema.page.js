@@ -8,7 +8,7 @@ class NewSchemaPage extends Page {
 			LABEL: '#wbschema-newschema-label',
 			DESCRIPTION: '#wbschema-newschema-description',
 			ALIASES: '#wbschema-newschema-aliases',
-			SCHEMA_SHEXC: '#wbschema-newschema-schema-shexc',
+			SCHEMA_TEXT: '#wbschema-newschema-schema-text',
 			SUBMIT_BUTTON: '#wbschema-newschema-submit'
 		};
 	}
@@ -24,7 +24,7 @@ class NewSchemaPage extends Page {
 		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.LABEL ).waitForVisible();
 		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.DESCRIPTION ).waitForVisible();
 		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.ALIASES ).waitForVisible();
-		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_SHEXC ).waitForVisible();
+		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_TEXT ).waitForVisible();
 
 		return true;
 	}
@@ -41,21 +41,21 @@ class NewSchemaPage extends Page {
 		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.ALIASES + ' input' ).setValue( aliases );
 	}
 
-	setShExC( ShExC ) {
-		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_SHEXC + ' textarea' ).setValue( ShExC );
+	setSchemaText( schemaText ) {
+		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_TEXT + ' textarea' ).setValue( schemaText );
 	}
 
 	/**
-	 * Inserts the ShExC via javascript/jQuery instead of "typing" it
+	 * Inserts the SchemaText via javascript/jQuery instead of "typing" it
 	 *
 	 * This method enables inserting the tab character
 	 *
-	 * @param {string} ShExC
+	 * @param {string} schemaText
 	 */
-	pasteShExC( ShExC ) {
-		browser.executeAsync( ( query, ShExC, done ) => {
-			done( window.$( query ).val( ShExC ) );
-		}, this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_SHEXC + ' textarea', ShExC );
+	pasteSchemaText( schemaText ) {
+		browser.executeAsync( ( query, schemaText, done ) => {
+			done( window.$( query ).val( schemaText ) );
+		}, this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_TEXT + ' textarea', schemaText );
 	}
 
 	clickSubmit() {
