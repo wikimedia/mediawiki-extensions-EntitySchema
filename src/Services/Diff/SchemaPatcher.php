@@ -32,7 +32,7 @@ class SchemaPatcher {
 			isset( $patch['schema'] ) ? $patch['schema'] : null
 		);
 
-		return array_filter( $patchedSchema );
+		return $patchedSchema;
 	}
 
 	private function patchFingerprint( array $baseSchema, Diff $patch ): array {

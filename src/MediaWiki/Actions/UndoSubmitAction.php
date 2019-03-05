@@ -102,10 +102,10 @@ class UndoSubmitAction extends AbstractUndoAction {
 			$schemaWriter->updateSchema(
 				new SchemaId( $this->getTitle()->getTitleValue()->getText() ),
 				'en',
-				isset( $patchedSchema['labels'] ) ? $patchedSchema['labels']['en'] : '',
-				isset( $patchedSchema['descriptions'] ) ? $patchedSchema['descriptions']['en'] : '',
-				isset( $patchedSchema['aliases'] ) ? $patchedSchema['aliases']['en'] : [],
-				$patchedSchema['schema'] ?? '',
+				$patchedSchema['labels']['en'] ?? '',
+				$patchedSchema['descriptions']['en'] ?? '',
+				$patchedSchema['aliases']['en'] ?? [],
+				$patchedSchema['schema'],
 				$submitMessage
 			);
 		} catch ( RuntimeException $e ) {

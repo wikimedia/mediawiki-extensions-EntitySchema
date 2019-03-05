@@ -34,6 +34,9 @@ class SchemaPatcherTest extends TestCase {
 				'labels' => [
 					'en' => 'testlabel',
 				],
+				'descriptions' => [],
+				'aliases' => [],
+				'schema' => '',
 			],
 		];
 
@@ -91,7 +94,12 @@ class SchemaPatcherTest extends TestCase {
 			new Diff( [
 				'schema' => new DiffOpAdd( 'test schema' ),
 			], true ),
-			[ 'schema' => 'test schema' ],
+			[
+				'labels' => [],
+				'descriptions' => [],
+				'aliases' => [],
+				'schema' => 'test schema',
+			],
 		];
 
 		yield 'remove schema' => [
@@ -99,7 +107,12 @@ class SchemaPatcherTest extends TestCase {
 			new Diff( [
 				'schema' => new DiffOpRemove( 'test schema' ),
 			], true ),
-			[],
+			[
+				'labels' => [],
+				'descriptions' => [],
+				'aliases' => [],
+				'schema' => '',
+			],
 		];
 	}
 

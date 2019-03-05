@@ -153,6 +153,9 @@ class UndoHandlerTest extends MediaWikiTestCase {
 			'labels' => [
 				'en' => 'abc',
 			],
+			'descriptions' => [],
+			'aliases' => [],
+			'schema' => ''
 		];
 		$actualSchema = $actualPatchStatus->getValue();
 		$this->assertSame( $expectedSchema, $actualSchema );
