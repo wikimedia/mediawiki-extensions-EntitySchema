@@ -12,6 +12,6 @@ describe( 'Schema Viewing Page', () => {
 		NewSchemaPage.setLabel( 'Testing inner whitespace' );
 		NewSchemaPage.pasteSchemaText( schemaTextWithSpaces );
 		NewSchemaPage.clickSubmit();
-		assert.strictEqual( schemaTextWithSpaces, ViewSchemaPage.getShExCHTML() );
+		assert.strictEqual( schemaTextWithSpaces, ViewSchemaPage.getSchemaTextHTML() );
 	} );
 } );

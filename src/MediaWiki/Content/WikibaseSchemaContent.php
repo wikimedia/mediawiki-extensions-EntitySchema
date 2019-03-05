@@ -82,8 +82,8 @@ class WikibaseSchemaContent extends JsonContent {
 		return Html::element(
 				'pre',
 				[
-					'id' => 'wbschema-schema-shexc',
-					'class' => 'wbschema-shexc',
+					'id' => 'wbschema-schema-text',
+					'class' => 'wbschema-schema-text',
 				],
 				$schemaContent
 			);
@@ -94,7 +94,7 @@ class WikibaseSchemaContent extends JsonContent {
 		return Html::rawElement(
 			'div',
 			[
-				'id' => 'wbschema-edit-shexc',
+				'id' => 'wbschema-edit-schema-text',
 				'class' => 'wbschema-edit-button',
 			],
 			$linkRenderer->makeLink( $title, 'edit', [ 'class' => 'edit-icon' ], [ 'action' => 'edit' ] )
