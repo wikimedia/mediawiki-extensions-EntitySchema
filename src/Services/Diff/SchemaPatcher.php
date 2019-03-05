@@ -28,8 +28,8 @@ class SchemaPatcher {
 		$patchedSchema = $this->patchFingerprint( $baseSchema->data, $patch );
 
 		$patchedSchema['schema'] = $this->patchString(
-			$baseSchema->data['schema'] ?? '',
-			isset( $patch['schema'] ) ? $patch['schema'] : null
+			$baseSchema->data['schemaText'] ?? '',
+			isset( $patch['schemaText'] ) ? $patch['schemaText'] : null
 		);
 
 		return array_filter( $patchedSchema );
