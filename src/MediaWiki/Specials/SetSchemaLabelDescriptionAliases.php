@@ -12,7 +12,7 @@ use Status;
 use Title;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
-use Wikibase\Schema\Services\SchemaDispatcher\MonolingualSchemaData;
+use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use RuntimeException;
@@ -31,7 +31,6 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	const FIELD_DESCRIPTION = 'description';
 	const FIELD_LABEL = 'label';
 	const FIELD_ALIASES = 'aliases';
-	const FIELD_SCHEMA_TEXT = 'schema-shexc';
 	const SUBMIT_SELECTION_NAME = 'submit-selection';
 	const SUBMIT_EDIT_NAME = 'submit-edit';
 
@@ -82,13 +81,12 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$aliases = array_map( 'trim', explode( '|', $data[ self::FIELD_ALIASES ] ) );
 		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory, $this, $watchListUpdater );
 		try {
-			$schemaWriter->updateSchema(
+			$schemaWriter->updateSchemaNameBadge(
 				$id,
 				'en',
 				$data[ self::FIELD_LABEL ],
 				$data[ self::FIELD_DESCRIPTION ],
-				$aliases,
-				$data[ self::FIELD_SCHEMA_TEXT ]
+				$aliases
 			);
 		} catch ( RunTimeException $e ) {
 			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
@@ -155,14 +153,14 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	 *
 	 * @param Title $title instance of Title for a specific Schema
 	 *
-	 * @return MonolingualSchemaData
+	 * @return NameBadge
 	 */
 	private function getSchemaNameBadge( Title $title ) {
 		$wikiPage = WikiPage::factory( $title );
 		// @phan-suppress-next-line PhanUndeclaredMethod
-		$schemaText = $wikiPage->getContent()->getText();
+		$schema = $wikiPage->getContent()->getText();
 		$dispatcher = new SchemaDispatcher();
-		$schemaNameBadge = $dispatcher->getMonolingualSchemaData( $schemaText, 'en' );
+		$schemaNameBadge = $dispatcher->getMonolingualNameBadgeData( $schema, 'en' );
 
 		return $schemaNameBadge;
 	}
@@ -189,13 +187,10 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		];
 	}
 
-	private function getEditFormFields( SchemaId $id, MonolingualSchemaData $schemaData ) {
-		// FIXME remove FIELD_SCHEMA_TEXT hidden field once
-		// "set only name badge" method exists in schemaWriter
-		$label = $schemaData->nameBadge->label;
-		$description = $schemaData->nameBadge->description;
-		$aliases = implode( '|', $schemaData->nameBadge->aliases );
-		$schema = $schemaData->schema ?: '';
+	private function getEditFormFields( SchemaId $id, NameBadge $nameBadge ) {
+		$label = $nameBadge->label;
+		$description = $nameBadge->description;
+		$aliases = implode( '|', $nameBadge->aliases );
 		return [
 			self::FIELD_ID => [
 				'name' => self::FIELD_ID,
@@ -234,12 +229,6 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'id' => 'wbschema-heading-aliases',
 				'placeholder-message' => 'wikibaseschema-special-aliases-edit-placeholder',
 				'label-message' => 'wikibaseschema-special-aliases',
-			],
-			self::FIELD_SCHEMA_TEXT => [
-				'name' => self::FIELD_SCHEMA_TEXT,
-				'type' => 'hidden',
-				'default' => $schema,
-				'id' => 'wbschema-newschema-schema-shexc',
 			]
 		];
 	}

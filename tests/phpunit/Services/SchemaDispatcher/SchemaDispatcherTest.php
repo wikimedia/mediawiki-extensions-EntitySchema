@@ -240,6 +240,45 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 		$this->assertEquals( $expectedSchemaData, $actualSchema );
 	}
 
+	public function validMonoLingualNameBadgeDataProvider() {
+		$expectedNameBadgeData = new NameBadge(
+			'english testlabel',
+			'english testdescription',
+			[ 'english', 'test alias' ]
+		);
+		yield 'namebadge in requested language' => [
+			json_encode(
+				[
+					'labels' => [
+						'en' => 'english testlabel',
+					],
+					'descriptions' => [
+						'en' => 'english testdescription',
+					],
+					'aliases' => [
+						'en' => [ 'english', 'test alias' ],
+					],
+					'schema' => 'abc',
+					'serializationVersion' => '2.0',
+				]
+			),
+			$expectedNameBadgeData
+		];
+	}
+
+	/**
+	 * @dataProvider validMonoLingualNameBadgeDataProvider
+	 *
+	 * @param string $schemaJSON
+	 * @param NameBadge $expectedNameBadgeData
+	 */
+	public function testMonolingualNameBadgeData( $schemaJSON, $expectedNameBadgeData ) {
+		$dispatcher = new SchemaDispatcher();
+		$actualNameBadge = $dispatcher->getMonolingualNameBadgeData( $schemaJSON, 'en' );
+		$this->assertType( NameBadge::class, $actualNameBadge );
+		$this->assertEquals( $expectedNameBadgeData, $actualNameBadge );
+	}
+
 	public function provideFullArraySchemaData() {
 		yield 'single language' => [
 			[

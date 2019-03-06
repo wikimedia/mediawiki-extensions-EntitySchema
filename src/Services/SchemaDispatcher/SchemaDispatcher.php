@@ -50,6 +50,23 @@ class SchemaDispatcher {
 		);
 	}
 
+	/**
+	 * @param string $schemaData
+	 * @param string $langCode
+	 *
+	 * @return NameBadge
+	 *
+	 */
+	public function getMonolingualNameBadgeData( $schemaData, $langCode ): NameBadge {
+		$schema = json_decode( $schemaData, true );
+
+		return new NameBadge(
+			$this->getLabelFromSchema( $schema, $langCode ),
+			$this->getDescriptionFromSchema( $schema, $langCode ),
+			$this->getAliasGroupFromSchema( $schema, $langCode )
+		);
+	}
+
 	public function getFullArraySchemaData( $schemaJSON ): FullArraySchemaData {
 		$schema = json_decode( $schemaJSON, true );
 
