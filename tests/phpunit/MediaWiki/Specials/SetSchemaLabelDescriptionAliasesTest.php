@@ -27,6 +27,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		parent::setUp();
 		$this->tablesUsed[] = 'page';
 		$this->tablesUsed[] = 'revision';
+		$this->tablesUsed[] = 'recentchanges';
 	}
 
 	protected function newSpecialPage() {

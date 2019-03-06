@@ -17,12 +17,21 @@ use WikiPage;
 /**
  * @license GPL-2.0-or-later
  *
+ * @group Database
+ *
  * @covers \Wikibase\Schema\MediaWiki\Actions\UndoViewAction
  * @covers \Wikibase\Schema\MediaWiki\Actions\AbstractUndoAction
  * @covers \Wikibase\Schema\MediaWiki\UndoHandler
  * @covers \Wikibase\Schema\Services\RenderDiffHelper\RenderDiffHelper
  */
 class UndoViewActionTest extends MediaWikiTestCase {
+
+	public function setUp() {
+		parent::setUp();
+		$this->tablesUsed[] = 'page';
+		$this->tablesUsed[] = 'revision';
+		$this->tablesUsed[] = 'recentchanges';
+	}
 
 	public function test_UndoView() {
 		// arrange

@@ -17,10 +17,19 @@ use WikiPage;
 /**
  * @license GPL-2.0-or-later
  *
+ * @group Database
+ *
  * @covers \Wikibase\Schema\MediaWiki\Actions\RestoreViewAction
  * @covers \Wikibase\Schema\Services\RenderDiffHelper\RenderDiffHelper
  */
 final class RestoreViewActionTest extends MediaWikiTestCase {
+
+	public function setUp() {
+		parent::setUp();
+		$this->tablesUsed[] = 'page';
+		$this->tablesUsed[] = 'revision';
+		$this->tablesUsed[] = 'recentchanges';
+	}
 
 	public function testRestoreView() {
 		// arrange
