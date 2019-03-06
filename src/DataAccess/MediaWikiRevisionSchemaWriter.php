@@ -41,7 +41,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 	 * @param string $label
 	 * @param string $description
 	 * @param string[] $aliases
-	 * @param string $schemaContent
+	 * @param string $schemaText
 	 *
 	 * @return SchemaId id of the inserted Schema
 	 */
@@ -50,7 +50,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		$label = '',
 		$description = '',
 		array $aliases = [],
-		$schemaContent = ''
+		$schemaText = ''
 	): SchemaId {
 		$id = new SchemaId( 'O' . $this->idGenerator->getNewId() );
 
@@ -63,7 +63,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 					[ $language => $label ],
 					[ $language => $description ],
 					[ $language => $aliases ],
-					$schemaContent
+					$schemaText
 				)
 			)
 		);
@@ -88,7 +88,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 	 * @param string[] $labels
 	 * @param string[] $descriptions
 	 * @param string[] $aliasGroups
-	 * @param string $schemaContent
+	 * @param string $schemaText
 	 * @param Message|null $message
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
@@ -99,7 +99,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		array $labels,
 		array $descriptions,
 		array $aliasGroups,
-		$schemaContent,
+		$schemaText,
 		Message $message = null
 	) {
 		if ( $message === null ) {
@@ -119,7 +119,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 					$labels,
 					$descriptions,
 					$aliasGroups,
-					$schemaContent
+					$schemaText
 				)
 			)
 		);
@@ -185,14 +185,14 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 
 	/**
 	 * @param SchemaId $id
-	 * @param string $schemaContent
+	 * @param string $schemaText
 	 *
 	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 * @throws InvalidArgumentException if bad parameters are passed
 	 */
-	public function updateSchemaContent( SchemaId $id, $schemaContent ) {
-		if ( !is_string( $schemaContent ) ) {
-			throw new InvalidArgumentException( 'schema content must be a string' );
+	public function updateSchemaText( SchemaId $id, $schemaText ) {
+		if ( !is_string( $schemaText ) ) {
+			throw new InvalidArgumentException( 'schema text must be a string' );
 		}
 
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
@@ -203,7 +203,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		$dispatcher = new SchemaDispatcher();
 		// @phan-suppress-next-line PhanUndeclaredMethod
 		$schemaData = $dispatcher->getPersistenceSchemaData( $content->getText() );
-		$schemaData->schemaText = $schemaContent;
+		$schemaData->schemaText = $schemaText;
 
 		// TODO check $updater->hasEditConflict()! (T217338)
 

@@ -17,7 +17,7 @@ interface SchemaWriter {
 	 * @param string $label
 	 * @param string $description
 	 * @param string[] $aliases
-	 * @param string $schemaContent
+	 * @param string $schemaText
 	 *
 	 * @return SchemaId id of inserted Schema
 	 */
@@ -26,7 +26,7 @@ interface SchemaWriter {
 		$label,
 		$description,
 		array $aliases,
-		$schemaContent
+		$schemaText
 	): SchemaId;
 
 	/**
@@ -36,7 +36,7 @@ interface SchemaWriter {
 	 * @param string[] $labels
 	 * @param string[] $descriptions
 	 * @param string[] $aliasGroups
-	 * @param string $schemaContent
+	 * @param string $schemaText
 	 * @param Message|null $message
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
@@ -47,7 +47,7 @@ interface SchemaWriter {
 		array $labels,
 		array $descriptions,
 		array $aliasGroups,
-		$schemaContent,
+		$schemaText,
 		Message $message = null
 	);
 
@@ -68,14 +68,14 @@ interface SchemaWriter {
 
 	/**
 	 * @param SchemaId $id
-	 * @param string $schemaContent
+	 * @param string $schemaText
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
 	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 */
-	public function updateSchemaContent(
+	public function updateSchemaText(
 		SchemaId $id,
-		$schemaContent
+		$schemaText
 	);
 
 }

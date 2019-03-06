@@ -84,7 +84,7 @@ class SchemaEncoder {
 			!== count( $aliasGroups )
 		) {
 			throw new InvalidArgumentException(
-				'language, label, description and schemaContent must be strings '
+				'language, label, description and schemaText must be strings '
 				. 'and aliases must be an array of strings'
 			);
 		}

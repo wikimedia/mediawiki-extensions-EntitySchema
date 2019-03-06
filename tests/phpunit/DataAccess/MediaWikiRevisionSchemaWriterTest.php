@@ -29,7 +29,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$label = 'test_label';
 		$description = 'test_description';
 		$aliases = [ 'test_alias1', 'testalias_2' ];
-		$schemaContent = '#some fake schema {}';
+		$schemaText = '#some fake schema {}';
 		$id = 'O123';
 
 		$expectedContent = new WikibaseSchemaContent(
@@ -46,7 +46,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 					'aliases' => [
 						$language => $aliases
 					],
-					'schema' => $schemaContent,
+					'schema' => $schemaText,
 					'type' => 'ShExC',
 				]
 			)
@@ -69,7 +69,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$label,
 			$description,
 			$aliases,
-			$schemaContent
+			$schemaText
 		);
 	}
 
@@ -133,7 +133,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 
 	public function provideBadParameters() {
 		$langExceptionMsg = 'language codes must be valid!';
-		$typeExceptionMsg = 'language, label, description and schemaContent must be strings '
+		$typeExceptionMsg = 'language, label, description and schemaText must be strings '
 			. 'and aliases must be an array of strings';
 		return [
 			'language is not supported' => [ 'not a real langcode', '', '', [], '', $langExceptionMsg ],
@@ -155,7 +155,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$testLabel,
 		$testDescription,
 		$testAliases,
-		$testSchemaContent,
+		$testSchemaText,
 		$exceptionMessage
 	) {
 		$pageUpdater = $this->createMock( PageUpdater::class );
@@ -175,7 +175,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			[ $testLanguage => $testLabel ],
 			[ $testLanguage => $testDescription ],
 			[ $testLanguage => $testAliases ],
-			$testSchemaContent
+			$testSchemaText
 		);
 	}
 
@@ -185,7 +185,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$label = 'englishLabel';
 		$description = 'englishDescription';
 		$aliases = [ 'englishAlias' ];
-		$schemaContent = '#some schema about goats';
+		$schemaText = '#some schema about goats';
 		$existingContent = new WikibaseSchemaContent( '' );
 		$expectedContent = new WikibaseSchemaContent( json_encode(
 			[
@@ -200,7 +200,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 				'aliases' => [
 					$language => $aliases
 				],
-				'schema' => $schemaContent,
+				'schema' => $schemaText,
 				'type' => 'ShExC',
 			]
 		) );
@@ -216,7 +216,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			[ 'en' => 'englishLabel' ],
 			[ 'en' => 'englishDescription' ],
 			[ 'en' => $aliases ],
-			$schemaContent
+			$schemaText
 		);
 	}
 
@@ -237,7 +237,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		return $mockWatchlistUpdater;
 	}
 
-	public function testUpdateSchemaContent_throwsForInvalidParams() {
+	public function testUpdateSchemaText_throwsForInvalidParams() {
 		$pageUpdaterFactory = $this->getPageUpdaterFactory();
 		$idGenerator = $this->createMock( IdGenerator::class );
 		$writer = new MediaWikiRevisionSchemaWriter(
@@ -248,13 +248,13 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->expectException( InvalidArgumentException::class );
-		$writer->updateSchemaContent(
+		$writer->updateSchemaText(
 			new SchemaId( 'O1' ),
 			null
 		);
 	}
 
-	public function testUpdateSchemaContent_throwsForUnknownSerializationVersion() {
+	public function testUpdateSchemaText_throwsForUnknownSerializationVersion() {
 		$revisionRecord = $this->createMock( RevisionRecord::class );
 		$revisionRecord->method( 'getContent' )->willReturn(
 			new WikibaseSchemaContent( json_encode( [
@@ -277,10 +277,10 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->expectException( DomainException::class );
-		$writer->updateSchemaContent( new SchemaId( 'O1' ), '' );
+		$writer->updateSchemaText( new SchemaId( 'O1' ), '' );
 	}
 
-	public function testUpdateSchema_WritesExpectedContentForOverwritingSchemaContent() {
+	public function testUpdateSchema_WritesExpectedContentForOverwritingSchemaText() {
 		$id = 'O1';
 		$language = 'en';
 		$labels = [ $language => 'englishLabel' ];
@@ -295,14 +295,14 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			'schema' => '# some schema about goats',
 			'type' => 'ShExC',
 		] ) );
-		$newSchemaContent = '# some schema about cats';
+		$newSchemaText = '# some schema about cats';
 		$expectedContent = new WikibaseSchemaContent( json_encode( [
 			'id' => $id,
 			'serializationVersion' => '2.0',
 			'labels' => $labels,
 			'descriptions' => $descriptions,
 			'aliases' => $aliases,
-			'schema' => $newSchemaContent,
+			'schema' => $newSchemaText,
 			'type' => 'ShExC',
 		] ) );
 
@@ -314,9 +314,9 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
 		);
 
-		$writer->updateSchemaContent(
+		$writer->updateSchemaText(
 			new SchemaId( $id ),
-			$newSchemaContent
+			$newSchemaText
 		);
 	}
 

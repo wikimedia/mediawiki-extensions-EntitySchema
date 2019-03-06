@@ -110,7 +110,7 @@ class SchemaEncoderTest extends TestCase {
 			$validDescriptions,
 			$validAliasGroups,
 			$validSchemaText,
-			'language, label, description and schemaContent must be strings',
+			'language, label, description and schemaText must be strings',
 		];
 
 		yield 'invalid type (descriptions)' => [
@@ -118,7 +118,7 @@ class SchemaEncoderTest extends TestCase {
 			[ 'en' => 1 ],
 			$validAliasGroups,
 			$validSchemaText,
-			'language, label, description and schemaContent must be strings',
+			'language, label, description and schemaText must be strings',
 		];
 
 		yield 'invalid type (aliases)' => [
@@ -150,7 +150,7 @@ class SchemaEncoderTest extends TestCase {
 			$validDescriptions,
 			$validAliasGroups,
 			1,
-			'language, label, description and schemaContent must be strings',
+			'language, label, description and schemaText must be strings',
 		];
 
 		yield 'aliases not unique' => [

@@ -48,7 +48,7 @@ class SchemaEditAction extends FormAction {
 		$watchListUpdater = new WatchlistUpdater( $user, NS_WBSCHEMA_JSON );
 		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory, $this, $watchListUpdater );
 		try {
-			$schemaWriter->updateSchemaContent(
+			$schemaWriter->updateSchemaText(
 				$id,
 				$data['schema']
 			);
