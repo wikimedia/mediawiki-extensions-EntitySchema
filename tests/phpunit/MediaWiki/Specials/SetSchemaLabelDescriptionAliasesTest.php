@@ -3,13 +3,16 @@
 namespace Wikibase\Schema\Tests\MediaWiki\Specials;
 
 use SpecialPageTestBase;
+use FauxRequest;
 use WikiPage;
+use Wikibase\Schema\Domain\Model\SchemaId;
 use Title;
 use MediaWiki\Revision\SlotRecord;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use CommentStoreComment;
 use MediaWiki\MediaWikiServices;
 use Wikibase\Schema\MediaWiki\Specials\SetSchemaLabelDescriptionAliases;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \Wikibase\Schema\MediaWiki\Specials\SetSchemaLabelDescriptionAliases
@@ -19,6 +22,12 @@ use Wikibase\Schema\MediaWiki\Specials\SetSchemaLabelDescriptionAliases;
  * @license GPL-2.0-or-later
  */
 class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
+
+	protected function setUp() {
+		parent::setUp();
+		$this->tablesUsed[] = 'page';
+		$this->tablesUsed[] = 'revision';
+	}
 
 	protected function newSpecialPage() {
 		return new SetSchemaLabelDescriptionAliases();
@@ -123,6 +132,49 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$infoIncomplete = $setSchemaInfo->submitEditFormCallback( $dataIncomplete );
 
 		$this->assertFalse( $infoIncomplete->ok );
+	}
+
+	public function testValidateSchemaSelectionFormData() {
+		$this->createTestSchema();
+		$schemaId = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
+			->validateSchemaSelectionFormData( 'O123', 'en' );
+
+		$this->assertInstanceOf( SchemaId::class, $schemaId );
+		$this->assertSame( 'O123', $schemaId->getId() );
+	}
+
+	public function testValidateSchemaSelectionFormDataNoLanguageCode() {
+		$schemaId = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
+			->validateSchemaSelectionFormData( 'O123', null );
+
+		$this->assertFalse( $schemaId );
+	}
+
+	public function testValidateSchemaSelectionFormDataInvalidId() {
+		$schemaId = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
+			->validateSchemaSelectionFormData( 'Q1111', 'en' );
+
+		$this->assertFalse( $schemaId );
+	}
+
+	public function testValidateSchemaSelectionFormDataNonexistentSchema() {
+		$schemaId = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
+			->validateSchemaSelectionFormData( 'O1111111111', 'en' );
+
+		$this->assertFalse( $schemaId );
+	}
+
+	public function testExecute() {
+		$specialPage = $this->executeSpecialPage(
+			null,
+			new FauxRequest(
+				[
+					'title' => 'Special:SetSchemaLabelDescriptionAliases',
+				],
+				true
+			)
+		);
+	   $this->assertContains( "name='submit-selection'", $specialPage[0] );
 	}
 
 	/**
