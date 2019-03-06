@@ -32,7 +32,8 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	const FIELD_LABEL = 'label';
 	const FIELD_ALIASES = 'aliases';
 	const FIELD_SCHEMA_TEXT = 'schema-shexc';
-	const FIELD_STEP = 'formStep';
+	const SUBMIT_SELECTION_NAME = 'submit-selection';
+	const SUBMIT_EDIT_NAME = 'submit-edit';
 
 	public function __construct() {
 		parent::__construct(
@@ -77,7 +78,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
 		}
 		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id->getId() );
-		$this->checkBlocked();
+		$this->checkBlocked( $title );
 		$aliases = array_map( 'trim', explode( '|', $data[ self::FIELD_ALIASES ] ) );
 		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory, $this, $watchListUpdater );
 		try {
@@ -104,7 +105,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$formDescriptor = $this->getSchemaSelectionFormFields();
 
 		$form = HTMLForm::factory( 'ooui', $formDescriptor, $this->getContext() )
-			->setSubmitName( 'submit' )
+			->setSubmitName( self::SUBMIT_SELECTION_NAME )
 			->setSubmitID( 'wbschema-special-schema-id-submit' )
 			->setSubmitTextMsg( 'wikibaseschema-special-id-submit' )
 			->setSubmitCallback( [ $this, 'submitSelectionCallback' ] );
@@ -120,7 +121,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$formDescriptor = $this->getEditFormFields( $id, $schemaNameBadge );
 
 		$form = HTMLForm::factory( 'ooui', $formDescriptor, $this->getContext() )
-			->setSubmitName( 'submit' )
+			->setSubmitName( self::SUBMIT_EDIT_NAME )
 			->setSubmitID( 'wbschema-special-schema-id-submit' )
 			->setSubmitTextMsg( 'wikibaseschema-special-id-submit' );
 		$form->prepareForm();
@@ -141,12 +142,12 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	}
 
 	/**
-	 * Check which form is currently presented by checking the hidden field value
+	 * Check if the second form is requested.
 	 *
 	 * @return bool
 	 */
 	private function isSecondForm() {
-		return !!$this->getContext()->getRequest()->getText( self::FIELD_STEP );
+		return $this->getContext()->getRequest()->getCheck( self::SUBMIT_SELECTION_NAME );
 	}
 
 	/**
@@ -184,11 +185,6 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'required' => true,
 				'default' => 'en',
 				'label-message' => 'wikibaseschema-special-language-inputlabel',
-			],
-			self::FIELD_STEP => [
-				'name' => self::FIELD_STEP,
-				'type' => 'hidden',
-				'default' => 1
 			]
 		];
 	}
@@ -244,9 +240,6 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'type' => 'hidden',
 				'default' => $schema,
 				'id' => 'wbschema-newschema-schema-shexc',
-				'placeholder' => "<human> {\n  wdt:P31 [wd:Q5]\n}",
-				'label-message' => 'wikibaseschema-newschema-schema-shexc',
-				'useeditfont' => true,
 			]
 		];
 	}
@@ -312,8 +305,8 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		return 'wikibase';
 	}
 
-	private function checkBlocked() {
-		if ( $this->getUser()->isBlockedFrom( $this->getPageTitle() ) ) {
+	private function checkBlocked( Title $title ) {
+		if ( $this->getUser()->isBlockedFrom( $title ) ) {
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 	}
