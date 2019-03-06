@@ -58,6 +58,9 @@ class SchemaText extends SpecialPage {
 		$webResponse = $out->getRequest()->response();
 		$webResponse->header( 'Content-Type: text/shex; charset=UTF-8' );
 		$webResponse->header( 'Content-Disposition:  attachment; filename="' . $id->getId() . '.shex"' );
+		// The data here is always public, so allow anyone to access it (similar to Special:EntityData)
+		$webResponse->header( 'Access-Control-Allow-Origin: *' );
+
 		ob_clean(); // remove anything that might already be in the output buffer.
 		echo $schemaText;
 	}
