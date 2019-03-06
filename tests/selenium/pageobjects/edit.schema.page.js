@@ -6,7 +6,7 @@ class EditSchemaPage extends Page {
 
 	static get SCHEMA_EDIT_SELECTORS() {
 		return {
-			SCHEMAAREA: '#mw-input-wpschema > textarea',
+			SCHEMAAREA: '#mw-input-wpschema-text > textarea',
 			SUBMIT_BUTTON: '.mw-htmlform-submit-buttons > span > button'
 		};
 	}
