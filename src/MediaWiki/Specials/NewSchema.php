@@ -4,8 +4,10 @@ namespace Wikibase\Schema\MediaWiki\Specials;
 
 use Html;
 use HTMLForm;
+use HTMLHiddenField;
 use HTMLTextAreaField;
 use HTMLTextField;
+use Language;
 use MediaWiki\MediaWikiServices;
 use OutputPage;
 use SpecialPage;
@@ -32,6 +34,8 @@ class NewSchema extends SpecialPage {
 	const FIELD_ALIASES = 'aliases';
 	/* public */
 	const FIELD_SCHEMA_TEXT = 'schema-text';
+	/* public */
+	const FIELD_LANGUAGE = 'languagecode';
 
 	public function __construct() {
 		parent::__construct(
@@ -86,7 +90,7 @@ class NewSchema extends SpecialPage {
 			$idGenerator
 		);
 		$newId = $schemaWriter->insertSchema(
-			'en',
+			$data[self::FIELD_LANGUAGE],
 			$data[self::FIELD_LABEL],
 			$data[self::FIELD_DESCRIPTION],
 			array_filter( array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) ) ),
@@ -107,6 +111,8 @@ class NewSchema extends SpecialPage {
 	}
 
 	private function getFormFields(): array {
+		$langCode = $this->getLanguage()->getCode();
+		$langName = Language::fetchLanguageName( $langCode, $langCode );
 		return [
 			self::FIELD_LABEL => [
 				'name' => self::FIELD_LABEL,
@@ -114,7 +120,8 @@ class NewSchema extends SpecialPage {
 				'id' => 'wbschema-newschema-label',
 				'required' => true,
 				'default' => '',
-				'placeholder-message' => 'wikibaseschema-label-edit-placeholder',
+				'placeholder-message' => $this->msg( 'wikibaseschema-label-edit-placeholder' )
+					->params( $langName ),
 				'label-message' => 'wikibaseschema-newschema-label',
 			],
 			self::FIELD_DESCRIPTION => [
@@ -122,7 +129,8 @@ class NewSchema extends SpecialPage {
 				'class' => HTMLTextField::class,
 				'default' => '',
 				'id' => 'wbschema-newschema-description',
-				'placeholder-message' => 'wikibaseschema-description-edit-placeholder',
+				'placeholder-message' => $this->msg( 'wikibaseschema-description-edit-placeholder' )
+					->params( $langName ),
 				'label-message' => 'wikibaseschema-newschema-description',
 			],
 			self::FIELD_ALIASES => [
@@ -130,7 +138,8 @@ class NewSchema extends SpecialPage {
 				'class' => HTMLTextField::class,
 				'default' => '',
 				'id' => 'wbschema-newschema-aliases',
-				'placeholder-message' => 'wikibaseschema-aliases-edit-placeholder',
+				'placeholder-message' => $this->msg( 'wikibaseschema-aliases-edit-placeholder' )
+					->params( $langName ),
 				'label-message' => 'wikibaseschema-newschema-aliases',
 			],
 			self::FIELD_SCHEMA_TEXT => [
@@ -141,6 +150,11 @@ class NewSchema extends SpecialPage {
 				'placeholder' => "<human> {\n  wdt:P31 [wd:Q5]\n}",
 				'label-message' => 'wikibaseschema-newschema-schema-shexc',
 				'useeditfont' => true,
+			],
+			self::FIELD_LANGUAGE => [
+				'name' => self::FIELD_LANGUAGE,
+				'class' => HTMLHiddenField::class,
+				'default' => $langCode,
 			],
 		];
 	}
