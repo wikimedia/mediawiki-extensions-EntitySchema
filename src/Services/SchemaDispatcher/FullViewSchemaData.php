@@ -11,11 +11,11 @@ class FullViewSchemaData {
 	public $nameBadges;
 
 	/** @var string */
-	public $schema;
+	public $schemaText;
 
-	public function __construct( array $nameBadges, $schema ) {
+	public function __construct( array $nameBadges, $schemaText ) {
 		$this->nameBadges = $nameBadges;
-		$this->schema = $schema;
+		$this->schemaText = $schemaText;
 	}
 
 }
