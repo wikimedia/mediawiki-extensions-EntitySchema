@@ -11,11 +11,11 @@ class MonolingualSchemaData {
 	public $nameBadge;
 
 	/** @var string */
-	public $schema;
+	public $schemaText;
 
-	public function __construct( NameBadge $nameBadge, $schema ) {
+	public function __construct( NameBadge $nameBadge, $schemaText ) {
 		$this->nameBadge = $nameBadge;
-		$this->schema = $schema;
+		$this->schemaText = $schemaText;
 	}
 
 }

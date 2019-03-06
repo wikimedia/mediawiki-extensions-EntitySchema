@@ -39,7 +39,7 @@ class WikibaseSchemaContent extends JsonContent {
 				->getFullViewSchemaData( $this->getText(), $languageCode );
 			$output->setText(
 				$this->renderNameBadges( $schemaData->nameBadges ) .
-				$this->renderSchemaSection( $title, $schemaData->schema )
+				$this->renderSchemaSection( $title, $schemaData->schemaText )
 			);
 		} else {
 			$output->setText( '' );
