@@ -6,12 +6,12 @@ const assert = require( 'assert' ),
 
 describe( 'Schema Viewing Page', () => {
 	it( 'doesn\'t touch the whitespace inside the schema', () => {
-		const ShExCWithSpaces = 'content\t is \n\n\n here';
+		const schemaTextWithSpaces = 'content\t is \n\n\n here';
 		NewSchemaPage.open();
 		NewSchemaPage.showsForm();
 		NewSchemaPage.setLabel( 'Testing inner whitespace' );
-		NewSchemaPage.pasteShExC( ShExCWithSpaces );
+		NewSchemaPage.pasteSchemaText( schemaTextWithSpaces );
 		NewSchemaPage.clickSubmit();
-		assert.strictEqual( ShExCWithSpaces, ViewSchemaPage.getShExCHTML() );
+		assert.strictEqual( schemaTextWithSpaces, ViewSchemaPage.getShExCHTML() );
 	} );
 } );
