@@ -99,6 +99,26 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$this->assertTrue( $infoGood->ok );
 	}
 
+	public function testSubmitEditFormCallbackDuplicateAliases() {
+		$this->createTestSchema();
+
+		$dataGood = [
+			'ID' => 'O123',
+			'languagecode' => 'en',
+			'label' => 'Schema label',
+			'description' => '',
+			'aliases' => 'foo | bar | foo | baz | bar | foo',
+			'schema-shexc' => 'abc'
+		];
+
+		$setSchemaInfo = $this->newSpecialPage();
+		$infoGood = $setSchemaInfo->submitEditFormCallback( $dataGood );
+
+		$this->assertTrue( $infoGood->ok );
+		$schemaContent = $this->getCurrentSchemaContent( $dataGood['ID'] );
+		$this->assertSame( [ 'foo', 'bar', 'baz' ], $schemaContent['aliases']['en'] );
+	}
+
 	public function testSubmitEditFormCallbackWrongId() {
 		$dataWrong = [
 			'ID' => 'O129999999990',
