@@ -9,6 +9,7 @@ use ParserOptions;
 use ParserOutput;
 use Title;
 use Wikibase\Schema\Domain\Model\Schema;
+use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
 
 /**
@@ -33,10 +34,11 @@ class WikibaseSchemaContent extends JsonContent {
 
 		if ( $generateHtml && $this->isValid() ) {
 			$output->addModuleStyles( 'ext.WikibaseSchema.view' );
+			$languageCode = $options->getUserLang(); // TODO which language?
 			$schemaData = ( new SchemaDispatcher() )
-				->getMonolingualSchemaData( $this->getText(), 'en' );
+				->getFullViewSchemaData( $this->getText(), $languageCode );
 			$output->setText(
-				$this->renderNameBadge( $schemaData->nameBadge ) .
+				$this->renderNameBadges( $schemaData->nameBadges ) .
 				$this->renderSchemaSection( $title, $schemaData->schema )
 			);
 		} else {
@@ -44,7 +46,18 @@ class WikibaseSchemaContent extends JsonContent {
 		}
 	}
 
-	private function renderNameBadge( $nameBadge ) {
+	private function renderNameBadges( array $nameBadges ) {
+		$html = '';
+		foreach ( $nameBadges as $nameBadge ) {
+			if ( $html ) {
+				$html .= "\n";
+			}
+			$html .= $this->renderNameBadge( $nameBadge );
+		}
+		return $html;
+	}
+
+	private function renderNameBadge( NameBadge $nameBadge ) {
 		return Html::element(
 				'h1',
 				[
