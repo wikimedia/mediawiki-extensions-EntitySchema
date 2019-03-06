@@ -265,7 +265,7 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 				'aliases' => [
 					'en' => [ 'english test alias' ],
 				],
-				'schema' => 'test schema',
+				'schemaText' => 'test schema',
 			],
 		];
 
@@ -293,7 +293,7 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 				'aliases' => [
 					'pt' => [ 'alias de teste em português' ],
 				],
-				'schema' => 'test schema',
+				'schemaText' => 'test schema',
 			],
 		];
 
@@ -327,7 +327,7 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 				'aliases' => [
 					'pt' => [ 'alias de teste em português' ],
 				],
-				'schema' => 'test schema',
+				'schemaText' => 'test schema',
 			],
 		];
 
@@ -366,7 +366,7 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 				'aliases' => [
 					'en' => [ 'english test alias' ],
 				],
-				'schema' => 'test schema',
+				'schemaText' => 'test schema',
 			],
 		];
 	}

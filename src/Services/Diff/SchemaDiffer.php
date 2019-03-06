@@ -18,7 +18,7 @@ use Wikibase\Schema\Services\SchemaDispatcher\FullArraySchemaData;
  *   and the values are non-associative {@link Diff}s
  *   containing {@link DiffOpAdd}s and {@link DiffOpRemove}s.
  *   (A “change” to an alias appears as a removal+addition pair.)
- * - schema: a single {@link AtomicDiffOp} for schema addition, removal or change.
+ * - schemaText: a single {@link AtomicDiffOp} for schema addition, removal or change.
  *   (Empty schema strings are considered absent. No fine-grained diffing on the text occurs.)
  *
  * @license GPL-2.0-or-later
@@ -35,11 +35,11 @@ class SchemaDiffer {
 		$from = $from->data;
 		$to = $to->data;
 
-		if ( array_key_exists( 'schema', $from ) && $from['schema'] === '' ) {
-			unset( $from['schema'] );
+		if ( array_key_exists( 'schemaText', $from ) && $from['schemaText'] === '' ) {
+			unset( $from['schemaText'] );
 		}
-		if ( array_key_exists( 'schema', $to ) && $to['schema'] === '' ) {
-			unset( $to['schema'] );
+		if ( array_key_exists( 'schemaText', $to ) && $to['schemaText'] === '' ) {
+			unset( $to['schemaText'] );
 		}
 
 		$diff = $this->recursiveMapDiffer->doDiff( $from, $to );

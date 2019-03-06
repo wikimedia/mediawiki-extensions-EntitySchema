@@ -50,7 +50,7 @@ class SchemaPatcherTest extends TestCase {
 			'aliases' => [
 				'en' => [ 'test alias', 'test alias 2' ],
 			],
-			'schema' => 'test schema',
+			'schemaText' => 'test schema',
 		];
 
 		yield 'changes, removals and additions' => [
@@ -72,7 +72,7 @@ class SchemaPatcherTest extends TestCase {
 						new DiffOpAdd( 'Testalias' ),
 					], false ),
 				], true ),
-				'schema' => new DiffOpChange( 'test schema', 'schema for test' ),
+				'schemaText' => new DiffOpChange( 'test schema', 'schema for test' ),
 			], true ),
 			[
 				'labels' => [
@@ -92,7 +92,7 @@ class SchemaPatcherTest extends TestCase {
 		yield 'restore schema' => [
 			[ 'schema' => '' ],
 			new Diff( [
-				'schema' => new DiffOpAdd( 'test schema' ),
+				'schemaText' => new DiffOpAdd( 'test schema' ),
 			], true ),
 			[
 				'labels' => [],
@@ -105,7 +105,7 @@ class SchemaPatcherTest extends TestCase {
 		yield 'remove schema' => [
 			[ 'schema' => 'test schema' ],
 			new Diff( [
-				'schema' => new DiffOpRemove( 'test schema' ),
+				'schemaText' => new DiffOpRemove( 'test schema' ),
 			], true ),
 			[
 				'labels' => [],
@@ -129,9 +129,9 @@ class SchemaPatcherTest extends TestCase {
 
 	public function providInvalidSchemaPatches() {
 		yield 'restore existing schema' => [
-			[ 'schema' => 'I exist!' ],
+			[ 'schemaText' => 'I exist!' ],
 			new Diff( [
-				'schema' => new DiffOpAdd( 'test schema' ),
+				'schemaText' => new DiffOpAdd( 'test schema' ),
 			], true ),
 		];
 

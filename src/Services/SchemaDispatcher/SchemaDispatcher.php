@@ -57,7 +57,7 @@ class SchemaDispatcher {
 			'labels' => [],
 			'descriptions' => [],
 			'aliases' => [],
-			'schema' => $this->getSchemaTextFromSchema( $schema ),
+			'schemaText' => $this->getSchemaTextFromSchema( $schema ),
 		];
 
 		foreach ( $this->getSchemaLanguages( $schema ) as $languageCode ) {

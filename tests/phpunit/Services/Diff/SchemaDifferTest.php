@@ -48,7 +48,7 @@ class SchemaDifferTest extends TestCase {
 			'aliases' => [
 				'en' => [ 'test alias', 'test alias 2' ],
 			],
-			'schema' => 'test schema',
+			'schemaText' => 'test schema',
 		];
 
 		yield 'no change' => [
@@ -70,7 +70,7 @@ class SchemaDifferTest extends TestCase {
 					'en' => [ 'test alias', 'test alias 3' ],
 					'de' => [ 'Testalias' ],
 				],
-				'schema' => 'updated schema',
+				'schemaText' => 'updated schema',
 			],
 			new Diff( [
 				'labels' => new Diff( [
@@ -89,23 +89,23 @@ class SchemaDifferTest extends TestCase {
 						new DiffOpAdd( 'Testalias' ),
 					], false ),
 				], true ),
-				'schema' => new DiffOpChange( 'test schema', 'updated schema' ),
+				'schemaText' => new DiffOpChange( 'test schema', 'updated schema' ),
 			], true )
 		];
 
 		yield 'change from empty schema counts as addition (not change)' => [
-			[ 'schema' => '' ],
-			[ 'schema' => 'test schema' ],
+			[ 'schemaText' => '' ],
+			[ 'schemaText' => 'test schema' ],
 			new Diff( [
-				'schema' => new DiffOpAdd( 'test schema' ),
+				'schemaText' => new DiffOpAdd( 'test schema' ),
 			], true ),
 		];
 
 		yield 'change to empty schema counts as removal (not change)' => [
-			[ 'schema' => 'test schema' ],
-			[ 'schema' => '' ],
+			[ 'schemaText' => 'test schema' ],
+			[ 'schemaText' => '' ],
 			new Diff( [
-				'schema' => new DiffOpRemove( 'test schema' ),
+				'schemaText' => new DiffOpRemove( 'test schema' ),
 			], true ),
 		];
 
@@ -121,7 +121,7 @@ class SchemaDifferTest extends TestCase {
 				'aliases' => [
 					'en' => [ 'test alias 2', 'test alias' ],
 				],
-				'schema' => 'test schema',
+				'schemaText' => 'test schema',
 			],
 			new Diff( [], true )
 		];

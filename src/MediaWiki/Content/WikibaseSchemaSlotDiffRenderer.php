@@ -99,10 +99,10 @@ class WikibaseSchemaSlotDiffRenderer extends SlotDiffRenderer {
 		}
 		$nameBadgeDiff = $this->renderDiffOp( [], new Diff( $nameBadgeDiffOps, true ) );
 
-		if ( isset( $diff['schema'] ) ) {
+		if ( isset( $diff['schemaText'] ) ) {
 			$schemaDiff = $this->renderTextDiff(
 				$this->msgLocalizer->msg( 'wikibaseschema-diff-schema' )->text(),
-				$diff['schema']
+				$diff['schemaText']
 			);
 		} else {
 			$schemaDiff = '';

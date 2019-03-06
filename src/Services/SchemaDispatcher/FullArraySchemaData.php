@@ -8,7 +8,7 @@ namespace Wikibase\Schema\Services\SchemaDispatcher;
  * 'labels' is an associative array from language code to label in that language;
  * 'descriptions' is an associative array from language code to description in that language;
  * 'aliases' is an associative array from language code to list of aliases in that language;
- * 'schema' is the schema string.
+ * 'schemaText' is the schema text (string).
  *
  * Labels, descriptions and aliases are absent in languages where they are not defined,
  * whereas the schema string is always present (possibly as the empty string).
