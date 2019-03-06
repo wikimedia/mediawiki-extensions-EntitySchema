@@ -30,27 +30,6 @@ class SchemaDispatcher {
 	}
 
 	/**
-	 * @param string $schemaJSON
-	 * @param string $langCode
-	 *
-	 * @return MonolingualSchemaData
-	 *
-	 * @throws LogicException
-	 */
-	public function getMonolingualSchemaData( $schemaJSON, $langCode ): MonolingualSchemaData {
-		$schema = json_decode( $schemaJSON, true );
-
-		return new MonolingualSchemaData(
-			new NameBadge(
-				$this->getLabelFromSchema( $schema, $langCode ),
-				$this->getDescriptionFromSchema( $schema, $langCode ),
-				$this->getAliasGroupFromSchema( $schema, $langCode )
-			),
-			$this->getSchemaTextFromSchema( $schema )
-		);
-	}
-
-	/**
 	 * @param string $schemaData
 	 * @param string $langCode
 	 *
