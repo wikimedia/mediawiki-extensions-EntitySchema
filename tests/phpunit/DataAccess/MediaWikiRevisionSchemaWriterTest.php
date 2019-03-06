@@ -122,25 +122,28 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->expectException( RuntimeException::class );
-		$writer->updateSchema(
+		$writer->overwriteWholeSchema(
 			new SchemaId( 'O123456999999999' ),
-			'',
-			'',
-			'',
+			[],
+			[],
 			[],
 			''
 		);
 	}
 
 	public function provideBadParameters() {
+		$langExceptionMsg = 'language codes must be valid!';
+		$typeExceptionMsg = 'language, label, description and schemaContent must be strings '
+			. 'and aliases must be an array of strings';
 		return [
-			'language is not string' => [ new stdClass() ,'', '', [], '' ],
-			'label is not string' => [ '' , new StdClass(), '', [], '' ],
-			'description is not string' => [ '' , '', new StdClass(), [], '' ],
-			'aliases is non-string array' => [ '' ,'', '', [ new stdClass() ], '' ],
-			'aliases is mixed array' => [ '' ,'', '', [ new stdClass(), 'foo' ], '' ],
-			'aliases is associative array' => [ '' ,'', '', [ 'en' => 'foo' ], '' ],
-			'schema content is not string' => [ '' , '', '', [], new StdClass(), ],
+			'language is not supported' => [ 'not a real langcode', '', '', [], '', $langExceptionMsg ],
+			'label is not string' => [ 'de', new StdClass(), '', [], '', $typeExceptionMsg ],
+			'description is not string' => [ 'en', '', new StdClass(), [], '', $typeExceptionMsg ],
+			'aliases is non-string array' => [ 'fr', '', '', [ new stdClass() ], '', $typeExceptionMsg ],
+			'aliases is mixed array' => [ 'ar', '', '', [ new stdClass(), 'foo' ], '', $typeExceptionMsg ],
+			'aliases is associative array' => [ 'hu', '', '', [ 'en' => 'foo' ], '', $typeExceptionMsg ],
+			'schema content is not string' => [ 'he', '', '', [], new StdClass(), $typeExceptionMsg ],
+			'aliases must be unique' => [ 'hi', '', '', [ 'foo', 'foo' ], '', 'aliases must be unique' ],
 		];
 	}
 
@@ -152,7 +155,8 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$testLabel,
 		$testDescription,
 		$testAliases,
-		$testSchemaContent
+		$testSchemaContent,
+		$exceptionMessage
 	) {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn(
@@ -165,13 +169,12 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater()
 		);
-		$this->expectException( InvalidArgumentException::class );
-		$writer->updateSchema(
+		$this->setExpectedException( InvalidArgumentException::class, $exceptionMessage );
+		$writer->overwriteWholeSchema(
 			new SchemaId( 'O1' ),
-			$testLanguage,
-			$testLabel,
-			$testDescription,
-			$testAliases,
+			[ $testLanguage => $testLabel ],
+			[ $testLanguage => $testDescription ],
+			[ $testLanguage => $testAliases ],
 			$testSchemaContent
 		);
 	}
@@ -208,12 +211,11 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
 		);
-		$writer->updateSchema(
+		$writer->overwriteWholeSchema(
 			new SchemaId( 'O1' ),
-			'en',
-			'englishLabel',
-			'englishDescription',
-			$aliases,
+			[ 'en' => 'englishLabel' ],
+			[ 'en' => 'englishDescription' ],
+			[ 'en' => $aliases ],
 			$schemaContent
 		);
 	}
