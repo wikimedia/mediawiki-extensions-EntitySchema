@@ -38,8 +38,8 @@ class UndoViewActionTest extends MediaWikiTestCase {
 		$schemaId = 'O123';
 		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schema' => 'abc', 'id' => $schemaId ] );
-		$secondId = $this->saveSchemaPageContent( $page, [ 'schema' => 'def', 'id' => $schemaId ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc', 'id' => $schemaId ] );
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def', 'id' => $schemaId ] );
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
@@ -73,7 +73,7 @@ class UndoViewActionTest extends MediaWikiTestCase {
 	}
 
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {
-		$content['serializationVersion'] = '2.0';
+		$content['serializationVersion'] = '3.0';
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
 		$updater->setContent( SlotRecord::MAIN, new WikibaseSchemaContent( json_encode( $content ) ) );
 		$firstRevRecord = $updater->saveRevision(

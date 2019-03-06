@@ -22,19 +22,19 @@ class UndoHandlerTest extends MediaWikiTestCase {
 		$content1 = new WikibaseSchemaContent(
 			json_encode( [
 				'id' => $id,
-				'serializationVersion' => '2.0',
+				'serializationVersion' => '3.0',
 			] )
 		);
 		$content2 = new WikibaseSchemaContent(
 			json_encode( [
 				'id' => $id,
-				'serializationVersion' => '2.0',
+				'serializationVersion' => '3.0',
 			] )
 		);
 		$contentBase = new WikibaseSchemaContent(
 			json_encode( [
 				'id' => $id,
-				'serializationVersion' => '2.0',
+				'serializationVersion' => '3.0',
 			] )
 		);
 
@@ -61,13 +61,13 @@ class UndoHandlerTest extends MediaWikiTestCase {
 		$content1 = new WikibaseSchemaContent(
 			json_encode( [
 				'id' => $firstID,
-				'serializationVersion' => '2.0',
+				'serializationVersion' => '3.0',
 			] )
 		);
 		$content2 = new WikibaseSchemaContent(
 			json_encode( [
 				'id' => $secondID,
-				'serializationVersion' => '2.0',
+				'serializationVersion' => '3.0',
 			] )
 		);
 		$contentBase = null;
@@ -75,7 +75,7 @@ class UndoHandlerTest extends MediaWikiTestCase {
 			$contentBase = new WikibaseSchemaContent(
 				json_encode( [
 					'id' => $thirdID,
-					'serializationVersion' => '2.0',
+					'serializationVersion' => '3.0',
 				] )
 			);
 		}
@@ -91,7 +91,7 @@ class UndoHandlerTest extends MediaWikiTestCase {
 				'labels' => [
 					'en' => 'abc',
 				],
-				'serializationVersion' => '2.0',
+				'serializationVersion' => '3.0',
 			] )
 		);
 		$contentToBeUndone = new WikibaseSchemaContent(
@@ -99,7 +99,7 @@ class UndoHandlerTest extends MediaWikiTestCase {
 				'labels' => [
 					'en' => 'def',
 				],
-				'serializationVersion' => '2.0',
+				'serializationVersion' => '3.0',
 			] )
 		);
 
@@ -130,7 +130,7 @@ class UndoHandlerTest extends MediaWikiTestCase {
 				'labels' => [
 					'en' => 'def',
 				],
-				'serializationVersion' => '2.0',
+				'serializationVersion' => '3.0',
 			] )
 		);
 		$diff = new Diff(
@@ -168,7 +168,7 @@ class UndoHandlerTest extends MediaWikiTestCase {
 				'labels' => [
 					'en' => 'ghi',
 				],
-				'serializationVersion' => '2.0',
+				'serializationVersion' => '3.0',
 			] )
 		);
 		$diff = new Diff(

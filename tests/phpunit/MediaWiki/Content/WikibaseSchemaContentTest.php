@@ -34,8 +34,8 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'descriptions' => [
 						'en' => 'test',
 					],
-					'schema' => '',
-					'serializationVersion' => '2.0',
+					'schemaText' => '',
+					'serializationVersion' => '3.0',
 				],
 				[ '<abstract id="wbschema-heading-description">test</abstract>' ],
 			],
@@ -44,8 +44,8 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'descriptions' => [
 						'en' => '<script>alert("description XSS")</script>',
 					],
-					'schema' => '',
-					'serializationVersion' => '2.0',
+					'schemaText' => '',
+					'serializationVersion' => '3.0',
 				],
 				// exact details of escaping beyond this (> vs &gt;) don’t matter
 				[ '<abstract id="wbschema-heading-description">&lt;script' ],
@@ -55,8 +55,8 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'descriptions' => [
 						'en' => 'test',
 					],
-					'schema' => '_:empty {}',
-					'serializationVersion' => '2.0',
+					'schemaText' => '_:empty {}',
+					'serializationVersion' => '3.0',
 				],
 				[ '<pre id="wbschema-schema-text" class="wbschema-schema-text">_:empty {}</pre>' ],
 			],
@@ -65,8 +65,8 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'descriptions' => [
 						'en' => 'test',
 					],
-					'schema' => '<script>alert("schema XSS")</script>',
-					'serializationVersion' => '2.0',
+					'schemaText' => '<script>alert("schema XSS")</script>',
+					'serializationVersion' => '3.0',
 				],
 				// exact details of escaping beyond this (> vs &gt;) don’t matter
 				[ '<pre id="wbschema-schema-text" class="wbschema-schema-text">&lt;script' ],
@@ -77,8 +77,8 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 						'en' => 'english description',
 						'de' => 'deutsche Beschreibung',
 					],
-					'schema' => '',
-					'serializationVersion' => '2.0',
+					'schemaText' => '',
+					'serializationVersion' => '3.0',
 				],
 				[
 					'<abstract id="wbschema-heading-description">english description</abstract>',

@@ -28,8 +28,8 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 					'aliases' => [
 						'en' => [ 'english', 'test alias' ],
 					],
-					'schema' => 'abc',
-					'serializationVersion' => '2.0',
+					'schemaText' => 'abc',
+					'serializationVersion' => '3.0',
 				]
 			),
 			new FullViewSchemaData(
@@ -59,8 +59,8 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 						'en' => [ 'english', 'test alias' ],
 						'de' => [ 'deutsch', 'Testalias' ],
 					],
-					'schema' => 'abc',
-					'serializationVersion' => '2.0',
+					'schemaText' => 'abc',
+					'serializationVersion' => '3.0',
 				]
 			),
 			new FullViewSchemaData(
@@ -92,8 +92,8 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 					'aliases' => [
 						'de' => [ 'deutsch', 'Testalias' ],
 					],
-					'schema' => 'abc',
-					'serializationVersion' => '2.0',
+					'schemaText' => 'abc',
+					'serializationVersion' => '3.0',
 				]
 			),
 			new FullViewSchemaData(
@@ -107,6 +107,34 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 						'deutsche Testbezeichnung',
 						'deutsche Testbeschreibung',
 						[ 'deutsch', 'Testalias' ]
+					),
+				],
+				'abc'
+			),
+		];
+
+		yield 'serializationVersion 2.0' => [
+			json_encode(
+				[
+					'labels' => [
+						'en' => 'english testlabel',
+					],
+					'descriptions' => [
+						'en' => 'english testdescription',
+					],
+					'aliases' => [
+						'en' => [ 'english', 'test alias' ],
+					],
+					'schema' => 'abc',
+					'serializationVersion' => '2.0',
+				]
+			),
+			new FullViewSchemaData(
+				[
+					'en' => new NameBadge(
+						'english testlabel',
+						'english testdescription',
+						[ 'english', 'test alias' ]
 					),
 				],
 				'abc'
@@ -190,8 +218,8 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 					'aliases' => [
 						'en' => [ 'english', 'test alias' ],
 					],
-					'schema' => 'abc',
-					'serializationVersion' => '2.0',
+					'schemaText' => 'abc',
+					'serializationVersion' => '3.0',
 				]
 			),
 			$expectedNameBadgeData
@@ -223,8 +251,8 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 				'aliases' => [
 					'en' => [ 'english test alias' ],
 				],
-				'schema' => 'test schema',
-				'serializationVersion' => '2.0',
+				'schemaText' => 'test schema',
+				'serializationVersion' => '3.0',
 			],
 			[
 				'labels' => [
@@ -251,8 +279,8 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 				'aliases' => [
 					'pt' => [ 'alias de teste em português' ],
 				],
-				'schema' => 'test schema',
-				'serializationVersion' => '2.0',
+				'schemaText' => 'test schema',
+				'serializationVersion' => '3.0',
 			],
 			[
 				'labels' => [
@@ -285,8 +313,8 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 					'de' => [],
 					'pt' => [ 'alias de teste em português' ],
 				],
-				'schema' => 'test schema',
-				'serializationVersion' => '2.0',
+				'schemaText' => 'test schema',
+				'serializationVersion' => '3.0',
 			],
 			[
 				'labels' => [
@@ -302,7 +330,35 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 			],
 		];
 
-		yield 'doesn’t just remove the serialization version' => [
+		yield 'serialization version 2.0' => [
+			[
+				'labels' => [
+					'en' => 'english test label',
+				],
+				'descriptions' => [
+					'en' => 'english test description',
+				],
+				'aliases' => [
+					'en' => [ 'english test alias' ],
+				],
+				'schema' => 'test schema',
+				'serializationVersion' => '2.0',
+			],
+			[
+				'labels' => [
+					'en' => 'english test label',
+				],
+				'descriptions' => [
+					'en' => 'english test description',
+				],
+				'aliases' => [
+					'en' => [ 'english test alias' ],
+				],
+				'schemaText' => 'test schema',
+			],
+		];
+
+		yield 'serialization version 1.0' => [
 			[
 				'labels' => [
 					'en' => [
@@ -374,8 +430,8 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 				'aliases' => [
 					'en' => [ 'english test alias' ],
 				],
-				'schema' => 'test schema',
-				'serializationVersion' => '2.0',
+				'schemaText' => 'test schema',
+				'serializationVersion' => '3.0',
 			],
 			$expectedSchemaData,
 		];
@@ -400,8 +456,54 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 				'aliases' => [
 					'pt' => [ 'alias de teste em português' ],
 				],
+				'schemaText' => 'test schema',
+				'serializationVersion' => '3.0',
+			],
+			$expectedSchemaData,
+		];
+		yield 'serialization version 2.0' => [
+			[
+				'labels' => [
+					'en' => 'english test label',
+					'de' => 'deutsche Testbezeichnung',
+				],
+				'descriptions' => [
+					'de' => 'deutsche Testbeschreibung',
+				],
+				'aliases' => [
+					'pt' => [ 'alias de teste em português' ],
+				],
 				'schema' => 'test schema',
 				'serializationVersion' => '2.0',
+			],
+			$expectedSchemaData,
+		];
+		yield 'serialization version 1.0' => [
+			[
+				'labels' => [
+					'en' => [
+						'language' => 'en',
+						'value' => 'english test label',
+					],
+					'de' => [
+						'language' => 'de',
+						'value' => 'deutsche Testbezeichnung',
+					],
+				],
+				'descriptions' => [
+					'de' => [
+						'language' => 'de',
+						'value' => 'deutsche Testbeschreibung',
+					],
+				],
+				'aliases' => [
+					'pt' => [ [
+						'language' => 'pt',
+						'value' => 'alias de teste em português'
+					] ],
+				],
+				'schema' => 'test schema',
+				'serializationVersion' => '1.0',
 			],
 			$expectedSchemaData,
 		];
@@ -423,12 +525,28 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 	}
 
 	public function provideSerializationsWithId() {
-		yield [
+		yield 'serialization version 3.0' => [
+			[
+				'id' => 'O123',
+				'serializationVersion' => '3.0',
+			],
+			'O123',
+		];
+
+		yield 'serialization version 2.0' => [
 			[
 				'id' => 'O123',
 				'serializationVersion' => '2.0',
 			],
-			'O123'
+			'O123',
+		];
+
+		yield 'serialization version 1.0' => [
+			[
+				'id' => 'O123',
+				'serializationVersion' => '1.0',
+			],
+			'O123',
 		];
 	}
 

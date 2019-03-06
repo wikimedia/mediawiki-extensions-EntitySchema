@@ -36,7 +36,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			json_encode(
 				[
 					'id' => $id,
-					'serializationVersion' => '2.0',
+					'serializationVersion' => '3.0',
 					'labels' => [
 						$language => $label
 					],
@@ -46,7 +46,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 					'aliases' => [
 						$language => $aliases
 					],
-					'schema' => $schemaText,
+					'schemaText' => $schemaText,
 					'type' => 'ShExC',
 				]
 			)
@@ -190,7 +190,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$expectedContent = new WikibaseSchemaContent( json_encode(
 			[
 				'id' => $id,
-				'serializationVersion' => '2.0',
+				'serializationVersion' => '3.0',
 				'labels' => [
 					$language => $label
 				],
@@ -200,7 +200,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 				'aliases' => [
 					$language => $aliases
 				],
-				'schema' => $schemaText,
+				'schemaText' => $schemaText,
 				'type' => 'ShExC',
 			]
 		) );
@@ -258,10 +258,13 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$revisionRecord = $this->createMock( RevisionRecord::class );
 		$revisionRecord->method( 'getContent' )->willReturn(
 			new WikibaseSchemaContent( json_encode( [
-				'serializationVersion' => '3.0',
+				'serializationVersion' => '4.0',
 				'schema' => [
 					'replacing this' => 'with the new text',
 					'would be a' => 'grave mistake',
+				],
+				'schemaText' => [
+					'same goes' => 'for this',
 				],
 			] ) )
 		);
@@ -288,21 +291,21 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$aliases = [ $language => [ 'englishAlias' ] ];
 		$existingContent = new WikibaseSchemaContent( json_encode( [
 			'id' => $id,
-			'serializationVersion' => '2.0',
+			'serializationVersion' => '3.0',
 			'labels' => $labels,
 			'descriptions' => $descriptions,
 			'aliases' => $aliases,
-			'schema' => '# some schema about goats',
+			'schemaText' => '# some schema about goats',
 			'type' => 'ShExC',
 		] ) );
 		$newSchemaText = '# some schema about cats';
 		$expectedContent = new WikibaseSchemaContent( json_encode( [
 			'id' => $id,
-			'serializationVersion' => '2.0',
+			'serializationVersion' => '3.0',
 			'labels' => $labels,
 			'descriptions' => $descriptions,
 			'aliases' => $aliases,
-			'schema' => $newSchemaText,
+			'schemaText' => $newSchemaText,
 			'type' => 'ShExC',
 		] ) );
 
@@ -328,20 +331,20 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$aliases = [ $language => [ 'englishAlias' ] ];
 		$existingContent = new WikibaseSchemaContent( json_encode( [
 			'id' => $id,
-			'serializationVersion' => '2.0',
+			'serializationVersion' => '3.0',
 			'labels' => [ 'en' => 'Cat' ],
 			'descriptions' => [ 'en' => 'This is what a cat look like' ],
 			'aliases' => [ 'en' => [ 'Tiger', 'Lion' ] ],
-			'schema' => '# some schema about goats',
+			'schemaText' => '# some schema about goats',
 			'type' => 'ShExC',
 		] ) );
 		$expectedContent = new WikibaseSchemaContent( json_encode( [
 			'id' => $id,
-			'serializationVersion' => '2.0',
+			'serializationVersion' => '3.0',
 			'labels' => $labels,
 			'descriptions' => $descriptions,
 			'aliases' => $aliases,
-			'schema' => '# some schema about goats',
+			'schemaText' => '# some schema about goats',
 			'type' => 'ShExC',
 		] ) );
 

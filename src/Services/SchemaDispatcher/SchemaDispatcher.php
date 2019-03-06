@@ -109,6 +109,7 @@ class SchemaDispatcher {
 		switch ( $schema['serializationVersion'] ) {
 			case '1.0':
 			case '2.0':
+			case '3.0':
 				return $schema['id'] ?? null;
 			default:
 				throw new DomainException(
@@ -136,6 +137,8 @@ class SchemaDispatcher {
 			case '1.0':
 			case '2.0':
 				return $schema['schema'] ?? '';
+			case '3.0':
+				return $schema['schemaText'] ?? '';
 			default:
 				throw new DomainException(
 					'Unknown schema serialization version ' . $schema['serializationVersion']
@@ -217,6 +220,7 @@ class SchemaDispatcher {
 				}
 				return '';
 			case '2.0':
+			case '3.0':
 				return $schema['labels'][$langCode] ?? '';
 			default:
 				throw new DomainException(
@@ -249,6 +253,7 @@ class SchemaDispatcher {
 				}
 				return '';
 			case '2.0':
+			case '3.0':
 				return $schema['descriptions'][$langCode] ?? '';
 			default:
 				throw new DomainException(
@@ -281,6 +286,7 @@ class SchemaDispatcher {
 				}
 				return [];
 			case '2.0':
+			case '3.0':
 				return $schema['aliases'][$langCode] ?? [];
 			default:
 				throw new DomainException(

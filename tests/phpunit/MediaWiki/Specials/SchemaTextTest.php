@@ -40,7 +40,7 @@ PREFIX wd: <http://www.wikidata.org/entity/>
 ShExC;
 		$id = 'O54687';
 		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id );
-		$this->saveSchemaPageContent( new WikiPage( $title ), [ 'schema' => $testSchema ] );
+		$this->saveSchemaPageContent( new WikiPage( $title ), [ 'schemaText' => $testSchema ] );
 
 		/** @var WebResponse $actualWebResponse */
 		list( $specialPageResult, $actualWebResponse ) = $this->executeSpecialPage(
@@ -80,7 +80,7 @@ ShExC;
 	}
 
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {
-		$content['serializationVersion'] = '2.0';
+		$content['serializationVersion'] = '3.0';
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
 		$updater->setContent( SlotRecord::MAIN, new WikibaseSchemaContent( json_encode( $content ) ) );
 		$firstRevRecord = $updater->saveRevision(

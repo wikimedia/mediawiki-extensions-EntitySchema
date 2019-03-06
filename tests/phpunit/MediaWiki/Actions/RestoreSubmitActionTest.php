@@ -46,8 +46,8 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 	public function testRestoreSubmit() {
 		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schema' => 'abc' ] );
-		$secondId = $this->saveSchemaPageContent( $page, [ 'schema' => 'def' ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
@@ -63,14 +63,14 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 		$restoreSubmitAction->show();
 
 		$actualSchema = $this->getCurrentSchemaContent( 'O123' );
-		$this->assertSame( 'abc', $actualSchema['schema'] );
+		$this->assertSame( 'abc', $actualSchema['schemaText'] );
 	}
 
 	public function testRestoreNotCurrent() {
 		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schema' => 'abc' ] );
-		$secondId = $this->saveSchemaPageContent( $page, [ 'schema' => 'def' ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
 		$this->saveSchemaPageContent( $page, [ 'schema' => 'ghi' ] );
 
 		$context = RequestContext::getMain();
@@ -107,8 +107,8 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 
 		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schema' => 'abc' ] );
-		$this->saveSchemaPageContent( $page, [ 'schema' => 'def' ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
+		$this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
@@ -136,7 +136,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {
-		$content['serializationVersion'] = '2.0';
+		$content['serializationVersion'] = '3.0';
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
 		$updater->setContent( SlotRecord::MAIN, new WikibaseSchemaContent( json_encode( $content ) ) );
 		$firstRevRecord = $updater->saveRevision(

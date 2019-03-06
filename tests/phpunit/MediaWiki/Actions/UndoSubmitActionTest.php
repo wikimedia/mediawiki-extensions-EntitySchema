@@ -49,8 +49,8 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 		$schemaId = 'O123';
 		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schema' => 'abc', 'id' => $schemaId ] );
-		$secondId = $this->saveSchemaPageContent( $page, [ 'schema' => 'def', 'id' => $schemaId ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc', 'id' => $schemaId ] );
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def', 'id' => $schemaId ] );
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
@@ -67,14 +67,14 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 		$undoSubmitAction->show();
 
 		$actualSchema = $this->getCurrentSchemaContent( $schemaId );
-		$this->assertSame( 'abc', $actualSchema['schema'] );
+		$this->assertSame( 'abc', $actualSchema['schemaText'] );
 	}
 
 	public function testUndoSubmitNoPOST() {
 		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schema' => 'abc' ] );
-		$secondId = $this->saveSchemaPageContent( $page, [ 'schema' => 'def' ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
@@ -90,7 +90,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 		$undoSubmitAction->show();
 
 		$actualSchema = $this->getCurrentSchemaContent( 'O123' );
-		$this->assertSame( 'def', $actualSchema['schema'] );
+		$this->assertSame( 'def', $actualSchema['schemaText'] );
 	}
 
 	public function testUndoSubmitBlocked() {
@@ -106,8 +106,8 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 
 		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schema' => 'abc' ] );
-		$secondId = $this->saveSchemaPageContent( $page, [ 'schema' => 'def' ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
@@ -164,7 +164,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {
-		$content['serializationVersion'] = '2.0';
+		$content['serializationVersion'] = '3.0';
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
 		$updater->setContent( SlotRecord::MAIN, new WikibaseSchemaContent( json_encode( $content ) ) );
 		$firstRevRecord = $updater->saveRevision(

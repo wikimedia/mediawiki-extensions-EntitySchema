@@ -38,11 +38,11 @@ class SchemaEncoder {
 		return json_encode(
 			[
 				'id' => $id->getId(),
-				'serializationVersion' => '2.0',
+				'serializationVersion' => '3.0',
 				'labels' => $labels,
 				'descriptions' => $descriptions,
 				'aliases' => $aliases,
-				'schema' => $schemaText,
+				'schemaText' => $schemaText,
 				'type' => 'ShExC',
 			]
 		);

@@ -26,7 +26,7 @@ class SchemaEncoderTest extends TestCase {
 		$schemaText = '#some schema about goats';
 		$expectedJson = [
 			'id' => $id,
-			'serializationVersion' => '2.0',
+			'serializationVersion' => '3.0',
 			'labels' => [
 				$language => $label,
 			],
@@ -36,7 +36,7 @@ class SchemaEncoderTest extends TestCase {
 			'aliases' => [
 				$language => $aliases,
 			],
-			'schema' => $schemaText,
+			'schemaText' => $schemaText,
 			'type' => 'ShExC',
 		];
 

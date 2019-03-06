@@ -37,9 +37,9 @@ final class RestoreViewActionTest extends MediaWikiTestCase {
 
 		$firstID = $this->saveSchemaPageContent(
 			$page,
-			[ 'schema' => 'abc' ]
+			[ 'schemaText' => 'abc' ]
 		);
-		$this->saveSchemaPageContent( $page, [ 'schema' => 'def', 'serializationVersion' => '2.0' ] );
+		$this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
@@ -71,7 +71,7 @@ final class RestoreViewActionTest extends MediaWikiTestCase {
 	}
 
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {
-		$content['serializationVersion'] = '2.0';
+		$content['serializationVersion'] = '3.0';
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
 		$updater->setContent( SlotRecord::MAIN, new WikibaseSchemaContent( json_encode( $content ) ) );
 		$firstRevRecord = $updater->saveRevision(

@@ -32,9 +32,9 @@ class WikibaseSchemaSlotDiffRendererTest extends TestCase {
 			'aliases' => [
 				'en' => [ 'test alias', 'test alias 2' ],
 			],
-			'schema' => 'test schema',
+			'schemaText' => 'test schema',
 			'type' => 'ShExC',
-			'serializationVersion' => '2.0',
+			'serializationVersion' => '3.0',
 		];
 
 		yield 'no change' => [
@@ -44,16 +44,16 @@ class WikibaseSchemaSlotDiffRendererTest extends TestCase {
 		];
 
 		yield 'change from empty schema counts as addition (not change)' => [
-			[ 'schema' => '', 'serializationVersion' => '2.0' ],
-			[ 'schema' => 'test schema', 'serializationVersion' => '2.0' ],
+			[ 'schemaText' => '', 'serializationVersion' => '3.0' ],
+			[ 'schemaText' => 'test schema', 'serializationVersion' => '3.0' ],
 			// phpcs:disable Generic.Files.LineLength.MaxExceeded
 			'<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Schema</td></tr><tr><td colspan="2"></td><td class="diff-marker">+</td><td class="diff-addedline">test schema</td></tr>',
 			// phpcs:enable
 		];
 
 		yield 'change to empty schema counts as removal (not change)' => [
-			[ 'schema' => 'test schema', 'serializationVersion' => '2.0' ],
-			[ 'schema' => '', 'serializationVersion' => '2.0' ],
+			[ 'schemaText' => 'test schema', 'serializationVersion' => '3.0' ],
+			[ 'schemaText' => '', 'serializationVersion' => '3.0' ],
 			// phpcs:disable Generic.Files.LineLength.MaxExceeded
 			'<tr><td colspan="2" class="diff-lineno">Schema</td><td colspan="2" class="diff-lineno"></td></tr><tr><td class="diff-marker">−</td><td class="diff-deletedline">test schema</td><td colspan="2"></td></tr>',
 			// phpcs:enable
@@ -65,7 +65,7 @@ class WikibaseSchemaSlotDiffRendererTest extends TestCase {
 				'labels' => [
 					'en' => 'testlabel',
 				],
-				'serializationVersion' => '2.0',
+				'serializationVersion' => '3.0',
 			],
 			// phpcs:disable Generic.Files.LineLength.MaxExceeded
 			'<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Labels / en</td></tr><tr><td colspan="2"></td><td class="diff-marker">+</td><td class="diff-addedline">testlabel</td></tr>'
@@ -154,8 +154,8 @@ HTML;
 					'en' => [ 'test alias', 'test alias 3' ],
 					'de' => [ 'Testalias' ],
 				],
-				'schema' => 'schema updated',
-				'serializationVersion' => '2.0',
+				'schemaText' => 'schema updated',
+				'serializationVersion' => '3.0',
 			],
 			$expectedHTML,
 		];
