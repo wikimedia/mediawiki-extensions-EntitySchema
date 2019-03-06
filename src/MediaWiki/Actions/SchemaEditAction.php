@@ -25,6 +25,7 @@ class SchemaEditAction extends FormAction {
 
 	/* public */ const FIELD_SCHEMA_TEXT = 'schema-text';
 	/* public */ const FIELD_BASE_REV = 'base-rev';
+	/* public */ const FIELD_EDIT_SUMMARY = 'edit-summary';
 
 	private $inputValidator;
 
@@ -66,11 +67,18 @@ class SchemaEditAction extends FormAction {
 		$id = new SchemaId( $this->getTitle()->getText() );
 		$watchListUpdater = new WatchlistUpdater( $user, NS_WBSCHEMA_JSON );
 		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory, $this, $watchListUpdater );
+
+		$summary = $data[self::FIELD_EDIT_SUMMARY];
+		$summaryMessage = $summary ?
+			$this->msg( 'wikibaseschema-summary-update-schema-text-user' )->plaintextParams( $summary ) :
+			null;
+
 		try {
 			$schemaWriter->updateSchemaText(
 				$id,
 				$data[self::FIELD_SCHEMA_TEXT],
-				(int)$data[self::FIELD_BASE_REV]
+				(int)$data[self::FIELD_BASE_REV],
+				$summaryMessage
 			);
 		} catch ( EditConflict $e ) {
 			return Status::newFatal( 'wikibaseschema-error-schematext-conflict' );
@@ -110,6 +118,11 @@ class SchemaEditAction extends FormAction {
 			self::FIELD_BASE_REV => [
 				'type' => 'hidden',
 				'default' => $baseRev,
+			],
+			self::FIELD_EDIT_SUMMARY => [
+				'type' => 'text',
+				'default' => '',
+				'label-message' => 'wikibaseschema-summary-generated',
 			],
 		];
 	}
