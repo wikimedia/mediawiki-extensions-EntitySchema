@@ -4,6 +4,7 @@ namespace Wikibase\Schema\MediaWiki\Specials;
 
 use Html;
 use HTMLForm;
+use Language;
 use SpecialPage;
 use OutputPage;
 use UserBlockedError;
@@ -191,6 +192,9 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$label = $nameBadge->label;
 		$description = $nameBadge->description;
 		$aliases = implode( '|', $nameBadge->aliases );
+		$langCode = $this->getLanguage()->getCode();
+		// FIXME: T216145: change this 'en' to the chosen language from step 1
+		$langName = Language::fetchLanguageName( 'en', $langCode );
 		return [
 			self::FIELD_ID => [
 				'name' => self::FIELD_ID,
@@ -204,14 +208,15 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'type' => 'hidden',
 				'id' => 'wbschema-language-code',
 				'required' => true,
-				'default' => 'en',
+				'default' => 'en', // FIXME: T216145: change this 'en' to the chosen language from step 1
 			],
 			self::FIELD_LABEL => [
 				'name' => self::FIELD_LABEL,
 				'type' => 'text',
 				'id' => 'wbschema-title-label',
 				'default' => $label,
-				'placeholder-message' => 'wikibaseschema-special-label-edit-placeholder',
+				'placeholder-message' => $this->msg( 'wikibaseschema-label-edit-placeholder' )
+					->params( $langName ),
 				'label-message' => 'wikibaseschema-special-label',
 			],
 			self::FIELD_DESCRIPTION => [
@@ -219,7 +224,8 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'type' => 'text',
 				'default' => $description,
 				'id' => 'wbschema-heading-description',
-				'placeholder-message' => 'wikibaseschema-special-description-edit-placeholder',
+				'placeholder-message' => $this->msg( 'wikibaseschema-description-edit-placeholder' )
+					->params( $langName ),
 				'label-message' => 'wikibaseschema-special-description',
 			],
 			self::FIELD_ALIASES => [
@@ -227,7 +233,8 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'type' => 'text',
 				'default' => $aliases,
 				'id' => 'wbschema-heading-aliases',
-				'placeholder-message' => 'wikibaseschema-special-aliases-edit-placeholder',
+				'placeholder-message' => $this->msg( 'wikibaseschema-aliases-edit-placeholder' )
+					->params( $langName ),
 				'label-message' => 'wikibaseschema-special-aliases',
 			]
 		];

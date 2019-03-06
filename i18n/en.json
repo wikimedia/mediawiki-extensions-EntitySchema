@@ -56,8 +56,5 @@
 	"wikibaseschema-special-label": "Label:",
 	"wikibaseschema-special-description": "Description:",
 	"wikibaseschema-special-aliases": "Aliases, pipe-separated:",
-	"wikibaseschema-special-label-edit-placeholder": "The label for the Schema in English",
-	"wikibaseschema-special-description-edit-placeholder": "The description for the Schema in English",
-	"wikibaseschema-special-aliases-edit-placeholder": "Alternative labels for the Schema in English",
 	"wikibaseschema-special-id-placeholder": "Schema ID"
 }

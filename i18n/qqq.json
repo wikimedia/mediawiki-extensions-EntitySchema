@@ -57,8 +57,5 @@
 	"wikibaseschema-special-label": "Input label for the label field on Special:SetSchemaLabelDescriptionAliases",
 	"wikibaseschema-special-description": "Input label for the description field on Special:SetSchemaLabelDescriptionAliases:",
 	"wikibaseschema-special-aliases": "Input label for the aliases field on Special:SetSchemaLabelDescriptionAliases",
-	"wikibaseschema-special-label-edit-placeholder": "Placeholder to add the label in English on Special:SetSchemaLabelDescriptionAliases",
-	"wikibaseschema-special-description-edit-placeholder": "Placeholder to add the description in English on Special:SetSchemaLabelDescriptionAliases",
-	"wikibaseschema-special-aliases-edit-placeholder": "Placeholder to add the aliases in English on Special:SetSchemaLabelDescriptionAliases",
 	"wikibaseschema-special-id-placeholder": "Placeholder for the Schema ID field when retrieving a Schema to edit on Special:SetSchemaLabelDescriptionAliases"
 }
