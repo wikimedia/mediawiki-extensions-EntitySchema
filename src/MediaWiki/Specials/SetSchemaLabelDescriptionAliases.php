@@ -8,6 +8,7 @@ use Language;
 use SpecialPage;
 use OutputPage;
 use UserBlockedError;
+use WebRequest;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Status;
 use Title;
@@ -48,13 +49,14 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	public function execute( $subPage ) {
 		parent::execute( $subPage );
 
-		$id = $this->getContext()->getRequest()->getText( self::FIELD_ID ) ?: null;
-		$language = $this->getContext()->getLanguage()->getCode() ?: null;
+		$request = $this->getRequest();
+		$id = $this->getIdFromSubpageOrRequest( $subPage, $request );
+		$language = $this->getLanguageFromSubpageOrRequestOrUI( $subPage, $request );
 
 		$schemaId = $this->validateSchemaSelectionFormData( $id, $language );
 
 		if ( !$schemaId ) {
-			$this->displaySchemaLanguageSelectionForm();
+			$this->displaySchemaLanguageSelectionForm( $id, $language );
 		} else {
 			$this->displayEditForm( $schemaId );
 		}
@@ -105,8 +107,25 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		return $this->msg( 'wikibaseschema-special-setlabeldescriptionaliases' )->text();
 	}
 
-	private function displaySchemaLanguageSelectionForm() {
-		$formDescriptor = $this->getSchemaSelectionFormFields();
+	private function getIdFromSubpageOrRequest( $subpage, WebRequest $request ) {
+		$subpageParts = array_filter( explode( '/', $subpage, 2 ) );
+		if ( count( $subpageParts ) > 0 ) {
+			return $subpageParts[0];
+		}
+		return $request->getText( self::FIELD_ID ) ?: null;
+	}
+
+	private function getLanguageFromSubpageOrRequestOrUI( $subpage, WebRequest $request ) {
+		$subpageParts = array_filter( explode( '/', $subpage, 2 ) );
+		if ( count( $subpageParts ) === 2 ) {
+			return $subpageParts[1];
+		}
+
+		return $request->getText( self::FIELD_LANGUAGE ) ?: $this->getLanguage()->getCode();
+	}
+
+	private function displaySchemaLanguageSelectionForm( $defaultId, $defaultLanguage ) {
+		$formDescriptor = $this->getSchemaSelectionFormFields( $defaultId, $defaultLanguage );
 
 		$formProvider = $this->htmlFormProvider; // FIXME: PHP7: inline this variable!
 		$form = $formProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
@@ -173,14 +192,14 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		return $schemaNameBadge;
 	}
 
-	private function getSchemaSelectionFormFields() {
+	private function getSchemaSelectionFormFields( $defaultId, $defaultLanguage ) {
 		return [
 			self::FIELD_ID => [
 				'name' => self::FIELD_ID,
 				'type' => 'text',
 				'id' => 'wbschema-special-schema-id',
 				'required' => true,
-				'default' => '',
+				'default' => $defaultId ?: '',
 				'placeholder-message' => 'wikibaseschema-special-id-placeholder',
 				'label-message' => 'wikibaseschema-special-id-inputlabel',
 			],
@@ -189,7 +208,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'type' => 'text',
 				'id' => 'wbschema-language-code',
 				'required' => true,
-				'default' => 'en',
+				'default' => $defaultLanguage,
 				'label-message' => 'wikibaseschema-special-language-inputlabel',
 			]
 		];

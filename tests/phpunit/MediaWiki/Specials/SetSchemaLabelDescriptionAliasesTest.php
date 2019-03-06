@@ -218,6 +218,26 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 				'languagecode' => 'en',
 			]
 		];
+
+		yield 'subpage with id only' => [
+			'O1',
+			[],
+			false,
+			[
+				'ID' => 'O1',
+				'languagecode' => 'en',
+			]
+		];
+
+		yield 'subpage with id and langcode' => [
+			'O1/de',
+			[],
+			false,
+			[
+				'ID' => 'O1',
+				'languagecode' => 'de',
+			]
+		];
 	}
 
 	/**
