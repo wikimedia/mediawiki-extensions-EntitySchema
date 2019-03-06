@@ -14,6 +14,13 @@ use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
  */
 class UndoAPITest extends MediaWikiTestCase {
 
+	public function setUp() {
+		parent::setUp();
+		$this->tablesUsed[] = 'page';
+		$this->tablesUsed[] = 'revision';
+		$this->tablesUsed[] = 'recentchanges';
+	}
+
 	public function testGetUndoContentUndoLatest() {
 		$handler = new \Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContentHandler();
 

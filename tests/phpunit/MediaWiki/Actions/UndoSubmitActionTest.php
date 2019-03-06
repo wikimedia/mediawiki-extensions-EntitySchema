@@ -19,11 +19,20 @@ use WikiPage;
 /**
  * @license GPL-2.0-or-later
  *
+ * @group Database
+ *
  * @covers \Wikibase\Schema\MediaWiki\Actions\UndoSubmitAction
  * @covers \Wikibase\Schema\MediaWiki\Actions\AbstractUndoAction
  * @covers \Wikibase\Schema\MediaWiki\UndoHandler
  */
 class UndoSubmitActionTest extends MediaWikiTestCase {
+
+	public function setUp() {
+		parent::setUp();
+		$this->tablesUsed[] = 'page';
+		$this->tablesUsed[] = 'revision';
+		$this->tablesUsed[] = 'recentchanges';
+	}
 
 	/** @var Block */
 	private $block;
