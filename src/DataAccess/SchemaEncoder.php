@@ -3,6 +3,7 @@
 namespace Wikibase\Schema\DataAccess;
 
 use InvalidArgumentException;
+use Language;
 use Wikibase\Schema\Domain\Model\SchemaId;
 
 /**
@@ -59,12 +60,20 @@ class SchemaEncoder {
 		array $aliasGroups,
 		$schemaText
 	) {
-		// FIXME: Adjust with the correct list of parameters for T216145
-		$validLangCodes = [ 'en' ];
-		if ( count( array_diff( array_keys( $labels ), $validLangCodes ) ) > 0
-			|| count( array_diff( array_keys( $descriptions ), $validLangCodes ) ) > 0
-			|| count( array_diff( array_keys( $aliasGroups ), $validLangCodes ) ) > 0
-		) {
+		$providedLangCodes = array_unique(
+			array_merge(
+				array_keys( $labels ),
+				array_keys( $descriptions ),
+				array_keys( $aliasGroups )
+			)
+		);
+		$invalidLangCodes = array_filter(
+			$providedLangCodes,
+			function( $langCode ) {
+				return !Language::isSupportedLanguage( $langCode );
+			}
+		);
+		if ( count( $invalidLangCodes ) > 0 ) {
 			throw new InvalidArgumentException( 'language codes must be valid!' );
 		}
 
