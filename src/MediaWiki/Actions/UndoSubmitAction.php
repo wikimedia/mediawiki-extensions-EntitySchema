@@ -13,6 +13,7 @@ use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
+use Wikibase\Schema\Services\SchemaDispatcher\FullArraySchemaData;
 
 /**
  * @license GPL-2.0-or-later
@@ -86,7 +87,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 		return $this->storePatchedSchema( $patchStatus->getValue() );
 	}
 
-	private function storePatchedSchema( $patchedSchema ): Status {
+	private function storePatchedSchema( FullArraySchemaData $patchedSchema ): Status {
 		$schemaWriter = new MediawikiRevisionSchemaWriter(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
 			$this,
@@ -101,10 +102,10 @@ class UndoSubmitAction extends AbstractUndoAction {
 		try {
 			$schemaWriter->overwriteWholeSchema(
 				new SchemaId( $this->getTitle()->getTitleValue()->getText() ),
-				$patchedSchema['labels'],
-				$patchedSchema['descriptions'],
-				$patchedSchema['aliases'],
-				$patchedSchema['schema'],
+				$patchedSchema->data['labels'],
+				$patchedSchema->data['descriptions'],
+				$patchedSchema->data['aliases'],
+				$patchedSchema->data['schemaText'],
 				$submitMessage
 			);
 		} catch ( RuntimeException $e ) {

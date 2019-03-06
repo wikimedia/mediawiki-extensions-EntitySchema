@@ -145,14 +145,14 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 		if ( !$patchStatus->isOK() ) {
 			return false;
 		}
-		$patchedSchema = $patchStatus->getValue();
+		$patchedSchema = $patchStatus->getValue()->data;
 
 		return new WikibaseSchemaContent( SchemaEncoder::getPersistentRepresentation(
 			$schemaId,
 			$patchedSchema['labels'],
 			$patchedSchema['descriptions'],
 			$patchedSchema['aliases'],
-			$patchedSchema['schema']
+			$patchedSchema['schemaText']
 		) );
 	}
 
