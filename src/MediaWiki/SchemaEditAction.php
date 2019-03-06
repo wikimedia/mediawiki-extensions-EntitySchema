@@ -7,7 +7,6 @@ use RuntimeException;
 use Status;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
-use Wikibase\Schema\Domain\Model\Schema;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
