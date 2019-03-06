@@ -18,6 +18,9 @@ use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
  */
 class SchemaEditAction extends FormAction {
 
+	/* public */
+	const FIELD_SCHEMA_TEXT = 'schema-text';
+
 	/**
 	 * Process the form on POST submission.
 	 *
@@ -50,7 +53,7 @@ class SchemaEditAction extends FormAction {
 		try {
 			$schemaWriter->updateSchemaContent(
 				$id,
-				$data['schema']
+				$data[self::FIELD_SCHEMA_TEXT]
 			);
 		} catch ( RunTimeException $e ) {
 			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
@@ -70,7 +73,7 @@ class SchemaEditAction extends FormAction {
 		$schemaText = ( new SchemaDispatcher() )->getSchemaText( $content->getText() );
 
 		return [
-			'schema' => [
+			self::FIELD_SCHEMA_TEXT => [
 				'type' => 'textarea',
 				'default' => $schemaText,
 				'label-message' => 'wikibaseschema-editpage-schema-inputlabel',
