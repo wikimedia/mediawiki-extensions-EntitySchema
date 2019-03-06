@@ -4,7 +4,6 @@ namespace Wikibase\Schema\Tests\Services\SchemaDispatcher;
 
 use MediaWikiTestCase;
 use Wikibase\Schema\Services\SchemaDispatcher\FullViewSchemaData;
-use Wikibase\Schema\Services\SchemaDispatcher\MonolingualSchemaData;
 use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
 use Wikibase\Schema\Services\SchemaDispatcher\PersistenceSchemaData;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
@@ -170,73 +169,6 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 		$actualSchema = $dispatcher->getFullViewSchemaData( $schemaJSON, 'en' );
 
 		$this->assertType( FullViewSchemaData::class, $actualSchema );
-		$this->assertEquals( $expectedSchemaData, $actualSchema );
-	}
-
-	public function validMonoLingualDataProvider() {
-		yield 'schema in requested language' => [
-			json_encode(
-				[
-					'labels' => [
-						'en' => 'english testlabel',
-					],
-					'descriptions' => [
-						'en' => 'english testdescription',
-					],
-					'aliases' => [
-						'en' => [ 'english', 'test alias' ],
-					],
-					'schema' => 'abc',
-					'serializationVersion' => '2.0',
-				]
-			),
-			new MonolingualSchemaData(
-				new NameBadge(
-					'english testlabel',
-					'english testdescription',
-					[ 'english', 'test alias' ]
-				),
-				'abc'
-			),
-		];
-
-		yield 'schema not in requested language' => [
-			json_encode(
-				[
-					'labels' => [
-						'de' => 'deutsche Testbezeichnung',
-					],
-					'descriptions' => [
-						'de' => 'deutsche Testbeschreibung',
-					],
-					'aliases' => [
-						'de' => [ 'deutsch', 'Testalias' ],
-					],
-					'schema' => 'abc',
-					'serializationVersion' => '2.0',
-				]
-			),
-			new MonolingualSchemaData(
-				new NameBadge(
-					'',
-					'',
-					[]
-				),
-				'abc'
-			),
-		];
-	}
-
-	/**
-	 * @dataProvider validMonoLingualDataProvider
-	 *
-	 * @param string $schemaJSON
-	 * @param MonolingualSchemaData $expectedSchemaData
-	 */
-	public function testMonolingualSchemaData( $schemaJSON, $expectedSchemaData ) {
-		$dispatcher = new SchemaDispatcher();
-		$actualSchema = $dispatcher->getMonolingualSchemaData( $schemaJSON, 'en' );
-		$this->assertType( MonolingualSchemaData::class, $actualSchema );
 		$this->assertEquals( $expectedSchemaData, $actualSchema );
 	}
 
