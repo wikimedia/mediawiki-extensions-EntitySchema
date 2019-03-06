@@ -53,26 +53,12 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$id = $this->getIdFromSubpageOrRequest( $subPage, $request );
 		$language = $this->getLanguageFromSubpageOrRequestOrUI( $subPage, $request );
 
-		$schemaId = $this->validateSchemaSelectionFormData( $id, $language );
-
-		if ( !$schemaId ) {
-			$this->displaySchemaLanguageSelectionForm( $id, $language );
-		} else {
-			$this->displayEditForm( $schemaId );
+		if ( $this->isSelectionDataValid( $id, $language ) ) {
+			$this->displayEditForm( new SchemaId( $id ) );
+			return;
 		}
-	}
 
-	public function submitSelectionCallback( $data ) {
-		$status = Status::newGood();
-
-		if ( !$this->validateSchemaSelectionFormData(
-				$data[ self::FIELD_ID ],
-				$data[ self::FIELD_LANGUAGE ]
-			)
-		) {
-			$status->fatal( 'wikibaseschema-special-setlabeldescriptionaliases-warning' );
-		}
-		return $status;
+		$this->displaySchemaLanguageSelectionForm( $id, $language );
 	}
 
 	public function submitEditFormCallback( $data ) {
@@ -132,7 +118,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 			->setSubmitName( self::SUBMIT_SELECTION_NAME )
 			->setSubmitID( 'wbschema-special-schema-id-submit' )
 			->setSubmitTextMsg( 'wikibaseschema-special-id-submit' )
-			->setSubmitCallback( [ $this, 'submitSelectionCallback' ] );
+			->setTitle( $this->getPageTitle() );
 		$form->prepareForm();
 		$submitStatus = $form->tryAuthorizedSubmit();
 		$this->displayBeforeForm( $this->getOutput() );
@@ -202,6 +188,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'default' => $defaultId ?: '',
 				'placeholder-message' => 'wikibaseschema-special-id-placeholder',
 				'label-message' => 'wikibaseschema-special-id-inputlabel',
+				'validation-callback' => [ $this, 'validateID' ],
 			],
 			self::FIELD_LANGUAGE => [
 				'name' => self::FIELD_LANGUAGE,
@@ -210,8 +197,30 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'required' => true,
 				'default' => $defaultLanguage,
 				'label-message' => 'wikibaseschema-special-language-inputlabel',
-			]
+				'validation-callback' => [ $this, 'validateLangCode' ],
+			],
 		];
+	}
+
+	public function validateID( $id ) {
+		try {
+			$schemaId = new SchemaId( $id );
+		} catch ( InvalidArgumentException $e ) {
+			return $this->msg( 'wikibaseschema-error-invalid-id' );
+		}
+		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId->getId() );
+		if ( !$title->exists() ) {
+			return $this->msg( 'wikibaseschema-error-schemadeleted' );
+		}
+
+		return true;
+	}
+
+	public function validateLangCode( $langCode ) {
+		if ( !Language::isSupportedLanguage( $langCode ) ) {
+			return $this->msg( 'wikibaseschema-error-unsupported-langcode' );
+		}
+		return true;
 	}
 
 	private function getEditFormFields( SchemaId $id, NameBadge $nameBadge ) {
@@ -262,32 +271,26 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'placeholder-message' => $this->msg( 'wikibaseschema-aliases-edit-placeholder' )
 					->params( $langName ),
 				'label-message' => 'wikibaseschema-special-aliases',
-			]
+			],
 		];
 	}
 
 	/**
 	 * Validate ID and Language Code values
 	 *
-	 * @param string|null $id, ID of the Schema
-	 * @param string|null $language, two letter language code of the Schema
+	 * @param string|null $id ID of the Schema
+	 * @param string|null $language language code of the Schema
 	 *
-	 * @return SchemaId|bool SchemaId if valid, false otherwise
+	 * @return bool
 	 */
-	private function validateSchemaSelectionFormData( $id, $language ) {
-		if ( $language === null || $id === null ) {
+	private function isSelectionDataValid( $id, $language ) {
+		if ( $id === null || $language === null ) {
 			return false;
 		}
-		try {
-			$id = new SchemaId( $id );
-		} catch ( InvalidArgumentException $e ) {
+		if ( $this->validateID( $id ) !== true || $this->validateLangCode( $language ) !== true ) {
 			return false;
 		}
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id->getId() );
-		if ( !$title->exists() ) {
-			return false;
-		}
-		return $id;
+		return true;
 	}
 
 	private function displayBeforeForm( OutputPage $output ) {

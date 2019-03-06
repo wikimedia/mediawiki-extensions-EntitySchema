@@ -6,7 +6,6 @@ use Wikibase\Schema\Tests\Mocks\HTMLFormSpy;
 use SpecialPageTestBase;
 use FauxRequest;
 use WikiPage;
-use Wikibase\Schema\Domain\Model\SchemaId;
 use Title;
 use MediaWiki\Revision\SlotRecord;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
@@ -45,51 +44,46 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		return new SetSchemaLabelDescriptionAliases();
 	}
 
-	public function testSubmitSelectionCallbackCorrectId() {
+	public function testValidateId() {
 		$this->createTestSchema();
 
-		$dataGood = [
-			'ID' => 'O123',
-			'languagecode' => 'en'
-		];
-
 		$setSchemaInfo = $this->newSpecialPage();
-		$infoGood = $setSchemaInfo->submitSelectionCallback( $dataGood );
-		$this->assertSame( true, $infoGood->ok, 'Schema ID or Language Code is wrong or empty' );
+		$this->assertTrue( $setSchemaInfo->validateID( 'O123' ) );
 	}
 
-	public function testSubmitSelectionCallbackEmptyId() {
+	public function testValidateIdEmpty() {
 		$this->createTestSchema();
 
-		$dataIncomplete = [
-			'ID' => '',
-			'languagecode' => 'en'
-		];
-
 		$setSchemaInfo = $this->newSpecialPage();
-		$infoIncomplete = $setSchemaInfo->submitSelectionCallback( $dataIncomplete );
-		$this->assertSame( 'error',
-			$infoIncomplete->errors[0]['type'],
-			'The object $infoIncomplete should contain an error'
-		);
+		$this->assertNotTrue( $setSchemaInfo->validateID( '' ) );
 	}
 
-	public function testSubmitSelectionCallbackWrongId() {
+	public function testValidateIdWrongId() {
 		$this->createTestSchema();
 
-		$dataWrong = [
-			'ID' => 'bla',
-			'languagecode' => 'en'
-		];
+		$setSchemaInfo = $this->newSpecialPage();
+		$this->assertNotTrue( $setSchemaInfo->validateID( 'bla' ) );
+	}
+
+	public function testValidateLangCode() {
+		$this->createTestSchema();
 
 		$setSchemaInfo = $this->newSpecialPage();
-		$infoFalse = $setSchemaInfo->submitSelectionCallback( $dataWrong );
+		$this->assertTrue( $setSchemaInfo->validateLangCode( 'de' ) );
+	}
 
-		$this->assertSame(
-			'error',
-			$infoFalse->errors[0]['type'],
-			'The object $infoFalse should contain an error'
-		);
+	public function testValidateLangCodeEmpty() {
+		$this->createTestSchema();
+
+		$setSchemaInfo = $this->newSpecialPage();
+		$this->assertNotTrue( $setSchemaInfo->validateLangCode( '' ) );
+	}
+
+	public function testValidateLangCodeWrongCode() {
+		$this->createTestSchema();
+
+		$setSchemaInfo = $this->newSpecialPage();
+		$this->assertNotTrue( $setSchemaInfo->validateLangCode( 'i do not exist' ) );
 	}
 
 	public function testSubmitEditFormCallbackCorrectId() {
@@ -168,32 +162,31 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
 	public function testValidateSchemaSelectionFormData() {
 		$this->createTestSchema();
-		$schemaId = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
-			->validateSchemaSelectionFormData( 'O123', 'en' );
+		$actualResult = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
+			->isSelectionDataValid( 'O123', 'en' );
 
-		$this->assertInstanceOf( SchemaId::class, $schemaId );
-		$this->assertSame( 'O123', $schemaId->getId() );
+		$this->assertTrue( $actualResult );
 	}
 
 	public function testValidateSchemaSelectionFormDataNoLanguageCode() {
-		$schemaId = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
-			->validateSchemaSelectionFormData( 'O123', null );
+		$actualResult = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
+			->isSelectionDataValid( 'O123', null );
 
-		$this->assertFalse( $schemaId );
+		$this->assertFalse( $actualResult );
 	}
 
 	public function testValidateSchemaSelectionFormDataInvalidId() {
-		$schemaId = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
-			->validateSchemaSelectionFormData( 'Q1111', 'en' );
+		$actualResult = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
+			->isSelectionDataValid( 'Q1111', 'en' );
 
-		$this->assertFalse( $schemaId );
+		$this->assertFalse( $actualResult );
 	}
 
 	public function testValidateSchemaSelectionFormDataNonexistentSchema() {
-		$schemaId = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
-			->validateSchemaSelectionFormData( 'O1111111111', 'en' );
+		$actualResult = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
+			->isSelectionDataValid( 'O1111111111', 'en' );
 
-		$this->assertFalse( $schemaId );
+		$this->assertFalse( $actualResult );
 	}
 
 	public function provideExecuteData() {
