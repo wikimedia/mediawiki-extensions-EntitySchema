@@ -9,7 +9,7 @@ class ViewSchemaPage extends Page {
 			LABEL: '#wbschema-title-label',
 			DESCRIPTION: '#wbschema-heading-description',
 			ALIASES: '#wbschema-heading-aliases',
-			SCHEMA_SHEXC: '#wbschema-schema-shexc'
+			SCHEMA_TEXT: '#wbschema-schema-text'
 		};
 	}
 
@@ -44,22 +44,22 @@ class ViewSchemaPage extends Page {
 	 *
 	 * @return {string}
 	 */
-	getShExC() {
-		browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).waitForExist();
-		return browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).getText();
+	getSchemaText() {
+		browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_TEXT ).waitForExist();
+		return browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_TEXT ).getText();
 	}
 
 	/**
-	 * Return the ShExC as it is in the HTML
+	 * Return the schema text as it is in the HTML
 	 *
 	 * Note:
 	 * that will return it without the webdriver mangling the whitespace, but with HTML entities
 	 *
 	 * @return {string}
 	 */
-	getShExCHTML() {
-		browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).waitForExist();
-		return browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_SHEXC ).getHTML( false );
+	getSchemaTextHTML() {
+		browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_TEXT ).waitForExist();
+		return browser.$( this.constructor.SCHEMA_SELECTORS.SCHEMA_TEXT ).getHTML( false );
 	}
 
 	getId() {
