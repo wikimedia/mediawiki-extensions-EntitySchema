@@ -99,12 +99,11 @@ class UndoSubmitAction extends AbstractUndoAction {
 			);
 
 		try {
-			$schemaWriter->updateSchema(
+			$schemaWriter->overwriteWholeSchema(
 				new SchemaId( $this->getTitle()->getTitleValue()->getText() ),
-				'en',
-				$patchedSchema['labels']['en'] ?? '',
-				$patchedSchema['descriptions']['en'] ?? '',
-				$patchedSchema['aliases']['en'] ?? [],
+				$patchedSchema['labels'],
+				$patchedSchema['descriptions'],
+				$patchedSchema['aliases'],
 				$patchedSchema['schema'],
 				$submitMessage
 			);

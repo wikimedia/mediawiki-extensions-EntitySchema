@@ -13,7 +13,6 @@ use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\Domain\Storage\IdGenerator;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
-use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
@@ -83,25 +82,23 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 	}
 
 	/**
+	 * Update a Schema with new content. This will remove existing schema content.
+	 *
 	 * @param SchemaId $id
-	 * @param string $language
-	 * @param string $label
-	 * @param string $description
-	 * @param string[] $aliases
+	 * @param string[] $labels
+	 * @param string[] $descriptions
+	 * @param string[] $aliasGroups
 	 * @param string $schemaContent
 	 * @param Message|null $message
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
 	 * @throws RuntimeException if Schema to update does not exist or saving fails
-	 *
-	 * Update a Schema with new content. This will remove existing schema content.
 	 */
-	public function updateSchema(
+	public function overwriteWholeSchema(
 		SchemaId $id,
-		$language,
-		$label,
-		$description,
-		array $aliases,
+		array $labels,
+		array $descriptions,
+		array $aliasGroups,
 		$schemaContent,
 		Message $message = null
 	) {
@@ -109,20 +106,19 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 			$message = $this->msgLocalizer->msg( 'wikibaseschema-summary-update' );
 		}
 
-		// FIXME replace this with a strict type hint when available
-		Assert::parameterType( 'string', $language, '$language' );
-
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$this->checkSchemaExists( $updater );
+
+		// TODO check $updater->hasEditConflict()! (T217338)
 
 		$updater->setContent(
 			SlotRecord::MAIN,
 			new WikibaseSchemaContent(
 				SchemaEncoder::getPersistentRepresentation(
 					$id,
-					[ $language => $label ],
-					[ $language => $description ],
-					[ $language => $aliases ],
+					$labels,
+					$descriptions,
+					$aliasGroups,
 					$schemaContent
 				)
 			)

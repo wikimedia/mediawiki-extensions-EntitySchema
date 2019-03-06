@@ -14,7 +14,7 @@ use Wikibase\Schema\DataAccess\SqlIdGenerator;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Services\SchemaDispatcher\FullViewSchemaData;
+use Wikibase\Schema\Services\SchemaDispatcher\PersistenceSchemaData;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
 
 /**
@@ -87,17 +87,16 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		);
 
 		return $this->storeRestoredSchema(
-			$dispatcher->getFullViewSchemaData(
+			$dispatcher->getPersistenceSchemaData(
 			// @phan-suppress-next-line PhanUndeclaredMethod
-				$contentToRestore->getText(),
-				'en'
+				$contentToRestore->getText()
 			),
 			$submitMessage
 		);
 	}
 
 	private function storeRestoredSchema(
-		FullViewSchemaData $fullSchema,
+		PersistenceSchemaData $persistenceSchemaData,
 		Message $submitMessage
 	): Status {
 
@@ -112,13 +111,12 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		);
 
 		try {
-			$schemaWriter->updateSchema(
+			$schemaWriter->overwriteWholeSchema(
 				new SchemaId( $this->getTitle()->getTitleValue()->getText() ),
-				'en',
-				isset( $fullSchema->nameBadges['en'] ) ? $fullSchema->nameBadges['en']->label : '',
-				isset( $fullSchema->nameBadges['en'] ) ? $fullSchema->nameBadges['en']->description : '',
-				isset( $fullSchema->nameBadges['en'] ) ? $fullSchema->nameBadges['en']->aliases : [],
-				$fullSchema->schema ?? '',
+				$persistenceSchemaData->labels,
+				$persistenceSchemaData->descriptions,
+				$persistenceSchemaData->aliases,
+				$persistenceSchemaData->schemaText,
 				$submitMessage
 			);
 		} catch ( RuntimeException $e ) {
