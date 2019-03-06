@@ -4,9 +4,6 @@ namespace Wikibase\Schema\MediaWiki\Specials;
 
 use Html;
 use HTMLForm;
-use HTMLHiddenField;
-use HTMLTextAreaField;
-use HTMLTextField;
 use Language;
 use MediaWiki\MediaWikiServices;
 use OutputPage;
@@ -116,7 +113,7 @@ class NewSchema extends SpecialPage {
 		return [
 			self::FIELD_LABEL => [
 				'name' => self::FIELD_LABEL,
-				'class' => HTMLTextField::class,
+				'type' => 'text',
 				'id' => 'wbschema-newschema-label',
 				'required' => true,
 				'default' => '',
@@ -126,7 +123,7 @@ class NewSchema extends SpecialPage {
 			],
 			self::FIELD_DESCRIPTION => [
 				'name' => self::FIELD_DESCRIPTION,
-				'class' => HTMLTextField::class,
+				'type' => 'text',
 				'default' => '',
 				'id' => 'wbschema-newschema-description',
 				'placeholder-message' => $this->msg( 'wikibaseschema-description-edit-placeholder' )
@@ -135,7 +132,7 @@ class NewSchema extends SpecialPage {
 			],
 			self::FIELD_ALIASES => [
 				'name' => self::FIELD_ALIASES,
-				'class' => HTMLTextField::class,
+				'type' => 'text',
 				'default' => '',
 				'id' => 'wbschema-newschema-aliases',
 				'placeholder-message' => $this->msg( 'wikibaseschema-aliases-edit-placeholder' )
@@ -144,7 +141,7 @@ class NewSchema extends SpecialPage {
 			],
 			self::FIELD_SCHEMA_TEXT => [
 				'name' => self::FIELD_SCHEMA_TEXT,
-				'class' => HTMLTextAreaField::class,
+				'type' => 'textarea',
 				'default' => '',
 				'id' => 'wbschema-newschema-schema-text',
 				'placeholder' => "<human> {\n  wdt:P31 [wd:Q5]\n}",
@@ -153,7 +150,7 @@ class NewSchema extends SpecialPage {
 			],
 			self::FIELD_LANGUAGE => [
 				'name' => self::FIELD_LANGUAGE,
-				'class' => HTMLHiddenField::class,
+				'type' => 'hidden',
 				'default' => $langCode,
 			],
 		];
