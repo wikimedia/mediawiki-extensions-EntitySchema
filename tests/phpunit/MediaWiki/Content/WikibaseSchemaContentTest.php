@@ -3,6 +3,7 @@
 namespace Wikibase\Schema\Tests\MediaWiki\Content;
 
 use Title;
+use SpecialPage;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 
 /**
@@ -19,7 +20,9 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 		$text = json_encode( $json );
 		$content = new WikibaseSchemaContent( $text );
 
-		$parserOutput = $content->getParserOutput( Title::newMainPage() );
+		$parserOutput = $content->getParserOutput(
+			Title::makeTitle( NS_WBSCHEMA_JSON, 'O16354758' )
+		);
 		$html = $parserOutput->getText();
 
 		foreach ( $fragments as $fragment ) {
@@ -83,6 +86,22 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 				[
 					'<abstract id="wbschema-heading-description">english description</abstract>',
 					'<abstract id="wbschema-heading-description">deutsche Beschreibung</abstract>',
+				]
+			],
+			[
+				[
+					'descriptions' => [
+						'en' => 'english description',
+					],
+					'schemaText' => '',
+					'serializationVersion' => '3.0',
+				],
+				[
+					SpecialPage::getTitleValueFor(
+						'SetSchemaLabelDescriptionAliases',
+						'O16354758/en'
+					)->getText(),
+					':O16354758&amp;action=edit'
 				]
 			],
 		];

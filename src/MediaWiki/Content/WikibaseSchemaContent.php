@@ -7,6 +7,7 @@ use JsonContent;
 use MediaWiki\MediaWikiServices;
 use ParserOptions;
 use ParserOutput;
+use SpecialPage;
 use Title;
 use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
@@ -37,7 +38,7 @@ class WikibaseSchemaContent extends JsonContent {
 			$schemaData = ( new SchemaDispatcher() )
 				->getFullViewSchemaData( $this->getText(), $languageCode );
 			$output->setText(
-				$this->renderNameBadges( $schemaData->nameBadges ) .
+				$this->renderNameBadges( $title, $schemaData->nameBadges ) .
 				$this->renderSchemaSection( $title, $schemaData->schemaText )
 			);
 		} else {
@@ -45,13 +46,14 @@ class WikibaseSchemaContent extends JsonContent {
 		}
 	}
 
-	private function renderNameBadges( array $nameBadges ) {
+	private function renderNameBadges( Title $title, array $nameBadges ) {
 		$html = '';
-		foreach ( $nameBadges as $nameBadge ) {
+		foreach ( $nameBadges as $langCode => $nameBadge ) {
 			if ( $html ) {
 				$html .= "\n";
 			}
-			$html .= $this->renderNameBadge( $nameBadge );
+			$html .= $this->renderNameBadge( $nameBadge ) .
+				$this->renderNameBadgeEditLink( $title, $langCode );
 		}
 		return $html;
 	}
@@ -78,6 +80,26 @@ class WikibaseSchemaContent extends JsonContent {
 				],
 				implode( ' | ', $nameBadge->aliases )
 			);
+	}
+
+	private function renderNameBadgeEditLink( Title $title, $langCode ) {
+		$specialPageTitleValue = SpecialPage::getTitleValueFor(
+			'SetSchemaLabelDescriptionAliases',
+			$title->getText() . '/' . $langCode
+		);
+
+		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+		return Html::rawElement(
+			'div',
+			[
+				'class' => 'wbschema-edit-button',
+			],
+			$linkRenderer->makeLink(
+				$specialPageTitleValue,
+				wfMessage( 'wikibaseschema-edit' )->inContentLanguage(),
+				[ 'class' => 'edit-icon' ]
+			)
+		);
 	}
 
 	private function renderSchemaSection( Title $title, $schemaContent ) {
