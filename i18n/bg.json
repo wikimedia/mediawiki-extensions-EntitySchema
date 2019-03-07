@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Vlad5250"
+			"Vlad5250",
+			"Ted Masters"
 		]
 	},
 	"wikibaseschema-desc": "Складиране на и дискусия по схеми за единици на Уикибазата",
@@ -16,13 +17,13 @@
 	"wikibaseschema-label-edit-placeholder": "Етикет за схемата на английски",
 	"wikibaseschema-description-edit-placeholder": "Описание за схемата на английски",
 	"wikibaseschema-aliases-edit-placeholder": "Алтернативни етикети за схемата на английски",
-	"wikibaseschema-editpage-label-inputlabel": "Етикети:",
-	"wikibaseschema-editpage-description-inputlabel": "Описание:",
-	"wikibaseschema-editpage-aliases-inputlabel": "Псевдоними (отделени с вертикални черти):",
 	"wikibaseschema-editpage-schema-inputlabel": "ИзрОбл:",
 	"wikibaseschema-error-schemaupdate-failed": "Не можах да обновя схемата",
 	"wikibaseschema-error-saving-failed": "Не успях да запазя схемата, със следното съобщение: $1",
 	"wikibaseschema-error-not-post": "Това действие трябва да се извърши с заявка от POST.",
+	"wikibaseschema-error-inconsistent-id": "Не всички указани версии принадлежат на даденото заглавие.",
+	"wikibaseschema-error-wrong-page-revisions": "Посочената версия не принадлежи на текущата страница.",
+	"wikibaseschema-noschema": "Тук няма схема. Отидете на [[Special:NewSchema]], за да създадете нова.",
 	"wikibaseschema-summary-generated": "Описание (за прикачване към автоматично генерирано описание):",
 	"wikibaseschema-diff-label": "Надписи",
 	"wikibaseschema-diff-description": "Описания",
@@ -31,9 +32,19 @@
 	"wikibaseschema-summary-newschema": "Създадена нова схема: „$1“",
 	"wikibaseschema-summary-update": "Обновена схема",
 	"wikibaseschema-summary-undo": "Премахната редакция $1 на [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|беседа]]): $3",
+	"wikibaseschema-summary-restore": "Възстановяване версия $1 на [[Special:Contributions/$2|{{GENDER:$2|$2}}]]: $3",
 	"wikibaseschema-undo-heading": "Отмяна на редакцията на $1",
 	"wikibaseschema-undo-heading-failed": "Неуспех при отмяната",
 	"wikibaseschema-undo-bad-revisions": "Редакцията не може да бъде отменена, тъй като не съществува или е изтрита.",
 	"wikibaseschema-undo-cannot-apply-patch": "Редакцията не може да бъде отменена, тъй като е модифицирана.",
-	"wikibaseschema-undo-old-revision": "Версията за връщане"
+	"wikibaseschema-undo-old-revision": "Версията за връщане",
+	"wikibaseschema-restore-heading": "Връщане стара версия на „$1“",
+	"wikibaseschema-restore-bad-revisions": "Редакцията не може да бъде възстановена, тъй като не съществува или е била изтрита.",
+	"wikibaseschema-restore-changed": "Схемата междувременно е изменена. Проверете отново.",
+	"wikibaseschema-restore-heading-failed": "Възстановяването е неуспешно",
+	"wikibaseschema-restore-empty": "Версията, която искате да възстановите, е идентична с текущата. Няма какво да се направи.",
+	"wikibaseschema-restoreold": "възстановяване",
+	"wikibaseschema-special-label": "Етикети:",
+	"wikibaseschema-special-description": "Описание:",
+	"wikibaseschema-special-aliases": "Псевдоними (отделени с вертикални черти):"
 }

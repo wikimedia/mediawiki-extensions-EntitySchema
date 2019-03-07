@@ -14,13 +14,11 @@
 	"wikibaseschema-newschema-submit": "Створити",
 	"wikibaseschema-newschema-copyright": "Натиснувши «$1», Ви погоджуєтесь із [[$2|умовами використання]], і погоджуєтесь поширювати Ваше редагування на умовах $3.",
 	"wikibaseschema-anonymouseditwarning": "Увага: Ви не увійшли до системи. Вашу IP-адресу буде записано у історії редагування цієї схеми.",
-	"wikibaseschema-editpage-label-inputlabel": "Назва:",
-	"wikibaseschema-editpage-description-inputlabel": "Опис:",
-	"wikibaseschema-editpage-aliases-inputlabel": "Альтернативні назви (через вертикальну риску):",
 	"wikibaseschema-error-schemadeleted": "Схема, яку Ви намагаєтесь редагувати, не існує. Можливо, її вилучено?",
 	"wikibaseschema-error-schemaupdate-failed": "Схема не може бути оновлена",
 	"wikibaseschema-error-saving-failed": "Не вдалося зберегти схему, із наступним повідомленням: $1",
 	"wikibaseschema-error-not-post": "Цю дію потрібно виконати за допомогою POST-запиту.",
+	"wikibaseschema-error-inconsistent-id": "Жодна із вказаних версій не належить даній назві.",
 	"wikibaseschema-error-wrong-page-revisions": "Вказана версія не належить поточній сторінці.",
 	"wikibaseschema-noschema": "Тут немає схеми. Перейдіть на [[Special:NewSchema]], аби створити нову.",
 	"wikibaseschema-summary-generated": "Короткий опис (буде додано до автоматично згенерованого опису):",
@@ -40,5 +38,8 @@
 	"wikibaseschema-restore-heading": "Відновлення старої версії «$1»",
 	"wikibaseschema-restore-bad-revisions": "Редагування не може бути відновлене, бо його не існує або було вилучено.",
 	"wikibaseschema-restore-heading-failed": "Відновлення не вдалося",
-	"wikibaseschema-restoreold": "відновити"
+	"wikibaseschema-restoreold": "відновити",
+	"wikibaseschema-special-label": "Назва:",
+	"wikibaseschema-special-description": "Опис:",
+	"wikibaseschema-special-aliases": "Альтернативні назви (через вертикальну риску):"
 }

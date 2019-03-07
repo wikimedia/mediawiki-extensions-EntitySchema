@@ -7,8 +7,11 @@
 	"wikibaseschema-newschema-label": "Etiket:",
 	"wikibaseschema-newschema-description": "Beskrivelse:",
 	"wikibaseschema-newschema-submit": "Opret",
-	"wikibaseschema-editpage-description-inputlabel": "Beskrivelse:",
 	"wikibaseschema-diff-label": "Mærkater",
 	"wikibaseschema-diff-description": "Beskrivelse",
-	"wikibaseschema-diff-aliases": "Aliasser"
+	"wikibaseschema-diff-aliases": "Aliasser",
+	"wikibaseschema-special-id-inputlabel": "ID",
+	"wikibaseschema-special-language-inputlabel": "Sprogkode",
+	"wikibaseschema-special-id-submit": "Angiv etiket, beskrivelse og aliasser",
+	"wikibaseschema-special-description": "Beskrivelse:"
 }

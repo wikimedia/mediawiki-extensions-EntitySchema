@@ -16,10 +16,10 @@
 	"wikibaseschema-label-edit-placeholder": "Şema için İngilizce etiket",
 	"wikibaseschema-description-edit-placeholder": "Şema için İngilizce açıklama",
 	"wikibaseschema-aliases-edit-placeholder": "Şema için İngilizce alternatif etikler",
-	"wikibaseschema-editpage-label-inputlabel": "Etiket:",
-	"wikibaseschema-editpage-description-inputlabel": "Açıklama:",
-	"wikibaseschema-editpage-aliases-inputlabel": "Diğer adları (düşey çubukla ayırın):",
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
 	"wikibaseschema-error-schemadeleted": "Düzenlemeye çalıştığınız şema mevcut değil. Belki silindi?",
-	"wikibaseschema-noschema": "Burada şema yok. Yeni bir tane oluşturmak için [[Special:NewSchema|Özel:YeniŞema]]'ya gidin."
+	"wikibaseschema-noschema": "Burada şema yok. Yeni bir tane oluşturmak için [[Special:NewSchema|Özel:YeniŞema]]'ya gidin.",
+	"wikibaseschema-special-label": "Etiket:",
+	"wikibaseschema-special-description": "Açıklama:",
+	"wikibaseschema-special-aliases": "Diğer adları (düşey çubukla ayırın):"
 }

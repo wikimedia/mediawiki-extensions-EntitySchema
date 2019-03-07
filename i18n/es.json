@@ -9,15 +9,16 @@
 	"wikibaseschema-newschema-description": "Descripción:",
 	"wikibaseschema-newschema-aliases": "Alias, separados por plecas:",
 	"wikibaseschema-newschema-submit": "Crear",
-	"wikibaseschema-editpage-label-inputlabel": "Etiqueta:",
-	"wikibaseschema-editpage-description-inputlabel": "Descripción:",
-	"wikibaseschema-editpage-aliases-inputlabel": "Alias (separados por plecas):",
 	"wikibaseschema-error-schemaupdate-failed": "El esquema no puede ser actualizado",
+	"wikibaseschema-error-inconsistent-id": "No todas las revisiones proporcionadas pertenecen al título especificado.",
 	"wikibaseschema-error-wrong-page-revisions": "La revisión provista no pertenece a la página actual.",
 	"wikibaseschema-diff-label": "Etiquetas",
 	"wikibaseschema-diff-description": "Descripciones",
 	"wikibaseschema-diff-aliases": "Alias",
 	"wikibaseschema-restore-bad-revisions": "No se pudo restaurar la edición porque no existe o se borró.",
 	"wikibaseschema-restore-empty": "La revisión que se intentó restaurar es idéntica a la actual. No se hará nada.",
-	"wikibaseschema-restoreold": "restaurar"
+	"wikibaseschema-restoreold": "restaurar",
+	"wikibaseschema-special-label": "Etiqueta:",
+	"wikibaseschema-special-description": "Descripción:",
+	"wikibaseschema-special-aliases": "Alias (separados por plecas):"
 }

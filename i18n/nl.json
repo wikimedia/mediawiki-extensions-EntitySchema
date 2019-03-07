@@ -15,9 +15,6 @@
 	"wikibaseschema-label-edit-placeholder": "Het label van het schema in het Engels.",
 	"wikibaseschema-description-edit-placeholder": "De beschrijving van het schema in het Engels.",
 	"wikibaseschema-aliases-edit-placeholder": "Alternatieve labels voor het schema in het Engels.",
-	"wikibaseschema-editpage-label-inputlabel": "Label:",
-	"wikibaseschema-editpage-description-inputlabel": "Beschrijving:",
-	"wikibaseschema-editpage-aliases-inputlabel": "Aliassen, gescheiden door een sluisteken (|):",
 	"wikibaseschema-error-schemadeleted": "Het schema dat u probeerde te bewerken bestaat niet. Misschien is het verwijderd?",
 	"wikibaseschema-error-schemaupdate-failed": "Kan het schema niet bijwerken",
 	"wikibaseschema-noschema": "Dit schema bestaat niet. Ga naar [[Special:NewSchema]] om een nieuw schema aan te maken.",
@@ -25,5 +22,8 @@
 	"wikibaseschema-diff-description": "Beschrijvingen",
 	"wikibaseschema-diff-aliases": "Schuilnamen",
 	"wikibaseschema-diff-schema": "Schema",
-	"wikibaseschema-undo-heading": "De bewerking naar $1 ongedaan maken"
+	"wikibaseschema-undo-heading": "De bewerking naar $1 ongedaan maken",
+	"wikibaseschema-special-label": "Label:",
+	"wikibaseschema-special-description": "Beschrijving:",
+	"wikibaseschema-special-aliases": "Aliassen, gescheiden door een sluisteken (|):"
 }

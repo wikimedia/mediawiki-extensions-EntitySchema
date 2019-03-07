@@ -16,10 +16,10 @@
 	"wikibaseschema-label-edit-placeholder": "ಇಂಗ್ಲೀಷಿಡ್ ಯೋಜೊಗು ಶಿರಪಟ್ಟಿ",
 	"wikibaseschema-description-edit-placeholder": "ಇಂಗ್ಲಿಷಿಡ್ ಯೋಜೊಗು ವಿವರಣೆ",
 	"wikibaseschema-aliases-edit-placeholder": "ಇಂಗ್ಲೀಷಿಡ್ ಯೋಜಲೆಗ್ ಪರ್ಯಾಯ ಶಿರಪಟ್ಟಿಲು",
-	"wikibaseschema-editpage-label-inputlabel": "ಶಿರಪಟ್ಟಿ:",
-	"wikibaseschema-editpage-description-inputlabel": "ವಿವರಣೆ:",
-	"wikibaseschema-editpage-aliases-inputlabel": "ಯಾನೆಲು (ಕೊಳವೆ-ಪ್ರತ್ಯೇಕಿತ)",
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
 	"wikibaseschema-error-schemadeleted": "ಈರ್ ಸಂಪಾದೆರೆ ಯತ್ನ ಮಲ್ತಿನ ಯೋಜ ಇಜ್ಜಿ. ಅವೆನ್ ಮಾಜಾದುಪ್ಪುರೆ ಯಾವು.",
-	"wikibaseschema-noschema": "ಮುಲ್ಪ ಯೋಜ ಇಜ್ಜಿ.  [[Special:NewSchema]] ಗು ಪೋದು ಒಂಜಿ ಪೊಸ ಯೋಜ ರಚಿಸಾಲೆ."
+	"wikibaseschema-noschema": "ಮುಲ್ಪ ಯೋಜ ಇಜ್ಜಿ.  [[Special:NewSchema]] ಗು ಪೋದು ಒಂಜಿ ಪೊಸ ಯೋಜ ರಚಿಸಾಲೆ.",
+	"wikibaseschema-special-label": "ಶಿರಪಟ್ಟಿ:",
+	"wikibaseschema-special-description": "ವಿವರಣೆ:",
+	"wikibaseschema-special-aliases": "ಯಾನೆಲು (ಕೊಳವೆ-ಪ್ರತ್ಯೇಕಿತ)"
 }

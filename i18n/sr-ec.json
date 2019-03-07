@@ -5,7 +5,7 @@
 		]
 	},
 	"wikibaseschema-newschema-description": "Опис:",
-	"wikibaseschema-editpage-label-inputlabel": "Ознака:",
-	"wikibaseschema-editpage-description-inputlabel": "Опис:",
-	"wikibaseschema-editpage-aliases-inputlabel": "Псеудоними (раздвојени усправном цртом):"
+	"wikibaseschema-special-label": "Ознака:",
+	"wikibaseschema-special-description": "Опис:",
+	"wikibaseschema-special-aliases": "Псеудоними (раздвојени усправном цртом):"
 }

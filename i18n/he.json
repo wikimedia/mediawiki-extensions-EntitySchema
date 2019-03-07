@@ -9,7 +9,7 @@
 	"wikibaseschema-newschema-schema-shexc": "קוד ביטויי צורה:",
 	"wikibaseschema-newschema-submit": "יצירה",
 	"wikibaseschema-description-edit-placeholder": "תיאור הסכמה באנגלית",
-	"wikibaseschema-editpage-label-inputlabel": "תווית:",
-	"wikibaseschema-editpage-description-inputlabel": "תיאור:",
-	"wikibaseschema-editpage-aliases-inputlabel": "כינויים (מופרדים בקו ניצב):"
+	"wikibaseschema-special-label": "תווית:",
+	"wikibaseschema-special-description": "תיאור:",
+	"wikibaseschema-special-aliases": "כינויים (מופרדים בקו ניצב):"
 }

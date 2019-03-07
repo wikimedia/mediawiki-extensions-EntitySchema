@@ -9,11 +9,11 @@
 	"wikibaseschema-newschema-description": "Descrizione:",
 	"wikibaseschema-newschema-submit": "Ccreje",
 	"wikibaseschema-label-edit-placeholder": "L'etichette pu scheme in 'nglese",
-	"wikibaseschema-editpage-label-inputlabel": "Etichette:",
-	"wikibaseschema-editpage-description-inputlabel": "Descrizione:",
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
 	"wikibaseschema-diff-label": "Etichette",
 	"wikibaseschema-diff-description": "Descriziune",
 	"wikibaseschema-diff-aliases": "Alias",
-	"wikibaseschema-diff-schema": "Scheme"
+	"wikibaseschema-diff-schema": "Scheme",
+	"wikibaseschema-special-label": "Etichette:",
+	"wikibaseschema-special-description": "Descrizione:"
 }

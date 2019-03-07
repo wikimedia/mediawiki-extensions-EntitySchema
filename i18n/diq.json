@@ -9,13 +9,17 @@
 	"wikibaseschema-newschema-description": "Şınasnayış",
 	"wikibaseschema-newschema-schema-shexc": "Kodê ifadeyanê şeklan:",
 	"wikibaseschema-newschema-submit": "Vıraze",
-	"wikibaseschema-editpage-label-inputlabel": "Etiket:",
-	"wikibaseschema-editpage-description-inputlabel": "Şınasnayış:",
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
 	"wikibaseschema-diff-label": "Etiketi",
 	"wikibaseschema-diff-description": "Şınasnayışi",
 	"wikibaseschema-diff-aliases": "Nameyê bini",
 	"wikibaseschema-diff-schema": "Teslağ",
+	"wikibaseschema-edit": "bıvurne",
 	"wikibaseschema-undo-heading-failed": "Peyser nêgêriya",
-	"wikibaseschema-restoreold": "peyser biya"
+	"wikibaseschema-restore-bad-revisions": "Vurnayış peyser nêgêriyeno, çıke çıniyo ya zi esteriyayo.",
+	"wikibaseschema-restoreold": "peyser biya",
+	"wikibaseschema-special-id-inputlabel": "Kamiye",
+	"wikibaseschema-special-language-inputlabel": "Kodê zıwani",
+	"wikibaseschema-special-label": "Etiket:",
+	"wikibaseschema-special-description": "Şınasnayış:"
 }
