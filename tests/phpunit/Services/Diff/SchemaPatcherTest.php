@@ -36,7 +36,7 @@ class SchemaPatcherTest extends TestCase {
 				],
 				'descriptions' => [],
 				'aliases' => [],
-				'schema' => '',
+				'schemaText' => '',
 			],
 		];
 
@@ -85,7 +85,7 @@ class SchemaPatcherTest extends TestCase {
 					'en' => [ 'test alias', 'test alias 3' ],
 					'de' => [ 'Testalias' ],
 				],
-				'schema' => 'schema for test',
+				'schemaText' => 'schema for test',
 			],
 		];
 
@@ -98,7 +98,7 @@ class SchemaPatcherTest extends TestCase {
 				'labels' => [],
 				'descriptions' => [],
 				'aliases' => [],
-				'schema' => 'test schema',
+				'schemaText' => 'test schema',
 			],
 		];
 
@@ -111,7 +111,7 @@ class SchemaPatcherTest extends TestCase {
 				'labels' => [],
 				'descriptions' => [],
 				'aliases' => [],
-				'schema' => '',
+				'schemaText' => '',
 			],
 		];
 	}
@@ -124,7 +124,7 @@ class SchemaPatcherTest extends TestCase {
 
 		$actualPatched = $schemaPatcher->patchSchema( new FullArraySchemaData( $currentSchema ), $patch );
 
-		$this->assertEquals( $expected, $actualPatched );
+		$this->assertEquals( $expected, $actualPatched->data );
 	}
 
 	public function providInvalidSchemaPatches() {

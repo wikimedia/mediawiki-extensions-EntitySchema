@@ -20,19 +20,19 @@ class SchemaPatcher {
 	 * @param FullArraySchemaData $baseSchema
 	 * @param Diff $patch
 	 *
-	 * @return array
+	 * @return FullArraySchemaData
 	 *
 	 * @throws PatcherException throws exception if patch cannot be applied
 	 */
-	public function patchSchema( FullArraySchemaData $baseSchema, Diff $patch ): array {
+	public function patchSchema( FullArraySchemaData $baseSchema, Diff $patch ): FullArraySchemaData {
 		$patchedSchema = $this->patchFingerprint( $baseSchema->data, $patch );
 
-		$patchedSchema['schema'] = $this->patchString(
+		$patchedSchema['schemaText'] = $this->patchString(
 			$baseSchema->data['schemaText'] ?? '',
 			isset( $patch['schemaText'] ) ? $patch['schemaText'] : null
 		);
 
-		return $patchedSchema;
+		return new FullArraySchemaData( $patchedSchema );
 	}
 
 	private function patchFingerprint( array $baseSchema, Diff $patch ): array {
