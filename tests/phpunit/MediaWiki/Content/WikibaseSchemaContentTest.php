@@ -45,6 +45,16 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 			[
 				[
 					'descriptions' => [
+						'simple' => 'test',
+					],
+					'schemaText' => '',
+					'serializationVersion' => '3.0',
+				],
+				[ '<td class="wbschema-description" lang="en-simple">test</td>' ],
+			],
+			[
+				[
+					'descriptions' => [
 						'en' => '<script>alert("description XSS")</script>',
 					],
 					'schemaText' => '',
