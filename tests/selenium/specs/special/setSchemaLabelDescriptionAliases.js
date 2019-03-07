@@ -48,7 +48,7 @@ describe( 'SetSchemaLabelDescriptionAliasesPage:Page', () => {
 		SetSchemaLabelDescriptionAliasesPage.setAliases( 'Alias1 | Alias2' );
 		SetSchemaLabelDescriptionAliasesPage.clickSubmit();
 
-		assert.strictEqual( SetSchemaLabelDescriptionAliasesPage.getDescription(), 'This is a test description' );
-		assert.strictEqual( SetSchemaLabelDescriptionAliasesPage.getAliases(), 'Alias1 | Alias2' );
+		assert.strictEqual( ViewSchemaPage.getDescription(), 'This is a test description' );
+		assert.strictEqual( ViewSchemaPage.getAliases(), 'Alias1 | Alias2' );
 	} );
 } );

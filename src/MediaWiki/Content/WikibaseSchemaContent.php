@@ -47,50 +47,79 @@ class WikibaseSchemaContent extends JsonContent {
 	}
 
 	private function renderNameBadges( Title $title, array $nameBadges ) {
-		$html = '';
+		$html = Html::openElement( 'table', [ 'class' => 'wikitable' ] );
+		$html .= $this->renderNameBadgeHeader();
+		$html .= Html::openElement( 'tbody' );
 		foreach ( $nameBadges as $langCode => $nameBadge ) {
-			if ( $html ) {
-				$html .= "\n";
-			}
-			$html .= $this->renderNameBadge( $nameBadge ) .
-				$this->renderNameBadgeEditLink( $title, $langCode );
+			$html .= "\n";
+			$html .= $this->renderNameBadge( $nameBadge, $langCode, $title->getText() );
 		}
+		$html .= Html::closeElement( 'tbody' );
+		$html .= Html::closeElement( 'table' );
 		return $html;
 	}
 
-	private function renderNameBadge( NameBadge $nameBadge ) {
-		return Html::element(
-				'h1',
-				[
-					'id' => 'wbschema-title-label',
-				],
-				$nameBadge->label
-			) .
-			Html::element(
-				'abstract',
-				[
-					'id' => 'wbschema-heading-description',
-				],
-				$nameBadge->description
-			) .
-			Html::element(
-				'p',
-				[
-					'id' => 'wbschema-heading-aliases',
-				],
-				implode( ' | ', $nameBadge->aliases )
-			);
+	private function renderNameBadgeHeader() {
+		return Html::rawElement( 'thead', [], Html::rawElement(
+			'tr',
+			[],
+			// TODO translate the header, but using the same language code as in fillParserOutput()!
+			Html::element( 'th', [], 'language code' ) .
+			Html::element( 'th', [], 'label' ) .
+			Html::element( 'th', [], 'description' ) .
+			Html::element( 'th', [], 'aliases' ) .
+			Html::element( 'th', [], 'edit' )
+		) );
 	}
 
-	private function renderNameBadgeEditLink( Title $title, $langCode ) {
+	private function renderNameBadge( NameBadge $nameBadge, $languageCode, $schemaId ) {
+		// TODO $languageCode is used both as MediaWiki language code and as HTML language code here
+		$language = Html::element(
+			'td',
+			[],
+			$languageCode
+		);
+		$label = Html::element(
+			'td',
+			[
+				'class' => 'wbschema-label',
+				'lang' => $languageCode,
+			],
+			$nameBadge->label
+		);
+		$description = Html::element(
+			'td',
+			[
+				'class' => 'wbschema-description',
+				'lang' => $languageCode,
+			],
+			$nameBadge->description
+		);
+		$aliases = Html::element(
+			'td',
+			[
+				'class' => 'wbschema-aliases',
+				'lang' => $languageCode,
+			],
+			implode( ' | ', $nameBadge->aliases )
+		);
+		$editLink = $this->renderNameBadgeEditLink( $schemaId, $languageCode );
+		return Html::rawElement(
+			'tr',
+			[],
+			$language . $label . $description . $aliases . $editLink
+		);
+	}
+
+	private function renderNameBadgeEditLink( $schemaId, $langCode ) {
 		$specialPageTitleValue = SpecialPage::getTitleValueFor(
 			'SetSchemaLabelDescriptionAliases',
-			$title->getText() . '/' . $langCode
+			$schemaId . '/' . $langCode
 		);
 
 		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 		return Html::rawElement(
-			'div',
+			'td',
 			[
 				'class' => 'wbschema-edit-button',
 			],

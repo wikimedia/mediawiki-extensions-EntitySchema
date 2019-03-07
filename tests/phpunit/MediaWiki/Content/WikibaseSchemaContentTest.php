@@ -40,7 +40,7 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'schemaText' => '',
 					'serializationVersion' => '3.0',
 				],
-				[ '<abstract id="wbschema-heading-description">test</abstract>' ],
+				[ '<td class="wbschema-description" lang="en">test</td>' ],
 			],
 			[
 				[
@@ -51,7 +51,7 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'serializationVersion' => '3.0',
 				],
 				// exact details of escaping beyond this (> vs &gt;) don’t matter
-				[ '<abstract id="wbschema-heading-description">&lt;script' ],
+				[ '<td class="wbschema-description" lang="en">&lt;script' ],
 			],
 			[
 				[
@@ -84,8 +84,8 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 					'serializationVersion' => '3.0',
 				],
 				[
-					'<abstract id="wbschema-heading-description">english description</abstract>',
-					'<abstract id="wbschema-heading-description">deutsche Beschreibung</abstract>',
+					'<td class="wbschema-description" lang="en">english description</td>',
+					'<td class="wbschema-description" lang="de">deutsche Beschreibung</td>',
 				]
 			],
 			[

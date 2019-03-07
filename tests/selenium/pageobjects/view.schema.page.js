@@ -6,9 +6,9 @@ class ViewSchemaPage extends Page {
 
 	static get SCHEMA_SELECTORS() {
 		return {
-			LABEL: '#wbschema-title-label',
-			DESCRIPTION: '#wbschema-heading-description',
-			ALIASES: '#wbschema-heading-aliases',
+			LABEL: '.wbschema-label[lang=en]',
+			DESCRIPTION: '.wbschema-description[lang=en]',
+			ALIASES: '.wbschema-aliases[lang=en]',
 			SCHEMA_TEXT: '#wbschema-schema-text'
 		};
 	}
