@@ -35,10 +35,14 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	const SUBMIT_SELECTION_NAME = 'submit-selection';
 	const SUBMIT_EDIT_NAME = 'submit-edit';
 
-	public function __construct() {
+	private $htmlFormProvider;
+
+	public function __construct( $htmlFormProvider = HTMLForm::class ) {
 		parent::__construct(
 			'SetSchemaLabelDescriptionAliases'
 		);
+
+		$this->htmlFormProvider = $htmlFormProvider;
 	}
 
 	public function execute( $subPage ) {
@@ -104,7 +108,8 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	private function displaySchemaLanguageSelectionForm() {
 		$formDescriptor = $this->getSchemaSelectionFormFields();
 
-		$form = HTMLForm::factory( 'ooui', $formDescriptor, $this->getContext() )
+		$formProvider = $this->htmlFormProvider; // FIXME: PHP7: inline this variable!
+		$form = $formProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
 			->setSubmitName( self::SUBMIT_SELECTION_NAME )
 			->setSubmitID( 'wbschema-special-schema-id-submit' )
 			->setSubmitTextMsg( 'wikibaseschema-special-id-submit' )
@@ -120,7 +125,8 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$schemaNameBadge = $this->getSchemaNameBadge( $title );
 		$formDescriptor = $this->getEditFormFields( $id, $schemaNameBadge );
 
-		$form = HTMLForm::factory( 'ooui', $formDescriptor, $this->getContext() )
+		$formProvider = $this->htmlFormProvider; // FIXME: PHP7: inline this variable!
+		$form = $formProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
 			->setSubmitName( self::SUBMIT_EDIT_NAME )
 			->setSubmitID( 'wbschema-special-schema-id-submit' )
 			->setSubmitTextMsg( 'wikibaseschema-special-id-submit' );

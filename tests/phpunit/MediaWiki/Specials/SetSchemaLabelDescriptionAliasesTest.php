@@ -2,6 +2,7 @@
 
 namespace Wikibase\Schema\Tests\MediaWiki\Specials;
 
+use Wikibase\Schema\Tests\Mocks\HTMLFormSpy;
 use SpecialPageTestBase;
 use FauxRequest;
 use WikiPage;
@@ -23,6 +24,8 @@ use Wikimedia\TestingAccessWrapper;
  */
 class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
+	private $mockHTMLFormProvider;
+
 	protected function setUp() {
 		parent::setUp();
 		$this->tablesUsed[] = 'page';
@@ -30,7 +33,15 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$this->tablesUsed[] = 'recentchanges';
 	}
 
+	protected function tearDown() {
+		$this->mockHTMLFormProvider = null;
+		parent::tearDown();
+	}
+
 	protected function newSpecialPage() {
+		if ( $this->mockHTMLFormProvider !== null ) {
+			return new SetSchemaLabelDescriptionAliases( $this->mockHTMLFormProvider );
+		}
 		return new SetSchemaLabelDescriptionAliases();
 	}
 
@@ -185,17 +196,48 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$this->assertFalse( $schemaId );
 	}
 
-	public function testExecute() {
-		$specialPage = $this->executeSpecialPage(
+	public function provideExecuteData() {
+		yield 'plain request' => [
 			null,
+			[],
+			false,
+			[
+				'ID' => '',
+				'languagecode' => 'en',
+			]
+		];
+
+		yield 'id in request' => [
+			null,
+			[
+				'ID' => 'O1'
+			],
+			false,
+			[
+				'ID' => 'O1',
+				'languagecode' => 'en',
+			]
+		];
+	}
+
+	/**
+	 * @dataProvider provideExecuteData
+	 */
+	public function testExecute( $subPage, $additionalRequestParams, $wasPosted, $expectedFieldData ) {
+		$this->mockHTMLFormProvider = HTMLFormSpy::class;
+		$this->executeSpecialPage(
+			$subPage,
 			new FauxRequest(
+				array_merge(
 				[
 					'title' => 'Special:SetSchemaLabelDescriptionAliases',
-				],
-				true
+				], $additionalRequestParams ),
+				$wasPosted
 			)
 		);
-	   $this->assertContains( "name='submit-selection'", $specialPage[0] );
+
+		$mockHTMLFormProvider = $this->mockHTMLFormProvider; // FIXME: PHP7: inline this variable!
+		$mockHTMLFormProvider::assertFormFieldData( $expectedFieldData );
 	}
 
 	/**
