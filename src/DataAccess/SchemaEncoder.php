@@ -35,6 +35,12 @@ class SchemaEncoder {
 			$aliases,
 			$schemaText
 		);
+		self::cleanupParameters(
+			$labels,
+			$descriptions,
+			$aliases,
+			$schemaText
+		);
 		return json_encode(
 			[
 				'id' => $id->getId(),
@@ -46,6 +52,23 @@ class SchemaEncoder {
 				'type' => 'ShExC',
 			]
 		);
+	}
+
+	/**
+	 * @param string[] $labels
+	 * @param string[] $descriptions
+	 * @param array<string,string[]> $aliasGroups
+	 * @param string $schemaText
+	 */
+	private static function cleanupParameters(
+		array &$labels,
+		array &$descriptions,
+		array &$aliasGroups,
+		&$schemaText
+	) {
+		foreach ( $aliasGroups as &$aliasGroup ) {
+			$aliasGroup = array_values( array_unique( $aliasGroup ) );
+		}
 	}
 
 	/**
@@ -87,12 +110,6 @@ class SchemaEncoder {
 				'language, label, description and schemaText must be strings '
 				. 'and aliases must be an array of strings'
 			);
-		}
-
-		foreach ( $aliasGroups as $languageCode => $aliasGroup ) {
-			if ( array_unique( $aliasGroup ) !== $aliasGroup ) {
-				throw new InvalidArgumentException( 'aliases must be unique (distinct)' );
-			}
 		}
 	}
 
