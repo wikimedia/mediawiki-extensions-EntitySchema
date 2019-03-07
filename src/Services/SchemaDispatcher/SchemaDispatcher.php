@@ -14,17 +14,21 @@ class SchemaDispatcher {
 
 	/**
 	 * @param string $schemaJSON
-	 * @param string $interfaceLanguage
+	 * @param string[] $preferredLanguages Name badges for these language codes will always be present,
+	 * even if there is no data for them, and they will also be ordered before other languages.
 	 *
 	 * @return FullViewSchemaData
 	 *
 	 * @throws LogicException
 	 */
-	public function getFullViewSchemaData( $schemaJSON, $interfaceLanguage ): FullViewSchemaData {
+	public function getFullViewSchemaData(
+		$schemaJSON,
+		array $preferredLanguages
+	): FullViewSchemaData {
 		$schema = json_decode( $schemaJSON, true );
 
 		return new FullViewSchemaData(
-			$this->getNameBadgesFromSchema( $schema, $interfaceLanguage ),
+			$this->getNameBadgesFromSchema( $schema, $preferredLanguages ),
 			$this->getSchemaTextFromSchema( $schema )
 		);
 	}
@@ -148,14 +152,14 @@ class SchemaDispatcher {
 
 	/**
 	 * @param array $schema
-	 * @param string|null $interfaceLanguage
+	 * @param string[] $preferredLanguages
 	 *
 	 * @return NameBadge[]
 	 *
 	 * @throws DomainException
 	 */
-	private function getNameBadgesFromSchema( array $schema, $interfaceLanguage ): array {
-		$langs = $this->getSchemaLanguages( $schema, $interfaceLanguage );
+	private function getNameBadgesFromSchema( array $schema, array $preferredLanguages ): array {
+		$langs = $this->getSchemaLanguages( $schema, $preferredLanguages );
 		$nameBadges = [];
 		foreach ( $langs as $langCode ) {
 			$nameBadges[$langCode] = new NameBadge(
@@ -169,12 +173,12 @@ class SchemaDispatcher {
 
 	/**
 	 * @param array $schema
-	 * @param string|null $interfaceLanguage
+	 * @param string[] $preferredLanguages
 	 *
 	 * @return string[]
 	 */
-	private function getSchemaLanguages( $schema, $interfaceLanguage = null ) {
-		$langs = $interfaceLanguage ? [ $interfaceLanguage ] : [];
+	private function getSchemaLanguages( $schema, array $preferredLanguages = [] ) {
+		$langs = $preferredLanguages;
 		if ( !empty( $schema['labels'] ) ) {
 			$langs = array_merge(
 				$langs,

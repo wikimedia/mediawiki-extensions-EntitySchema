@@ -32,6 +32,7 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 					'serializationVersion' => '3.0',
 				]
 			),
+			[ 'en' ],
 			new FullViewSchemaData(
 				[
 					'en' => new NameBadge(
@@ -44,25 +45,29 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 			),
 		];
 
-		yield 'schema in interface and another language' => [
+		yield 'schema in preferred languages and other language' => [
 			json_encode(
 				[
 					'labels' => [
 						'en' => 'english testlabel',
 						'de' => 'deutsche Testbezeichnung',
+						'fr' => 'libellé de test français',
 					],
 					'descriptions' => [
 						'en' => 'english testdescription',
 						'de' => 'deutsche Testbeschreibung',
+						'fr' => 'description de test français',
 					],
 					'aliases' => [
 						'en' => [ 'english', 'test alias' ],
 						'de' => [ 'deutsch', 'Testalias' ],
+						'fr' => [ 'français', 'test alias' ],
 					],
 					'schemaText' => 'abc',
 					'serializationVersion' => '3.0',
 				]
 			),
+			[ 'en', 'de' ],
 			new FullViewSchemaData(
 				[
 					'en' => new NameBadge(
@@ -75,12 +80,17 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 						'deutsche Testbeschreibung',
 						[ 'deutsch', 'Testalias' ]
 					),
+					'fr' => new NameBadge(
+						'libellé de test français',
+						'description de test français',
+						[ 'français', 'test alias' ]
+					),
 				],
 				'abc'
 			),
 		];
 
-		yield 'schema not in interface' => [
+		yield 'schema not in preferred languages' => [
 			json_encode(
 				[
 					'labels' => [
@@ -96,9 +106,15 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 					'serializationVersion' => '3.0',
 				]
 			),
+			[ 'en', 'ru' ],
 			new FullViewSchemaData(
 				[
 					'en' => new NameBadge(
+						'',
+						'',
+						[]
+					),
+					'ru' => new NameBadge(
 						'',
 						'',
 						[]
@@ -129,6 +145,7 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 					'serializationVersion' => '2.0',
 				]
 			),
+			[ 'en' ],
 			new FullViewSchemaData(
 				[
 					'en' => new NameBadge(
@@ -172,6 +189,7 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 					'serializationVersion' => '1.0',
 				]
 			),
+			[ 'en' ],
 			new FullViewSchemaData(
 				[
 					'en' => new NameBadge(
@@ -189,12 +207,17 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 	 * @dataProvider validFullViewDataProvider
 	 *
 	 * @param string $schemaJSON
+	 * @param string[] $preferredLanguages
 	 * @param FullViewSchemaData $expectedSchemaData
 	 */
-	public function testFullViewSchemaData( $schemaJSON, FullViewSchemaData $expectedSchemaData ) {
+	public function testFullViewSchemaData(
+		$schemaJSON,
+		array $preferredLanguages,
+		FullViewSchemaData $expectedSchemaData
+	) {
 		$dispatcher = new SchemaDispatcher();
 
-		$actualSchema = $dispatcher->getFullViewSchemaData( $schemaJSON, 'en' );
+		$actualSchema = $dispatcher->getFullViewSchemaData( $schemaJSON, $preferredLanguages );
 
 		$this->assertType( FullViewSchemaData::class, $actualSchema );
 		$this->assertEquals( $expectedSchemaData, $actualSchema );
