@@ -102,24 +102,24 @@ class WikibaseSchemaContent extends JsonContent {
 		);
 	}
 
-	private function renderSchemaSection( Title $title, $schemaContent ) {
+	private function renderSchemaSection( Title $title, $schemaText ) {
 		return Html::rawElement( 'div', [
 			'id' => 'wbschema-schema-view-section',
 			'class' => 'wbschema-section',
 			],
-			$this->renderSchema( $schemaContent ) .
+			$this->renderSchemaText( $schemaText ) .
 			$this->renderSchemaEditLink( $title )
 		);
 	}
 
-	private function renderSchema( $schemaContent ) {
+	private function renderSchemaText( $schemaText ) {
 		return Html::element(
 				'pre',
 				[
 					'id' => 'wbschema-schema-text',
 					'class' => 'wbschema-schema-text',
 				],
-				$schemaContent
+				$schemaText
 			);
 	}
 
