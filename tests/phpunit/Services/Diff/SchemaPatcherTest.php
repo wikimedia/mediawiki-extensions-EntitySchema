@@ -90,7 +90,7 @@ class SchemaPatcherTest extends TestCase {
 		];
 
 		yield 'restore schema' => [
-			[ 'schema' => '' ],
+			[ 'schemaText' => '' ],
 			new Diff( [
 				'schemaText' => new DiffOpAdd( 'test schema' ),
 			], true ),
@@ -103,7 +103,7 @@ class SchemaPatcherTest extends TestCase {
 		];
 
 		yield 'remove schema' => [
-			[ 'schema' => 'test schema' ],
+			[ 'schemaText' => 'test schema' ],
 			new Diff( [
 				'schemaText' => new DiffOpRemove( 'test schema' ),
 			], true ),

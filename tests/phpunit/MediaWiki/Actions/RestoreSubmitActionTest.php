@@ -71,7 +71,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
-		$this->saveSchemaPageContent( $page, [ 'schema' => 'ghi' ] );
+		$this->saveSchemaPageContent( $page, [ 'schemaText' => 'ghi' ] );
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
@@ -89,7 +89,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 		$actualSchema = $this->getCurrentSchemaContent( 'O123' );
 		$this->assertSame(
 			'ghi',
-			$actualSchema['schema'],
+			$actualSchema['schemaText'],
 			'The restore must fail if wpBaseRev is not the current revision!'
 		);
 	}

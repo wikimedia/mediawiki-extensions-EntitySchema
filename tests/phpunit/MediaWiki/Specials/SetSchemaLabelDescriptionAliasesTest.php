@@ -209,7 +209,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 				'label' => 'Schema label',
 				'description' => 'Schema description',
 				'aliases' => [],
-				'schema' => 'abc'
+				'schemaText' => 'abc',
 			]
 		);
 		$actualSchema = $this->getCurrentSchemaContent( 'O123' );

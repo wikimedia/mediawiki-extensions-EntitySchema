@@ -135,8 +135,8 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 
 		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schema' => 'abc' ] );
-		$secondId = $this->saveSchemaPageContent( $page, [ 'schema' => 'def' ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
