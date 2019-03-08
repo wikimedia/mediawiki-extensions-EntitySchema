@@ -5,5 +5,8 @@
 		]
 	},
 	"wikibaseschema-newschema-submit": "Izveidot",
+	"wikibaseschema-edit": "labot",
+	"wikibaseschema-special-id-inputlabel": "ID",
+	"wikibaseschema-special-language-inputlabel": "Valodas kods",
 	"wikibaseschema-special-description": "Apraksts:"
 }

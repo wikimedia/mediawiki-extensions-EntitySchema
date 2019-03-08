@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Vlad5250",
-			"Ted Masters"
+			"Ted Masters",
+			"StanProg"
 		]
 	},
 	"wikibaseschema-desc": "Складиране на и дискусия по схеми за единици на Уикибазата",
@@ -38,11 +39,11 @@
 	"wikibaseschema-undo-bad-revisions": "Редакцията не може да бъде отменена, тъй като не съществува или е изтрита.",
 	"wikibaseschema-undo-cannot-apply-patch": "Редакцията не може да бъде отменена, тъй като е модифицирана.",
 	"wikibaseschema-undo-old-revision": "Версията за връщане",
-	"wikibaseschema-restore-heading": "Връщане стара версия на „$1“",
+	"wikibaseschema-restore-heading": "Възстановяване на стара версия на „$1“",
 	"wikibaseschema-restore-bad-revisions": "Редакцията не може да бъде възстановена, тъй като не съществува или е била изтрита.",
-	"wikibaseschema-restore-changed": "Схемата междувременно е изменена. Проверете отново.",
+	"wikibaseschema-restore-changed": "Схемата междувременно е променена. Моля, проверете отново.",
 	"wikibaseschema-restore-heading-failed": "Възстановяването е неуспешно",
-	"wikibaseschema-restore-empty": "Версията, която искате да възстановите, е идентична с текущата. Няма какво да се направи.",
+	"wikibaseschema-restore-empty": "Версията, която се опитахте да възстановите е идентична с текущата. Няма нищо за правене.",
 	"wikibaseschema-restoreold": "възстановяване",
 	"wikibaseschema-special-label": "Етикети:",
 	"wikibaseschema-special-description": "Описание:",

@@ -18,6 +18,7 @@
 	"wikibaseschema-diff-label": "Etichette",
 	"wikibaseschema-diff-description": "Descrizioni",
 	"wikibaseschema-diff-aliases": "Alias",
+	"wikibaseschema-edit": "modifica",
 	"wikibaseschema-summary-undo": "Annullata la modifica $1 di [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|discussione]]): $3",
 	"wikibaseschema-undo-heading-failed": "Annullamento fallito",
 	"wikibaseschema-special-id-inputlabel": "ID",

@@ -31,6 +31,7 @@
 	"wikibaseschema-diff-description": "Descriptions",
 	"wikibaseschema-diff-aliases": "Alias",
 	"wikibaseschema-diff-schema": "Schéma",
+	"wikibaseschema-edit": "modifier",
 	"wikibaseschema-summary-newschema": "Un nouveau schéma créé : « $1 »",
 	"wikibaseschema-summary-update": "Schéma mis à jour",
 	"wikibaseschema-summary-undo": "Annuler la révision $1 par [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|discussion]]) : $3",

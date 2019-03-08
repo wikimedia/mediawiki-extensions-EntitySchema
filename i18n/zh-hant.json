@@ -30,6 +30,7 @@
 	"wikibaseschema-diff-description": "描述",
 	"wikibaseschema-diff-aliases": "別名",
 	"wikibaseschema-diff-schema": "架構",
+	"wikibaseschema-edit": "編輯",
 	"wikibaseschema-summary-newschema": "已建立新架構：「$1」",
 	"wikibaseschema-summary-update": "更新架構",
 	"wikibaseschema-summary-undo": "撤銷由[[Special:Contributions/$2|{{GENDER:$2|$2}}]]（[[User talk:$2|對話]]）做出的修訂$1：$3",
