@@ -142,7 +142,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			'aliases is non-string array' => [ 'fr', '', '', [ new stdClass() ], '', $typeExceptionMsg ],
 			'aliases is mixed array' => [ 'ar', '', '', [ new stdClass(), 'foo' ], '', $typeExceptionMsg ],
 			'aliases is associative array' => [ 'hu', '', '', [ 'en' => 'foo' ], '', $typeExceptionMsg ],
-			'schema content is not string' => [ 'he', '', '', [], new StdClass(), $typeExceptionMsg ],
+			'schema text is not string' => [ 'he', '', '', [], new StdClass(), $typeExceptionMsg ],
 			'aliases must be unique' => [ 'hi', '', '', [ 'foo', 'foo' ], '', 'aliases must be unique' ],
 		];
 	}

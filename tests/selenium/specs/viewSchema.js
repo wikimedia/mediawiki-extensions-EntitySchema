@@ -5,7 +5,7 @@ const assert = require( 'assert' ),
 	ViewSchemaPage = require( '../pageobjects/view.schema.page' );
 
 describe( 'Schema Viewing Page', () => {
-	it( 'doesn\'t touch the whitespace inside the schema', () => {
+	it( 'doesn\'t touch the whitespace inside the schema text', () => {
 		const schemaTextWithSpaces = 'content\t is \n\n\n here';
 		NewSchemaPage.open();
 		NewSchemaPage.showsForm();
