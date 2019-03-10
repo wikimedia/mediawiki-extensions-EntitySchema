@@ -4,6 +4,7 @@ namespace Wikibase\Schema\MediaWiki\Content;
 
 use Html;
 use JsonContent;
+use LanguageCode;
 use MediaWiki\MediaWikiServices;
 use ParserOptions;
 use ParserOutput;
@@ -73,17 +74,17 @@ class WikibaseSchemaContent extends JsonContent {
 	}
 
 	private function renderNameBadge( NameBadge $nameBadge, $languageCode, $schemaId ) {
-		// TODO $languageCode is used both as MediaWiki language code and as HTML language code here
 		$language = Html::element(
 			'td',
 			[],
 			$languageCode
 		);
+		$bcp47 = LanguageCode::bcp47( $languageCode ); // 'simple' => 'en-simple' etc.
 		$label = Html::element(
 			'td',
 			[
 				'class' => 'wbschema-label',
-				'lang' => $languageCode,
+				'lang' => $bcp47,
 			],
 			$nameBadge->label
 		);
@@ -91,7 +92,7 @@ class WikibaseSchemaContent extends JsonContent {
 			'td',
 			[
 				'class' => 'wbschema-description',
-				'lang' => $languageCode,
+				'lang' => $bcp47,
 			],
 			$nameBadge->description
 		);
@@ -99,7 +100,7 @@ class WikibaseSchemaContent extends JsonContent {
 			'td',
 			[
 				'class' => 'wbschema-aliases',
-				'lang' => $languageCode,
+				'lang' => $bcp47,
 			],
 			implode( ' | ', $nameBadge->aliases )
 		);
