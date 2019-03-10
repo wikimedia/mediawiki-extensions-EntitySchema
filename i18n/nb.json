@@ -9,6 +9,9 @@
 	"wikibaseschema-newschema-submit": "Opprett",
 	"wikibaseschema-diff-label": "Etiketter",
 	"wikibaseschema-diff-description": "Beskrivelser",
+	"wikibaseschema-edit": "rediger",
+	"wikibaseschema-special-id-inputlabel": "ID",
+	"wikibaseschema-special-setlabeldescriptionaliases-warning": "Skriv inn en gyldig ID og språkkode",
 	"wikibaseschema-special-label": "Etikett:",
 	"wikibaseschema-special-description": "Beskrivelse:"
 }

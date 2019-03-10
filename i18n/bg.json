@@ -3,7 +3,8 @@
 		"authors": [
 			"Vlad5250",
 			"Ted Masters",
-			"StanProg"
+			"StanProg",
+			"Vodnokon4e"
 		]
 	},
 	"wikibaseschema-desc": "Складиране на и дискусия по схеми за единици на Уикибазата",
@@ -43,7 +44,7 @@
 	"wikibaseschema-restore-bad-revisions": "Редакцията не може да бъде възстановена, тъй като не съществува или е била изтрита.",
 	"wikibaseschema-restore-changed": "Схемата междувременно е променена. Моля, проверете отново.",
 	"wikibaseschema-restore-heading-failed": "Възстановяването е неуспешно",
-	"wikibaseschema-restore-empty": "Версията, която се опитахте да възстановите е идентична с текущата. Няма нищо за правене.",
+	"wikibaseschema-restore-empty": "Версията, която се опитахте да възстановите, е идентична с текущата. Няма нищо за правене.",
 	"wikibaseschema-restoreold": "възстановяване",
 	"wikibaseschema-special-label": "Етикети:",
 	"wikibaseschema-special-description": "Описание:",
