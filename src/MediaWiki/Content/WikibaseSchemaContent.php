@@ -37,7 +37,7 @@ class WikibaseSchemaContent extends JsonContent {
 			$output->addModuleStyles( 'ext.WikibaseSchema.view' );
 			$languageCode = $options->getUserLang(); // TODO which language?
 			$schemaData = ( new SchemaDispatcher() )
-				->getFullViewSchemaData( $this->getText(), $languageCode );
+				->getFullViewSchemaData( $this->getText(), [ $languageCode ] );
 			$output->setText(
 				$this->renderNameBadges( $title, $schemaData->nameBadges ) .
 				$this->renderSchemaSection( $title, $schemaData->schemaText )
