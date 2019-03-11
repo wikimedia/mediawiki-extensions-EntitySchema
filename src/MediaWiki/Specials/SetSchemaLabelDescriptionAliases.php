@@ -4,21 +4,21 @@ namespace Wikibase\Schema\MediaWiki\Specials;
 
 use Html;
 use HTMLForm;
+use InvalidArgumentException;
 use Language;
-use SpecialPage;
 use OutputPage;
-use UserBlockedError;
-use WebRequest;
-use Wikibase\Schema\Domain\Model\SchemaId;
+use RuntimeException;
+use SpecialPage;
 use Status;
 use Title;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
+use UserBlockedError;
+use WebRequest;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
+use Wikibase\Schema\DataAccess\WatchlistUpdater;
+use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
-use Wikibase\Schema\DataAccess\WatchlistUpdater;
-use RuntimeException;
-use InvalidArgumentException;
 use WikiPage;
 
 /**
