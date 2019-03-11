@@ -65,21 +65,21 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $this->getContext()->getUser() );
 		$watchListUpdater = new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON );
 		try {
-			$id = new SchemaId( $data[ self::FIELD_ID ] );
+			$id = new SchemaId( $data[self::FIELD_ID] );
 		} catch ( InvalidArgumentException $e ) {
 			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
 		}
 		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id->getId() );
 		$this->checkBlocked( $title );
-		$aliases = array_map( 'trim', explode( '|', $data[ self::FIELD_ALIASES ] ) );
+		$aliases = array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) );
 		$aliases = array_values( array_unique( $aliases ) );
 		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory, $this, $watchListUpdater );
 		try {
 			$schemaWriter->updateSchemaNameBadge(
 				$id,
 				'en',
-				$data[ self::FIELD_LABEL ],
-				$data[ self::FIELD_DESCRIPTION ],
+				$data[self::FIELD_LABEL],
+				$data[self::FIELD_DESCRIPTION],
 				$aliases
 			);
 		} catch ( RunTimeException $e ) {
