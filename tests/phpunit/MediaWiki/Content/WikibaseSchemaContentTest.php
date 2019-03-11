@@ -2,6 +2,9 @@
 
 namespace Wikibase\Schema\Tests\MediaWiki\Content;
 
+use Language;
+use MediaWikiTestCase;
+use ParserOptions;
 use Title;
 use SpecialPage;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
@@ -11,7 +14,7 @@ use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
  *
  * @license GPL-2.0-or-later
  */
-class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
+class WikibaseSchemaContentTest extends MediaWikiTestCase {
 
 	/**
 	 * @dataProvider provideJsonAndHtmlFragments
@@ -115,6 +118,30 @@ class WikibaseSchemaContentTest extends \PHPUnit\Framework\TestCase {
 				]
 			],
 		];
+	}
+
+	public function testGetParserOutput_differentLanguage() {
+		$content = new WikibaseSchemaContent( json_encode( [
+			'labels' => [ 'en' => 'label' ],
+			'descriptions' => [ 'en' => 'description' ],
+			'aliases' => [ 'en' => [ 'alias' ] ],
+			'schemaText' => '',
+			'serializationVersion' => '3.0',
+		] ) );
+		$this->setMwGlobals( 'wgLang', Language::factory( 'en' ) );
+
+		$parserOutput = $content->getParserOutput(
+			Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' ),
+			null,
+			new ParserOptions(
+				null,
+				Language::factory( 'qqx' ) // use (message-key) instead of real translations
+			)
+		);
+		$html = $parserOutput->getText();
+
+		$this->assertContains( '(wikibaseschema-namebadge-header-language-code)', $html );
+		$this->assertNotContains( 'language code', $html );
 	}
 
 }

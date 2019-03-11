@@ -39,7 +39,7 @@ class WikibaseSchemaContent extends JsonContent {
 			$schemaData = ( new SchemaDispatcher() )
 				->getFullViewSchemaData( $this->getText(), [ $languageCode ] );
 			$output->setText(
-				$this->renderNameBadges( $title, $schemaData->nameBadges ) .
+				$this->renderNameBadges( $title, $schemaData->nameBadges, $languageCode ) .
 				$this->renderSchemaSection( $title, $schemaData->schemaText )
 			);
 		} else {
@@ -47,9 +47,9 @@ class WikibaseSchemaContent extends JsonContent {
 		}
 	}
 
-	private function renderNameBadges( Title $title, array $nameBadges ) {
+	private function renderNameBadges( Title $title, array $nameBadges, $languageCode ) {
 		$html = Html::openElement( 'table', [ 'class' => 'wikitable' ] );
-		$html .= $this->renderNameBadgeHeader();
+		$html .= $this->renderNameBadgeHeader( $languageCode );
 		$html .= Html::openElement( 'tbody' );
 		foreach ( $nameBadges as $langCode => $nameBadge ) {
 			$html .= "\n";
@@ -60,16 +60,28 @@ class WikibaseSchemaContent extends JsonContent {
 		return $html;
 	}
 
-	private function renderNameBadgeHeader() {
+	private function renderNameBadgeHeader( $languageCode ) {
+		$tableHeaders = '';
+		// message keys:
+		// wikibaseschema-namebadge-header-language-code
+		// wikibaseschema-namebadge-header-label
+		// wikibaseschema-namebadge-header-description
+		// wikibaseschema-namebadge-header-aliases
+		// wikibaseschema-namebadge-header-edit
+		foreach ( [ 'language-code', 'label', 'description', 'aliases', 'edit' ] as $key ) {
+			$tableHeaders .= Html::element(
+				'th',
+				[],
+				wfMessage( 'wikibaseschema-namebadge-header-' . $key )
+					->inLanguage( $languageCode )
+					->parse()
+			);
+		}
+
 		return Html::rawElement( 'thead', [], Html::rawElement(
 			'tr',
 			[],
-			// TODO translate the header, but using the same language code as in fillParserOutput()!
-			Html::element( 'th', [], 'language code' ) .
-			Html::element( 'th', [], 'label' ) .
-			Html::element( 'th', [], 'description' ) .
-			Html::element( 'th', [], 'aliases' ) .
-			Html::element( 'th', [], 'edit' )
+			$tableHeaders
 		) );
 	}
 
