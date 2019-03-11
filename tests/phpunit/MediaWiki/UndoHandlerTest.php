@@ -1,6 +1,6 @@
 <?php
 
-namespace phpunit\MediaWiki;
+namespace Wikibase\Schema\Tests\MediaWiki;
 
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpChange;

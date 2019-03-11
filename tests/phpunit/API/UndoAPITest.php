@@ -1,10 +1,16 @@
 <?php
 
+namespace Wikibase\Schema\Tests\API;
+
+use CommentStoreComment;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
+use MediaWikiTestCase;
+use Title;
 use Wikibase\Schema\DataAccess\SchemaEncoder;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use WikiPage;
 
 /**
  * @group Database

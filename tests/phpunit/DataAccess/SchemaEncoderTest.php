@@ -1,6 +1,6 @@
 <?php
 
-namespace phpunit\DataAccess;
+namespace Wikibase\Schema\Tests\DataAccess;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace phpunit\DataAccess;
+namespace Wikibase\Schema\Tests\DataAccess;
 
 use MediaWiki\MediaWikiServices;
 use MediaWikiTestCase;
