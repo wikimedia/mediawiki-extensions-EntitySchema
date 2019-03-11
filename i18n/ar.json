@@ -54,7 +54,6 @@
 	"wikibaseschema-special-id-inputlabel": "المعرف",
 	"wikibaseschema-special-language-inputlabel": "رمز اللغة",
 	"wikibaseschema-special-id-submit": "تعيين التسمية والوصف والأسماء المستعارة",
-	"wikibaseschema-special-setlabeldescriptionaliases-warning": "الرجاء إدخال معرف ورمز لغة صالحين",
 	"wikibaseschema-special-label": "التسمية:",
 	"wikibaseschema-special-description": "الوصف:",
 	"wikibaseschema-special-aliases": "الأسماء المستعارة، مفصولة بأنابيب:",

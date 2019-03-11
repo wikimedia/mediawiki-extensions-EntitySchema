@@ -54,7 +54,6 @@
 	"wikibaseschema-special-id-inputlabel": "ID",
 	"wikibaseschema-special-language-inputlabel": "Code de langue",
 	"wikibaseschema-special-id-submit": "Définir le libellé, la description et les alias",
-	"wikibaseschema-special-setlabeldescriptionaliases-warning": "Veuillez entrer un ID et un code de langue valides",
 	"wikibaseschema-special-label": "Libellé :",
 	"wikibaseschema-special-description": "Description :",
 	"wikibaseschema-special-aliases": "Alias (séparés par des barres verticales) :",

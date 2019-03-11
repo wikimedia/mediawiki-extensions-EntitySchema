@@ -53,7 +53,6 @@
 	"wikibaseschema-special-id-inputlabel": "ID",
 	"wikibaseschema-special-language-inputlabel": "Código de Idioma",
 	"wikibaseschema-special-id-submit": "Definir rótulo, descrição e nomes alternativos",
-	"wikibaseschema-special-setlabeldescriptionaliases-warning": "Por favor insira um ID válido e código de idioma",
 	"wikibaseschema-special-label": "Etiqueta:",
 	"wikibaseschema-special-description": "Descrição:",
 	"wikibaseschema-special-aliases": "Aliases (separados por barras):",

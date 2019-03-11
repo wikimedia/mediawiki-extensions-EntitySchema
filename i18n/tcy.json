@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ravi Mundkur"
+			"Ravi Mundkur",
+			"BHARATHESHA ALASANDEMAJALU"
 		]
 	},
 	"wikibaseschema-desc": "ವಿಕಿಬೇಸ್ ವಸ್ತುಲೆಗ್ ಯೋಜಲೆನ್ ಕೂಡಾದ್ ಬೊಕ ಚರ್ಚಿಸಾವುನಿ",
@@ -19,6 +20,8 @@
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
 	"wikibaseschema-error-schemadeleted": "ಈರ್ ಸಂಪಾದೆರೆ ಯತ್ನ ಮಲ್ತಿನ ಯೋಜ ಇಜ್ಜಿ. ಅವೆನ್ ಮಾಜಾದುಪ್ಪುರೆ ಯಾವು.",
 	"wikibaseschema-noschema": "ಮುಲ್ಪ ಯೋಜ ಇಜ್ಜಿ.  [[Special:NewSchema]] ಗು ಪೋದು ಒಂಜಿ ಪೊಸ ಯೋಜ ರಚಿಸಾಲೆ.",
+	"wikibaseschema-edit": "ಸೇರ್ಸಲೇ",
+	"wikibaseschema-special-id-inputlabel": "ಐಡಿ",
 	"wikibaseschema-special-label": "ಶಿರಪಟ್ಟಿ:",
 	"wikibaseschema-special-description": "ವಿವರಣೆ:",
 	"wikibaseschema-special-aliases": "ಯಾನೆಲು (ಕೊಳವೆ-ಪ್ರತ್ಯೇಕಿತ)"

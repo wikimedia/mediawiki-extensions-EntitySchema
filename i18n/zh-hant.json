@@ -53,7 +53,6 @@
 	"wikibaseschema-special-id-inputlabel": "ID",
 	"wikibaseschema-special-language-inputlabel": "語言代碼",
 	"wikibaseschema-special-id-submit": "設定標籤、描述與別名",
-	"wikibaseschema-special-setlabeldescriptionaliases-warning": "請輸入一個有效 ID 與語言代碼",
 	"wikibaseschema-special-label": "標籤：",
 	"wikibaseschema-special-description": "描述：",
 	"wikibaseschema-special-aliases": "別名（以豎線符號分隔）：",

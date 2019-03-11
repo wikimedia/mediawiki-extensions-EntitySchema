@@ -8,12 +8,14 @@
 	"wikibaseschema-newschema-label": "Etichette:",
 	"wikibaseschema-newschema-description": "Descrizione:",
 	"wikibaseschema-newschema-submit": "Ccreje",
-	"wikibaseschema-label-edit-placeholder": "L'etichette pu scheme in 'nglese",
+	"wikibaseschema-label-edit-placeholder": "L'etichette pu Scheme in $1",
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
 	"wikibaseschema-diff-label": "Etichette",
 	"wikibaseschema-diff-description": "Descriziune",
 	"wikibaseschema-diff-aliases": "Alias",
 	"wikibaseschema-diff-schema": "Scheme",
+	"wikibaseschema-edit": "cange",
+	"wikibaseschema-special-id-inputlabel": "ID",
 	"wikibaseschema-special-label": "Etichette:",
 	"wikibaseschema-special-description": "Descrizione:"
 }
