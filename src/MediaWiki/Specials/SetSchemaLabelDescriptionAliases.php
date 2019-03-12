@@ -72,7 +72,6 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id->getId() );
 		$this->checkBlocked( $title );
 		$aliases = array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) );
-		$aliases = array_values( array_unique( $aliases ) );
 		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory, $this, $watchListUpdater );
 		try {
 			$schemaWriter->updateSchemaNameBadge(

@@ -17,38 +17,84 @@ class SchemaEncoderTest extends TestCase {
 
 	use PHPUnit4And6Compat;
 
-	public function testGetPersistentRepresentation() {
+	/**
+	 * @dataProvider provideValidArguments
+	 */
+	public function testGetPersistentRepresentation_valid(
+		$id,
+		array $labels,
+		array $descriptions,
+		array $aliasGroups,
+		$schemaText,
+		array $expected
+	) {
+		$actual = SchemaEncoder::getPersistentRepresentation(
+			new SchemaId( $id ),
+			$labels,
+			$descriptions,
+			$aliasGroups,
+			$schemaText
+		);
+
+		$this->assertSame( $expected, json_decode( $actual, true ) );
+	}
+
+	public function provideValidArguments() {
 		$id = 'O1';
 		$language = 'en';
 		$label = 'englishLabel';
 		$description = 'englishDescription';
 		$aliases = [ 'englishAlias' ];
 		$schemaText = '#some schema about goats';
-		$expectedJson = [
-			'id' => $id,
-			'serializationVersion' => '3.0',
-			'labels' => [
-				$language => $label,
-			],
-			'descriptions' => [
-				$language => $description,
-			],
-			'aliases' => [
-				$language => $aliases,
-			],
-			'schemaText' => $schemaText,
-			'type' => 'ShExC',
-		];
 
-		$actualJson = SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( $id ),
+		yield [
+			$id,
 			[ $language => $label ],
 			[ $language => $description ],
 			[ $language => $aliases ],
-			$schemaText
-		);
+			$schemaText,
+			[
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => [
+					$language => $label,
+				],
+				'descriptions' => [
+					$language => $description,
+				],
+				'aliases' => [
+					$language => $aliases,
+				],
+				'schemaText' => $schemaText,
+				'type' => 'ShExC',
+			],
+		];
 
-		$this->assertSame( $expectedJson, json_decode( $actualJson, true ) );
+		$duplicateAliases = [ 'foo', 'bar', 'foo', 'baz', 'qux', 'bar', 'foo' ];
+		$distinctAliases = [ 'foo', 'bar', 'baz', 'qux' ];
+
+		yield [
+			$id,
+			[ $language => $label ],
+			[ $language => $description ],
+			[ $language => $duplicateAliases ],
+			$schemaText,
+			[
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => [
+					$language => $label,
+				],
+				'descriptions' => [
+					$language => $description,
+				],
+				'aliases' => [
+					$language => $distinctAliases,
+				],
+				'schemaText' => $schemaText,
+				'type' => 'ShExC',
+			],
+		];
 	}
 
 	/**
@@ -151,14 +197,6 @@ class SchemaEncoderTest extends TestCase {
 			$validAliasGroups,
 			1,
 			'language, label, description and schemaText must be strings',
-		];
-
-		yield 'aliases not unique' => [
-			$validLabels,
-			$validDescriptions,
-			[ 'en' => [ 'alias A', 'alias B', 'alias A' ] ],
-			$validSchemaText,
-			'aliases must be unique',
 		];
 	}
 
