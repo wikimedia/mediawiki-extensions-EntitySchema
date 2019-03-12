@@ -20,7 +20,8 @@ use WikiPage;
  * @group Database
  *
  * @covers \Wikibase\Schema\MediaWiki\Actions\RestoreViewAction
- * @covers \Wikibase\Schema\Services\RenderDiffHelper\RenderDiffHelper
+ * @covers \Wikibase\Schema\Presentation\DiffRenderer
+ * @covers \Wikibase\Schema\Presentation\ConfirmationFormRenderer
  */
 final class RestoreViewActionTest extends MediaWikiTestCase {
 
