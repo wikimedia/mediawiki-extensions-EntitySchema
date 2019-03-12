@@ -12,9 +12,9 @@ use Status;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
 use Wikibase\Schema\Presentation\ConfirmationFormRenderer;
-use Wikibase\Schema\Services\Diff\SchemaDiffer;
 use Wikibase\Schema\Presentation\DiffRenderer;
-use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
+use Wikibase\Schema\Services\Diff\SchemaDiffer;
+use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later
@@ -93,12 +93,12 @@ final class RestoreViewAction extends AbstractRestoreAction {
 			->getContent( SlotRecord::MAIN );
 
 		$differ = new SchemaDiffer();
-		$dispatcher = new SchemaDispatcher();
+		$converter = new SchemaConverter();
 		$diff = $differ->diffSchemas(
 		// @phan-suppress-next-line PhanUndeclaredMethod
-			$dispatcher->getFullArraySchemaData( $baseContent->getText() ),
+			$converter->getFullArraySchemaData( $baseContent->getText() ),
 			// @phan-suppress-next-line PhanUndeclaredMethod
-			$dispatcher->getFullArraySchemaData( $contentToRestore->getText() )
+			$converter->getFullArraySchemaData( $contentToRestore->getText() )
 		);
 
 		if ( $diff->isEmpty() ) {

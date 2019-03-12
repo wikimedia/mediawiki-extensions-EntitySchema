@@ -8,7 +8,7 @@ use SpecialPage;
 use Title;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
+use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 use WikiPage;
 
 /**
@@ -51,8 +51,8 @@ class SchemaText extends SpecialPage {
 	}
 
 	private function sendContentSchemaText( WikibaseSchemaContent $schemaContent, SchemaId $id ) {
-		$dispatcher = new SchemaDispatcher();
-		$schemaText = $dispatcher->getSchemaText( $schemaContent->getText() );
+		$converter = new SchemaConverter();
+		$schemaText = $converter->getSchemaText( $schemaContent->getText() );
 		$out = $this->getOutput();
 		$out->disable();
 		$webResponse = $out->getRequest()->response();

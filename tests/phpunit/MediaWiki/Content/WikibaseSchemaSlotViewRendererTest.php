@@ -8,8 +8,8 @@ use ParserOutput;
 use SpecialPage;
 use Title;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotViewRenderer;
-use Wikibase\Schema\Services\SchemaDispatcher\FullViewSchemaData;
-use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
+use Wikibase\Schema\Services\SchemaConverter\FullViewSchemaData;
+use Wikibase\Schema\Services\SchemaConverter\NameBadge;
 
 /**
  * @covers \Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotViewRenderer

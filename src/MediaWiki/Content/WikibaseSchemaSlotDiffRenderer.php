@@ -18,15 +18,15 @@ use SlotDiffRenderer;
 use TextSlotDiffRenderer;
 use UnexpectedValueException;
 use Wikibase\Schema\Services\Diff\SchemaDiffer;
-use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
+use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later
  */
 class WikibaseSchemaSlotDiffRenderer extends SlotDiffRenderer {
 
-	/** @var SchemaDispatcher */
-	private $schemaDispatcher;
+	/** @var SchemaConverter */
+	private $schemaConverter;
 
 	/** @var SchemaDiffer */
 	private $schemaDiffer;
@@ -54,7 +54,7 @@ class WikibaseSchemaSlotDiffRenderer extends SlotDiffRenderer {
 		}
 
 		$this->schemaDiffer = new SchemaDiffer();
-		$this->schemaDispatcher = new SchemaDispatcher();
+		$this->schemaConverter = new SchemaConverter();
 		$this->textSlotDiffRenderer = $textSlotDiffRenderer;
 		$this->msgLocalizer = $context;
 	}
@@ -71,8 +71,8 @@ class WikibaseSchemaSlotDiffRenderer extends SlotDiffRenderer {
 		$this->normalizeContents( $oldContent, $newContent, WikibaseSchemaContent::class );
 
 		$diff = $this->schemaDiffer->diffSchemas(
-			$this->schemaDispatcher->getFullArraySchemaData( $oldContent->getText() ),
-			$this->schemaDispatcher->getFullArraySchemaData( $newContent->getText() )
+			$this->schemaConverter->getFullArraySchemaData( $oldContent->getText() ),
+			$this->schemaConverter->getFullArraySchemaData( $newContent->getText() )
 		);
 
 		return $this->renderSchemaDiffRows( $diff );

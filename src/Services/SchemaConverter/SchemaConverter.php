@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Services\SchemaDispatcher;
+namespace Wikibase\Schema\Services\SchemaConverter;
 
 use DomainException;
 use LogicException;
@@ -10,7 +10,7 @@ use LogicException;
  *
  * @license GPL-2.0-or-later
  */
-class SchemaDispatcher {
+class SchemaConverter {
 
 	/**
 	 * @param string $schemaJSON

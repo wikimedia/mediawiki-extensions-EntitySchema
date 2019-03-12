@@ -1,19 +1,19 @@
 <?php
 
-namespace Wikibase\Schema\Tests\Services\SchemaDispatcher;
+namespace Wikibase\Schema\Tests\Services\SchemaConverter;
 
 use MediaWikiTestCase;
-use Wikibase\Schema\Services\SchemaDispatcher\FullViewSchemaData;
-use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
-use Wikibase\Schema\Services\SchemaDispatcher\PersistenceSchemaData;
-use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
+use Wikibase\Schema\Services\SchemaConverter\FullViewSchemaData;
+use Wikibase\Schema\Services\SchemaConverter\NameBadge;
+use Wikibase\Schema\Services\SchemaConverter\PersistenceSchemaData;
+use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later
  *
- * @covers \Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher
+ * @covers \Wikibase\Schema\Services\SchemaConverter\SchemaConverter
  */
-class SchemaDispatcherTest extends MediaWikiTestCase {
+class SchemaConverterTest extends MediaWikiTestCase {
 
 	public function validFullViewDataProvider() {
 		yield 'schema in interface language only' => [
@@ -215,9 +215,9 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 		array $preferredLanguages,
 		FullViewSchemaData $expectedSchemaData
 	) {
-		$dispatcher = new SchemaDispatcher();
+		$converter = new SchemaConverter();
 
-		$actualSchema = $dispatcher->getFullViewSchemaData( $schemaJSON, $preferredLanguages );
+		$actualSchema = $converter->getFullViewSchemaData( $schemaJSON, $preferredLanguages );
 
 		$this->assertType( FullViewSchemaData::class, $actualSchema );
 		$this->assertEquals( $expectedSchemaData, $actualSchema );
@@ -256,8 +256,8 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 	 * @param NameBadge $expectedNameBadgeData
 	 */
 	public function testMonolingualNameBadgeData( $schemaJSON, $expectedNameBadgeData ) {
-		$dispatcher = new SchemaDispatcher();
-		$actualNameBadge = $dispatcher->getMonolingualNameBadgeData( $schemaJSON, 'en' );
+		$converter = new SchemaConverter();
+		$actualNameBadge = $converter->getMonolingualNameBadgeData( $schemaJSON, 'en' );
 		$this->assertType( NameBadge::class, $actualNameBadge );
 		$this->assertEquals( $expectedNameBadgeData, $actualNameBadge );
 	}
@@ -429,9 +429,9 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 		array $expectedSchemaData
 	) {
 		$schemaJSON = json_encode( $schema );
-		$dispatcher = new SchemaDispatcher();
+		$converter = new SchemaConverter();
 
-		$actualSchemaData = $dispatcher->getFullArraySchemaData( $schemaJSON )->data;
+		$actualSchemaData = $converter->getFullArraySchemaData( $schemaJSON )->data;
 
 		$this->assertSame( $expectedSchemaData, $actualSchemaData );
 	}
@@ -540,9 +540,9 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 		PersistenceSchemaData $expectedSchemaData
 	) {
 		$schemaJSON = json_encode( $schema );
-		$dispatcher = new SchemaDispatcher();
+		$converter = new SchemaConverter();
 
-		$actualSchemaData = $dispatcher->getPersistenceSchemaData( $schemaJSON );
+		$actualSchemaData = $converter->getPersistenceSchemaData( $schemaJSON );
 
 		$this->assertEquals( $expectedSchemaData, $actualSchemaData );
 	}
@@ -581,9 +581,9 @@ class SchemaDispatcherTest extends MediaWikiTestCase {
 		$expectedID
 	) {
 		$schemaJSON = json_encode( $schema );
-		$dispatcher = new SchemaDispatcher();
+		$converter = new SchemaConverter();
 
-		$actualSchemaId = $dispatcher->getSchemaID( $schemaJSON );
+		$actualSchemaId = $converter->getSchemaID( $schemaJSON );
 
 		$this->assertSame( $expectedID, $actualSchemaId );
 	}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Services\SchemaDispatcher;
+namespace Wikibase\Schema\Services\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later
