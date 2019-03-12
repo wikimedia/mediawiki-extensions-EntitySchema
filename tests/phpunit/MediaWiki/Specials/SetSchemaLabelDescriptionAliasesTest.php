@@ -95,7 +95,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			'label' => 'Schema label',
 			'description' => '',
 			'aliases' => 'foo | bar | baz',
-			'schema-shexc' => 'abc'
+			'schema-shexc' => 'abc',
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -152,7 +152,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			'label' => 'Schema label',
 			'description' => '',
 			'aliases' => 'foo | bar | foo | baz | bar | foo',
-			'schema-shexc' => 'abc'
+			'schema-shexc' => 'abc',
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -170,7 +170,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			'label' => 'Schema label',
 			'description' => '',
 			'aliases' => 'foo | bar | baz',
-			'schema-shexc' => 'abc'
+			'schema-shexc' => 'abc',
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -190,7 +190,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			'label' => 'Schema label',
 			'description' => '',
 			'aliases' => 'foo | bar | baz',
-			'schema-shexc' => 'abc'
+			'schema-shexc' => 'abc',
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -236,19 +236,19 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			[
 				'ID' => '',
 				'languagecode' => 'en',
-			]
+			],
 		];
 
 		yield 'id in request' => [
 			null,
 			[
-				'ID' => 'O1'
+				'ID' => 'O1',
 			],
 			false,
 			[
 				'ID' => 'O1',
 				'languagecode' => 'en',
-			]
+			],
 		];
 
 		yield 'subpage with id only' => [
@@ -258,7 +258,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			[
 				'ID' => 'O1',
 				'languagecode' => 'en',
-			]
+			],
 		];
 
 		yield 'subpage with id and langcode' => [
@@ -268,7 +268,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			[
 				'ID' => 'O1',
 				'languagecode' => 'de',
-			]
+			],
 		];
 	}
 
