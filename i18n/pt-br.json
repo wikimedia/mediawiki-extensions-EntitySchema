@@ -24,6 +24,8 @@
 	"wikibaseschema-error-not-post": "Esta ação deve ser feita com uma solicitação de postagem.",
 	"wikibaseschema-error-inconsistent-id": "As revisões fornecidas não pertencem todas ao título dado.",
 	"wikibaseschema-error-wrong-page-revisions": "A revisão fornecida não pertence à página atual.",
+	"wikibaseschema-error-invalid-id": "Este ID é inválido.",
+	"wikibaseschema-error-unsupported-langcode": "Este código de idioma não é suportado.",
 	"wikibaseschema-noschema": "Não há schema aqui. Vá para [[Special:NewSchema]] para criar um novo.",
 	"wikibaseschema-summary-generated": "Resumo (será anexado a um resumo gerado automaticamente):",
 	"wikibaseschema-diff-label": "Etiquetas",

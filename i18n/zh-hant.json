@@ -24,8 +24,15 @@
 	"wikibaseschema-error-not-post": "此操作必須已發佈請求來完成。",
 	"wikibaseschema-error-inconsistent-id": "提供的修訂不屬於指定的標題。",
 	"wikibaseschema-error-wrong-page-revisions": "提供的修訂不屬於目前頁面。",
+	"wikibaseschema-error-invalid-id": "此 ID 無效。",
+	"wikibaseschema-error-unsupported-langcode": "不支援此語言代碼。",
 	"wikibaseschema-noschema": "目前沒有架構。前往 [[Special:NewSchema]] 來建立一個新的。",
 	"wikibaseschema-summary-generated": "摘要（會附加自動產生的摘要）：",
+	"wikibaseschema-namebadge-header-language-code": "語言代碼",
+	"wikibaseschema-namebadge-header-label": "標籤",
+	"wikibaseschema-namebadge-header-description": "描述",
+	"wikibaseschema-namebadge-header-aliases": "別名",
+	"wikibaseschema-namebadge-header-edit": "編輯",
 	"wikibaseschema-diff-label": "標籤",
 	"wikibaseschema-diff-description": "描述",
 	"wikibaseschema-diff-aliases": "別名",
@@ -55,6 +62,6 @@
 	"wikibaseschema-special-id-submit": "設定標籤、描述與別名",
 	"wikibaseschema-special-label": "標籤：",
 	"wikibaseschema-special-description": "描述：",
-	"wikibaseschema-special-aliases": "別名（以豎線符號分隔）：",
+	"wikibaseschema-special-aliases": "別名，以豎線符號分隔：",
 	"wikibaseschema-special-id-placeholder": "架構 ID"
 }
