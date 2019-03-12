@@ -55,8 +55,8 @@
 	"ResourceModules": {
 		"ext.WikibaseSchema.view": {
 			"styles": [ "viewSchema.less" ],
-			"localBasePath": "src/MediaWiki/Resources",
-			"remoteExtPath": "WikibaseSchema/src/MediaWiki/Resources"
+			"localBasePath": "resources",
+			"remoteExtPath": "WikibaseSchema/resources"
 		}
 	},
 	"SpecialPages": {
