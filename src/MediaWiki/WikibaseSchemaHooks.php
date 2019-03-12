@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema;
+namespace Wikibase\Schema\MediaWiki;
 
 use Article;
 use DatabaseUpdater;
@@ -22,13 +22,13 @@ final class WikibaseSchemaHooks {
 	public static function onCreateDBSchema( DatabaseUpdater $updater ) {
 		$updater->addExtensionTable(
 			'wbschema_id_counter',
-			__DIR__ . '/../sql/WikibaseSchema.sql'
+			__DIR__ . '/../../sql/WikibaseSchema.sql'
 		);
 
 		$updater->modifyExtensionField(
 			'page',
 			'page_namespace',
-			__DIR__ . '/../sql/patch-move-page-namespace.sql'
+			__DIR__ . '/../../sql/patch-move-page-namespace.sql'
 		);
 	}
 

@@ -25,11 +25,11 @@
 		]
 	},
 	"Hooks": {
-		"SkinTemplateNavigation": "Wikibase\\Schema\\WikibaseSchemaHooks::onSkinTemplateNavigation",
-		"LoadExtensionSchemaUpdates": "Wikibase\\Schema\\WikibaseSchemaHooks::onCreateDBSchema",
-		"ExtensionTypes": "Wikibase\\Schema\\WikibaseSchemaHooks::onExtensionTypes",
-		"BeforeDisplayNoArticleText": "\\Wikibase\\Schema\\WikibaseSchemaHooks::onBeforeDisplayNoArticleText",
-		"PageHistoryLineEnding": "\\Wikibase\\Schema\\WikibaseSchemaHooks::onPageHistoryLineEnding"
+		"SkinTemplateNavigation": "Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onSkinTemplateNavigation",
+		"LoadExtensionSchemaUpdates": "Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onCreateDBSchema",
+		"ExtensionTypes": "Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onExtensionTypes",
+		"BeforeDisplayNoArticleText": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onBeforeDisplayNoArticleText",
+		"PageHistoryLineEnding": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onPageHistoryLineEnding"
 	},
 	"ContentHandlers": {
 		"WikibaseSchema": "Wikibase\\Schema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"
