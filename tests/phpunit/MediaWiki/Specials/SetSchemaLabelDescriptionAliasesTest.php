@@ -2,17 +2,17 @@
 
 namespace Wikibase\Schema\Tests\MediaWiki\Specials;
 
-use Wikibase\Schema\Tests\Mocks\HTMLFormSpy;
-use SpecialPageTestBase;
-use FauxRequest;
-use WikiPage;
-use Title;
-use MediaWiki\Revision\SlotRecord;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use CommentStoreComment;
+use FauxRequest;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\SlotRecord;
+use SpecialPageTestBase;
+use Title;
+use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use Wikibase\Schema\MediaWiki\Specials\SetSchemaLabelDescriptionAliases;
+use Wikibase\Schema\Tests\Mocks\HTMLFormSpy;
 use Wikimedia\TestingAccessWrapper;
+use WikiPage;
 
 /**
  * @covers \Wikibase\Schema\MediaWiki\Specials\SetSchemaLabelDescriptionAliases
