@@ -307,9 +307,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 				"serializationVersion" => "3.0",
 			]
 		);
-		$actualSchema = $this->getCurrentSchemaContent( 'O123' );
-
-		return $actualSchema;
+		return $this->getCurrentSchemaContent( 'O123' );
 	}
 
 	private function getCurrentSchemaContent( $pageName ) {
