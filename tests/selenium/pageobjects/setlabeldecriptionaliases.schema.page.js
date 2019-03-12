@@ -55,6 +55,10 @@ class SetSchemaLabelDescriptionAliasesPage extends Page {
 		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.ID + ' input' ).setValue( id );
 	}
 
+	setLanguageField( langCode ) {
+		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.LANGUAGE + ' input' ).setValue( langCode );
+	}
+
 	setLabel( label ) {
 		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.LABEL + ' input' ).setValue( label );
 	}

@@ -54,7 +54,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$language = $this->getLanguageFromSubpageOrRequestOrUI( $subPage, $request );
 
 		if ( $this->isSelectionDataValid( $id, $language ) ) {
-			$this->displayEditForm( new SchemaId( $id ) );
+			$this->displayEditForm( new SchemaId( $id ), $language );
 			return;
 		}
 
@@ -76,7 +76,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		try {
 			$schemaWriter->updateSchemaNameBadge(
 				$id,
-				'en',
+				$data[self::FIELD_LANGUAGE],
 				$data[self::FIELD_LABEL],
 				$data[self::FIELD_DESCRIPTION],
 				$aliases
@@ -124,10 +124,10 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$form->displayForm( $submitStatus ?: Status::newGood() );
 	}
 
-	private function displayEditForm( SchemaId $id ) {
+	private function displayEditForm( SchemaId $id, $langCode ) {
 		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id->getId() );
-		$schemaNameBadge = $this->getSchemaNameBadge( $title );
-		$formDescriptor = $this->getEditFormFields( $id, $schemaNameBadge );
+		$schemaNameBadge = $this->getSchemaNameBadge( $title, $langCode );
+		$formDescriptor = $this->getEditFormFields( $id, $langCode, $schemaNameBadge );
 
 		$formProvider = $this->htmlFormProvider; // FIXME: PHP7: inline this variable!
 		$form = $formProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
@@ -164,17 +164,17 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	 * Gets the Schema NameBadge (label, desc, aliases) by interface language
 	 *
 	 * @param Title $title instance of Title for a specific Schema
+	 * @param string $langCode
 	 *
 	 * @return NameBadge
+	 * @throws \MWException
 	 */
-	private function getSchemaNameBadge( Title $title ) {
+	private function getSchemaNameBadge( Title $title, $langCode ) {
 		$wikiPage = WikiPage::factory( $title );
 		// @phan-suppress-next-line PhanUndeclaredMethod
 		$schema = $wikiPage->getContent()->getText();
 		$dispatcher = new SchemaDispatcher();
-		$schemaNameBadge = $dispatcher->getMonolingualNameBadgeData( $schema, 'en' );
-
-		return $schemaNameBadge;
+		return $dispatcher->getMonolingualNameBadgeData( $schema, $langCode );
 	}
 
 	private function getSchemaSelectionFormFields( $defaultId, $defaultLanguage ) {
@@ -222,14 +222,18 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		return true;
 	}
 
-	private function getEditFormFields( SchemaId $id, NameBadge $nameBadge ) {
+	private function getEditFormFields( SchemaId $id, $badgeLangCode, NameBadge $nameBadge ) {
 		$label = $nameBadge->label;
 		$description = $nameBadge->description;
 		$aliases = implode( '|', $nameBadge->aliases );
-		$langCode = $this->getLanguage()->getCode();
-		// FIXME: T216145: change this 'en' to the chosen language from step 1
-		$langName = Language::fetchLanguageName( 'en', $langCode );
+		$uiLangCode = $this->getLanguage()->getCode();
+		$langName = Language::fetchLanguageName( $badgeLangCode, $uiLangCode );
 		return [
+			'notice' => [
+				'type' => 'info',
+				'raw' => true,
+				'default' => $this->buildLanguageAndSchemaNotice( $langName, $label, $id ),
+			],
 			self::FIELD_ID => [
 				'name' => self::FIELD_ID,
 				'type' => 'hidden',
@@ -242,7 +246,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'type' => 'hidden',
 				'id' => 'wbschema-language-code',
 				'required' => true,
-				'default' => 'en', // FIXME: T216145: change this 'en' to the chosen language from step 1
+				'default' => $badgeLangCode,
 			],
 			self::FIELD_LABEL => [
 				'name' => self::FIELD_LABEL,
@@ -298,6 +302,28 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		foreach ( $this->getWarnings() as $warning ) {
 			$output->addHTML( Html::rawElement( 'div', [ 'class' => 'warning' ], $warning ) );
 		}
+	}
+
+	/**
+	 * Build the info message atop of the second form
+	 *
+	 * @return string HTML
+	 */
+	private function buildLanguageAndSchemaNotice( $langName, $label, SchemaId $schemaId ) {
+		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId->getId() );
+		return $this->msg( 'wikibaseschema-special-setlabeldescriptionaliases-info' )
+			->params( $langName )
+			->params( $this->getSchemaDisplayLabel( $label, $schemaId ) )
+			->params( $title->getPrefixedText() )
+			->parse();
+	}
+
+	private function getSchemaDisplayLabel( $label, SchemaId $schemaId ) {
+		if ( !$label ) {
+			return $schemaId->getId();
+		}
+
+		return $label . ' ' . $this->msg( 'parentheses' )->params( $schemaId->getId() )->escaped();
 	}
 
 	/**

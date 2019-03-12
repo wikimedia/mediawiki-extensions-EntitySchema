@@ -51,4 +51,21 @@ describe( 'SetSchemaLabelDescriptionAliasesPage:Page', () => {
 		assert.strictEqual( ViewSchemaPage.getDescription(), 'This is a test description' );
 		assert.strictEqual( ViewSchemaPage.getAliases(), 'Alias1 | Alias2' );
 	} );
+
+	it( 'is possible to edit Schema in another language', () => {
+
+		let id = ViewSchemaPage.getId(),
+			langCode = 'de';
+		SetSchemaLabelDescriptionAliasesPage.open();
+		SetSchemaLabelDescriptionAliasesPage.setIdField( id );
+		SetSchemaLabelDescriptionAliasesPage.setLanguageField( langCode );
+		SetSchemaLabelDescriptionAliasesPage.clickSubmit();
+		SetSchemaLabelDescriptionAliasesPage.setDescription( 'Dies ist eine deutsche Testbeschreibung' );
+		SetSchemaLabelDescriptionAliasesPage.setAliases( 'Alias1 | Alias2' );
+		SetSchemaLabelDescriptionAliasesPage.clickSubmit();
+
+		assert.strictEqual( ViewSchemaPage.getDescription( langCode ), 'Dies ist eine deutsche Testbeschreibung' );
+		assert.strictEqual( ViewSchemaPage.getAliases( langCode ), 'Alias1 | Alias2' );
+		assert.strictEqual( ViewSchemaPage.getLabel(), 'Test Label' );
+	} );
 } );
