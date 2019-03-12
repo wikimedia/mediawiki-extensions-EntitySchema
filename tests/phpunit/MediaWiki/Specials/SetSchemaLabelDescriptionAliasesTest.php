@@ -104,6 +104,45 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$this->assertTrue( $infoGood->ok );
 	}
 
+	public function testSubmitEditFormCallbackNonEnglish() {
+		$initialContent = $this->createTestSchema();
+
+		$langFormKey = SetSchemaLabelDescriptionAliases::FIELD_LANGUAGE;
+		$dataGood = [
+			'ID' => 'O123',
+			$langFormKey => 'de',
+			SetSchemaLabelDescriptionAliases::FIELD_LABEL => 'Schema Bezeichnung',
+			SetSchemaLabelDescriptionAliases::FIELD_DESCRIPTION => 'Eine Beschreibung auf deutsch.',
+			SetSchemaLabelDescriptionAliases::FIELD_ALIASES => 'foo | bar | baz',
+			'schema-shexc' => 'def',
+		];
+
+		$setSchemaInfo = $this->newSpecialPage();
+		$infoGood = $setSchemaInfo->submitEditFormCallback( $dataGood );
+		$this->assertTrue( $infoGood->ok );
+
+		$schemaContent = $this->getCurrentSchemaContent( $dataGood['ID'] );
+		$expectedLabels = array_merge(
+			$initialContent['labels'],
+			[ $dataGood[$langFormKey] => $dataGood[SetSchemaLabelDescriptionAliases::FIELD_LABEL] ]
+		);
+		$this->assertSame( $expectedLabels, $schemaContent['labels'] );
+
+		$expectedDescriptions = array_merge(
+			$initialContent['descriptions'],
+			[ $dataGood[$langFormKey] => $dataGood[SetSchemaLabelDescriptionAliases::FIELD_DESCRIPTION] ]
+		);
+		$this->assertSame( $expectedDescriptions, $schemaContent['descriptions'] );
+
+		$expectedDescriptions = array_merge(
+			$initialContent['aliases'],
+			[ $dataGood[$langFormKey] => [ 'foo', 'bar', 'baz' ] ]
+		);
+		$this->assertSame( $expectedDescriptions, $schemaContent['aliases'] );
+
+		$this->assertSame( $initialContent['schemaText'], $schemaContent['schemaText'] );
+	}
+
 	public function testSubmitEditFormCallbackDuplicateAliases() {
 		$this->createTestSchema();
 
@@ -261,10 +300,11 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$this->saveSchemaPageContent(
 			$page,
 			[
-				'label' => 'Schema label',
-				'description' => 'Schema description',
+				'labels' => [ 'en' => 'Schema label' ],
+				'descriptions' => [ 'en' => 'Schema description' ],
 				'aliases' => [],
 				'schemaText' => 'abc',
+				"serializationVersion" => "3.0",
 			]
 		);
 		$actualSchema = $this->getCurrentSchemaContent( 'O123' );

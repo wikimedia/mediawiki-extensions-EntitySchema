@@ -365,4 +365,64 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testUpdateMultiLingualSchemaNameBadgeSuccess() {
+		$id = 'O1';
+		$language = 'en';
+		$englishLabel = 'Goat';
+		$englishDescription = 'This is what a goat looks like';
+		$englishAliases = [ 'Capra' ];
+		$existingContent = new WikibaseSchemaContent( json_encode( [
+			'id' => $id,
+			'serializationVersion' => '3.0',
+			'labels' => [
+				'en' => 'Cat',
+				'de' => 'Ziege',
+			],
+			'descriptions' => [
+				'en' => 'This is what a cat looks like',
+				'de' => 'Wichtigste Eigenschaften einer Ziege'
+			],
+			'aliases' => [
+				'en' => [ 'Tiger', 'Lion' ],
+				'de' => [ 'Capra', 'Hausziege' ]
+			],
+			'schemaText' => '# some schema about goats',
+			'type' => 'ShExC',
+		] ) );
+		$expectedContent = new WikibaseSchemaContent( json_encode( [
+			'id' => $id,
+			'serializationVersion' => '3.0',
+			'labels' => [
+				'en' => $englishLabel,
+				'de' => 'Ziege',
+			],
+			'descriptions' => [
+				'en' => $englishDescription,
+				'de' => 'Wichtigste Eigenschaften einer Ziege'
+			],
+			'aliases' => [
+				'en' => $englishAliases,
+				'de' => [ 'Capra', 'Hausziege' ]
+			],
+			'schemaText' => '# some schema about goats',
+			'type' => 'ShExC',
+		] ) );
+
+		$pageUpdaterFactory = $this
+			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
+		);
+
+		$writer->updateSchemaNameBadge(
+			new SchemaId( $id ),
+			$language,
+			$englishLabel,
+			$englishDescription,
+			$englishAliases
+		);
+	}
+
 }

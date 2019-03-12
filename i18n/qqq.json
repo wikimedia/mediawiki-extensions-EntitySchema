@@ -61,6 +61,7 @@
 	"wikibaseschema-special-id-inputlabel": "Field label for the ID field of Special:SetSchemaLabelDescriptionAliases",
 	"wikibaseschema-special-language-inputlabel": "Field label for the language code field of Special:SetSchemaLabelDescriptionAliases",
 	"wikibaseschema-special-id-submit": "Name of the submit button for the Schema selection phase of Special:SetSchemaLabelDescriptionAliases which leads to the edit field for label, description and aliases",
+	"wikibaseschema-special-setlabeldescriptionaliases-info": "Intro text when a label, description and aliases are to be set.\n\nParameters:\n* $1 - the translated language name (possibly autonym) the label, description and aliases are to be set in\n* $2 - the label (if available) of the Schema or its ID\n* $3 - the actual page title that links to the Schema",
 	"wikibaseschema-special-label": "Input label for the label field on Special:SetSchemaLabelDescriptionAliases",
 	"wikibaseschema-special-description": "Input label for the description field on Special:SetSchemaLabelDescriptionAliases:",
 	"wikibaseschema-special-aliases": "Input label for the aliases field on Special:SetSchemaLabelDescriptionAliases",

@@ -6,9 +6,9 @@ class ViewSchemaPage extends Page {
 
 	static get SCHEMA_SELECTORS() {
 		return {
-			LABEL: '.wbschema-label[lang=en]',
-			DESCRIPTION: '.wbschema-description[lang=en]',
-			ALIASES: '.wbschema-aliases[lang=en]',
+			LABEL: '.wbschema-label',
+			DESCRIPTION: '.wbschema-description',
+			ALIASES: '.wbschema-aliases',
 			SCHEMA_TEXT: '#wbschema-schema-text'
 		};
 	}
@@ -24,19 +24,19 @@ class ViewSchemaPage extends Page {
 		return namespace;
 	}
 
-	getLabel() {
-		browser.$( this.constructor.SCHEMA_SELECTORS.LABEL ).waitForExist();
-		return browser.$( this.constructor.SCHEMA_SELECTORS.LABEL ).getText();
+	getLabel( langCode = 'en' ) {
+		browser.$( this.constructor.SCHEMA_SELECTORS.LABEL + `[lang=${langCode}]` ).waitForExist();
+		return browser.$( this.constructor.SCHEMA_SELECTORS.LABEL + `[lang=${langCode}]` ).getText();
 	}
 
-	getDescription() {
-		browser.$( this.constructor.SCHEMA_SELECTORS.DESCRIPTION ).waitForExist();
-		return browser.$( this.constructor.SCHEMA_SELECTORS.DESCRIPTION ).getText();
+	getDescription( langCode = 'en' ) {
+		browser.$( this.constructor.SCHEMA_SELECTORS.DESCRIPTION + `[lang=${langCode}]` ).waitForExist();
+		return browser.$( this.constructor.SCHEMA_SELECTORS.DESCRIPTION + `[lang=${langCode}]` ).getText();
 	}
 
-	getAliases() {
-		browser.$( this.constructor.SCHEMA_SELECTORS.ALIASES ).waitForExist();
-		return browser.$( this.constructor.SCHEMA_SELECTORS.ALIASES ).getText();
+	getAliases( langCode = 'en' ) {
+		browser.$( this.constructor.SCHEMA_SELECTORS.ALIASES + `[lang=${langCode}]` ).waitForExist();
+		return browser.$( this.constructor.SCHEMA_SELECTORS.ALIASES + `[lang=${langCode}]` ).getText();
 	}
 
 	/**

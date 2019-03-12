@@ -60,6 +60,7 @@
 	"wikibaseschema-special-id-inputlabel": "ID",
 	"wikibaseschema-special-language-inputlabel": "Language Code",
 	"wikibaseschema-special-id-submit": "Set label, description and aliases",
+	"wikibaseschema-special-setlabeldescriptionaliases-info": "You are setting label, description and aliases in '''$1''' for Schema [[$3|$2]].",
 	"wikibaseschema-special-label": "Label:",
 	"wikibaseschema-special-description": "Description:",
 	"wikibaseschema-special-aliases": "Aliases, pipe-separated:",
