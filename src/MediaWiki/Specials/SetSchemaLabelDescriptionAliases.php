@@ -120,7 +120,6 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 			->setTitle( $this->getPageTitle() );
 		$form->prepareForm();
 		$submitStatus = $form->tryAuthorizedSubmit();
-		$this->displayBeforeForm( $this->getOutput() );
 		$form->displayForm( $submitStatus ?: Status::newGood() );
 	}
 
@@ -148,7 +147,9 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 			}
 		}
 
+		$this->displayWarnings( $this->getOutput() );
 		$form->displayForm( $submitStatus ?? Status::newGood() );
+		$this->displayCopyright( $this->getOutput() );
 	}
 
 	/**
@@ -296,9 +297,11 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		return true;
 	}
 
-	private function displayBeforeForm( OutputPage $output ) {
+	private function displayCopyright( OutputPage $output ) {
 		$output->addHTML( $this->getCopyrightHTML() );
+	}
 
+	private function displayWarnings( OutputPage $output ) {
 		foreach ( $this->getWarnings() as $warning ) {
 			$output->addHTML( Html::rawElement( 'div', [ 'class' => 'warning' ], $warning ) );
 		}
@@ -332,7 +335,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	private function getCopyrightHTML() {
 		return $this->msg( 'wikibaseschema-newschema-copyright' )
 			->params(
-				$this->msg( 'wikibaseschema-newschema-submit' )->text(),
+				$this->msg( 'wikibaseschema-special-id-submit' )->text(),
 				$this->msg( 'copyrightpage' )->text(),
 				// FIXME: make license configurable
 				'[https://creativecommons.org/publicdomain/zero/1.0/ Creative Commons CC0 License]'
