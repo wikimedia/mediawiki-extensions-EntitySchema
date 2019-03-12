@@ -42,4 +42,41 @@ class WikibaseSchemaContentTest extends MediaWikiTestCase {
 		$this->assertEmpty( $html );
 	}
 
+	/**
+	 * @dataProvider provideShExSimpleUrlsAndExpectedLinks
+	 */
+	public function testGetParserOutput_schemaCheckLink( $shExSimpleUrl, $expected ) {
+		$content = new WikibaseSchemaContent( json_encode( [
+			'labels' => [ 'en' => 'label' ],
+			'descriptions' => [ 'en' => 'description' ],
+			'aliases' => [ 'en' => [ 'alias' ] ],
+			'schemaText' => '',
+			'serializationVersion' => '3.0',
+		] ) );
+		$this->setMwGlobals( 'wgWBSchemaShExSimpleUrl', $shExSimpleUrl );
+
+		$parserOutput = $content->getParserOutput( Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' ) );
+		$html = $parserOutput->getText();
+
+		if ( $expected === false ) {
+			$this->assertNotContains( 'wikibaseschema-check-entities', $html );
+		} else {
+			$this->assertContains( $expected, $html );
+		}
+	}
+
+	public function provideShExSimpleUrlsAndExpectedLinks() {
+		yield 'not configured, no link' => [ null, false ];
+
+		yield 'no query parameters, append ?' => [
+			'http://a.test/doc/shex-simple.html',
+			'http://a.test/doc/shex-simple.html?schemaURL=',
+		];
+
+		yield 'query parameters, append &' => [
+			'http://a.test/doc/shex-simple.html?data=Endpoint: http://a.test/sparql',
+			'http://a.test/doc/shex-simple.html?data=Endpoint: http://a.test/sparql&amp;schemaURL=',
+		];
+	}
+
 }
