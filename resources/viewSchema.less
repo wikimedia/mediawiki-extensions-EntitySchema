@@ -30,31 +30,8 @@
 	padding: 1em;
 }
 
-.wbschema-edit-button {
-	background: transparent;
-	border: 0;
-	cursor: pointer;
-	color: #0d4c99;
-	display: inline;
-
-	&:hover {
-		text-decoration: underline;
-	}
-
-	&[ disabled ] {
-		text-decoration: none;
-		cursor: default;
-		color: @button-disabled-color;
-	}
-	white-space: nowrap;
-}
-
-.wbschema-edit-button a {
+.wbschema-edit-button .edit-icon {
 	.prepend-with-oojs-icon('edit-progressive.png');
-}
-
-table td.wbschema-edit-button {
-	display: table-cell;
 }
 
 .wbschema-schema-section {

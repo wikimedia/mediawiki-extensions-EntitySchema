@@ -179,7 +179,7 @@ class WikibaseSchemaContent extends JsonContent {
 		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 
 		return Html::rawElement(
-			'div',
+			'span',
 			[
 				'id' => 'wbschema-edit-schema-text',
 				'class' => 'wbschema-edit-button',
