@@ -149,8 +149,8 @@ class WikibaseSchemaContent extends JsonContent {
 			'id' => 'wbschema-schema-view-section',
 			'class' => 'wbschema-section',
 			],
-			$this->renderSchemaText( $schemaText ) .
-			$this->renderSchemaEditLink( $title )
+			$this->renderSchemaTextLinks( $title ) .
+			$this->renderSchemaText( $schemaText )
 		);
 	}
 
@@ -163,6 +163,16 @@ class WikibaseSchemaContent extends JsonContent {
 				],
 				$schemaText
 			);
+	}
+
+	private function renderSchemaTextLinks( Title $title ) {
+		return Html::rawElement(
+			'div',
+			[
+				'class' => 'wbschema-schema-text-links',
+			],
+			$this->renderSchemaEditLink( $title )
+		);
 	}
 
 	private function renderSchemaEditLink( Title $title ) {
