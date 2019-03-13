@@ -83,6 +83,20 @@ class SchemaEncoder {
 		array $aliasGroups,
 		$schemaText
 	) {
+		self::validateLangCodes( $labels, $descriptions, $aliasGroups );
+		self::validateParameterTypes(
+			$labels,
+			$descriptions,
+			$aliasGroups,
+			$schemaText
+		);
+	}
+
+	private static function validateLangCodes(
+		array $labels,
+		array $descriptions,
+		array $aliasGroups
+	) {
 		$providedLangCodes = array_unique(
 			array_merge(
 				array_keys( $labels ),
@@ -99,7 +113,14 @@ class SchemaEncoder {
 		if ( count( $invalidLangCodes ) > 0 ) {
 			throw new InvalidArgumentException( 'language codes must be valid!' );
 		}
+	}
 
+	private static function validateParameterTypes(
+		array $labels,
+		array $descriptions,
+		array $aliasGroups,
+		$schemaText
+	) {
 		if ( count( array_filter( $labels, 'is_string' ) ) !== count( $labels )
 			|| count( array_filter( $descriptions, 'is_string' ) ) !== count( $descriptions )
 			|| !is_string( $schemaText )
