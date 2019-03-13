@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki;
+namespace Wikibase\Schema\Tests\MediaWiki\Actions;
 
 use MediaWikiTestCase;
 use PermissionsError;
@@ -8,11 +8,11 @@ use ReadOnlyError;
 use ReadOnlyMode;
 use RequestContext;
 use Title;
-use Wikibase\Schema\MediaWiki\SchemaEditAction;
+use Wikibase\Schema\MediaWiki\Actions\SchemaEditAction;
 use WikiPage;
 
 /**
- * @covers \Wikibase\Schema\MediaWiki\SchemaEditAction
+ * @covers \Wikibase\Schema\MediaWiki\Actions\SchemaEditAction
  *
  * @license GPL-2.0-or-later
  */

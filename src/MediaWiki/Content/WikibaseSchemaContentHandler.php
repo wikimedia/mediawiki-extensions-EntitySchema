@@ -15,10 +15,10 @@ use SlotDiffRenderer;
 use Wikibase\Schema\DataAccess\SchemaEncoder;
 use Wikibase\Schema\MediaWiki\Actions\RestoreSubmitAction;
 use Wikibase\Schema\MediaWiki\Actions\RestoreViewAction;
+use Wikibase\Schema\MediaWiki\Actions\SchemaEditAction;
+use Wikibase\Schema\MediaWiki\Actions\SchemaSubmitAction;
 use Wikibase\Schema\MediaWiki\Actions\UndoSubmitAction;
 use Wikibase\Schema\MediaWiki\Actions\UndoViewAction;
-use Wikibase\Schema\MediaWiki\SchemaEditAction;
-use Wikibase\Schema\MediaWiki\SchemaSubmitAction;
 use Wikibase\Schema\MediaWiki\UndoHandler;
 use WikiPage;
 

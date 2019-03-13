@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki;
+namespace Wikibase\Schema\MediaWiki\Actions;
 
 use FormAction;
 use RuntimeException;
