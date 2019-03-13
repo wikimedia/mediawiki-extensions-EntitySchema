@@ -11,8 +11,9 @@ use Page;
 use Status;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
+use Wikibase\Schema\Presentation\ConfirmationFormRenderer;
 use Wikibase\Schema\Services\Diff\SchemaDiffer;
-use Wikibase\Schema\Services\RenderDiffHelper\RenderDiffHelper;
+use Wikibase\Schema\Presentation\DiffRenderer;
 use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
 
 /**
@@ -59,8 +60,8 @@ final class RestoreViewAction extends AbstractRestoreAction {
 			)
 		);
 
-		$helper = new RenderDiffHelper( $this );
-		$diffHTML = $helper->renderSchemaDiffTable(
+		$diffRenderer = new DiffRenderer( $this );
+		$diffHTML = $diffRenderer->renderSchemaDiffTable(
 			$this->slotDiffRenderer->renderSchemaDiffRows( $diff ),
 			$this->msg( 'currentrev' )
 		);
@@ -68,7 +69,8 @@ final class RestoreViewAction extends AbstractRestoreAction {
 		$this->getOutput()->addHTML( $diffHTML );
 		$this->getOutput()->addModuleStyles( 'mediawiki.diff.styles' );
 
-		$confFormHTML = $helper->showConfirmationForm(
+		$confFormRenderer = new ConfirmationFormRenderer( $this );
+		$confFormHTML = $confFormRenderer->showConfirmationForm(
 			[
 				'restore' => $restoredRevID,
 			],

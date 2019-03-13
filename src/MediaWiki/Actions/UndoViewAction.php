@@ -5,7 +5,8 @@ namespace Wikibase\Schema\MediaWiki\Actions;
 use IContextSource;
 use Page;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
-use Wikibase\Schema\Services\RenderDiffHelper\RenderDiffHelper;
+use Wikibase\Schema\Presentation\ConfirmationFormRenderer;
+use Wikibase\Schema\Presentation\DiffRenderer;
 
 /**
  * @license GPL-2.0-or-later
@@ -61,8 +62,8 @@ class UndoViewAction extends AbstractUndoAction {
 	 */
 	private function showConfirmationForm( $undidRevision = 0 ) {
 		$req = $this->getRequest();
-		$helper = new RenderDiffHelper( $this );
-		$confFormHTML = $helper->showConfirmationForm(
+		$renderer = new ConfirmationFormRenderer( $this );
+		$confFormHTML = $renderer->showConfirmationForm(
 			[
 				'undo' => $req->getInt( 'undo' ),
 				'undoafter' => $req->getInt( 'undoafter' ),
@@ -78,7 +79,7 @@ class UndoViewAction extends AbstractUndoAction {
 
 	private function displayUndoDiff( $diff ) {
 
-		$helper = new RenderDiffHelper( $this );
+		$helper = new DiffRenderer( $this );
 		$this->getOutput()->addHTML(
 			$helper->renderSchemaDiffTable(
 				$this->slotDiffRenderer->renderSchemaDiffRows( $diff ),

@@ -1,11 +1,9 @@
 <?php
 
-namespace Wikibase\Schema\Services\RenderDiffHelper;
+namespace Wikibase\Schema\Presentation;
 
-use DifferenceEngine;
 use Html;
 use Linker;
-use Message;
 use MessageLocalizer;
 use OOUI\ButtonInputWidget;
 use OOUI\ButtonWidget;
@@ -18,21 +16,12 @@ use User;
 /**
  * @license GPL-2.0-or-later
  */
-class RenderDiffHelper {
+class ConfirmationFormRenderer {
 
 	private $msgLocalizer;
 
 	public function __construct( MessageLocalizer $msgLocalizer ) {
 		$this->msgLocalizer = $msgLocalizer;
-	}
-
-	public function renderSchemaDiffTable( $diffRowsHTML, Message $leftSideHeading ) {
-		$diffEngine = new DifferenceEngine();
-		return $diffEngine->addHeader(
-			$diffEngine->localiseLineNumbers( $diffRowsHTML ),
-			$leftSideHeading,
-			$this->msgLocalizer->msg( 'yourtext' )
-		);
 	}
 
 	/**
