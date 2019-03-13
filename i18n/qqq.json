@@ -29,6 +29,7 @@
 	"wikibaseschema-error-unsupported-langcode": "Error message that the provided language is not supported.",
 	"wikibaseschema-noschema": "Text that is shown on a non-existant page in the Schema namespace",
 	"wikibaseschema-summary-generated": "The label above the summary input, stating that will be appended to a generated summary.",
+	"wikibaseschema-label-empty": "Text used for the page title when no label for the Schema is defined in the input language.",
 	"wikibaseschema-namebadge-header-language-code": "Header for the language code column of a table showing the “name badges” of a schema.",
 	"wikibaseschema-namebadge-header-label": "Header for the label column of a table showing the “name badges” of a schema.",
 	"wikibaseschema-namebadge-header-description": "Header for the description column of a table showing the “name badges” of a schema.",

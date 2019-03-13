@@ -144,4 +144,39 @@ class WikibaseSchemaContentTest extends MediaWikiTestCase {
 		$this->assertNotContains( 'language code', $html );
 	}
 
+	/**
+	 * @dataProvider provideLabelsAndHeadings
+	 */
+	public function testGetParserOutput_heading( $label, $expected ) {
+		$content = new WikibaseSchemaContent( json_encode( [
+			'labels' => [ 'en' => $label ],
+			'descriptions' => [ 'en' => 'description' ],
+			'aliases' => [ 'en' => [ 'alias' ] ],
+			'schemaText' => '',
+			'serializationVersion' => '3.0',
+		] ) );
+
+		$parserOutput = $content->getParserOutput( Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' ) );
+		$html = $parserOutput->getDisplayTitle();
+
+		$this->assertContains( $expected, $html );
+	}
+
+	public function provideLabelsAndHeadings() {
+		yield 'simple case' => [
+			'english label',
+			'english label',
+		];
+
+		yield 'no HTML injection' => [
+			'<script>alert("english label")</script>',
+			'&lt;script',
+		];
+
+		yield 'fallback if label missing' => [
+			'',
+			'No label defined',
+		];
+	}
+
 }

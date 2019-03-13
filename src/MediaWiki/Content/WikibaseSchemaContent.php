@@ -42,6 +42,9 @@ class WikibaseSchemaContent extends JsonContent {
 				$this->renderNameBadges( $title, $schemaData->nameBadges, $languageCode ) .
 				$this->renderSchemaSection( $title, $schemaData->schemaText )
 			);
+			$output->setDisplayTitle(
+				$this->renderHeading( reset( $schemaData->nameBadges ), $title, $languageCode )
+			);
 		} else {
 			$output->setText( '' );
 		}
@@ -190,6 +193,39 @@ class WikibaseSchemaContent extends JsonContent {
 				[ 'class' => 'edit-icon' ],
 				[ 'action' => 'edit' ]
 			)
+		);
+	}
+
+	private function renderHeading( NameBadge $nameBadge, Title $title, $languageCode ) {
+		if ( $nameBadge->label !== '' ) {
+			$label = Html::element(
+				'span',
+				[ 'class' => 'wbschema-title-label' ],
+				$nameBadge->label
+			);
+		} else {
+			$label = Html::element(
+				'span',
+				[ 'class' => 'wbschema-title-label-empty' ],
+				wfMessage( 'wikibaseschema-label-empty' )
+					->inLanguage( $languageCode )
+					->text()
+			);
+		}
+
+		$id = Html::element(
+			'span',
+			[ 'class' => 'wbschema-title-id' ],
+			wfMessage( 'parentheses' )
+				->plaintextParams( $title->getText() )
+				->inLanguage( $languageCode )
+				->text()
+		);
+
+		return Html::rawElement(
+			'span',
+			[ 'class' => 'wbschema-title' ],
+			$label . ' ' . $id
 		);
 	}
 
