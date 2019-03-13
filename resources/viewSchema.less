@@ -1,3 +1,5 @@
+@import 'mediawiki.ui/variables';
+
 @button-disabled-color: #72777d;
 @ooui-icons: '../../../resources/lib/ooui/themes/wikimediaui/images/icons';
 
@@ -22,6 +24,17 @@
 
 	&:hover:before {
 		opacity: 1;
+	}
+}
+
+.wbschema-title {
+	.wbschema-title-label-empty {
+		color: @colorTextLight;
+	}
+
+	.wbschema-title-id {
+		color: @colorTextLight;
+		font-size: 60%;
 	}
 }
 
