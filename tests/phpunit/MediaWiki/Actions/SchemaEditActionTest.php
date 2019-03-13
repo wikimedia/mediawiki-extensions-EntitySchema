@@ -2,6 +2,7 @@
 
 namespace Wikibase\Schema\Tests\MediaWiki\Actions;
 
+use Config;
 use MediaWikiTestCase;
 use PermissionsError;
 use ReadOnlyError;
@@ -29,6 +30,7 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 		$this->setService( 'ReadOnlyMode', $readOnlyMode );
 		$action = new SchemaEditAction(
 			new WikiPage( Title::newFromDBkey( 'O1' ) ),
+			$this->getMock( Config::class ),
 			new RequestContext()
 		);
 
@@ -46,6 +48,7 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 		$this->setMwGlobals( 'wgGroupPermissions', $groupPermissions );
 		$action = new SchemaEditAction(
 			new WikiPage( Title::newFromDBkey( 'O1' ) ),
+			$this->getMock( Config::class ),
 			new RequestContext()
 		);
 

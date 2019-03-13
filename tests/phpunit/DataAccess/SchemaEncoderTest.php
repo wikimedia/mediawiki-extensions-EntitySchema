@@ -3,8 +3,7 @@
 namespace Wikibase\Schema\Tests\DataAccess;
 
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
+use MediaWikiTestCase;
 use Wikibase\Schema\DataAccess\SchemaEncoder;
 use Wikibase\Schema\Domain\Model\SchemaId;
 
@@ -13,9 +12,7 @@ use Wikibase\Schema\Domain\Model\SchemaId;
  *
  * @license GPL-2.0-or-later
  */
-class SchemaEncoderTest extends TestCase {
-
-	use PHPUnit4And6Compat;
+class SchemaEncoderTest extends MediaWikiTestCase {
 
 	/**
 	 * @dataProvider provideValidArguments
@@ -198,6 +195,23 @@ class SchemaEncoderTest extends TestCase {
 			1,
 			'language, label, description and schemaText must be strings',
 		];
+	}
+
+	public function testSchemaTooLongException() {
+		$this->setMwGlobals( 'wgWBSchemaSchemaTextMaxSizeBytes', 5 );
+
+		$this->setExpectedException(
+			InvalidArgumentException::class,
+			'is longer than'
+		);
+
+		SchemaEncoder::getPersistentRepresentation(
+			new SchemaId( 'O1' ),
+			[],
+			[],
+			[],
+			'123456'
+		);
 	}
 
 }

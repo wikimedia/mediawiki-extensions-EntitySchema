@@ -103,6 +103,18 @@ class NewSchema extends SpecialPage {
 		return $this->msg( 'special-newschema' )->text();
 	}
 
+	public function validateSchemaTextLength( $schemaText ) {
+		$maxLengthBytes = MediaWikiServices::getInstance()->getMainConfig()
+			->get( 'WBSchemaSchemaTextMaxSizeBytes' );
+		$schemaTextLengthBytes = strlen( $schemaText );
+		if ( $schemaTextLengthBytes > $maxLengthBytes ) {
+			return $this->msg( 'wikibaseschema-error-schematext-too-long' )
+				->numParams( $maxLengthBytes, $schemaTextLengthBytes );
+		}
+
+		return true;
+	}
+
 	protected function getGroupName() {
 		return 'wikibase';
 	}
@@ -146,6 +158,7 @@ class NewSchema extends SpecialPage {
 				'id' => 'wbschema-newschema-schema-text',
 				'placeholder' => "<human> {\n  wdt:P31 [wd:Q5]\n}",
 				'label-message' => 'wikibaseschema-newschema-schema-shexc',
+				'validation-callback' => [ $this, 'validateSchemaTextLength' ],
 				'useeditfont' => true,
 			],
 			self::FIELD_LANGUAGE => [

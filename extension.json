@@ -52,6 +52,13 @@
 			"defaultcontentmodel": "wikitext"
 		}
 	],
+	"config": {
+		 "WBSchemaSchemaTextMaxSizeBytes": {
+			 "value": 50000,
+			 "description": "Max length of the Schema text in bytes",
+			 "public": true
+		}
+	},
 	"ResourceModules": {
 		"ext.WikibaseSchema.view": {
 			"styles": [ "viewSchema.less" ],

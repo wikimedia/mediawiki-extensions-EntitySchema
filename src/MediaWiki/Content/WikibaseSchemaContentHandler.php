@@ -8,6 +8,7 @@ use Content;
 use IContextSource;
 use JsonContentHandler;
 use LogicException;
+use MediaWiki\MediaWikiServices;
 use Page;
 use RequestContext;
 use Revision;
@@ -76,7 +77,11 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 				// TODo: check redirect?
 				// !$page->isRedirect()
 
-				return new SchemaEditAction( $page, $context );
+				return new SchemaEditAction(
+					$page,
+					MediaWikiServices::getInstance()->getMainConfig(),
+					$context
+				);
 			},
 			'submit' => function( Page $page, IContextSource $context = null ) {
 				if ( $context === null ) {

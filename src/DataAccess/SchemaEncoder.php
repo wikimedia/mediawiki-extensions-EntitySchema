@@ -4,6 +4,7 @@ namespace Wikibase\Schema\DataAccess;
 
 use InvalidArgumentException;
 use Language;
+use MediaWiki\MediaWikiServices;
 use Wikibase\Schema\Domain\Model\SchemaId;
 
 /**
@@ -90,6 +91,7 @@ class SchemaEncoder {
 			$aliasGroups,
 			$schemaText
 		);
+		self::validateSchemaMaxLength( $schemaText );
 	}
 
 	private static function validateLangCodes(
@@ -130,6 +132,16 @@ class SchemaEncoder {
 			throw new InvalidArgumentException(
 				'language, label, description and schemaText must be strings '
 				. 'and aliases must be an array of strings'
+			);
+		}
+	}
+
+	private static function validateSchemaMaxLength( $schemaText ) {
+		$maxLengthBytes = MediaWikiServices::getInstance()->getMainConfig()
+			->get( 'WBSchemaSchemaTextMaxSizeBytes' );
+		if ( strlen( $schemaText ) > $maxLengthBytes ) {
+			throw new InvalidArgumentException(
+				'Schema text is longer than the allowed max of ' . $maxLengthBytes . ' bytes!'
 			);
 		}
 	}

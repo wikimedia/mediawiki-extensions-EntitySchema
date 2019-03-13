@@ -26,6 +26,7 @@
 	"wikibaseschema-error-wrong-page-revisions": "The provided revision does not belong to the current page.",
 	"wikibaseschema-error-invalid-id": "This ID is invalid.",
 	"wikibaseschema-error-unsupported-langcode": "This language code is not supported.",
+	"wikibaseschema-error-schematext-too-long": "The Schema text you entered is too long. The maximum length is {{PLURAL:$1|one byte|$1 bytes}}. Your text has a length of {{PLURAL:$2|one byte|$2 bytes}}.",
 	"wikibaseschema-noschema": "There is no Schema here. Go to [[Special:NewSchema]] to create a new one.",
 	"wikibaseschema-summary-generated": "Summary (will be appended to an automatically generated summary):",
 	"wikibaseschema-label-empty": "No label defined",
