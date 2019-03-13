@@ -60,6 +60,7 @@
 	"wikibaseschema-special-id-inputlabel": "ID",
 	"wikibaseschema-special-language-inputlabel": "語言代碼",
 	"wikibaseschema-special-id-submit": "設定標籤、描述與別名",
+	"wikibaseschema-special-setlabeldescriptionaliases-info": "您正設定架構[[$3|$2]]裡'''$1'''的標籤、描述與別名。",
 	"wikibaseschema-special-label": "標籤：",
 	"wikibaseschema-special-description": "描述：",
 	"wikibaseschema-special-aliases": "別名，以豎線符號分隔：",

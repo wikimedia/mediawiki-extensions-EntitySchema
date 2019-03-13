@@ -61,6 +61,7 @@
 	"wikibaseschema-special-id-inputlabel": "المعرف",
 	"wikibaseschema-special-language-inputlabel": "رمز اللغة",
 	"wikibaseschema-special-id-submit": "تعيين التسمية والوصف والأسماء المستعارة",
+	"wikibaseschema-special-setlabeldescriptionaliases-info": "أنت تقوم بتعيين التسمية والوصف والأسماء المستعارة ب'''$1''' للمخطط [[$3|$2]].",
 	"wikibaseschema-special-label": "التسمية:",
 	"wikibaseschema-special-description": "الوصف:",
 	"wikibaseschema-special-aliases": "الأسماء المستعارة، مفصولة بأنابيب:",
