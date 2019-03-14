@@ -2,7 +2,6 @@
 
 namespace Wikibase\Schema\MediaWiki\Actions;
 
-use Config;
 use FormAction;
 use IContextSource;
 use Page;
@@ -12,6 +11,7 @@ use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use Wikibase\Schema\Presentation\InputValidator;
 use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 
@@ -23,10 +23,14 @@ class SchemaEditAction extends FormAction {
 	/* public */
 	const FIELD_SCHEMA_TEXT = 'schema-text';
 
-	private $configService;
+	private $inputValidator;
 
-	public function __construct( Page $page, Config $configService, IContextSource $context = null ) {
-		$this->configService = $configService;
+	public function __construct(
+		Page $page,
+		InputValidator $inputValidator,
+		IContextSource $context = null
+	) {
+		$this->inputValidator = $inputValidator;
 		parent::__construct( $page, $context );
 	}
 
@@ -71,17 +75,6 @@ class SchemaEditAction extends FormAction {
 		return Status::newGood();
 	}
 
-	public function validateSchemaTextLength( $schemaText ) {
-		$maxLengthBytes = $this->configService->get( 'WBSchemaSchemaTextMaxSizeBytes' );
-		$schemaTextLengthBytes = strlen( $schemaText );
-		if ( $schemaTextLengthBytes > $maxLengthBytes ) {
-			return $this->msg( 'wikibaseschema-error-schematext-too-long' )
-				->numParams( $maxLengthBytes, $schemaTextLengthBytes );
-		}
-
-		return true;
-	}
-
 	protected function getFormFields() {
 		/** @var WikibaseSchemaContent $content */
 		$content = $this->getContext()->getWikiPage()->getContent();
@@ -97,7 +90,7 @@ class SchemaEditAction extends FormAction {
 				'type' => 'textarea',
 				'default' => $schemaText,
 				'label-message' => 'wikibaseschema-editpage-schema-inputlabel',
-				'validation-callback' => [ $this, 'validateSchemaTextLength' ],
+				'validation-callback' => [ $this->inputValidator, 'validateSchemaTextLength' ],
 			],
 		];
 	}
