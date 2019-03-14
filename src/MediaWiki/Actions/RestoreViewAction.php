@@ -70,7 +70,7 @@ final class RestoreViewAction extends AbstractRestoreAction {
 		$this->getOutput()->addModuleStyles( 'mediawiki.diff.styles' );
 
 		$confFormRenderer = new ConfirmationFormRenderer( $this );
-		$confFormHTML = $confFormRenderer->showConfirmationForm(
+		$confFormHTML = $confFormRenderer->showUndoRestoreConfirmationForm(
 			[
 				'restore' => $restoredRevID,
 			],

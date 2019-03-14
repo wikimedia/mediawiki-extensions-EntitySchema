@@ -35,7 +35,7 @@ class ConfirmationFormRenderer {
 	 *
 	 * @return string
 	 */
-	public function showConfirmationForm(
+	public function showUndoRestoreConfirmationForm(
 		array $args,
 		$formName,
 		Title $title,

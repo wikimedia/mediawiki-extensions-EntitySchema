@@ -63,7 +63,7 @@ class UndoViewAction extends AbstractUndoAction {
 	private function showConfirmationForm( $undidRevision = 0 ) {
 		$req = $this->getRequest();
 		$renderer = new ConfirmationFormRenderer( $this );
-		$confFormHTML = $renderer->showConfirmationForm(
+		$confFormHTML = $renderer->showUndoRestoreConfirmationForm(
 			[
 				'undo' => $req->getInt( 'undo' ),
 				'undoafter' => $req->getInt( 'undoafter' ),
