@@ -17,6 +17,7 @@
 	"wikibaseschema-error-invalid-id": "Questo ID non è valido.",
 	"wikibaseschema-error-unsupported-langcode": "Questo codice lingua non è supportato.",
 	"wikibaseschema-summary-generated": "Oggetto (verrà aggiunto all'oggetto generato automaticamente):",
+	"wikibaseschema-label-empty": "Nessuna etichetta definita",
 	"wikibaseschema-namebadge-header-language-code": "codice lingua",
 	"wikibaseschema-namebadge-header-label": "etichetta",
 	"wikibaseschema-namebadge-header-description": "descrizione",
