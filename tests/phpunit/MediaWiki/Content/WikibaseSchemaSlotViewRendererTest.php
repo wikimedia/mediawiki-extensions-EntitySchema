@@ -117,8 +117,13 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 		);
 		$html = $parserOutput->getText();
 
+		// the "not contains" assertions below may be broken by unrelated changes in the future,
+		// especially the "Edit" one (could be part of some Special:EditSomething URL, for example);
+		// feel free to just remove them in that case if that seems appropriate
 		$this->assertContains( '(wikibaseschema-namebadge-header-language-code)', $html );
 		$this->assertNotContains( 'language code', $html );
+		$this->assertContains( '(wikibaseschema-edit)', $html );
+		$this->assertNotContains( 'Edit', $html );
 	}
 
 	/**

@@ -141,7 +141,7 @@ class WikibaseSchemaSlotViewRenderer {
 			],
 			$this->linkRenderer->makeLink(
 				$specialPageTitleValue,
-				$this->msg( 'wikibaseschema-edit' )->inContentLanguage(),
+				$this->msg( 'wikibaseschema-edit' ),
 				[ 'class' => 'edit-icon' ]
 			)
 		);
@@ -187,7 +187,7 @@ class WikibaseSchemaSlotViewRenderer {
 			],
 			$this->linkRenderer->makeLink(
 				$title,
-				$this->msg( 'wikibaseschema-edit' )->inContentLanguage(),
+				$this->msg( 'wikibaseschema-edit' ),
 				[ 'class' => 'edit-icon' ],
 				[ 'action' => 'edit' ]
 			)
