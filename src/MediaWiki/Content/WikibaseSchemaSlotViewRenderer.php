@@ -6,9 +6,11 @@ use Html;
 use LanguageCode;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\MediaWikiServices;
+use MessageLocalizer;
 use ParserOutput;
 use SpecialPage;
 use Title;
+use Wikibase\Schema\MediaWiki\SpecificLanguageMessageLocalizer;
 use Wikibase\Schema\Services\SchemaDispatcher\FullViewSchemaData;
 use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
 
@@ -17,8 +19,8 @@ use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
  */
 class WikibaseSchemaSlotViewRenderer {
 
-	/** @var string */
-	private $languageCode;
+	/** @var MessageLocalizer */
+	private $messageLocalizer;
 
 	/** @var LinkRenderer */
 	private $linkRenderer;
@@ -27,8 +29,12 @@ class WikibaseSchemaSlotViewRenderer {
 	 * @param string $languageCode The language in which to render the view.
 	 */
 	public function __construct( $languageCode, LinkRenderer $linkRenderer = null ) {
-		$this->languageCode = $languageCode;
+		$this->messageLocalizer = new SpecificLanguageMessageLocalizer( $languageCode );
 		$this->linkRenderer = $linkRenderer ?: MediaWikiServices::getInstance()->getLinkRenderer();
+	}
+
+	private function msg( $key ) {
+		return $this->messageLocalizer->msg( $key );
 	}
 
 	public function fillParserOutput(
@@ -71,8 +77,7 @@ class WikibaseSchemaSlotViewRenderer {
 			$tableHeaders .= Html::element(
 				'th',
 				[],
-				wfMessage( 'wikibaseschema-namebadge-header-' . $key )
-					->inLanguage( $this->languageCode )
+				$this->msg( 'wikibaseschema-namebadge-header-' . $key )
 					->parse()
 			);
 		}
@@ -136,7 +141,7 @@ class WikibaseSchemaSlotViewRenderer {
 			],
 			$this->linkRenderer->makeLink(
 				$specialPageTitleValue,
-				wfMessage( 'wikibaseschema-edit' )->inContentLanguage(),
+				$this->msg( 'wikibaseschema-edit' )->inContentLanguage(),
 				[ 'class' => 'edit-icon' ]
 			)
 		);
@@ -182,7 +187,7 @@ class WikibaseSchemaSlotViewRenderer {
 			],
 			$this->linkRenderer->makeLink(
 				$title,
-				wfMessage( 'wikibaseschema-edit' )->inContentLanguage(),
+				$this->msg( 'wikibaseschema-edit' )->inContentLanguage(),
 				[ 'class' => 'edit-icon' ],
 				[ 'action' => 'edit' ]
 			)
@@ -200,8 +205,7 @@ class WikibaseSchemaSlotViewRenderer {
 			$label = Html::element(
 				'span',
 				[ 'class' => 'wbschema-title-label-empty' ],
-				wfMessage( 'wikibaseschema-label-empty' )
-					->inLanguage( $this->languageCode )
+				$this->msg( 'wikibaseschema-label-empty' )
 					->text()
 			);
 		}
@@ -209,9 +213,8 @@ class WikibaseSchemaSlotViewRenderer {
 		$id = Html::element(
 			'span',
 			[ 'class' => 'wbschema-title-id' ],
-			wfMessage( 'parentheses' )
+			$this->msg( 'parentheses' )
 				->plaintextParams( $title->getText() )
-				->inLanguage( $this->languageCode )
 				->text()
 		);
 
