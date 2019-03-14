@@ -71,6 +71,26 @@ class InputValidatorTest extends MediaWikiTestCase {
 		$this->assertNotTrue( $inputValidator->validateSchemaTextLength( 'abcdä' ) );
 	}
 
+	public function testAliasesLengthPass() {
+		$inputValidator = $this->getInputValidator( 5 );
+		$this->assertTrue( $inputValidator->validateAliasesLength( 'ab | cd | ä' ) );
+	}
+
+	public function testAliasesLengthFail() {
+		$inputValidator = $this->getInputValidator( 5 );
+		$this->assertNotTrue( $inputValidator->validateAliasesLength( 'ab | cd | ef' ) );
+	}
+
+	public function testInputStringLengthPass() {
+		$inputValidator = $this->getInputValidator( 5 );
+		$this->assertTrue( $inputValidator->validateStringInputLength( 'abcdä' ) );
+	}
+
+	public function testInputStringLengthFail() {
+		$inputValidator = $this->getInputValidator( 5 );
+		$this->assertNotTrue( $inputValidator->validateStringInputLength( 'abcdef' ) );
+	}
+
 	private function getInputValidator( $configLengthToReturn = null ): InputValidator {
 		$mockConfig = $this->getMockBuilder(
 			Config::class

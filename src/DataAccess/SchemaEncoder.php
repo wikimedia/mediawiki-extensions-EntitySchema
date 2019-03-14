@@ -91,6 +91,11 @@ class SchemaEncoder {
 			$aliasGroups,
 			$schemaText
 		);
+		self::validateIdentifyingInfoMaxLength(
+			$labels,
+			$descriptions,
+			$aliasGroups
+		);
 		self::validateSchemaMaxLength( $schemaText );
 	}
 
@@ -132,6 +137,34 @@ class SchemaEncoder {
 			throw new InvalidArgumentException(
 				'language, label, description and schemaText must be strings '
 				. 'and aliases must be an array of strings'
+			);
+		}
+	}
+
+	private static function validateIdentifyingInfoMaxLength(
+		array $labels,
+		array $descriptions,
+		array $aliasGroups
+	) {
+		foreach ( $labels as $label ) {
+			self::validateLDAMaxLength( $label );
+		}
+
+		foreach ( $descriptions as $description ) {
+			self::validateLDAMaxLength( $description );
+		}
+
+		foreach ( $aliasGroups as $aliasGroup ) {
+			self::validateLDAMaxLength( implode( '', $aliasGroup ) );
+		}
+	}
+
+	private static function validateLDAMaxLength( $localizedString ) {
+		$maxLengthChars = MediaWikiServices::getInstance()->getMainConfig()
+			->get( 'WBSchemaNameBadgeMaxSizeChars' );
+		if ( mb_strlen( $localizedString ) > $maxLengthChars ) {
+			throw new InvalidArgumentException(
+				'Identifying information is longer than the allowed max of ' . $maxLengthChars . ' characters!'
 			);
 		}
 	}
