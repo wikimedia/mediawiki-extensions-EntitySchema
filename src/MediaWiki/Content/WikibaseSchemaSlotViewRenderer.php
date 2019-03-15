@@ -2,8 +2,10 @@
 
 namespace Wikibase\Schema\MediaWiki\Content;
 
+use Config;
 use Html;
 use LanguageCode;
+use Linker;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\MediaWikiServices;
 use MessageLocalizer;
@@ -25,12 +27,20 @@ class WikibaseSchemaSlotViewRenderer {
 	/** @var LinkRenderer */
 	private $linkRenderer;
 
+	/** @var Config */
+	private $config;
+
 	/**
 	 * @param string $languageCode The language in which to render the view.
 	 */
-	public function __construct( $languageCode, LinkRenderer $linkRenderer = null ) {
+	public function __construct(
+		$languageCode,
+		LinkRenderer $linkRenderer = null,
+		Config $config = null
+	) {
 		$this->messageLocalizer = new SpecificLanguageMessageLocalizer( $languageCode );
 		$this->linkRenderer = $linkRenderer ?: MediaWikiServices::getInstance()->getLinkRenderer();
+		$this->config = $config ?: MediaWikiServices::getInstance()->getMainConfig();
 	}
 
 	private function msg( $key ) {
@@ -174,7 +184,27 @@ class WikibaseSchemaSlotViewRenderer {
 			[
 				'class' => 'wbschema-schema-text-links',
 			],
+			$this->renderSchemaCheckLink( $title ) .
 			$this->renderSchemaEditLink( $title )
+		);
+	}
+
+	private function renderSchemaCheckLink( Title $title ) {
+		$url = $this->config->get( 'WBSchemaShExSimpleUrl' );
+		if ( !$url ) {
+			return '';
+		}
+
+		$schemaTextTitle = Title::makeTitle( NS_SPECIAL, 'SchemaText/' . $title->getText() );
+		$separator = strpos( $url, '?' ) === false ? '?' : '&';
+		$url .= $separator . 'schemaURL=' . wfUrlencode( $schemaTextTitle->getFullURL() );
+
+		return Linker::makeExternalLink(
+			$url,
+			wfMessage( 'wikibaseschema-check-entities' )->inContentLanguage()->parse(),
+			false, // link text already escaped in ->parse()
+			'',
+			[ 'class' => 'wbschema-check-schema' ]
 		);
 	}
 

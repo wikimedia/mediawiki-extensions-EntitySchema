@@ -40,6 +40,7 @@
 	"wikibaseschema-diff-aliases": "Aliases",
 	"wikibaseschema-diff-schema": "Schema",
 	"wikibaseschema-edit": "edit",
+	"wikibaseschema-check-entities": "check entities against this schema",
 	"wikibaseschema-summary-newschema": "Created a new Schema: \"$1\"",
 	"wikibaseschema-summary-update": "Updated Schema",
 	"wikibaseschema-summary-undo": "Undo revision $1 by [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|talk]]): $3",
