@@ -41,6 +41,12 @@
 .wbschema-schema-text-links {
 	float: right;
 	padding: 1em;
+
+	> :not( :first-child ):before {
+		margin-left: 0.5em;
+		content: '|';
+		margin-right: 0.5em;
+	}
 }
 
 .wbschema-edit-button .edit-icon {
