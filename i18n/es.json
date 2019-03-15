@@ -13,7 +13,7 @@
 	"wikibaseschema-error-schemaupdate-failed": "El esquema no puede ser actualizado",
 	"wikibaseschema-error-inconsistent-id": "No todas las revisiones proporcionadas pertenecen al título especificado.",
 	"wikibaseschema-error-wrong-page-revisions": "La revisión provista no pertenece a la página actual.",
-	"wikibaseschema-label-empty": "Ninguna etiqueta definida",
+	"wikibaseschema-label-empty": "No se definió ninguna etiqueta",
 	"wikibaseschema-diff-label": "Etiquetas",
 	"wikibaseschema-diff-description": "Descripciones",
 	"wikibaseschema-diff-aliases": "Alias",

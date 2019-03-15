@@ -17,6 +17,7 @@
 	"wikibaseschema-error-invalid-id": "이 ID는 유효하지 않습니다.",
 	"wikibaseschema-error-unsupported-langcode": "이 언어 코드는 지원되지 않습니다.",
 	"wikibaseschema-summary-generated": "요약 (자동으로 생성되는 요약 뒤에 추가됩니다):",
+	"wikibaseschema-label-empty": "정의된 레이블이 없습니다",
 	"wikibaseschema-namebadge-header-language-code": "언어 코드",
 	"wikibaseschema-namebadge-header-label": "레이블",
 	"wikibaseschema-namebadge-header-description": "설명",
@@ -37,8 +38,10 @@
 	"wikibaseschema-schematext-missing": "존재하지 않거나 삭제된 스키마: $1.",
 	"wikibaseschema-special-id-inputlabel": "ID",
 	"wikibaseschema-special-language-inputlabel": "언어 코드",
+	"wikibaseschema-special-id-submit": "레이블, 설명, 다른 이름 설정하기",
 	"wikibaseschema-special-setlabeldescriptionaliases-info": "[[$3|$2]] 스키마의 '''$1'''의 레이블, 설명, 다른 이름을 설정하고 있습니다.",
 	"wikibaseschema-special-label": "레이블:",
 	"wikibaseschema-special-description": "설명:",
+	"wikibaseschema-special-aliases": "다른 이름, 파이프로 구분:",
 	"wikibaseschema-special-id-placeholder": "스키마 ID"
 }
