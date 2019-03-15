@@ -53,11 +53,11 @@
 		}
 	],
 	"config": {
-		 "WBSchemaSchemaTextMaxSizeBytes": {
-			 "value": 50000,
-			 "description": "Max length of the Schema text in bytes",
-			 "public": true
-		 },
+		"WBSchemaSchemaTextMaxSizeBytes": {
+			"value": 50000,
+			"description": "Max length of the Schema text in bytes",
+			"public": true
+		},
 		"WBSchemaShExSimpleUrl": {
 			"value": null,
 			"description": "The URL for a shex-simple installation. Users are sent here to check entities against schema, with a schemaURL=… url query parameter appended to the URL specifying a URL for the schema text.",
