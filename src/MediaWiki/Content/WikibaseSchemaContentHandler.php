@@ -161,4 +161,19 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 		) );
 	}
 
+	/**
+	 * Returns true to indicate that the parser cache can be used for Schemas.
+	 *
+	 * @note: The html representation of Schemas depends on the user language, so
+	 * WikibaseSchemaContent::getParserOutput needs to make sure
+	 * ParserOutput::recordOption( 'userlang' ) is called to split the cache by user language.
+	 *
+	 * @see ContentHandler::isParserCacheSupported
+	 *
+	 * @return bool Always true in this default implementation.
+	 */
+	public function isParserCacheSupported() {
+		return true;
+	}
+
 }
