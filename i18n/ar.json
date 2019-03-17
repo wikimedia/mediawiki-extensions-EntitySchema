@@ -41,6 +41,7 @@
 	"wikibaseschema-diff-aliases": "الأسماء المستعارة",
 	"wikibaseschema-diff-schema": "المخطط",
 	"wikibaseschema-edit": "تعديل",
+	"wikibaseschema-check-entities": "تحقق من الكيانات مقابل هذا المخطط",
 	"wikibaseschema-summary-newschema": "إنشاء مخطط جديد: \"$1\"",
 	"wikibaseschema-summary-update": "تحديث المخطط",
 	"wikibaseschema-summary-undo": "الرجوع عن التعديل $1 بواسطة [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|talk]]): $3",

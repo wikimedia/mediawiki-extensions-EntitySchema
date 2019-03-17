@@ -4,5 +4,17 @@
 			"Shirayuki"
 		]
 	},
-	"wikibaseschema-edit": "編集"
+	"wikibaseschema-newschema-label": "ラベル:",
+	"wikibaseschema-newschema-submit": "作成",
+	"wikibaseschema-namebadge-header-language-code": "言語コード",
+	"wikibaseschema-namebadge-header-label": "ラベル",
+	"wikibaseschema-namebadge-header-aliases": "別名",
+	"wikibaseschema-namebadge-header-edit": "編集",
+	"wikibaseschema-diff-label": "ラベル",
+	"wikibaseschema-diff-aliases": "別名",
+	"wikibaseschema-edit": "編集",
+	"wikibaseschema-restoreold": "復元",
+	"wikibaseschema-special-id-inputlabel": "ID",
+	"wikibaseschema-special-language-inputlabel": "言語コード",
+	"wikibaseschema-special-label": "ラベル:"
 }

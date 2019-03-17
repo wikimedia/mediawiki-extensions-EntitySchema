@@ -40,6 +40,7 @@
 	"wikibaseschema-diff-aliases": "Aliasse",
 	"wikibaseschema-diff-schema": "Schema",
 	"wikibaseschema-edit": "Bearbeiten",
+	"wikibaseschema-check-entities": "Objekte gegen dieses Schema überprüfen",
 	"wikibaseschema-summary-newschema": "Neues Schema erstellt: „$1“",
 	"wikibaseschema-summary-update": "Schema aktualisiert",
 	"wikibaseschema-summary-undo": "Version $1 von [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|Diskussion]]) wurde rückgängig gemacht: $3",

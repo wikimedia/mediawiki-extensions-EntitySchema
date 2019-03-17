@@ -19,6 +19,7 @@
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
 	"wikibaseschema-error-schemadeleted": "Düzenlemeye çalıştığınız şema mevcut değil. Belki silindi?",
 	"wikibaseschema-noschema": "Burada şema yok. Yeni bir tane oluşturmak için [[Special:NewSchema|Özel:YeniŞema]]'ya gidin.",
+	"wikibaseschema-check-entities": "varlıkları bu şemaya karşı kontrol et",
 	"wikibaseschema-special-label": "Etiket:",
 	"wikibaseschema-special-description": "Açıklama:",
 	"wikibaseschema-special-aliases": "Diğer adları (düşey çubukla ayırın):"

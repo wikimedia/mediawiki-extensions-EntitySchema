@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Michaelbrabec"
+		]
+	},
+	"wikibaseschema-namebadge-header-language-code": "kód jazyka",
+	"wikibaseschema-namebadge-header-label": "štítek",
+	"wikibaseschema-namebadge-header-description": "popis",
+	"wikibaseschema-namebadge-header-aliases": "aliasy",
+	"wikibaseschema-namebadge-header-edit": "editovat"
+}
