@@ -27,6 +27,7 @@
 	"wikibaseschema-error-wrong-page-revisions": "Error message when a given revision (e.g. for restoring) does not belong to the current page.",
 	"wikibaseschema-error-invalid-id": "Error message that the provided ID is invalid.",
 	"wikibaseschema-error-unsupported-langcode": "Error message that the provided language is not supported.",
+	"wikibaseschema-error-one-more-message-available": "Error message informing the user that the submission of a form has failed and that there is a more detailed error message available below.",
 	"wikibaseschema-error-schematext-too-long": "Error message when the Schema text is too long.\n\nParameters:\n* $1 - the maximum allowed length of the Schema text in bytes\n* $2 - the length of the schema text submitted by the user in bytes",
 	"wikibaseschema-noschema": "Text that is shown on a non-existant page in the Schema namespace",
 	"wikibaseschema-summary-generated": "The label above the summary input, stating that will be appended to a generated summary.",

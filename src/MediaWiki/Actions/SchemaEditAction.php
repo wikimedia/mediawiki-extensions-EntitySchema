@@ -3,6 +3,7 @@
 namespace Wikibase\Schema\MediaWiki\Actions;
 
 use FormAction;
+use HTMLForm;
 use IContextSource;
 use Page;
 use RuntimeException;
@@ -73,6 +74,10 @@ class SchemaEditAction extends FormAction {
 		}
 
 		return Status::newGood();
+	}
+
+	protected function alterForm( HTMLForm $form ) {
+		$form->setValidationErrorMessage( [ [ 'wikibaseschema-error-one-more-message-available' ] ] );
 	}
 
 	protected function getFormFields() {
