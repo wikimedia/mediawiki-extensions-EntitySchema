@@ -41,6 +41,7 @@
 	"wikibaseschema-diff-aliases": "Label designating the change in the Aliases when viewing a diff of two Schemas",
 	"wikibaseschema-diff-schema": "Label designating the change in the Schema text when viewing a diff of two Schemas",
 	"wikibaseschema-edit": "Generic text used for links that lead to an edit form for a specific part of a Schema.\n{{Identical|edit}}",
+	"wikibaseschema-add-schema-text": "Text used for the link to the edit form to add the Schema text on a Schema page without any text so far.",
 	"wikibaseschema-check-entities": "Text used for a link that leads to an external tool where entities can be checked against the current schema.",
 	"wikibaseschema-summary-newschema": "A generic message for the recent changes or page history, stating that the Schema was created. \n\nParameters:\n* $1 - the label of the Schema",
 	"wikibaseschema-summary-update": "A generic message used when different parts of a Schema may have been updated.",

@@ -50,7 +50,7 @@ class WikibaseSchemaContentTest extends MediaWikiTestCase {
 			'labels' => [ 'en' => 'label' ],
 			'descriptions' => [ 'en' => 'description' ],
 			'aliases' => [ 'en' => [ 'alias' ] ],
-			'schemaText' => '',
+			'schemaText' => 'Some text must be present for link to show',
 			'serializationVersion' => '3.0',
 		] ) );
 		$this->setMwGlobals( 'wgWBSchemaShExSimpleUrl', $shExSimpleUrl );

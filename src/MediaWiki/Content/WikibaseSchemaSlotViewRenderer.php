@@ -158,12 +158,14 @@ class WikibaseSchemaSlotViewRenderer {
 	}
 
 	private function renderSchemaSection( Title $title, $schemaText ) {
+		$schemaSectionContent = $schemaText
+			? $this->renderSchemaTextLinks( $title ) . $this->renderSchemaText( $schemaText )
+			: $this->renderSchemaAddTextLink( $title );
 		return Html::rawElement( 'div', [
 			'id' => 'wbschema-schema-view-section',
 			'class' => 'wbschema-section',
 		],
-			$this->renderSchemaTextLinks( $title ) .
-			$this->renderSchemaText( $schemaText )
+			$schemaSectionContent
 		);
 	}
 
@@ -205,6 +207,22 @@ class WikibaseSchemaSlotViewRenderer {
 			false, // link text already escaped in ->parse()
 			'',
 			[ 'class' => 'wbschema-check-schema' ]
+		);
+	}
+
+	private function renderSchemaAddTextLink( Title $title ) {
+		return Html::rawElement(
+			'span',
+			[
+				'id' => 'wbschema-edit-schema-text',
+				'class' => 'wbschema-edit-button',
+			],
+			$this->linkRenderer->makeLink(
+				$title,
+				$this->msg( 'wikibaseschema-add-schema-text' ),
+				[ 'class' => 'add-icon' ],
+				[ 'action' => 'edit' ]
+			)
 		);
 	}
 
