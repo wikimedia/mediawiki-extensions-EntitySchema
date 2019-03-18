@@ -10,6 +10,7 @@ use MessageLocalizer;
 use \RuntimeException;
 use MediaWiki\Storage\PageUpdater;
 use stdClass;
+use Wikibase\Schema\DataAccess\EditConflict;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
@@ -249,6 +250,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$this->expectException( InvalidArgumentException::class );
 		$writer->updateSchemaText(
 			new SchemaId( 'O1' ),
+			null,
 			null
 		);
 	}
@@ -279,7 +281,25 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->expectException( DomainException::class );
-		$writer->updateSchemaText( new SchemaId( 'O1' ), '' );
+		$writer->updateSchemaText( new SchemaId( 'O1' ), '', null );
+	}
+
+	public function testUpdateSchemaText_throwsForEditConflict() {
+		$revisionRecord = $this->createMock( RevisionRecord::class );
+		$revisionRecord->method( 'getId' )->willReturn( 2 );
+		$pageUpdater = $this->createMock( PageUpdater::class );
+		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
+		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
+		$idGenerator = $this->createMock( IdGenerator::class );
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater(),
+			$idGenerator
+		);
+
+		$this->expectException( EditConflict::class );
+		$writer->updateSchemaText( new SchemaId( 'O1' ), '', 1 );
 	}
 
 	public function testUpdateSchema_WritesExpectedContentForOverwritingSchemaText() {
@@ -318,7 +338,8 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 
 		$writer->updateSchemaText(
 			new SchemaId( $id ),
-			$newSchemaText
+			$newSchemaText,
+			null
 		);
 	}
 

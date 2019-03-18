@@ -20,6 +20,7 @@
 	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
 	"wikibaseschema-error-schemadeleted": "The schema you tried to edit doesn't exist. Maybe it was deleted?",
 	"wikibaseschema-error-schemaupdate-failed": "The Schema could not be updated",
+	"wikibaseschema-error-schematext-conflict": "This Schema was changed in the meantime. Please return to the Schema page and try to edit it again.",
 	"wikibaseschema-error-saving-failed": "Saving the Schema failed with the following message: $1",
 	"wikibaseschema-error-not-post": "This action must be done with a post request.",
 	"wikibaseschema-error-inconsistent-id": "The provided revisions do not all belong to the given title.",

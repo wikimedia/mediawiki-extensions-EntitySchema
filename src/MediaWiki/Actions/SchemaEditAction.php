@@ -5,24 +5,26 @@ namespace Wikibase\Schema\MediaWiki\Actions;
 use FormAction;
 use HTMLForm;
 use IContextSource;
+use MediaWiki\Revision\SlotRecord;
 use Page;
 use RuntimeException;
 use Status;
+use Wikibase\Schema\DataAccess\EditConflict;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use Wikibase\Schema\Presentation\InputValidator;
 use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 
 /**
  * Edit a Wikibase Schema via the mediawiki editing action
  */
 class SchemaEditAction extends FormAction {
 
-	/* public */
-	const FIELD_SCHEMA_TEXT = 'schema-text';
+	/* public */ const FIELD_SCHEMA_TEXT = 'schema-text';
+	/* public */ const FIELD_BASE_REV = 'base-rev';
 
 	private $inputValidator;
 
@@ -67,8 +69,11 @@ class SchemaEditAction extends FormAction {
 		try {
 			$schemaWriter->updateSchemaText(
 				$id,
-				$data[self::FIELD_SCHEMA_TEXT]
+				$data[self::FIELD_SCHEMA_TEXT],
+				(int)$data[self::FIELD_BASE_REV]
 			);
+		} catch ( EditConflict $e ) {
+			return Status::newFatal( 'wikibaseschema-error-schematext-conflict' );
 		} catch ( RunTimeException $e ) {
 			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
 		}
@@ -81,14 +86,19 @@ class SchemaEditAction extends FormAction {
 	}
 
 	protected function getFormFields() {
-		/** @var WikibaseSchemaContent $content */
-		$content = $this->getContext()->getWikiPage()->getContent();
-		if ( !$content ) {
+		$currentRevRecord = $this->context->getWikiPage()->getRevisionRecord();
+		if ( !$currentRevRecord ) {
 			throw new RuntimeException( $this->msg( 'wikibaseschema-error-schemadeleted' ) );
 		}
 
+		/** @var WikibaseSchemaContent $content */
+		$content = $currentRevRecord->getContent( SlotRecord::MAIN );
 		// @phan-suppress-next-line PhanUndeclaredMethod
 		$schemaText = ( new SchemaConverter() )->getSchemaText( $content->getText() );
+		$baseRev = $this->context->getRequest()->getInt(
+			'wp' . self::FIELD_BASE_REV,
+			$currentRevRecord->getId()
+		);
 
 		return [
 			self::FIELD_SCHEMA_TEXT => [
@@ -96,6 +106,10 @@ class SchemaEditAction extends FormAction {
 				'default' => $schemaText,
 				'label-message' => 'wikibaseschema-editpage-schema-inputlabel',
 				'validation-callback' => [ $this->inputValidator, 'validateSchemaTextLength' ],
+			],
+			self::FIELD_BASE_REV => [
+				'type' => 'hidden',
+				'default' => $baseRev,
 			],
 		];
 	}

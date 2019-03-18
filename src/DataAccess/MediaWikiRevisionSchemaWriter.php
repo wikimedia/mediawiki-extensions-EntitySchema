@@ -187,11 +187,13 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 	/**
 	 * @param SchemaId $id
 	 * @param string $schemaText
+	 * @param int $baseRevId
 	 *
-	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 * @throws InvalidArgumentException if bad parameters are passed
+	 * @throws EditConflict if another revision has been saved after $baseRevId
+	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 */
-	public function updateSchemaText( SchemaId $id, $schemaText ) {
+	public function updateSchemaText( SchemaId $id, $schemaText, $baseRevId ) {
 		if ( !is_string( $schemaText ) ) {
 			throw new InvalidArgumentException( 'schema text must be a string' );
 		}
@@ -199,6 +201,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
 		$this->checkSchemaExists( $parentRevision );
+		$this->checkEditConflict( $parentRevision, $baseRevId );
 
 		/** @var WikibaseSchemaContent $content */
 		$content = $parentRevision->getContent( SlotRecord::MAIN );
@@ -206,8 +209,6 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		// @phan-suppress-next-line PhanUndeclaredMethod
 		$schemaData = $converter->getPersistenceSchemaData( $content->getText() );
 		$schemaData->schemaText = $schemaText;
-
-		// TODO check $updater->hasEditConflict()! (T217338)
 
 		$updater->setContent(
 			SlotRecord::MAIN,
@@ -228,6 +229,18 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		), EDIT_UPDATE | EDIT_INTERNAL );
 
 		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
+	}
+
+	/**
+	 * @param RevisionRecord $parentRevisionRecord
+	 * @param int $baseRevId
+	 *
+	 * @throws EditConflict
+	 */
+	private function checkEditConflict( RevisionRecord $parentRevisionRecord, $baseRevId ) {
+		if ( $parentRevisionRecord->getId() !== $baseRevId ) {
+			throw new EditConflict();
+		}
 	}
 
 	/**

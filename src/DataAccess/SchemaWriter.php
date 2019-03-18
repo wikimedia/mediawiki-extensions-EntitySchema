@@ -69,13 +69,16 @@ interface SchemaWriter {
 	/**
 	 * @param SchemaId $id
 	 * @param string $schemaText
+	 * @param int $baseRevId id of the base revision for detecting edit conflicts.
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
+	 * @throws EditConflict if another revision has been saved after $baseRevId
 	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 */
 	public function updateSchemaText(
 		SchemaId $id,
-		$schemaText
+		$schemaText,
+		$baseRevId
 	);
 
 }
