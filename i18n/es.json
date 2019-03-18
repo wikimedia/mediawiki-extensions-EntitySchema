@@ -20,7 +20,7 @@
 	"wikibaseschema-restore-bad-revisions": "No se pudo restaurar la edición porque no existe o se borró.",
 	"wikibaseschema-restore-empty": "La revisión que se intentó restaurar es idéntica a la actual. No se hará nada.",
 	"wikibaseschema-restoreold": "restaurar",
-	"wikibaseschema-special-setlabeldescriptionaliases-info": "Estás poniendo etiqueta, descripción y alias en '''$1''' para Schema [[$3|$2]].",
+	"wikibaseschema-special-setlabeldescriptionaliases-info": "Estás por establecer la etiqueta, la descripción y los alias en '''$1''' del esquema [[$3|$2]].",
 	"wikibaseschema-special-label": "Etiqueta:",
 	"wikibaseschema-special-description": "Descripción:",
 	"wikibaseschema-special-aliases": "Alias (separados por plecas):"

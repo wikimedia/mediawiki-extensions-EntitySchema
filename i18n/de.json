@@ -40,6 +40,7 @@
 	"wikibaseschema-diff-aliases": "Aliasse",
 	"wikibaseschema-diff-schema": "Schema",
 	"wikibaseschema-edit": "Bearbeiten",
+	"wikibaseschema-add-schema-text": "Schematext hinzufügen",
 	"wikibaseschema-check-entities": "Objekte gegen dieses Schema überprüfen",
 	"wikibaseschema-summary-newschema": "Neues Schema erstellt: „$1“",
 	"wikibaseschema-summary-update": "Schema aktualisiert",

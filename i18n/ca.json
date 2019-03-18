@@ -8,6 +8,9 @@
 	"wikibaseschema-newschema-description": "Descripció:",
 	"wikibaseschema-newschema-submit": "Crea",
 	"wikibaseschema-error-inconsistent-id": "No totes les revisions proporcionades pertanyen al títol donat.",
+	"wikibaseschema-namebadge-header-label": "etiqueta",
+	"wikibaseschema-namebadge-header-description": "descripció",
+	"wikibaseschema-namebadge-header-aliases": "àlies",
 	"wikibaseschema-restore-heading-failed": "Ha fallat la restauració",
 	"wikibaseschema-restoreold": "restaura",
 	"wikibaseschema-special-description": "Descripció:"

@@ -7,10 +7,18 @@
 	"wikibaseschema-newschema-label": "Etikett:",
 	"wikibaseschema-newschema-description": "Beschreiwung:",
 	"wikibaseschema-label-empty": "Keng Etikett definéiert",
+	"wikibaseschema-namebadge-header-language-code": "Sproochcode",
+	"wikibaseschema-namebadge-header-label": "Etikett",
+	"wikibaseschema-namebadge-header-description": "Beschreiwung",
+	"wikibaseschema-namebadge-header-aliases": "Aliasen",
+	"wikibaseschema-namebadge-header-edit": "änneren",
 	"wikibaseschema-diff-label": "Etiketten",
 	"wikibaseschema-diff-description": "Beschreiwungen",
 	"wikibaseschema-diff-aliases": "Aliasen",
 	"wikibaseschema-diff-schema": "Schema",
+	"wikibaseschema-edit": "änneren",
+	"wikibaseschema-special-id-inputlabel": "Nummer (ID)",
+	"wikibaseschema-special-language-inputlabel": "Sproochcode",
 	"wikibaseschema-special-label": "Etikett:",
 	"wikibaseschema-special-description": "Beschreiwung:"
 }
