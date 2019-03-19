@@ -2,7 +2,6 @@
 
 namespace Wikibase\Schema\Tests\MediaWiki\Actions;
 
-use Config;
 use MediaWikiTestCase;
 use PermissionsError;
 use ReadOnlyError;
@@ -10,6 +9,7 @@ use ReadOnlyMode;
 use RequestContext;
 use Title;
 use Wikibase\Schema\MediaWiki\Actions\SchemaEditAction;
+use Wikibase\Schema\Presentation\InputValidator;
 use WikiPage;
 
 /**
@@ -30,7 +30,8 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 		$this->setService( 'ReadOnlyMode', $readOnlyMode );
 		$action = new SchemaEditAction(
 			new WikiPage( Title::newFromDBkey( 'O1' ) ),
-			$this->getMock( Config::class ),
+			$this->getMockBuilder( InputValidator::class )
+				->disableOriginalConstructor()->getMock(),
 			new RequestContext()
 		);
 
@@ -48,7 +49,8 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 		$this->setMwGlobals( 'wgGroupPermissions', $groupPermissions );
 		$action = new SchemaEditAction(
 			new WikiPage( Title::newFromDBkey( 'O1' ) ),
-			$this->getMock( Config::class ),
+			$this->getMockBuilder( InputValidator::class )
+				->disableOriginalConstructor()->getMock(),
 			new RequestContext()
 		);
 

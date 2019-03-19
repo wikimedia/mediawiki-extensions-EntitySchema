@@ -15,6 +15,7 @@ use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\DataAccess\SqlIdGenerator;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
+use Wikibase\Schema\Presentation\InputValidator;
 
 /**
  * Page for creating a new Wikibase Schema.
@@ -103,18 +104,6 @@ class NewSchema extends SpecialPage {
 		return $this->msg( 'special-newschema' )->text();
 	}
 
-	public function validateSchemaTextLength( $schemaText ) {
-		$maxLengthBytes = MediaWikiServices::getInstance()->getMainConfig()
-			->get( 'WBSchemaSchemaTextMaxSizeBytes' );
-		$schemaTextLengthBytes = strlen( $schemaText );
-		if ( $schemaTextLengthBytes > $maxLengthBytes ) {
-			return $this->msg( 'wikibaseschema-error-schematext-too-long' )
-				->numParams( $maxLengthBytes, $schemaTextLengthBytes );
-		}
-
-		return true;
-	}
-
 	protected function getGroupName() {
 		return 'wikibase';
 	}
@@ -158,7 +147,10 @@ class NewSchema extends SpecialPage {
 				'id' => 'wbschema-newschema-schema-text',
 				'placeholder' => "<human> {\n  wdt:P31 [wd:Q5]\n}",
 				'label-message' => 'wikibaseschema-newschema-schema-shexc',
-				'validation-callback' => [ $this, 'validateSchemaTextLength' ],
+				'validation-callback' => [
+					InputValidator::newFromGlobalState(),
+					'validateSchemaTextLength'
+				],
 				'useeditfont' => true,
 			],
 			self::FIELD_LANGUAGE => [

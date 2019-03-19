@@ -17,6 +17,7 @@ use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
+use Wikibase\Schema\Presentation\InputValidator;
 use Wikibase\Schema\Services\SchemaConverter\NameBadge;
 use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 use WikiPage;
@@ -179,6 +180,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	}
 
 	private function getSchemaSelectionFormFields( $defaultId, $defaultLanguage ) {
+		$inputValidator = InputValidator::newFromGlobalState();
 		return [
 			self::FIELD_ID => [
 				'name' => self::FIELD_ID,
@@ -188,7 +190,10 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'default' => $defaultId ?: '',
 				'placeholder-message' => 'wikibaseschema-special-id-placeholder',
 				'label-message' => 'wikibaseschema-special-id-inputlabel',
-				'validation-callback' => [ $this, 'validateID' ],
+				'validation-callback' => [
+					$inputValidator,
+					'validateIDExists'
+				],
 			],
 			self::FIELD_LANGUAGE => [
 				'name' => self::FIELD_LANGUAGE,
@@ -197,30 +202,12 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'required' => true,
 				'default' => $defaultLanguage,
 				'label-message' => 'wikibaseschema-special-language-inputlabel',
-				'validation-callback' => [ $this, 'validateLangCode' ],
+				'validation-callback' => [
+					$inputValidator,
+					'validateLangCodeIsSupported'
+				],
 			],
 		];
-	}
-
-	public function validateID( $id ) {
-		try {
-			$schemaId = new SchemaId( $id );
-		} catch ( InvalidArgumentException $e ) {
-			return $this->msg( 'wikibaseschema-error-invalid-id' );
-		}
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId->getId() );
-		if ( !$title->exists() ) {
-			return $this->msg( 'wikibaseschema-error-schemadeleted' );
-		}
-
-		return true;
-	}
-
-	public function validateLangCode( $langCode ) {
-		if ( !Language::isSupportedLanguage( $langCode ) ) {
-			return $this->msg( 'wikibaseschema-error-unsupported-langcode' );
-		}
-		return true;
 	}
 
 	private function getEditFormFields( SchemaId $id, $badgeLangCode, NameBadge $nameBadge ) {
@@ -291,7 +278,11 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		if ( $id === null || $language === null ) {
 			return false;
 		}
-		if ( $this->validateID( $id ) !== true || $this->validateLangCode( $language ) !== true ) {
+		$inputValidator = InputValidator::newFromGlobalState();
+		if (
+			$inputValidator->validateIDExists( $id ) !== true
+			|| $inputValidator->validateLangCodeIsSupported( $language ) !== true
+		) {
 			return false;
 		}
 		return true;

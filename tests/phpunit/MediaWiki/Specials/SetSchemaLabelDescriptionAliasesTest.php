@@ -44,48 +44,6 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		return new SetSchemaLabelDescriptionAliases();
 	}
 
-	public function testValidateId() {
-		$this->createTestSchema();
-
-		$setSchemaInfo = $this->newSpecialPage();
-		$this->assertTrue( $setSchemaInfo->validateID( 'O123' ) );
-	}
-
-	public function testValidateIdEmpty() {
-		$this->createTestSchema();
-
-		$setSchemaInfo = $this->newSpecialPage();
-		$this->assertNotTrue( $setSchemaInfo->validateID( '' ) );
-	}
-
-	public function testValidateIdWrongId() {
-		$this->createTestSchema();
-
-		$setSchemaInfo = $this->newSpecialPage();
-		$this->assertNotTrue( $setSchemaInfo->validateID( 'bla' ) );
-	}
-
-	public function testValidateLangCode() {
-		$this->createTestSchema();
-
-		$setSchemaInfo = $this->newSpecialPage();
-		$this->assertTrue( $setSchemaInfo->validateLangCode( 'de' ) );
-	}
-
-	public function testValidateLangCodeEmpty() {
-		$this->createTestSchema();
-
-		$setSchemaInfo = $this->newSpecialPage();
-		$this->assertNotTrue( $setSchemaInfo->validateLangCode( '' ) );
-	}
-
-	public function testValidateLangCodeWrongCode() {
-		$this->createTestSchema();
-
-		$setSchemaInfo = $this->newSpecialPage();
-		$this->assertNotTrue( $setSchemaInfo->validateLangCode( 'i do not exist' ) );
-	}
-
 	public function testSubmitEditFormCallbackCorrectId() {
 		$this->createTestSchema();
 

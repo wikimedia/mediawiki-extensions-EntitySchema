@@ -21,6 +21,7 @@ use Wikibase\Schema\MediaWiki\Actions\SchemaSubmitAction;
 use Wikibase\Schema\MediaWiki\Actions\UndoSubmitAction;
 use Wikibase\Schema\MediaWiki\Actions\UndoViewAction;
 use Wikibase\Schema\MediaWiki\UndoHandler;
+use Wikibase\Schema\Presentation\InputValidator;
 use WikiPage;
 
 /**
@@ -76,10 +77,12 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 
 				// TODo: check redirect?
 				// !$page->isRedirect()
-
 				return new SchemaEditAction(
 					$page,
-					MediaWikiServices::getInstance()->getMainConfig(),
+					new InputValidator(
+						$context,
+						MediaWikiServices::getInstance()->getMainConfig()
+					),
 					$context
 				);
 			},
