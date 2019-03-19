@@ -4,8 +4,8 @@ namespace Wikibase\Schema\DataAccess;
 
 use CommentStoreComment;
 use InvalidArgumentException;
+use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
-use MediaWiki\Storage\PageUpdater;
 use Message;
 use MessageLocalizer;
 use RuntimeException;
@@ -107,7 +107,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		}
 
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
-		$this->checkSchemaExists( $updater );
+		$this->checkSchemaExists( $updater->grabParentRevision() );
 
 		// TODO check $updater->hasEditConflict()! (T217338)
 
@@ -143,9 +143,10 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 	) {
 
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
-		$this->checkSchemaExists( $updater );
+		$parentRevision = $updater->grabParentRevision();
+		$this->checkSchemaExists( $parentRevision );
 		/** @var WikibaseSchemaContent $content */
-		$content = $updater->grabParentRevision()->getContent( SlotRecord::MAIN );
+		$content = $parentRevision->getContent( SlotRecord::MAIN );
 
 		// TODO check $updater->hasEditConflict()! (T217338)
 
@@ -196,10 +197,11 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		}
 
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
-		$this->checkSchemaExists( $updater );
+		$parentRevision = $updater->grabParentRevision();
+		$this->checkSchemaExists( $parentRevision );
 
 		/** @var WikibaseSchemaContent $content */
-		$content = $updater->grabParentRevision()->getContent( SlotRecord::MAIN );
+		$content = $parentRevision->getContent( SlotRecord::MAIN );
 		$converter = new SchemaConverter();
 		// @phan-suppress-next-line PhanUndeclaredMethod
 		$schemaData = $converter->getPersistenceSchemaData( $content->getText() );
@@ -229,12 +231,12 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 	}
 
 	/**
-	 * @param PageUpdater $updater
+	 * @param RevisionRecord|null $parentRevision if null, an exception will be thrown
 	 *
 	 * @throws RuntimeException
 	 */
-	private function checkSchemaExists( PageUpdater $updater ) {
-		if ( $updater->grabParentRevision() === null ) {
+	private function checkSchemaExists( RevisionRecord $parentRevision = null ) {
+		if ( $parentRevision === null ) {
 			throw new RuntimeException( 'Schema to update does not exist' );
 		}
 	}
