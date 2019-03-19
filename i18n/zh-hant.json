@@ -40,6 +40,7 @@
 	"wikibaseschema-diff-aliases": "別名",
 	"wikibaseschema-diff-schema": "架構",
 	"wikibaseschema-edit": "編輯",
+	"wikibaseschema-add-schema-text": "添加架構文字",
 	"wikibaseschema-check-entities": "檢查針對此架構的實體",
 	"wikibaseschema-summary-newschema": "已建立新架構：「$1」",
 	"wikibaseschema-summary-update": "更新架構",

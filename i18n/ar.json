@@ -41,6 +41,7 @@
 	"wikibaseschema-diff-aliases": "الأسماء المستعارة",
 	"wikibaseschema-diff-schema": "المخطط",
 	"wikibaseschema-edit": "تعديل",
+	"wikibaseschema-add-schema-text": "إضافة نص المخطط",
 	"wikibaseschema-check-entities": "تحقق من الكيانات مقابل هذا المخطط",
 	"wikibaseschema-summary-newschema": "إنشاء مخطط جديد: \"$1\"",
 	"wikibaseschema-summary-update": "تحديث المخطط",
