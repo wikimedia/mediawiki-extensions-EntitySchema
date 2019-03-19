@@ -98,6 +98,20 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 				':O16354758&amp;action=edit'
 			]
 		];
+
+		yield 'edit schema link' => [
+			new FullViewSchemaData( [
+				'en' => new NameBadge( '', 'english description', [] ),
+			], 'some schema text' ),
+			[ '>edit</', 'action=edit' ],
+		];
+
+		yield 'add schema link' => [
+			new FullViewSchemaData( [
+				'en' => new NameBadge( '', 'english description', [] ),
+			], $emptySchemaText ),
+			[ '>add Schema text</', 'action=edit' ],
+		];
 	}
 
 	public function testFillParserOutput_differentLanguage() {
