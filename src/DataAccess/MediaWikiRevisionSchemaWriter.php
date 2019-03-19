@@ -139,16 +139,16 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		$langCode,
 		$label,
 		$description,
-		array $aliases
+		array $aliases,
+		$baseRevId
 	) {
 
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
 		$this->checkSchemaExists( $parentRevision );
+		$this->checkEditConflict( $parentRevision, $baseRevId );
 		/** @var WikibaseSchemaContent $content */
 		$content = $parentRevision->getContent( SlotRecord::MAIN );
-
-		// TODO check $updater->hasEditConflict()! (T217338)
 
 		$converter = new SchemaConverter();
 		// @phan-suppress-next-line PhanUndeclaredMethod

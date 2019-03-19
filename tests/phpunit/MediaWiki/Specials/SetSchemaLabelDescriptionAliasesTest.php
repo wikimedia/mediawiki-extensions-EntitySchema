@@ -54,6 +54,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			'description' => '',
 			'aliases' => 'foo | bar | baz',
 			'schema-shexc' => 'abc',
+			'base-rev' => $this->getCurrentSchemaRevisionId( 'O123' ),
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -73,6 +74,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			SetSchemaLabelDescriptionAliases::FIELD_DESCRIPTION => 'Eine Beschreibung auf deutsch.',
 			SetSchemaLabelDescriptionAliases::FIELD_ALIASES => 'foo | bar | baz',
 			'schema-shexc' => 'def',
+			'base-rev' => $this->getCurrentSchemaRevisionId( 'O123' ),
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -111,6 +113,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			'description' => '',
 			'aliases' => 'foo | bar | foo | baz | bar | foo',
 			'schema-shexc' => 'abc',
+			'base-rev' => $this->getCurrentSchemaRevisionId( 'O123' ),
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -129,6 +132,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			'description' => '',
 			'aliases' => 'foo | bar | baz',
 			'schema-shexc' => 'abc',
+			'base-rev' => $this->getCurrentSchemaRevisionId( 'O123' ),
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -149,6 +153,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			'description' => '',
 			'aliases' => 'foo | bar | baz',
 			'schema-shexc' => 'abc',
+			'base-rev' => $this->getCurrentSchemaRevisionId( 'O123' ),
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -269,12 +274,17 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 	}
 
 	private function getCurrentSchemaContent( $pageName ) {
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $pageName );
+		$revId = $this->getCurrentSchemaRevisionId( $pageName );
 		$rev = MediaWikiServices::getInstance()
 			->getRevisionStore()
-			->getRevisionById( $title->getLatestRevID() );
+			->getRevisionById( $revId );
 
 		return json_decode( $rev->getContent( SlotRecord::MAIN )->getText(), true );
+	}
+
+	private function getCurrentSchemaRevisionId( $pageName ) {
+		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $pageName );
+		return $title->getLatestRevID();
 	}
 
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {
