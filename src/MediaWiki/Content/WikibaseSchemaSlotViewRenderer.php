@@ -197,7 +197,7 @@ class WikibaseSchemaSlotViewRenderer {
 			return '';
 		}
 
-		$schemaTextTitle = Title::makeTitle( NS_SPECIAL, 'SchemaText/' . $title->getText() );
+		$schemaTextTitle = SpecialPage::getTitleFor( 'SchemaText', $title->getText() );
 		$separator = strpos( $url, '?' ) === false ? '?' : '&';
 		$url .= $separator . 'schemaURL=' . wfUrlencode( $schemaTextTitle->getFullURL() );
 
