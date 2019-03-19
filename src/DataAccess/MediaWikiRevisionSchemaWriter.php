@@ -12,7 +12,7 @@ use RuntimeException;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\Domain\Storage\IdGenerator;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
+use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later
@@ -149,9 +149,9 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 
 		// TODO check $updater->hasEditConflict()! (T217338)
 
-		$dispatcher = new SchemaDispatcher();
+		$converter = new SchemaConverter();
 		// @phan-suppress-next-line PhanUndeclaredMethod
-		$schemaData = $dispatcher->getPersistenceSchemaData( $content->getText() );
+		$schemaData = $converter->getPersistenceSchemaData( $content->getText() );
 		$schemaData->labels[$langCode] = $label;
 		$schemaData->descriptions[$langCode] = $description;
 		$schemaData->aliases[$langCode] = $aliases;
@@ -200,9 +200,9 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 
 		/** @var WikibaseSchemaContent $content */
 		$content = $updater->grabParentRevision()->getContent( SlotRecord::MAIN );
-		$dispatcher = new SchemaDispatcher();
+		$converter = new SchemaConverter();
 		// @phan-suppress-next-line PhanUndeclaredMethod
-		$schemaData = $dispatcher->getPersistenceSchemaData( $content->getText() );
+		$schemaData = $converter->getPersistenceSchemaData( $content->getText() );
 		$schemaData->schemaText = $schemaText;
 
 		// TODO check $updater->hasEditConflict()! (T217338)

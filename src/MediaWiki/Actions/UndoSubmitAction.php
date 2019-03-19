@@ -13,7 +13,7 @@ use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\Services\SchemaDispatcher\FullArraySchemaData;
+use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
 
 /**
  * @license GPL-2.0-or-later

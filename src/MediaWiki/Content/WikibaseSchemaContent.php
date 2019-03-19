@@ -6,7 +6,7 @@ use JsonContent;
 use ParserOptions;
 use ParserOutput;
 use Title;
-use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
+use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * Represents the content of a Wikibase Schema page
@@ -32,7 +32,7 @@ class WikibaseSchemaContent extends JsonContent {
 			$languageCode = $options->getUserLang();
 			$renderer = new WikibaseSchemaSlotViewRenderer( $languageCode );
 			$renderer->fillParserOutput(
-				( new SchemaDispatcher() )
+				( new SchemaConverter() )
 					->getFullViewSchemaData( $this->getText(), [ $languageCode ] ),
 				$title,
 				$output

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Services\SchemaDispatcher;
+namespace Wikibase\Schema\Services\SchemaConverter;
 
 /**
  * The full data of a schema, represented as a recursive array.

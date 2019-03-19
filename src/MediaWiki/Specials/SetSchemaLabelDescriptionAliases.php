@@ -17,8 +17,8 @@ use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
-use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
+use Wikibase\Schema\Services\SchemaConverter\NameBadge;
+use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 use WikiPage;
 
 /**
@@ -174,8 +174,8 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$wikiPage = WikiPage::factory( $title );
 		// @phan-suppress-next-line PhanUndeclaredMethod
 		$schema = $wikiPage->getContent()->getText();
-		$dispatcher = new SchemaDispatcher();
-		return $dispatcher->getMonolingualNameBadgeData( $schema, $langCode );
+		$converter = new SchemaConverter();
+		return $converter->getMonolingualNameBadgeData( $schema, $langCode );
 	}
 
 	private function getSchemaSelectionFormFields( $defaultId, $defaultLanguage ) {

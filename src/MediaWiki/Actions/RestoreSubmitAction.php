@@ -14,8 +14,8 @@ use Wikibase\Schema\DataAccess\SqlIdGenerator;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Services\SchemaDispatcher\PersistenceSchemaData;
-use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
+use Wikibase\Schema\Services\SchemaConverter\PersistenceSchemaData;
+use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later
@@ -78,7 +78,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		/** @var WikibaseSchemaContent $contentToRestore */
 		$contentToRestore = $revToRestore->getContent( SlotRecord::MAIN );
 
-		$dispatcher = new SchemaDispatcher();
+		$converter = new SchemaConverter();
 
 		$submitMessage = $this->createSummaryMessageForRestore(
 		// @phan-suppress-next-line PhanUndeclaredMethod
@@ -87,7 +87,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		);
 
 		return $this->storeRestoredSchema(
-			$dispatcher->getPersistenceSchemaData(
+			$converter->getPersistenceSchemaData(
 			// @phan-suppress-next-line PhanUndeclaredMethod
 				$contentToRestore->getText()
 			),

@@ -13,8 +13,8 @@ use ParserOutput;
 use SpecialPage;
 use Title;
 use Wikibase\Schema\MediaWiki\SpecificLanguageMessageLocalizer;
-use Wikibase\Schema\Services\SchemaDispatcher\FullViewSchemaData;
-use Wikibase\Schema\Services\SchemaDispatcher\NameBadge;
+use Wikibase\Schema\Services\SchemaConverter\FullViewSchemaData;
+use Wikibase\Schema\Services\SchemaConverter\NameBadge;
 
 /**
  * @license GPL-2.0-or-later

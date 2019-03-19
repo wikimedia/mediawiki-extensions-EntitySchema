@@ -12,7 +12,7 @@ use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
+use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 
 /**
@@ -90,7 +90,7 @@ class SchemaEditAction extends FormAction {
 		}
 
 		// @phan-suppress-next-line PhanUndeclaredMethod
-		$schemaText = ( new SchemaDispatcher() )->getSchemaText( $content->getText() );
+		$schemaText = ( new SchemaConverter() )->getSchemaText( $content->getText() );
 
 		return [
 			self::FIELD_SCHEMA_TEXT => [

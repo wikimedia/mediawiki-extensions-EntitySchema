@@ -4,7 +4,7 @@ namespace Wikibase\Schema\Services\Diff;
 
 use Diff\Differ\MapDiffer;
 use Diff\DiffOp\Diff\Diff;
-use Wikibase\Schema\Services\SchemaDispatcher\FullArraySchemaData;
+use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
 
 /**
  * Computes the difference between two schemas.

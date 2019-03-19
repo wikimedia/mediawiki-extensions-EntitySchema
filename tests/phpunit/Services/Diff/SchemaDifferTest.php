@@ -8,7 +8,7 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Schema\Services\Diff\SchemaDiffer;
-use Wikibase\Schema\Services\SchemaDispatcher\FullArraySchemaData;
+use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
 
 /**
  * @covers Wikibase\Schema\Services\Diff\SchemaDiffer

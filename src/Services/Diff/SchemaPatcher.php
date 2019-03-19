@@ -9,7 +9,7 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Diff\Patcher\PatcherException;
-use Wikibase\Schema\Services\SchemaDispatcher\FullArraySchemaData;
+use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
 
 /**
  * @license GPL-2.0-or-later

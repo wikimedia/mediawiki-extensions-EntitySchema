@@ -10,7 +10,7 @@ use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use Wikibase\Schema\Services\Diff\SchemaDiffer;
 use Wikibase\Schema\Services\Diff\SchemaPatcher;
-use Wikibase\Schema\Services\SchemaDispatcher\SchemaDispatcher;
+use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later
@@ -25,15 +25,15 @@ final class UndoHandler {
 		WikibaseSchemaContent $undoToContent,
 		WikibaseSchemaContent $baseContent = null
 	): SchemaId {
-		$dispatcher = new SchemaDispatcher();
-		$firstID = $dispatcher->getSchemaID( $undoFromContent->getText() );
-		if ( $firstID !== $dispatcher->getSchemaID( $undoToContent->getText() )
+		$converter = new SchemaConverter();
+		$firstID = $converter->getSchemaID( $undoFromContent->getText() );
+		if ( $firstID !== $converter->getSchemaID( $undoToContent->getText() )
 		) {
 			throw new DomainException( 'ID must be the same for all contents' );
 		}
 
 		if ( $baseContent !== null &&
-			$firstID !== $dispatcher->getSchemaID( $baseContent->getText() )
+			$firstID !== $converter->getSchemaID( $baseContent->getText() )
 		) {
 			throw new DomainException( 'ID must be the same for all contents' );
 		}
@@ -47,10 +47,10 @@ final class UndoHandler {
 	): Status {
 
 		$differ = new SchemaDiffer();
-		$dispatcher = new SchemaDispatcher();
+		$converter = new SchemaConverter();
 		$diff = $differ->diffSchemas(
-			$dispatcher->getFullArraySchemaData( $undoFromContent->getText() ),
-			$dispatcher->getFullArraySchemaData( $undoToContent->getText() )
+			$converter->getFullArraySchemaData( $undoFromContent->getText() ),
+			$converter->getFullArraySchemaData( $undoToContent->getText() )
 		);
 
 		return Status::newGood( $diff );
@@ -59,11 +59,11 @@ final class UndoHandler {
 	public function tryPatching( Diff $diff, WikibaseSchemaContent $baseContent ): Status {
 
 		$patcher = new SchemaPatcher();
-		$dispatcher = new SchemaDispatcher();
+		$converter = new SchemaConverter();
 
 		try {
 			$patchedSchema = $patcher->patchSchema(
-				$dispatcher->getFullArraySchemaData( $baseContent->getText() ),
+				$converter->getFullArraySchemaData( $baseContent->getText() ),
 				$diff
 			);
 		} catch ( PatcherException $e ) {
