@@ -302,7 +302,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$writer->updateSchemaText( new SchemaId( 'O1' ), '', 1 );
 	}
 
-	public function testUpdateSchema_WritesExpectedContentForOverwritingSchemaText() {
+	public function testUpdateSchemaText_WritesExpectedContentForOverwritingSchemaText() {
 		$id = 'O1';
 		$language = 'en';
 		$labels = [ $language => 'englishLabel' ];
