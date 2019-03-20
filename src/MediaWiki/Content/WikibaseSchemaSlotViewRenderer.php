@@ -149,7 +149,7 @@ class WikibaseSchemaSlotViewRenderer {
 			[
 				'class' => 'wbschema-edit-button',
 			],
-			$this->linkRenderer->makeLink(
+			$this->linkRenderer->makeKnownLink(
 				$specialPageTitleValue,
 				$this->msg( 'wikibaseschema-edit' ),
 				[ 'class' => 'edit-icon' ]
@@ -217,7 +217,7 @@ class WikibaseSchemaSlotViewRenderer {
 				'id' => 'wbschema-edit-schema-text',
 				'class' => 'wbschema-edit-button',
 			],
-			$this->linkRenderer->makeLink(
+			$this->linkRenderer->makeKnownLink(
 				$title,
 				$this->msg( 'wikibaseschema-add-schema-text' ),
 				[ 'class' => 'add-icon' ],
@@ -233,7 +233,7 @@ class WikibaseSchemaSlotViewRenderer {
 				'id' => 'wbschema-edit-schema-text',
 				'class' => 'wbschema-edit-button',
 			],
-			$this->linkRenderer->makeLink(
+			$this->linkRenderer->makeKnownLink(
 				$title,
 				$this->msg( 'wikibaseschema-edit' ),
 				[ 'class' => 'edit-icon' ],
