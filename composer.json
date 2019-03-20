@@ -1,5 +1,6 @@
 {
 	"require": {
+		"ext-mbstring": "*",
 		"diff/diff": "^2.3 || ^3.2"
 	},
 	"require-dev": {

@@ -85,4 +85,27 @@ class InputValidator {
 		return true;
 	}
 
+	public function validateAliasesLength( $aliasesInput ) {
+		$maxLengthChars = $this->configService->get( 'WBSchemaNameBadgeMaxSizeChars' );
+		$cleanAliasesString = implode( '', array_map( 'trim', explode( '|', $aliasesInput ) ) );
+		$aliasesLengthChars = mb_strlen( $cleanAliasesString );
+		if ( $aliasesLengthChars > $maxLengthChars ) {
+			return $this->msgLocalizer->msg( 'wikibaseschema-error-input-too-long' )
+				->numParams( $maxLengthChars, $aliasesLengthChars );
+		}
+
+		return true;
+	}
+
+	public function validateStringInputLength( $labelOrDescriptionInput ) {
+		$maxLengthChars = $this->configService->get( 'WBSchemaNameBadgeMaxSizeChars' );
+		$numInputChars = mb_strlen( $labelOrDescriptionInput );
+		if ( $numInputChars > $maxLengthChars ) {
+			return $this->msgLocalizer->msg( 'wikibaseschema-error-input-too-long' )
+				->numParams( $maxLengthChars, $numInputChars );
+		}
+
+		return true;
+	}
+
 }

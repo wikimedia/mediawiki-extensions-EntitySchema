@@ -214,4 +214,55 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 		);
 	}
 
+	public function testLabelTooLongException() {
+		$this->setMwGlobals( 'wgWBSchemaNameBadgeMaxSizeChars', 5 );
+
+		$this->setExpectedException(
+			InvalidArgumentException::class,
+			'is longer than'
+		);
+
+		SchemaEncoder::getPersistentRepresentation(
+			new SchemaId( 'O1' ),
+			[ 'en' => 'label too long' ],
+			[],
+			[],
+			''
+		);
+	}
+
+	public function testDescriptionTooLongException() {
+		$this->setMwGlobals( 'wgWBSchemaNameBadgeMaxSizeChars', 5 );
+
+		$this->setExpectedException(
+			InvalidArgumentException::class,
+			'is longer than'
+		);
+
+		SchemaEncoder::getPersistentRepresentation(
+			new SchemaId( 'O1' ),
+			[],
+			[ 'en' => 'description too long' ],
+			[],
+			''
+		);
+	}
+
+	public function testAliasesTooLongException() {
+		$this->setMwGlobals( 'wgWBSchemaNameBadgeMaxSizeChars', 5 );
+
+		$this->setExpectedException(
+			InvalidArgumentException::class,
+			'is longer than'
+		);
+
+		SchemaEncoder::getPersistentRepresentation(
+			new SchemaId( 'O1' ),
+			[],
+			[],
+			[ 'en' => [ 'alias', 'too', 'long' ] ],
+			''
+		);
+	}
+
 }

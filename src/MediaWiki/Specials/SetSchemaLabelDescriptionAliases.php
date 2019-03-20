@@ -133,7 +133,10 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$form = $formProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
 			->setSubmitName( self::SUBMIT_EDIT_NAME )
 			->setSubmitID( 'wbschema-special-schema-id-submit' )
-			->setSubmitTextMsg( 'wikibaseschema-special-id-submit' );
+			->setSubmitTextMsg( 'wikibaseschema-special-id-submit' )
+			->setValidationErrorMessage( [ [
+				'wikibaseschema-error-possibly-multiple-messages-available'
+			] ] );
 		$form->prepareForm();
 
 		if ( !$this->isSecondForm() ) {
@@ -216,6 +219,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$aliases = implode( '|', $nameBadge->aliases );
 		$uiLangCode = $this->getLanguage()->getCode();
 		$langName = Language::fetchLanguageName( $badgeLangCode, $uiLangCode );
+		$inputValidator = InputValidator::newFromGlobalState();
 		return [
 			'notice' => [
 				'type' => 'info',
@@ -244,6 +248,10 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'placeholder-message' => $this->msg( 'wikibaseschema-label-edit-placeholder' )
 					->params( $langName ),
 				'label-message' => 'wikibaseschema-special-label',
+				'validation-callback' => [
+					$inputValidator,
+					'validateStringInputLength'
+				],
 			],
 			self::FIELD_DESCRIPTION => [
 				'name' => self::FIELD_DESCRIPTION,
@@ -253,6 +261,10 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'placeholder-message' => $this->msg( 'wikibaseschema-description-edit-placeholder' )
 					->params( $langName ),
 				'label-message' => 'wikibaseschema-special-description',
+				'validation-callback' => [
+					$inputValidator,
+					'validateStringInputLength'
+				],
 			],
 			self::FIELD_ALIASES => [
 				'name' => self::FIELD_ALIASES,
@@ -262,6 +274,10 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				'placeholder-message' => $this->msg( 'wikibaseschema-aliases-edit-placeholder' )
 					->params( $langName ),
 				'label-message' => 'wikibaseschema-special-aliases',
+				'validation-callback' => [
+					$inputValidator,
+					'validateAliasesLength'
+				],
 			],
 		];
 	}

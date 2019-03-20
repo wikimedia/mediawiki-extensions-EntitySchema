@@ -53,6 +53,9 @@ class NewSchema extends SpecialPage {
 			->setSubmitName( 'submit' )
 			->setSubmitID( 'wbschema-newschema-submit' )
 			->setSubmitTextMsg( 'wikibaseschema-newschema-submit' )
+			->setValidationErrorMessage( [ [
+				'wikibaseschema-error-possibly-multiple-messages-available'
+			] ] )
 			->setSubmitCallback( [ $this, 'submitCallback' ] );
 		$form->prepareForm();
 
@@ -111,6 +114,7 @@ class NewSchema extends SpecialPage {
 	private function getFormFields(): array {
 		$langCode = $this->getLanguage()->getCode();
 		$langName = Language::fetchLanguageName( $langCode, $langCode );
+		$inputValidator = InputValidator::newFromGlobalState();
 		return [
 			self::FIELD_LABEL => [
 				'name' => self::FIELD_LABEL,
@@ -121,6 +125,10 @@ class NewSchema extends SpecialPage {
 				'placeholder-message' => $this->msg( 'wikibaseschema-label-edit-placeholder' )
 					->params( $langName ),
 				'label-message' => 'wikibaseschema-newschema-label',
+				'validation-callback' => [
+					$inputValidator,
+					'validateStringInputLength'
+				],
 			],
 			self::FIELD_DESCRIPTION => [
 				'name' => self::FIELD_DESCRIPTION,
@@ -130,6 +138,10 @@ class NewSchema extends SpecialPage {
 				'placeholder-message' => $this->msg( 'wikibaseschema-description-edit-placeholder' )
 					->params( $langName ),
 				'label-message' => 'wikibaseschema-newschema-description',
+				'validation-callback' => [
+					$inputValidator,
+					'validateStringInputLength'
+				],
 			],
 			self::FIELD_ALIASES => [
 				'name' => self::FIELD_ALIASES,
@@ -139,6 +151,10 @@ class NewSchema extends SpecialPage {
 				'placeholder-message' => $this->msg( 'wikibaseschema-aliases-edit-placeholder' )
 					->params( $langName ),
 				'label-message' => 'wikibaseschema-newschema-aliases',
+				'validation-callback' => [
+					$inputValidator,
+					'validateAliasesLength'
+				],
 			],
 			self::FIELD_SCHEMA_TEXT => [
 				'name' => self::FIELD_SCHEMA_TEXT,
@@ -148,7 +164,7 @@ class NewSchema extends SpecialPage {
 				'placeholder' => "<human> {\n  wdt:P31 [wd:Q5]\n}",
 				'label-message' => 'wikibaseschema-newschema-schema-shexc',
 				'validation-callback' => [
-					InputValidator::newFromGlobalState(),
+					$inputValidator,
 					'validateSchemaTextLength'
 				],
 				'useeditfont' => true,
