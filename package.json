@@ -31,8 +31,8 @@
 		],
 		"*.php": [
 			"vendor/bin/parallel-lint --colors",
-			"vendor/bin/phpcbf -p",
-			"vendor/bin/phpcs -p -s"
+			"vendor/bin/phpcbf",
+			"vendor/bin/phpcs -s"
 		],
 		"*.json": [
 			"jsonlint"
