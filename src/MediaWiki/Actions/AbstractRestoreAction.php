@@ -3,6 +3,7 @@
 namespace Wikibase\Schema\MediaWiki\Actions;
 
 use EditAction;
+use Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use PermissionsError;
@@ -65,7 +66,7 @@ abstract class AbstractRestoreAction extends EditAction {
 			$this->msg( 'errorpagetitle' )
 		);
 
-		$this->getOutput()->addHTML( $status->getMessage()->parse() );
+		$this->getOutput()->addHTML( Html::errorBox( $status->getMessage()->parse() ) );
 
 		$this->getOutput()->returnToMain( null, $this->getTitle() );
 	}
