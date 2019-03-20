@@ -4,7 +4,16 @@
 			"WikiPhoenix"
 		]
 	},
+	"wikibaseschema-error-invalid-id": "Detta ID är ogiligt.",
+	"wikibaseschema-namebadge-header-language-code": "språkkod",
+	"wikibaseschema-namebadge-header-label": "etikett",
+	"wikibaseschema-namebadge-header-description": "beskrivning",
+	"wikibaseschema-namebadge-header-aliases": "alias",
+	"wikibaseschema-namebadge-header-edit": "redigera",
+	"wikibaseschema-edit": "redigera",
 	"wikibaseschema-undo-heading-failed": "Misslyckades att ångra",
 	"wikibaseschema-restore-heading-failed": "Återställning misslyckades",
-	"wikibaseschema-restoreold": "återställ"
+	"wikibaseschema-restoreold": "återställ",
+	"wikibaseschema-special-id-inputlabel": "ID",
+	"wikibaseschema-special-language-inputlabel": "Språkkod"
 }
