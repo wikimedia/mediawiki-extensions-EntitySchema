@@ -265,4 +265,22 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 		);
 	}
 
+	public function testTrimNameBadgeWhitespace() {
+		$actualJSON = SchemaEncoder::getPersistentRepresentation(
+			new SchemaId( 'O1' ),
+			[ 'en' => '         	testLabel﻿   ' ],
+			[ 'en' => "  \v\t  testDescription﻿ \r\n  " ],
+			[ 'en' => [ '  test ​ ', '   aliases  ', '   ' ] ],
+			'  a b ﻿  '
+		);
+
+		$this->assertJson( $actualJSON );
+		$actualRepresentation = json_decode( $actualJSON, true );
+
+		$this->assertSame( [ 'en' => 'testLabel' ], $actualRepresentation['labels'] );
+		$this->assertSame( [ 'en' => 'testDescription' ], $actualRepresentation['descriptions'] );
+		$this->assertSame( [ 'en' => [ 'test', 'aliases' ] ], $actualRepresentation['aliases'] );
+		$this->assertSame( 'a b', $actualRepresentation['schemaText'] );
+	}
+
 }
