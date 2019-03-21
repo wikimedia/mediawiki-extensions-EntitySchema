@@ -381,7 +381,8 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$language,
 			$labels['en'],
 			$descriptions['en'],
-			$aliases['en']
+			$aliases['en'],
+			null
 		);
 	}
 
@@ -441,7 +442,33 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$language,
 			$englishLabel,
 			$englishDescription,
-			$englishAliases
+			$englishAliases,
+			null
+		);
+	}
+
+	public function testUpdateSchemaNameBadge_throwsForEditConflict() {
+		$revisionRecord = $this->createMock( RevisionRecord::class );
+		$revisionRecord->method( 'getId' )->willReturn( 2 );
+		$pageUpdater = $this->createMock( PageUpdater::class );
+		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
+		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
+		$idGenerator = $this->createMock( IdGenerator::class );
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater(),
+			$idGenerator
+		);
+
+		$this->expectException( EditConflict::class );
+		$writer->updateSchemaNameBadge(
+			new SchemaId( 'O1' ),
+			'en',
+			'test label',
+			'test description',
+			[ 'test alias' ],
+			1
 		);
 	}
 

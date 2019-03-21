@@ -6,6 +6,9 @@ use Html;
 use HTMLForm;
 use InvalidArgumentException;
 use Language;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\SlotRecord;
+use MWException;
 use OutputPage;
 use RuntimeException;
 use SpecialPage;
@@ -13,6 +16,7 @@ use Status;
 use Title;
 use UserBlockedError;
 use WebRequest;
+use Wikibase\Schema\DataAccess\EditConflict;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
@@ -34,6 +38,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	const FIELD_DESCRIPTION = 'description';
 	const FIELD_LABEL = 'label';
 	const FIELD_ALIASES = 'aliases';
+	const FIELD_BASE_REV = 'base-rev';
 	const SUBMIT_SELECTION_NAME = 'submit-selection';
 	const SUBMIT_EDIT_NAME = 'submit-edit';
 
@@ -55,7 +60,8 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$language = $this->getLanguageFromSubpageOrRequestOrUI( $subPage, $request );
 
 		if ( $this->isSelectionDataValid( $id, $language ) ) {
-			$this->displayEditForm( new SchemaId( $id ), $language );
+			$baseRevId = $request->getInt( self::FIELD_BASE_REV );
+			$this->displayEditForm( new SchemaId( $id ), $language, $baseRevId );
 			return;
 		}
 
@@ -80,8 +86,11 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 				$data[self::FIELD_LANGUAGE],
 				$data[self::FIELD_LABEL],
 				$data[self::FIELD_DESCRIPTION],
-				$aliases
+				$aliases,
+				(int)$data[self::FIELD_BASE_REV]
 			);
+		} catch ( EditConflict $e ) {
+			return Status::newFatal( 'wikibaseschema-error-namebadge-conflict' );
 		} catch ( RunTimeException $e ) {
 			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
 		}
@@ -124,10 +133,10 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$form->displayForm( $submitStatus ?: Status::newGood() );
 	}
 
-	private function displayEditForm( SchemaId $id, $langCode ) {
+	private function displayEditForm( SchemaId $id, $langCode, $baseRevId ) {
 		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id->getId() );
-		$schemaNameBadge = $this->getSchemaNameBadge( $title, $langCode );
-		$formDescriptor = $this->getEditFormFields( $id, $langCode, $schemaNameBadge );
+		$schemaNameBadge = $this->getSchemaNameBadge( $title, $langCode, $baseRevId );
+		$formDescriptor = $this->getEditFormFields( $id, $langCode, $schemaNameBadge, $baseRevId );
 
 		$formProvider = $this->htmlFormProvider; // FIXME: PHP7: inline this variable!
 		$form = $formProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
@@ -170,14 +179,26 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	 *
 	 * @param Title $title instance of Title for a specific Schema
 	 * @param string $langCode
+	 * @param int &$revId the revision from which to load data, or 0 to load the latest revision
+	 * of $title, in which case &$revId will be replaced with that revision's ID
 	 *
 	 * @return NameBadge
 	 * @throws \MWException
 	 */
-	private function getSchemaNameBadge( Title $title, $langCode ) {
-		$wikiPage = WikiPage::factory( $title );
+	private function getSchemaNameBadge( Title $title, $langCode, &$revId ) {
+		if ( $revId > 0 ) {
+			$revision = MediaWikiServices::getInstance()->getRevisionLookup()
+				->getRevisionById( $revId );
+			if ( $revision->getPageId() !== $title->getArticleID() ) {
+				throw new MWException( 'revision does not match title' );
+			}
+		} else {
+			$wikiPage = WikiPage::factory( $title );
+			$revision = $wikiPage->getRevisionRecord();
+			$revId = $revision->getId();
+		}
 		// @phan-suppress-next-line PhanUndeclaredMethod
-		$schema = $wikiPage->getContent()->getText();
+		$schema = $revision->getContent( SlotRecord::MAIN )->getText();
 		$converter = new SchemaConverter();
 		return $converter->getMonolingualNameBadgeData( $schema, $langCode );
 	}
@@ -213,7 +234,12 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		];
 	}
 
-	private function getEditFormFields( SchemaId $id, $badgeLangCode, NameBadge $nameBadge ) {
+	private function getEditFormFields(
+		SchemaId $id,
+		$badgeLangCode,
+		NameBadge $nameBadge,
+		$baseRevId
+	) {
 		$label = $nameBadge->label;
 		$description = $nameBadge->description;
 		$aliases = implode( '|', $nameBadge->aliases );
@@ -278,6 +304,12 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 					$inputValidator,
 					'validateAliasesLength'
 				],
+			],
+			self::FIELD_BASE_REV => [
+				'name' => self::FIELD_BASE_REV,
+				'type' => 'hidden',
+				'required' => true,
+				'default' => $baseRevId,
 			],
 		];
 	}

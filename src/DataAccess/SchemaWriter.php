@@ -57,13 +57,15 @@ interface SchemaWriter {
 	 * @param string   $label
 	 * @param string   $description
 	 * @param string[] $aliases
+	 * @param int      $baseRevId
 	 */
 	public function updateSchemaNameBadge(
 		SchemaId $id,
 		$langCode,
 		$label,
 		$description,
-		array $aliases
+		array $aliases,
+		$baseRevId
 	);
 
 	/**

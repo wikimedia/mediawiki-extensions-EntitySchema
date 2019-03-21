@@ -22,6 +22,7 @@
 	"wikibaseschema-error-schemadeleted": "Error message when trying to edit a schema that doesn't exist.",
 	"wikibaseschema-error-schemaupdate-failed": "Error message when saving the Schema after edit wasn't successful",
 	"wikibaseschema-error-schematext-conflict": "Error message if there was an edit conflict for the Schema text from which we cannot recover.",
+	"wikibaseschema-error-namebadge-conflict": "Error message if there was an edit conflict for the Schema labels, descriptions and aliases from which we cannot recover.",
 	"wikibaseschema-error-saving-failed": "Error message when saving a schema has failed.\n\nParameters:\n* $1 - the message of the exception",
 	"wikibaseschema-error-not-post": "Error message when a HTTP POST request is expected but something else was received.",
 	"wikibaseschema-error-inconsistent-id": "Error message if revisions belonging to different pages were provided",
