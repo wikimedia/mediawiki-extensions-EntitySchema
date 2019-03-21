@@ -68,4 +68,22 @@ describe( 'SetSchemaLabelDescriptionAliasesPage:Page', () => {
 		assert.strictEqual( ViewSchemaPage.getAliases( langCode ), 'Alias1 | Alias2' );
 		assert.strictEqual( ViewSchemaPage.getLabel(), 'Test Label' );
 	} );
+
+	it( 'detects an edit conflict when re-submitting the same form', () => {
+		let id = ViewSchemaPage.getId();
+		SetSchemaLabelDescriptionAliasesPage.open();
+		SetSchemaLabelDescriptionAliasesPage.setIdField( id );
+		SetSchemaLabelDescriptionAliasesPage.clickSubmit();
+		SetSchemaLabelDescriptionAliasesPage.setLabel( 'edit conflict label 1' );
+		SetSchemaLabelDescriptionAliasesPage.clickSubmit();
+
+		browser.back();
+		SetSchemaLabelDescriptionAliasesPage.setLabel( 'edit conflict label 2' );
+		SetSchemaLabelDescriptionAliasesPage.clickSubmit();
+
+		assert.ok( SetSchemaLabelDescriptionAliasesPage.showsEditForm() );
+
+		ViewSchemaPage.open( id );
+		assert.strictEqual( ViewSchemaPage.getLabel(), 'edit conflict label 1' );
+	} );
 } );
