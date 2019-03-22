@@ -45,6 +45,38 @@ class NewSchemaPage extends Page {
 		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_TEXT + ' textarea' ).setValue( schemaText );
 	}
 
+	addSchemaText( schemaText ) {
+		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_TEXT + ' textarea' ).addValue( schemaText );
+	}
+
+	getSchemaNameBadgeMaxSizeChars() {
+		return browser.execute( () => {
+			return mw.config.get( 'wgWBSchemaNameBadgeMaxSizeChars' );
+		} ).value;
+	}
+
+	getSchemaSchemaTextMaxSizeBytes() {
+		return browser.execute( () => {
+			return mw.config.get( 'wgWBSchemaSchemaTextMaxSizeBytes' );
+		} ).value;
+	}
+
+	getLabel( label ) {
+		return browser.$( this.constructor.NEW_SCHEMA_SELECTORS.LABEL + ' input' ).getValue();
+	}
+
+	getDescription( description ) {
+		return browser.$( this.constructor.NEW_SCHEMA_SELECTORS.DESCRIPTION + ' input' ).getValue();
+	}
+
+	getAliases( aliases ) {
+		return browser.$( this.constructor.NEW_SCHEMA_SELECTORS.ALIASES + ' input' ).getValue();
+	}
+
+	getSchemaText( schemaText ) {
+		return browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_TEXT + ' textarea' ).getValue();
+	}
+
 	/**
 	 * Inserts the SchemaText via javascript/jQuery instead of "typing" it
 	 *
