@@ -9,6 +9,8 @@ use Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use SkinTemplate;
+use Title;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 
 /**
@@ -114,6 +116,62 @@ final class WikibaseSchemaHooks {
 
 			$html .= ' ' . $history->msg( 'parentheses' )->rawParams( $link )->escaped();
 		}
+	}
+
+	/**
+	 * Handler for the FormatAutocomments hook, used to translate parts of edit summaries
+	 * into the user language. Only supports a fixed set of autocomments.
+	 *
+	 * @param string|null &$comment The comment HTML. Initially null; if set to a string,
+	 * Linker::formatAutocomments() will skip the default formatting. In that case,
+	 * the actual autocomment should be wrapped in <span dir="auto"><span class="autocomment">.
+	 * @param bool $pre Whether any text appears in the summary before this autocomment.
+	 * If true, we insert the autocomment-prefix before the autocomment
+	 * (outside the two <span>s) to separate it from that.
+	 * @param string $auto The autocomment content (without the surrounding comment marks)
+	 * @param bool $post Whether any text appears in the summary after this autocomment.
+	 * If true, we append the colon-separator after the autocomment (still inside the two <span>s)
+	 * to separate it from that.
+	 * @param Title|null $title The title to which the comment applies. A null $title is taken to
+	 * refer to the current page ($wgTitle), though that’s not quite clear from Linker’s documentation.
+	 * @param bool $local If true, don’t actually use the $title for links, e. g. generate
+	 * <a href="#foo"> instead of <a href="/wiki/Namespace:Title#foo">. Unused here.
+	 *
+	 * @return null|false
+	 */
+	public static function onFormatAutocomments( &$comment, $pre, $auto, $post, $title, $local ) {
+		// phpcs:ignore MediaWiki.VariableAnalysis.ForbiddenGlobalVariables.ForbiddenGlobal$wgTitle
+		global $wgTitle;
+
+		if ( !( $title instanceof Title ) ) {
+			$title = $wgTitle;
+		}
+
+		if ( !( $title instanceof Title ) ) {
+			return null;
+		}
+
+		if ( $title->getNamespace() !== NS_WBSCHEMA_JSON ) {
+			return null;
+		}
+
+		if ( $auto === MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA ) {
+			$comment = wfMessage( 'wikibaseschema-summary-newschema-nolabel' )->escaped();
+		} else {
+			return null;
+		}
+
+		if ( $post ) {
+			$comment .= wfMessage( 'colon-separator' )->escaped();
+		}
+
+		$comment = '<span dir="auto"><span class="autocomment">' . $comment . '</span></span>';
+
+		if ( $pre ) {
+			$comment = wfMessage( 'autocomment-prefix' )->escaped() . $comment;
+		}
+
+		return false; // do not run further hooks
 	}
 
 }

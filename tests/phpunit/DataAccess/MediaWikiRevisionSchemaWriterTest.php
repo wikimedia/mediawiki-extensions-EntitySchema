@@ -2,6 +2,7 @@
 
 namespace Wikibase\Schema\Tests\DataAccess;
 
+use CommentStoreComment;
 use DomainException;
 use InvalidArgumentException;
 use MediaWiki\Storage\RevisionRecord;
@@ -74,6 +75,39 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testInsertSchema_commentWithCleanedUpParameters() {
+		$expectedComment = CommentStoreComment::newUnsavedComment(
+			'/* ' . MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA . ' */ test label',
+			[
+				'key' => 'wikibaseschema-summary-newschema-nolabel',
+				'language' => 'en',
+				'label' => 'test label',
+				'description' => 'test description',
+				'aliases' => [ 'test alias' ],
+				'schemaText_truncated' => 'test schema text',
+			]
+		);
+		$pageUpdaterFactory = $this->getPageUpdaterFactoryExpectingComment( $expectedComment );
+
+		$idGenerator = $this->createMock( IdGenerator::class );
+		$idGenerator->method( 'getNewId' )->willReturn( '123' );
+
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater( 'optionallyWatchNewSchema' ),
+			$idGenerator
+		);
+
+		$writer->insertSchema(
+			'en',
+			'   test label  ',
+			'  test description ',
+			[ 'test alias', ' test alias ', '  ' ],
+			'  test schema text '
+		);
+	}
+
 	private function getPageUpdaterFactoryProvidingAndExpectingContent(
 		WikibaseSchemaContent $expectedContent,
 		WikibaseSchemaContent $existingContent = null
@@ -91,6 +125,17 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 				'main',
 				$this->equalTo( $expectedContent )
 			);
+
+		return $this->getPageUpdaterFactory( $pageUpdater );
+	}
+
+	private function getPageUpdaterFactoryExpectingComment(
+		CommentStoreComment $expectedComment
+	): MediaWikiPageUpdaterFactory {
+		$pageUpdater = $this->createMock( PageUpdater::class );
+		$pageUpdater->expects( $this->once() )
+			->method( 'saveRevision' )
+			->with( $expectedComment );
 
 		return $this->getPageUpdaterFactory( $pageUpdater );
 	}

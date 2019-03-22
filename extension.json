@@ -29,7 +29,8 @@
 		"LoadExtensionSchemaUpdates": "Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onCreateDBSchema",
 		"ExtensionTypes": "Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onExtensionTypes",
 		"BeforeDisplayNoArticleText": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onBeforeDisplayNoArticleText",
-		"PageHistoryLineEnding": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onPageHistoryLineEnding"
+		"PageHistoryLineEnding": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onPageHistoryLineEnding",
+		"FormatAutocomments": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onFormatAutocomments"
 	},
 	"ContentHandlers": {
 		"WikibaseSchema": "Wikibase\\Schema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"

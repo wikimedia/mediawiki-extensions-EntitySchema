@@ -48,6 +48,7 @@
 	"wikibaseschema-add-schema-text": "add Schema text",
 	"wikibaseschema-check-entities": "check entities against this Schema",
 	"wikibaseschema-summary-newschema": "Created a new Schema: \"$1\"",
+	"wikibaseschema-summary-newschema-nolabel": "Created a new Schema",
 	"wikibaseschema-summary-update": "Updated Schema",
 	"wikibaseschema-summary-update-schema-text": "Updated Schema text",
 	"wikibaseschema-summary-update-schema-text-user": "Updated Schema text: $1",

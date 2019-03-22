@@ -4,6 +4,7 @@ namespace Wikibase\Schema\DataAccess;
 
 use CommentStoreComment;
 use InvalidArgumentException;
+use Language;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use Message;
@@ -18,6 +19,8 @@ use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
  * @license GPL-2.0-or-later
  */
 class MediaWikiRevisionSchemaWriter implements SchemaWriter {
+
+	const AUTOCOMMENT_NEWSCHEMA = 'wikibaseschema-summary-newschema-nolabel';
 
 	private $pageUpdaterFactory;
 	private $idGenerator;
@@ -53,26 +56,38 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		$schemaText = ''
 	): SchemaId {
 		$id = new SchemaId( 'O' . $this->idGenerator->getNewId() );
+		$persistentRepresentation = SchemaEncoder::getPersistentRepresentation(
+			$id,
+			[ $language => $label ],
+			[ $language => $description ],
+			[ $language => $aliases ],
+			$schemaText
+		);
 
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$updater->setContent(
 			SlotRecord::MAIN,
-			new WikibaseSchemaContent(
-				SchemaEncoder::getPersistentRepresentation(
-					$id,
-					[ $language => $label ],
-					[ $language => $description ],
-					[ $language => $aliases ],
-					$schemaText
-				)
-			)
+			new WikibaseSchemaContent( $persistentRepresentation )
 		);
 
+		$schemaConverter = new SchemaConverter();
+		$schemaData = $schemaConverter->getMonolingualNameBadgeData(
+			$persistentRepresentation,
+			$language
+		);
 		$updater->saveRevision(
 			CommentStoreComment::newUnsavedComment(
-				$this->msgLocalizer->msg(
-					'wikibaseschema-summary-newschema'
-				)->plaintextParams( $label )
+				'/* ' . self::AUTOCOMMENT_NEWSCHEMA . ' */ ' . $schemaData->label,
+				[
+					'key' => 'wikibaseschema-summary-newschema-nolabel',
+					'language' => $language,
+					'label' => $schemaData->label,
+					'description' => $schemaData->description,
+					'aliases' => $schemaData->aliases,
+					'schemaText_truncated' => $this->truncateSchemaTextForCommentData(
+						$schemaConverter->getSchemaText( $persistentRepresentation )
+					),
+				]
 			),
 			EDIT_NEW | EDIT_INTERNAL
 		);
@@ -80,6 +95,11 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		$this->watchListUpdater->optionallyWatchNewSchema( $id );
 
 		return $id;
+	}
+
+	private function truncateSchemaTextForCommentData( $schemaText ) {
+		$language = Language::factory( 'en' );
+		return $language->truncateForVisual( $schemaText, 5000 );
 	}
 
 	/**
