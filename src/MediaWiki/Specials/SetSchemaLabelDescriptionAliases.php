@@ -134,6 +134,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	}
 
 	private function displayEditForm( SchemaId $id, $langCode, $baseRevId ) {
+		$output = $this->getOutput();
 		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id->getId() );
 		$schemaNameBadge = $this->getSchemaNameBadge( $title, $langCode, $baseRevId );
 		$formDescriptor = $this->getEditFormFields( $id, $langCode, $schemaNameBadge, $baseRevId );
@@ -153,16 +154,23 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 
 			$submitStatus = $form->tryAuthorizedSubmit();
 			if ( $submitStatus && $submitStatus->isGood() ) {
-				$this->getOutput()->redirect(
+				$output->redirect(
 					$submitStatus->getValue()
 				);
 				return;
 			}
 		}
 
-		$this->displayWarnings( $this->getOutput() );
+		$output->addModules( [
+			'ext.WikibaseSchema.special.setSchemaLabelDescriptionAliases.edit'
+		] );
+		$output->addJsConfigVars(
+			'wgWBSchemaNameBadgeMaxSizeChars',
+			intval( $this->getConfig()->get( 'WBSchemaNameBadgeMaxSizeChars' ) )
+		);
+		$this->displayWarnings( $output );
 		$form->displayForm( $submitStatus ?? Status::newGood() );
-		$this->displayCopyright( $this->getOutput() );
+		$this->displayCopyright( $output );
 	}
 
 	/**

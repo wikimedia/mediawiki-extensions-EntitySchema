@@ -74,6 +74,16 @@
 			"styles": [ "viewSchema.less" ],
 			"localBasePath": "resources",
 			"remoteExtPath": "WikibaseSchema/resources"
+		},
+		"ext.WikibaseSchema.special.setSchemaLabelDescriptionAliases.edit": {
+			"scripts": [ "special.setSchemaLabelDescriptionAliases.edit.js" ],
+			"dependencies": [
+				"oojs-ui-widgets",
+				"mediawiki.String",
+				"mediawiki.widgets.visibleLengthLimit"
+			],
+			"localBasePath": "resources",
+			"remoteExtPath": "WikibaseSchema/resources"
 		}
 	},
 	"SpecialPages": {
