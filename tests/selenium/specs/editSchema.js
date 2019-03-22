@@ -61,6 +61,22 @@ describe( 'Schema Edit Page', () => {
 			ViewSchemaPage.open( id );
 			assert.strictEqual( ViewSchemaPage.getSchemaText(), 'edit conflict shex 1' );
 		} );
+
+		it( 'properly limits the input length', () => {
+			let id = ViewSchemaPage.getId(),
+				schemaSchemaTextMaxSizeBytes;
+
+			EditSchemaPage.open( id );
+
+			schemaSchemaTextMaxSizeBytes = EditSchemaPage.getSchemaSchemaTextMaxSizeBytes();
+			EditSchemaPage.setSchemaText( 'a'.repeat( schemaSchemaTextMaxSizeBytes ) );
+			EditSchemaPage.schemaTextArea.addValue( 'b' );
+
+			assert.strictEqual(
+				EditSchemaPage.schemaTextArea.getValue().length,
+				schemaSchemaTextMaxSizeBytes
+			);
+		} );
 	} );
 
 	describe( 'given the user is blocked', () => {

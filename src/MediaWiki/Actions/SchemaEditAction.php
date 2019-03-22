@@ -37,6 +37,19 @@ class SchemaEditAction extends FormAction {
 		parent::__construct( $page, $context );
 	}
 
+	public function show() {
+		parent::show();
+
+		$output = $this->getOutput();
+		$output->addModules( [
+			'ext.WikibaseSchema.action.edit'
+		] );
+		$output->addJsConfigVars(
+			'wgWBSchemaSchemaTextMaxSizeBytes',
+			intval( $this->getContext()->getConfig()->get( 'WBSchemaSchemaTextMaxSizeBytes' ) )
+		);
+	}
+
 	/**
 	 * Process the form on POST submission.
 	 *

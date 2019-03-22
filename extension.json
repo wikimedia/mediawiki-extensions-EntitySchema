@@ -84,6 +84,15 @@
 			],
 			"localBasePath": "resources",
 			"remoteExtPath": "WikibaseSchema/resources"
+		},
+		"ext.WikibaseSchema.action.edit": {
+			"scripts": [ "action.edit.js" ],
+			"dependencies": [
+				"oojs-ui-widgets",
+				"mediawiki.widgets.visibleLengthLimit"
+			],
+			"localBasePath": "resources",
+			"remoteExtPath": "WikibaseSchema/resources"
 		}
 	},
 	"SpecialPages": {

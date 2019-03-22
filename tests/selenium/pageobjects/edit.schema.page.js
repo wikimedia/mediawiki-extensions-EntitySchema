@@ -28,6 +28,24 @@ class EditSchemaPage extends Page {
 		this.submitButton.click();
 	}
 
+	getSchemaSchemaTextMaxSizeBytes() {
+		return browser.execute( () => {
+			return mw.config.get( 'wgWBSchemaSchemaTextMaxSizeBytes' );
+		} ).value;
+	}
+
+	setSchemaText( schemaText ) {
+		// Go directly through the DOM in order to avoid having to slowly "type"
+		// very long schema texts char by char.
+		return browser.execute(
+			( selector, schemaText ) => {
+				$( selector ).val( schemaText );
+			},
+			this.constructor.SCHEMA_EDIT_SELECTORS.SCHEMAAREA,
+			schemaText
+		);
+	}
+
 	open( id ) {
 		super.openTitle( 'Schema:' + id, { action: 'edit' } );
 	}
