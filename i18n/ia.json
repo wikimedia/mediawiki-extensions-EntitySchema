@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"wikibaseschema-error-schematext-conflict": "Iste Schema ha essite cambiate interim. Per favor, retorna al pagina del Schema e essaya de modificar lo de novo.",
+	"wikibaseschema-error-possibly-multiple-messages-available": "Il ha problemas con alcunes de tu entratas. Per favor, verifica le message(s) de error sequente.",
+	"wikibaseschema-error-input-too-long": "Le texto entrate es troppo longe. Le longitude maxime es {{PLURAL:$1|un character|$1 characteres}}. Tu texto ha un longitude de {{PLURAL:$2|un character|$2 characteres}}."
+}

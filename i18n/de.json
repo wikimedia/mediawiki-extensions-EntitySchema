@@ -21,6 +21,7 @@
 	"wikibaseschema-error-schemadeleted": "Das Schema, das du versuchst zu bearbeiten, ist nicht vorhanden. Vielleicht wurde es gelöscht?",
 	"wikibaseschema-error-schemaupdate-failed": "Das Schema konnte nicht aktualisiert werden",
 	"wikibaseschema-error-schematext-conflict": "Das Schema hat sich in der Zwischenzeit geändert. Gehe bitte zur Schemaseite zurück und versuche, es erneut zu bearbeiten.",
+	"wikibaseschema-error-namebadge-conflict": "Dieses Schema wurde in der Zwischenzeit geändert. Gehe bitte zur Schemaseite zurück und versuche, die Bezeichnungen, Beschreibungen und Aliasse in dieser Sprache erneut zu bearbeiten.",
 	"wikibaseschema-error-saving-failed": "Das Speichern des Schemas ist mit der folgenden Meldung fehlgeschlagen: $1",
 	"wikibaseschema-error-not-post": "Diese Aktion muss mit einer POST-Anfrage durchgeführt werden.",
 	"wikibaseschema-error-inconsistent-id": "Nicht alle angegebenen Versionen gehören zum angegebenen Titel.",
