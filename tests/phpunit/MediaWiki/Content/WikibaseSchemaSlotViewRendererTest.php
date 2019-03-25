@@ -44,14 +44,14 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 			new FullViewSchemaData( [
 				'en' => new NameBadge( '', 'test', [] ),
 			], $emptySchemaText ),
-			[ '<td class="wbschema-description" lang="en">test</td>' ],
+			[ '<td class="wbschema-description" lang="en" dir="auto">test</td>' ],
 		];
 
 		yield 'description, other language' => [
 			new FullViewSchemaData( [
 				'simple' => new NameBadge( '', 'test', [] ),
 			], $emptySchemaText ),
-			[ '<td class="wbschema-description" lang="en-simple">test</td>' ],
+			[ '<td class="wbschema-description" lang="en-simple" dir="auto">test</td>' ],
 		];
 
 		yield 'description, no HTML injection' => [
@@ -59,7 +59,7 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 				'en' => new NameBadge( '', '<script>alert("description XSS")</script>', [] ),
 			], $emptySchemaText ),
 			// exact details of escaping beyond this (> vs &gt;) don’t matter
-			[ '<td class="wbschema-description" lang="en">&lt;script' ],
+			[ '<td class="wbschema-description" lang="en" dir="auto">&lt;script' ],
 		];
 
 		$emptyNameBadges = [ 'en' => new NameBadge( '', '', [] ) ];
@@ -81,8 +81,8 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 				'de' => new NameBadge( '', 'deutsche Beschreibung', [] ),
 			], $emptySchemaText ),
 			[
-				'<td class="wbschema-description" lang="en">english description</td>',
-				'<td class="wbschema-description" lang="de">deutsche Beschreibung</td>',
+				'<td class="wbschema-description" lang="en" dir="auto">english description</td>',
+				'<td class="wbschema-description" lang="de" dir="auto">deutsche Beschreibung</td>',
 			]
 		];
 
