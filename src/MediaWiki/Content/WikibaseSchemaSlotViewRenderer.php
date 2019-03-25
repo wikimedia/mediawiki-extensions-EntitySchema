@@ -201,12 +201,31 @@ class WikibaseSchemaSlotViewRenderer {
 		$separator = strpos( $url, '?' ) === false ? '?' : '&';
 		$url .= $separator . 'schemaURL=' . wfUrlencode( $schemaTextTitle->getFullURL() );
 
-		return Linker::makeExternalLink(
+		return $this->makeExternalLink(
 			$url,
 			wfMessage( 'wikibaseschema-check-entities' )->inContentLanguage()->parse(),
 			false, // link text already escaped in ->parse()
 			'',
 			[ 'class' => 'wbschema-check-schema' ]
+		);
+	}
+
+	/**
+	 * Wrapper around {@see Linker::makeExternalLink} ensuring that the external link style
+	 * is applied even though our whole output does not have class="mw-parser-output"
+	 */
+	private function makeExternalLink(
+		$url,
+		$text,
+		$escape = true,
+		$linktype = '',
+		$attribs = [],
+		$title = null
+	) {
+		return Html::rawElement(
+			'span',
+			[ 'class' => 'mw-parser-output' ],
+			Linker::makeExternalLink( $url, $text, $escape, $linktype, $attribs, $title )
 		);
 	}
 
