@@ -49,6 +49,8 @@
 	"wikibaseschema-check-entities": "check entities against this schema",
 	"wikibaseschema-summary-newschema": "Created a new Schema: \"$1\"",
 	"wikibaseschema-summary-update": "Updated Schema",
+	"wikibaseschema-summary-update-schema-text": "Updated schema text",
+	"wikibaseschema-summary-update-schema-text-user": "Updated schema text: $1",
 	"wikibaseschema-summary-undo": "Undo revision $1 by [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|talk]]): $3",
 	"wikibaseschema-summary-restore": "Restore revision $1 by [[Special:Contributions/$2|{{GENDER:$2|$2}}]]: $3",
 	"wikibaseschema-undo-heading": "Undoing edit to $1",

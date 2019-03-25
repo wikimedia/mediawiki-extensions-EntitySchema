@@ -50,6 +50,8 @@
 	"wikibaseschema-check-entities": "Text used for a link that leads to an external tool where entities can be checked against the current schema.",
 	"wikibaseschema-summary-newschema": "A generic message for the recent changes or page history, stating that the Schema was created. \n\nParameters:\n* $1 - the label of the Schema",
 	"wikibaseschema-summary-update": "A generic message used when different parts of a Schema may have been updated.",
+	"wikibaseschema-summary-update-schema-text": "Edit summary message used when a Schema's text was updated, but no edit summary was supplied by the user.",
+	"wikibaseschema-summary-update-schema-text-user": "Edit summary message used when a Schema's text was updated.\n\nParameters:\n* $1 - Edit summary as given by the user.",
 	"wikibaseschema-summary-undo": "Summary message for an undo to be shown in Schema history, recent changes etc. .\n\nParameters:\n* $1 - The ID of the revision that is undone\n* $2 Name of the user that created that revision\n* $3 The user summary message",
 	"wikibaseschema-summary-restore": "Summary message for a restore to be shown in Schema history, recent changes etc. .\n\nParameters:\n* $1 - The ID of the revision that is restored\n* $2 Name of the user that created that revision\n* $3 The user summary message",
 	"wikibaseschema-undo-heading": "Heading for the undo view.\n\nParameters:\n* $1 - The ID of the Schema",

@@ -188,12 +188,18 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 	 * @param SchemaId $id
 	 * @param string $schemaText
 	 * @param int $baseRevId
+	 * @param Message|null $message
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
 	 * @throws EditConflict if another revision has been saved after $baseRevId
 	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 */
-	public function updateSchemaText( SchemaId $id, $schemaText, $baseRevId ) {
+	public function updateSchemaText(
+		SchemaId $id,
+		$schemaText,
+		$baseRevId,
+		Message $message = null
+	) {
 		if ( !is_string( $schemaText ) ) {
 			throw new InvalidArgumentException( 'schema text must be a string' );
 		}
@@ -223,10 +229,13 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 			)
 		);
 
-		$updater->saveRevision( CommentStoreComment::newUnsavedComment(
-			// TODO specific message (T214887)
-			$this->msgLocalizer->msg( 'wikibaseschema-summary-update' )
-		), EDIT_UPDATE | EDIT_INTERNAL );
+		if ( !$message ) {
+			$message = $this->msgLocalizer->msg( 'wikibaseschema-summary-update-schema-text' );
+		}
+		$updater->saveRevision(
+			CommentStoreComment::newUnsavedComment( $message ),
+			EDIT_UPDATE | EDIT_INTERNAL
+		);
 
 		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
 	}
