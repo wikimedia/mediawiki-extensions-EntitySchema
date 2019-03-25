@@ -86,4 +86,43 @@ describe( 'SetSchemaLabelDescriptionAliasesPage:Page', () => {
 		ViewSchemaPage.open( id );
 		assert.strictEqual( ViewSchemaPage.getLabel(), 'edit conflict label 1' );
 	} );
+
+	it( 'limits the input length', () => {
+		let id = ViewSchemaPage.getId(),
+			schemaNameBadgeMaxSizeChars, overlyLongString;
+
+		SetSchemaLabelDescriptionAliasesPage.open();
+		SetSchemaLabelDescriptionAliasesPage.setIdField( id );
+		SetSchemaLabelDescriptionAliasesPage.clickSubmit();
+		schemaNameBadgeMaxSizeChars = SetSchemaLabelDescriptionAliasesPage
+			.getSchemaNameBadgeMaxSizeChars();
+		overlyLongString = 'a'.repeat( schemaNameBadgeMaxSizeChars + 1 );
+
+		SetSchemaLabelDescriptionAliasesPage.setLabel( overlyLongString );
+		assert.strictEqual(
+			SetSchemaLabelDescriptionAliasesPage.getLabel().length,
+			schemaNameBadgeMaxSizeChars
+		);
+
+		SetSchemaLabelDescriptionAliasesPage.setDescription( overlyLongString );
+		assert.strictEqual(
+			SetSchemaLabelDescriptionAliasesPage.getDescription().length,
+			schemaNameBadgeMaxSizeChars
+		);
+
+		SetSchemaLabelDescriptionAliasesPage.setAliases( overlyLongString );
+		assert.strictEqual(
+			SetSchemaLabelDescriptionAliasesPage.getAliases().length,
+			schemaNameBadgeMaxSizeChars
+		);
+
+		SetSchemaLabelDescriptionAliasesPage.setAliases(
+			'b' + '| '.repeat( schemaNameBadgeMaxSizeChars ) + 'c'
+		);
+		assert.strictEqual(
+			SetSchemaLabelDescriptionAliasesPage.getAliases().length,
+			schemaNameBadgeMaxSizeChars * 2 + 2,
+			'Pipes and spaces will be trimmed from aliases before counting'
+		);
+	} );
 } );

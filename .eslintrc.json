@@ -6,6 +6,7 @@
 	],
 	"globals": {
 		"mw": false,
-		"OO": false
+		"OO": false,
+		"require": false
 	}
 }

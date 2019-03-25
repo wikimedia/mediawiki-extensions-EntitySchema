@@ -38,17 +38,23 @@ class SetSchemaLabelDescriptionAliasesPage extends Page {
 
 	getLabel() {
 		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.LABEL ).waitForExist();
-		return browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.LABEL ).getText();
+		return browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.LABEL + ' input' ).getValue();
 	}
 
 	getDescription() {
 		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.DESCRIPTION ).waitForExist();
-		return browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.DESCRIPTION ).getText();
+		return browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.DESCRIPTION + ' input' ).getValue();
 	}
 
 	getAliases() {
 		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.ALIASES ).waitForExist();
-		return browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.ALIASES ).getText();
+		return browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.ALIASES + ' input' ).getValue();
+	}
+
+	getSchemaNameBadgeMaxSizeChars() {
+		return browser.execute( () => {
+			return mw.config.get( 'wgWBSchemaNameBadgeMaxSizeChars' );
+		} ).value;
 	}
 
 	setIdField( id ) {
