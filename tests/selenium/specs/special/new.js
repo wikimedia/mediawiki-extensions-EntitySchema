@@ -92,4 +92,57 @@ describe( 'NewSchema:Page', () => {
 		assert.strictEqual( actualNamespace, 'Schema' );
 	} );
 
+	it( 'limits the name badge input length', () => {
+		let schemaNameBadgeMaxSizeChars, overlyLongString;
+
+		NewSchemaPage.open();
+		schemaNameBadgeMaxSizeChars = NewSchemaPage
+			.getSchemaNameBadgeMaxSizeChars();
+		overlyLongString = 'a'.repeat( schemaNameBadgeMaxSizeChars + 1 );
+
+		NewSchemaPage.setLabel( overlyLongString );
+		assert.strictEqual(
+			NewSchemaPage.getLabel().length,
+			schemaNameBadgeMaxSizeChars
+		);
+
+		NewSchemaPage.setDescription( overlyLongString );
+		assert.strictEqual(
+			NewSchemaPage.getDescription().length,
+			schemaNameBadgeMaxSizeChars
+		);
+
+		NewSchemaPage.setAliases( overlyLongString );
+		assert.strictEqual(
+			NewSchemaPage.getAliases().length,
+			schemaNameBadgeMaxSizeChars
+		);
+
+		NewSchemaPage.setAliases(
+			'b' + '| '.repeat( schemaNameBadgeMaxSizeChars ) + 'c'
+		);
+		assert.strictEqual(
+			NewSchemaPage.getAliases().length,
+			schemaNameBadgeMaxSizeChars * 2 + 2,
+			'Pipes and spaces will be trimmed from aliases before counting'
+		);
+	} );
+
+	it( 'limits the schema text input length', () => {
+		let schemaSchemaTextMaxSizeBytes;
+
+		NewSchemaPage.open();
+		schemaSchemaTextMaxSizeBytes = NewSchemaPage
+			.getSchemaSchemaTextMaxSizeBytes();
+
+		NewSchemaPage.pasteSchemaText(
+			'a'.repeat( schemaSchemaTextMaxSizeBytes + 1 )
+		);
+		NewSchemaPage.addSchemaText( 'b' );
+		assert.strictEqual(
+			NewSchemaPage.getSchemaText().length,
+			schemaSchemaTextMaxSizeBytes
+		);
+	} );
+
 } );

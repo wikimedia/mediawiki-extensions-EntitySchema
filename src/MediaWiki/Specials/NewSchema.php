@@ -69,6 +69,7 @@ class NewSchema extends SpecialPage {
 			return;
 		}
 
+		$this->addJavaScript();
 		$this->displayBeforeForm( $this->getOutput() );
 
 		$form->displayForm( $submitStatus ?: Status::newGood() );
@@ -209,6 +210,19 @@ class NewSchema extends SpecialPage {
 		}
 
 		return [];
+	}
+
+	private function addJavaScript() {
+		$output = $this->getOutput();
+		$output->addModules( [
+			'ext.WikibaseSchema.special.newSchema',
+		] );
+		$output->addJsConfigVars( [
+			'wgWBSchemaSchemaTextMaxSizeBytes' =>
+				intval( $this->getConfig()->get( 'WBSchemaSchemaTextMaxSizeBytes' ) ),
+			'wgWBSchemaNameBadgeMaxSizeChars' =>
+				intval( $this->getConfig()->get( 'WBSchemaNameBadgeMaxSizeChars' ) )
+		] );
 	}
 
 	/**
