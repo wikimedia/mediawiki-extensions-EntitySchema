@@ -67,9 +67,42 @@ class SchemaEncoder {
 		array &$aliasGroups,
 		&$schemaText
 	) {
+		self::trimStartAndEnd( $labels, $descriptions, $aliasGroups, $schemaText );
 		foreach ( $aliasGroups as &$aliasGroup ) {
 			$aliasGroup = array_values( array_unique( $aliasGroup ) );
 		}
+	}
+
+	/**
+	 * @return void
+	 */
+	private static function trimStartAndEnd(
+		array &$labels,
+		array &$descriptions,
+		array &$aliasGroups,
+		&$schemaText
+	) {
+		foreach ( $labels as &$label ) {
+			$label = self::trimWhitespaceAndControlChars( $label );
+		}
+		foreach ( $descriptions as &$description ) {
+			$description = self::trimWhitespaceAndControlChars( $description );
+		}
+		foreach ( $aliasGroups as &$aliasGroup ) {
+			$aliasGroup = array_filter( array_map(
+				[ self::class, 'trimWhitespaceAndControlChars' ],
+				$aliasGroup
+			) );
+		}
+		$schemaText = self::trimWhitespaceAndControlChars( $schemaText );
+	}
+
+	/**
+	 * @param  string $string The string to trim
+	 * @return string The trimmed string after applying the regex
+	 */
+	private static function trimWhitespaceAndControlChars( $string ) {
+		return preg_replace( '/^[\p{Z}\p{Cc}\p{Cf}]+|[\p{Z}\p{Cc}\p{Cf}]+$/u', '', $string );
 	}
 
 	/**
