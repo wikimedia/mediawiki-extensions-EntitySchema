@@ -111,6 +111,7 @@ class WikibaseSchemaSlotViewRenderer {
 			[
 				'class' => 'wbschema-label',
 				'lang' => $bcp47,
+				'dir' => 'auto',
 			],
 			$nameBadge->label
 		);
@@ -119,6 +120,7 @@ class WikibaseSchemaSlotViewRenderer {
 			[
 				'class' => 'wbschema-description',
 				'lang' => $bcp47,
+				'dir' => 'auto'
 			],
 			$nameBadge->description
 		);
@@ -127,6 +129,7 @@ class WikibaseSchemaSlotViewRenderer {
 			[
 				'class' => 'wbschema-aliases',
 				'lang' => $bcp47,
+				'dir' => 'auto'
 			],
 			implode( ' | ', $nameBadge->aliases )
 		);
