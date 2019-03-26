@@ -30,7 +30,8 @@
 		"ExtensionTypes": "Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onExtensionTypes",
 		"BeforeDisplayNoArticleText": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onBeforeDisplayNoArticleText",
 		"PageHistoryLineEnding": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onPageHistoryLineEnding",
-		"FormatAutocomments": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onFormatAutocomments"
+		"FormatAutocomments": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onFormatAutocomments",
+		"ContentModelCanBeUsedOn": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onContentModelCanBeUsedOn"
 	},
 	"ContentHandlers": {
 		"WikibaseSchema": "Wikibase\\Schema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"

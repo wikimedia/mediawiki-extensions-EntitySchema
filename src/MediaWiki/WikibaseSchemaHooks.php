@@ -174,4 +174,26 @@ final class WikibaseSchemaHooks {
 		return false; // do not run further hooks
 	}
 
+	/**
+	 * @see ContentHandler::canBeUsedOn()
+	 *
+	 * @param string $modelId The content model ID.
+	 * @param Title $title The title where the content model may or may not be used on.
+	 * @param bool &$ok Whether the content model can be used on the title or not.
+	 *
+	 * @return null|false
+	 */
+	public static function onContentModelCanBeUsedOn( $modelId, Title $title, &$ok ) {
+		if (
+			$title->inNamespace( NS_WBSCHEMA_JSON ) &&
+			$modelId !== WikibaseSchemaContent::CONTENT_MODEL_ID
+		) {
+			$ok = false;
+			return false; // skip other hooks
+		}
+		// the other direction is guarded by WikibaseSchemaContentHandler::canBeUsedOn()
+
+		return null;
+	}
+
 }
