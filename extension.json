@@ -102,6 +102,11 @@
 			],
 			"localBasePath": "resources",
 			"remoteExtPath": "WikibaseSchema/resources"
+		},
+		"ext.WikibaseSchema.action.view.trackclicks": {
+			"scripts": [ "action.view.trackclicks.js" ],
+			"localBasePath": "resources",
+			"remoteExtPath": "WikibaseSchema/resources"
 		}
 	},
 	"SpecialPages": {
