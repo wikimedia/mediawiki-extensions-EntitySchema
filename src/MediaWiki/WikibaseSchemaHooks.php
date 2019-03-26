@@ -8,10 +8,12 @@ use HistoryPager;
 use Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
+use MWException;
 use SkinTemplate;
 use Title;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use WikiImporter;
 
 /**
  * Hooks utilized by the WikibaseSchema extension
@@ -194,6 +196,21 @@ final class WikibaseSchemaHooks {
 		// the other direction is guarded by WikibaseSchemaContentHandler::canBeUsedOn()
 
 		return null;
+	}
+
+	public static function onImportHandleRevisionXMLTag(
+		WikiImporter $importer,
+		array $pageInfo,
+		array $revisionInfo
+	) {
+		if (
+			array_key_exists( 'model', $revisionInfo ) &&
+			$revisionInfo['model'] === WikibaseSchemaContent::CONTENT_MODEL_ID
+		) {
+			throw new MWException(
+				'To avoid ID conflicts, the import of Schemas is not supported.'
+			);
+		}
 	}
 
 }

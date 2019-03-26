@@ -31,7 +31,8 @@
 		"BeforeDisplayNoArticleText": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onBeforeDisplayNoArticleText",
 		"PageHistoryLineEnding": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onPageHistoryLineEnding",
 		"FormatAutocomments": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onFormatAutocomments",
-		"ContentModelCanBeUsedOn": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onContentModelCanBeUsedOn"
+		"ContentModelCanBeUsedOn": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onContentModelCanBeUsedOn",
+		"ImportHandleRevisionXMLTag": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onImportHandleRevisionXMLTag"
 	},
 	"ContentHandlers": {
 		"WikibaseSchema": "Wikibase\\Schema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"
