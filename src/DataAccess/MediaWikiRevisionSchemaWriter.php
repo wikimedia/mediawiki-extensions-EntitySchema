@@ -7,7 +7,6 @@ use InvalidArgumentException;
 use Language;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
-use Message;
 use MessageLocalizer;
 use RuntimeException;
 use Wikibase\Schema\Domain\Model\SchemaId;
@@ -22,6 +21,8 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 
 	const AUTOCOMMENT_NEWSCHEMA = 'wikibaseschema-summary-newschema-nolabel';
 	const AUTOCOMMENT_UPDATED_SCHEMATEXT = 'wikibaseschema-summary-update-schema-text';
+	/* public */ const AUTOCOMMENT_RESTORE = 'wikibaseschema-summary-restore';
+	/* public */ const AUTOCOMMENT_UNDO = 'wikibaseschema-summary-undo';
 
 	private $pageUpdaterFactory;
 	private $idGenerator;
@@ -116,7 +117,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 	 * @param string[] $aliasGroups
 	 * @param string $schemaText
 	 * @param int $baseRevId
-	 * @param Message|null $message
+	 * @param CommentStoreComment $summary
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
 	 * @throws RuntimeException if Schema to update does not exist or saving fails
@@ -128,12 +129,8 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		array $aliasGroups,
 		$schemaText,
 		$baseRevId,
-		Message $message = null
+		CommentStoreComment $summary
 	) {
-		if ( $message === null ) {
-			$message = $this->msgLocalizer->msg( 'wikibaseschema-summary-update' );
-		}
-
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
 		$this->checkSchemaExists( $parentRevision );
@@ -155,7 +152,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		);
 
 		$updater->saveRevision(
-			CommentStoreComment::newUnsavedComment( $message ),
+			$summary,
 			EDIT_UPDATE | EDIT_INTERNAL
 		);
 		if ( !$updater->wasSuccessful() ) {

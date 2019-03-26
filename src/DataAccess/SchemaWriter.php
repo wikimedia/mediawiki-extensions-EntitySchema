@@ -2,8 +2,8 @@
 
 namespace Wikibase\Schema\DataAccess;
 
+use CommentStoreComment;
 use InvalidArgumentException;
-use Message;
 use RuntimeException;
 use Wikibase\Schema\Domain\Model\SchemaId;
 
@@ -38,7 +38,7 @@ interface SchemaWriter {
 	 * @param string[] $aliasGroups
 	 * @param string $schemaText
 	 * @param int $baseRevId
-	 * @param Message|null $message
+	 * @param CommentStoreComment $summary
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
 	 * @throws RuntimeException if Schema to update does not exist or saving fails
@@ -50,7 +50,7 @@ interface SchemaWriter {
 		array $aliasGroups,
 		$schemaText,
 		$baseRevId,
-		Message $message = null
+		CommentStoreComment $summary
 	);
 
 	/**

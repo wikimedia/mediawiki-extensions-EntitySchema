@@ -216,7 +216,8 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			[],
 			[],
 			'',
-			1
+			1,
+			CommentStoreComment::newUnsavedComment( '' )
 		);
 	}
 
@@ -264,7 +265,8 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			[ $testLanguage => $testDescription ],
 			[ $testLanguage => $testAliases ],
 			$testSchemaText,
-			1
+			1,
+			CommentStoreComment::newUnsavedComment( '' )
 		);
 	}
 
@@ -306,7 +308,8 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			[ 'en' => 'englishDescription' ],
 			[ 'en' => $aliases ],
 			$schemaText,
-			1
+			1,
+			CommentStoreComment::newUnsavedComment( '' )
 		);
 	}
 
@@ -323,7 +326,8 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			[],
 			[],
 			'lalalala',
-			1
+			1,
+			CommentStoreComment::newUnsavedComment( '' )
 		);
 	}
 

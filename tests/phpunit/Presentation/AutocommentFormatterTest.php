@@ -56,6 +56,66 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 			.'(wikibaseschema-summary-update-schema-text)'
 			.'</span></span>'
 		];
+
+		yield 'valid undo comment with username' => [
+			false,
+			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UNDO
+			. ':1:username',
+			false,
+			'<span dir="auto"><span class="autocomment">'
+			.'(wikibaseschema-summary-undo-autocomment: 1, Username)'
+			.'</span></span>'
+		];
+
+		yield 'valid undo comment with ipv4' => [
+			false,
+			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UNDO
+			. ':1:198.51.100.10',
+			false,
+			'<span dir="auto"><span class="autocomment">'
+			.'(wikibaseschema-summary-undo-autocomment: 1, 198.51.100.10)'
+			.'</span></span>'
+		];
+
+		yield 'valid undo comment with ipv6' => [
+			false,
+			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UNDO
+			. ':1:2001:db8::1',
+			false,
+			'<span dir="auto"><span class="autocomment">'
+			.'(wikibaseschema-summary-undo-autocomment: 1, 2001:db8::1)'
+			.'</span></span>'
+		];
+
+		yield 'valid restore comment with username' => [
+			false,
+			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_RESTORE
+			. ':1:username',
+			false,
+			'<span dir="auto"><span class="autocomment">'
+			.'(wikibaseschema-summary-restore-autocomment: 1, Username)'
+			.'</span></span>'
+		];
+
+		yield 'valid restore comment with ipv4' => [
+			false,
+			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_RESTORE
+			. ':1:198.51.100.10',
+			false,
+			'<span dir="auto"><span class="autocomment">'
+			.'(wikibaseschema-summary-restore-autocomment: 1, 198.51.100.10)'
+			.'</span></span>'
+		];
+
+		yield 'valid restore comment with ipv6' => [
+			false,
+			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_RESTORE
+			. ':1:2001:db8::1',
+			false,
+			'<span dir="auto"><span class="autocomment">'
+			.'(wikibaseschema-summary-restore-autocomment: 1, 2001:db8::1)'
+			.'</span></span>'
+		];
 	}
 
 	/**
