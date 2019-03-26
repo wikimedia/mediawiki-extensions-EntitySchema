@@ -59,6 +59,10 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 		return $context->getLanguage();
 	}
 
+	public function canBeUsedOn( Title $title ) {
+		return $title->inNamespace( NS_WBSCHEMA_JSON ) && parent::canBeUsedOn( $title );
+	}
+
 	public function getActionOverrides() {
 		return [
 			'edit' => function( Page $page, IContextSource $context = null ) {
