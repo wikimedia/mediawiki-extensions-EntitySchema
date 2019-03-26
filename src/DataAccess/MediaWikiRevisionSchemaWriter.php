@@ -73,7 +73,8 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 				$this->msgLocalizer->msg(
 					'wikibaseschema-summary-newschema'
 				)->plaintextParams( $label )
-			)
+			),
+			EDIT_NEW | EDIT_INTERNAL
 		);
 
 		$this->watchListUpdater->optionallyWatchNewSchema( $id );
@@ -125,7 +126,8 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		);
 
 		$updater->saveRevision(
-			CommentStoreComment::newUnsavedComment( $message )
+			CommentStoreComment::newUnsavedComment( $message ),
+			EDIT_UPDATE | EDIT_INTERNAL
 		);
 		if ( !$updater->wasSuccessful() ) {
 			throw new RuntimeException( 'The revision could not be saved' );
