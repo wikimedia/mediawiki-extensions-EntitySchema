@@ -156,7 +156,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		return $msgLocalizer;
 	}
 
-	public function testUpdateSchema_throwsForNonExistantPage() {
+	public function testOverwriteWholeSchema_throwsForNonExistantPage() {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 		$idGenerator = $this->createMock( IdGenerator::class );
@@ -195,7 +195,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider provideBadParameters
 	 */
-	public function testUpdateSchema_throwsForInvalidParams(
+	public function testOverwriteWholeSchema_throwsForInvalidParams(
 		$testLanguage,
 		$testLabel,
 		$testDescription,
@@ -224,7 +224,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testUpdateSchema_WritesExpectedContentForOverwritingMonoLingualSchema() {
+	public function testOverwriteWholeSchema_WritesExpectedContentForOverwritingMonoLingualSchema() {
 		$id = 'O1';
 		$language = 'en';
 		$label = 'englishLabel';
