@@ -50,6 +50,8 @@
 	"wikibaseschema-check-entities": "تحقق من الكيانات مقابل هذا المخطط",
 	"wikibaseschema-summary-newschema": "إنشاء مخطط جديد: \"$1\"",
 	"wikibaseschema-summary-update": "تحديث المخطط",
+	"wikibaseschema-summary-update-schema-text": "تحديث نص المخطط",
+	"wikibaseschema-summary-update-schema-text-user": "تم تحديث نص المخطط: $1",
 	"wikibaseschema-summary-undo": "الرجوع عن التعديل $1 بواسطة [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|talk]]): $3",
 	"wikibaseschema-summary-restore": "استعادة المراجعة $1 بواسطة [[Special:Contributions/$2|{{GENDER:$2|$2}}]]: $3",
 	"wikibaseschema-undo-heading": "التراجع عن التعديل إلى $1",

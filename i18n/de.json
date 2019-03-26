@@ -49,6 +49,8 @@
 	"wikibaseschema-check-entities": "Objekte gegen dieses Schema überprüfen",
 	"wikibaseschema-summary-newschema": "Neues Schema erstellt: „$1“",
 	"wikibaseschema-summary-update": "Schema aktualisiert",
+	"wikibaseschema-summary-update-schema-text": "Schematext aktualisiert",
+	"wikibaseschema-summary-update-schema-text-user": "Schematext aktualisiert: $1",
 	"wikibaseschema-summary-undo": "Version $1 von [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|Diskussion]]) wurde rückgängig gemacht: $3",
 	"wikibaseschema-summary-restore": "Version $1 von [[Special:Contributions/$2|{{GENDER:$2|$2}}]] wiederhergestellt: $3",
 	"wikibaseschema-undo-heading": "Bearbeitung an $1 rückgängig machen",

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Mainframe98",
-			"Elroy"
+			"Elroy",
+			"McDutchie"
 		]
 	},
 	"special-newschema": "Nieuw schema aanmaken",
@@ -15,7 +16,7 @@
 	"wikibaseschema-label-edit-placeholder": "Het label van het schema in het Engels.",
 	"wikibaseschema-description-edit-placeholder": "De beschrijving van het schema in het Engels.",
 	"wikibaseschema-aliases-edit-placeholder": "Alternatieve labels voor het schema in het Engels.",
-	"wikibaseschema-error-schemadeleted": "Het schema dat u probeerde te bewerken bestaat niet. Misschien is het verwijderd?",
+	"wikibaseschema-error-schemadeleted": "Het schema dat u probeerde te bewerken bestaat niet. Is het misschien verwijderd?",
 	"wikibaseschema-error-schemaupdate-failed": "Kan het schema niet bijwerken",
 	"wikibaseschema-noschema": "Dit schema bestaat niet. Ga naar [[Special:NewSchema]] om een nieuw schema aan te maken.",
 	"wikibaseschema-diff-label": "Etiketten",
