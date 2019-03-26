@@ -146,9 +146,16 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	private function getPageUpdaterFactoryExpectingComment(
-		CommentStoreComment $expectedComment
+		CommentStoreComment $expectedComment,
+		WikibaseSchemaContent $existingContent = null
 	): MediaWikiPageUpdaterFactory {
 		$pageUpdater = $this->createMock( PageUpdater::class );
+		if ( $existingContent !== null ) {
+			$revisionRecord = $this->createMock( RevisionRecord::class );
+			$revisionRecord->method( 'getContent' )->willReturn( $existingContent );
+			$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
+		}
+		$pageUpdater->method( 'wasSuccessful' )->willReturn( true );
 		$pageUpdater->expects( $this->once() )
 			->method( 'saveRevision' )
 			->with( $expectedComment );
@@ -453,6 +460,45 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			new SchemaId( 'O1' ),
 			'qwerty',
 			null
+		);
+	}
+
+	public function testUpdateSchemaText_comment() {
+		$expectedComment = CommentStoreComment::newUnsavedComment(
+			'/* ' . MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UPDATED_SCHEMATEXT . ' */ user given',
+			[
+				'key' => 'wikibaseschema-summary-update-schema-text',
+				'schemaText_truncated' => 'new schema text',
+				'userSummary' => 'user given',
+			]
+		);
+
+		$id = new SchemaId( 'O1' );
+		$existingContent = new WikibaseSchemaContent( json_encode( [
+			'id' => $id,
+			'serializationVersion' => '3.0',
+			'labels' => [],
+			'descriptions' => [],
+			'aliases' => [],
+			'schemaText' => '# some schema about goats',
+			'type' => 'ShExC',
+		] ) );
+
+		$pageUpdaterFactory = $this->getPageUpdaterFactoryExpectingComment(
+			$expectedComment,
+			$existingContent
+		);
+		$writer = new MediaWikiRevisionSchemaWriter(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
+		);
+
+		$writer->updateSchemaText(
+			$id,
+			'new schema text',
+			null,
+			'user given'
 		);
 	}
 

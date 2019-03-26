@@ -158,10 +158,15 @@ final class WikibaseSchemaHooks {
 			return null;
 		}
 
-		if ( $auto === MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA ) {
-			$comment = wfMessage( 'wikibaseschema-summary-newschema-nolabel' )->escaped();
-		} else {
-			return null;
+		switch ( $auto ) {
+			case MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA:
+				$comment = wfMessage( 'wikibaseschema-summary-newschema-nolabel' )->escaped();
+				break;
+			case MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UPDATED_SCHEMATEXT:
+				$comment = wfMessage( 'wikibaseschema-summary-update-schema-text' )->escaped();
+				break;
+			default:
+				return null;
 		}
 
 		if ( $post ) {

@@ -81,17 +81,12 @@ class SchemaEditAction extends FormAction {
 		$watchListUpdater = new WatchlistUpdater( $user, NS_WBSCHEMA_JSON );
 		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory, $this, $watchListUpdater );
 
-		$summary = $data[self::FIELD_EDIT_SUMMARY];
-		$summaryMessage = $summary ?
-			$this->msg( 'wikibaseschema-summary-update-schema-text-user' )->plaintextParams( $summary ) :
-			null;
-
 		try {
 			$schemaWriter->updateSchemaText(
 				$id,
 				$data[self::FIELD_SCHEMA_TEXT],
 				(int)$data[self::FIELD_BASE_REV],
-				$summaryMessage
+				trim( $data[self::FIELD_EDIT_SUMMARY] )
 			);
 		} catch ( EditConflict $e ) {
 			return Status::newFatal( 'wikibaseschema-error-schematext-conflict' );

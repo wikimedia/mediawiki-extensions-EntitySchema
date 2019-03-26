@@ -21,6 +21,7 @@ use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 
 	const AUTOCOMMENT_NEWSCHEMA = 'wikibaseschema-summary-newschema-nolabel';
+	const AUTOCOMMENT_UPDATED_SCHEMATEXT = 'wikibaseschema-summary-update-schema-text';
 
 	private $pageUpdaterFactory;
 	private $idGenerator;
@@ -214,7 +215,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 	 * @param SchemaId $id
 	 * @param string $schemaText
 	 * @param int $baseRevId
-	 * @param Message|null $message
+	 * @param string|null $userSummary
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
 	 * @throws EditConflict if another revision has been saved after $baseRevId
@@ -224,7 +225,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		SchemaId $id,
 		$schemaText,
 		$baseRevId,
-		Message $message = null
+		$userSummary = null
 	) {
 		if ( !is_string( $schemaText ) ) {
 			throw new InvalidArgumentException( 'schema text must be a string' );
@@ -242,24 +243,34 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		$schemaData = $converter->getPersistenceSchemaData( $content->getText() );
 		$schemaData->schemaText = $schemaText;
 
-		$updater->setContent(
-			SlotRecord::MAIN,
-			new WikibaseSchemaContent(
-				SchemaEncoder::getPersistentRepresentation(
-					$id,
-					$schemaData->labels,
-					$schemaData->descriptions,
-					$schemaData->aliases,
-					$schemaData->schemaText
-				)
-			)
+		$persistentRepresentation = SchemaEncoder::getPersistentRepresentation(
+			$id,
+			$schemaData->labels,
+			$schemaData->descriptions,
+			$schemaData->aliases,
+			$schemaData->schemaText
 		);
 
-		if ( !$message ) {
-			$message = $this->msgLocalizer->msg( 'wikibaseschema-summary-update-schema-text' );
+		$updater->setContent(
+			SlotRecord::MAIN,
+			new WikibaseSchemaContent( $persistentRepresentation )
+		);
+
+		$commentText = '/* ' . self::AUTOCOMMENT_UPDATED_SCHEMATEXT . ' */';
+		if ( $userSummary ) {
+			$commentText .= " $userSummary";
 		}
 		$updater->saveRevision(
-			CommentStoreComment::newUnsavedComment( $message ),
+				CommentStoreComment::newUnsavedComment(
+				$commentText,
+				[
+					'key' => self::AUTOCOMMENT_UPDATED_SCHEMATEXT,
+					'userSummary' => $userSummary,
+					'schemaText_truncated' => $this->truncateSchemaTextForCommentData(
+						$converter->getSchemaText( $persistentRepresentation )
+					),
+				]
+			),
 			EDIT_UPDATE | EDIT_INTERNAL
 		);
 		if ( !$updater->wasSuccessful() ) {

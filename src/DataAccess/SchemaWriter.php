@@ -72,7 +72,7 @@ interface SchemaWriter {
 	 * @param SchemaId $id
 	 * @param string $schemaText
 	 * @param int $baseRevId id of the base revision for detecting edit conflicts.
-	 * @param Message|null $message
+	 * @param string|null $userSummary
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
 	 * @throws EditConflict if another revision has been saved after $baseRevId
@@ -82,7 +82,7 @@ interface SchemaWriter {
 		SchemaId $id,
 		$schemaText,
 		$baseRevId,
-		Message $message = null
+		$userSummary = null
 	);
 
 }
