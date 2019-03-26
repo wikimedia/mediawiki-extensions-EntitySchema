@@ -7,12 +7,14 @@ use Article;
 use Content;
 use IContextSource;
 use JsonContentHandler;
+use Language;
 use LogicException;
 use MediaWiki\MediaWikiServices;
 use Page;
 use RequestContext;
 use Revision;
 use SlotDiffRenderer;
+use Title;
 use Wikibase\Schema\DataAccess\SchemaEncoder;
 use Wikibase\Schema\MediaWiki\Actions\RestoreSubmitAction;
 use Wikibase\Schema\MediaWiki\Actions\RestoreViewAction;
@@ -39,6 +41,22 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 
 	protected function getSlotDiffRendererInternal( IContextSource $context ): SlotDiffRenderer {
 		return new WikibaseSchemaSlotDiffRenderer( $context );
+	}
+
+	/**
+	 * @see ContentHandler::getPageViewLanguage
+	 *
+	 * This implementation returns the user language, because Schemas get rendered in
+	 * the user's language. The PageContentLanguage hook is bypassed.
+	 *
+	 * @param Title        $title   (unused) the page to determine the language for.
+	 * @param Content|null $content (unused) the page's content
+	 *
+	 * @return Language The page's language
+	 */
+	public function getPageViewLanguage( Title $title, Content $content = null ) {
+		$context = RequestContext::getMain();
+		return $context->getLanguage();
 	}
 
 	public function getActionOverrides() {
