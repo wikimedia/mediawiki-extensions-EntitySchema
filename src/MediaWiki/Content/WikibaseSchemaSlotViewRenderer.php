@@ -52,6 +52,7 @@ class WikibaseSchemaSlotViewRenderer {
 		Title $title,
 		ParserOutput $output
 	) {
+		$output->addModules( 'ext.WikibaseSchema.action.view.trackclicks' );
 		$output->addModuleStyles( 'ext.WikibaseSchema.view' );
 		$output->setText(
 			$this->renderNameBadges( $title, $schemaData->nameBadges ) .
