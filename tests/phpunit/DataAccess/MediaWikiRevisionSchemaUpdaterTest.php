@@ -20,6 +20,7 @@ use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use Wikibase\Schema\Services\SchemaConverter\NameBadge;
 
 /**
  * @covers \Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater
@@ -54,8 +55,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	): MediaWikiPageUpdaterFactory {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		if ( $existingContent !== null ) {
-			$revisionRecord = $this->createMock( RevisionRecord::class );
-			$revisionRecord->method( 'getContent' )->willReturn( $existingContent );
+			$revisionRecord = $this->createMockRevisionRecord( $existingContent );
 			$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
 		}
 		$pageUpdater->method( 'wasSuccessful' )->willReturn( true );
@@ -412,7 +412,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$schmeaUpdater->updateSchemaText(
 			$id,
 			'new schema text',
-			null,
+			1,
 			'user given'
 		);
 	}
@@ -521,6 +521,147 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			$englishAliases,
 			1
 		);
+	}
+
+	/**
+	 * @dataProvider provideNameBadgesWithComments
+	 */
+	public function testUpdateSchemaNameBadge_comment(
+		NameBadge $old = null, // FIXME PHP7.1 nullable typehint
+		NameBadge $new,
+		$expectedAutocommentKey,
+		$expectedAutosummary
+	) {
+		$id = 'O1';
+		$language = 'en';
+		$oldArray = [
+			'id' => $id,
+			'serializationVersion' => '3.0',
+			'labels' => [],
+			'descriptions' => [],
+			'aliases' => [],
+			'schemaText' => 'schema text',
+			'type' => 'ShExC',
+		];
+
+		if ( $old !== null ) {
+			$oldArray['labels'][$language] = $old->label;
+			$oldArray['descriptions'][$language] = $old->description;
+			$oldArray['aliases'][$language] = $old->aliases;
+		}
+
+		$expectedComment = CommentStoreComment::newUnsavedComment(
+			'/* ' . $expectedAutocommentKey . ' */' . $expectedAutosummary,
+			[
+				'key' => $expectedAutocommentKey,
+				'language' => $language,
+				'label' => $new->label,
+				'description' => $new->description,
+				'aliases' => $new->aliases,
+			]
+		);
+
+		$oldContent = new WikibaseSchemaContent( json_encode( $oldArray ) );
+		$pageUpdaterFactory = $this->getPageUpdaterFactoryExpectingComment(
+			$expectedComment,
+			$oldContent
+		);
+		$writer = new MediaWikiRevisionSchemaUpdater(
+			$pageUpdaterFactory,
+			$this->getMessageLocalizer(),
+			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
+		);
+
+		$writer->updateSchemaNameBadge(
+			new SchemaId( $id ),
+			$language,
+			$new->label,
+			$new->description,
+			$new->aliases,
+			1
+		);
+	}
+
+	public function provideNameBadgesWithComments() {
+		$oldBadge = new NameBadge( 'old label', 'old description', [ 'old alias' ] );
+
+		yield 'everything changed' => [
+			$oldBadge,
+			new NameBadge( 'new label', 'new description', [ 'new alias' ] ),
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_NAMEBADGE,
+			'',
+		];
+
+		yield 'label changed' => [
+			$oldBadge,
+			new NameBadge( 'new label', $oldBadge->description, $oldBadge->aliases ),
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_LABEL,
+			'new label',
+		];
+
+		yield 'description changed' => [
+			$oldBadge,
+			new NameBadge( $oldBadge->label, 'new description', $oldBadge->aliases ),
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_DESCRIPTION,
+			'new description',
+		];
+
+		yield 'aliases changed' => [
+			$oldBadge,
+			new NameBadge( $oldBadge->label, $oldBadge->description, [ 'new alias', 'other' ] ),
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_ALIASES,
+			'new alias, other',
+		];
+
+		yield 'label removed' => [
+			$oldBadge,
+			new NameBadge( '', $oldBadge->description, $oldBadge->aliases ),
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_LABEL,
+			'',
+		];
+
+		yield 'description removed' => [
+			$oldBadge,
+			new NameBadge( $oldBadge->label, '', $oldBadge->aliases ),
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_DESCRIPTION,
+			'',
+		];
+
+		yield 'aliases removed' => [
+			$oldBadge,
+			new NameBadge( $oldBadge->label, $oldBadge->description, [] ),
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_ALIASES,
+			'',
+		];
+
+		yield 'label added in new language' => [
+			null,
+			new NameBadge( 'new label', '', [] ),
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_LABEL,
+			'new label',
+		];
+
+		yield 'description added in new language' => [
+			null,
+			new NameBadge( '', 'new description', [] ),
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_DESCRIPTION,
+			'new description',
+		];
+
+		yield 'aliases added in new language' => [
+			null,
+			new NameBadge( '', '', [ 'new alias' ] ),
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_ALIASES,
+			'new alias',
+		];
+
+		yield 'label changed, alias removed' => [
+			$oldBadge,
+			new NameBadge( 'new label', $oldBadge->description, [] ),
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_NAMEBADGE,
+			''
+		];
 	}
 
 	public function testUpdateSchemaNameBadge_throwsForEditConflict() {

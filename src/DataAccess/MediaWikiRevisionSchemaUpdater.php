@@ -11,6 +11,7 @@ use MessageLocalizer;
 use RuntimeException;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use Wikibase\Schema\Services\SchemaConverter\PersistenceSchemaData;
 use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 
 /**
@@ -19,6 +20,10 @@ use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 
 	const AUTOCOMMENT_UPDATED_SCHEMATEXT = 'wikibaseschema-summary-update-schema-text';
+	const AUTOCOMMENT_UPDATED_NAMEBADGE = 'wikibaseschema-summary-update-schema-namebadge';
+	const AUTOCOMMENT_UPDATED_LABEL = 'wikibaseschema-summary-update-schema-label';
+	const AUTOCOMMENT_UPDATED_DESCRIPTION = 'wikibaseschema-summary-update-schema-description';
+	const AUTOCOMMENT_UPDATED_ALIASES = 'wikibaseschema-summary-update-schema-aliases';
 	/* public */ const AUTOCOMMENT_RESTORE = 'wikibaseschema-summary-restore';
 	/* public */ const AUTOCOMMENT_UNDO = 'wikibaseschema-summary-undo';
 
@@ -125,6 +130,14 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$converter = new SchemaConverter();
 		// @phan-suppress-next-line PhanUndeclaredMethod
 		$schemaData = $converter->getPersistenceSchemaData( $content->getText() );
+		$autoComment = $this->getUpdateNameBadgeAutocomment(
+			$schemaData,
+			$langCode,
+			$label,
+			$description,
+			$aliases
+		);
+
 		$schemaData->labels[$langCode] = $label;
 		$schemaData->descriptions[$langCode] = $description;
 		$schemaData->aliases[$langCode] = $aliases;
@@ -142,18 +155,55 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 			)
 		);
 
-		$updater->saveRevision(
-			CommentStoreComment::newUnsavedComment(
-			// TODO specific message (T214887)
-				$this->msgLocalizer->msg( 'wikibaseschema-summary-update' )
-			),
-			EDIT_UPDATE | EDIT_INTERNAL
-		);
+		$updater->saveRevision( $autoComment, EDIT_UPDATE | EDIT_INTERNAL );
 		if ( !$updater->wasSuccessful() ) {
 			throw new RuntimeException( 'The revision could not be saved' );
 		}
 
 		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
+	}
+
+	private function getUpdateNameBadgeAutocomment(
+		PersistenceSchemaData $schemaData,
+		$langCode,
+		$label,
+		$description,
+		array $aliases
+	): CommentStoreComment {
+		$label = SchemaCleaner::trimWhitespaceAndControlChars( $label );
+		$description = SchemaCleaner::trimWhitespaceAndControlChars( $description );
+		$aliases = SchemaCleaner::cleanupArrayOfStrings( $aliases );
+		$language = Language::factory( $langCode );
+
+		$typeOfChange = [];
+		if ( ( $schemaData->labels[$langCode] ?? '' ) !== $label ) {
+			$typeOfChange[self::AUTOCOMMENT_UPDATED_LABEL] = $label;
+		}
+		if ( ( $schemaData->descriptions[$langCode] ?? '' ) !== $description ) {
+			$typeOfChange[self::AUTOCOMMENT_UPDATED_DESCRIPTION] = $description;
+		}
+		if ( ( $schemaData->aliases[$langCode] ?? [] ) !== $aliases ) {
+			$typeOfChange[self::AUTOCOMMENT_UPDATED_ALIASES] = $language->commaList( $aliases );
+		}
+
+		if ( count( $typeOfChange ) === 1 ) { // TODO what if it’s 0?
+			$autocommentKey = key( $typeOfChange );
+			$autosummary = $typeOfChange[$autocommentKey];
+		} else {
+			$autocommentKey = self::AUTOCOMMENT_UPDATED_NAMEBADGE;
+			$autosummary = '';
+		}
+
+		return CommentStoreComment::newUnsavedComment(
+			'/* ' . $autocommentKey . ' */' . $autosummary,
+			[
+				'key' => $autocommentKey,
+				'language' => $langCode,
+				'label' => $label,
+				'description' => $description,
+				'aliases' => $aliases,
+			]
+		);
 	}
 
 	/**

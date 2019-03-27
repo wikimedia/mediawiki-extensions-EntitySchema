@@ -51,6 +51,18 @@ class AutocommentFormatter {
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_SCHEMATEXT:
 				$comment = wfMessage( 'wikibaseschema-summary-update-schema-text' );
 				break;
+			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_NAMEBADGE:
+				$comment = wfMessage( 'wikibaseschema-summary-update-schema-namebadge' );
+				break;
+			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_LABEL:
+				$comment = wfMessage( 'wikibaseschema-summary-update-schema-label' );
+				break;
+			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_DESCRIPTION:
+				$comment = wfMessage( 'wikibaseschema-summary-update-schema-description' );
+				break;
+			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_ALIASES:
+				$comment = wfMessage( 'wikibaseschema-summary-update-schema-aliases' );
+				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE:
 				list( $revId, $username ) = explode( ':', $commentParts[1], 2 );
 				$user = User::newFromName( $username ) ?: $username;
