@@ -12,8 +12,8 @@ use MWException;
 use MWNamespace;
 use SkinTemplate;
 use Title;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use Wikibase\Schema\Presentation\AutocommentFormatter;
 use WikiImporter;
 
 /**
@@ -158,28 +158,14 @@ final class WikibaseSchemaHooks {
 			return null;
 		}
 
-		switch ( $auto ) {
-			case MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA:
-				$comment = wfMessage( 'wikibaseschema-summary-newschema-nolabel' )->escaped();
-				break;
-			case MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UPDATED_SCHEMATEXT:
-				$comment = wfMessage( 'wikibaseschema-summary-update-schema-text' )->escaped();
-				break;
-			default:
-				return null;
+		$autocommentFormatter = new AutocommentFormatter();
+		$formattedComment = $autocommentFormatter->formatAutocomment( $pre, $auto, $post );
+		if ( $formattedComment !== null ) {
+			$comment = $formattedComment;
+			return false;
 		}
 
-		if ( $post ) {
-			$comment .= wfMessage( 'colon-separator' )->escaped();
-		}
-
-		$comment = '<span dir="auto"><span class="autocomment">' . $comment . '</span></span>';
-
-		if ( $pre ) {
-			$comment = wfMessage( 'autocomment-prefix' )->escaped() . $comment;
-		}
-
-		return false; // do not run further hooks
+		return null;
 	}
 
 	/**

@@ -85,45 +85,4 @@ class WikibaseSchemaHooksTest extends MediaWikiTestCase {
 		$this->assertSame( $expected, $comment );
 	}
 
-	public function testOnFormatAutocomments_newSchema_noPost() {
-		$comment = null;
-		$this->setUserLang( 'qqx' );
-
-		$ret = WikibaseSchemaHooks::onFormatAutocomments(
-			$comment,
-			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA,
-			false, # unclear when this should happen
-			Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' ),
-			false
-		);
-
-		$this->assertFalse( $ret );
-		$expected = '<span dir="auto"><span class="autocomment">' .
-			'(wikibaseschema-summary-newschema-nolabel)' .
-			'</span></span>';
-		$this->assertSame( $expected, $comment );
-	}
-
-	public function testOnFormatAutocomments_newSchema_pre() {
-		$comment = null;
-		$this->setUserLang( 'qqx' );
-
-		$ret = WikibaseSchemaHooks::onFormatAutocomments(
-			$comment,
-			true, # unclear when this should happen
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA,
-			true,
-			Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' ),
-			false
-		);
-
-		$this->assertFalse( $ret );
-		$expected = '(autocomment-prefix)<span dir="auto"><span class="autocomment">' .
-			'(wikibaseschema-summary-newschema-nolabel)' .
-			'(colon-separator)' .
-			'</span></span>';
-		$this->assertSame( $expected, $comment );
-	}
-
 }
