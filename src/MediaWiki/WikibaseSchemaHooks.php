@@ -9,6 +9,7 @@ use Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MWException;
+use MWNamespace;
 use SkinTemplate;
 use Title;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
@@ -211,6 +212,23 @@ final class WikibaseSchemaHooks {
 				'To avoid ID conflicts, the import of Schemas is not supported.'
 			);
 		}
+	}
+
+	/**
+	 * @see MWNamespace::isMovable()
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/NamespaceIsMovable
+	 *
+	 * @param int $index
+	 * @param bool &$result
+	 * @return null|false
+	 */
+	public static function onNamespaceIsMovable( $index, &$result ) {
+		if ( MWNamespace::equals( $index, NS_WBSCHEMA_JSON ) ) {
+			$result = false;
+			return false; // skip other hooks
+		}
+
+		return null;
 	}
 
 }

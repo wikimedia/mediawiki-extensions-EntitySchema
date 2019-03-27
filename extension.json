@@ -32,7 +32,8 @@
 		"PageHistoryLineEnding": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onPageHistoryLineEnding",
 		"FormatAutocomments": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onFormatAutocomments",
 		"ContentModelCanBeUsedOn": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onContentModelCanBeUsedOn",
-		"ImportHandleRevisionXMLTag": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onImportHandleRevisionXMLTag"
+		"ImportHandleRevisionXMLTag": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onImportHandleRevisionXMLTag",
+		"NamespaceIsMovable": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onNamespaceIsMovable"
 	},
 	"ContentHandlers": {
 		"WikibaseSchema": "Wikibase\\Schema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"
