@@ -48,6 +48,7 @@
 	"wikibaseschema-add-schema-text": "Schematext hinzufügen",
 	"wikibaseschema-check-entities": "Objekte gegen dieses Schema überprüfen",
 	"wikibaseschema-summary-newschema": "Neues Schema erstellt: „$1“",
+	"wikibaseschema-summary-newschema-nolabel": "Ein neues Schema erstellt",
 	"wikibaseschema-summary-update": "Schema aktualisiert",
 	"wikibaseschema-summary-update-schema-text": "Schematext aktualisiert",
 	"wikibaseschema-summary-update-schema-text-user": "Schematext aktualisiert: $1",

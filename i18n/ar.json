@@ -49,6 +49,7 @@
 	"wikibaseschema-add-schema-text": "إضافة نص المخطط",
 	"wikibaseschema-check-entities": "تحقق من الكيانات مقابل هذا المخطط",
 	"wikibaseschema-summary-newschema": "إنشاء مخطط جديد: \"$1\"",
+	"wikibaseschema-summary-newschema-nolabel": "إنشاء مخطط جديد",
 	"wikibaseschema-summary-update": "تحديث المخطط",
 	"wikibaseschema-summary-update-schema-text": "تحديث نص المخطط",
 	"wikibaseschema-summary-update-schema-text-user": "تم تحديث نص المخطط: $1",

@@ -48,6 +48,8 @@
 	"wikibaseschema-check-entities": "verificar entidades contra este esquema",
 	"wikibaseschema-summary-newschema": "Criado um novo esquema: \"$1\"",
 	"wikibaseschema-summary-update": "Esquema atualizado",
+	"wikibaseschema-summary-update-schema-text": "Texto de esquema atualizado",
+	"wikibaseschema-summary-update-schema-text-user": "Texto de esquema atualizado: $1",
 	"wikibaseschema-summary-undo": "Desfazer revisão $1 por [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|discussão]]): $3",
 	"wikibaseschema-summary-restore": "Restaure a revisão $1 por [[Special:Contributions/$2|{{GENDER:$2|$2}}]]: $3",
 	"wikibaseschema-undo-heading": "Desfazendo a edição para $1",

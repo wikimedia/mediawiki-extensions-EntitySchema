@@ -8,6 +8,8 @@
 	"wikibaseschema-newschema-description": "Descripció:",
 	"wikibaseschema-newschema-submit": "Crea",
 	"wikibaseschema-error-inconsistent-id": "No totes les revisions proporcionades pertanyen al títol donat.",
+	"wikibaseschema-error-invalid-id": "Aquest identificador no és vàlid.",
+	"wikibaseschema-error-unsupported-langcode": "No s’admet aquest codi de llengua.",
 	"wikibaseschema-namebadge-header-label": "etiqueta",
 	"wikibaseschema-namebadge-header-description": "descripció",
 	"wikibaseschema-namebadge-header-aliases": "àlies",
