@@ -91,12 +91,14 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 			// @phan-suppress-next-line PhanUndeclaredMethod
 				$contentToRestore->getText()
 			),
+			$this->context->getRequest()->getInt( 'wpBaseRev' ),
 			$submitMessage
 		);
 	}
 
 	private function storeRestoredSchema(
 		PersistenceSchemaData $persistenceSchemaData,
+		$baseRevId,
 		Message $submitMessage
 	): Status {
 
@@ -117,6 +119,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 				$persistenceSchemaData->descriptions,
 				$persistenceSchemaData->aliases,
 				$persistenceSchemaData->schemaText,
+				$baseRevId,
 				$submitMessage
 			);
 		} catch ( RuntimeException $e ) {

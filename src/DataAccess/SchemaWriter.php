@@ -37,6 +37,7 @@ interface SchemaWriter {
 	 * @param string[] $descriptions
 	 * @param string[] $aliasGroups
 	 * @param string $schemaText
+	 * @param int $baseRevId
 	 * @param Message|null $message
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
@@ -48,6 +49,7 @@ interface SchemaWriter {
 		array $descriptions,
 		array $aliasGroups,
 		$schemaText,
+		$baseRevId,
 		Message $message = null
 	);
 

@@ -114,6 +114,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 	 * @param string[] $descriptions
 	 * @param string[] $aliasGroups
 	 * @param string $schemaText
+	 * @param int $baseRevId
 	 * @param Message|null $message
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
@@ -125,6 +126,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		array $descriptions,
 		array $aliasGroups,
 		$schemaText,
+		$baseRevId,
 		Message $message = null
 	) {
 		if ( $message === null ) {
@@ -132,7 +134,9 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		}
 
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
-		$this->checkSchemaExists( $updater->grabParentRevision() );
+		$parentRevision = $updater->grabParentRevision();
+		$this->checkSchemaExists( $parentRevision );
+		$this->checkEditConflict( $parentRevision, $baseRevId );
 
 		// TODO check $updater->hasEditConflict()! (T217338)
 
