@@ -92,6 +92,10 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 			EDIT_NEW | EDIT_INTERNAL
 		);
 
+		if ( !$updater->wasSuccessful() ) {
+			throw new RuntimeException( 'The revision could not be saved' );
+		}
+
 		$this->watchListUpdater->optionallyWatchNewSchema( $id );
 
 		return $id;
@@ -258,6 +262,9 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 			CommentStoreComment::newUnsavedComment( $message ),
 			EDIT_UPDATE | EDIT_INTERNAL
 		);
+		if ( !$updater->wasSuccessful() ) {
+			throw new RuntimeException( 'The revision could not be saved' );
+		}
 
 		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
 	}
