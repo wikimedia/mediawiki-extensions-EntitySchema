@@ -215,7 +215,8 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			[],
 			[],
 			[],
-			''
+			'',
+			1
 		);
 	}
 
@@ -262,7 +263,8 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			[ $testLanguage => $testLabel ],
 			[ $testLanguage => $testDescription ],
 			[ $testLanguage => $testAliases ],
-			$testSchemaText
+			$testSchemaText,
+			1
 		);
 	}
 
@@ -303,7 +305,8 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			[ 'en' => 'englishLabel' ],
 			[ 'en' => 'englishDescription' ],
 			[ 'en' => $aliases ],
-			$schemaText
+			$schemaText,
+			1
 		);
 	}
 
@@ -319,7 +322,8 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			[],
 			[],
 			[],
-			'lalalala'
+			'lalalala',
+			1
 		);
 	}
 

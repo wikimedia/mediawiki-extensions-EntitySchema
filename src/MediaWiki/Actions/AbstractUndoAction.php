@@ -49,14 +49,27 @@ abstract class AbstractUndoAction extends ViewAction {
 		return $undoHandler->getDiffFromContents( $undoFromContent, $undoToContent );
 	}
 
+	/**
+	 * Try applying the diff to the latest revision of this page.
+	 *
+	 * @param Diff $diff
+	 *
+	 * @return Status contains array of the patched schema data and the revision that was patched
+	 */
 	protected function tryPatching( Diff $diff ): Status {
 		$revStore = MediaWikiServices::getInstance()->getRevisionStore();
+		$baseRevId = $this->getTitle()->getLatestRevID();
 		/** @var WikibaseSchemaContent $baseContent */
 		$baseContent = $revStore
-			->getRevisionById( $this->getTitle()->getLatestRevID() )
+			->getRevisionById( $baseRevId )
 			->getContent( SlotRecord::MAIN );
 		$undoHandler = new UndoHandler();
-		return $undoHandler->tryPatching( $diff, $baseContent );
+		$status = $undoHandler->tryPatching( $diff, $baseContent );
+		if ( $status->isGood() ) {
+			return Status::newGood( [ $status->getValue(), $baseRevId ] );
+		} else {
+			return $status;
+		}
 	}
 
 	/**

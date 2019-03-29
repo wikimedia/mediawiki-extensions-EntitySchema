@@ -84,10 +84,10 @@ class UndoSubmitAction extends AbstractUndoAction {
 			return $patchStatus;
 		}
 
-		return $this->storePatchedSchema( $patchStatus->getValue() );
+		return $this->storePatchedSchema( ...$patchStatus->getValue() );
 	}
 
-	private function storePatchedSchema( FullArraySchemaData $patchedSchema ): Status {
+	private function storePatchedSchema( FullArraySchemaData $patchedSchema, $baseRevId ): Status {
 		$schemaWriter = new MediawikiRevisionSchemaWriter(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
 			$this,
@@ -106,6 +106,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 				$patchedSchema->data['descriptions'],
 				$patchedSchema->data['aliases'],
 				$patchedSchema->data['schemaText'],
+				$baseRevId,
 				$submitMessage
 			);
 		} catch ( RuntimeException $e ) {
