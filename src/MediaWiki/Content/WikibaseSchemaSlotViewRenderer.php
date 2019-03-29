@@ -207,7 +207,7 @@ class WikibaseSchemaSlotViewRenderer {
 
 		return $this->makeExternalLink(
 			$url,
-			wfMessage( 'wikibaseschema-check-entities' )->inContentLanguage()->parse(),
+			wfMessage( 'wikibaseschema-check-entities' )->parse(),
 			false, // link text already escaped in ->parse()
 			'',
 			[ 'class' => 'wbschema-check-schema' ]
