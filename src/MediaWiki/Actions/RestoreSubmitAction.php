@@ -8,7 +8,7 @@ use MediaWiki\Revision\SlotRecord;
 use RuntimeException;
 use Status;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
@@ -99,14 +99,14 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		CommentStoreComment $summary
 	): Status {
 
-		$schemaWriter = new MediawikiRevisionSchemaWriter(
+		$schemaUpdater = new MediawikiRevisionSchemaUpdater(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
 			$this,
 			new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON )
 		);
 
 		try {
-			$schemaWriter->overwriteWholeSchema(
+			$schemaUpdater->overwriteWholeSchema(
 				new SchemaId( $this->getTitle()->getTitleValue()->getText() ),
 				$persistenceSchemaData->labels,
 				$persistenceSchemaData->descriptions,
@@ -134,13 +134,13 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 	): CommentStoreComment {
 		$revId = $revToBeRestored->getId();
 		$userName = $revToBeRestored->getUser()->getName();
-		$autoComment = MediaWikiRevisionSchemaWriter::AUTOCOMMENT_RESTORE
+		$autoComment = MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE
 			. ':' . $revId
 			. ':' . $userName;
 		return CommentStoreComment::newUnsavedComment(
 			'/* ' . $autoComment . ' */' . $userSummary,
 			[
-				'key' => MediaWikiRevisionSchemaWriter::AUTOCOMMENT_RESTORE,
+				'key' => MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE,
 				'revId' => $revId,
 				'userName' => $userName,
 				'summary' => $userSummary

@@ -3,7 +3,8 @@
 namespace Wikibase\Schema\Tests\Presentation;
 
 use MediaWikiTestCase;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaInserter;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Wikibase\Schema\Presentation\AutocommentFormatter;
 
 /**
@@ -23,7 +24,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 
 		yield 'valid new schema comment' => [
 			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA,
+			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			false,
 			'<span dir="auto"><span class="autocomment">'
 			.'(wikibaseschema-summary-newschema-nolabel)'
@@ -32,7 +33,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 
 		yield 'valid new schema comment with pre' => [
 			true,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA,
+			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			false,
 			'(autocomment-prefix)<span dir="auto"><span class="autocomment">'
 			.'(wikibaseschema-summary-newschema-nolabel)'
@@ -41,7 +42,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 
 		yield 'valid new schema comment with post' => [
 			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA,
+			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			true,
 			'<span dir="auto"><span class="autocomment">'
 			.'(wikibaseschema-summary-newschema-nolabel)(colon-separator)'
@@ -50,7 +51,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 
 		yield 'valid schema text updated comment' => [
 			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UPDATED_SCHEMATEXT,
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_SCHEMATEXT,
 			false,
 			'<span dir="auto"><span class="autocomment">'
 			.'(wikibaseschema-summary-update-schema-text)'
@@ -59,7 +60,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 
 		yield 'valid undo comment with username' => [
 			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UNDO
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO
 			. ':1:username',
 			false,
 			'<span dir="auto"><span class="autocomment">'
@@ -69,7 +70,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 
 		yield 'valid undo comment with ipv4' => [
 			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UNDO
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO
 			. ':1:198.51.100.10',
 			false,
 			'<span dir="auto"><span class="autocomment">'
@@ -79,7 +80,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 
 		yield 'valid undo comment with ipv6' => [
 			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UNDO
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO
 			. ':1:2001:db8::1',
 			false,
 			'<span dir="auto"><span class="autocomment">'
@@ -89,7 +90,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 
 		yield 'valid restore comment with username' => [
 			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_RESTORE
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE
 			. ':1:username',
 			false,
 			'<span dir="auto"><span class="autocomment">'
@@ -99,7 +100,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 
 		yield 'valid restore comment with ipv4' => [
 			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_RESTORE
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE
 			. ':1:198.51.100.10',
 			false,
 			'<span dir="auto"><span class="autocomment">'
@@ -109,7 +110,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 
 		yield 'valid restore comment with ipv6' => [
 			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_RESTORE
+			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE
 			. ':1:2001:db8::1',
 			false,
 			'<span dir="auto"><span class="autocomment">'

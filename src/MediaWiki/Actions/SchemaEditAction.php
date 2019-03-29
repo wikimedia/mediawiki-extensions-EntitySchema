@@ -11,7 +11,7 @@ use RuntimeException;
 use Status;
 use Wikibase\Schema\DataAccess\EditConflict;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
@@ -79,10 +79,10 @@ class SchemaEditAction extends FormAction {
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$id = new SchemaId( $this->getTitle()->getText() );
 		$watchListUpdater = new WatchlistUpdater( $user, NS_WBSCHEMA_JSON );
-		$schemaWriter = new MediaWikiRevisionSchemaWriter( $updaterFactory, $this, $watchListUpdater );
+		$schemaUpdater = new MediaWikiRevisionSchemaUpdater( $updaterFactory, $this, $watchListUpdater );
 
 		try {
-			$schemaWriter->updateSchemaText(
+			$schemaUpdater->updateSchemaText(
 				$id,
 				$data[self::FIELD_SCHEMA_TEXT],
 				(int)$data[self::FIELD_BASE_REV],

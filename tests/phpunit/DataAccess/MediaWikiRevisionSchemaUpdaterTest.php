@@ -13,116 +13,17 @@ use MediaWiki\Storage\PageUpdater;
 use stdClass;
 use Wikibase\Schema\DataAccess\EditConflict;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\Domain\Storage\IdGenerator;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 
 /**
- * @covers \Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter
+ * @covers \Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater
  * @license GPL-2.0-or-later
  */
-class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
+class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	use \PHPUnit4And6Compat;
-
-	public function testInsertSchema() {
-		$language = 'en';
-		$label = 'test_label';
-		$description = 'test_description';
-		$aliases = [ 'test_alias1', 'testalias_2' ];
-		$schemaText = '#some fake schema {}';
-		$id = 'O123';
-
-		$expectedContent = new WikibaseSchemaContent(
-			json_encode(
-				[
-					'id' => $id,
-					'serializationVersion' => '3.0',
-					'labels' => [
-						$language => $label
-					],
-					'descriptions' => [
-						$language => $description
-					],
-					'aliases' => [
-						$language => $aliases
-					],
-					'schemaText' => $schemaText,
-					'type' => 'ShExC',
-				]
-			)
-		);
-
-		$pageUpdaterFactory = $this
-			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent );
-
-		$idGenerator = $this->createMock( IdGenerator::class );
-		$idGenerator->method( 'getNewId' )->willReturn( 123 );
-
-		$writer = new MediaWikiRevisionSchemaWriter(
-			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
-			$this->getMockWatchlistUpdater( 'optionallyWatchNewSchema' ),
-			$idGenerator
-		);
-
-		$writer->insertSchema( $language,
-			$label,
-			$description,
-			$aliases,
-			$schemaText
-		);
-	}
-
-	public function testInsertSchema_commentWithCleanedUpParameters() {
-		$expectedComment = CommentStoreComment::newUnsavedComment(
-			'/* ' . MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA . ' */test label',
-			[
-				'key' => 'wikibaseschema-summary-newschema-nolabel',
-				'language' => 'en',
-				'label' => 'test label',
-				'description' => 'test description',
-				'aliases' => [ 'test alias' ],
-				'schemaText_truncated' => 'test schema text',
-			]
-		);
-		$pageUpdaterFactory = $this->getPageUpdaterFactoryExpectingComment( $expectedComment );
-
-		$idGenerator = $this->createMock( IdGenerator::class );
-		$idGenerator->method( 'getNewId' )->willReturn( 123 );
-
-		$writer = new MediaWikiRevisionSchemaWriter(
-			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
-			$this->getMockWatchlistUpdater( 'optionallyWatchNewSchema' ),
-			$idGenerator
-		);
-
-		$writer->insertSchema(
-			'en',
-			'   test label  ',
-			'  test description ',
-			[ 'test alias', ' test alias ', '  ' ],
-			'  test schema text '
-		);
-	}
-
-	public function testInsertSchema_saveFails() {
-		$writer = $this->newMediaWikiRevisionSchemaWriterFailingToSave();
-
-		$this->setExpectedException(
-			RuntimeException::class,
-			'The revision could not be saved'
-		);
-		$writer->insertSchema(
-			'en',
-			'',
-			'test description',
-			[ 'abc' ],
-			'test schema text'
-		);
-	}
 
 	private function getPageUpdaterFactoryProvidingAndExpectingContent(
 		WikibaseSchemaContent $expectedContent,
@@ -179,7 +80,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		return $msgLocalizer;
 	}
 
-	private function newMediaWikiRevisionSchemaWriterFailingToSave(): MediaWikiRevisionSchemaWriter {
+	private function newMediaWikiRevisionSchemaUpdaterFailingToSave(): MediaWikiRevisionSchemaUpdater {
 		$existingContent = new WikibaseSchemaContent( '{}' );
 		$revisionRecord = $this->createMockRevisionRecord( $existingContent );
 
@@ -187,28 +88,24 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdater->method( 'wasSuccessful' )->willReturn( false );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
 
-		$idGenerator = $this->createMock( IdGenerator::class );
-		$idGenerator->method( 'getNewId' )->willReturn( 123 );
-
-		return new MediaWikiRevisionSchemaWriter(
+		return new MediaWikiRevisionSchemaUpdater(
 			$this->getPageUpdaterFactory( $pageUpdater ),
 			$this->getMessageLocalizer(),
-			$this->getMockWatchlistUpdater(),
-			$idGenerator
+			$this->getMockWatchlistUpdater()
 		);
 	}
 
 	public function testOverwriteWholeSchema_throwsForNonExistantPage() {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
-		$writer = new MediaWikiRevisionSchemaWriter(
+		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater()
 		);
 
 		$this->expectException( RuntimeException::class );
-		$writer->overwriteWholeSchema(
+		$schmeaUpdater->overwriteWholeSchema(
 			new SchemaId( 'O123456999999999' ),
 			[],
 			[],
@@ -251,13 +148,13 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		);
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 
-		$writer = new MediaWikiRevisionSchemaWriter(
+		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater()
 		);
 		$this->setExpectedException( InvalidArgumentException::class, $exceptionMessage );
-		$writer->overwriteWholeSchema(
+		$schmeaUpdater->overwriteWholeSchema(
 			new SchemaId( 'O1' ),
 			[ $testLanguage => $testLabel ],
 			[ $testLanguage => $testDescription ],
@@ -295,12 +192,12 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		) );
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
-		$writer = new MediaWikiRevisionSchemaWriter(
+		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
 		);
-		$writer->overwriteWholeSchema(
+		$schmeaUpdater->overwriteWholeSchema(
 			new SchemaId( 'O1' ),
 			[ 'en' => 'englishLabel' ],
 			[ 'en' => 'englishDescription' ],
@@ -312,13 +209,13 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testOverwriteWholeSchema_saveFails() {
-		$writer = $this->newMediaWikiRevisionSchemaWriterFailingToSave();
+		$schmeaUpdater = $this->newMediaWikiRevisionSchemaUpdaterFailingToSave();
 
 		$this->setExpectedException(
 			RuntimeException::class,
 			'The revision could not be saved'
 		);
-		$writer->overwriteWholeSchema(
+		$schmeaUpdater->overwriteWholeSchema(
 			new SchemaId( 'O1' ),
 			[],
 			[],
@@ -348,14 +245,14 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testUpdateSchemaText_throwsForInvalidParams() {
 		$pageUpdaterFactory = $this->getPageUpdaterFactory();
-		$writer = new MediaWikiRevisionSchemaWriter(
+		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater()
 		);
 
 		$this->expectException( InvalidArgumentException::class );
-		$writer->updateSchemaText(
+		$schmeaUpdater->updateSchemaText(
 			new SchemaId( 'O1' ),
 			null,
 			1
@@ -378,14 +275,14 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
-		$writer = new MediaWikiRevisionSchemaWriter(
+		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater()
 		);
 
 		$this->expectException( DomainException::class );
-		$writer->updateSchemaText( new SchemaId( 'O1' ), '', 1 );
+		$schmeaUpdater->updateSchemaText( new SchemaId( 'O1' ), '', 1 );
 	}
 
 	public function testUpdateSchemaText_throwsForEditConflict() {
@@ -393,14 +290,14 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
-		$writer = new MediaWikiRevisionSchemaWriter(
+		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater()
 		);
 
 		$this->expectException( EditConflict::class );
-		$writer->updateSchemaText( new SchemaId( 'O1' ), '', 1 );
+		$schmeaUpdater->updateSchemaText( new SchemaId( 'O1' ), '', 1 );
 	}
 
 	public function testUpdateSchemaText_WritesExpectedContentForOverwritingSchemaText() {
@@ -431,13 +328,13 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
-		$writer = new MediaWikiRevisionSchemaWriter(
+		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
 		);
 
-		$writer->updateSchemaText(
+		$schmeaUpdater->updateSchemaText(
 			new SchemaId( $id ),
 			$newSchemaText,
 			1
@@ -445,13 +342,13 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testUpdateSchemaText_saveFails() {
-		$writer = $this->newMediaWikiRevisionSchemaWriterFailingToSave();
+		$schmeaUpdater = $this->newMediaWikiRevisionSchemaUpdaterFailingToSave();
 
 		$this->setExpectedException(
 			RuntimeException::class,
 			'The revision could not be saved'
 		);
-		$writer->updateSchemaText(
+		$schmeaUpdater->updateSchemaText(
 			new SchemaId( 'O1' ),
 			'qwerty',
 			1
@@ -460,7 +357,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testUpdateSchemaText_comment() {
 		$expectedComment = CommentStoreComment::newUnsavedComment(
-			'/* ' . MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UPDATED_SCHEMATEXT . ' */user given',
+			'/* ' . MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_SCHEMATEXT . ' */user given',
 			[
 				'key' => 'wikibaseschema-summary-update-schema-text',
 				'schemaText_truncated' => 'new schema text',
@@ -483,13 +380,13 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$expectedComment,
 			$existingContent
 		);
-		$writer = new MediaWikiRevisionSchemaWriter(
+		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
 		);
 
-		$writer->updateSchemaText(
+		$schmeaUpdater->updateSchemaText(
 			$id,
 			'new schema text',
 			null,
@@ -524,13 +421,13 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
-		$writer = new MediaWikiRevisionSchemaWriter(
+		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
 		);
 
-		$writer->updateSchemaNameBadge(
+		$schmeaUpdater->updateSchemaNameBadge(
 			new SchemaId( $id ),
 			$language,
 			$labels['en'],
@@ -585,13 +482,13 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
-		$writer = new MediaWikiRevisionSchemaWriter(
+		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
 		);
 
-		$writer->updateSchemaNameBadge(
+		$schmeaUpdater->updateSchemaNameBadge(
 			new SchemaId( $id ),
 			$language,
 			$englishLabel,
@@ -606,14 +503,14 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
-		$writer = new MediaWikiRevisionSchemaWriter(
+		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater()
 		);
 
 		$this->expectException( EditConflict::class );
-		$writer->updateSchemaNameBadge(
+		$schmeaUpdater->updateSchemaNameBadge(
 			new SchemaId( 'O1' ),
 			'en',
 			'test label',
@@ -624,13 +521,13 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testUpdateSchemaNameBadge_saveFails() {
-		$writer = $this->newMediaWikiRevisionSchemaWriterFailingToSave();
+		$schmeaUpdater = $this->newMediaWikiRevisionSchemaUpdaterFailingToSave();
 
 		$this->setExpectedException(
 			RuntimeException::class,
 			'The revision could not be saved'
 		);
-		$writer->updateSchemaNameBadge(
+		$schmeaUpdater->updateSchemaNameBadge(
 			new SchemaId( 'O1' ),
 			'en',
 			'test label',

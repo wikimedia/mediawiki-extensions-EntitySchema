@@ -5,7 +5,7 @@ namespace Wikibase\Schema\Tests\MediaWiki;
 use MediaWikiTestCase;
 use SpecialPage;
 use Title;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaInserter;
 use Wikibase\Schema\MediaWiki\WikibaseSchemaHooks;
 
 /**
@@ -22,7 +22,7 @@ class WikibaseSchemaHooksTest extends MediaWikiTestCase {
 		$ret = WikibaseSchemaHooks::onFormatAutocomments(
 			$comment,
 			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA,
+			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			false,
 			null,
 			false
@@ -38,7 +38,7 @@ class WikibaseSchemaHooksTest extends MediaWikiTestCase {
 		$ret = WikibaseSchemaHooks::onFormatAutocomments(
 			$comment,
 			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA,
+			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			false,
 			SpecialPage::getTitleFor( 'Version' ),
 			false
@@ -71,7 +71,7 @@ class WikibaseSchemaHooksTest extends MediaWikiTestCase {
 		$ret = WikibaseSchemaHooks::onFormatAutocomments(
 			$comment,
 			false,
-			MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA,
+			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			true, # usually followed by the label
 			Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' ),
 			false

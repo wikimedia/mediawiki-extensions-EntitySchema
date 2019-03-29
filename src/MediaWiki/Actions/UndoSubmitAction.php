@@ -10,7 +10,7 @@ use RuntimeException;
 use Status;
 use UserBlockedError;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
@@ -88,7 +88,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 	}
 
 	private function storePatchedSchema( FullArraySchemaData $patchedSchema, $baseRevId ): Status {
-		$schemaWriter = new MediawikiRevisionSchemaWriter(
+		$schemaUpdater = new MediawikiRevisionSchemaUpdater(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
 			$this,
 			new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON )
@@ -100,7 +100,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 			);
 
 		try {
-			$schemaWriter->overwriteWholeSchema(
+			$schemaUpdater->overwriteWholeSchema(
 				new SchemaId( $this->getTitle()->getTitleValue()->getText() ),
 				$patchedSchema->data['labels'],
 				$patchedSchema->data['descriptions'],
@@ -121,13 +121,13 @@ class UndoSubmitAction extends AbstractUndoAction {
 			->getRevisionStore()
 			->getRevisionById( $undoRevId );
 		$userName = $revToBeUndone->getUser()->getName();
-		$autoComment = MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UNDO
+		$autoComment = MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO
 			. ':' . $undoRevId
 			. ':' . $userName;
 		return CommentStoreComment::newUnsavedComment(
 			'/* ' . $autoComment . ' */' . $userSummary,
 			[
-				'key' => MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UNDO,
+				'key' => MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO,
 				'summary' => $userSummary,
 				'undoRevId' => $undoRevId,
 				'userName' => $userName

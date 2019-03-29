@@ -12,7 +12,7 @@ use Status;
 use Title;
 use UserBlockedError;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaInserter;
 use Wikibase\Schema\DataAccess\SqlIdGenerator;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Presentation\InputValidator;
@@ -85,13 +85,12 @@ class NewSchema extends SpecialPage {
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $this->getUser() );
 
-		$schemaWriter = new MediawikiRevisionSchemaWriter(
+		$schemaInserter = new MediaWikiRevisionSchemaInserter(
 			$pageUpdaterFactory,
-			$this,
 			new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON ),
 			$idGenerator
 		);
-		$newId = $schemaWriter->insertSchema(
+		$newId = $schemaInserter->insertSchema(
 			$data[self::FIELD_LANGUAGE],
 			$data[self::FIELD_LABEL],
 			$data[self::FIELD_DESCRIPTION],

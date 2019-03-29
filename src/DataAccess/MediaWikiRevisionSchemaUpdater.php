@@ -10,97 +10,30 @@ use MediaWiki\Revision\SlotRecord;
 use MessageLocalizer;
 use RuntimeException;
 use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\Domain\Storage\IdGenerator;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
 use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later
  */
-class MediaWikiRevisionSchemaWriter implements SchemaWriter {
+class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 
-	const AUTOCOMMENT_NEWSCHEMA = 'wikibaseschema-summary-newschema-nolabel';
 	const AUTOCOMMENT_UPDATED_SCHEMATEXT = 'wikibaseschema-summary-update-schema-text';
 	/* public */ const AUTOCOMMENT_RESTORE = 'wikibaseschema-summary-restore';
 	/* public */ const AUTOCOMMENT_UNDO = 'wikibaseschema-summary-undo';
 
 	private $pageUpdaterFactory;
-	private $idGenerator;
 	private $msgLocalizer;
 	private $watchListUpdater;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
 		MessageLocalizer $msgLocalizer,
-		WatchlistUpdater $watchListUpdater,
-		IdGenerator $idGenerator = null
+		WatchlistUpdater $watchListUpdater
 	) {
-		$this->idGenerator = $idGenerator;
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
 		$this->msgLocalizer = $msgLocalizer;
 		$this->watchListUpdater = $watchListUpdater;
-	}
-
-	/**
-	 * @param string $language
-	 * @param string $label
-	 * @param string $description
-	 * @param string[] $aliases
-	 * @param string $schemaText
-	 *
-	 * @return SchemaId id of the inserted Schema
-	 */
-	public function insertSchema(
-		$language,
-		$label = '',
-		$description = '',
-		array $aliases = [],
-		$schemaText = ''
-	): SchemaId {
-		$id = new SchemaId( 'O' . $this->idGenerator->getNewId() );
-		$persistentRepresentation = SchemaEncoder::getPersistentRepresentation(
-			$id,
-			[ $language => $label ],
-			[ $language => $description ],
-			[ $language => $aliases ],
-			$schemaText
-		);
-
-		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
-		$updater->setContent(
-			SlotRecord::MAIN,
-			new WikibaseSchemaContent( $persistentRepresentation )
-		);
-
-		$schemaConverter = new SchemaConverter();
-		$schemaData = $schemaConverter->getMonolingualNameBadgeData(
-			$persistentRepresentation,
-			$language
-		);
-		$updater->saveRevision(
-			CommentStoreComment::newUnsavedComment(
-				'/* ' . self::AUTOCOMMENT_NEWSCHEMA . ' */' . $schemaData->label,
-				[
-					'key' => 'wikibaseschema-summary-newschema-nolabel',
-					'language' => $language,
-					'label' => $schemaData->label,
-					'description' => $schemaData->description,
-					'aliases' => $schemaData->aliases,
-					'schemaText_truncated' => $this->truncateSchemaTextForCommentData(
-						$schemaConverter->getSchemaText( $persistentRepresentation )
-					),
-				]
-			),
-			EDIT_NEW | EDIT_INTERNAL
-		);
-
-		if ( !$updater->wasSuccessful() ) {
-			throw new RuntimeException( 'The revision could not be saved' );
-		}
-
-		$this->watchListUpdater->optionallyWatchNewSchema( $id );
-
-		return $id;
 	}
 
 	private function truncateSchemaTextForCommentData( $schemaText ) {

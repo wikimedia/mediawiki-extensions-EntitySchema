@@ -3,7 +3,8 @@
 namespace Wikibase\Schema\Presentation;
 
 use User;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaInserter;
+use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
 
 /**
  * @license GPL-2.0-or-later
@@ -44,19 +45,19 @@ class AutocommentFormatter {
 		$commentParts = explode( ':', $auto, 2 );
 
 		switch ( $commentParts[0] ) {
-			case MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA:
+			case MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA:
 				$comment = wfMessage( 'wikibaseschema-summary-newschema-nolabel' );
 				break;
-			case MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UPDATED_SCHEMATEXT:
+			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_SCHEMATEXT:
 				$comment = wfMessage( 'wikibaseschema-summary-update-schema-text' );
 				break;
-			case MediaWikiRevisionSchemaWriter::AUTOCOMMENT_RESTORE:
+			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE:
 				list( $revId, $username ) = explode( ':', $commentParts[1], 2 );
 				$user = User::newFromName( $username ) ?: $username;
 				$comment = wfMessage( 'wikibaseschema-summary-restore-autocomment' )
 					->params( $revId, $user );
 				break;
-			case MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UNDO:
+			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO:
 				list( $revId, $username ) = explode( ':', $commentParts[1], 2 );
 				$user = User::newFromName( $username ) ?: $username;
 				$comment = wfMessage( 'wikibaseschema-summary-undo-autocomment' )
