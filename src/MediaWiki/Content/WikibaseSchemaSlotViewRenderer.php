@@ -179,6 +179,7 @@ class WikibaseSchemaSlotViewRenderer {
 			[
 				'id' => 'wbschema-schema-text',
 				'class' => 'wbschema-schema-text',
+				'dir' => 'ltr',
 			],
 			$schemaText
 		);
