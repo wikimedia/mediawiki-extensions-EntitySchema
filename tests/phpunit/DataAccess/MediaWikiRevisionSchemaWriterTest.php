@@ -201,12 +201,10 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 	public function testOverwriteWholeSchema_throwsForNonExistantPage() {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
-		$idGenerator = $this->createMock( IdGenerator::class );
 		$writer = new MediaWikiRevisionSchemaWriter(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
-			$this->getMockWatchlistUpdater(),
-			$idGenerator
+			$this->getMockWatchlistUpdater()
 		);
 
 		$this->expectException( RuntimeException::class );
@@ -350,12 +348,10 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testUpdateSchemaText_throwsForInvalidParams() {
 		$pageUpdaterFactory = $this->getPageUpdaterFactory();
-		$idGenerator = $this->createMock( IdGenerator::class );
 		$writer = new MediaWikiRevisionSchemaWriter(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
-			$this->getMockWatchlistUpdater(),
-			$idGenerator
+			$this->getMockWatchlistUpdater()
 		);
 
 		$this->expectException( InvalidArgumentException::class );
@@ -382,12 +378,10 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
-		$idGenerator = $this->createMock( IdGenerator::class );
 		$writer = new MediaWikiRevisionSchemaWriter(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
-			$this->getMockWatchlistUpdater(),
-			$idGenerator
+			$this->getMockWatchlistUpdater()
 		);
 
 		$this->expectException( DomainException::class );
@@ -399,12 +393,10 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
-		$idGenerator = $this->createMock( IdGenerator::class );
 		$writer = new MediaWikiRevisionSchemaWriter(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
-			$this->getMockWatchlistUpdater(),
-			$idGenerator
+			$this->getMockWatchlistUpdater()
 		);
 
 		$this->expectException( EditConflict::class );
@@ -614,12 +606,10 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
-		$idGenerator = $this->createMock( IdGenerator::class );
 		$writer = new MediaWikiRevisionSchemaWriter(
 			$pageUpdaterFactory,
 			$this->getMessageLocalizer(),
-			$this->getMockWatchlistUpdater(),
-			$idGenerator
+			$this->getMockWatchlistUpdater()
 		);
 
 		$this->expectException( EditConflict::class );

@@ -3,14 +3,12 @@
 namespace Wikibase\Schema\MediaWiki\Actions;
 
 use CommentStoreComment;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use RuntimeException;
 use Status;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
-use Wikibase\Schema\DataAccess\SqlIdGenerator;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
@@ -104,11 +102,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		$schemaWriter = new MediawikiRevisionSchemaWriter(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
 			$this,
-			new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON ),
-			new SqlIdGenerator(
-				MediaWikiServices::getInstance()->getDBLoadBalancer(),
-				'wbschema_id_counter'
-			)
+			new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON )
 		);
 
 		try {
