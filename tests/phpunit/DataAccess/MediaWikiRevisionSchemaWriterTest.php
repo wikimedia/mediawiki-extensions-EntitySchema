@@ -77,7 +77,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testInsertSchema_commentWithCleanedUpParameters() {
 		$expectedComment = CommentStoreComment::newUnsavedComment(
-			'/* ' . MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA . ' */ test label',
+			'/* ' . MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA . ' */test label',
 			[
 				'key' => 'wikibaseschema-summary-newschema-nolabel',
 				'language' => 'en',
@@ -460,7 +460,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testUpdateSchemaText_comment() {
 		$expectedComment = CommentStoreComment::newUnsavedComment(
-			'/* ' . MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UPDATED_SCHEMATEXT . ' */ user given',
+			'/* ' . MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UPDATED_SCHEMATEXT . ' */user given',
 			[
 				'key' => 'wikibaseschema-summary-update-schema-text',
 				'schemaText_truncated' => 'new schema text',
