@@ -130,8 +130,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 	): MediaWikiPageUpdaterFactory {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		if ( $existingContent !== null ) {
-			$revisionRecord = $this->createMock( RevisionRecord::class );
-			$revisionRecord->method( 'getContent' )->willReturn( $existingContent );
+			$revisionRecord = $this->createMockRevisionRecord( $existingContent );
 			$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
 		}
 		$pageUpdater->method( 'wasSuccessful' )->willReturn( true );
@@ -182,9 +181,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 
 	private function newMediaWikiRevisionSchemaWriterFailingToSave(): MediaWikiRevisionSchemaWriter {
 		$existingContent = new WikibaseSchemaContent( '{}' );
-
-		$revisionRecord = $this->createMock( RevisionRecord::class );
-		$revisionRecord->method( 'getContent' )->willReturn( $existingContent );
+		$revisionRecord = $this->createMockRevisionRecord( $existingContent );
 
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'wasSuccessful' )->willReturn( false );
@@ -250,7 +247,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 	) {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn(
-			$this->createMock( RevisionRecord::class )
+			$this->createMockRevisionRecord()
 		);
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 
@@ -357,13 +354,12 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$writer->updateSchemaText(
 			new SchemaId( 'O1' ),
 			null,
-			null
+			1
 		);
 	}
 
 	public function testUpdateSchemaText_throwsForUnknownSerializationVersion() {
-		$revisionRecord = $this->createMock( RevisionRecord::class );
-		$revisionRecord->method( 'getContent' )->willReturn(
+		$revisionRecord = $this->createMockRevisionRecord(
 			new WikibaseSchemaContent( json_encode( [
 				'serializationVersion' => '4.0',
 				'schema' => [
@@ -387,12 +383,11 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->expectException( DomainException::class );
-		$writer->updateSchemaText( new SchemaId( 'O1' ), '', null );
+		$writer->updateSchemaText( new SchemaId( 'O1' ), '', 1 );
 	}
 
 	public function testUpdateSchemaText_throwsForEditConflict() {
-		$revisionRecord = $this->createMock( RevisionRecord::class );
-		$revisionRecord->method( 'getId' )->willReturn( 2 );
+		$revisionRecord = $this->createMockRevisionRecord( null, 2 );
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
@@ -445,7 +440,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$writer->updateSchemaText(
 			new SchemaId( $id ),
 			$newSchemaText,
-			null
+			1
 		);
 	}
 
@@ -459,7 +454,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 		$writer->updateSchemaText(
 			new SchemaId( 'O1' ),
 			'qwerty',
-			null
+			1
 		);
 	}
 
@@ -541,7 +536,7 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$labels['en'],
 			$descriptions['en'],
 			$aliases['en'],
-			null
+			1
 		);
 	}
 
@@ -602,13 +597,12 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			$englishLabel,
 			$englishDescription,
 			$englishAliases,
-			null
+			1
 		);
 	}
 
 	public function testUpdateSchemaNameBadge_throwsForEditConflict() {
-		$revisionRecord = $this->createMock( RevisionRecord::class );
-		$revisionRecord->method( 'getId' )->willReturn( 2 );
+		$revisionRecord = $this->createMockRevisionRecord( null, 2 );
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
@@ -644,8 +638,18 @@ class MediaWikiRevisionSchemaWriterTest extends \PHPUnit_Framework_TestCase {
 			'test label',
 			'test description',
 			[ 'test alias' ],
-			null
+			1
 		);
+	}
+
+	private function createMockRevisionRecord(
+		WikibaseSchemaContent $content = null,
+		$id = 1
+	): RevisionRecord {
+		$revisionRecord = $this->createMock( RevisionRecord::class );
+		$revisionRecord->method( 'getContent' )->willReturn( $content );
+		$revisionRecord->method( 'getId' )->willReturn( $id );
+		return $revisionRecord;
 	}
 
 }
