@@ -66,13 +66,13 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 
 		yield 'schema text' => [
 			new FullViewSchemaData( $emptyNameBadges, '_:empty {}' ),
-			[ '<pre id="wbschema-schema-text" class="wbschema-schema-text">_:empty {}</pre>' ],
+			[ '<pre id="wbschema-schema-text" class="wbschema-schema-text" dir="ltr">_:empty {}</pre>' ],
 		];
 
 		yield 'schema text, no HTML injection' => [
 			new FullViewSchemaData( $emptyNameBadges, '<script>alert("schema XSS")</script>' ),
 			// exact details of escaping beyond this (> vs &gt;) don’t matter
-			[ '<pre id="wbschema-schema-text" class="wbschema-schema-text">&lt;script' ],
+			[ '<pre id="wbschema-schema-text" class="wbschema-schema-text" dir="ltr">&lt;script' ],
 		];
 
 		yield 'multilingual descriptions' => [
