@@ -79,7 +79,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 		);
 		$updater->saveRevision(
 			CommentStoreComment::newUnsavedComment(
-				'/* ' . self::AUTOCOMMENT_NEWSCHEMA . ' */ ' . $schemaData->label,
+				'/* ' . self::AUTOCOMMENT_NEWSCHEMA . ' */' . $schemaData->label,
 				[
 					'key' => 'wikibaseschema-summary-newschema-nolabel',
 					'language' => $language,
@@ -257,10 +257,7 @@ class MediaWikiRevisionSchemaWriter implements SchemaWriter {
 			new WikibaseSchemaContent( $persistentRepresentation )
 		);
 
-		$commentText = '/* ' . self::AUTOCOMMENT_UPDATED_SCHEMATEXT . ' */';
-		if ( $userSummary ) {
-			$commentText .= " $userSummary";
-		}
+		$commentText = '/* ' . self::AUTOCOMMENT_UPDATED_SCHEMATEXT . ' */' . $userSummary;
 		$updater->saveRevision(
 				CommentStoreComment::newUnsavedComment(
 				$commentText,
