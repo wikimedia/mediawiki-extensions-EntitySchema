@@ -2,10 +2,10 @@
 
 namespace Wikibase\Schema\MediaWiki\Actions;
 
+use CommentStoreComment;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
-use Message;
 use RuntimeException;
 use Status;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
@@ -80,8 +80,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 
 		$converter = new SchemaConverter();
 
-		$submitMessage = $this->createSummaryMessageForRestore(
-		// @phan-suppress-next-line PhanUndeclaredMethod
+		$summary = $this->createSummaryMessageForRestore(
 			$this->context->getRequest()->getText( 'wpSummary' ),
 			$revToRestore
 		);
@@ -92,14 +91,14 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 				$contentToRestore->getText()
 			),
 			$this->context->getRequest()->getInt( 'wpBaseRev' ),
-			$submitMessage
+			$summary
 		);
 	}
 
 	private function storeRestoredSchema(
 		PersistenceSchemaData $persistenceSchemaData,
 		$baseRevId,
-		Message $submitMessage
+		CommentStoreComment $summary
 	): Status {
 
 		$schemaWriter = new MediawikiRevisionSchemaWriter(
@@ -120,7 +119,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 				$persistenceSchemaData->aliases,
 				$persistenceSchemaData->schemaText,
 				$baseRevId,
-				$submitMessage
+				$summary
 			);
 		} catch ( RuntimeException $e ) {
 			return Status::newFatal( 'wikibaseschema-error-saving-failed', $e->getMessage() );
@@ -133,16 +132,26 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 	 * @param string $userSummary
 	 * @param RevisionRecord $revToBeRestored
 	 *
-	 * @return Message
+	 * @return CommentStoreComment
 	 */
 	private function createSummaryMessageForRestore(
 		$userSummary,
 		RevisionRecord $revToBeRestored
-	): Message {
-		return $this->msg( 'wikibaseschema-summary-restore' )
-			->params( $revToBeRestored->getId() )
-			->params( $revToBeRestored->getUser() )
-			->plaintextParams( $userSummary );
+	): CommentStoreComment {
+		$revId = $revToBeRestored->getId();
+		$userName = $revToBeRestored->getUser()->getName();
+		$autoComment = MediaWikiRevisionSchemaWriter::AUTOCOMMENT_RESTORE
+			. ':' . $revId
+			. ':' . $userName;
+		return CommentStoreComment::newUnsavedComment(
+			'/* ' . $autoComment . ' */' . $userSummary,
+			[
+				'key' => MediaWikiRevisionSchemaWriter::AUTOCOMMENT_RESTORE,
+				'revId' => $revId,
+				'userName' => $userName,
+				'summary' => $userSummary
+			]
+		);
 	}
 
 }

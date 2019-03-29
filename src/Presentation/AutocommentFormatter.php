@@ -2,6 +2,7 @@
 
 namespace Wikibase\Schema\Presentation;
 
+use User;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaWriter;
 
 /**
@@ -40,14 +41,26 @@ class AutocommentFormatter {
 	}
 
 	private function parseAutocomment( $auto ) {
-		list( $commentKey ) = explode( ':', $auto, 2 );
+		$commentParts = explode( ':', $auto, 2 );
 
-		switch ( $commentKey ) {
+		switch ( $commentParts[0] ) {
 			case MediaWikiRevisionSchemaWriter::AUTOCOMMENT_NEWSCHEMA:
 				$comment = wfMessage( 'wikibaseschema-summary-newschema-nolabel' );
 				break;
 			case MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UPDATED_SCHEMATEXT:
 				$comment = wfMessage( 'wikibaseschema-summary-update-schema-text' );
+				break;
+			case MediaWikiRevisionSchemaWriter::AUTOCOMMENT_RESTORE:
+				list( $revId, $username ) = explode( ':', $commentParts[1], 2 );
+				$user = User::newFromName( $username ) ?: $username;
+				$comment = wfMessage( 'wikibaseschema-summary-restore-autocomment' )
+					->params( $revId, $user );
+				break;
+			case MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UNDO:
+				list( $revId, $username ) = explode( ':', $commentParts[1], 2 );
+				$user = User::newFromName( $username ) ?: $username;
+				$comment = wfMessage( 'wikibaseschema-summary-undo-autocomment' )
+					->params( $revId, $user );
 				break;
 			default:
 				return null;

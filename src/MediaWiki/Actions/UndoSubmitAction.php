@@ -2,8 +2,8 @@
 
 namespace Wikibase\Schema\MediaWiki\Actions;
 
+use CommentStoreComment;
 use MediaWiki\MediaWikiServices;
-use Message;
 use PermissionsError;
 use ReadOnlyError;
 use RuntimeException;
@@ -94,7 +94,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 			new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON )
 		);
 
-		$submitMessage = $this->createSummaryMessageForUndoRev(
+		$summary = $this->createSummaryCommentForUndoRev(
 			$this->context->getRequest()->getText( 'wpSummary' ),
 			$this->context->getRequest()->getInt( 'undo' )
 			);
@@ -107,7 +107,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 				$patchedSchema->data['aliases'],
 				$patchedSchema->data['schemaText'],
 				$baseRevId,
-				$submitMessage
+				$summary
 			);
 		} catch ( RuntimeException $e ) {
 			return Status::newFatal( 'wikibaseschema-error-saving-failed', $e->getMessage() );
@@ -116,15 +116,23 @@ class UndoSubmitAction extends AbstractUndoAction {
 		return Status::newGood();
 	}
 
-	private function createSummaryMessageForUndoRev( $userSummary, $undoRevId ): Message {
+	private function createSummaryCommentForUndoRev( $userSummary, $undoRevId ): CommentStoreComment {
 		$revToBeUndone = MediaWikiServices::getInstance()
 			->getRevisionStore()
 			->getRevisionById( $undoRevId );
-		$user = $revToBeUndone->getUser();
-		return $this->msg( 'wikibaseschema-summary-undo' )
-			->params( $revToBeUndone->getId() )
-			->params( $user )
-			->plaintextParams( $userSummary );
+		$userName = $revToBeUndone->getUser()->getName();
+		$autoComment = MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UNDO
+			. ':' . $undoRevId
+			. ':' . $userName;
+		return CommentStoreComment::newUnsavedComment(
+			'/* ' . $autoComment . ' */' . $userSummary,
+			[
+				'key' => MediaWikiRevisionSchemaWriter::AUTOCOMMENT_UNDO,
+				'summary' => $userSummary,
+				'undoRevId' => $undoRevId,
+				'userName' => $userName
+			]
+		);
 	}
 
 }
