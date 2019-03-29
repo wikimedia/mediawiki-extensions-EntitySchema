@@ -25,15 +25,18 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	private $pageUpdaterFactory;
 	private $msgLocalizer;
 	private $watchListUpdater;
+	private $editConflictDetector;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
 		MessageLocalizer $msgLocalizer,
-		WatchlistUpdater $watchListUpdater
+		WatchlistUpdater $watchListUpdater,
+		EditConflictDetector $editConflictDetector = null
 	) {
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
 		$this->msgLocalizer = $msgLocalizer;
 		$this->watchListUpdater = $watchListUpdater;
+		$this->editConflictDetector = $editConflictDetector;
 	}
 
 	private function truncateSchemaTextForCommentData( $schemaText ) {
@@ -67,7 +70,9 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
 		$this->checkSchemaExists( $parentRevision );
-		$this->checkEditConflict( $parentRevision, $baseRevId );
+		if ( $parentRevision->getId() !== $baseRevId ) {
+			throw new EditConflict();
+		}
 
 		// TODO check $updater->hasEditConflict()! (T217338)
 
@@ -107,7 +112,13 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
 		$this->checkSchemaExists( $parentRevision );
-		$this->checkEditConflict( $parentRevision, $baseRevId );
+		if ( $this->editConflictDetector->isNameBadgeEditConflict(
+			$parentRevision,
+			$baseRevId,
+			$langCode
+		) ) {
+			throw new EditConflict();
+		}
 		/** @var WikibaseSchemaContent $content */
 		$content = $parentRevision->getContent( SlotRecord::MAIN );
 
@@ -168,7 +179,12 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
 		$this->checkSchemaExists( $parentRevision );
-		$this->checkEditConflict( $parentRevision, $baseRevId );
+		if ( $this->editConflictDetector->isSchemaTextEditConflict(
+			$parentRevision,
+			$baseRevId
+		) ) {
+			throw new EditConflict();
+		}
 
 		/** @var WikibaseSchemaContent $content */
 		$content = $parentRevision->getContent( SlotRecord::MAIN );
@@ -209,18 +225,6 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		}
 
 		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
-	}
-
-	/**
-	 * @param RevisionRecord $parentRevisionRecord
-	 * @param int $baseRevId
-	 *
-	 * @throws EditConflict
-	 */
-	private function checkEditConflict( RevisionRecord $parentRevisionRecord, $baseRevId ) {
-		if ( $parentRevisionRecord->getId() !== $baseRevId ) {
-			throw new EditConflict();
-		}
 	}
 
 	/**

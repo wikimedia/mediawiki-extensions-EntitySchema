@@ -17,6 +17,7 @@ use Title;
 use UserBlockedError;
 use WebRequest;
 use Wikibase\Schema\DataAccess\EditConflict;
+use Wikibase\Schema\DataAccess\EditConflictDetector;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
@@ -79,7 +80,15 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id->getId() );
 		$this->checkBlocked( $title );
 		$aliases = array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) );
-		$schemaUpdater = new MediaWikiRevisionSchemaUpdater( $updaterFactory, $this, $watchListUpdater );
+		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+			$updaterFactory,
+			$this,
+			$watchListUpdater,
+			new EditConflictDetector(
+				MediaWikiServices::getInstance()->getRevisionStore()
+			)
+		);
+
 		try {
 			$schemaUpdater->updateSchemaNameBadge(
 				$id,

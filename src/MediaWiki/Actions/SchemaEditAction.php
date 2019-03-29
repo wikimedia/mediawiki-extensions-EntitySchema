@@ -5,11 +5,13 @@ namespace Wikibase\Schema\MediaWiki\Actions;
 use FormAction;
 use HTMLForm;
 use IContextSource;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use Page;
 use RuntimeException;
 use Status;
 use Wikibase\Schema\DataAccess\EditConflict;
+use Wikibase\Schema\DataAccess\EditConflictDetector;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
@@ -79,7 +81,14 @@ class SchemaEditAction extends FormAction {
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$id = new SchemaId( $this->getTitle()->getText() );
 		$watchListUpdater = new WatchlistUpdater( $user, NS_WBSCHEMA_JSON );
-		$schemaUpdater = new MediaWikiRevisionSchemaUpdater( $updaterFactory, $this, $watchListUpdater );
+		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+			$updaterFactory,
+			$this,
+			$watchListUpdater,
+			new EditConflictDetector(
+				MediaWikiServices::getInstance()->getRevisionStore()
+			)
+		);
 
 		try {
 			$schemaUpdater->updateSchemaText(
