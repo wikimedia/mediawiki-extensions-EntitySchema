@@ -11,6 +11,7 @@
 	"wikibaseschema-namebadge-header-aliases": "alias",
 	"wikibaseschema-namebadge-header-edit": "redigera",
 	"wikibaseschema-edit": "redigera",
+	"wikibaseschema-summary-newschema-nolabel": "Skapade ett nytt schema",
 	"wikibaseschema-undo-heading-failed": "Misslyckades att ångra",
 	"wikibaseschema-restore-heading-failed": "Återställning misslyckades",
 	"wikibaseschema-restoreold": "återställ",

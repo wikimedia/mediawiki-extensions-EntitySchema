@@ -5,6 +5,6 @@
 		]
 	},
 	"special-newschema": "Создать новую схему",
-	"wikibaseschema-summary-undo": "Отмена правки $1, сделанной [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|обсуждение]]): $3",
+	"wikibaseschema-summary-undo-autocomment": "Отмена правки $1, сделанной [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|обсуждение]])",
 	"wikibaseschema-special-aliases": "Псевдонимы, разделённые верт. чертой:"
 }

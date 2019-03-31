@@ -9,6 +9,7 @@
 	"wikibaseschema-label-edit-placeholder": "eng Etikett op $1 aginn",
 	"wikibaseschema-description-edit-placeholder": "eng Beschreiwung op $1 aginn",
 	"wikibaseschema-aliases-edit-placeholder": "gitt e puer Aliasen op $1 an",
+	"wikibaseschema-error-unsupported-langcode": "Dëse Sproochcode gëtt net ënnerstëtzt",
 	"wikibaseschema-error-one-more-message-available": "Et gëtt Problemer mat deem wat Dir aginn hutt. Kuckt w.e.g. de Feelermessage hei drënner.",
 	"wikibaseschema-label-empty": "Keng Etikett definéiert",
 	"wikibaseschema-namebadge-header-language-code": "Sproochcode",

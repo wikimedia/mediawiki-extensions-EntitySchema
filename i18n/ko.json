@@ -28,7 +28,7 @@
 	"wikibaseschema-diff-aliases": "다른 이름",
 	"wikibaseschema-diff-schema": "스키마",
 	"wikibaseschema-edit": "편집",
-	"wikibaseschema-summary-newschema": "새 스키마를 만들었습니다: \"$1\"",
+	"wikibaseschema-summary-newschema-nolabel": "새 스키마를 만듦",
 	"wikibaseschema-undo-heading": "$1(으)로 편집을 되돌립니다",
 	"wikibaseschema-undo-heading-failed": "실행 취소를 실패했습니다",
 	"wikibaseschema-undo-bad-revisions": "이 편집은 존재하지 않거나 삭제되었기 때문에 취소하지 못했습니다.",

@@ -12,6 +12,8 @@
 	"wikibaseschema-diff-label": "লেবেল",
 	"wikibaseschema-diff-description": "বিবরণ",
 	"wikibaseschema-diff-aliases": "উপনাম",
+	"wikibaseschema-summary-undo-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|আলাপ]])-এর করা $1 নম্বর সংশোধনটি বাতিল করা হয়েছে",
+	"wikibaseschema-summary-restore-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]] কর্তৃক $1 নং সংশোধনটি পুনরুদ্ধার করা হয়েছে",
 	"wikibaseschema-special-label": "লেবেল:",
 	"wikibaseschema-special-description": "বিবরণ:",
 	"wikibaseschema-special-aliases": "উপনাম (উল্লম্ব দণ্ড দ্বারা বিভাজিত):"
