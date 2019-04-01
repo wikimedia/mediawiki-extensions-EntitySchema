@@ -283,4 +283,34 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 		$this->assertSame( 'a b', $actualRepresentation['schemaText'] );
 	}
 
+	public function testRemoveEmptyElements() {
+		$actualJson = SchemaEncoder::getPersistentRepresentation(
+			new SchemaId( 'O1' ),
+			[
+				'en' => 'actual label',
+				'de' => '    ',
+				'pt' => '',
+			],
+			[
+				'en' => 'actual description',
+				'de' => '    ',
+				'pt' => '',
+			],
+			[
+				'en' => [ 'actual', 'alias' ],
+				'de' => [ '   ' ],
+				'pt' => [ '' ],
+				'la' => [],
+			],
+			'schema text'
+		);
+
+		$this->assertJson( $actualJson );
+		$actualRepresentation = json_decode( $actualJson, true );
+
+		$this->assertSame( [ 'en' => 'actual label' ], $actualRepresentation['labels'] );
+		$this->assertSame( [ 'en' => 'actual description' ], $actualRepresentation['descriptions'] );
+		$this->assertSame( [ 'en' => [ 'actual', 'alias' ] ], $actualRepresentation['aliases'] );
+	}
+
 }

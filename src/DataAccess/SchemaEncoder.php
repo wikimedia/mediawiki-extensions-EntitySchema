@@ -68,8 +68,13 @@ class SchemaEncoder {
 		&$schemaText
 	) {
 		self::trimStartAndEnd( $labels, $descriptions, $aliasGroups, $schemaText );
-		foreach ( $aliasGroups as &$aliasGroup ) {
+		$labels = self::filterEmptyStrings( $labels );
+		$descriptions = self::filterEmptyStrings( $descriptions );
+		foreach ( $aliasGroups as $languageCode => &$aliasGroup ) {
 			$aliasGroup = array_values( array_unique( $aliasGroup ) );
+			if ( $aliasGroup === [] ) {
+				unset( $aliasGroups[$languageCode] );
+			}
 		}
 	}
 
@@ -103,6 +108,19 @@ class SchemaEncoder {
 	 */
 	private static function trimWhitespaceAndControlChars( $string ) {
 		return preg_replace( '/^[\p{Z}\p{Cc}\p{Cf}]+|[\p{Z}\p{Cc}\p{Cf}]+$/u', '', $string );
+	}
+
+	/**
+	 * @param string[] &$array
+	 * @return string[]
+	 */
+	private static function filterEmptyStrings( array $array ): array {
+		foreach ( $array as $key => $value ) {
+			if ( $value === '' ) {
+				unset( $array[$key] );
+			}
+		}
+		return $array;
 	}
 
 	/**
