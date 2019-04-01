@@ -94,7 +94,7 @@ class SchemaEncoder {
 			$description = self::trimWhitespaceAndControlChars( $description );
 		}
 		foreach ( $aliasGroups as &$aliasGroup ) {
-			$aliasGroup = array_filter( array_map(
+			$aliasGroup = self::filterEmptyStrings( array_map(
 				[ self::class, 'trimWhitespaceAndControlChars' ],
 				$aliasGroup
 			) );

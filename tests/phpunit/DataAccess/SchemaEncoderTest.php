@@ -270,7 +270,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 			new SchemaId( 'O1' ),
 			[ 'en' => '         	testLabel﻿   ' ],
 			[ 'en' => "  \v\t  testDescription﻿ \r\n  " ],
-			[ 'en' => [ '  test ​ ', '   aliases  ', '   ' ] ],
+			[ 'en' => [ '  test ​ ', '   aliases  ', '   ', ' 0 ' ] ],
 			'  a b ﻿  '
 		);
 
@@ -279,7 +279,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 
 		$this->assertSame( [ 'en' => 'testLabel' ], $actualRepresentation['labels'] );
 		$this->assertSame( [ 'en' => 'testDescription' ], $actualRepresentation['descriptions'] );
-		$this->assertSame( [ 'en' => [ 'test', 'aliases' ] ], $actualRepresentation['aliases'] );
+		$this->assertSame( [ 'en' => [ 'test', 'aliases', '0' ] ], $actualRepresentation['aliases'] );
 		$this->assertSame( 'a b', $actualRepresentation['schemaText'] );
 	}
 
