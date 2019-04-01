@@ -69,13 +69,16 @@ class SchemaEncoder {
 	) {
 		self::trimStartAndEnd( $labels, $descriptions, $aliasGroups, $schemaText );
 		$labels = self::filterEmptyStrings( $labels );
+		ksort( $labels );
 		$descriptions = self::filterEmptyStrings( $descriptions );
+		ksort( $descriptions );
 		foreach ( $aliasGroups as $languageCode => &$aliasGroup ) {
 			$aliasGroup = array_values( array_unique( $aliasGroup ) );
 			if ( $aliasGroup === [] ) {
 				unset( $aliasGroups[$languageCode] );
 			}
 		}
+		ksort( $aliasGroups );
 	}
 
 	/**

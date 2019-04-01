@@ -313,4 +313,41 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 		$this->assertSame( [ 'en' => [ 'actual', 'alias' ] ], $actualRepresentation['aliases'] );
 	}
 
+	public function testIgnoresKeyOrder() {
+		$json1 = SchemaEncoder::getPersistentRepresentation(
+			new SchemaId( 'O1' ),
+			[
+				'en' => 'English label',
+				'de' => 'deutsche Beschriftung',
+			],
+			[
+				'en' => 'English description',
+				'de' => 'deutsche Beschreibung',
+			],
+			[
+				'en' => [ 'English', 'alias' ],
+				'de' => [ 'deutscher', 'Alias' ],
+			],
+			'schema text'
+		);
+		$json2 = SchemaEncoder::getPersistentRepresentation(
+			new SchemaId( 'O1' ),
+			[
+				'de' => 'deutsche Beschriftung',
+				'en' => 'English label',
+			],
+			[
+				'de' => 'deutsche Beschreibung',
+				'en' => 'English description',
+			],
+			[
+				'de' => [ 'deutscher', 'Alias' ],
+				'en' => [ 'English', 'alias' ],
+			],
+			'schema text'
+		);
+
+		$this->assertSame( $json1, $json2 );
+	}
+
 }

@@ -86,19 +86,22 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			$initialContent['labels'],
 			[ $dataGood[$langFormKey] => $dataGood[SetSchemaLabelDescriptionAliases::FIELD_LABEL] ]
 		);
+		ksort( $expectedLabels );
 		$this->assertSame( $expectedLabels, $schemaContent['labels'] );
 
 		$expectedDescriptions = array_merge(
 			$initialContent['descriptions'],
 			[ $dataGood[$langFormKey] => $dataGood[SetSchemaLabelDescriptionAliases::FIELD_DESCRIPTION] ]
 		);
+		ksort( $expectedDescriptions );
 		$this->assertSame( $expectedDescriptions, $schemaContent['descriptions'] );
 
-		$expectedDescriptions = array_merge(
+		$expectedAliases = array_merge(
 			$initialContent['aliases'],
 			[ $dataGood[$langFormKey] => [ 'foo', 'bar', 'baz' ] ]
 		);
-		$this->assertSame( $expectedDescriptions, $schemaContent['aliases'] );
+		ksort( $expectedAliases );
+		$this->assertSame( $expectedAliases, $schemaContent['aliases'] );
 
 		$this->assertSame( $initialContent['schemaText'], $schemaContent['schemaText'] );
 	}

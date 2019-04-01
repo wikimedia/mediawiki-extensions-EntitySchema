@@ -489,16 +489,16 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			'id' => $id,
 			'serializationVersion' => '3.0',
 			'labels' => [
-				'en' => $englishLabel,
 				'de' => 'Ziege',
+				'en' => $englishLabel,
 			],
 			'descriptions' => [
+				'de' => 'Wichtigste Eigenschaften einer Ziege',
 				'en' => $englishDescription,
-				'de' => 'Wichtigste Eigenschaften einer Ziege'
 			],
 			'aliases' => [
+				'de' => [ 'Capra', 'Hausziege' ],
 				'en' => $englishAliases,
-				'de' => [ 'Capra', 'Hausziege' ]
 			],
 			'schemaText' => '# some schema about goats',
 			'type' => 'ShExC',
