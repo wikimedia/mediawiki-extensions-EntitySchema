@@ -29,6 +29,7 @@
 	"wikibaseschema-diff-aliases": "Alias",
 	"wikibaseschema-edit": "modifica",
 	"wikibaseschema-summary-undo-autocomment": "Annullata la modifica $1 di [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|discussione]])",
+	"wikibaseschema-summary-restore-autocomment": "Ripristina versione $1 di [[Special:Contributions/$2|{{GENDER:$2|$2}}]]",
 	"wikibaseschema-undo-heading-failed": "Annullamento fallito",
 	"wikibaseschema-special-id-inputlabel": "ID",
 	"wikibaseschema-special-language-inputlabel": "Codice lingua",
