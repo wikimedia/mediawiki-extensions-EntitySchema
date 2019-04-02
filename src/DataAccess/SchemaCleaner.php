@@ -19,42 +19,19 @@ class SchemaCleaner {
 		array &$aliasGroups,
 		&$schemaText
 	) {
-		self::trimStartAndEnd( $labels, $descriptions, $aliasGroups, $schemaText );
-		$labels = self::filterEmptyStrings( $labels );
-		ksort( $labels );
-		$descriptions = self::filterEmptyStrings( $descriptions );
-		ksort( $descriptions );
-		foreach ( $aliasGroups as $languageCode => &$aliasGroup ) {
-			$aliasGroup = array_values( array_unique( $aliasGroup ) );
-			if ( $aliasGroup === [] ) {
-				unset( $aliasGroups[$languageCode] );
-			}
-		}
-		ksort( $aliasGroups );
+		$labels = self::cleanupArrayOfStrings( $labels );
+		$descriptions = self::cleanupArrayOfStrings( $descriptions );
+		$aliasGroups = self::cleanAliasGroups( $aliasGroups );
+		$schemaText = self::trimWhitespaceAndControlChars( $schemaText );
 	}
 
-	/**
-	 * @return void
-	 */
-	private static function trimStartAndEnd(
-		array &$labels,
-		array &$descriptions,
-		array &$aliasGroups,
-		&$schemaText
-	) {
-		foreach ( $labels as &$label ) {
-			$label = self::trimWhitespaceAndControlChars( $label );
+	public static function cleanupArrayOfStrings( array $arrayOfStrings ) {
+		foreach ( $arrayOfStrings as &$string ) {
+			$string = self::trimWhitespaceAndControlChars( $string );
 		}
-		foreach ( $descriptions as &$description ) {
-			$description = self::trimWhitespaceAndControlChars( $description );
-		}
-		foreach ( $aliasGroups as &$aliasGroup ) {
-			$aliasGroup = self::filterEmptyStrings( array_map(
-				[ self::class, 'trimWhitespaceAndControlChars' ],
-				$aliasGroup
-			) );
-		}
-		$schemaText = self::trimWhitespaceAndControlChars( $schemaText );
+		$arrayOfStrings = self::filterEmptyStrings( $arrayOfStrings );
+		ksort( $arrayOfStrings );
+		return $arrayOfStrings;
 	}
 
 	/**
@@ -62,8 +39,23 @@ class SchemaCleaner {
 	 *
 	 * @return string The trimmed string after applying the regex
 	 */
-	private static function trimWhitespaceAndControlChars( $string ) {
+	public static function trimWhitespaceAndControlChars( $string ) {
 		return preg_replace( '/^[\p{Z}\p{Cc}\p{Cf}]+|[\p{Z}\p{Cc}\p{Cf}]+$/u', '', $string );
+	}
+
+	private static function cleanAliasGroups( array $aliasGroups ): array {
+		foreach ( $aliasGroups as &$aliasGroup ) {
+			$aliasGroup = self::cleanupArrayOfStrings( $aliasGroup );
+		}
+		unset( $aliasGroup );
+		foreach ( $aliasGroups as $languageCode => &$aliasGroup ) {
+			$aliasGroup = array_values( array_unique( $aliasGroup ) );
+			if ( $aliasGroup === [] ) {
+				unset( $aliasGroups[$languageCode] );
+			}
+		}
+		ksort( $aliasGroups );
+		return $aliasGroups;
 	}
 
 	/**
