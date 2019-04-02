@@ -5,6 +5,7 @@ namespace Wikibase\Schema\Presentation;
 use User;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaInserter;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use Language;
 
 /**
  * @license GPL-2.0-or-later
@@ -43,6 +44,7 @@ class AutocommentFormatter {
 
 	private function parseAutocomment( $auto ) {
 		$commentParts = explode( ':', $auto, 2 );
+		$context = \RequestContext::getMain();
 
 		switch ( $commentParts[0] ) {
 			case MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA:
@@ -52,16 +54,36 @@ class AutocommentFormatter {
 				$comment = wfMessage( 'wikibaseschema-summary-update-schema-text' );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_NAMEBADGE:
-				$comment = wfMessage( 'wikibaseschema-summary-update-schema-namebadge' );
+				$languageName = Language::fetchLanguageName(
+					$commentParts[1],
+					$context->getLanguage()->getCode()
+				);
+				$comment = wfMessage( 'wikibaseschema-summary-update-schema-namebadge' )
+					->params( $languageName );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_LABEL:
-				$comment = wfMessage( 'wikibaseschema-summary-update-schema-label' );
+				$languageName = Language::fetchLanguageName(
+					$commentParts[1],
+					$context->getLanguage()->getCode()
+				);
+				$comment = wfMessage( 'wikibaseschema-summary-update-schema-label' )
+					->params( $languageName );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_DESCRIPTION:
-				$comment = wfMessage( 'wikibaseschema-summary-update-schema-description' );
+				$languageName = Language::fetchLanguageName(
+					$commentParts[1],
+					$context->getLanguage()->getCode()
+				);
+				$comment = wfMessage( 'wikibaseschema-summary-update-schema-description' )
+					->params( $languageName );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_ALIASES:
-				$comment = wfMessage( 'wikibaseschema-summary-update-schema-aliases' );
+				$languageName = Language::fetchLanguageName(
+					$commentParts[1],
+					$context->getLanguage()->getCode()
+				);
+				$comment = wfMessage( 'wikibaseschema-summary-update-schema-aliases' )
+					->params( $languageName );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE:
 				list( $revId, $username ) = explode( ':', $commentParts[1], 2 );

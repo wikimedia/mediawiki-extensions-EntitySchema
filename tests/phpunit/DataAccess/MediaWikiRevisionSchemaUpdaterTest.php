@@ -550,8 +550,9 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			$oldArray['aliases'][$language] = $old->aliases;
 		}
 
+		$autocomment = $expectedAutocommentKey . ':' . $language;
 		$expectedComment = CommentStoreComment::newUnsavedComment(
-			'/* ' . $expectedAutocommentKey . ' */' . $expectedAutosummary,
+			'/* ' . $autocomment . ' */' . $expectedAutosummary,
 			[
 				'key' => $expectedAutocommentKey,
 				'language' => $language,

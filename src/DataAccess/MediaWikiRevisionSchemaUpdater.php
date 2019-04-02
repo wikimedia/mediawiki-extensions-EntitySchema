@@ -170,6 +170,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$description,
 		array $aliases
 	): CommentStoreComment {
+
 		$label = SchemaCleaner::trimWhitespaceAndControlChars( $label );
 		$description = SchemaCleaner::trimWhitespaceAndControlChars( $description );
 		$aliases = SchemaCleaner::cleanupArrayOfStrings( $aliases );
@@ -194,8 +195,10 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 			$autosummary = '';
 		}
 
+		$autocomment = $autocommentKey . ':' . $langCode;
+
 		return CommentStoreComment::newUnsavedComment(
-			'/* ' . $autocommentKey . ' */' . $autosummary,
+			'/* ' . $autocomment . ' */' . $autosummary,
 			[
 				'key' => $autocommentKey,
 				'language' => $langCode,
