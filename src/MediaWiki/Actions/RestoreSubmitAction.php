@@ -101,7 +101,6 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 
 		$schemaUpdater = new MediawikiRevisionSchemaUpdater(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
-			$this,
 			new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON )
 		);
 

@@ -90,7 +90,6 @@ class UndoSubmitAction extends AbstractUndoAction {
 	private function storePatchedSchema( FullArraySchemaData $patchedSchema, $baseRevId ): Status {
 		$schemaUpdater = new MediawikiRevisionSchemaUpdater(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
-			$this,
 			new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON )
 		);
 

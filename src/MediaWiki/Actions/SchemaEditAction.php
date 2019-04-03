@@ -83,7 +83,6 @@ class SchemaEditAction extends FormAction {
 		$watchListUpdater = new WatchlistUpdater( $user, NS_WBSCHEMA_JSON );
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$updaterFactory,
-			$this,
 			$watchListUpdater,
 			new EditConflictDetector(
 				MediaWikiServices::getInstance()->getRevisionStore()

@@ -82,7 +82,6 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$aliases = array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) );
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$updaterFactory,
-			$this,
 			$watchListUpdater,
 			new EditConflictDetector(
 				MediaWikiServices::getInstance()->getRevisionStore()
