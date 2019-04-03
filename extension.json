@@ -33,7 +33,8 @@
 		"FormatAutocomments": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onFormatAutocomments",
 		"ContentModelCanBeUsedOn": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onContentModelCanBeUsedOn",
 		"ImportHandleRevisionXMLTag": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onImportHandleRevisionXMLTag",
-		"NamespaceIsMovable": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onNamespaceIsMovable"
+		"NamespaceIsMovable": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onNamespaceIsMovable",
+		"TitleGetRestrictionTypes": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onTitleGetRestrictionTypes"
 	},
 	"ContentHandlers": {
 		"WikibaseSchema": "Wikibase\\Schema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"
