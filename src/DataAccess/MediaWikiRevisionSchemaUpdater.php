@@ -7,7 +7,6 @@ use InvalidArgumentException;
 use Language;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
-use MessageLocalizer;
 use RuntimeException;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
@@ -28,18 +27,15 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	/* public */ const AUTOCOMMENT_UNDO = 'wikibaseschema-summary-undo';
 
 	private $pageUpdaterFactory;
-	private $msgLocalizer;
 	private $watchListUpdater;
 	private $editConflictDetector;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
-		MessageLocalizer $msgLocalizer,
 		WatchlistUpdater $watchListUpdater,
 		EditConflictDetector $editConflictDetector = null
 	) {
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
-		$this->msgLocalizer = $msgLocalizer;
 		$this->watchListUpdater = $watchListUpdater;
 		$this->editConflictDetector = $editConflictDetector;
 	}

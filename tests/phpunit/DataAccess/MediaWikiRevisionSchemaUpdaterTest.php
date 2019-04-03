@@ -9,8 +9,6 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Storage\PageUpdater;
 use MediaWiki\Storage\RevisionRecord;
-use Message;
-use MessageLocalizer;
 use RuntimeException;
 use stdClass;
 use Wikibase\Schema\DataAccess\EditConflict;
@@ -76,13 +74,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		return $pageUpdaterFactory;
 	}
 
-	private function getMessageLocalizer(): MessageLocalizer {
-		$msgLocalizer = $this->createMock( MessageLocalizer::class );
-		$msgLocalizer->method( 'msg' )->willReturn( new Message( '' ) );
-
-		return $msgLocalizer;
-	}
-
 	private function newMediaWikiRevisionSchemaUpdaterFailingToSave(): MediaWikiRevisionSchemaUpdater {
 		$existingContent = new WikibaseSchemaContent( '{}' );
 		$revisionRecord = $this->createMockRevisionRecord( $existingContent );
@@ -93,7 +84,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 		return new MediaWikiRevisionSchemaUpdater(
 			$this->getPageUpdaterFactory( $pageUpdater ),
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater(),
 			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
 		);
@@ -104,7 +94,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater()
 		);
 
@@ -154,7 +143,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater()
 		);
 		$this->setExpectedException( InvalidArgumentException::class, $exceptionMessage );
@@ -198,7 +186,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
 		);
 		$schmeaUpdater->overwriteWholeSchema(
@@ -251,7 +238,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdaterFactory = $this->getPageUpdaterFactory();
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater()
 		);
 
@@ -281,7 +267,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater(),
 			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
 		);
@@ -312,7 +297,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		);
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater(),
 			new EditConflictDetector( $mockRevStore )
 		);
@@ -351,7 +335,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
 			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
 		);
@@ -404,7 +387,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		);
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
 			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
 		);
@@ -446,7 +428,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
 			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
 		);
@@ -508,7 +489,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
 			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
 		);
@@ -569,7 +549,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		);
 		$writer = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
 			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
 		);
@@ -693,7 +672,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater(),
 			new EditConflictDetector( $mockRevStore )
 		);
@@ -755,7 +733,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
 		$updater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMessageLocalizer(),
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
 			new EditConflictDetector( $mockRevStore )
 		);
