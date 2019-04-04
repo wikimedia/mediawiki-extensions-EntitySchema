@@ -6,11 +6,12 @@ use CommentStoreComment;
 use InvalidArgumentException;
 use Language;
 use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\SlotRecord;
 use RuntimeException;
 use Wikibase\Schema\Domain\Model\SchemaId;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Services\SchemaConverter\PersistenceSchemaData;
+use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
 use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
 
 /**
@@ -28,16 +29,16 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 
 	private $pageUpdaterFactory;
 	private $watchListUpdater;
-	private $editConflictDetector;
+	private $revisionLookup;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
 		WatchlistUpdater $watchListUpdater,
-		EditConflictDetector $editConflictDetector = null
+		RevisionLookup $revisionLookup
 	) {
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
 		$this->watchListUpdater = $watchListUpdater;
-		$this->editConflictDetector = $editConflictDetector;
+		$this->revisionLookup = $revisionLookup;
 	}
 
 	private function truncateSchemaTextForCommentData( $schemaText ) {
@@ -113,30 +114,31 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
 		$this->checkSchemaExists( $parentRevision );
-		if ( $this->editConflictDetector->isNameBadgeEditConflict(
-			$parentRevision,
-			$baseRevId,
-			$langCode
-		) ) {
-			throw new EditConflict();
-		}
-		/** @var WikibaseSchemaContent $content */
-		$content = $parentRevision->getContent( SlotRecord::MAIN );
 
-		$converter = new SchemaConverter();
-		// @phan-suppress-next-line PhanUndeclaredMethod
-		$schemaData = $converter->getPersistenceSchemaData( $content->getText() );
+		$baseRevision = $this->revisionLookup->getRevisionById( $baseRevId );
+
+		$updateGuard = new SchemaUpdateGuard();
+		$schemaData = $updateGuard->guardSchemaUpdate(
+			$baseRevision,
+			$parentRevision,
+			function ( FullArraySchemaData $schemaData ) use ( $langCode, $label, $description, $aliases ) {
+				$schemaData->data['labels'][$langCode] = $label;
+				$schemaData->data['descriptions'][$langCode] = $description;
+				$schemaData->data['aliases'][$langCode] = $aliases;
+			}
+		);
+
+		if ( $schemaData === null ) {
+			return;
+		}
+
 		$autoComment = $this->getUpdateNameBadgeAutocomment(
-			$schemaData,
+			$baseRevision,
 			$langCode,
 			$label,
 			$description,
 			$aliases
 		);
-
-		$schemaData->labels[$langCode] = $label;
-		$schemaData->descriptions[$langCode] = $description;
-		$schemaData->aliases[$langCode] = $aliases;
 
 		$updater->setContent(
 			SlotRecord::MAIN,
@@ -160,12 +162,18 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	}
 
 	private function getUpdateNameBadgeAutocomment(
-		PersistenceSchemaData $schemaData,
+		RevisionRecord $baseRevision,
 		$langCode,
 		$label,
 		$description,
 		array $aliases
 	): CommentStoreComment {
+
+		$schemaConverter = new SchemaConverter();
+		$schemaData = $schemaConverter->getPersistenceSchemaData(
+			// @phan-suppress-next-line PhanUndeclaredMethod
+			$baseRevision->getContent( SlotRecord::MAIN )->getText()
+		);
 
 		$label = SchemaCleaner::trimWhitespaceAndControlChars( $label );
 		$description = SchemaCleaner::trimWhitespaceAndControlChars( $description );
@@ -228,19 +236,21 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
 		$this->checkSchemaExists( $parentRevision );
-		if ( $this->editConflictDetector->isSchemaTextEditConflict(
-			$parentRevision,
-			$baseRevId
-		) ) {
-			throw new EditConflict();
-		}
 
-		/** @var WikibaseSchemaContent $content */
-		$content = $parentRevision->getContent( SlotRecord::MAIN );
-		$converter = new SchemaConverter();
-		// @phan-suppress-next-line PhanUndeclaredMethod
-		$schemaData = $converter->getPersistenceSchemaData( $content->getText() );
-		$schemaData->schemaText = $schemaText;
+		$baseRevision = $this->revisionLookup->getRevisionById( $baseRevId );
+
+		$updateGuard = new SchemaUpdateGuard();
+		$schemaData = $updateGuard->guardSchemaUpdate(
+			$baseRevision,
+			$parentRevision,
+			function ( FullArraySchemaData $schemaData ) use ( $schemaText ) {
+				$schemaData->data['schemaText'] = $schemaText;
+			}
+		);
+
+		if ( $schemaData === null ) {
+			return;
+		}
 
 		$persistentRepresentation = SchemaEncoder::getPersistentRepresentation(
 			$id,
@@ -263,7 +273,8 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 					'key' => self::AUTOCOMMENT_UPDATED_SCHEMATEXT,
 					'userSummary' => $userSummary,
 					'schemaText_truncated' => $this->truncateSchemaTextForCommentData(
-						$converter->getSchemaText( $persistentRepresentation )
+						// TODO use unpatched $schemaText or patched $schemaData->schemaText here?
+						$schemaData->schemaText
 					),
 				]
 			),

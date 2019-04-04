@@ -3,6 +3,7 @@
 namespace Wikibase\Schema\MediaWiki\Actions;
 
 use CommentStoreComment;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use RuntimeException;
@@ -99,9 +100,10 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		CommentStoreComment $summary
 	): Status {
 
-		$schemaUpdater = new MediawikiRevisionSchemaUpdater(
+		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
-			new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON )
+			new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON ),
+			MediaWikiServices::getInstance()->getRevisionLookup()
 		);
 
 		try {

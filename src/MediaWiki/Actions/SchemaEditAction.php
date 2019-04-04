@@ -11,7 +11,6 @@ use Page;
 use RuntimeException;
 use Status;
 use Wikibase\Schema\DataAccess\EditConflict;
-use Wikibase\Schema\DataAccess\EditConflictDetector;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
@@ -84,9 +83,7 @@ class SchemaEditAction extends FormAction {
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$updaterFactory,
 			$watchListUpdater,
-			new EditConflictDetector(
-				MediaWikiServices::getInstance()->getRevisionStore()
-			)
+			MediaWikiServices::getInstance()->getRevisionLookup()
 		);
 
 		try {
