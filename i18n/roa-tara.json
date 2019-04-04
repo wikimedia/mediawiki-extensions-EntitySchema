@@ -18,6 +18,10 @@
 	"wikibaseschema-diff-schema": "Scheme",
 	"wikibaseschema-edit": "cange",
 	"wikibaseschema-summary-newschema-nolabel": "Ccrejate 'nu schema nuève",
+	"wikibaseschema-summary-update-schema-namebadge": "Aggiornate $1 etichette, descriziune o alias",
+	"wikibaseschema-summary-update-schema-label": "Aggiornate $1 etichette d'u scheme",
+	"wikibaseschema-summary-update-schema-description": "Aggiornate $1 descriziune d'u scheme",
+	"wikibaseschema-summary-update-schema-aliases": "Aggiornate $1 alias d'u scheme",
 	"wikibaseschema-special-id-inputlabel": "ID",
 	"wikibaseschema-special-label": "Etichette:",
 	"wikibaseschema-special-description": "Descrizione:"

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eduardo Addad de Oliveira"
+			"Eduardo Addad de Oliveira",
+			"NMaia"
 		]
 	},
 	"wikibaseschema-desc": "Armazenar e discutir esquemas para entidades do Wikibase",
@@ -31,6 +32,7 @@
 	"wikibaseschema-error-one-more-message-available": "Existem problemas com algumas de suas entradas. Por favor, verifique a mensagem de erro abaixo.",
 	"wikibaseschema-error-possibly-multiple-messages-available": "Existem problemas com algumas de suas entradas. Por favor, verifique a(s) mensagem(ns) de erro abaixo.",
 	"wikibaseschema-error-schematext-too-long": "O texto do esquema que você digitou é muito longo. O comprimento máximo é {{PLURAL:$1|um byte|$1 bytes}}. Seu texto tem um comprimento de {{PLURAL:$2|um byte|$2 bytes}}.",
+	"wikibaseschema-error-input-too-long": "O texto que você digitou é muito longo. O comprimento máximo é de {{PLURAL:$1|um caractere|$1 caracteres}}. Seu texto tem um comprimento de {{PLURAL:$2|um caractere|$2 caracteres}}.",
 	"wikibaseschema-noschema": "Não há schema aqui. Vá para [[Special:NewSchema]] para criar um novo.",
 	"wikibaseschema-summary-generated": "Resumo (será anexado a um resumo gerado automaticamente):",
 	"wikibaseschema-label-empty": "Nenhum rótulo definido",
@@ -50,6 +52,9 @@
 	"wikibaseschema-summary-update": "Esquema atualizado",
 	"wikibaseschema-summary-update-schema-text": "Texto de esquema atualizado",
 	"wikibaseschema-summary-update-schema-text-user": "Texto de esquema atualizado: $1",
+	"wikibaseschema-summary-update-schema-namebadge": "Rótulo, descrição ou aliases atualizados de $1",
+	"wikibaseschema-summary-update-schema-label": "Rótulo de esquema $1 atualizado",
+	"wikibaseschema-summary-update-schema-aliases": "Aliases atualizados do esquema $1",
 	"wikibaseschema-summary-undo-autocomment": "Desfazer revisão $1 por [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|discussão]])",
 	"wikibaseschema-summary-restore-autocomment": "Restaure a revisão $1 por [[Special:Contributions/$2|{{GENDER:$2|$2}}]]",
 	"wikibaseschema-undo-heading": "Desfazendo a edição para $1",

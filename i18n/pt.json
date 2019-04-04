@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"CaiusSPQR"
+			"CaiusSPQR",
+			"Hamilton Abreu"
 		]
 	},
-	"wikibaseschema-add-schema-text": "adicionar texto Schema"
+	"wikibaseschema-add-schema-text": "adicionar texto do esquema"
 }
