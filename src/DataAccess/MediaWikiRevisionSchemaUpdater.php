@@ -71,11 +71,9 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
 		$this->checkSchemaExists( $parentRevision );
-		if ( $parentRevision->getId() !== $baseRevId ) {
+		if ( $updater->hasEditConflict( $baseRevId ) ) {
 			throw new EditConflict();
 		}
-
-		// TODO check $updater->hasEditConflict()! (T217338)
 
 		$updater->setContent(
 			SlotRecord::MAIN,
