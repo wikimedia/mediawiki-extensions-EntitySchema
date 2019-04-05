@@ -79,4 +79,26 @@ class WikibaseSchemaContentTest extends MediaWikiTestCase {
 		];
 	}
 
+	public function testGetTextForSearchIndex() {
+		$content = new WikibaseSchemaContent( json_encode( [
+			'labels' => [ 'de' => 'german label', 'en' => 'english label' ],
+			'descriptions' => [ 'en' => 'english description' ],
+			'aliases' => [ 'en' => [ 'first', 'second' ] ],
+			'schemaText' => 'Schema text for search index',
+			'serializationVersion' => '3.0',
+			'type' => 'ShExC',
+		] ) );
+		$actualSearchIndexText = $content->getTextForSearchIndex();
+
+		$expectedText = <<<TEXT
+german label
+english label
+english description
+first, second
+Schema text for search index
+TEXT;
+
+		$this->assertSame( $expectedText, $actualSearchIndexText );
+	}
+
 }

@@ -42,4 +42,23 @@ class WikibaseSchemaContent extends JsonContent {
 		}
 	}
 
+	public function getTextForSearchIndex() {
+		$converter = new SchemaConverter();
+		$schemaData = $converter->getFullViewSchemaData( $this->getText(), [] );
+		$textForSearchIndex = '';
+
+		foreach ( $schemaData->nameBadges as $nameBadge ) {
+			if ( $nameBadge->label ) {
+				$textForSearchIndex .= $nameBadge->label . "\n";
+			}
+			if ( $nameBadge->description ) {
+				$textForSearchIndex .= $nameBadge->description . "\n";
+			}
+			if ( $nameBadge->aliases ) {
+				$textForSearchIndex .= implode( ', ', $nameBadge->aliases ) . "\n";
+			}
+		}
+		return $textForSearchIndex . $schemaData->schemaText;
+	}
+
 }
