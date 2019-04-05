@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"The Wikidata Team",
-			"Robby"
+			"Robby",
+			"A2093064"
 		]
 	},
 	"wikibaseschema-desc": "{{desc|name=WikibaseSchema|url=https://www.mediawiki.org/wiki/Extension:WikibaseSchema}}",
@@ -53,7 +54,7 @@
 	"wikibaseschema-summary-update-schema-text": "Edit summary message used when a Schema's text was updated. Edit summary as supplied by the user will be shown after, if given.",
 	"wikibaseschema-summary-update-schema-text-user": "{{notranslate}}\nEdit summary message used when a Schema's text was updated.\n\nParameters:\n* $1 - Edit summary as given by the user.",
 	"wikibaseschema-summary-update-schema-namebadge": "A generic message used when different parts of a Schema may have been updated.\n\nParameters:\n* $1 - the language in which the edit was made.",
-	"wikibaseschema-summary-update-schema-label": "Edit summary message used when a Schema's label has been updated. \n\nParameters:\\n* $1 - the language in which the edit was made.",
+	"wikibaseschema-summary-update-schema-label": "Edit summary message used when a Schema's label has been updated. \n\nParameters:\n* $1 - the language in which the edit was made.",
 	"wikibaseschema-summary-update-schema-description": "Edit summary message used when a Schema's description has been updated. \n\nParameters:\\n* $1 - the language in which the edit was made.",
 	"wikibaseschema-summary-update-schema-aliases": "Edit summary message used when a Schema's aliases have been updated. \n\nParameters:\\n* $1 - the language in which the edit was made.",
 	"wikibaseschema-summary-undo-autocomment": "Summary message for an undo to be shown in Schema history, recent changes etc. If the user left a custom summary, it will be appended to this message.\n\nParameters:\n* $1 - The ID of the revision that is undone\n* $2 Name of the user that created that revision",

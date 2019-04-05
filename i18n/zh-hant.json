@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kly"
+			"Kly",
+			"A2093064"
 		]
 	},
 	"wikibaseschema-desc": "儲存並討論用於 Wikibase 實體的架構",
@@ -51,10 +52,10 @@
 	"wikibaseschema-summary-update": "更新架構",
 	"wikibaseschema-summary-update-schema-text": "已更新架構文字",
 	"wikibaseschema-summary-update-schema-text-user": "已更新架構文字：$1",
-	"wikibaseschema-summary-update-schema-namebadge": "已更新標籤、描述與別名",
-	"wikibaseschema-summary-update-schema-label": "已更新架構標籤",
-	"wikibaseschema-summary-update-schema-description": "已更新架構描述",
-	"wikibaseschema-summary-update-schema-aliases": "已更新架構別名",
+	"wikibaseschema-summary-update-schema-namebadge": "已更新$1標籤、描述與別名",
+	"wikibaseschema-summary-update-schema-label": "已更新$1架構標籤",
+	"wikibaseschema-summary-update-schema-description": "已更新$1架構描述",
+	"wikibaseschema-summary-update-schema-aliases": "已更新$1架構別名",
 	"wikibaseschema-summary-undo-autocomment": "撤銷由[[Special:Contributions/$2|{{GENDER:$2|$2}}]]（[[User talk:$2|對話]]）做出的修訂 $1",
 	"wikibaseschema-summary-restore-autocomment": "還原由[[Special:Contributions/$2|{{GENDER:$2|$2}}]]做出的修訂 $1",
 	"wikibaseschema-undo-heading": "還原編輯至$1",
