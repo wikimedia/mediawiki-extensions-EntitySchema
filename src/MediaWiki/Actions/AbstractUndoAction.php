@@ -21,9 +21,6 @@ abstract class AbstractUndoAction extends ViewAction {
 		return $this->getName();
 	}
 
-	/**
-	 * @suppress PhanUndeclaredMethod
-	 */
 	protected function getDiffFromRequest( WebRequest $req ): Status {
 
 		$revStore = MediaWikiServices::getInstance()->getRevisionStore();
