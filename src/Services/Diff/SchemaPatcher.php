@@ -23,6 +23,7 @@ class SchemaPatcher {
 	 * @return FullArraySchemaData
 	 *
 	 * @throws PatcherException throws exception if patch cannot be applied
+	 * @suppress PhanPluginDuplicateConditionalNullCoalescing
 	 */
 	public function patchSchema( FullArraySchemaData $baseSchema, Diff $patch ): FullArraySchemaData {
 		$patchedSchema = $this->patchFingerprint( $baseSchema->data, $patch );
@@ -35,6 +36,7 @@ class SchemaPatcher {
 		return new FullArraySchemaData( $patchedSchema );
 	}
 
+	/** @suppress PhanPluginDuplicateConditionalNullCoalescing */
 	private function patchFingerprint( array $baseSchema, Diff $patch ): array {
 		$aliasGroupPatcher = new AliasGroupListPatcher();
 
