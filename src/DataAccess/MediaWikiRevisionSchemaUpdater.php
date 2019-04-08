@@ -69,8 +69,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		CommentStoreComment $summary
 	) {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
-		$parentRevision = $updater->grabParentRevision();
-		$this->checkSchemaExists( $parentRevision );
+		$this->checkSchemaExists( $updater->grabParentRevision() );
 		if ( $updater->hasEditConflict( $baseRevId ) ) {
 			throw new EditConflict();
 		}
