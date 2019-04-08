@@ -203,8 +203,9 @@ class WikibaseSchemaSlotViewRenderer {
 		}
 
 		$schemaTextTitle = SpecialPage::getTitleFor( 'SchemaText', $title->getText() );
-		$separator = strpos( $url, '?' ) === false ? '?' : '&';
-		$url .= $separator . 'schemaURL=' . wfUrlencode( $schemaTextTitle->getFullURL() );
+		$url = wfAppendQuery( $url, [
+			'schemaURL' => $schemaTextTitle->getFullURL()
+		] );
 
 		return $this->makeExternalLink(
 			$url,

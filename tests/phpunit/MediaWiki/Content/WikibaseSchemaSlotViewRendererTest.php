@@ -2,8 +2,11 @@
 
 namespace Wikibase\Schema\Tests\MediaWiki\Content;
 
+use HashConfig;
 use Language;
+use MediaWiki\MediaWikiServices;
 use MediaWikiTestCase;
+use MultiConfig;
 use ParserOutput;
 use SpecialPage;
 use Title;
@@ -175,6 +178,38 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 			'',
 			'No label defined',
 		];
+	}
+
+	public function testFillParserOutput_checkEntitiesAgainstSchemaLink() {
+		$schemaData = new FullViewSchemaData(
+			[ 'en' => new NameBadge( '', '', [] ) ],
+			'schema text'
+		);
+		$renderer = new WikibaseSchemaSlotViewRenderer(
+			'en',
+			null,
+			new MultiConfig( [
+				new HashConfig( [ 'WBSchemaShExSimpleUrl' => 'http://my.test?foo=bar#fragment' ] ),
+				MediaWikiServices::getInstance()->getMainConfig(),
+			] )
+		);
+
+		$parserOutput = new ParserOutput();
+		$renderer->fillParserOutput(
+			$schemaData,
+			Title::makeTitle( NS_WBSCHEMA_JSON, 'O12345' ),
+			$parserOutput
+		);
+		$html = $parserOutput->getText();
+
+		$this->assertContains(
+			' href="http://my.test?foo=bar&amp;schemaURL=',
+			$html
+		);
+		$this->assertContains(
+			'O12345#fragment"',
+			$html
+		);
 	}
 
 }
