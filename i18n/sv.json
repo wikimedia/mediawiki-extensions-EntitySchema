@@ -12,6 +12,8 @@
 	"wikibaseschema-namebadge-header-edit": "redigera",
 	"wikibaseschema-edit": "redigera",
 	"wikibaseschema-summary-newschema-nolabel": "Skapade ett nytt schema",
+	"wikibaseschema-summary-undo-autocomment": "Ångra sidversion $1 av [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|diskussion]])",
+	"wikibaseschema-summary-restore-autocomment": "Återställ sidversion $1 av [[Special:Contributions/$2|{{GENDER:$2|$2}}]]",
 	"wikibaseschema-undo-heading-failed": "Misslyckades att ångra",
 	"wikibaseschema-restore-heading-failed": "Återställning misslyckades",
 	"wikibaseschema-restoreold": "återställ",
