@@ -36,6 +36,12 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$this->parentRevision = null;
 	}
 
+	/**
+	 * @param WikibaseSchemaContent $expectedContent The content to expect in a setContent() call.
+	 * @param WikibaseSchemaContent|null $existingContent Used to override $this->parentRevision
+	 * if not null. grabParentRevision() is only mocked if a page revision is available.
+	 * @return MediaWikiPageUpdaterFactory
+	 */
 	private function getPageUpdaterFactoryProvidingAndExpectingContent(
 		WikibaseSchemaContent $expectedContent,
 		WikibaseSchemaContent $existingContent = null
@@ -43,6 +49,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		if ( $existingContent !== null ) {
 			$this->parentRevision = $this->createMockRevisionRecord( $existingContent );
+		}
+		if ( $this->parentRevision !== null ) {
 			$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		}
 		$pageUpdater->method( 'wasSuccessful' )->willReturn( true );
@@ -360,6 +368,151 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testUpdateSchemaText_mergesChangesInNameBadge() {
+		$id = 'O1';
+		$oldLabels = [ 'en' => 'old label' ];
+		$newLabels = [ 'en' => 'new label' ];
+		$descriptions = [ 'en' => 'description' ];
+		$aliases = [ 'en' => [ 'alias' ] ];
+		$oldSchemaText = 'old schema text';
+		$newSchemaText = 'new schema text';
+
+		$this->baseRevision = $this->createMockRevisionRecord(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $oldLabels,
+				'descriptions' => $descriptions,
+				'aliases' => $aliases,
+				'schemaText' => $oldSchemaText,
+				'type' => 'ShExC',
+			] ) )
+		);
+		$this->parentRevision = $this->createMockRevisionRecord(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $newLabels,
+				'descriptions' => $descriptions,
+				'aliases' => $aliases,
+				'schemaText' => $oldSchemaText,
+				'type' => 'ShExC',
+			] ) ),
+			2
+		);
+		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $newLabels,
+				'descriptions' => $descriptions,
+				'aliases' => $aliases,
+				'schemaText' => $newSchemaText,
+				'type' => 'ShExC',
+			] ) )
+		);
+
+		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+			$pageUpdaterFactory,
+			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+		);
+		$schemaUpdater->updateSchemaText(
+			new SchemaId( $id ),
+			$newSchemaText,
+			$this->baseRevision->getId()
+		);
+	}
+
+	public function testUpdateSchemaText_mergesChangesInSchemaText() {
+		$id = 'O1';
+		$labels = [ 'en' => 'label' ];
+		$descriptions = [ 'en' => 'description' ];
+		$aliases = [ 'en' => [ 'alias' ] ];
+		$baseSchemaText = <<< 'SHEXC'
+<:foo> {
+  :bar .;
+}
+
+<:abc> {
+  :xyz .;
+}
+SHEXC;
+		$parentSchemaText = <<< 'SHEXC'
+<:foo> {
+  :bar IRI;
+}
+
+<:abc> {
+  :xyz .;
+}
+SHEXC;
+		$userSchemaText = <<< 'SHEXC'
+<:foo> {
+  :bar .;
+}
+
+<:abc> {
+  :xyz IRI;
+}
+SHEXC;
+		$finalSchemaText = <<< 'SHEXC'
+<:foo> {
+  :bar IRI;
+}
+
+<:abc> {
+  :xyz IRI;
+}
+SHEXC;
+
+		$this->baseRevision = $this->createMockRevisionRecord(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $labels,
+				'descriptions' => $descriptions,
+				'aliases' => $aliases,
+				'schemaText' => $baseSchemaText,
+				'type' => 'ShExC',
+			] ) )
+		);
+		$this->parentRevision = $this->createMockRevisionRecord(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $labels,
+				'descriptions' => $descriptions,
+				'aliases' => $aliases,
+				'schemaText' => $parentSchemaText,
+				'type' => 'ShExC',
+			] ) ),
+			2
+		);
+		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $labels,
+				'descriptions' => $descriptions,
+				'aliases' => $aliases,
+				'schemaText' => $finalSchemaText,
+				'type' => 'ShExC',
+			] ) )
+		);
+
+		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+			$pageUpdaterFactory,
+			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+		);
+		$schemaUpdater->updateSchemaText(
+			new SchemaId( $id ),
+			$userSchemaText,
+			$this->baseRevision->getId()
+		);
+	}
+
 	public function testUpdateSchemaText_saveFails() {
 		$schmeaUpdater = $this->newMediaWikiRevisionSchemaUpdaterFailingToSave();
 
@@ -410,6 +563,32 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			'new schema text',
 			$this->parentRevision->getId(),
 			'user given'
+		);
+	}
+
+	public function testUpdateSchemaText_onlySerializationVersionChanges() {
+		$this->parentRevision = $this->createMockRevisionRecord(
+			new WikibaseSchemaContent( json_encode( [
+				'serializationVersion' => '2.0',
+				'schema' => 'schema text',
+			] ) )
+		);
+		$pageUpdater = $this->createMock( PageUpdater::class );
+		$pageUpdater->method( 'grabParentRevision' )
+			->willReturn( $this->parentRevision );
+		$pageUpdater->expects( $this->never() )->method( 'setContent' );
+		$pageUpdater->expects( $this->never() )->method( 'saveRevision' );
+		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
+		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+			$pageUpdaterFactory,
+			$this->getMockWatchlistUpdater(),
+			new ArrayRevisionLookup( [ $this->parentRevision ] )
+		);
+
+		$schemaUpdater->updateSchemaText(
+			new SchemaId( 'O1' ),
+			'schema text',
+			$this->parentRevision->getId()
 		);
 	}
 
@@ -749,6 +928,184 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testUpdateNameBadge_mergesChangesInSchemaText() {
+		$id = 'O1';
+		$oldLabels = [ 'en' => 'old label' ];
+		$newLabels = [ 'en' => 'new label' ];
+		$descriptions = [ 'en' => 'description' ];
+		$aliases = [ 'en' => [ 'alias' ] ];
+		$oldSchemaText = 'old schema text';
+		$newSchemaText = 'new schema text';
+
+		$this->baseRevision = $this->createMockRevisionRecord(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $oldLabels,
+				'descriptions' => $descriptions,
+				'aliases' => $aliases,
+				'schemaText' => $oldSchemaText,
+				'type' => 'ShExC',
+			] ) )
+		);
+		$this->parentRevision = $this->createMockRevisionRecord(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $oldLabels,
+				'descriptions' => $descriptions,
+				'aliases' => $aliases,
+				'schemaText' => $newSchemaText,
+				'type' => 'ShExC',
+			] ) ),
+			2
+		);
+		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $newLabels,
+				'descriptions' => $descriptions,
+				'aliases' => $aliases,
+				'schemaText' => $newSchemaText,
+				'type' => 'ShExC',
+			] ) )
+		);
+
+		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+			$pageUpdaterFactory,
+			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+		);
+		$schemaUpdater->updateSchemaNameBadge(
+			new SchemaId( $id ),
+			'en',
+			$newLabels['en'],
+			$descriptions['en'],
+			$aliases['en'],
+			$this->baseRevision->getId()
+		);
+	}
+
+	public function testUpdateNameBadge_mergesChangesInOtherLanguage() {
+		$id = 'O1';
+		$baseLabels = [ 'de' => 'alte Bezeichnung', 'en' => 'old label' ];
+		$parentLabels = [ 'de' => 'neue Bezeichnung', 'en' => 'old label' ];
+		$userLabels = [ 'de' => 'alte Bezeichnung', 'en' => 'new label' ];
+		$finalLabels = [ 'de' => 'neue Bezeichnung', 'en' => 'new label' ];
+		$descriptions = [ 'en' => 'description' ];
+		$aliases = [ 'en' => [ 'alias' ] ];
+		$schemaText = 'schema text';
+
+		$this->baseRevision = $this->createMockRevisionRecord(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $baseLabels,
+				'descriptions' => $descriptions,
+				'aliases' => $aliases,
+				'schemaText' => $schemaText,
+				'type' => 'ShExC',
+			] ) )
+		);
+		$this->parentRevision = $this->createMockRevisionRecord(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $parentLabels,
+				'descriptions' => $descriptions,
+				'aliases' => $aliases,
+				'schemaText' => $schemaText,
+				'type' => 'ShExC',
+			] ) ),
+			2
+		);
+		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $finalLabels,
+				'descriptions' => $descriptions,
+				'aliases' => $aliases,
+				'schemaText' => $schemaText,
+				'type' => 'ShExC',
+			] ) )
+		);
+
+		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+			$pageUpdaterFactory,
+			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+		);
+		$schemaUpdater->updateSchemaNameBadge(
+			new SchemaId( $id ),
+			'en',
+			$userLabels['en'],
+			$descriptions['en'],
+			$aliases['en'],
+			$this->baseRevision->getId()
+		);
+	}
+
+	public function testUpdateNameBadge_mergesChangesInSameLanguage() {
+		$id = 'O1';
+		$oldLabels = [ 'en' => 'old label' ];
+		$newLabels = [ 'en' => 'new label' ];
+		$oldDescriptions = [ 'en' => 'old description' ];
+		$newDescriptions = [ 'en' => 'new description' ];
+		$aliases = [ 'en' => [ 'alias' ] ];
+		$schemaText = 'schema text';
+
+		$this->baseRevision = $this->createMockRevisionRecord(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $oldLabels,
+				'descriptions' => $oldDescriptions,
+				'aliases' => $aliases,
+				'schemaText' => $schemaText,
+				'type' => 'ShExC',
+			] ) )
+		);
+		$this->parentRevision = $this->createMockRevisionRecord(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $oldLabels,
+				'descriptions' => $newDescriptions,
+				'aliases' => $aliases,
+				'schemaText' => $schemaText,
+				'type' => 'ShExC',
+			] ) ),
+			2
+		);
+		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
+			new WikibaseSchemaContent( json_encode( [
+				'id' => $id,
+				'serializationVersion' => '3.0',
+				'labels' => $newLabels,
+				'descriptions' => $newDescriptions,
+				'aliases' => $aliases,
+				'schemaText' => $schemaText,
+				'type' => 'ShExC',
+			] ) )
+		);
+
+		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+			$pageUpdaterFactory,
+			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+		);
+		$schemaUpdater->updateSchemaNameBadge(
+			new SchemaId( $id ),
+			'en',
+			$newLabels['en'],
+			$oldDescriptions['en'],
+			$aliases['en'],
+			$this->baseRevision->getId()
+		);
+	}
+
 	public function testUpdateSchemaNameBadge_saveFails() {
 		$schmeaUpdater = $this->newMediaWikiRevisionSchemaUpdaterFailingToSave();
 
@@ -763,6 +1120,35 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			'test description',
 			[ 'test alias' ],
 			1
+		);
+	}
+
+	public function testUpdateSchemaNameBadge_onlySerializationVersionChanges() {
+		$this->parentRevision = $this->createMockRevisionRecord(
+			new WikibaseSchemaContent( json_encode( [
+				'serializationVersion' => '2.0',
+				'labels' => [ 'en' => 'label' ],
+			] ) )
+		);
+		$pageUpdater = $this->createMock( PageUpdater::class );
+		$pageUpdater->method( 'grabParentRevision' )
+			->willReturn( $this->parentRevision );
+		$pageUpdater->expects( $this->never() )->method( 'setContent' );
+		$pageUpdater->expects( $this->never() )->method( 'saveRevision' );
+		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
+		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+			$pageUpdaterFactory,
+			$this->getMockWatchlistUpdater(),
+			new ArrayRevisionLookup( [ $this->parentRevision ] )
+		);
+
+		$schemaUpdater->updateSchemaNameBadge(
+			new SchemaId( 'O1' ),
+			'en',
+			'label',
+			'',
+			[],
+			$this->parentRevision->getId()
 		);
 	}
 
