@@ -17,7 +17,6 @@ use Title;
 use UserBlockedError;
 use WebRequest;
 use Wikibase\Schema\DataAccess\EditConflict;
-use Wikibase\Schema\DataAccess\EditConflictDetector;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
@@ -83,9 +82,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$updaterFactory,
 			$watchListUpdater,
-			new EditConflictDetector(
-				MediaWikiServices::getInstance()->getRevisionStore()
-			)
+			MediaWikiServices::getInstance()->getRevisionLookup()
 		);
 
 		try {

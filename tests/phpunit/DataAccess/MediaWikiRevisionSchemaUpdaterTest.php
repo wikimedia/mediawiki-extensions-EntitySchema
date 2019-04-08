@@ -5,14 +5,11 @@ namespace Wikibase\Schema\Tests\DataAccess;
 use CommentStoreComment;
 use DomainException;
 use InvalidArgumentException;
-use MediaWiki\MediaWikiServices;
-use MediaWiki\Revision\RevisionStore;
+use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\PageUpdater;
-use MediaWiki\Storage\RevisionRecord;
 use RuntimeException;
 use stdClass;
 use Wikibase\Schema\DataAccess\EditConflict;
-use Wikibase\Schema\DataAccess\EditConflictDetector;
 use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Wikibase\Schema\DataAccess\WatchlistUpdater;
@@ -22,10 +19,22 @@ use Wikibase\Schema\Services\SchemaConverter\NameBadge;
 
 /**
  * @covers \Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater
+ * @covers \Wikibase\Schema\DataAccess\SchemaUpdateGuard
  * @license GPL-2.0-or-later
  */
 class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	use \PHPUnit4And6Compat;
+
+	/** @var RevisionRecord|null */
+	private $baseRevision;
+
+	/** @var RevisionRecord|null */
+	private $parentRevision;
+
+	protected function tearDown() {
+		$this->baseRevision = null;
+		$this->parentRevision = null;
+	}
 
 	private function getPageUpdaterFactoryProvidingAndExpectingContent(
 		WikibaseSchemaContent $expectedContent,
@@ -33,8 +42,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	): MediaWikiPageUpdaterFactory {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		if ( $existingContent !== null ) {
-			$revisionRecord = $this->createMockRevisionRecord( $existingContent );
-			$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
+			$this->parentRevision = $this->createMockRevisionRecord( $existingContent );
+			$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		}
 		$pageUpdater->method( 'wasSuccessful' )->willReturn( true );
 		$pageUpdater->expects( $this->once() )
@@ -53,8 +62,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	): MediaWikiPageUpdaterFactory {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		if ( $existingContent !== null ) {
-			$revisionRecord = $this->createMockRevisionRecord( $existingContent );
-			$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
+			$this->parentRevision = $this->createMockRevisionRecord( $existingContent );
+			$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		}
 		$pageUpdater->method( 'wasSuccessful' )->willReturn( true );
 		$pageUpdater->expects( $this->once() )
@@ -76,16 +85,16 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 	private function newMediaWikiRevisionSchemaUpdaterFailingToSave(): MediaWikiRevisionSchemaUpdater {
 		$existingContent = new WikibaseSchemaContent( '{}' );
-		$revisionRecord = $this->createMockRevisionRecord( $existingContent );
+		$this->parentRevision = $this->createMockRevisionRecord( $existingContent );
 
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'wasSuccessful' )->willReturn( false );
-		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
+		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 
 		return new MediaWikiRevisionSchemaUpdater(
 			$this->getPageUpdaterFactory( $pageUpdater ),
 			$this->getMockWatchlistUpdater(),
-			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
+			new ArrayRevisionLookup( [ $this->parentRevision ] )
 		);
 	}
 
@@ -94,7 +103,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMockWatchlistUpdater()
+			$this->getMockWatchlistUpdater(),
+			new ArrayRevisionLookup()
 		);
 
 		$this->expectException( RuntimeException::class );
@@ -135,15 +145,15 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$testSchemaText,
 		$exceptionMessage
 	) {
+		$this->parentRevision = $this->createMockRevisionRecord();
 		$pageUpdater = $this->createMock( PageUpdater::class );
-		$pageUpdater->method( 'grabParentRevision' )->willReturn(
-			$this->createMockRevisionRecord()
-		);
+		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMockWatchlistUpdater()
+			$this->getMockWatchlistUpdater(),
+			new ArrayRevisionLookup( [ $this->parentRevision ] )
 		);
 		$this->setExpectedException( InvalidArgumentException::class, $exceptionMessage );
 		$schmeaUpdater->overwriteWholeSchema(
@@ -152,7 +162,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			[ $testLanguage => $testDescription ],
 			[ $testLanguage => $testAliases ],
 			$testSchemaText,
-			1,
+			$this->parentRevision->getId(),
 			CommentStoreComment::newUnsavedComment( '' )
 		);
 	}
@@ -186,7 +196,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' )
+			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new ArrayRevisionLookup( [ $this->parentRevision ] )
 		);
 		$schmeaUpdater->overwriteWholeSchema(
 			new SchemaId( 'O1' ),
@@ -194,7 +205,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			[ 'en' => 'englishDescription' ],
 			[ 'en' => $aliases ],
 			$schemaText,
-			1,
+			$this->parentRevision->getId(),
 			CommentStoreComment::newUnsavedComment( '' )
 		);
 	}
@@ -238,7 +249,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdaterFactory = $this->getPageUpdaterFactory();
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
-			$this->getMockWatchlistUpdater()
+			$this->getMockWatchlistUpdater(),
+			new ArrayRevisionLookup()
 		);
 
 		$this->expectException( InvalidArgumentException::class );
@@ -250,7 +262,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testUpdateSchemaText_throwsForUnknownSerializationVersion() {
-		$revisionRecord = $this->createMockRevisionRecord(
+		$this->parentRevision = $this->createMockRevisionRecord(
 			new WikibaseSchemaContent( json_encode( [
 				'serializationVersion' => '4.0',
 				'schema' => [
@@ -263,46 +275,48 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			] ) )
 		);
 		$pageUpdater = $this->createMock( PageUpdater::class );
-		$pageUpdater->method( 'grabParentRevision' )->willReturn( $revisionRecord );
+		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
+			new ArrayRevisionLookup( [ $this->parentRevision ] )
 		);
 
 		$this->expectException( DomainException::class );
-		$schmeaUpdater->updateSchemaText( new SchemaId( 'O1' ), '', 1 );
+		$schmeaUpdater->updateSchemaText(
+			new SchemaId( 'O1' ),
+			'',
+			$this->parentRevision->getId()
+		);
 	}
 
 	public function testUpdateSchemaText_throwsForEditConflict() {
-		$parentRevisionRecord = $this->createMockRevisionRecord( new WikibaseSchemaContent(
+		$this->parentRevision = $this->createMockRevisionRecord( new WikibaseSchemaContent(
 			'{
 		"serializationVersion": "3.0",
 		"schemaText": "conflicting text"
 		}' ), 2 );
 		$pageUpdater = $this->createMock( PageUpdater::class );
-		$pageUpdater->method( 'grabParentRevision' )->willReturn( $parentRevisionRecord );
+		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
-		$baseRevisionRecord = $this->createMockRevisionRecord( new WikibaseSchemaContent(
+		$this->baseRevision = $this->createMockRevisionRecord( new WikibaseSchemaContent(
 			'{
 		"serializationVersion": "3.0",
 		"schemaText": "original text"
 		}' ) );
-		$mockRevStore = $this->getMockBuilder( RevisionStore::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$mockRevStore->method( 'getRevisionById' )->willReturn(
-			$baseRevisionRecord
-		);
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			new EditConflictDetector( $mockRevStore )
+			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
 		);
 
 		$this->expectException( EditConflict::class );
-		$schmeaUpdater->updateSchemaText( new SchemaId( 'O1' ), '', 1 );
+		$schmeaUpdater->updateSchemaText(
+			new SchemaId( 'O1' ),
+			'',
+			$this->baseRevision->getId()
+		);
 	}
 
 	public function testUpdateSchemaText_WritesExpectedContentForOverwritingSchemaText() {
@@ -336,13 +350,13 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
+			new ArrayRevisionLookup( [ $this->parentRevision ] )
 		);
 
 		$schmeaUpdater->updateSchemaText(
 			new SchemaId( $id ),
 			$newSchemaText,
-			1
+			$this->parentRevision->getId()
 		);
 	}
 
@@ -388,13 +402,13 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
+			new ArrayRevisionLookup( [ $this->parentRevision ] )
 		);
 
 		$schmeaUpdater->updateSchemaText(
 			$id,
 			'new schema text',
-			1,
+			$this->parentRevision->getId(),
 			'user given'
 		);
 	}
@@ -429,7 +443,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
+			new ArrayRevisionLookup( [ $this->parentRevision ] )
 		);
 
 		$schmeaUpdater->updateSchemaNameBadge(
@@ -438,7 +452,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			$labels['en'],
 			$descriptions['en'],
 			$aliases['en'],
-			1
+			$this->parentRevision->getId()
 		);
 	}
 
@@ -490,7 +504,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
+			new ArrayRevisionLookup( [ $this->parentRevision ] )
 		);
 
 		$schmeaUpdater->updateSchemaNameBadge(
@@ -499,7 +513,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			$englishLabel,
 			$englishDescription,
 			$englishAliases,
-			1
+			$this->parentRevision->getId()
 		);
 	}
 
@@ -550,7 +564,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$writer = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new EditConflictDetector( MediaWikiServices::getInstance()->getRevisionStore() )
+			new ArrayRevisionLookup( [ $this->parentRevision ] )
 		);
 
 		$writer->updateSchemaNameBadge(
@@ -559,7 +573,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			$new->label,
 			$new->description,
 			$new->aliases,
-			1
+			$this->parentRevision->getId()
 		);
 	}
 
@@ -645,7 +659,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testUpdateSchemaNameBadge_throwsForEditConflict() {
-		$parentRevisionRecord = $this->createMockRevisionRecord( new WikibaseSchemaContent(
+		$this->parentRevision = $this->createMockRevisionRecord( new WikibaseSchemaContent(
 			json_encode(
 				[
 					'serializationVersion' => '3.0',
@@ -653,27 +667,21 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 				]
 			) ), 2 );
 		$pageUpdater = $this->createMock( PageUpdater::class );
-		$pageUpdater->method( 'grabParentRevision' )->willReturn( $parentRevisionRecord );
+		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 
-		$baseRevisionRecord = $this->createMockRevisionRecord( new WikibaseSchemaContent(
+		$this->baseRevision = $this->createMockRevisionRecord( new WikibaseSchemaContent(
 			json_encode(
 				[
 					'serializationVersion' => '3.0',
 					'labels' => [ 'en' => 'original label' ],
 				]
 			) ) );
-		$mockRevStore = $this->getMockBuilder( RevisionStore::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$mockRevStore->method( 'getRevisionById' )->willReturn(
-			$baseRevisionRecord
-		);
 
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			new EditConflictDetector( $mockRevStore )
+			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
 		);
 
 		$this->expectException( EditConflict::class );
@@ -683,7 +691,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			'test label',
 			'test description',
 			[ 'test alias' ],
-			1
+			$this->baseRevision->getId()
 		);
 	}
 
@@ -712,7 +720,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			'type' => 'ShExC',
 		] ) );
 
-		$baseRevisionRecord = $this->createMockRevisionRecord( new WikibaseSchemaContent(
+		$this->baseRevision = $this->createMockRevisionRecord( new WikibaseSchemaContent(
 			json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
@@ -722,19 +730,13 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 				'schemaText' => '# some schema about goats',
 				'type' => 'ShExC',
 			] ) ) );
-		$mockRevStore = $this->getMockBuilder( RevisionStore::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$mockRevStore->method( 'getRevisionById' )->willReturn(
-			$baseRevisionRecord
-		);
 
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
 		$updater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new EditConflictDetector( $mockRevStore )
+			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
 		);
 
 		$updater->updateSchemaNameBadge(
@@ -743,7 +745,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			$labels['en'],
 			$descriptions['en'],
 			$aliases['en'],
-			2
+			$this->baseRevision->getId()
 		);
 	}
 
