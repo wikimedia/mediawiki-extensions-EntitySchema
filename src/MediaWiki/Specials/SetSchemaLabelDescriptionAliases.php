@@ -96,7 +96,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 			);
 		} catch ( EditConflict $e ) {
 			return Status::newFatal( 'wikibaseschema-error-namebadge-conflict' );
-		} catch ( RunTimeException $e ) {
+		} catch ( RuntimeException $e ) {
 			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
 		}
 
@@ -196,7 +196,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	 * of $title, in which case &$revId will be replaced with that revision's ID
 	 *
 	 * @return NameBadge
-	 * @throws \MWException
+	 * @throws MWException
 	 */
 	private function getSchemaNameBadge( Title $title, $langCode, &$revId ) {
 		if ( $revId > 0 ) {
@@ -340,13 +340,9 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 			return false;
 		}
 		$inputValidator = InputValidator::newFromGlobalState();
-		if (
-			$inputValidator->validateIDExists( $id ) !== true
-			|| $inputValidator->validateLangCodeIsSupported( $language ) !== true
-		) {
-			return false;
-		}
-		return true;
+
+		return $inputValidator->validateIDExists( $id ) === true &&
+			$inputValidator->validateLangCodeIsSupported( $language ) === true;
 	}
 
 	private function displayCopyright( OutputPage $output ) {

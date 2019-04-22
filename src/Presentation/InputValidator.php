@@ -3,8 +3,10 @@
 namespace Wikibase\Schema\Presentation;
 
 use Config;
+use ConfigException;
 use InvalidArgumentException;
 use Language;
+use Message;
 use MediaWiki\MediaWikiServices;
 use MessageLocalizer;
 use RequestContext;
@@ -40,7 +42,7 @@ class InputValidator {
 	/**
 	 * @param $id
 	 *
-	 * @return bool|\Message returns true on success and Message on failure
+	 * @return bool|Message returns true on success and Message on failure
 	 */
 	public function validateIDExists( $id ) {
 		try {
@@ -59,7 +61,7 @@ class InputValidator {
 	/**
 	 * @param $langCode
 	 *
-	 * @return bool|\Message returns true on success and Message on failure
+	 * @return bool|Message returns true on success and Message on failure
 	 */
 	public function validateLangCodeIsSupported( $langCode ) {
 		if ( !Language::isSupportedLanguage( $langCode ) ) {
@@ -71,8 +73,8 @@ class InputValidator {
 	/**
 	 * @param $schemaText
 	 *
-	 * @return bool|\Message returns true on success and Message on failure
-	 * @throws \ConfigException
+	 * @return bool|Message returns true on success and Message on failure
+	 * @throws ConfigException
 	 */
 	public function validateSchemaTextLength( $schemaText ) {
 		$maxLengthBytes = $this->configService->get( 'WBSchemaSchemaTextMaxSizeBytes' );

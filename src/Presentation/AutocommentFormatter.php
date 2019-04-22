@@ -2,6 +2,7 @@
 
 namespace Wikibase\Schema\Presentation;
 
+use RequestContext;
 use User;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaInserter;
 use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
@@ -44,7 +45,7 @@ class AutocommentFormatter {
 
 	private function parseAutocomment( $auto ) {
 		$commentParts = explode( ':', $auto, 2 );
-		$context = \RequestContext::getMain();
+		$context = RequestContext::getMain();
 
 		switch ( $commentParts[0] ) {
 			case MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA:

@@ -34,6 +34,8 @@ class AliasGroupListPatcher {
 	 * @param array $groups
 	 * @param string $lang
 	 * @param Diff $patch
+	 *
+	 * @return array
 	 */
 	private function applyAliasGroupDiff( array $groups, $lang, Diff $patch ) {
 		$hasLang = !empty( $groups[$lang] );

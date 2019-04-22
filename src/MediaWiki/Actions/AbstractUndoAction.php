@@ -64,9 +64,9 @@ abstract class AbstractUndoAction extends ViewAction {
 		$status = $undoHandler->tryPatching( $diff, $baseContent );
 		if ( $status->isGood() ) {
 			return Status::newGood( [ $status->getValue(), $baseRevId ] );
-		} else {
-			return $status;
 		}
+
+		return $status;
 	}
 
 	/**

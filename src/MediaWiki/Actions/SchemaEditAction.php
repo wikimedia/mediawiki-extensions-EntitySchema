@@ -95,7 +95,7 @@ class SchemaEditAction extends FormAction {
 			);
 		} catch ( EditConflict $e ) {
 			return Status::newFatal( 'wikibaseschema-error-schematext-conflict' );
-		} catch ( RunTimeException $e ) {
+		} catch ( RuntimeException $e ) {
 			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
 		}
 
