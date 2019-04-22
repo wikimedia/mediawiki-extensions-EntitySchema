@@ -54,6 +54,7 @@
 	"wikibaseschema-summary-update-schema-text-user": "Texto de esquema atualizado: $1",
 	"wikibaseschema-summary-update-schema-namebadge": "Rótulo, descrição ou aliases atualizados de $1",
 	"wikibaseschema-summary-update-schema-label": "Rótulo de esquema $1 atualizado",
+	"wikibaseschema-summary-update-schema-description": "Descrição do esquema $1 atualizado",
 	"wikibaseschema-summary-update-schema-aliases": "Aliases atualizados do esquema $1",
 	"wikibaseschema-summary-undo-autocomment": "Desfazer revisão $1 por [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|discussão]])",
 	"wikibaseschema-summary-restore-autocomment": "Restaure a revisão $1 por [[Special:Contributions/$2|{{GENDER:$2|$2}}]]",
