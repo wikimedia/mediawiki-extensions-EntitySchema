@@ -157,8 +157,6 @@ class SchemaEditAction extends FormAction {
 	/**
 	 * Return the name of the action this object responds to
 	 *
-	 * @since 1.17
-	 *
 	 * @return string Lowercase name
 	 */
 	public function getName() {
