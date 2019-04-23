@@ -68,7 +68,7 @@ class SchemaText extends SpecialPage {
 	/**
 	 * @param string $subPage
 	 *
-	 * @return bool|SchemaId
+	 * @return false|SchemaId
 	 */
 	private function getIdFromSubpage( $subPage ) {
 		if ( !$subPage ) {
