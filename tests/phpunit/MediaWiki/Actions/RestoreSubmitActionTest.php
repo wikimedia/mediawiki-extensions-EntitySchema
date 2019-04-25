@@ -44,7 +44,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	public function testRestoreSubmit() {
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -62,12 +62,12 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 
 		$restoreSubmitAction->show();
 
-		$actualSchema = $this->getCurrentSchemaContent( 'O123' );
+		$actualSchema = $this->getCurrentSchemaContent( 'E123' );
 		$this->assertSame( 'abc', $actualSchema['schemaText'] );
 	}
 
 	public function testRestoreNotCurrent() {
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -86,7 +86,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 
 		$restoreSubmitAction->show();
 
-		$actualSchema = $this->getCurrentSchemaContent( 'O123' );
+		$actualSchema = $this->getCurrentSchemaContent( 'E123' );
 		$this->assertSame(
 			'ghi',
 			$actualSchema['schemaText'],
@@ -105,7 +105,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 		);
 		$this->block->insert();
 
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -149,7 +149,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	public function testActionName() {
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' );
+		$title = Title::makeTitle( NS_WBSCHEMA_JSON, 'E1' );
 		$requestParameters = [ 'action' => 'submit', 'restore' => 1 ];
 		$context = RequestContext::newExtraneousContext( $title, $requestParameters );
 

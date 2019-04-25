@@ -56,7 +56,7 @@ class WikibaseSchemaHooksTest extends MediaWikiTestCase {
 			false,
 			'blah blah',
 			false,
-			Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' ),
+			Title::makeTitle( NS_WBSCHEMA_JSON, 'E1' ),
 			false
 		);
 
@@ -73,7 +73,7 @@ class WikibaseSchemaHooksTest extends MediaWikiTestCase {
 			false,
 			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			true, # usually followed by the label
-			Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' ),
+			Title::makeTitle( NS_WBSCHEMA_JSON, 'E1' ),
 			false
 		);
 

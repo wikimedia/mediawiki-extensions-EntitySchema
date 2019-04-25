@@ -36,7 +36,7 @@ class UndoViewActionTest extends MediaWikiTestCase {
 
 	public function test_UndoView() {
 		// arrange
-		$schemaId = 'O123';
+		$schemaId = 'E123';
 		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc', 'id' => $schemaId ] );

@@ -30,7 +30,7 @@ class UndoAPITest extends MediaWikiTestCase {
 	public function testGetUndoContentUndoLatest() {
 		$handler = new \Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContentHandler();
 
-		$id = 'O456';
+		$id = 'E456';
 		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id );
 		$page = WikiPage::factory( $title );
 		$this->saveSchemaPageContent( $page, [
@@ -58,7 +58,7 @@ class UndoAPITest extends MediaWikiTestCase {
 	public function testGetUndoContent() {
 		$handler = new \Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContentHandler();
 
-		$id = 'O456';
+		$id = 'E456';
 		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id );
 		$page = WikiPage::factory( $title );
 		$rev1 = $this->saveSchemaPageContent( $page, [

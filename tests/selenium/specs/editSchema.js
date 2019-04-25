@@ -87,7 +87,7 @@ describe( 'Schema Edit Page', () => {
 
 		it( 'cannot be edited', () => {
 			LoginPage.loginAdmin();
-			ViewSchemaPage.open( 'O1', { action: 'edit' } );
+			ViewSchemaPage.open( 'E1', { action: 'edit' } );
 
 			const firstHeading = $( '#firstHeading' );
 			firstHeading.waitForVisible();

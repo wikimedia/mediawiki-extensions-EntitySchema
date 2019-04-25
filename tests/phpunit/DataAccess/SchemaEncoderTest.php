@@ -37,7 +37,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 	}
 
 	public function provideValidArguments() {
-		$id = 'O1';
+		$id = 'E1';
 		$language = 'en';
 		$label = 'englishLabel';
 		$description = 'englishDescription';
@@ -110,7 +110,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 		);
 
 		SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			$labels,
 			$descriptions,
 			$aliasGroups,
@@ -206,7 +206,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 		);
 
 		SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			[],
 			[],
 			[],
@@ -223,7 +223,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 		);
 
 		SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			[ 'en' => 'label too long' ],
 			[],
 			[],
@@ -240,7 +240,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 		);
 
 		SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			[],
 			[ 'en' => 'description too long' ],
 			[],
@@ -257,7 +257,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 		);
 
 		SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			[],
 			[],
 			[ 'en' => [ 'alias', 'too', 'long' ] ],
@@ -267,7 +267,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 
 	public function testParamsAreCleaned() {
 		$actualJSON = SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			[
 				'en' => '         	testLabel﻿   ',
 				'de' => '    ',
@@ -294,7 +294,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 
 	public function testIgnoresKeyOrder() {
 		$json1 = SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			[
 				'en' => 'English label',
 				'de' => 'deutsche Beschriftung',
@@ -310,7 +310,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 			'schema text'
 		);
 		$json2 = SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			[
 				'de' => 'deutsche Beschriftung',
 				'en' => 'English label',

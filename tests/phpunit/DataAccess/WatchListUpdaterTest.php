@@ -19,14 +19,14 @@ final class WatchListUpdaterTest extends MediaWikiTestCase {
 		yield [
 			'watchdefault',
 			true,
-			'O123',
+			'E123',
 			true,
 		];
 
 		yield [
 			'watchdefault',
 			false,
-			'O1234',
+			'E1234',
 			false,
 		];
 	}
@@ -65,7 +65,7 @@ final class WatchListUpdaterTest extends MediaWikiTestCase {
 					'value' => true,
 				],
 			],
-			'O12345',
+			'E12345',
 			true,
 		];
 
@@ -80,7 +80,7 @@ final class WatchListUpdaterTest extends MediaWikiTestCase {
 					'value' => false,
 				],
 			],
-			'O123456',
+			'E123456',
 			false,
 		];
 
@@ -95,7 +95,7 @@ final class WatchListUpdaterTest extends MediaWikiTestCase {
 					'value' => true,
 				],
 			],
-			'O1234567',
+			'E1234567',
 			true,
 		];
 	}

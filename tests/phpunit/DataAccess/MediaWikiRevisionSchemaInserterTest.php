@@ -25,7 +25,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiTestCase {
 		$description = 'test_description';
 		$aliases = [ 'test_alias1', 'testalias_2' ];
 		$schemaText = '#some fake schema {}';
-		$id = 'O123';
+		$id = 'E123';
 
 		$expectedContent = new WikibaseSchemaContent(
 			json_encode(

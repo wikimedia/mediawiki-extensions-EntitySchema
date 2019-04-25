@@ -34,7 +34,7 @@ final class RestoreViewActionTest extends MediaWikiTestCase {
 
 	public function testRestoreView() {
 		// arrange
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O1234' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E1234' ) );
 
 		$firstID = $this->saveSchemaPageContent(
 			$page,

@@ -19,7 +19,7 @@ class WikibaseSchemaContentTest extends MediaWikiTestCase {
 		$content = new WikibaseSchemaContent( json_encode( [
 			'serializationVersion' => '3.0',
 		] ) );
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' );
+		$title = Title::makeTitle( NS_WBSCHEMA_JSON, 'E1' );
 		$parserOptions = new ParserOptions( null, Language::factory( 'qqx' ) );
 		$this->setMwGlobals( 'wgLang', Language::factory( 'en' ) );
 
@@ -34,7 +34,7 @@ class WikibaseSchemaContentTest extends MediaWikiTestCase {
 		$content = new WikibaseSchemaContent( json_encode( [
 			'serializationVersion' => '3.0',
 		] ) );
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' );
+		$title = Title::makeTitle( NS_WBSCHEMA_JSON, 'E1' );
 
 		$parserOutput = $content->getParserOutput( $title, null, null, false );
 		$html = $parserOutput->getText();
@@ -55,7 +55,7 @@ class WikibaseSchemaContentTest extends MediaWikiTestCase {
 		] ) );
 		$this->setMwGlobals( 'wgWBSchemaShExSimpleUrl', $shExSimpleUrl );
 
-		$parserOutput = $content->getParserOutput( Title::makeTitle( NS_WBSCHEMA_JSON, 'O1' ) );
+		$parserOutput = $content->getParserOutput( Title::makeTitle( NS_WBSCHEMA_JSON, 'E1' ) );
 		$html = $parserOutput->getText();
 
 		if ( $expected === false ) {

@@ -117,7 +117,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->expectException( RuntimeException::class );
 		$schmeaUpdater->overwriteWholeSchema(
-			new SchemaId( 'O123456999999999' ),
+			new SchemaId( 'E123456999999999' ),
 			[],
 			[],
 			[],
@@ -165,7 +165,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		);
 		$this->setExpectedException( InvalidArgumentException::class, $exceptionMessage );
 		$schmeaUpdater->overwriteWholeSchema(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			[ $testLanguage => $testLabel ],
 			[ $testLanguage => $testDescription ],
 			[ $testLanguage => $testAliases ],
@@ -176,7 +176,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testOverwriteWholeSchema_WritesExpectedContentForOverwritingMonoLingualSchema() {
-		$id = 'O1';
+		$id = 'E1';
 		$language = 'en';
 		$label = 'englishLabel';
 		$description = 'englishDescription';
@@ -208,7 +208,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			new ArrayRevisionLookup( [ $this->parentRevision ] )
 		);
 		$schmeaUpdater->overwriteWholeSchema(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			[ 'en' => 'englishLabel' ],
 			[ 'en' => 'englishDescription' ],
 			[ 'en' => $aliases ],
@@ -226,7 +226,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			'The revision could not be saved'
 		);
 		$schmeaUpdater->overwriteWholeSchema(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			[],
 			[],
 			[],
@@ -263,7 +263,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->expectException( InvalidArgumentException::class );
 		$schmeaUpdater->updateSchemaText(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			null,
 			1
 		);
@@ -293,7 +293,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->expectException( DomainException::class );
 		$schmeaUpdater->updateSchemaText(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			'',
 			$this->parentRevision->getId()
 		);
@@ -321,14 +321,14 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->expectException( EditConflict::class );
 		$schmeaUpdater->updateSchemaText(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			'',
 			$this->baseRevision->getId()
 		);
 	}
 
 	public function testUpdateSchemaText_WritesExpectedContentForOverwritingSchemaText() {
-		$id = 'O1';
+		$id = 'E1';
 		$language = 'en';
 		$labels = [ $language => 'englishLabel' ];
 		$descriptions = [ $language => 'englishDescription' ];
@@ -369,7 +369,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testUpdateSchemaText_mergesChangesInNameBadge() {
-		$id = 'O1';
+		$id = 'E1';
 		$oldLabels = [ 'en' => 'old label' ];
 		$newLabels = [ 'en' => 'new label' ];
 		$descriptions = [ 'en' => 'description' ];
@@ -425,7 +425,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testUpdateSchemaText_mergesChangesInSchemaText() {
-		$id = 'O1';
+		$id = 'E1';
 		$labels = [ 'en' => 'label' ];
 		$descriptions = [ 'en' => 'description' ];
 		$aliases = [ 'en' => [ 'alias' ] ];
@@ -521,7 +521,7 @@ SHEXC;
 			'The revision could not be saved'
 		);
 		$schmeaUpdater->updateSchemaText(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			'qwerty',
 			1
 		);
@@ -537,7 +537,7 @@ SHEXC;
 			]
 		);
 
-		$id = new SchemaId( 'O1' );
+		$id = new SchemaId( 'E1' );
 		$existingContent = new WikibaseSchemaContent( json_encode( [
 			'id' => $id,
 			'serializationVersion' => '3.0',
@@ -586,14 +586,14 @@ SHEXC;
 		);
 
 		$schemaUpdater->updateSchemaText(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			'schema text',
 			$this->parentRevision->getId()
 		);
 	}
 
 	public function testUpdateSchemaNameBadgeSuccess() {
-		$id = 'O1';
+		$id = 'E1';
 		$language = 'en';
 		$labels = [ $language => 'englishLabel' ];
 		$descriptions = [ $language => 'englishDescription' ];
@@ -636,7 +636,7 @@ SHEXC;
 	}
 
 	public function testUpdateMultiLingualSchemaNameBadgeSuccess() {
-		$id = 'O1';
+		$id = 'E1';
 		$language = 'en';
 		$englishLabel = 'Goat';
 		$englishDescription = 'This is what a goat looks like';
@@ -705,7 +705,7 @@ SHEXC;
 		$expectedAutocommentKey,
 		$expectedAutosummary
 	) {
-		$id = 'O1';
+		$id = 'E1';
 		$language = 'en';
 		$oldArray = [
 			'id' => $id,
@@ -865,7 +865,7 @@ SHEXC;
 
 		$this->expectException( EditConflict::class );
 		$schmeaUpdater->updateSchemaNameBadge(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			'en',
 			'test label',
 			'test description',
@@ -875,7 +875,7 @@ SHEXC;
 	}
 
 	public function testUpdateSchemaNameBadgeSuccessNonConflictingEdit() {
-		$id = 'O1';
+		$id = 'E1';
 		$language = 'en';
 		$labels = [ $language => 'englishLabel' ];
 		$descriptions = [ $language => 'englishDescription' ];
@@ -929,7 +929,7 @@ SHEXC;
 	}
 
 	public function testUpdateNameBadge_mergesChangesInSchemaText() {
-		$id = 'O1';
+		$id = 'E1';
 		$oldLabels = [ 'en' => 'old label' ];
 		$newLabels = [ 'en' => 'new label' ];
 		$descriptions = [ 'en' => 'description' ];
@@ -988,7 +988,7 @@ SHEXC;
 	}
 
 	public function testUpdateNameBadge_mergesChangesInOtherLanguage() {
-		$id = 'O1';
+		$id = 'E1';
 		$baseLabels = [ 'de' => 'alte Bezeichnung', 'en' => 'old label' ];
 		$parentLabels = [ 'de' => 'neue Bezeichnung', 'en' => 'old label' ];
 		$userLabels = [ 'de' => 'alte Bezeichnung', 'en' => 'new label' ];
@@ -1048,7 +1048,7 @@ SHEXC;
 	}
 
 	public function testUpdateNameBadge_mergesChangesInSameLanguage() {
-		$id = 'O1';
+		$id = 'E1';
 		$oldLabels = [ 'en' => 'old label' ];
 		$newLabels = [ 'en' => 'new label' ];
 		$oldDescriptions = [ 'en' => 'old description' ];
@@ -1114,7 +1114,7 @@ SHEXC;
 			'The revision could not be saved'
 		);
 		$schmeaUpdater->updateSchemaNameBadge(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			'en',
 			'test label',
 			'test description',
@@ -1143,7 +1143,7 @@ SHEXC;
 		);
 
 		$schemaUpdater->updateSchemaNameBadge(
-			new SchemaId( 'O1' ),
+			new SchemaId( 'E1' ),
 			'en',
 			'label',
 			'',

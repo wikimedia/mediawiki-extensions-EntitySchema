@@ -17,7 +17,7 @@ use Wikibase\Schema\MediaWiki\UndoHandler;
 class UndoHandlerTest extends MediaWikiTestCase {
 
 	public function testAssertSameId() {
-		$id = 'O123';
+		$id = 'E123';
 
 		$content1 = new WikibaseSchemaContent(
 			json_encode( [
@@ -46,11 +46,11 @@ class UndoHandlerTest extends MediaWikiTestCase {
 
 	public function inconsistentIdProvider() {
 		yield 'invalidWithoutThirdId' => [
-			'O12', 'O123', null
+			'E12', 'E123', null
 		];
 
 		yield 'thirdIdDifferent' => [
-			'O123', 'O123', 'O12'
+			'E123', 'E123', 'E12'
 		];
 	}
 

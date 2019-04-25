@@ -33,7 +33,7 @@ class InputValidatorTest extends MediaWikiTestCase {
 		$this->createTestSchema();
 
 		$inputValidator = $this->getInputValidator();
-		$this->assertTrue( $inputValidator->validateIDExists( 'O123' ) );
+		$this->assertTrue( $inputValidator->validateIDExists( 'E123' ) );
 	}
 
 	public function testValidateIdEmpty() {
@@ -109,7 +109,7 @@ class InputValidatorTest extends MediaWikiTestCase {
 	}
 
 	private function createTestSchema() {
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
 		$this->saveSchemaPageContent(
 			$page,
 			[

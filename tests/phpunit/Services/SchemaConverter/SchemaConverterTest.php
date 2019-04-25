@@ -550,26 +550,26 @@ class SchemaConverterTest extends MediaWikiTestCase {
 	public function provideSerializationsWithId() {
 		yield 'serialization version 3.0' => [
 			[
-				'id' => 'O123',
+				'id' => 'E123',
 				'serializationVersion' => '3.0',
 			],
-			'O123',
+			'E123',
 		];
 
 		yield 'serialization version 2.0' => [
 			[
-				'id' => 'O123',
+				'id' => 'E123',
 				'serializationVersion' => '2.0',
 			],
-			'O123',
+			'E123',
 		];
 
 		yield 'serialization version 1.0' => [
 			[
-				'id' => 'O123',
+				'id' => 'E123',
 				'serializationVersion' => '1.0',
 			],
-			'O123',
+			'E123',
 		];
 	}
 

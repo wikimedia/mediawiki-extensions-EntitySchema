@@ -14,7 +14,7 @@ use Wikibase\Schema\Domain\Model\SchemaId;
 class SchemaIdTest extends TestCase {
 
 	public function testConstructorAndGetter() {
-		$expected = 'O1';
+		$expected = 'E1';
 
 		$schemaId = new SchemaId( $expected );
 		$actual = $schemaId->getId();
@@ -24,13 +24,13 @@ class SchemaIdTest extends TestCase {
 
 	public function  provideInvalidIds() {
 		yield 'missing prefix' => [ '1' ];
-		yield 'missing number' => [ 'O' ];
-		yield 'malformed number' => [ 'O01' ];
-		yield 'trailing newline' => [ "O1\n" ];
-		yield 'extra whitespace' => [ ' O1 ' ];
-		yield 'sub-ID' => [ 'O1-R1' ];
-		yield 'local repository' => [ ':O1' ]; // this is not a Wikibase entity (ID),
-		yield 'foreign repository' => [ 'other:O1' ]; // federation is not supported
+		yield 'missing number' => [ 'E' ];
+		yield 'malformed number' => [ 'E01' ];
+		yield 'trailing newline' => [ "E1\n" ];
+		yield 'extra whitespace' => [ ' E1 ' ];
+		yield 'sub-ID' => [ 'E1-R1' ];
+		yield 'local repository' => [ ':E1' ]; // this is not a Wikibase entity (ID),
+		yield 'foreign repository' => [ 'other:E1' ]; // federation is not supported
 	}
 
 	/**

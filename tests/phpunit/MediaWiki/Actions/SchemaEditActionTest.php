@@ -29,7 +29,7 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 		$readOnlyMode->method( 'isReadOnly' )->willReturn( true );
 		$this->setService( 'ReadOnlyMode', $readOnlyMode );
 		$action = new SchemaEditAction(
-			new WikiPage( Title::newFromDBkey( 'O1' ) ),
+			new WikiPage( Title::newFromDBkey( 'E1' ) ),
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			new RequestContext()
@@ -48,7 +48,7 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 		$groupPermissions['*']['edit'] = false;
 		$this->setMwGlobals( 'wgGroupPermissions', $groupPermissions );
 		$action = new SchemaEditAction(
-			new WikiPage( Title::newFromDBkey( 'O1' ) ),
+			new WikiPage( Title::newFromDBkey( 'E1' ) ),
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			new RequestContext()

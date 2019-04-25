@@ -38,7 +38,7 @@ PREFIX wd: <http://www.wikidata.org/entity/>
   wdt:P31 [wd:Q5]
 }
 ShExC;
-		$id = 'O54687';
+		$id = 'E54687';
 		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id );
 		$this->saveSchemaPageContent( new WikiPage( $title ), [ 'schemaText' => $testSchema ] );
 
@@ -64,7 +64,7 @@ ShExC;
 	}
 
 	public function testNonExistingSchema() {
-		$id = 'O999999999999';
+		$id = 'E999999999999';
 		$this->expectException( HttpError::class );
 		$this->executeSpecialPage(
 			$id,

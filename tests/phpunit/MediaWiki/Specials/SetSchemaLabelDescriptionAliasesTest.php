@@ -48,13 +48,13 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$this->createTestSchema();
 
 		$dataGood = [
-			'ID' => 'O123',
+			'ID' => 'E123',
 			'languagecode' => 'en',
 			'label' => 'Schema label',
 			'description' => '',
 			'aliases' => 'foo | bar | baz',
 			'schema-shexc' => 'abc',
-			'base-rev' => $this->getCurrentSchemaRevisionId( 'O123' ),
+			'base-rev' => $this->getCurrentSchemaRevisionId( 'E123' ),
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -68,13 +68,13 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
 		$langFormKey = SetSchemaLabelDescriptionAliases::FIELD_LANGUAGE;
 		$dataGood = [
-			'ID' => 'O123',
+			'ID' => 'E123',
 			$langFormKey => 'de',
 			SetSchemaLabelDescriptionAliases::FIELD_LABEL => 'Schema Bezeichnung',
 			SetSchemaLabelDescriptionAliases::FIELD_DESCRIPTION => 'Eine Beschreibung auf deutsch.',
 			SetSchemaLabelDescriptionAliases::FIELD_ALIASES => 'foo | bar | baz',
 			'schema-shexc' => 'def',
-			'base-rev' => $this->getCurrentSchemaRevisionId( 'O123' ),
+			'base-rev' => $this->getCurrentSchemaRevisionId( 'E123' ),
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -110,13 +110,13 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$this->createTestSchema();
 
 		$dataGood = [
-			'ID' => 'O123',
+			'ID' => 'E123',
 			'languagecode' => 'en',
 			'label' => 'Schema label',
 			'description' => '',
 			'aliases' => 'foo | bar | foo | baz | bar | foo',
 			'schema-shexc' => 'abc',
-			'base-rev' => $this->getCurrentSchemaRevisionId( 'O123' ),
+			'base-rev' => $this->getCurrentSchemaRevisionId( 'E123' ),
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -129,13 +129,13 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
 	public function testSubmitEditFormCallbackWrongId() {
 		$dataWrong = [
-			'ID' => 'O129999999990',
+			'ID' => 'E129999999990',
 			'languagecode' => 'en',
 			'label' => 'Schema label',
 			'description' => '',
 			'aliases' => 'foo | bar | baz',
 			'schema-shexc' => 'abc',
-			'base-rev' => $this->getCurrentSchemaRevisionId( 'O123' ),
+			'base-rev' => $this->getCurrentSchemaRevisionId( 'E123' ),
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -156,7 +156,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			'description' => '',
 			'aliases' => 'foo | bar | baz',
 			'schema-shexc' => 'abc',
-			'base-rev' => $this->getCurrentSchemaRevisionId( 'O123' ),
+			'base-rev' => $this->getCurrentSchemaRevisionId( 'E123' ),
 		];
 
 		$setSchemaInfo = $this->newSpecialPage();
@@ -168,14 +168,14 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 	public function testValidateSchemaSelectionFormData() {
 		$this->createTestSchema();
 		$actualResult = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
-			->isSelectionDataValid( 'O123', 'en' );
+			->isSelectionDataValid( 'E123', 'en' );
 
 		$this->assertTrue( $actualResult );
 	}
 
 	public function testValidateSchemaSelectionFormDataNoLanguageCode() {
 		$actualResult = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
-			->isSelectionDataValid( 'O123', null );
+			->isSelectionDataValid( 'E123', null );
 
 		$this->assertFalse( $actualResult );
 	}
@@ -189,7 +189,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
 	public function testValidateSchemaSelectionFormDataNonexistentSchema() {
 		$actualResult = TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
-			->isSelectionDataValid( 'O1111111111', 'en' );
+			->isSelectionDataValid( 'E1111111111', 'en' );
 
 		$this->assertFalse( $actualResult );
 	}
@@ -208,31 +208,31 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		yield 'id in request' => [
 			null,
 			[
-				'ID' => 'O1',
+				'ID' => 'E1',
 			],
 			false,
 			[
-				'ID' => 'O1',
+				'ID' => 'E1',
 				'languagecode' => 'en',
 			],
 		];
 
 		yield 'subpage with id only' => [
-			'O1',
+			'E1',
 			[],
 			false,
 			[
-				'ID' => 'O1',
+				'ID' => 'E1',
 				'languagecode' => 'en',
 			],
 		];
 
 		yield 'subpage with id and langcode' => [
-			'O1/de',
+			'E1/de',
 			[],
 			false,
 			[
-				'ID' => 'O1',
+				'ID' => 'E1',
 				'languagecode' => 'de',
 			],
 		];
@@ -262,7 +262,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 	 * @return array $actualSchema an array of Schema text + namebadge
 	 */
 	private function createTestSchema() {
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
 		$this->saveSchemaPageContent(
 			$page,
 			[
@@ -273,7 +273,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 				"serializationVersion" => "3.0",
 			]
 		);
-		return $this->getCurrentSchemaContent( 'O123' );
+		return $this->getCurrentSchemaContent( 'E123' );
 	}
 
 	private function getCurrentSchemaContent( $pageName ) {

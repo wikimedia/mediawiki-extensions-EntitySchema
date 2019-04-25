@@ -47,7 +47,7 @@ class MediaWikiRevisionSchemaInserter implements SchemaInserter {
 		array $aliases = [],
 		$schemaText = ''
 	): SchemaId {
-		$id = new SchemaId( 'O' . $this->idGenerator->getNewId() );
+		$id = new SchemaId( 'E' . $this->idGenerator->getNewId() );
 		$persistentRepresentation = SchemaEncoder::getPersistentRepresentation(
 			$id,
 			[ $language => $label ],

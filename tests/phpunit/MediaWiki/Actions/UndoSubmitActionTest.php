@@ -46,7 +46,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	public function testUndoSubmit() {
-		$schemaId = 'O123';
+		$schemaId = 'E123';
 		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc', 'id' => $schemaId ] );
@@ -71,7 +71,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	public function testUndoSubmitNoPOST() {
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -89,7 +89,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 
 		$undoSubmitAction->show();
 
-		$actualSchema = $this->getCurrentSchemaContent( 'O123' );
+		$actualSchema = $this->getCurrentSchemaContent( 'E123' );
 		$this->assertSame( 'def', $actualSchema['schemaText'] );
 	}
 
@@ -104,7 +104,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 		);
 		$this->block->insert();
 
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -133,7 +133,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 		$groupPermissions['*']['edit'] = false;
 		$this->setMwGlobals( 'wgGroupPermissions', $groupPermissions );
 
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'O123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
