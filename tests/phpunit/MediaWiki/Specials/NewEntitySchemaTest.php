@@ -10,16 +10,16 @@ use FauxRequest;
 use SpecialPageTestBase;
 use UserBlockedError;
 
-use Wikibase\Schema\MediaWiki\Specials\NewSchema;
+use Wikibase\Schema\MediaWiki\Specials\NewEntitySchema;
 
 /**
- * @covers \Wikibase\Schema\MediaWiki\Specials\NewSchema
+ * @covers \Wikibase\Schema\MediaWiki\Specials\NewEntitySchema
  *
  * @group Database
  *
  * @license GPL-2.0-or-later
  */
-class NewSchemaTest extends SpecialPageTestBase {
+class NewEntitySchemaTest extends SpecialPageTestBase {
 
 	private $block;
 
@@ -168,7 +168,7 @@ class NewSchemaTest extends SpecialPageTestBase {
 	}
 
 	protected function newSpecialPage() {
-		return new NewSchema();
+		return new NewEntitySchema();
 	}
 
 }

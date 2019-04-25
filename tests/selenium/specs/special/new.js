@@ -3,29 +3,29 @@
 const assert = require( 'assert' ),
 	Api = require( 'wdio-mediawiki/Api.js' ),
 	LoginPage = require( 'wdio-mediawiki/LoginPage.js' ),
-	NewSchemaPage = require( '../../pageobjects/newschema.page' ),
+	NewEntitySchemaPage = require( '../../pageobjects/newentityschema.page' ),
 	ViewSchemaPage = require( '../../pageobjects/view.schema.page' );
 
-describe( 'NewSchema:Page', () => {
+describe( 'NewEntitySchema:Page', () => {
 
 	it( 'request with "createpage" right shows form', () => {
-		NewSchemaPage.open();
+		NewEntitySchemaPage.open();
 
-		assert.ok( NewSchemaPage.showsForm() );
+		assert.ok( NewEntitySchemaPage.showsForm() );
 	} );
 
 	it( 'shows a submit button', () => {
-		NewSchemaPage.open();
-		NewSchemaPage.schemaSubmitButton.waitForVisible();
+		NewEntitySchemaPage.open();
+		NewEntitySchemaPage.schemaSubmitButton.waitForVisible();
 	} );
 
 	it( 'is possible to create a new schema', () => {
-		NewSchemaPage.open();
-		NewSchemaPage.setLabel( 'Testlabel' );
-		NewSchemaPage.setDescription( 'A schema created with selenium browser tests' );
-		NewSchemaPage.setAliases( 'Testschema |Schema created by test' );
-		NewSchemaPage.setSchemaText( '<empty> {}' );
-		NewSchemaPage.clickSubmit();
+		NewEntitySchemaPage.open();
+		NewEntitySchemaPage.setLabel( 'Testlabel' );
+		NewEntitySchemaPage.setDescription( 'A schema created with selenium browser tests' );
+		NewEntitySchemaPage.setAliases( 'Testschema |Schema created by test' );
+		NewEntitySchemaPage.setSchemaText( '<empty> {}' );
+		NewEntitySchemaPage.clickSubmit();
 
 		const actualLabel = ViewSchemaPage.getLabel(),
 			actualDescription = ViewSchemaPage.getDescription(),
@@ -56,7 +56,7 @@ describe( 'NewSchema:Page', () => {
 			blockUser();
 
 			LoginPage.loginAdmin();
-			NewSchemaPage.open();
+			NewEntitySchemaPage.open();
 
 			$( '#mw-returnto' ).waitForVisible();
 			assert.strictEqual( $( '#firstHeading' ).getText(), 'User is blocked' );
@@ -64,13 +64,13 @@ describe( 'NewSchema:Page', () => {
 
 		it( 'cannot submit form', () => {
 			LoginPage.loginAdmin();
-			NewSchemaPage.open();
-			NewSchemaPage.setLabel( 'evil schema' );
-			NewSchemaPage.setDescription( 'should not be able to create this schema' );
+			NewEntitySchemaPage.open();
+			NewEntitySchemaPage.setLabel( 'evil schema' );
+			NewEntitySchemaPage.setDescription( 'should not be able to create this schema' );
 
 			blockUser();
 
-			NewSchemaPage.clickSubmit();
+			NewEntitySchemaPage.clickSubmit();
 
 			$( '#mw-returnto' ).waitForVisible();
 			assert.strictEqual( $( '#firstHeading' ).getText(), 'User is blocked' );
@@ -78,9 +78,9 @@ describe( 'NewSchema:Page', () => {
 	} );
 
 	it( 'is possible to create a schema only with a label', () => {
-		NewSchemaPage.open();
-		NewSchemaPage.setLabel( 'Testlabel' );
-		NewSchemaPage.clickSubmit();
+		NewEntitySchemaPage.open();
+		NewEntitySchemaPage.setLabel( 'Testlabel' );
+		NewEntitySchemaPage.clickSubmit();
 
 		const actualLabel = ViewSchemaPage.getLabel(),
 			actualDescription = ViewSchemaPage.getDescription(),
@@ -95,34 +95,34 @@ describe( 'NewSchema:Page', () => {
 	it( 'limits the name badge input length', () => {
 		let schemaNameBadgeMaxSizeChars, overlyLongString;
 
-		NewSchemaPage.open();
-		schemaNameBadgeMaxSizeChars = NewSchemaPage
+		NewEntitySchemaPage.open();
+		schemaNameBadgeMaxSizeChars = NewEntitySchemaPage
 			.getSchemaNameBadgeMaxSizeChars();
 		overlyLongString = 'a'.repeat( schemaNameBadgeMaxSizeChars + 1 );
 
-		NewSchemaPage.setLabel( overlyLongString );
+		NewEntitySchemaPage.setLabel( overlyLongString );
 		assert.strictEqual(
-			NewSchemaPage.getLabel().length,
+			NewEntitySchemaPage.getLabel().length,
 			schemaNameBadgeMaxSizeChars
 		);
 
-		NewSchemaPage.setDescription( overlyLongString );
+		NewEntitySchemaPage.setDescription( overlyLongString );
 		assert.strictEqual(
-			NewSchemaPage.getDescription().length,
+			NewEntitySchemaPage.getDescription().length,
 			schemaNameBadgeMaxSizeChars
 		);
 
-		NewSchemaPage.setAliases( overlyLongString );
+		NewEntitySchemaPage.setAliases( overlyLongString );
 		assert.strictEqual(
-			NewSchemaPage.getAliases().length,
+			NewEntitySchemaPage.getAliases().length,
 			schemaNameBadgeMaxSizeChars
 		);
 
-		NewSchemaPage.setAliases(
+		NewEntitySchemaPage.setAliases(
 			'b' + '| '.repeat( schemaNameBadgeMaxSizeChars ) + 'c'
 		);
 		assert.strictEqual(
-			NewSchemaPage.getAliases().length,
+			NewEntitySchemaPage.getAliases().length,
 			schemaNameBadgeMaxSizeChars * 2 + 2,
 			'Pipes and spaces will be trimmed from aliases before counting'
 		);
@@ -131,16 +131,16 @@ describe( 'NewSchema:Page', () => {
 	it( 'limits the schema text input length', () => {
 		let schemaSchemaTextMaxSizeBytes;
 
-		NewSchemaPage.open();
-		schemaSchemaTextMaxSizeBytes = NewSchemaPage
+		NewEntitySchemaPage.open();
+		schemaSchemaTextMaxSizeBytes = NewEntitySchemaPage
 			.getSchemaSchemaTextMaxSizeBytes();
 
-		NewSchemaPage.pasteSchemaText(
+		NewEntitySchemaPage.pasteSchemaText(
 			'a'.repeat( schemaSchemaTextMaxSizeBytes + 1 )
 		);
-		NewSchemaPage.addSchemaText( 'b' );
+		NewEntitySchemaPage.addSchemaText( 'b' );
 		assert.strictEqual(
-			NewSchemaPage.getSchemaText().length,
+			NewEntitySchemaPage.getSchemaText().length,
 			schemaSchemaTextMaxSizeBytes
 		);
 	} );

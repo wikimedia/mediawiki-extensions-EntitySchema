@@ -10,7 +10,7 @@ $specialPageAliases = [];
 
 /** English (English) */
 $specialPageAliases['en'] = [
-	'NewSchema' => [ 'NewSchema' ],
-	'SchemaText' => [ 'SchemaText' ],
-	'SetSchemaLabelDescriptionAliases' => [ 'SetSchemaLabelDescriptionAliases' ],
+	'NewEntitySchema' => [ 'NewEntitySchema' ],
+	'EntitySchemaText' => [ 'EntitySchemaText' ],
+	'SetEntitySchemaLabelDescriptionAliases' => [ 'SetEntitySchemaLabelDescriptionAliases' ],
 ];

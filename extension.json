@@ -113,9 +113,9 @@
 		}
 	},
 	"SpecialPages": {
-		"NewSchema": "Wikibase\\Schema\\MediaWiki\\Specials\\NewSchema",
-		"SchemaText": "Wikibase\\Schema\\MediaWiki\\Specials\\SchemaText",
-		"SetSchemaLabelDescriptionAliases": "Wikibase\\Schema\\MediaWiki\\Specials\\SetSchemaLabelDescriptionAliases"
+		"NewEntitySchema": "Wikibase\\Schema\\MediaWiki\\Specials\\NewEntitySchema",
+		"EntitySchemaText": "Wikibase\\Schema\\MediaWiki\\Specials\\EntitySchemaText",
+		"SetEntitySchemaLabelDescriptionAliases": "Wikibase\\Schema\\MediaWiki\\Specials\\SetEntitySchemaLabelDescriptionAliases"
 	},
 	"manifest_version": 2
 }

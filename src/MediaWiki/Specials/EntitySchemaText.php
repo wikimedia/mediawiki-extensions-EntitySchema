@@ -14,11 +14,11 @@ use WikiPage;
 /**
  * @license GPL-2.0-or-later
  */
-class SchemaText extends SpecialPage {
+class EntitySchemaText extends SpecialPage {
 
 	public function __construct() {
 		parent::__construct(
-			'SchemaText',
+			'EntitySchemaText',
 			'read'
 		);
 	}

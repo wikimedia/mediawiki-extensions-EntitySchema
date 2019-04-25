@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require( 'assert' ),
-	NewSchemaPage = require( '../pageobjects/newschema.page' ),
+	NewEntitySchemaPage = require( '../pageobjects/newentityschema.page' ),
 	ViewSchemaPage = require( '../pageobjects/view.schema.page' ),
 	EditSchemaPage = require( '../pageobjects/edit.schema.page' ),
 	Api = require( 'wdio-mediawiki/Api.js' ),
@@ -13,11 +13,11 @@ describe( 'Schema Edit Page', () => {
 		let schemaText = '<some shex>';
 
 		beforeEach( 'create new schema page and open', () => {
-			NewSchemaPage.open();
-			NewSchemaPage.showsForm();
-			NewSchemaPage.setLabel( 'foo' );
-			NewSchemaPage.setSchemaText( schemaText );
-			NewSchemaPage.clickSubmit();
+			NewEntitySchemaPage.open();
+			NewEntitySchemaPage.showsForm();
+			NewEntitySchemaPage.setLabel( 'foo' );
+			NewEntitySchemaPage.setSchemaText( schemaText );
+			NewEntitySchemaPage.clickSubmit();
 			// todo make with Api call
 		} );
 

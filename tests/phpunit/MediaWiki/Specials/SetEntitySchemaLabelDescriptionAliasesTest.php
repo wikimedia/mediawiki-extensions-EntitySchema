@@ -9,19 +9,19 @@ use MediaWiki\Revision\SlotRecord;
 use SpecialPageTestBase;
 use Title;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\MediaWiki\Specials\SetSchemaLabelDescriptionAliases;
+use Wikibase\Schema\MediaWiki\Specials\SetEntitySchemaLabelDescriptionAliases;
 use Wikibase\Schema\Tests\Mocks\HTMLFormSpy;
 use Wikimedia\TestingAccessWrapper;
 use WikiPage;
 
 /**
- * @covers \Wikibase\Schema\MediaWiki\Specials\SetSchemaLabelDescriptionAliases
+ * @covers \Wikibase\Schema\MediaWiki\Specials\SetEntitySchemaLabelDescriptionAliases
  *
  * @group Database
  *
  * @license GPL-2.0-or-later
  */
-class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
+class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
 	private $mockHTMLFormProvider;
 
@@ -39,9 +39,9 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
 	protected function newSpecialPage() {
 		if ( $this->mockHTMLFormProvider !== null ) {
-			return new SetSchemaLabelDescriptionAliases( $this->mockHTMLFormProvider );
+			return new SetEntitySchemaLabelDescriptionAliases( $this->mockHTMLFormProvider );
 		}
-		return new SetSchemaLabelDescriptionAliases();
+		return new SetEntitySchemaLabelDescriptionAliases();
 	}
 
 	public function testSubmitEditFormCallbackCorrectId() {
@@ -66,13 +66,13 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 	public function testSubmitEditFormCallbackNonEnglish() {
 		$initialContent = $this->createTestSchema();
 
-		$langFormKey = SetSchemaLabelDescriptionAliases::FIELD_LANGUAGE;
+		$langFormKey = SetEntitySchemaLabelDescriptionAliases::FIELD_LANGUAGE;
 		$dataGood = [
 			'ID' => 'E123',
 			$langFormKey => 'de',
-			SetSchemaLabelDescriptionAliases::FIELD_LABEL => 'Schema Bezeichnung',
-			SetSchemaLabelDescriptionAliases::FIELD_DESCRIPTION => 'Eine Beschreibung auf deutsch.',
-			SetSchemaLabelDescriptionAliases::FIELD_ALIASES => 'foo | bar | baz',
+			SetEntitySchemaLabelDescriptionAliases::FIELD_LABEL => 'Schema Bezeichnung',
+			SetEntitySchemaLabelDescriptionAliases::FIELD_DESCRIPTION => 'Eine Beschreibung auf deutsch.',
+			SetEntitySchemaLabelDescriptionAliases::FIELD_ALIASES => 'foo | bar | baz',
 			'schema-shexc' => 'def',
 			'base-rev' => $this->getCurrentSchemaRevisionId( 'E123' ),
 		];
@@ -84,14 +84,16 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$schemaContent = $this->getCurrentSchemaContent( $dataGood['ID'] );
 		$expectedLabels = array_merge(
 			$initialContent['labels'],
-			[ $dataGood[$langFormKey] => $dataGood[SetSchemaLabelDescriptionAliases::FIELD_LABEL] ]
+			[ $dataGood[$langFormKey] => $dataGood[SetEntitySchemaLabelDescriptionAliases::FIELD_LABEL] ]
 		);
 		ksort( $expectedLabels );
 		$this->assertSame( $expectedLabels, $schemaContent['labels'] );
 
 		$expectedDescriptions = array_merge(
 			$initialContent['descriptions'],
-			[ $dataGood[$langFormKey] => $dataGood[SetSchemaLabelDescriptionAliases::FIELD_DESCRIPTION] ]
+			[
+				$dataGood[$langFormKey] => $dataGood[SetEntitySchemaLabelDescriptionAliases::FIELD_DESCRIPTION]
+			]
 		);
 		ksort( $expectedDescriptions );
 		$this->assertSame( $expectedDescriptions, $schemaContent['descriptions'] );
@@ -248,7 +250,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			new FauxRequest(
 				array_merge(
 				[
-					'title' => 'Special:SetSchemaLabelDescriptionAliases',
+					'title' => 'Special:SetEntitySchemaLabelDescriptionAliases',
 				], $additionalRequestParams ),
 				$wasPosted
 			)

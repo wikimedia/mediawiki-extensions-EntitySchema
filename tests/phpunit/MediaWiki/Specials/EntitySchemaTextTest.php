@@ -10,17 +10,17 @@ use SpecialPageTestBase;
 use Title;
 use WebResponse;
 use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\MediaWiki\Specials\SchemaText;
+use Wikibase\Schema\MediaWiki\Specials\EntitySchemaText;
 use WikiPage;
 
 /**
- * @covers \Wikibase\Schema\MediaWiki\Specials\SchemaText
+ * @covers \Wikibase\Schema\MediaWiki\Specials\EntitySchemaText
  *
  * @group Database
  *
  * @license GPL-2.0-or-later
  */
-class SchemaTextTest extends SpecialPageTestBase {
+class EntitySchemaTextTest extends SpecialPageTestBase {
 
 	public function setUp() {
 		parent::setUp();
@@ -76,7 +76,7 @@ ShExC;
 	}
 
 	protected function newSpecialPage() {
-		return new SchemaText();
+		return new EntitySchemaText();
 	}
 
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {

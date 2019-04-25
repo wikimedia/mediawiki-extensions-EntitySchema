@@ -2,7 +2,7 @@
 
 const Page = require( 'wdio-mediawiki/Page' );
 
-class NewSchemaPage extends Page {
+class NewEntitySchemaPage extends Page {
 	static get NEW_SCHEMA_SELECTORS() {
 		return {
 			LABEL: '#wbschema-newschema-label',
@@ -14,7 +14,7 @@ class NewSchemaPage extends Page {
 	}
 
 	open() {
-		super.openTitle( 'Special:NewSchema' );
+		super.openTitle( 'Special:NewEntitySchema' );
 	}
 	get schemaSubmitButton() {
 		return browser.element( this.constructor.NEW_SCHEMA_SELECTORS.SUBMIT_BUTTON );
@@ -95,4 +95,4 @@ class NewSchemaPage extends Page {
 	}
 }
 
-module.exports = new NewSchemaPage();
+module.exports = new NewEntitySchemaPage();

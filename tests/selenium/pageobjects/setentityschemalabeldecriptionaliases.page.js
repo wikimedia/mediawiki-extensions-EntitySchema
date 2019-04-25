@@ -2,7 +2,7 @@
 
 const Page = require( 'wdio-mediawiki/Page' );
 
-class SetSchemaLabelDescriptionAliasesPage extends Page {
+class SetEntitySchemaLabelDescriptionAliasesPage extends Page {
 	static get SCHEMA_NAMEBADGE_SELECTORS() {
 		return {
 			ID: '#wbschema-special-schema-id',
@@ -15,7 +15,7 @@ class SetSchemaLabelDescriptionAliasesPage extends Page {
 	}
 
 	open() {
-		super.openTitle( 'Special:SetSchemaLabelDescriptionAliases' );
+		super.openTitle( 'Special:SetEntitySchemaLabelDescriptionAliases' );
 	}
 
 	get schemaSubmitButton() {
@@ -82,4 +82,4 @@ class SetSchemaLabelDescriptionAliasesPage extends Page {
 	}
 }
 
-module.exports = new SetSchemaLabelDescriptionAliasesPage();
+module.exports = new SetEntitySchemaLabelDescriptionAliasesPage();

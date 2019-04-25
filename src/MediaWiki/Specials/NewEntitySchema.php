@@ -22,7 +22,7 @@ use Wikibase\Schema\Presentation\InputValidator;
  *
  * @license GPL-2.0-or-later
  */
-class NewSchema extends SpecialPage {
+class NewEntitySchema extends SpecialPage {
 
 	/* public */
 	const FIELD_DESCRIPTION = 'description';
@@ -37,7 +37,7 @@ class NewSchema extends SpecialPage {
 
 	public function __construct() {
 		parent::__construct(
-			'NewSchema',
+			'NewEntitySchema',
 			'createpage'
 		);
 	}

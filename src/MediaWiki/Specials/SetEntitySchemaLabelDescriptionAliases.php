@@ -31,7 +31,7 @@ use WikiPage;
  *
  * @license GPL-2.0-or-later
  */
-class SetSchemaLabelDescriptionAliases extends SpecialPage {
+class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 
 	const FIELD_ID = 'ID';
 	const FIELD_LANGUAGE = 'languagecode';
@@ -46,7 +46,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 
 	public function __construct( $htmlFormProvider = HTMLForm::class ) {
 		parent::__construct(
-			'SetSchemaLabelDescriptionAliases'
+			'SetEntitySchemaLabelDescriptionAliases'
 		);
 
 		$this->htmlFormProvider = $htmlFormProvider;

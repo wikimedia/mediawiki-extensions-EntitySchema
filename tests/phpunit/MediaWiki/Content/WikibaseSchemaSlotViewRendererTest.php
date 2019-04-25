@@ -95,7 +95,7 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 			], $emptySchemaText ),
 			[
 				SpecialPage::getTitleValueFor(
-					'SetSchemaLabelDescriptionAliases',
+					'SetEntitySchemaLabelDescriptionAliases',
 					'E16354758/en'
 				)->getText(),
 				':E16354758&amp;action=edit'

@@ -144,7 +144,7 @@ class WikibaseSchemaSlotViewRenderer {
 
 	private function renderNameBadgeEditLink( $schemaId, $langCode ) {
 		$specialPageTitleValue = SpecialPage::getTitleValueFor(
-			'SetSchemaLabelDescriptionAliases',
+			'SetEntitySchemaLabelDescriptionAliases',
 			$schemaId . '/' . $langCode
 		);
 
@@ -202,7 +202,7 @@ class WikibaseSchemaSlotViewRenderer {
 			return '';
 		}
 
-		$schemaTextTitle = SpecialPage::getTitleFor( 'SchemaText', $title->getText() );
+		$schemaTextTitle = SpecialPage::getTitleFor( 'EntitySchemaText', $title->getText() );
 		$url = wfAppendQuery( $url, [
 			'schemaURL' => $schemaTextTitle->getFullURL()
 		] );
