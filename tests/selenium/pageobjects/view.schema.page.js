@@ -14,7 +14,7 @@ class ViewSchemaPage extends Page {
 	}
 
 	open( schemaId, query = {}, fragment = '' ) {
-		super.openTitle( `Schema:${schemaId}`, query, fragment );
+		super.openTitle( `EntitySchema:${schemaId}`, query, fragment );
 	}
 
 	getNamespace() {

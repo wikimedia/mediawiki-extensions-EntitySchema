@@ -37,7 +37,7 @@ final class WatchListUpdaterTest extends MediaWikiTestCase {
 	public function testWatchEditedSchema( $optionKey, $optionValue, $pageid, $expectedToBeWatched ) {
 		$testUser = self::getTestUser()->getUser();
 		$testUser->setOption( $optionKey, $optionValue );
-		$watchlistUpdater = new WatchlistUpdater( $testUser, NS_WBSCHEMA_JSON );
+		$watchlistUpdater = new WatchlistUpdater( $testUser, NS_ENTITYSCHEMA_JSON );
 
 		$watchlistUpdater->optionallyWatchEditedSchema( new SchemaId( $pageid ) );
 
@@ -108,7 +108,7 @@ final class WatchListUpdaterTest extends MediaWikiTestCase {
 		foreach ( $optionsToBeSet as $optionToBeSet ) {
 			$testUser->setOption( $optionToBeSet['key'], $optionToBeSet['value'] );
 		}
-		$watchlistUpdater = new WatchlistUpdater( $testUser, NS_WBSCHEMA_JSON );
+		$watchlistUpdater = new WatchlistUpdater( $testUser, NS_ENTITYSCHEMA_JSON );
 
 		$watchlistUpdater->optionallyWatchNewSchema( new SchemaId( $pageid ) );
 

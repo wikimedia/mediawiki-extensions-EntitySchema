@@ -31,7 +31,7 @@ class UndoAPITest extends MediaWikiTestCase {
 		$handler = new \Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContentHandler();
 
 		$id = 'E456';
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
 		$page = WikiPage::factory( $title );
 		$this->saveSchemaPageContent( $page, [
 			'labels' => [ 'en' => 'en label original ver' ],
@@ -59,7 +59,7 @@ class UndoAPITest extends MediaWikiTestCase {
 		$handler = new \Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContentHandler();
 
 		$id = 'E456';
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
 		$page = WikiPage::factory( $title );
 		$rev1 = $this->saveSchemaPageContent( $page, [
 			'id' => $id,

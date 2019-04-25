@@ -31,7 +31,7 @@ class SchemaText extends SpecialPage {
 			$this->getOutput()->returnToMain();
 			return;
 		}
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId->getId() );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId->getId() );
 
 		if ( !$title->exists() ) {
 			throw new HttpError( 404, $this->getOutput()->msg(

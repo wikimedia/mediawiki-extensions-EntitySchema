@@ -41,16 +41,16 @@
 	"namespaces": [
 		{
 			"id": 640,
-			"constant": "NS_WBSCHEMA_JSON",
-			"name": "Schema",
+			"constant": "NS_ENTITYSCHEMA_JSON",
+			"name": "EntitySchema",
 			"subpages": false,
 			"content": true,
 			"defaultcontentmodel": "WikibaseSchema"
 		},
 		{
 			"id": 641,
-			"constant": "NS_WBSCHEMA_JSON_TALK",
-			"name": "Schema_talk",
+			"constant": "NS_ENTITYSCHEMA_JSON_TALK",
+			"name": "EntitySchema_talk",
 			"subpages": true,
 			"content": false,
 			"defaultcontentmodel": "wikitext"

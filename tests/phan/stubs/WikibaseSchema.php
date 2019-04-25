@@ -3,4 +3,4 @@
 /**
  * Actually defined in extension.json
  */
-define( 'NS_WBSCHEMA_JSON', 640 );
+define( 'NS_ENTITYSCHEMA_JSON', 640 );

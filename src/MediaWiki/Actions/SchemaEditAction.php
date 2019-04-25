@@ -79,7 +79,7 @@ class SchemaEditAction extends FormAction {
 		$user = $this->getUser();
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$id = new SchemaId( $this->getTitle()->getText() );
-		$watchListUpdater = new WatchlistUpdater( $user, NS_WBSCHEMA_JSON );
+		$watchListUpdater = new WatchlistUpdater( $user, NS_ENTITYSCHEMA_JSON );
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$updaterFactory,
 			$watchListUpdater,

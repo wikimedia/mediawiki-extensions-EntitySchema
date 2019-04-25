@@ -109,7 +109,7 @@ class InputValidatorTest extends MediaWikiTestCase {
 	}
 
 	private function createTestSchema() {
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 		$this->saveSchemaPageContent(
 			$page,
 			[

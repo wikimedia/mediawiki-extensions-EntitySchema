@@ -43,7 +43,7 @@ final class WikibaseSchemaHooks {
 
 	public static function onSkinTemplateNavigation( SkinTemplate $skinTemplate, array &$links ) {
 		$title = $skinTemplate->getRelevantTitle();
-		if ( !$title->inNamespace( NS_WBSCHEMA_JSON ) ) {
+		if ( !$title->inNamespace( NS_ENTITYSCHEMA_JSON ) ) {
 			return;
 		}
 
@@ -60,7 +60,7 @@ final class WikibaseSchemaHooks {
 	 * @return bool
 	 */
 	public static function onBeforeDisplayNoArticleText( Article $article ) {
-		if ( $article->getTitle()->getNamespace() !== NS_WBSCHEMA_JSON ) {
+		if ( $article->getTitle()->getNamespace() !== NS_ENTITYSCHEMA_JSON ) {
 			return true;
 		}
 
@@ -154,7 +154,7 @@ final class WikibaseSchemaHooks {
 			return null;
 		}
 
-		if ( $title->getNamespace() !== NS_WBSCHEMA_JSON ) {
+		if ( $title->getNamespace() !== NS_ENTITYSCHEMA_JSON ) {
 			return null;
 		}
 
@@ -179,7 +179,7 @@ final class WikibaseSchemaHooks {
 	 */
 	public static function onContentModelCanBeUsedOn( $modelId, Title $title, &$ok ) {
 		if (
-			$title->inNamespace( NS_WBSCHEMA_JSON ) &&
+			$title->inNamespace( NS_ENTITYSCHEMA_JSON ) &&
 			$modelId !== WikibaseSchemaContent::CONTENT_MODEL_ID
 		) {
 			$ok = false;
@@ -214,7 +214,7 @@ final class WikibaseSchemaHooks {
 	 * @return null|false
 	 */
 	public static function onNamespaceIsMovable( $index, &$result ) {
-		if ( MWNamespace::equals( $index, NS_WBSCHEMA_JSON ) ) {
+		if ( MWNamespace::equals( $index, NS_ENTITYSCHEMA_JSON ) ) {
 			$result = false;
 			return false; // skip other hooks
 		}
@@ -234,7 +234,7 @@ final class WikibaseSchemaHooks {
 	 * @param string[] &$types The types of protection available
 	 */
 	public static function onTitleGetRestrictionTypes( Title $title, array &$types ) {
-		if ( $title->getNamespace() === NS_WBSCHEMA_JSON ) {
+		if ( $title->getNamespace() === NS_ENTITYSCHEMA_JSON ) {
 			// Remove create and move protection for Schema namespaces
 			$types = array_diff( $types, [ 'create', 'move' ] );
 		}

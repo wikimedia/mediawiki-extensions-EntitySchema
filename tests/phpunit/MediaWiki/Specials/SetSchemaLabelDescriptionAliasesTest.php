@@ -262,7 +262,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 	 * @return array $actualSchema an array of Schema text + namebadge
 	 */
 	private function createTestSchema() {
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 		$this->saveSchemaPageContent(
 			$page,
 			[
@@ -286,7 +286,7 @@ class SetSchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 	}
 
 	private function getCurrentSchemaRevisionId( $pageName ) {
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $pageName );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $pageName );
 		return $title->getLatestRevID();
 	}
 

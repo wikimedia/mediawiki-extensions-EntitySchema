@@ -19,7 +19,7 @@ class MediaWikiPageUpdaterFactory {
 	}
 
 	public function getPageUpdater( $pageTitleString ): PageUpdater {
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $pageTitleString );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $pageTitleString );
 		$wikipage = WikiPage::factory( $title );
 		return $wikipage->newPageUpdater( $this->user );
 	}

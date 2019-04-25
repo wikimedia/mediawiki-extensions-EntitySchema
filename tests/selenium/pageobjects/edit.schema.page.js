@@ -47,7 +47,7 @@ class EditSchemaPage extends Page {
 	}
 
 	open( id ) {
-		super.openTitle( 'Schema:' + id, { action: 'edit' } );
+		super.openTitle( 'EntitySchema:' + id, { action: 'edit' } );
 	}
 
 }

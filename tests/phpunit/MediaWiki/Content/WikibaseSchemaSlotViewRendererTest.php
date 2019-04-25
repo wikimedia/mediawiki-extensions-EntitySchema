@@ -30,7 +30,7 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
 			$schemaData,
-			Title::makeTitle( NS_WBSCHEMA_JSON, 'E16354758' ),
+			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E16354758' ),
 			$parserOutput
 		);
 		$html = $parserOutput->getText();
@@ -129,7 +129,7 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
 			$schemaData,
-			Title::makeTitle( NS_WBSCHEMA_JSON, 'E1' ),
+			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ),
 			$parserOutput
 		);
 		$html = $parserOutput->getText();
@@ -155,7 +155,7 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
 			$schemaData,
-			Title::makeTitle( NS_WBSCHEMA_JSON, 'E1' ),
+			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ),
 			$parserOutput
 		);
 		$html = $parserOutput->getDisplayTitle();
@@ -197,7 +197,7 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
 			$schemaData,
-			Title::makeTitle( NS_WBSCHEMA_JSON, 'E12345' ),
+			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E12345' ),
 			$parserOutput
 		);
 		$html = $parserOutput->getText();

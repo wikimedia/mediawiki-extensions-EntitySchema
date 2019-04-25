@@ -70,13 +70,13 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 
 	public function submitEditFormCallback( $data ) {
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $this->getContext()->getUser() );
-		$watchListUpdater = new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON );
+		$watchListUpdater = new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON );
 		try {
 			$id = new SchemaId( $data[self::FIELD_ID] );
 		} catch ( InvalidArgumentException $e ) {
 			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
 		}
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id->getId() );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id->getId() );
 		$this->checkBlocked( $title );
 		$aliases = array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) );
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
@@ -140,7 +140,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 
 	private function displayEditForm( SchemaId $id, $langCode, $baseRevId ) {
 		$output = $this->getOutput();
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $id->getId() );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id->getId() );
 		$schemaNameBadge = $this->getSchemaNameBadge( $title, $langCode, $baseRevId );
 		$formDescriptor = $this->getEditFormFields( $id, $langCode, $schemaNameBadge, $baseRevId );
 
@@ -361,7 +361,7 @@ class SetSchemaLabelDescriptionAliases extends SpecialPage {
 	 * @return string HTML
 	 */
 	private function buildLanguageAndSchemaNotice( $langName, $label, SchemaId $schemaId ) {
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId->getId() );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId->getId() );
 		return $this->msg( 'wikibaseschema-special-setlabeldescriptionaliases-info' )
 			->params( $langName )
 			->params( $this->getSchemaDisplayLabel( $label, $schemaId ) )

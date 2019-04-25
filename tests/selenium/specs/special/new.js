@@ -36,7 +36,7 @@ describe( 'NewSchema:Page', () => {
 		assert.strictEqual( actualDescription, 'A schema created with selenium browser tests' );
 		assert.strictEqual( actualAliases, 'Testschema | Schema created by test' );
 		assert.strictEqual( actualSchemaText, '<empty> {}' );
-		assert.strictEqual( actualNamespace, 'Schema' );
+		assert.strictEqual( actualNamespace, 'EntitySchema' );
 	} );
 
 	describe( 'when blocked', () => {
@@ -89,7 +89,7 @@ describe( 'NewSchema:Page', () => {
 		assert.strictEqual( actualLabel, 'Testlabel' );
 		assert.strictEqual( actualDescription, '' );
 		assert.strictEqual( actualAliases, '' );
-		assert.strictEqual( actualNamespace, 'Schema' );
+		assert.strictEqual( actualNamespace, 'EntitySchema' );
 	} );
 
 	it( 'limits the name badge input length', () => {

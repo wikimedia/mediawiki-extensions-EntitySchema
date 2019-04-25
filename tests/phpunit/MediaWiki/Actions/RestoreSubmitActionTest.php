@@ -44,7 +44,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	public function testRestoreSubmit() {
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -67,7 +67,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	public function testRestoreNotCurrent() {
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -105,7 +105,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 		);
 		$this->block->insert();
 
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -128,7 +128,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 
 	private function getCurrentSchemaContent( $pageName ) {
 		/** @var WikibaseSchemaContent $content */
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $pageName );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $pageName );
 		$rev = MediaWikiServices::getInstance()
 			->getRevisionStore()
 			->getRevisionById( $title->getLatestRevID() );
@@ -149,7 +149,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	public function testActionName() {
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, 'E1' );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' );
 		$requestParameters = [ 'action' => 'submit', 'restore' => 1 ];
 		$context = RequestContext::newExtraneousContext( $title, $requestParameters );
 

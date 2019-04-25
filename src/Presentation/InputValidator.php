@@ -50,7 +50,7 @@ class InputValidator {
 		} catch ( InvalidArgumentException $e ) {
 			return $this->msgLocalizer->msg( 'wikibaseschema-error-invalid-id' );
 		}
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId->getId() );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId->getId() );
 		if ( !$title->exists() ) {
 			return $this->msgLocalizer->msg( 'wikibaseschema-error-schemadeleted' );
 		}

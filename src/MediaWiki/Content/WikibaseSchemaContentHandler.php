@@ -60,7 +60,7 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 	}
 
 	public function canBeUsedOn( Title $title ) {
-		return $title->inNamespace( NS_WBSCHEMA_JSON ) && parent::canBeUsedOn( $title );
+		return $title->inNamespace( NS_ENTITYSCHEMA_JSON ) && parent::canBeUsedOn( $title );
 	}
 
 	public function getActionOverrides() {

@@ -87,7 +87,7 @@ class NewSchema extends SpecialPage {
 
 		$schemaInserter = new MediaWikiRevisionSchemaInserter(
 			$pageUpdaterFactory,
-			new WatchlistUpdater( $this->getUser(), NS_WBSCHEMA_JSON ),
+			new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON ),
 			$idGenerator
 		);
 		$newId = $schemaInserter->insertSchema(
@@ -98,7 +98,7 @@ class NewSchema extends SpecialPage {
 			$data[self::FIELD_SCHEMA_TEXT]
 		);
 
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $newId->getId() );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $newId->getId() );
 
 		return Status::newGood( $title->getFullURL() );
 	}

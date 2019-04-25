@@ -47,7 +47,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 
 	public function testUndoSubmit() {
 		$schemaId = 'E123';
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, $schemaId ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc', 'id' => $schemaId ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def', 'id' => $schemaId ] );
@@ -71,7 +71,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	public function testUndoSubmitNoPOST() {
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -104,7 +104,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 		);
 		$this->block->insert();
 
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -133,7 +133,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 		$groupPermissions['*']['edit'] = false;
 		$this->setMwGlobals( 'wgGroupPermissions', $groupPermissions );
 
-		$page = WikiPage::factory( Title::makeTitle( NS_WBSCHEMA_JSON, 'E123' ) );
+		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -156,7 +156,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 
 	private function getCurrentSchemaContent( $pageName ) {
 		/** @var WikibaseSchemaContent $content */
-		$title = Title::makeTitle( NS_WBSCHEMA_JSON, $pageName );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $pageName );
 		$rev = MediaWikiServices::getInstance()
 			->getRevisionStore()
 			->getRevisionById( $title->getLatestRevID() );
