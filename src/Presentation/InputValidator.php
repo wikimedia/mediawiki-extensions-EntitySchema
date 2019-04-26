@@ -42,7 +42,7 @@ class InputValidator {
 	/**
 	 * @param $id
 	 *
-	 * @return bool|Message returns true on success and Message on failure
+	 * @return true|Message returns true on success and Message on failure
 	 */
 	public function validateIDExists( $id ) {
 		try {
@@ -61,7 +61,7 @@ class InputValidator {
 	/**
 	 * @param $langCode
 	 *
-	 * @return bool|Message returns true on success and Message on failure
+	 * @return true|Message returns true on success and Message on failure
 	 */
 	public function validateLangCodeIsSupported( $langCode ) {
 		if ( !Language::isSupportedLanguage( $langCode ) ) {
@@ -73,7 +73,7 @@ class InputValidator {
 	/**
 	 * @param $schemaText
 	 *
-	 * @return bool|Message returns true on success and Message on failure
+	 * @return true|Message returns true on success and Message on failure
 	 * @throws ConfigException
 	 */
 	public function validateSchemaTextLength( $schemaText ) {
