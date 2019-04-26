@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\DataAccess;
+namespace EntitySchema\DataAccess;
 
 use CommentStoreComment;
 use InvalidArgumentException;
@@ -9,10 +9,10 @@ use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\SlotRecord;
 use RuntimeException;
-use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
-use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later

@@ -1,15 +1,15 @@
 <?php
 
-namespace Wikibase\Schema\DataAccess;
+namespace EntitySchema\DataAccess;
 
 use Diff\Patcher\PatcherException;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
-use Wikibase\Schema\Services\Diff\SchemaDiffer;
-use Wikibase\Schema\Services\Diff\SchemaPatcher;
-use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
-use Wikibase\Schema\Services\SchemaConverter\PersistenceSchemaData;
-use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Services\Diff\SchemaDiffer;
+use EntitySchema\Services\Diff\SchemaPatcher;
+use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
+use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later

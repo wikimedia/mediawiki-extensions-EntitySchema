@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki\Actions;
+namespace EntitySchema\Tests\MediaWiki\Actions;
 
 use Action;
 use Block;
@@ -12,8 +12,8 @@ use MediaWikiTestCase;
 use RequestContext;
 use Title;
 use UserBlockedError;
-use Wikibase\Schema\MediaWiki\Actions\RestoreSubmitAction;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
 use WikiPage;
 
 /**
@@ -21,7 +21,7 @@ use WikiPage;
  *
  * @group Database
  *
- * @covers \Wikibase\Schema\MediaWiki\Actions\RestoreSubmitAction
+ * @covers \EntitySchema\MediaWiki\Actions\RestoreSubmitAction
  */
 final class RestoreSubmitActionTest extends MediaWikiTestCase {
 

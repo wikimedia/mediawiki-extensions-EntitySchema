@@ -1,14 +1,14 @@
 <?php
 
-namespace Wikibase\Schema\Tests\DataAccess;
+namespace EntitySchema\Tests\DataAccess;
 
 use InvalidArgumentException;
 use MediaWikiTestCase;
-use Wikibase\Schema\DataAccess\SchemaEncoder;
-use Wikibase\Schema\Domain\Model\SchemaId;
+use EntitySchema\DataAccess\SchemaEncoder;
+use EntitySchema\Domain\Model\SchemaId;
 
 /**
- * @covers \Wikibase\Schema\DataAccess\SchemaEncoder
+ * @covers \EntitySchema\DataAccess\SchemaEncoder
  *
  * @license GPL-2.0-or-later
  */

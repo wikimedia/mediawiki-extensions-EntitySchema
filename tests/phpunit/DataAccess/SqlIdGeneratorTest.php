@@ -1,17 +1,17 @@
 <?php
 
-namespace Wikibase\Schema\Tests\DataAccess;
+namespace EntitySchema\Tests\DataAccess;
 
 use DBReadOnlyError;
 use MediaWiki\MediaWikiServices;
 use MediaWikiTestCase;
 use RuntimeException;
-use Wikibase\Schema\DataAccess\SqlIdGenerator;
+use EntitySchema\DataAccess\SqlIdGenerator;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 /**
- * @covers \Wikibase\Schema\DataAccess\SqlIdGenerator
+ * @covers \EntitySchema\DataAccess\SqlIdGenerator
  *
  * @group Database
  *

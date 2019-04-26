@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki\Content;
+namespace EntitySchema\Tests\MediaWiki\Content;
 
 use HashConfig;
 use Language;
@@ -10,12 +10,12 @@ use MultiConfig;
 use ParserOutput;
 use SpecialPage;
 use Title;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotViewRenderer;
-use Wikibase\Schema\Services\SchemaConverter\FullViewSchemaData;
-use Wikibase\Schema\Services\SchemaConverter\NameBadge;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaSlotViewRenderer;
+use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
+use EntitySchema\Services\SchemaConverter\NameBadge;
 
 /**
- * @covers \Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotViewRenderer
+ * @covers \EntitySchema\MediaWiki\Content\WikibaseSchemaSlotViewRenderer
  *
  * @license GPL-2.0-or-later
  */

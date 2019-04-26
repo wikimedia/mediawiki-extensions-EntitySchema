@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki;
+namespace EntitySchema\MediaWiki;
 
 use Language;
 use Message;

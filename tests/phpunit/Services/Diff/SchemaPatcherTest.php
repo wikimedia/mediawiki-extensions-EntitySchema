@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\Services\Diff;
+namespace EntitySchema\Tests\Services\Diff;
 
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
@@ -8,14 +8,14 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Diff\Patcher\PatcherException;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Schema\Services\Diff\SchemaPatcher;
-use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
+use EntitySchema\Services\Diff\SchemaPatcher;
+use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 
 /**
  * @license GPL-2.0-or-later
  *
- * @covers \Wikibase\Schema\Services\Diff\SchemaPatcher
- * @covers \Wikibase\Schema\Services\Diff\AliasGroupListPatcher
+ * @covers \EntitySchema\Services\Diff\SchemaPatcher
+ * @covers \EntitySchema\Services\Diff\AliasGroupListPatcher
  */
 class SchemaPatcherTest extends TestCase {
 

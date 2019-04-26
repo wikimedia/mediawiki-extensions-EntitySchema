@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Actions;
+namespace EntitySchema\MediaWiki\Actions;
 
 use Diff\DiffOp\Diff\Diff;
 use DomainException;
@@ -9,8 +9,8 @@ use MediaWiki\Revision\SlotRecord;
 use Status;
 use ViewAction;
 use WebRequest;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\MediaWiki\UndoHandler;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\UndoHandler;
 
 /**
  * @license GPL-2.0-or-later

@@ -1,12 +1,12 @@
 <?php
 
-namespace Wikibase\Schema\Tests\DataAccess;
+namespace EntitySchema\Tests\DataAccess;
 
-use Wikibase\Schema\DataAccess\SchemaCleaner;
+use EntitySchema\DataAccess\SchemaCleaner;
 
 /**
  * @license GPL-2.0-or-later
- * @covers \Wikibase\Schema\DataAccess\SchemaCleaner
+ * @covers \EntitySchema\DataAccess\SchemaCleaner
  */
 class SchemaCleanerTest extends \MediaWikiTestCase {
 

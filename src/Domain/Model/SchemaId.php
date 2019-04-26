@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Domain\Model;
+namespace EntitySchema\Domain\Model;
 
 use InvalidArgumentException;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\DataAccess;
+namespace EntitySchema\Tests\DataAccess;
 
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Revision\RevisionLookup;

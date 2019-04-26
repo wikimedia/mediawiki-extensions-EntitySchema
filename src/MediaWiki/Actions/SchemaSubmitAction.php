@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Actions;
+namespace EntitySchema\MediaWiki\Actions;
 
 /**
  * Action to handle a submitted Wikibase Schema page

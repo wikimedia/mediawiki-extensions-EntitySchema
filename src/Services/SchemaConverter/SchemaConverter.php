@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Services\SchemaConverter;
+namespace EntitySchema\Services\SchemaConverter;
 
 use DomainException;
 use LogicException;

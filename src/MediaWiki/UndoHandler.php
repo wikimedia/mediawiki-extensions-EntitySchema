@@ -1,16 +1,16 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki;
+namespace EntitySchema\MediaWiki;
 
 use Diff\DiffOp\Diff\Diff;
 use Diff\Patcher\PatcherException;
 use DomainException;
 use Status;
-use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Services\Diff\SchemaDiffer;
-use Wikibase\Schema\Services\Diff\SchemaPatcher;
-use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\Services\Diff\SchemaDiffer;
+use EntitySchema\Services\Diff\SchemaPatcher;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\Mocks;
+namespace EntitySchema\Tests\Mocks;
 
 use HTMLForm;
 use PHPUnit\Framework\Assert;

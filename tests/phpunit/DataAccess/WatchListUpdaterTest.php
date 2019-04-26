@@ -1,17 +1,17 @@
 <?php
 
-namespace Wikibase\Schema\Tests\DataAccess;
+namespace EntitySchema\Tests\DataAccess;
 
 use MediaWiki\MediaWikiServices;
 use MediaWikiTestCase;
 use WatchedItem;
-use Wikibase\Schema\DataAccess\WatchlistUpdater;
-use Wikibase\Schema\Domain\Model\SchemaId;
+use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\Domain\Model\SchemaId;
 
 /**
  * @license GPL-2.0-or-later
  *
- * @covers \Wikibase\Schema\DataAccess\WatchlistUpdater
+ * @covers \EntitySchema\DataAccess\WatchlistUpdater
  */
 final class WatchListUpdaterTest extends MediaWikiTestCase {
 

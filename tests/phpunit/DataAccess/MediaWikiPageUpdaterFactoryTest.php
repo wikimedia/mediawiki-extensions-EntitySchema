@@ -1,13 +1,13 @@
 <?php
 
-namespace Wikibase\Schema\Tests\DataAccess;
+namespace EntitySchema\Tests\DataAccess;
 
 use PHPUnit4And6Compat;
 use User;
-use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 
 /**
- * @covers \Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory
+ * @covers \EntitySchema\DataAccess\MediaWikiPageUpdaterFactory
  * @license GPL-2.0-or-later
  */
 class MediaWikiPageUpdaterFactoryTest extends \PHPUnit_Framework_TestCase {

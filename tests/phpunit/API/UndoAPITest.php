@@ -1,20 +1,20 @@
 <?php
 
-namespace Wikibase\Schema\Tests\API;
+namespace EntitySchema\Tests\API;
 
 use CommentStoreComment;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWikiTestCase;
 use Title;
-use Wikibase\Schema\DataAccess\SchemaEncoder;
-use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\DataAccess\SchemaEncoder;
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
 use WikiPage;
 
 /**
  * @group Database
- * @covers \Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContentHandler::getUndoContent
+ * @covers \EntitySchema\MediaWiki\Content\WikibaseSchemaContentHandler::getUndoContent
  *
  * @license GPL-2.0-or-later
  */
@@ -28,7 +28,7 @@ class UndoAPITest extends MediaWikiTestCase {
 	}
 
 	public function testGetUndoContentUndoLatest() {
-		$handler = new \Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContentHandler();
+		$handler = new \EntitySchema\MediaWiki\Content\WikibaseSchemaContentHandler();
 
 		$id = 'E456';
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
@@ -56,7 +56,7 @@ class UndoAPITest extends MediaWikiTestCase {
 	}
 
 	public function testGetUndoContent() {
-		$handler = new \Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContentHandler();
+		$handler = new \EntitySchema\MediaWiki\Content\WikibaseSchemaContentHandler();
 
 		$id = 'E456';
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );

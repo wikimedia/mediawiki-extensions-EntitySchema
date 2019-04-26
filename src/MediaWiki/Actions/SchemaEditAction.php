@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Actions;
+namespace EntitySchema\MediaWiki\Actions;
 
 use FormAction;
 use HTMLForm;
@@ -10,14 +10,14 @@ use MediaWiki\Revision\SlotRecord;
 use Page;
 use RuntimeException;
 use Status;
-use Wikibase\Schema\DataAccess\EditConflict;
-use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
-use Wikibase\Schema\DataAccess\WatchlistUpdater;
-use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Presentation\InputValidator;
-use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\DataAccess\EditConflict;
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\Presentation\InputValidator;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * Edit a Wikibase Schema via the mediawiki editing action

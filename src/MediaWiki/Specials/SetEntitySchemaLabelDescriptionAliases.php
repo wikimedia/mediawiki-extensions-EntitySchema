@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Specials;
+namespace EntitySchema\MediaWiki\Specials;
 
 use Html;
 use HTMLForm;
@@ -16,14 +16,14 @@ use Status;
 use Title;
 use UserBlockedError;
 use WebRequest;
-use Wikibase\Schema\DataAccess\EditConflict;
-use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
-use Wikibase\Schema\DataAccess\WatchlistUpdater;
-use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\Presentation\InputValidator;
-use Wikibase\Schema\Services\SchemaConverter\NameBadge;
-use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\DataAccess\EditConflict;
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Presentation\InputValidator;
+use EntitySchema\Services\SchemaConverter\NameBadge;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use WikiPage;
 
 /**

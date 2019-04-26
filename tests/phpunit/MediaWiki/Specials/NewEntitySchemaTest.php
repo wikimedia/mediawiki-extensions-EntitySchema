@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki\Specials;
+namespace EntitySchema\Tests\MediaWiki\Specials;
 
 use PermissionsError;
 use ReadOnlyError;
@@ -10,10 +10,10 @@ use FauxRequest;
 use SpecialPageTestBase;
 use UserBlockedError;
 
-use Wikibase\Schema\MediaWiki\Specials\NewEntitySchema;
+use EntitySchema\MediaWiki\Specials\NewEntitySchema;
 
 /**
- * @covers \Wikibase\Schema\MediaWiki\Specials\NewEntitySchema
+ * @covers \EntitySchema\MediaWiki\Specials\NewEntitySchema
  *
  * @group Database
  *

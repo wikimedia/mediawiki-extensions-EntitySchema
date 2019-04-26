@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Presentation;
+namespace EntitySchema\Presentation;
 
 use Config;
 use ConfigException;
@@ -11,7 +11,7 @@ use MediaWiki\MediaWikiServices;
 use MessageLocalizer;
 use RequestContext;
 use Title;
-use Wikibase\Schema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\SchemaId;
 
 /**
  * @license GPL-2.0-or-later

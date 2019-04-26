@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Services\Diff;
+namespace EntitySchema\Services\Diff;
 
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;

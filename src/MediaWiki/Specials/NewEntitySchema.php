@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Specials;
+namespace EntitySchema\MediaWiki\Specials;
 
 use Html;
 use HTMLForm;
@@ -11,11 +11,11 @@ use SpecialPage;
 use Status;
 use Title;
 use UserBlockedError;
-use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaInserter;
-use Wikibase\Schema\DataAccess\SqlIdGenerator;
-use Wikibase\Schema\DataAccess\WatchlistUpdater;
-use Wikibase\Schema\Presentation\InputValidator;
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\DataAccess\SqlIdGenerator;
+use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\Presentation\InputValidator;
 
 /**
  * Page for creating a new Wikibase Schema.

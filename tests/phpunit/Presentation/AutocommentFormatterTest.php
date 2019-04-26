@@ -1,16 +1,16 @@
 <?php
 
-namespace Wikibase\Schema\Tests\Presentation;
+namespace EntitySchema\Tests\Presentation;
 
 use MediaWikiTestCase;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaInserter;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
-use Wikibase\Schema\Presentation\AutocommentFormatter;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\Presentation\AutocommentFormatter;
 
 /**
  * @license GPL-2.0-or-later
  *
- * @covers \Wikibase\Schema\Presentation\AutocommentFormatter
+ * @covers \EntitySchema\Presentation\AutocommentFormatter
  */
 class AutocommentFormatterTest extends MediaWikiTestCase {
 

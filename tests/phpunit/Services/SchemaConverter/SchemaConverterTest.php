@@ -1,17 +1,17 @@
 <?php
 
-namespace Wikibase\Schema\Tests\Services\SchemaConverter;
+namespace EntitySchema\Tests\Services\SchemaConverter;
 
 use MediaWikiTestCase;
-use Wikibase\Schema\Services\SchemaConverter\FullViewSchemaData;
-use Wikibase\Schema\Services\SchemaConverter\NameBadge;
-use Wikibase\Schema\Services\SchemaConverter\PersistenceSchemaData;
-use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
+use EntitySchema\Services\SchemaConverter\NameBadge;
+use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later
  *
- * @covers \Wikibase\Schema\Services\SchemaConverter\SchemaConverter
+ * @covers \EntitySchema\Services\SchemaConverter\SchemaConverter
  */
 class SchemaConverterTest extends MediaWikiTestCase {
 

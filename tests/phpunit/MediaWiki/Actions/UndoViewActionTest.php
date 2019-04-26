@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki\Actions;
+namespace EntitySchema\Tests\MediaWiki\Actions;
 
 use CommentStoreComment;
 use FauxRequest;
@@ -9,9 +9,9 @@ use MediaWikiTestCase;
 use RequestContext;
 use TextSlotDiffRenderer;
 use Title;
-use Wikibase\Schema\MediaWiki\Actions\UndoViewAction;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
+use EntitySchema\MediaWiki\Actions\UndoViewAction;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
 use WikiPage;
 
 /**
@@ -19,11 +19,11 @@ use WikiPage;
  *
  * @group Database
  *
- * @covers \Wikibase\Schema\MediaWiki\Actions\UndoViewAction
- * @covers \Wikibase\Schema\MediaWiki\Actions\AbstractUndoAction
- * @covers \Wikibase\Schema\MediaWiki\UndoHandler
- * @covers \Wikibase\Schema\Presentation\DiffRenderer
- * @covers \Wikibase\Schema\Presentation\ConfirmationFormRenderer
+ * @covers \EntitySchema\MediaWiki\Actions\UndoViewAction
+ * @covers \EntitySchema\MediaWiki\Actions\AbstractUndoAction
+ * @covers \EntitySchema\MediaWiki\UndoHandler
+ * @covers \EntitySchema\Presentation\DiffRenderer
+ * @covers \EntitySchema\Presentation\ConfirmationFormRenderer
  */
 class UndoViewActionTest extends MediaWikiTestCase {
 

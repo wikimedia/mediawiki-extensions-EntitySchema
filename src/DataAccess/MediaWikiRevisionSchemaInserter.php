@@ -1,15 +1,15 @@
 <?php
 
-namespace Wikibase\Schema\DataAccess;
+namespace EntitySchema\DataAccess;
 
 use CommentStoreComment;
 use Language;
 use MediaWiki\Revision\SlotRecord;
 use RuntimeException;
-use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\Domain\Storage\IdGenerator;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Storage\IdGenerator;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later

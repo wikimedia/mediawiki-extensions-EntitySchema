@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki\Specials;
+namespace EntitySchema\Tests\MediaWiki\Specials;
 
 use CommentStoreComment;
 use FauxRequest;
@@ -8,14 +8,14 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use SpecialPageTestBase;
 use Title;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\MediaWiki\Specials\SetEntitySchemaLabelDescriptionAliases;
-use Wikibase\Schema\Tests\Mocks\HTMLFormSpy;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Specials\SetEntitySchemaLabelDescriptionAliases;
+use EntitySchema\Tests\Mocks\HTMLFormSpy;
 use Wikimedia\TestingAccessWrapper;
 use WikiPage;
 
 /**
- * @covers \Wikibase\Schema\MediaWiki\Specials\SetEntitySchemaLabelDescriptionAliases
+ * @covers \EntitySchema\MediaWiki\Specials\SetEntitySchemaLabelDescriptionAliases
  *
  * @group Database
  *

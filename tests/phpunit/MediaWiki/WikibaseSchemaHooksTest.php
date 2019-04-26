@@ -1,15 +1,15 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki;
+namespace EntitySchema\Tests\MediaWiki;
 
 use MediaWikiTestCase;
 use SpecialPage;
 use Title;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaInserter;
-use Wikibase\Schema\MediaWiki\WikibaseSchemaHooks;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\MediaWiki\WikibaseSchemaHooks;
 
 /**
- * @covers \Wikibase\Schema\MediaWiki\WikibaseSchemaHooks
+ * @covers \EntitySchema\MediaWiki\WikibaseSchemaHooks
  *
  * @license GPL-2.0-or-later
  */

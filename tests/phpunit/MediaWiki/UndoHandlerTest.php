@@ -1,18 +1,18 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki;
+namespace EntitySchema\Tests\MediaWiki;
 
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpChange;
 use DomainException;
 use MediaWikiTestCase;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\MediaWiki\UndoHandler;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\UndoHandler;
 
 /**
  * @license GPL-2.0-or-later
  *
- * @covers \Wikibase\Schema\MediaWiki\UndoHandler
+ * @covers \EntitySchema\MediaWiki\UndoHandler
  */
 class UndoHandlerTest extends MediaWikiTestCase {
 

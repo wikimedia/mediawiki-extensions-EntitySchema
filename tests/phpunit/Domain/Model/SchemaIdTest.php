@@ -1,13 +1,13 @@
 <?php
 
-namespace Wikibase\Schema\Tests\Domain\Model;
+namespace EntitySchema\Tests\Domain\Model;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Schema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\SchemaId;
 
 /**
- * @covers Wikibase\Schema\Domain\Model\SchemaId
+ * @covers EntitySchema\Domain\Model\SchemaId
  *
  * @license GPL-2.0-or-later
  */

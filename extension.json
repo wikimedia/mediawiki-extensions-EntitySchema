@@ -12,8 +12,8 @@
 	},
 	"load_composer_autoloader": true,
 	"AutoloadNamespaces": {
-		"Wikibase\\Schema\\": "src/",
-		"Wikibase\\Schema\\Tests\\": "tests/phpunit/"
+		"EntitySchema\\": "src/",
+		"EntitySchema\\Tests\\": "tests/phpunit/"
 	},
 	"ExtensionMessagesFiles": {
 		"WikibaseSchemaAlias": "WikibaseSchema.i18n.alias.php"
@@ -24,19 +24,19 @@
 		]
 	},
 	"Hooks": {
-		"SkinTemplateNavigation": "Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onSkinTemplateNavigation",
-		"LoadExtensionSchemaUpdates": "Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onCreateDBSchema",
-		"ExtensionTypes": "Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onExtensionTypes",
-		"BeforeDisplayNoArticleText": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onBeforeDisplayNoArticleText",
-		"PageHistoryLineEnding": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onPageHistoryLineEnding",
-		"FormatAutocomments": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onFormatAutocomments",
-		"ContentModelCanBeUsedOn": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onContentModelCanBeUsedOn",
-		"ImportHandleRevisionXMLTag": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onImportHandleRevisionXMLTag",
-		"NamespaceIsMovable": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onNamespaceIsMovable",
-		"TitleGetRestrictionTypes": "\\Wikibase\\Schema\\MediaWiki\\WikibaseSchemaHooks::onTitleGetRestrictionTypes"
+		"SkinTemplateNavigation": "EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onSkinTemplateNavigation",
+		"LoadExtensionSchemaUpdates": "EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onCreateDBSchema",
+		"ExtensionTypes": "EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onExtensionTypes",
+		"BeforeDisplayNoArticleText": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onBeforeDisplayNoArticleText",
+		"PageHistoryLineEnding": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onPageHistoryLineEnding",
+		"FormatAutocomments": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onFormatAutocomments",
+		"ContentModelCanBeUsedOn": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onContentModelCanBeUsedOn",
+		"ImportHandleRevisionXMLTag": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onImportHandleRevisionXMLTag",
+		"NamespaceIsMovable": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onNamespaceIsMovable",
+		"TitleGetRestrictionTypes": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onTitleGetRestrictionTypes"
 	},
 	"ContentHandlers": {
-		"WikibaseSchema": "Wikibase\\Schema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"
+		"WikibaseSchema": "EntitySchema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"
 	},
 	"namespaces": [
 		{
@@ -113,9 +113,9 @@
 		}
 	},
 	"SpecialPages": {
-		"NewEntitySchema": "Wikibase\\Schema\\MediaWiki\\Specials\\NewEntitySchema",
-		"EntitySchemaText": "Wikibase\\Schema\\MediaWiki\\Specials\\EntitySchemaText",
-		"SetEntitySchemaLabelDescriptionAliases": "Wikibase\\Schema\\MediaWiki\\Specials\\SetEntitySchemaLabelDescriptionAliases"
+		"NewEntitySchema": "EntitySchema\\MediaWiki\\Specials\\NewEntitySchema",
+		"EntitySchemaText": "EntitySchema\\MediaWiki\\Specials\\EntitySchemaText",
+		"SetEntitySchemaLabelDescriptionAliases": "EntitySchema\\MediaWiki\\Specials\\SetEntitySchemaLabelDescriptionAliases"
 	},
 	"manifest_version": 2
 }

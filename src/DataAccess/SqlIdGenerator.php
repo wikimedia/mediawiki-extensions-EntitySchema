@@ -1,9 +1,9 @@
 <?php
 
-namespace Wikibase\Schema\DataAccess;
+namespace EntitySchema\DataAccess;
 
 use RuntimeException;
-use Wikibase\Schema\Domain\Storage\IdGenerator;
+use EntitySchema\Domain\Storage\IdGenerator;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\ILoadBalancer;
 

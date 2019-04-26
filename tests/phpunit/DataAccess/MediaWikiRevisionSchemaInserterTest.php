@@ -1,21 +1,21 @@
 <?php
 
-namespace Wikibase\Schema\Tests\DataAccess;
+namespace EntitySchema\Tests\DataAccess;
 
 use CommentStoreComment;
 use MediaWiki\Storage\PageUpdater;
 use MediaWikiTestCase;
 use RuntimeException;
-use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaInserter;
-use Wikibase\Schema\DataAccess\WatchlistUpdater;
-use Wikibase\Schema\Domain\Storage\IdGenerator;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\Domain\Storage\IdGenerator;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
 
 /**
  * @license GPL-2.0-or-later
  *
- * @covers \Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaInserter
+ * @covers \EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter
  */
 class MediaWikiRevisionSchemaInserterTest extends MediaWikiTestCase {
 

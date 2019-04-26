@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Content;
+namespace EntitySchema\MediaWiki\Content;
 
 use Action;
 use Article;
@@ -15,15 +15,15 @@ use RequestContext;
 use Revision;
 use SlotDiffRenderer;
 use Title;
-use Wikibase\Schema\DataAccess\SchemaEncoder;
-use Wikibase\Schema\MediaWiki\Actions\RestoreSubmitAction;
-use Wikibase\Schema\MediaWiki\Actions\RestoreViewAction;
-use Wikibase\Schema\MediaWiki\Actions\SchemaEditAction;
-use Wikibase\Schema\MediaWiki\Actions\SchemaSubmitAction;
-use Wikibase\Schema\MediaWiki\Actions\UndoSubmitAction;
-use Wikibase\Schema\MediaWiki\Actions\UndoViewAction;
-use Wikibase\Schema\MediaWiki\UndoHandler;
-use Wikibase\Schema\Presentation\InputValidator;
+use EntitySchema\DataAccess\SchemaEncoder;
+use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
+use EntitySchema\MediaWiki\Actions\RestoreViewAction;
+use EntitySchema\MediaWiki\Actions\SchemaEditAction;
+use EntitySchema\MediaWiki\Actions\SchemaSubmitAction;
+use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
+use EntitySchema\MediaWiki\Actions\UndoViewAction;
+use EntitySchema\MediaWiki\UndoHandler;
+use EntitySchema\Presentation\InputValidator;
 use WikiPage;
 
 /**

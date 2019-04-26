@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\DataAccess;
+namespace EntitySchema\Tests\DataAccess;
 
 use CommentStoreComment;
 use DomainException;
@@ -9,17 +9,17 @@ use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\PageUpdater;
 use RuntimeException;
 use stdClass;
-use Wikibase\Schema\DataAccess\EditConflict;
-use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
-use Wikibase\Schema\DataAccess\WatchlistUpdater;
-use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Services\SchemaConverter\NameBadge;
+use EntitySchema\DataAccess\EditConflict;
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\Services\SchemaConverter\NameBadge;
 
 /**
- * @covers \Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater
- * @covers \Wikibase\Schema\DataAccess\SchemaUpdateGuard
+ * @covers \EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater
+ * @covers \EntitySchema\DataAccess\SchemaUpdateGuard
  * @license GPL-2.0-or-later
  */
 class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {

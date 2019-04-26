@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Presentation;
+namespace EntitySchema\Presentation;
 
 use Html;
 use Linker;

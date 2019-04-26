@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Actions;
+namespace EntitySchema\MediaWiki\Actions;
 
 use Diff\DiffOp\Diff\Diff;
 use IContextSource;
@@ -9,12 +9,12 @@ use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use Page;
 use Status;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
-use Wikibase\Schema\Presentation\ConfirmationFormRenderer;
-use Wikibase\Schema\Presentation\DiffRenderer;
-use Wikibase\Schema\Services\Diff\SchemaDiffer;
-use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
+use EntitySchema\Presentation\ConfirmationFormRenderer;
+use EntitySchema\Presentation\DiffRenderer;
+use EntitySchema\Services\Diff\SchemaDiffer;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later

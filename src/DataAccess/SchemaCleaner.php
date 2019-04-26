@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\DataAccess;
+namespace EntitySchema\DataAccess;
 
 /**
  * @license GPL-2.0-or-later

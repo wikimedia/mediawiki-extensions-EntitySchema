@@ -1,17 +1,17 @@
 <?php
 
-namespace Wikibase\Schema\Tests\Services\Diff;
+namespace EntitySchema\Tests\Services\Diff;
 
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Schema\Services\Diff\SchemaDiffer;
-use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
+use EntitySchema\Services\Diff\SchemaDiffer;
+use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 
 /**
- * @covers Wikibase\Schema\Services\Diff\SchemaDiffer
+ * @covers EntitySchema\Services\Diff\SchemaDiffer
  *
  * @license GPL-2.0-or-later
  */

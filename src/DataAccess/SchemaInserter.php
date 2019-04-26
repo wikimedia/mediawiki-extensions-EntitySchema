@@ -1,8 +1,8 @@
 <?php
 
-namespace Wikibase\Schema\DataAccess;
+namespace EntitySchema\DataAccess;
 
-use Wikibase\Schema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\SchemaId;
 
 /**
  * @license GPL-2.0-or-later

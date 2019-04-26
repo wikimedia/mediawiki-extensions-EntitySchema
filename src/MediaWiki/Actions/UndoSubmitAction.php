@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Actions;
+namespace EntitySchema\MediaWiki\Actions;
 
 use CommentStoreComment;
 use MediaWiki\MediaWikiServices;
@@ -9,11 +9,11 @@ use ReadOnlyError;
 use RuntimeException;
 use Status;
 use UserBlockedError;
-use Wikibase\Schema\DataAccess\MediaWikiPageUpdaterFactory;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
-use Wikibase\Schema\DataAccess\WatchlistUpdater;
-use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 
 /**
  * @license GPL-2.0-or-later

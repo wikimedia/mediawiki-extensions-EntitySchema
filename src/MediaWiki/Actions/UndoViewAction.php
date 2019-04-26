@@ -1,12 +1,12 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Actions;
+namespace EntitySchema\MediaWiki\Actions;
 
 use IContextSource;
 use Page;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
-use Wikibase\Schema\Presentation\ConfirmationFormRenderer;
-use Wikibase\Schema\Presentation\DiffRenderer;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
+use EntitySchema\Presentation\ConfirmationFormRenderer;
+use EntitySchema\Presentation\DiffRenderer;
 
 /**
  * @license GPL-2.0-or-later

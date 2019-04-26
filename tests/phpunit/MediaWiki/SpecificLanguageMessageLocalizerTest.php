@@ -1,14 +1,14 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki;
+namespace EntitySchema\Tests\MediaWiki;
 
 use Language;
 use MediaWikiTestCase;
 use Message;
-use Wikibase\Schema\MediaWiki\SpecificLanguageMessageLocalizer;
+use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;
 
 /**
- * @covers \Wikibase\Schema\MediaWiki\SpecificLanguageMessageLocalizer
+ * @covers \EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer
  *
  * @license GPL-2.0-or-later
  */

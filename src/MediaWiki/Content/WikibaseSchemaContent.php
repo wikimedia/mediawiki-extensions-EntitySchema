@@ -1,12 +1,12 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Content;
+namespace EntitySchema\MediaWiki\Content;
 
 use JsonContent;
 use ParserOptions;
 use ParserOutput;
 use Title;
-use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * Represents the content of a Wikibase Schema page

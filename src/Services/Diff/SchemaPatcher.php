@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Services\Diff;
+namespace EntitySchema\Services\Diff;
 
 use Diff\DiffOp\AtomicDiffOp;
 use Diff\DiffOp\Diff\Diff;
@@ -9,7 +9,7 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Diff\Patcher\PatcherException;
-use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
+use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 
 /**
  * @license GPL-2.0-or-later

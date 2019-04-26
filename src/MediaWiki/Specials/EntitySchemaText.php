@@ -1,14 +1,14 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Specials;
+namespace EntitySchema\MediaWiki\Specials;
 
 use HttpError;
 use InvalidArgumentException;
 use SpecialPage;
 use Title;
-use Wikibase\Schema\Domain\Model\SchemaId;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use WikiPage;
 
 /**

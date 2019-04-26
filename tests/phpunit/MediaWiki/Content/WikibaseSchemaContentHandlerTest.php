@@ -1,12 +1,12 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki\Content;
+namespace EntitySchema\Tests\MediaWiki\Content;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContentHandler;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContentHandler;
 
 /**
- * @covers Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContentHandler
+ * @covers EntitySchema\MediaWiki\Content\WikibaseSchemaContentHandler
  *
  * @license GPL-2.0-or-later
  */

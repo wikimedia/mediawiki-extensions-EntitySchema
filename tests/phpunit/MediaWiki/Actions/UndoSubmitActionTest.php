@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki\Actions;
+namespace EntitySchema\Tests\MediaWiki\Actions;
 
 use Block;
 use CommentStoreComment;
@@ -12,8 +12,8 @@ use PermissionsError;
 use RequestContext;
 use Title;
 use UserBlockedError;
-use Wikibase\Schema\MediaWiki\Actions\UndoSubmitAction;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
 use WikiPage;
 
 /**
@@ -21,9 +21,9 @@ use WikiPage;
  *
  * @group Database
  *
- * @covers \Wikibase\Schema\MediaWiki\Actions\UndoSubmitAction
- * @covers \Wikibase\Schema\MediaWiki\Actions\AbstractUndoAction
- * @covers \Wikibase\Schema\MediaWiki\UndoHandler
+ * @covers \EntitySchema\MediaWiki\Actions\UndoSubmitAction
+ * @covers \EntitySchema\MediaWiki\Actions\AbstractUndoAction
+ * @covers \EntitySchema\MediaWiki\UndoHandler
  */
 class UndoSubmitActionTest extends MediaWikiTestCase {
 

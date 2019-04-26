@@ -1,10 +1,10 @@
 <?php
 
-namespace Wikibase\Schema\Services\Diff;
+namespace EntitySchema\Services\Diff;
 
 use Diff\Differ\MapDiffer;
 use Diff\DiffOp\Diff\Diff;
-use Wikibase\Schema\Services\SchemaConverter\FullArraySchemaData;
+use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 
 /**
  * Computes the difference between two schemas.

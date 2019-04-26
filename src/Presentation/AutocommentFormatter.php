@@ -1,11 +1,11 @@
 <?php
 
-namespace Wikibase\Schema\Presentation;
+namespace EntitySchema\Presentation;
 
 use RequestContext;
 use User;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaInserter;
-use Wikibase\Schema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Language;
 
 /**

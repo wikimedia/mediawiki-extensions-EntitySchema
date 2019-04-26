@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki\Actions;
+namespace EntitySchema\Tests\MediaWiki\Actions;
 
 use CommentStoreComment;
 use FauxRequest;
@@ -9,9 +9,9 @@ use MediaWikiTestCase;
 use RequestContext;
 use TextSlotDiffRenderer;
 use Title;
-use Wikibase\Schema\MediaWiki\Actions\RestoreViewAction;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
+use EntitySchema\MediaWiki\Actions\RestoreViewAction;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
 use WikiPage;
 
 /**
@@ -19,9 +19,9 @@ use WikiPage;
  *
  * @group Database
  *
- * @covers \Wikibase\Schema\MediaWiki\Actions\RestoreViewAction
- * @covers \Wikibase\Schema\Presentation\DiffRenderer
- * @covers \Wikibase\Schema\Presentation\ConfirmationFormRenderer
+ * @covers \EntitySchema\MediaWiki\Actions\RestoreViewAction
+ * @covers \EntitySchema\Presentation\DiffRenderer
+ * @covers \EntitySchema\Presentation\ConfirmationFormRenderer
  */
 final class RestoreViewActionTest extends MediaWikiTestCase {
 

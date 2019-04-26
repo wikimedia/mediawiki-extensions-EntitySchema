@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Tests\Presentation;
+namespace EntitySchema\Tests\Presentation;
 
 use CommentStoreComment;
 use Config;
@@ -9,8 +9,8 @@ use MediaWikiTestCase;
 use Message;
 use MessageLocalizer;
 use Title;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Presentation\InputValidator;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\Presentation\InputValidator;
 use WikiPage;
 
 /**
@@ -18,7 +18,7 @@ use WikiPage;
  *
  * @group Database
  *
- * @covers \Wikibase\Schema\Presentation\InputValidator
+ * @covers \EntitySchema\Presentation\InputValidator
  */
 class InputValidatorTest extends MediaWikiTestCase {
 

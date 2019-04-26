@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki;
+namespace EntitySchema\MediaWiki;
 
 use Article;
 use DatabaseUpdater;
@@ -12,8 +12,8 @@ use MWException;
 use MWNamespace;
 use SkinTemplate;
 use Title;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\Presentation\AutocommentFormatter;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\Presentation\AutocommentFormatter;
 use WikiImporter;
 
 /**

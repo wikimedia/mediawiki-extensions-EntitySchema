@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Content;
+namespace EntitySchema\MediaWiki\Content;
 
 use Config;
 use Html;
@@ -12,9 +12,9 @@ use MessageLocalizer;
 use ParserOutput;
 use SpecialPage;
 use Title;
-use Wikibase\Schema\MediaWiki\SpecificLanguageMessageLocalizer;
-use Wikibase\Schema\Services\SchemaConverter\FullViewSchemaData;
-use Wikibase\Schema\Services\SchemaConverter\NameBadge;
+use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;
+use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
+use EntitySchema\Services\SchemaConverter\NameBadge;
 
 /**
  * @license GPL-2.0-or-later

@@ -1,16 +1,16 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki\Content;
+namespace EntitySchema\Tests\MediaWiki\Content;
 
 use PHPUnit\Framework\TestCase;
 use RequestContext;
 use TextSlotDiffRenderer;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
 
 /**
  * @license GPL-2.0-or-later
- * @covers \Wikibase\Schema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer
+ * @covers \EntitySchema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer
  */
 class WikibaseSchemaSlotDiffRendererTest extends TestCase {
 

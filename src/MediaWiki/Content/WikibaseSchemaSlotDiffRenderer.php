@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\MediaWiki\Content;
+namespace EntitySchema\MediaWiki\Content;
 
 use Content;
 use ContentHandler;
@@ -17,8 +17,8 @@ use RequestContext;
 use SlotDiffRenderer;
 use TextSlotDiffRenderer;
 use UnexpectedValueException;
-use Wikibase\Schema\Services\Diff\SchemaDiffer;
-use Wikibase\Schema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Services\Diff\SchemaDiffer;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later

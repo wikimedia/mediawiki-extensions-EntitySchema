@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Schema\Domain\Storage;
+namespace EntitySchema\Domain\Storage;
 
 use RuntimeException;
 

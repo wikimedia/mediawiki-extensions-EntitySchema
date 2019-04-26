@@ -1,15 +1,15 @@
 <?php
 
-namespace Wikibase\Schema\Tests\MediaWiki\Content;
+namespace EntitySchema\Tests\MediaWiki\Content;
 
 use Language;
 use MediaWikiTestCase;
 use ParserOptions;
 use Title;
-use Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
 
 /**
- * @covers \Wikibase\Schema\MediaWiki\Content\WikibaseSchemaContent
+ * @covers \EntitySchema\MediaWiki\Content\WikibaseSchemaContent
  *
  * @license GPL-2.0-or-later
  */
