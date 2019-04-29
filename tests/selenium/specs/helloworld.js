@@ -5,7 +5,7 @@ const assert = require( 'assert' ),
 
 describe( 'Special:Version', function () {
 
-	it( 'has the Wikibase Schema extension enabled', function () {
+	it( 'has the EntitySchema extension enabled', function () {
 		SpecialVersionPage.open();
 		assert( SpecialVersionPage.wikibaseSchemaExtensionLink.waitForVisible() );
 	} );

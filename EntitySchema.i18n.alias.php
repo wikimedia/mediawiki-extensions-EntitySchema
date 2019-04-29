@@ -1,6 +1,6 @@
 <?php
 /**
- * Aliases for special pages of the WikibaseSchema extension
+ * Aliases for special pages of the EntitySchema extension
  *
  * @file
  * @ingroup Extensions

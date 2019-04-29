@@ -3,7 +3,7 @@
 	"scripts": {
 		"fix": "grunt fix",
 		"test": "grunt test",
-		"selenium-test": "echo Please run \\`npm run selenium-test -- --spec extensions/WikibaseSchema/tests/selenium/spec\\` in the mediawiki directory."
+		"selenium-test": "echo Please run \\`npm run selenium-test -- --spec extensions/EntitySchema/tests/selenium/spec\\` in the mediawiki directory."
 	},
 	"devDependencies": {
 		"eslint-config-wikimedia": "0.9.0",

@@ -7,7 +7,7 @@
 			"Raymond"
 		]
 	},
-	"entityschema-desc": "{{desc|name=WikibaseSchema|url=https://www.mediawiki.org/wiki/Extension:WikibaseSchema}}",
+	"entityschema-desc": "{{desc|name=EntitySchema|url=https://www.mediawiki.org/wiki/Extension:EntitySchema}}",
 	"special-newschema": "Title for the new Schema Special Page",
 	"entityschema-newschema-label": "Input label for the label field on Special:NewSchema",
 	"entityschema-newschema-description": "Input label for the description field on Special:NewSchema",
