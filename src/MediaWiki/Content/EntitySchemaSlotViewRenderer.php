@@ -110,7 +110,7 @@ class EntitySchemaSlotViewRenderer {
 		$label = Html::element(
 			'td',
 			[
-				'class' => 'wbschema-label',
+				'class' => 'entityschema-label',
 				'lang' => $bcp47,
 				'dir' => 'auto',
 			],
@@ -119,7 +119,7 @@ class EntitySchemaSlotViewRenderer {
 		$description = Html::element(
 			'td',
 			[
-				'class' => 'wbschema-description',
+				'class' => 'entityschema-description',
 				'lang' => $bcp47,
 				'dir' => 'auto'
 			],
@@ -128,7 +128,7 @@ class EntitySchemaSlotViewRenderer {
 		$aliases = Html::element(
 			'td',
 			[
-				'class' => 'wbschema-aliases',
+				'class' => 'entityschema-aliases',
 				'lang' => $bcp47,
 				'dir' => 'auto'
 			],
@@ -151,7 +151,7 @@ class EntitySchemaSlotViewRenderer {
 		return Html::rawElement(
 			'td',
 			[
-				'class' => 'wbschema-edit-button',
+				'class' => 'entityschema-edit-button',
 			],
 			$this->linkRenderer->makeKnownLink(
 				$specialPageTitleValue,
@@ -166,8 +166,8 @@ class EntitySchemaSlotViewRenderer {
 			? $this->renderSchemaTextLinks( $title ) . $this->renderSchemaText( $schemaText )
 			: $this->renderSchemaAddTextLink( $title );
 		return Html::rawElement( 'div', [
-			'id' => 'wbschema-schema-view-section',
-			'class' => 'wbschema-section',
+			'id' => 'entityschema-schema-view-section',
+			'class' => 'entityschema-section',
 		],
 			$schemaSectionContent
 		);
@@ -177,8 +177,8 @@ class EntitySchemaSlotViewRenderer {
 		return Html::element(
 			'pre',
 			[
-				'id' => 'wbschema-schema-text',
-				'class' => 'wbschema-schema-text',
+				'id' => 'entityschema-schema-text',
+				'class' => 'entityschema-schema-text',
 				'dir' => 'ltr',
 			],
 			$schemaText
@@ -189,7 +189,7 @@ class EntitySchemaSlotViewRenderer {
 		return Html::rawElement(
 			'div',
 			[
-				'class' => 'wbschema-schema-text-links',
+				'class' => 'entityschema-schema-text-links',
 			],
 			$this->renderSchemaCheckLink( $title ) .
 			$this->renderSchemaEditLink( $title )
@@ -212,7 +212,7 @@ class EntitySchemaSlotViewRenderer {
 			wfMessage( 'entityschema-check-entities' )->parse(),
 			false, // link text already escaped in ->parse()
 			'',
-			[ 'class' => 'wbschema-check-schema' ]
+			[ 'class' => 'entityschema-check-schema' ]
 		);
 	}
 
@@ -239,8 +239,8 @@ class EntitySchemaSlotViewRenderer {
 		return Html::rawElement(
 			'span',
 			[
-				'id' => 'wbschema-edit-schema-text',
-				'class' => 'wbschema-edit-button',
+				'id' => 'entityschema-edit-schema-text',
+				'class' => 'entityschema-edit-button',
 			],
 			$this->linkRenderer->makeKnownLink(
 				$title,
@@ -255,8 +255,8 @@ class EntitySchemaSlotViewRenderer {
 		return Html::rawElement(
 			'span',
 			[
-				'id' => 'wbschema-edit-schema-text',
-				'class' => 'wbschema-edit-button',
+				'id' => 'entityschema-edit-schema-text',
+				'class' => 'entityschema-edit-button',
 			],
 			$this->linkRenderer->makeKnownLink(
 				$title,
@@ -271,13 +271,13 @@ class EntitySchemaSlotViewRenderer {
 		if ( $nameBadge->label !== '' ) {
 			$label = Html::element(
 				'span',
-				[ 'class' => 'wbschema-title-label' ],
+				[ 'class' => 'entityschema-title-label' ],
 				$nameBadge->label
 			);
 		} else {
 			$label = Html::element(
 				'span',
-				[ 'class' => 'wbschema-title-label-empty' ],
+				[ 'class' => 'entityschema-title-label-empty' ],
 				$this->msg( 'entityschema-label-empty' )
 					->text()
 			);
@@ -285,7 +285,7 @@ class EntitySchemaSlotViewRenderer {
 
 		$id = Html::element(
 			'span',
-			[ 'class' => 'wbschema-title-id' ],
+			[ 'class' => 'entityschema-title-id' ],
 			$this->msg( 'parentheses' )
 				->plaintextParams( $title->getText() )
 				->text()
@@ -293,7 +293,7 @@ class EntitySchemaSlotViewRenderer {
 
 		return Html::rawElement(
 			'span',
-			[ 'class' => 'wbschema-title' ],
+			[ 'class' => 'entityschema-title' ],
 			$label . ' ' . $id
 		);
 	}

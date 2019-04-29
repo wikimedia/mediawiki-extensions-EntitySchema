@@ -14,10 +14,10 @@
 	$( function () {
 		var schemaNameBadgeMaxSizeChars = mw.config.get( 'wgWBSchemaNameBadgeMaxSizeChars' ),
 			schemaSchemaTextMaxSizeBytes = mw.config.get( 'wgWBSchemaSchemaTextMaxSizeBytes' ),
-			labelInput = OO.ui.infuse( 'wbschema-newschema-label' ),
-			descriptionInput = OO.ui.infuse( 'wbschema-newschema-description' ),
-			aliasInput = OO.ui.infuse( 'wbschema-newschema-aliases' ),
-			schemaTextInput = OO.ui.infuse( 'wbschema-newschema-schema-text' );
+			labelInput = OO.ui.infuse( 'entityschema-newschema-label' ),
+			descriptionInput = OO.ui.infuse( 'entityschema-newschema-description' ),
+			aliasInput = OO.ui.infuse( 'entityschema-newschema-aliases' ),
+			schemaTextInput = OO.ui.infuse( 'entityschema-newschema-schema-text' );
 
 		mw.widgets.visibleCodePointLimit( labelInput, schemaNameBadgeMaxSizeChars );
 		mw.widgets.visibleCodePointLimit( descriptionInput, schemaNameBadgeMaxSizeChars );

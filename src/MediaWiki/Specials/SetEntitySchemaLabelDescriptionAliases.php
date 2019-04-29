@@ -130,7 +130,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$formProvider = $this->htmlFormProvider; // FIXME: PHP7: inline this variable!
 		$form = $formProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
 			->setSubmitName( self::SUBMIT_SELECTION_NAME )
-			->setSubmitID( 'wbschema-special-schema-id-submit' )
+			->setSubmitID( 'entityschema-special-schema-id-submit' )
 			->setSubmitTextMsg( 'entityschema-special-id-submit' )
 			->setTitle( $this->getPageTitle() );
 		$form->prepareForm();
@@ -147,7 +147,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$formProvider = $this->htmlFormProvider; // FIXME: PHP7: inline this variable!
 		$form = $formProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
 			->setSubmitName( self::SUBMIT_EDIT_NAME )
-			->setSubmitID( 'wbschema-special-schema-id-submit' )
+			->setSubmitID( 'entityschema-special-schema-id-submit' )
 			->setSubmitTextMsg( 'entityschema-special-id-submit' )
 			->setValidationErrorMessage( [ [
 				'entityschema-error-possibly-multiple-messages-available'
@@ -222,7 +222,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 			self::FIELD_ID => [
 				'name' => self::FIELD_ID,
 				'type' => 'text',
-				'id' => 'wbschema-special-schema-id',
+				'id' => 'entityschema-special-schema-id',
 				'required' => true,
 				'default' => $defaultId ?: '',
 				'placeholder-message' => 'entityschema-special-id-placeholder',
@@ -235,7 +235,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 			self::FIELD_LANGUAGE => [
 				'name' => self::FIELD_LANGUAGE,
 				'type' => 'text',
-				'id' => 'wbschema-language-code',
+				'id' => 'entityschema-language-code',
 				'required' => true,
 				'default' => $defaultLanguage,
 				'label-message' => 'entityschema-special-language-inputlabel',
@@ -268,21 +268,21 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 			self::FIELD_ID => [
 				'name' => self::FIELD_ID,
 				'type' => 'hidden',
-				'id' => 'wbschema-id',
+				'id' => 'entityschema-id',
 				'required' => true,
 				'default' => $id->getId(),
 			],
 			self::FIELD_LANGUAGE => [
 				'name' => self::FIELD_LANGUAGE,
 				'type' => 'hidden',
-				'id' => 'wbschema-language-code',
+				'id' => 'entityschema-language-code',
 				'required' => true,
 				'default' => $badgeLangCode,
 			],
 			self::FIELD_LABEL => [
 				'name' => self::FIELD_LABEL,
 				'type' => 'text',
-				'id' => 'wbschema-title-label',
+				'id' => 'entityschema-title-label',
 				'default' => $label,
 				'placeholder-message' => $this->msg( 'entityschema-label-edit-placeholder' )
 					->params( $langName ),
@@ -296,7 +296,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				'name' => self::FIELD_DESCRIPTION,
 				'type' => 'text',
 				'default' => $description,
-				'id' => 'wbschema-heading-description',
+				'id' => 'entityschema-heading-description',
 				'placeholder-message' => $this->msg( 'entityschema-description-edit-placeholder' )
 					->params( $langName ),
 				'label-message' => 'entityschema-special-description',
@@ -309,7 +309,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				'name' => self::FIELD_ALIASES,
 				'type' => 'text',
 				'default' => $aliases,
-				'id' => 'wbschema-heading-aliases',
+				'id' => 'entityschema-heading-aliases',
 				'placeholder-message' => $this->msg( 'entityschema-aliases-edit-placeholder' )
 					->params( $langName ),
 				'label-message' => 'entityschema-special-aliases',

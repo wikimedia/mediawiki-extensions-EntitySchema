@@ -51,7 +51,7 @@ class NewEntitySchema extends SpecialPage {
 
 		$form = HTMLForm::factory( 'ooui', $this->getFormFields(), $this->getContext() )
 			->setSubmitName( 'submit' )
-			->setSubmitID( 'wbschema-newschema-submit' )
+			->setSubmitID( 'entityschema-newschema-submit' )
 			->setSubmitTextMsg( 'entityschema-newschema-submit' )
 			->setValidationErrorMessage( [ [
 				'entityschema-error-possibly-multiple-messages-available'
@@ -119,7 +119,7 @@ class NewEntitySchema extends SpecialPage {
 			self::FIELD_LABEL => [
 				'name' => self::FIELD_LABEL,
 				'type' => 'text',
-				'id' => 'wbschema-newschema-label',
+				'id' => 'entityschema-newschema-label',
 				'required' => true,
 				'default' => '',
 				'placeholder-message' => $this->msg( 'entityschema-label-edit-placeholder' )
@@ -134,7 +134,7 @@ class NewEntitySchema extends SpecialPage {
 				'name' => self::FIELD_DESCRIPTION,
 				'type' => 'text',
 				'default' => '',
-				'id' => 'wbschema-newschema-description',
+				'id' => 'entityschema-newschema-description',
 				'placeholder-message' => $this->msg( 'entityschema-description-edit-placeholder' )
 					->params( $langName ),
 				'label-message' => 'entityschema-newschema-description',
@@ -147,7 +147,7 @@ class NewEntitySchema extends SpecialPage {
 				'name' => self::FIELD_ALIASES,
 				'type' => 'text',
 				'default' => '',
-				'id' => 'wbschema-newschema-aliases',
+				'id' => 'entityschema-newschema-aliases',
 				'placeholder-message' => $this->msg( 'entityschema-aliases-edit-placeholder' )
 					->params( $langName ),
 				'label-message' => 'entityschema-newschema-aliases',
@@ -160,7 +160,7 @@ class NewEntitySchema extends SpecialPage {
 				'name' => self::FIELD_SCHEMA_TEXT,
 				'type' => 'textarea',
 				'default' => '',
-				'id' => 'wbschema-newschema-schema-text',
+				'id' => 'entityschema-newschema-schema-text',
 				'placeholder' => "<human> {\n  wdt:P31 [wd:Q5]\n}",
 				'label-message' => 'entityschema-newschema-schema-shexc',
 				'validation-callback' => [

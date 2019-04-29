@@ -5,11 +5,11 @@ const Page = require( 'wdio-mediawiki/Page' );
 class NewEntitySchemaPage extends Page {
 	static get NEW_SCHEMA_SELECTORS() {
 		return {
-			LABEL: '#wbschema-newschema-label',
-			DESCRIPTION: '#wbschema-newschema-description',
-			ALIASES: '#wbschema-newschema-aliases',
-			SCHEMA_TEXT: '#wbschema-newschema-schema-text',
-			SUBMIT_BUTTON: '#wbschema-newschema-submit'
+			LABEL: '#entityschema-newschema-label',
+			DESCRIPTION: '#entityschema-newschema-description',
+			ALIASES: '#entityschema-newschema-aliases',
+			SCHEMA_TEXT: '#entityschema-newschema-schema-text',
+			SUBMIT_BUTTON: '#entityschema-newschema-submit'
 		};
 	}
 

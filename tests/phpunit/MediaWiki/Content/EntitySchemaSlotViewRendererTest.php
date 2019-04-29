@@ -47,14 +47,14 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 			new FullViewSchemaData( [
 				'en' => new NameBadge( '', 'test', [] ),
 			], $emptySchemaText ),
-			[ '<td class="wbschema-description" lang="en" dir="auto">test</td>' ],
+			[ '<td class="entityschema-description" lang="en" dir="auto">test</td>' ],
 		];
 
 		yield 'description, other language' => [
 			new FullViewSchemaData( [
 				'simple' => new NameBadge( '', 'test', [] ),
 			], $emptySchemaText ),
-			[ '<td class="wbschema-description" lang="en-simple" dir="auto">test</td>' ],
+			[ '<td class="entityschema-description" lang="en-simple" dir="auto">test</td>' ],
 		];
 
 		yield 'description, no HTML injection' => [
@@ -62,20 +62,22 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 				'en' => new NameBadge( '', '<script>alert("description XSS")</script>', [] ),
 			], $emptySchemaText ),
 			// exact details of escaping beyond this (> vs &gt;) don’t matter
-			[ '<td class="wbschema-description" lang="en" dir="auto">&lt;script' ],
+			[ '<td class="entityschema-description" lang="en" dir="auto">&lt;script' ],
 		];
 
 		$emptyNameBadges = [ 'en' => new NameBadge( '', '', [] ) ];
 
 		yield 'schema text' => [
 			new FullViewSchemaData( $emptyNameBadges, '_:empty {}' ),
-			[ '<pre id="wbschema-schema-text" class="wbschema-schema-text" dir="ltr">_:empty {}</pre>' ],
+			[
+				'<pre id="entityschema-schema-text" class="entityschema-schema-text" dir="ltr">_:empty {}</pre>'
+			],
 		];
 
 		yield 'schema text, no HTML injection' => [
 			new FullViewSchemaData( $emptyNameBadges, '<script>alert("schema XSS")</script>' ),
 			// exact details of escaping beyond this (> vs &gt;) don’t matter
-			[ '<pre id="wbschema-schema-text" class="wbschema-schema-text" dir="ltr">&lt;script' ],
+			[ '<pre id="entityschema-schema-text" class="entityschema-schema-text" dir="ltr">&lt;script' ],
 		];
 
 		yield 'multilingual descriptions' => [
@@ -84,8 +86,8 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 				'de' => new NameBadge( '', 'deutsche Beschreibung', [] ),
 			], $emptySchemaText ),
 			[
-				'<td class="wbschema-description" lang="en" dir="auto">english description</td>',
-				'<td class="wbschema-description" lang="de" dir="auto">deutsche Beschreibung</td>',
+				'<td class="entityschema-description" lang="en" dir="auto">english description</td>',
+				'<td class="entityschema-description" lang="de" dir="auto">deutsche Beschreibung</td>',
 			]
 		];
 

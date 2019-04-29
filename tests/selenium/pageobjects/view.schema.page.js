@@ -6,10 +6,10 @@ class ViewSchemaPage extends Page {
 
 	static get SCHEMA_SELECTORS() {
 		return {
-			LABEL: '.wbschema-label',
-			DESCRIPTION: '.wbschema-description',
-			ALIASES: '.wbschema-aliases',
-			SCHEMA_TEXT: '#wbschema-schema-text'
+			LABEL: '.entityschema-label',
+			DESCRIPTION: '.entityschema-description',
+			ALIASES: '.entityschema-aliases',
+			SCHEMA_TEXT: '#entityschema-schema-text'
 		};
 	}
 

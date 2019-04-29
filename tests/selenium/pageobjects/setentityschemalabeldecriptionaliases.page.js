@@ -5,12 +5,12 @@ const Page = require( 'wdio-mediawiki/Page' );
 class SetEntitySchemaLabelDescriptionAliasesPage extends Page {
 	static get SCHEMA_NAMEBADGE_SELECTORS() {
 		return {
-			ID: '#wbschema-special-schema-id',
-			LANGUAGE: '#wbschema-language-code',
-			SUBMIT_BUTTON: '#wbschema-special-schema-id-submit',
-			LABEL: '#wbschema-title-label',
-			DESCRIPTION: '#wbschema-heading-description',
-			ALIASES: '#wbschema-heading-aliases'
+			ID: '#entityschema-special-schema-id',
+			LANGUAGE: '#entityschema-language-code',
+			SUBMIT_BUTTON: '#entityschema-special-schema-id-submit',
+			LABEL: '#entityschema-title-label',
+			DESCRIPTION: '#entityschema-heading-description',
+			ALIASES: '#entityschema-heading-aliases'
 		};
 	}
 
