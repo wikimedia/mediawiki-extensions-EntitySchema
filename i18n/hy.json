@@ -4,7 +4,7 @@
 			"Kareyac"
 		]
 	},
-	"wikibaseschema-namebadge-header-language-code": "լեզվի կոդը",
-	"wikibaseschema-namebadge-header-description": "նկարագրություն",
-	"wikibaseschema-namebadge-header-edit": "խմբագրել"
+	"entityschema-namebadge-header-language-code": "լեզվի կոդը",
+	"entityschema-namebadge-header-description": "նկարագրություն",
+	"entityschema-namebadge-header-edit": "խմբագրել"
 }

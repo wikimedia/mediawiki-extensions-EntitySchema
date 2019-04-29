@@ -57,7 +57,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 
 	private function checkMethod() {
 		if ( !$this->getContext()->getRequest()->wasPosted() ) {
-			return Status::newFatal( 'wikibaseschema-error-not-post' );
+			return Status::newFatal( 'entityschema-error-not-post' );
 		}
 
 		return Status::newGood();
@@ -67,7 +67,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		$req = $this->context->getRequest();
 
 		if ( $this->getTitle()->getLatestRevID() !== (int)$req->getText( 'wpBaseRev' ) ) {
-			return Status::newFatal( $this->msg( 'wikibaseschema-restore-changed' ) );
+			return Status::newFatal( $this->msg( 'entityschema-restore-changed' ) );
 		}
 
 		return Status::newGood();
@@ -117,7 +117,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 				$summary
 			);
 		} catch ( RuntimeException $e ) {
-			return Status::newFatal( 'wikibaseschema-error-saving-failed', $e->getMessage() );
+			return Status::newFatal( 'entityschema-error-saving-failed', $e->getMessage() );
 		}
 
 		return Status::newGood();

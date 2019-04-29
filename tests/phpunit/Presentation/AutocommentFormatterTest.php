@@ -27,7 +27,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			false,
 			'<span dir="auto"><span class="autocomment">'
-			.'(wikibaseschema-summary-newschema-nolabel)'
+			.'(entityschema-summary-newschema-nolabel)'
 			.'</span></span>'
 		];
 
@@ -36,7 +36,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			false,
 			'(autocomment-prefix)<span dir="auto"><span class="autocomment">'
-			.'(wikibaseschema-summary-newschema-nolabel)'
+			.'(entityschema-summary-newschema-nolabel)'
 			.'</span></span>'
 		];
 
@@ -45,7 +45,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			true,
 			'<span dir="auto"><span class="autocomment">'
-			.'(wikibaseschema-summary-newschema-nolabel)(colon-separator)'
+			.'(entityschema-summary-newschema-nolabel)(colon-separator)'
 			.'</span></span>'
 		];
 
@@ -54,7 +54,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_SCHEMATEXT,
 			false,
 			'<span dir="auto"><span class="autocomment">'
-			.'(wikibaseschema-summary-update-schema-text)'
+			.'(entityschema-summary-update-schema-text)'
 			.'</span></span>'
 		];
 
@@ -64,7 +64,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 			. ':1:username',
 			false,
 			'<span dir="auto"><span class="autocomment">'
-			.'(wikibaseschema-summary-undo-autocomment: 1, Username)'
+			.'(entityschema-summary-undo-autocomment: 1, Username)'
 			.'</span></span>'
 		];
 
@@ -74,7 +74,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 			. ':1:198.51.100.10',
 			false,
 			'<span dir="auto"><span class="autocomment">'
-			.'(wikibaseschema-summary-undo-autocomment: 1, 198.51.100.10)'
+			.'(entityschema-summary-undo-autocomment: 1, 198.51.100.10)'
 			.'</span></span>'
 		];
 
@@ -84,7 +84,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 			. ':1:2001:db8::1',
 			false,
 			'<span dir="auto"><span class="autocomment">'
-			.'(wikibaseschema-summary-undo-autocomment: 1, 2001:db8::1)'
+			.'(entityschema-summary-undo-autocomment: 1, 2001:db8::1)'
 			.'</span></span>'
 		];
 
@@ -94,7 +94,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 			. ':1:username',
 			false,
 			'<span dir="auto"><span class="autocomment">'
-			.'(wikibaseschema-summary-restore-autocomment: 1, Username)'
+			.'(entityschema-summary-restore-autocomment: 1, Username)'
 			.'</span></span>'
 		];
 
@@ -104,7 +104,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 			. ':1:198.51.100.10',
 			false,
 			'<span dir="auto"><span class="autocomment">'
-			.'(wikibaseschema-summary-restore-autocomment: 1, 198.51.100.10)'
+			.'(entityschema-summary-restore-autocomment: 1, 198.51.100.10)'
 			.'</span></span>'
 		];
 
@@ -114,7 +114,7 @@ class AutocommentFormatterTest extends MediaWikiTestCase {
 			. ':1:2001:db8::1',
 			false,
 			'<span dir="auto"><span class="autocomment">'
-			.'(wikibaseschema-summary-restore-autocomment: 1, 2001:db8::1)'
+			.'(entityschema-summary-restore-autocomment: 1, 2001:db8::1)'
 			.'</span></span>'
 		];
 	}

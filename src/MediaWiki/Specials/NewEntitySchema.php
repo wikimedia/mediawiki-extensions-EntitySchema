@@ -52,9 +52,9 @@ class NewEntitySchema extends SpecialPage {
 		$form = HTMLForm::factory( 'ooui', $this->getFormFields(), $this->getContext() )
 			->setSubmitName( 'submit' )
 			->setSubmitID( 'wbschema-newschema-submit' )
-			->setSubmitTextMsg( 'wikibaseschema-newschema-submit' )
+			->setSubmitTextMsg( 'entityschema-newschema-submit' )
 			->setValidationErrorMessage( [ [
-				'wikibaseschema-error-possibly-multiple-messages-available'
+				'entityschema-error-possibly-multiple-messages-available'
 			] ] )
 			->setSubmitCallback( [ $this, 'submitCallback' ] );
 		$form->prepareForm();
@@ -122,9 +122,9 @@ class NewEntitySchema extends SpecialPage {
 				'id' => 'wbschema-newschema-label',
 				'required' => true,
 				'default' => '',
-				'placeholder-message' => $this->msg( 'wikibaseschema-label-edit-placeholder' )
+				'placeholder-message' => $this->msg( 'entityschema-label-edit-placeholder' )
 					->params( $langName ),
-				'label-message' => 'wikibaseschema-newschema-label',
+				'label-message' => 'entityschema-newschema-label',
 				'validation-callback' => [
 					$inputValidator,
 					'validateStringInputLength'
@@ -135,9 +135,9 @@ class NewEntitySchema extends SpecialPage {
 				'type' => 'text',
 				'default' => '',
 				'id' => 'wbschema-newschema-description',
-				'placeholder-message' => $this->msg( 'wikibaseschema-description-edit-placeholder' )
+				'placeholder-message' => $this->msg( 'entityschema-description-edit-placeholder' )
 					->params( $langName ),
-				'label-message' => 'wikibaseschema-newschema-description',
+				'label-message' => 'entityschema-newschema-description',
 				'validation-callback' => [
 					$inputValidator,
 					'validateStringInputLength'
@@ -148,9 +148,9 @@ class NewEntitySchema extends SpecialPage {
 				'type' => 'text',
 				'default' => '',
 				'id' => 'wbschema-newschema-aliases',
-				'placeholder-message' => $this->msg( 'wikibaseschema-aliases-edit-placeholder' )
+				'placeholder-message' => $this->msg( 'entityschema-aliases-edit-placeholder' )
 					->params( $langName ),
-				'label-message' => 'wikibaseschema-newschema-aliases',
+				'label-message' => 'entityschema-newschema-aliases',
 				'validation-callback' => [
 					$inputValidator,
 					'validateAliasesLength'
@@ -162,7 +162,7 @@ class NewEntitySchema extends SpecialPage {
 				'default' => '',
 				'id' => 'wbschema-newschema-schema-text',
 				'placeholder' => "<human> {\n  wdt:P31 [wd:Q5]\n}",
-				'label-message' => 'wikibaseschema-newschema-schema-shexc',
+				'label-message' => 'entityschema-newschema-schema-shexc',
 				'validation-callback' => [
 					$inputValidator,
 					'validateSchemaTextLength'
@@ -189,9 +189,9 @@ class NewEntitySchema extends SpecialPage {
 	 * @return string HTML
 	 */
 	private function getCopyrightHTML() {
-		return $this->msg( 'wikibaseschema-newschema-copyright' )
+		return $this->msg( 'entityschema-newschema-copyright' )
 			->params(
-				$this->msg( 'wikibaseschema-newschema-submit' )->text(),
+				$this->msg( 'entityschema-newschema-submit' )->text(),
 				$this->msg( 'copyrightpage' )->text(),
 				// FIXME: make license configurable
 				'[https://creativecommons.org/publicdomain/zero/1.0/ Creative Commons CC0 License]'
@@ -203,7 +203,7 @@ class NewEntitySchema extends SpecialPage {
 		if ( $this->getUser()->isAnon() ) {
 			return [
 				$this->msg(
-					'wikibaseschema-anonymouseditwarning'
+					'entityschema-anonymouseditwarning'
 				)->parse(),
 			];
 		}

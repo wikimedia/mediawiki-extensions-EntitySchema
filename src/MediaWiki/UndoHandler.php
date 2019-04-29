@@ -68,7 +68,7 @@ final class UndoHandler {
 			);
 		} catch ( PatcherException $e ) {
 			// show error here
-			return Status::newFatal( 'wikibaseschema-undo-cannot-apply-patch' );
+			return Status::newFatal( 'entityschema-undo-cannot-apply-patch' );
 		}
 
 		return Status::newGood( $patchedSchema );

@@ -33,7 +33,7 @@ class UndoViewAction extends AbstractUndoAction {
 
 		$this->getOutput()->setPageTitle(
 			$this->msg(
-				'wikibaseschema-undo-heading',
+				'entityschema-undo-heading',
 				$this->getTitle()->getTitleValue()->getText()
 			)
 		);
@@ -83,7 +83,7 @@ class UndoViewAction extends AbstractUndoAction {
 		$this->getOutput()->addHTML(
 			$helper->renderSchemaDiffTable(
 				$this->slotDiffRenderer->renderSchemaDiffRows( $diff ),
-				$this->msg( 'wikibaseschema-undo-old-revision' )
+				$this->msg( 'entityschema-undo-old-revision' )
 			)
 		);
 

@@ -4,17 +4,17 @@
 			"Shirayuki"
 		]
 	},
-	"wikibaseschema-newschema-label": "ラベル:",
-	"wikibaseschema-newschema-submit": "作成",
-	"wikibaseschema-namebadge-header-language-code": "言語コード",
-	"wikibaseschema-namebadge-header-label": "ラベル",
-	"wikibaseschema-namebadge-header-aliases": "別名",
-	"wikibaseschema-namebadge-header-edit": "編集",
-	"wikibaseschema-diff-label": "ラベル",
-	"wikibaseschema-diff-aliases": "別名",
-	"wikibaseschema-edit": "編集",
-	"wikibaseschema-restoreold": "復元",
-	"wikibaseschema-special-id-inputlabel": "ID",
-	"wikibaseschema-special-language-inputlabel": "言語コード",
-	"wikibaseschema-special-label": "ラベル:"
+	"entityschema-newschema-label": "ラベル:",
+	"entityschema-newschema-submit": "作成",
+	"entityschema-namebadge-header-language-code": "言語コード",
+	"entityschema-namebadge-header-label": "ラベル",
+	"entityschema-namebadge-header-aliases": "別名",
+	"entityschema-namebadge-header-edit": "編集",
+	"entityschema-diff-label": "ラベル",
+	"entityschema-diff-aliases": "別名",
+	"entityschema-edit": "編集",
+	"entityschema-restoreold": "復元",
+	"entityschema-special-id-inputlabel": "ID",
+	"entityschema-special-language-inputlabel": "言語コード",
+	"entityschema-special-label": "ラベル:"
 }

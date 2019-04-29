@@ -71,7 +71,7 @@ class MediaWikiRevisionSchemaInserter implements SchemaInserter {
 			CommentStoreComment::newUnsavedComment(
 				'/* ' . self::AUTOCOMMENT_NEWSCHEMA . ' */' . $schemaData->label,
 				[
-					'key' => 'wikibaseschema-summary-newschema-nolabel',
+					'key' => 'entityschema-summary-newschema-nolabel',
 					'language' => $language,
 					'label' => $schemaData->label,
 					'description' => $schemaData->description,

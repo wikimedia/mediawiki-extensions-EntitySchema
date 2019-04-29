@@ -55,7 +55,7 @@ final class RestoreViewAction extends AbstractRestoreAction {
 		$this->getOutput()->enableOOUI();
 		$this->getOutput()->setPageTitle(
 			$this->msg(
-				'wikibaseschema-restore-heading',
+				'entityschema-restore-heading',
 				$this->getTitle()->getTitleValue()->getText()
 			)
 		);
@@ -102,7 +102,7 @@ final class RestoreViewAction extends AbstractRestoreAction {
 		);
 
 		if ( $diff->isEmpty() ) {
-			return Status::newFatal( 'wikibaseschema-restore-empty' );
+			return Status::newFatal( 'entityschema-restore-empty' );
 		}
 
 		return Status::newGood( $diff );

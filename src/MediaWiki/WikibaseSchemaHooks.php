@@ -75,7 +75,7 @@ final class WikibaseSchemaHooks {
 				'dir' => $dir,
 				'lang' => $lang,
 			], '$1' ),
-			'wikibaseschema-noschema'
+			'entityschema-noschema'
 		);
 
 		return false;
@@ -109,7 +109,7 @@ final class WikibaseSchemaHooks {
 			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 			$link = $linkRenderer->makeKnownLink(
 				$wikiPage->getTitle(),
-				$history->msg( 'wikibaseschema-restoreold' )->text(),
+				$history->msg( 'entityschema-restoreold' )->text(),
 				[],
 				[
 					'action' => 'edit',

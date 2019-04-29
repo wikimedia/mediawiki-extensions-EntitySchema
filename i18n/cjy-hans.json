@@ -4,6 +4,6 @@
 			"MotdAlpha"
 		]
 	},
-	"wikibaseschema-error-one-more-message-available": "您打那字那内容有点不对。请看看底下那个出错消息。",
-	"wikibaseschema-error-input-too-long": "您打那伙字太长。最大长度是{{$1}}个字。您打那个有{{$2}}个字。"
+	"entityschema-error-one-more-message-available": "您打那字那内容有点不对。请看看底下那个出错消息。",
+	"entityschema-error-input-too-long": "您打那伙字太长。最大长度是{{$1}}个字。您打那个有{{$2}}个字。"
 }

@@ -79,16 +79,16 @@ class WikibaseSchemaSlotViewRenderer {
 	private function renderNameBadgeHeader() {
 		$tableHeaders = '';
 		// message keys:
-		// wikibaseschema-namebadge-header-language-code
-		// wikibaseschema-namebadge-header-label
-		// wikibaseschema-namebadge-header-description
-		// wikibaseschema-namebadge-header-aliases
-		// wikibaseschema-namebadge-header-edit
+		// entityschema-namebadge-header-language-code
+		// entityschema-namebadge-header-label
+		// entityschema-namebadge-header-description
+		// entityschema-namebadge-header-aliases
+		// entityschema-namebadge-header-edit
 		foreach ( [ 'language-code', 'label', 'description', 'aliases', 'edit' ] as $key ) {
 			$tableHeaders .= Html::element(
 				'th',
 				[],
-				$this->msg( 'wikibaseschema-namebadge-header-' . $key )
+				$this->msg( 'entityschema-namebadge-header-' . $key )
 					->parse()
 			);
 		}
@@ -155,7 +155,7 @@ class WikibaseSchemaSlotViewRenderer {
 			],
 			$this->linkRenderer->makeKnownLink(
 				$specialPageTitleValue,
-				$this->msg( 'wikibaseschema-edit' ),
+				$this->msg( 'entityschema-edit' ),
 				[ 'class' => 'edit-icon' ]
 			)
 		);
@@ -209,7 +209,7 @@ class WikibaseSchemaSlotViewRenderer {
 
 		return $this->makeExternalLink(
 			$url,
-			wfMessage( 'wikibaseschema-check-entities' )->parse(),
+			wfMessage( 'entityschema-check-entities' )->parse(),
 			false, // link text already escaped in ->parse()
 			'',
 			[ 'class' => 'wbschema-check-schema' ]
@@ -244,7 +244,7 @@ class WikibaseSchemaSlotViewRenderer {
 			],
 			$this->linkRenderer->makeKnownLink(
 				$title,
-				$this->msg( 'wikibaseschema-add-schema-text' ),
+				$this->msg( 'entityschema-add-schema-text' ),
 				[ 'class' => 'add-icon' ],
 				[ 'action' => 'edit' ]
 			)
@@ -260,7 +260,7 @@ class WikibaseSchemaSlotViewRenderer {
 			],
 			$this->linkRenderer->makeKnownLink(
 				$title,
-				$this->msg( 'wikibaseschema-edit' ),
+				$this->msg( 'entityschema-edit' ),
 				[ 'class' => 'edit-icon' ],
 				[ 'action' => 'edit' ]
 			)
@@ -278,7 +278,7 @@ class WikibaseSchemaSlotViewRenderer {
 			$label = Html::element(
 				'span',
 				[ 'class' => 'wbschema-title-label-empty' ],
-				$this->msg( 'wikibaseschema-label-empty' )
+				$this->msg( 'entityschema-label-empty' )
 					->text()
 			);
 		}

@@ -53,7 +53,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 	private function checkPermissions(): Status {
 		$method = $this->getContext()->getRequest()->getMethod();
 		if ( $method !== 'POST' ) {
-			return Status::newFatal( 'wikibaseschema-error-not-post' );
+			return Status::newFatal( 'entityschema-error-not-post' );
 		}
 
 		if ( $this->getUser()->isBlockedFrom( $this->getTitle() ) ) {
@@ -110,7 +110,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 				$summary
 			);
 		} catch ( RuntimeException $e ) {
-			return Status::newFatal( 'wikibaseschema-error-saving-failed', $e->getMessage() );
+			return Status::newFatal( 'entityschema-error-saving-failed', $e->getMessage() );
 		}
 
 		return Status::newGood();

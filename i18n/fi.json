@@ -4,5 +4,5 @@
 			"Pyscowicz"
 		]
 	},
-	"wikibaseschema-summary-undo-autocomment": "Kumottu muokkaus $1, jonka teki [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|keskustelu]])"
+	"entityschema-summary-undo-autocomment": "Kumottu muokkaus $1, jonka teki [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|keskustelu]])"
 }

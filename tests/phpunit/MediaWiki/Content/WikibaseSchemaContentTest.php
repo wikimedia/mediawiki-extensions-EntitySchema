@@ -26,7 +26,7 @@ class WikibaseSchemaContentTest extends MediaWikiTestCase {
 		$parserOutput = $content->getParserOutput( $title, null, $parserOptions );
 		$html = $parserOutput->getText();
 
-		$this->assertContains( '(wikibaseschema-namebadge-header-label)', $html );
+		$this->assertContains( '(entityschema-namebadge-header-label)', $html );
 		$this->assertContains( 'userlang', $parserOutput->getUsedOptions() );
 	}
 
@@ -59,7 +59,7 @@ class WikibaseSchemaContentTest extends MediaWikiTestCase {
 		$html = $parserOutput->getText();
 
 		if ( $expected === false ) {
-			$this->assertNotContains( 'wikibaseschema-check-entities', $html );
+			$this->assertNotContains( 'entityschema-check-entities', $html );
 		} else {
 			$this->assertContains( $expected, $html );
 		}

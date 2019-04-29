@@ -74,7 +74,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		try {
 			$id = new SchemaId( $data[self::FIELD_ID] );
 		} catch ( InvalidArgumentException $e ) {
-			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
+			return Status::newFatal( 'entityschema-error-schemaupdate-failed' );
 		}
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id->getId() );
 		$this->checkBlocked( $title );
@@ -95,16 +95,16 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				(int)$data[self::FIELD_BASE_REV]
 			);
 		} catch ( EditConflict $e ) {
-			return Status::newFatal( 'wikibaseschema-error-namebadge-conflict' );
+			return Status::newFatal( 'entityschema-error-namebadge-conflict' );
 		} catch ( RuntimeException $e ) {
-			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
+			return Status::newFatal( 'entityschema-error-schemaupdate-failed' );
 		}
 
 		return Status::newGood( $title->getFullURL() );
 	}
 
 	public function getDescription() {
-		return $this->msg( 'wikibaseschema-special-setlabeldescriptionaliases' )->text();
+		return $this->msg( 'entityschema-special-setlabeldescriptionaliases' )->text();
 	}
 
 	private function getIdFromSubpageOrRequest( $subpage, WebRequest $request ) {
@@ -131,7 +131,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$form = $formProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
 			->setSubmitName( self::SUBMIT_SELECTION_NAME )
 			->setSubmitID( 'wbschema-special-schema-id-submit' )
-			->setSubmitTextMsg( 'wikibaseschema-special-id-submit' )
+			->setSubmitTextMsg( 'entityschema-special-id-submit' )
 			->setTitle( $this->getPageTitle() );
 		$form->prepareForm();
 		$submitStatus = $form->tryAuthorizedSubmit();
@@ -148,9 +148,9 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$form = $formProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
 			->setSubmitName( self::SUBMIT_EDIT_NAME )
 			->setSubmitID( 'wbschema-special-schema-id-submit' )
-			->setSubmitTextMsg( 'wikibaseschema-special-id-submit' )
+			->setSubmitTextMsg( 'entityschema-special-id-submit' )
 			->setValidationErrorMessage( [ [
-				'wikibaseschema-error-possibly-multiple-messages-available'
+				'entityschema-error-possibly-multiple-messages-available'
 			] ] );
 		$form->prepareForm();
 
@@ -225,8 +225,8 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				'id' => 'wbschema-special-schema-id',
 				'required' => true,
 				'default' => $defaultId ?: '',
-				'placeholder-message' => 'wikibaseschema-special-id-placeholder',
-				'label-message' => 'wikibaseschema-special-id-inputlabel',
+				'placeholder-message' => 'entityschema-special-id-placeholder',
+				'label-message' => 'entityschema-special-id-inputlabel',
 				'validation-callback' => [
 					$inputValidator,
 					'validateIDExists'
@@ -238,7 +238,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				'id' => 'wbschema-language-code',
 				'required' => true,
 				'default' => $defaultLanguage,
-				'label-message' => 'wikibaseschema-special-language-inputlabel',
+				'label-message' => 'entityschema-special-language-inputlabel',
 				'validation-callback' => [
 					$inputValidator,
 					'validateLangCodeIsSupported'
@@ -284,9 +284,9 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				'type' => 'text',
 				'id' => 'wbschema-title-label',
 				'default' => $label,
-				'placeholder-message' => $this->msg( 'wikibaseschema-label-edit-placeholder' )
+				'placeholder-message' => $this->msg( 'entityschema-label-edit-placeholder' )
 					->params( $langName ),
-				'label-message' => 'wikibaseschema-special-label',
+				'label-message' => 'entityschema-special-label',
 				'validation-callback' => [
 					$inputValidator,
 					'validateStringInputLength'
@@ -297,9 +297,9 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				'type' => 'text',
 				'default' => $description,
 				'id' => 'wbschema-heading-description',
-				'placeholder-message' => $this->msg( 'wikibaseschema-description-edit-placeholder' )
+				'placeholder-message' => $this->msg( 'entityschema-description-edit-placeholder' )
 					->params( $langName ),
-				'label-message' => 'wikibaseschema-special-description',
+				'label-message' => 'entityschema-special-description',
 				'validation-callback' => [
 					$inputValidator,
 					'validateStringInputLength'
@@ -310,9 +310,9 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				'type' => 'text',
 				'default' => $aliases,
 				'id' => 'wbschema-heading-aliases',
-				'placeholder-message' => $this->msg( 'wikibaseschema-aliases-edit-placeholder' )
+				'placeholder-message' => $this->msg( 'entityschema-aliases-edit-placeholder' )
 					->params( $langName ),
-				'label-message' => 'wikibaseschema-special-aliases',
+				'label-message' => 'entityschema-special-aliases',
 				'validation-callback' => [
 					$inputValidator,
 					'validateAliasesLength'
@@ -362,7 +362,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	 */
 	private function buildLanguageAndSchemaNotice( $langName, $label, SchemaId $schemaId ) {
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId->getId() );
-		return $this->msg( 'wikibaseschema-special-setlabeldescriptionaliases-info' )
+		return $this->msg( 'entityschema-special-setlabeldescriptionaliases-info' )
 			->params( $langName )
 			->params( $this->getSchemaDisplayLabel( $label, $schemaId ) )
 			->params( $title->getPrefixedText() )
@@ -381,9 +381,9 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	 * @return string HTML
 	 */
 	private function getCopyrightHTML() {
-		return $this->msg( 'wikibaseschema-newschema-copyright' )
+		return $this->msg( 'entityschema-newschema-copyright' )
 			->params(
-				$this->msg( 'wikibaseschema-special-id-submit' )->text(),
+				$this->msg( 'entityschema-special-id-submit' )->text(),
 				$this->msg( 'copyrightpage' )->text(),
 				// FIXME: make license configurable
 				'[https://creativecommons.org/publicdomain/zero/1.0/ Creative Commons CC0 License]'
@@ -394,7 +394,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		if ( $this->getUser()->isAnon() ) {
 			return [
 				$this->msg(
-					'wikibaseschema-anonymouseditwarning'
+					'entityschema-anonymouseditwarning'
 				)->parse(),
 			];
 		}

@@ -4,9 +4,9 @@
 			"Mirzali"
 		]
 	},
-	"wikibaseschema-newschema-label": "Etîket:",
-	"wikibaseschema-newschema-description": "Danasîn:",
-	"wikibaseschema-editpage-schema-inputlabel": "ShEx:",
-	"wikibaseschema-special-label": "Etîket:",
-	"wikibaseschema-special-description": "Danasîn:"
+	"entityschema-newschema-label": "Etîket:",
+	"entityschema-newschema-description": "Danasîn:",
+	"entityschema-editpage-schema-inputlabel": "ShEx:",
+	"entityschema-special-label": "Etîket:",
+	"entityschema-special-description": "Danasîn:"
 }

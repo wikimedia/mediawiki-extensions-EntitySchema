@@ -4,12 +4,12 @@
 			"YaronSh"
 		]
 	},
-	"wikibaseschema-newschema-label": "תווית:",
-	"wikibaseschema-newschema-description": "תיאור:",
-	"wikibaseschema-newschema-schema-shexc": "קוד ביטויי צורה:",
-	"wikibaseschema-newschema-submit": "יצירה",
-	"wikibaseschema-description-edit-placeholder": "תיאור הסכמה באנגלית",
-	"wikibaseschema-special-label": "תווית:",
-	"wikibaseschema-special-description": "תיאור:",
-	"wikibaseschema-special-aliases": "כינויים (מופרדים בקו ניצב):"
+	"entityschema-newschema-label": "תווית:",
+	"entityschema-newschema-description": "תיאור:",
+	"entityschema-newschema-schema-shexc": "קוד ביטויי צורה:",
+	"entityschema-newschema-submit": "יצירה",
+	"entityschema-description-edit-placeholder": "תיאור הסכמה באנגלית",
+	"entityschema-special-label": "תווית:",
+	"entityschema-special-description": "תיאור:",
+	"entityschema-special-aliases": "כינויים (מופרדים בקו ניצב):"
 }

@@ -71,7 +71,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiTestCase {
 		$expectedComment = CommentStoreComment::newUnsavedComment(
 			'/* ' . MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA . ' */test label',
 			[
-				'key' => 'wikibaseschema-summary-newschema-nolabel',
+				'key' => 'entityschema-summary-newschema-nolabel',
 				'language' => 'en',
 				'label' => 'test label',
 				'description' => 'test description',

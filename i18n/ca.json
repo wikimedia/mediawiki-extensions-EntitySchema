@@ -4,16 +4,16 @@
 			"Fitoschido"
 		]
 	},
-	"wikibaseschema-newschema-label": "Etiqueta:",
-	"wikibaseschema-newschema-description": "Descripció:",
-	"wikibaseschema-newschema-submit": "Crea",
-	"wikibaseschema-error-inconsistent-id": "No totes les revisions proporcionades pertanyen al títol donat.",
-	"wikibaseschema-error-invalid-id": "Aquest identificador no és vàlid.",
-	"wikibaseschema-error-unsupported-langcode": "No s’admet aquest codi de llengua.",
-	"wikibaseschema-namebadge-header-label": "etiqueta",
-	"wikibaseschema-namebadge-header-description": "descripció",
-	"wikibaseschema-namebadge-header-aliases": "àlies",
-	"wikibaseschema-restore-heading-failed": "Ha fallat la restauració",
-	"wikibaseschema-restoreold": "restaura",
-	"wikibaseschema-special-description": "Descripció:"
+	"entityschema-newschema-label": "Etiqueta:",
+	"entityschema-newschema-description": "Descripció:",
+	"entityschema-newschema-submit": "Crea",
+	"entityschema-error-inconsistent-id": "No totes les revisions proporcionades pertanyen al títol donat.",
+	"entityschema-error-invalid-id": "Aquest identificador no és vàlid.",
+	"entityschema-error-unsupported-langcode": "No s’admet aquest codi de llengua.",
+	"entityschema-namebadge-header-label": "etiqueta",
+	"entityschema-namebadge-header-description": "descripció",
+	"entityschema-namebadge-header-aliases": "àlies",
+	"entityschema-restore-heading-failed": "Ha fallat la restauració",
+	"entityschema-restoreold": "restaura",
+	"entityschema-special-description": "Descripció:"
 }

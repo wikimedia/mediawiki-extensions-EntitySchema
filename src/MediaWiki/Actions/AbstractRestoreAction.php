@@ -26,11 +26,11 @@ abstract class AbstractRestoreAction extends EditAction {
 		$revStore = MediaWikiServices::getInstance()->getRevisionStore();
 		$revToRestore = $revStore->getRevisionById( $restoreID );
 		if ( $revToRestore === null || $revToRestore->isDeleted( RevisionRecord::DELETED_TEXT ) ) {
-			return Status::newFatal( $this->msg( 'wikibaseschema-restore-bad-revisions' ) );
+			return Status::newFatal( $this->msg( 'entityschema-restore-bad-revisions' ) );
 		}
 
 		if ( $revToRestore->getPageId() !== $this->getTitle()->getArticleID() ) {
-			return Status::newFatal( $this->msg( 'wikibaseschema-error-wrong-page-revisions' ) );
+			return Status::newFatal( $this->msg( 'entityschema-error-wrong-page-revisions' ) );
 		}
 
 		return Status::newGood( $revToRestore );
@@ -62,7 +62,7 @@ abstract class AbstractRestoreAction extends EditAction {
 	 */
 	protected function showRestoreErrorPage( Status $status ) {
 		$this->getOutput()->prepareErrorPage(
-			$this->msg( 'wikibaseschema-restore-heading-failed' ),
+			$this->msg( 'entityschema-restore-heading-failed' ),
 			$this->msg( 'errorpagetitle' )
 		);
 

@@ -4,13 +4,13 @@
 			"McDutchie"
 		]
 	},
-	"wikibaseschema-desc": "Immagazinar e discuter Schemas pro entitates Wikibase",
-	"wikibaseschema-error-schemadeleted": "Le Schema que tu tentava modificar non existe. Ha illo essite delite?",
-	"wikibaseschema-error-schematext-conflict": "Iste Schema ha essite cambiate interim. Per favor, retorna al pagina del Schema e essaya de modificar lo de novo.",
-	"wikibaseschema-error-possibly-multiple-messages-available": "Il ha problemas con alcunes de tu entratas. Per favor, verifica le message(s) de error sequente.",
-	"wikibaseschema-error-input-too-long": "Le texto entrate es troppo longe. Le longitude maxime es {{PLURAL:$1|un character|$1 characteres}}. Tu texto ha un longitude de {{PLURAL:$2|un character|$2 characteres}}.",
-	"wikibaseschema-check-entities": "verificar entitates contra iste Schema",
-	"wikibaseschema-summary-update-schema-text": "Texto de Schema actualisate",
-	"wikibaseschema-summary-update-schema-text-user": "Texto de Schema actualisate: $1",
-	"wikibaseschema-schematext-text": "Iste pagina forni un interfacie pro le texto brute de un Schema. Per favor forni le ID del Schema in le URL, usante le syntaxe de subpagina."
+	"entityschema-desc": "Immagazinar e discuter Schemas pro entitates Wikibase",
+	"entityschema-error-schemadeleted": "Le Schema que tu tentava modificar non existe. Ha illo essite delite?",
+	"entityschema-error-schematext-conflict": "Iste Schema ha essite cambiate interim. Per favor, retorna al pagina del Schema e essaya de modificar lo de novo.",
+	"entityschema-error-possibly-multiple-messages-available": "Il ha problemas con alcunes de tu entratas. Per favor, verifica le message(s) de error sequente.",
+	"entityschema-error-input-too-long": "Le texto entrate es troppo longe. Le longitude maxime es {{PLURAL:$1|un character|$1 characteres}}. Tu texto ha un longitude de {{PLURAL:$2|un character|$2 characteres}}.",
+	"entityschema-check-entities": "verificar entitates contra iste Schema",
+	"entityschema-summary-update-schema-text": "Texto de Schema actualisate",
+	"entityschema-summary-update-schema-text-user": "Texto de Schema actualisate: $1",
+	"entityschema-schematext-text": "Iste pagina forni un interfacie pro le texto brute de un Schema. Per favor forni le ID del Schema in le URL, usante le syntaxe de subpagina."
 }

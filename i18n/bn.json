@@ -4,17 +4,17 @@
 			"আফতাবুজ্জামান"
 		]
 	},
-	"wikibaseschema-newschema-label": "লেবেল:",
-	"wikibaseschema-newschema-description": "বিবরণ:",
-	"wikibaseschema-newschema-aliases": "উপনাম, উল্লম্ব দণ্ড দ্বারা বিভাজিত:",
-	"wikibaseschema-newschema-submit": "তৈরি করুন",
-	"wikibaseschema-anonymouseditwarning": "সতর্কতা: আপনি প্রবেশ করেননি। এই স্কিমার সম্পাদনার ইতিহাসে আপনার আইপি ঠিকানা সংরক্ষিত হবে।",
-	"wikibaseschema-diff-label": "লেবেল",
-	"wikibaseschema-diff-description": "বিবরণ",
-	"wikibaseschema-diff-aliases": "উপনাম",
-	"wikibaseschema-summary-undo-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|আলাপ]])-এর করা $1 নম্বর সংশোধনটি বাতিল করা হয়েছে",
-	"wikibaseschema-summary-restore-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]] কর্তৃক $1 নং সংশোধনটি পুনরুদ্ধার করা হয়েছে",
-	"wikibaseschema-special-label": "লেবেল:",
-	"wikibaseschema-special-description": "বিবরণ:",
-	"wikibaseschema-special-aliases": "উপনাম (উল্লম্ব দণ্ড দ্বারা বিভাজিত):"
+	"entityschema-newschema-label": "লেবেল:",
+	"entityschema-newschema-description": "বিবরণ:",
+	"entityschema-newschema-aliases": "উপনাম, উল্লম্ব দণ্ড দ্বারা বিভাজিত:",
+	"entityschema-newschema-submit": "তৈরি করুন",
+	"entityschema-anonymouseditwarning": "সতর্কতা: আপনি প্রবেশ করেননি। এই স্কিমার সম্পাদনার ইতিহাসে আপনার আইপি ঠিকানা সংরক্ষিত হবে।",
+	"entityschema-diff-label": "লেবেল",
+	"entityschema-diff-description": "বিবরণ",
+	"entityschema-diff-aliases": "উপনাম",
+	"entityschema-summary-undo-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|আলাপ]])-এর করা $1 নম্বর সংশোধনটি বাতিল করা হয়েছে",
+	"entityschema-summary-restore-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]] কর্তৃক $1 নং সংশোধনটি পুনরুদ্ধার করা হয়েছে",
+	"entityschema-special-label": "লেবেল:",
+	"entityschema-special-description": "বিবরণ:",
+	"entityschema-special-aliases": "উপনাম (উল্লম্ব দণ্ড দ্বারা বিভাজিত):"
 }

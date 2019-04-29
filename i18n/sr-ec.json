@@ -4,8 +4,8 @@
 			"BadDog"
 		]
 	},
-	"wikibaseschema-newschema-description": "Опис:",
-	"wikibaseschema-special-label": "Ознака:",
-	"wikibaseschema-special-description": "Опис:",
-	"wikibaseschema-special-aliases": "Псеудоними (раздвојени усправном цртом):"
+	"entityschema-newschema-description": "Опис:",
+	"entityschema-special-label": "Ознака:",
+	"entityschema-special-description": "Опис:",
+	"entityschema-special-aliases": "Псеудоними (раздвојени усправном цртом):"
 }

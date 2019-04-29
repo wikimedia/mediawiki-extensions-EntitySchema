@@ -48,11 +48,11 @@ class InputValidator {
 		try {
 			$schemaId = new SchemaId( $id );
 		} catch ( InvalidArgumentException $e ) {
-			return $this->msgLocalizer->msg( 'wikibaseschema-error-invalid-id' );
+			return $this->msgLocalizer->msg( 'entityschema-error-invalid-id' );
 		}
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId->getId() );
 		if ( !$title->exists() ) {
-			return $this->msgLocalizer->msg( 'wikibaseschema-error-schemadeleted' );
+			return $this->msgLocalizer->msg( 'entityschema-error-schemadeleted' );
 		}
 
 		return true;
@@ -65,7 +65,7 @@ class InputValidator {
 	 */
 	public function validateLangCodeIsSupported( $langCode ) {
 		if ( !Language::isSupportedLanguage( $langCode ) ) {
-			return $this->msgLocalizer->msg( 'wikibaseschema-error-unsupported-langcode' );
+			return $this->msgLocalizer->msg( 'entityschema-error-unsupported-langcode' );
 		}
 		return true;
 	}
@@ -80,7 +80,7 @@ class InputValidator {
 		$maxLengthBytes = $this->configService->get( 'WBSchemaSchemaTextMaxSizeBytes' );
 		$schemaTextLengthBytes = strlen( $schemaText );
 		if ( $schemaTextLengthBytes > $maxLengthBytes ) {
-			return $this->msgLocalizer->msg( 'wikibaseschema-error-schematext-too-long' )
+			return $this->msgLocalizer->msg( 'entityschema-error-schematext-too-long' )
 				->numParams( $maxLengthBytes, $schemaTextLengthBytes );
 		}
 
@@ -92,7 +92,7 @@ class InputValidator {
 		$cleanAliasesString = implode( '', array_map( 'trim', explode( '|', $aliasesInput ) ) );
 		$aliasesLengthChars = mb_strlen( $cleanAliasesString );
 		if ( $aliasesLengthChars > $maxLengthChars ) {
-			return $this->msgLocalizer->msg( 'wikibaseschema-error-input-too-long' )
+			return $this->msgLocalizer->msg( 'entityschema-error-input-too-long' )
 				->numParams( $maxLengthChars, $aliasesLengthChars );
 		}
 
@@ -103,7 +103,7 @@ class InputValidator {
 		$maxLengthChars = $this->configService->get( 'WBSchemaNameBadgeMaxSizeChars' );
 		$numInputChars = mb_strlen( $labelOrDescriptionInput );
 		if ( $numInputChars > $maxLengthChars ) {
-			return $this->msgLocalizer->msg( 'wikibaseschema-error-input-too-long' )
+			return $this->msgLocalizer->msg( 'entityschema-error-input-too-long' )
 				->numParams( $maxLengthChars, $numInputChars );
 		}
 

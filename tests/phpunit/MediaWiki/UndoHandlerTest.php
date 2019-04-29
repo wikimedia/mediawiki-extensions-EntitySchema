@@ -188,7 +188,7 @@ class UndoHandlerTest extends MediaWikiTestCase {
 
 		$this->assertFalse( $actualPatchStatus->isOK() );
 		$actualMessage = $actualPatchStatus->getMessage();
-		$this->assertSame( 'wikibaseschema-undo-cannot-apply-patch', $actualMessage->getKey() );
+		$this->assertSame( 'entityschema-undo-cannot-apply-patch', $actualMessage->getKey() );
 	}
 
 }

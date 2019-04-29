@@ -73,7 +73,7 @@ class SchemaEditAction extends FormAction {
 		 */
 		$content = $this->getContext()->getWikiPage()->getContent();
 		if ( !$content instanceof WikibaseSchemaContent ) {
-			return Status::newFatal( $this->msg( 'wikibaseschema-error-schemadeleted' ) );
+			return Status::newFatal( $this->msg( 'entityschema-error-schemadeleted' ) );
 		}
 
 		$user = $this->getUser();
@@ -94,22 +94,22 @@ class SchemaEditAction extends FormAction {
 				trim( $data[self::FIELD_EDIT_SUMMARY] )
 			);
 		} catch ( EditConflict $e ) {
-			return Status::newFatal( 'wikibaseschema-error-schematext-conflict' );
+			return Status::newFatal( 'entityschema-error-schematext-conflict' );
 		} catch ( RuntimeException $e ) {
-			return Status::newFatal( 'wikibaseschema-error-schemaupdate-failed' );
+			return Status::newFatal( 'entityschema-error-schemaupdate-failed' );
 		}
 
 		return Status::newGood();
 	}
 
 	protected function alterForm( HTMLForm $form ) {
-		$form->setValidationErrorMessage( [ [ 'wikibaseschema-error-one-more-message-available' ] ] );
+		$form->setValidationErrorMessage( [ [ 'entityschema-error-one-more-message-available' ] ] );
 	}
 
 	protected function getFormFields() {
 		$currentRevRecord = $this->context->getWikiPage()->getRevisionRecord();
 		if ( !$currentRevRecord ) {
-			throw new RuntimeException( $this->msg( 'wikibaseschema-error-schemadeleted' ) );
+			throw new RuntimeException( $this->msg( 'entityschema-error-schemadeleted' ) );
 		}
 
 		/** @var WikibaseSchemaContent $content */
@@ -125,7 +125,7 @@ class SchemaEditAction extends FormAction {
 			self::FIELD_SCHEMA_TEXT => [
 				'type' => 'textarea',
 				'default' => $schemaText,
-				'label-message' => 'wikibaseschema-editpage-schema-inputlabel',
+				'label-message' => 'entityschema-editpage-schema-inputlabel',
 				'validation-callback' => [ $this->inputValidator, 'validateSchemaTextLength' ],
 			],
 			self::FIELD_BASE_REV => [
@@ -135,7 +135,7 @@ class SchemaEditAction extends FormAction {
 			self::FIELD_EDIT_SUMMARY => [
 				'type' => 'text',
 				'default' => '',
-				'label-message' => 'wikibaseschema-summary-generated',
+				'label-message' => 'entityschema-summary-generated',
 			],
 		];
 	}

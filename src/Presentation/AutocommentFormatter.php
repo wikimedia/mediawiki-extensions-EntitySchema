@@ -49,17 +49,17 @@ class AutocommentFormatter {
 
 		switch ( $commentParts[0] ) {
 			case MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA:
-				$comment = wfMessage( 'wikibaseschema-summary-newschema-nolabel' );
+				$comment = wfMessage( 'entityschema-summary-newschema-nolabel' );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_SCHEMATEXT:
-				$comment = wfMessage( 'wikibaseschema-summary-update-schema-text' );
+				$comment = wfMessage( 'entityschema-summary-update-schema-text' );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_NAMEBADGE:
 				$languageName = Language::fetchLanguageName(
 					$commentParts[1],
 					$context->getLanguage()->getCode()
 				);
-				$comment = wfMessage( 'wikibaseschema-summary-update-schema-namebadge' )
+				$comment = wfMessage( 'entityschema-summary-update-schema-namebadge' )
 					->params( $languageName );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_LABEL:
@@ -67,7 +67,7 @@ class AutocommentFormatter {
 					$commentParts[1],
 					$context->getLanguage()->getCode()
 				);
-				$comment = wfMessage( 'wikibaseschema-summary-update-schema-label' )
+				$comment = wfMessage( 'entityschema-summary-update-schema-label' )
 					->params( $languageName );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_DESCRIPTION:
@@ -75,7 +75,7 @@ class AutocommentFormatter {
 					$commentParts[1],
 					$context->getLanguage()->getCode()
 				);
-				$comment = wfMessage( 'wikibaseschema-summary-update-schema-description' )
+				$comment = wfMessage( 'entityschema-summary-update-schema-description' )
 					->params( $languageName );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_ALIASES:
@@ -83,19 +83,19 @@ class AutocommentFormatter {
 					$commentParts[1],
 					$context->getLanguage()->getCode()
 				);
-				$comment = wfMessage( 'wikibaseschema-summary-update-schema-aliases' )
+				$comment = wfMessage( 'entityschema-summary-update-schema-aliases' )
 					->params( $languageName );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE:
 				list( $revId, $username ) = explode( ':', $commentParts[1], 2 );
 				$user = User::newFromName( $username ) ?: $username;
-				$comment = wfMessage( 'wikibaseschema-summary-restore-autocomment' )
+				$comment = wfMessage( 'entityschema-summary-restore-autocomment' )
 					->params( $revId, $user );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO:
 				list( $revId, $username ) = explode( ':', $commentParts[1], 2 );
 				$user = User::newFromName( $username ) ?: $username;
-				$comment = wfMessage( 'wikibaseschema-summary-undo-autocomment' )
+				$comment = wfMessage( 'entityschema-summary-undo-autocomment' )
 					->params( $revId, $user );
 				break;
 			default:

@@ -7,10 +7,10 @@
 			"A Chinese Wikipedian"
 		]
 	},
-	"wikibaseschema-newschema-submit": "创建",
-	"wikibaseschema-summary-generated": "摘要（将附加于自动生成的摘要中）：",
-	"wikibaseschema-undo-heading": "正在撤销到“$1”的编辑",
-	"wikibaseschema-undo-heading-failed": "撤销失败",
-	"wikibaseschema-undo-old-revision": "撤销的修订版本",
-	"wikibaseschema-special-label": "标签："
+	"entityschema-newschema-submit": "创建",
+	"entityschema-summary-generated": "摘要（将附加于自动生成的摘要中）：",
+	"entityschema-undo-heading": "正在撤销到“$1”的编辑",
+	"entityschema-undo-heading-failed": "撤销失败",
+	"entityschema-undo-old-revision": "撤销的修订版本",
+	"entityschema-special-label": "标签："
 }

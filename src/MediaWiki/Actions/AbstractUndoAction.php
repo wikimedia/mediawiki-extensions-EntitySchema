@@ -29,7 +29,7 @@ abstract class AbstractUndoAction extends ViewAction {
 		$olderRevision = $revStore->getRevisionById( $req->getInt( 'undoafter' ) );
 
 		if ( $newerRevision === null || $olderRevision === null ) {
-			return Status::newFatal( 'wikibaseschema-undo-bad-revisions' );
+			return Status::newFatal( 'entityschema-undo-bad-revisions' );
 		}
 
 		/** @var WikibaseSchemaContent $undoFromContent */
@@ -40,7 +40,7 @@ abstract class AbstractUndoAction extends ViewAction {
 		try {
 			$undoHandler->validateContentIds( $undoFromContent, $undoToContent );
 		} catch ( DomainException $e ) {
-			return Status::newFatal( 'wikibaseschema-error-inconsistent-id' );
+			return Status::newFatal( 'entityschema-error-inconsistent-id' );
 		}
 
 		return $undoHandler->getDiffFromContents( $undoFromContent, $undoToContent );
@@ -76,7 +76,7 @@ abstract class AbstractUndoAction extends ViewAction {
 	 */
 	protected function showUndoErrorPage( Status $status ) {
 		$this->getOutput()->prepareErrorPage(
-			$this->msg( 'wikibaseschema-undo-heading-failed' ),
+			$this->msg( 'entityschema-undo-heading-failed' ),
 			$this->msg( 'errorpagetitle' )
 		);
 

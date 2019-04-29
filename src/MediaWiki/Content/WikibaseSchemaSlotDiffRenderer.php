@@ -84,24 +84,24 @@ class WikibaseSchemaSlotDiffRenderer extends SlotDiffRenderer {
 		$nameBadgeDiffOps = [];
 		if ( isset( $diff['labels'] ) ) {
 			$nameBadgeDiffOps[
-				$this->msgLocalizer->msg( 'wikibaseschema-diff-label' )->text()
+				$this->msgLocalizer->msg( 'entityschema-diff-label' )->text()
 				] = $diff['labels'];
 		}
 		if ( isset( $diff['descriptions'] ) ) {
 			$nameBadgeDiffOps[
-				$this->msgLocalizer->msg( 'wikibaseschema-diff-description' )->text()
+				$this->msgLocalizer->msg( 'entityschema-diff-description' )->text()
 			] = $diff['descriptions'];
 		}
 		if ( isset( $diff['aliases'] ) ) {
 			$nameBadgeDiffOps[
-				$this->msgLocalizer->msg( 'wikibaseschema-diff-aliases' )->text()
+				$this->msgLocalizer->msg( 'entityschema-diff-aliases' )->text()
 			] = $diff['aliases'];
 		}
 		$nameBadgeDiff = $this->renderDiffOp( [], new Diff( $nameBadgeDiffOps, true ) );
 
 		if ( isset( $diff['schemaText'] ) ) {
 			$schemaDiff = $this->renderTextDiff(
-				$this->msgLocalizer->msg( 'wikibaseschema-diff-schema' )->text(),
+				$this->msgLocalizer->msg( 'entityschema-diff-schema' )->text(),
 				$diff['schemaText']
 			);
 		} else {

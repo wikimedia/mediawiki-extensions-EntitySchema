@@ -4,9 +4,9 @@
 			"Papuass"
 		]
 	},
-	"wikibaseschema-newschema-submit": "Izveidot",
-	"wikibaseschema-edit": "labot",
-	"wikibaseschema-special-id-inputlabel": "ID",
-	"wikibaseschema-special-language-inputlabel": "Valodas kods",
-	"wikibaseschema-special-description": "Apraksts:"
+	"entityschema-newschema-submit": "Izveidot",
+	"entityschema-edit": "labot",
+	"entityschema-special-id-inputlabel": "ID",
+	"entityschema-special-language-inputlabel": "Valodas kods",
+	"entityschema-special-description": "Apraksts:"
 }

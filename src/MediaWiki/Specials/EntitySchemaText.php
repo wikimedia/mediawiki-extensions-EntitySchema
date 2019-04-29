@@ -27,7 +27,7 @@ class EntitySchemaText extends SpecialPage {
 		parent::execute( $subPage );
 		$schemaId = $this->getIdFromSubpage( $subPage );
 		if ( !$schemaId ) {
-			$this->getOutput()->addWikiMsg( 'wikibaseschema-schematext-text' );
+			$this->getOutput()->addWikiMsg( 'entityschema-schematext-text' );
 			$this->getOutput()->returnToMain();
 			return;
 		}
@@ -35,7 +35,7 @@ class EntitySchemaText extends SpecialPage {
 
 		if ( !$title->exists() ) {
 			throw new HttpError( 404, $this->getOutput()->msg(
-				'wikibaseschema-schematext-missing', $subPage
+				'entityschema-schematext-missing', $subPage
 			) );
 		}
 

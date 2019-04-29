@@ -79,7 +79,7 @@ class WikibaseSchemaHooksTest extends MediaWikiTestCase {
 
 		$this->assertFalse( $ret );
 		$expected = '<span dir="auto"><span class="autocomment">' .
-			'(wikibaseschema-summary-newschema-nolabel)' .
+			'(entityschema-summary-newschema-nolabel)' .
 			'(colon-separator)' .
 			'</span></span>';
 		$this->assertSame( $expected, $comment );
