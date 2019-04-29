@@ -22,7 +22,7 @@ class SqlIdGeneratorTest extends MediaWikiTestCase {
 	public function testGetNewId() {
 		$generator = new SqlIdGenerator(
 			MediaWikiServices::getInstance()->getDBLoadBalancer(),
-			'wbschema_id_counter'
+			'entityschema_id_counter'
 		);
 
 		$id1 = $generator->getNewId();
@@ -47,7 +47,7 @@ class SqlIdGeneratorTest extends MediaWikiTestCase {
 
 		$generator = new SqlIdGenerator(
 			$loadBalancer,
-			'wbschema_id_counter'
+			'entityschema_id_counter'
 		);
 
 		$generator->getNewId();

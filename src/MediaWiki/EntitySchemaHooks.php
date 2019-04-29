@@ -26,8 +26,8 @@ final class EntitySchemaHooks {
 	 */
 	public static function onCreateDBSchema( DatabaseUpdater $updater ) {
 		$updater->addExtensionTable(
-			'wbschema_id_counter',
-			__DIR__ . '/../../sql/WikibaseSchema.sql'
+			'entityschema_id_counter',
+			__DIR__ . '/../../sql/EntitySchema.sql'
 		);
 
 		$updater->modifyExtensionField(

@@ -80,7 +80,7 @@ class NewEntitySchema extends SpecialPage {
 
 		$idGenerator = new SqlIdGenerator(
 			MediaWikiServices::getInstance()->getDBLoadBalancer(),
-			'wbschema_id_counter'
+			'entityschema_id_counter'
 		);
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $this->getUser() );
