@@ -214,7 +214,7 @@ class NewEntitySchema extends SpecialPage {
 	private function addJavaScript() {
 		$output = $this->getOutput();
 		$output->addModules( [
-			'ext.WikibaseSchema.special.newSchema',
+			'ext.EntitySchema.special.newSchema',
 		] );
 		$output->addJsConfigVars( [
 			'wgWBSchemaSchemaTextMaxSizeBytes' =>

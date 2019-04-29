@@ -167,7 +167,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		}
 
 		$output->addModules( [
-			'ext.WikibaseSchema.special.setSchemaLabelDescriptionAliases.edit'
+			'ext.EntitySchema.special.setSchemaLabelDescriptionAliases.edit'
 		] );
 		$output->addJsConfigVars(
 			'wgWBSchemaNameBadgeMaxSizeChars',

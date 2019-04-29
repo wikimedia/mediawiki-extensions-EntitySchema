@@ -52,8 +52,8 @@ class EntitySchemaSlotViewRenderer {
 		Title $title,
 		ParserOutput $output
 	) {
-		$output->addModules( 'ext.WikibaseSchema.action.view.trackclicks' );
-		$output->addModuleStyles( 'ext.WikibaseSchema.view' );
+		$output->addModules( 'ext.EntitySchema.action.view.trackclicks' );
+		$output->addModuleStyles( 'ext.EntitySchema.view' );
 		$output->setText(
 			$this->renderNameBadges( $title, $schemaData->nameBadges ) .
 			$this->renderSchemaSection( $title, $schemaData->schemaText )

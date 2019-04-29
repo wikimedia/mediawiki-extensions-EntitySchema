@@ -74,12 +74,12 @@
 		}
 	},
 	"ResourceModules": {
-		"ext.WikibaseSchema.view": {
+		"ext.EntitySchema.view": {
 			"styles": [ "viewSchema.less" ],
 			"localBasePath": "resources",
 			"remoteExtPath": "WikibaseSchema/resources"
 		},
-		"ext.WikibaseSchema.special.setSchemaLabelDescriptionAliases.edit": {
+		"ext.EntitySchema.special.setSchemaLabelDescriptionAliases.edit": {
 			"scripts": [ "special.setSchemaLabelDescriptionAliases.edit.js" ],
 			"dependencies": [
 				"oojs-ui-widgets",
@@ -88,7 +88,7 @@
 			"localBasePath": "resources",
 			"remoteExtPath": "WikibaseSchema/resources"
 		},
-		"ext.WikibaseSchema.special.newSchema": {
+		"ext.EntitySchema.special.newSchema": {
 			"scripts": [ "special.newSchema.js" ],
 			"dependencies": [
 				"oojs-ui-widgets",
@@ -97,7 +97,7 @@
 			"localBasePath": "resources",
 			"remoteExtPath": "WikibaseSchema/resources"
 		},
-		"ext.WikibaseSchema.action.edit": {
+		"ext.EntitySchema.action.edit": {
 			"scripts": [ "action.edit.js" ],
 			"dependencies": [
 				"oojs-ui-widgets",
@@ -106,7 +106,7 @@
 			"localBasePath": "resources",
 			"remoteExtPath": "WikibaseSchema/resources"
 		},
-		"ext.WikibaseSchema.action.view.trackclicks": {
+		"ext.EntitySchema.action.view.trackclicks": {
 			"scripts": [ "action.view.trackclicks.js" ],
 			"localBasePath": "resources",
 			"remoteExtPath": "WikibaseSchema/resources"

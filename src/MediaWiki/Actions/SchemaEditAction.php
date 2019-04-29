@@ -44,7 +44,7 @@ class SchemaEditAction extends FormAction {
 
 		$output = $this->getOutput();
 		$output->addModules( [
-			'ext.WikibaseSchema.action.edit'
+			'ext.EntitySchema.action.edit'
 		] );
 		$output->addJsConfigVars(
 			'wgWBSchemaSchemaTextMaxSizeBytes',
