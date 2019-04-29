@@ -531,7 +531,7 @@ SHEXC;
 		$expectedComment = CommentStoreComment::newUnsavedComment(
 			'/* ' . MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_SCHEMATEXT . ' */user given',
 			[
-				'key' => 'wikibaseschema-summary-update-schema-text',
+				'key' => 'entityschema-summary-update-schema-text',
 				'schemaText_truncated' => 'new schema text',
 				'userSummary' => 'user given',
 			]

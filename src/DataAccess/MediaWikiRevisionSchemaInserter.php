@@ -15,7 +15,7 @@ use EntitySchema\Services\SchemaConverter\SchemaConverter;
  * @license GPL-2.0-or-later
  */
 class MediaWikiRevisionSchemaInserter implements SchemaInserter {
-	const AUTOCOMMENT_NEWSCHEMA = 'wikibaseschema-summary-newschema-nolabel';
+	const AUTOCOMMENT_NEWSCHEMA = 'entityschema-summary-newschema-nolabel';
 
 	private $pageUpdaterFactory;
 	private $idGenerator;
