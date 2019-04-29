@@ -77,7 +77,7 @@ class InputValidator {
 	 * @throws ConfigException
 	 */
 	public function validateSchemaTextLength( $schemaText ) {
-		$maxLengthBytes = $this->configService->get( 'WBSchemaSchemaTextMaxSizeBytes' );
+		$maxLengthBytes = $this->configService->get( 'EntitySchemaSchemaTextMaxSizeBytes' );
 		$schemaTextLengthBytes = strlen( $schemaText );
 		if ( $schemaTextLengthBytes > $maxLengthBytes ) {
 			return $this->msgLocalizer->msg( 'entityschema-error-schematext-too-long' )
@@ -88,7 +88,7 @@ class InputValidator {
 	}
 
 	public function validateAliasesLength( $aliasesInput ) {
-		$maxLengthChars = $this->configService->get( 'WBSchemaNameBadgeMaxSizeChars' );
+		$maxLengthChars = $this->configService->get( 'EntitySchemaNameBadgeMaxSizeChars' );
 		$cleanAliasesString = implode( '', array_map( 'trim', explode( '|', $aliasesInput ) ) );
 		$aliasesLengthChars = mb_strlen( $cleanAliasesString );
 		if ( $aliasesLengthChars > $maxLengthChars ) {
@@ -100,7 +100,7 @@ class InputValidator {
 	}
 
 	public function validateStringInputLength( $labelOrDescriptionInput ) {
-		$maxLengthChars = $this->configService->get( 'WBSchemaNameBadgeMaxSizeChars' );
+		$maxLengthChars = $this->configService->get( 'EntitySchemaNameBadgeMaxSizeChars' );
 		$numInputChars = mb_strlen( $labelOrDescriptionInput );
 		if ( $numInputChars > $maxLengthChars ) {
 			return $this->msgLocalizer->msg( 'entityschema-error-input-too-long' )

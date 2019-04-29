@@ -12,8 +12,8 @@
 	}
 
 	$( function () {
-		var schemaNameBadgeMaxSizeChars = mw.config.get( 'wgWBSchemaNameBadgeMaxSizeChars' ),
-			schemaSchemaTextMaxSizeBytes = mw.config.get( 'wgWBSchemaSchemaTextMaxSizeBytes' ),
+		var schemaNameBadgeMaxSizeChars = mw.config.get( 'wgEntitySchemaNameBadgeMaxSizeChars' ),
+			schemaSchemaTextMaxSizeBytes = mw.config.get( 'wgEntitySchemaSchemaTextMaxSizeBytes' ),
 			labelInput = OO.ui.infuse( 'entityschema-newschema-label' ),
 			descriptionInput = OO.ui.infuse( 'entityschema-newschema-description' ),
 			aliasInput = OO.ui.infuse( 'entityschema-newschema-aliases' ),

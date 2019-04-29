@@ -47,8 +47,8 @@ class SchemaEditAction extends FormAction {
 			'ext.EntitySchema.action.edit'
 		] );
 		$output->addJsConfigVars(
-			'wgWBSchemaSchemaTextMaxSizeBytes',
-			intval( $this->getContext()->getConfig()->get( 'WBSchemaSchemaTextMaxSizeBytes' ) )
+			'wgEntitySchemaSchemaTextMaxSizeBytes',
+			intval( $this->getContext()->getConfig()->get( 'EntitySchemaSchemaTextMaxSizeBytes' ) )
 		);
 	}
 

@@ -144,7 +144,7 @@ class SchemaEncoder {
 
 	private static function validateLDAMaxLength( $localizedString ) {
 		$maxLengthChars = MediaWikiServices::getInstance()->getMainConfig()
-			->get( 'WBSchemaNameBadgeMaxSizeChars' );
+			->get( 'EntitySchemaNameBadgeMaxSizeChars' );
 		if ( mb_strlen( $localizedString ) > $maxLengthChars ) {
 			throw new InvalidArgumentException(
 				'Identifying information is longer than the allowed max of ' . $maxLengthChars . ' characters!'
@@ -154,7 +154,7 @@ class SchemaEncoder {
 
 	private static function validateSchemaMaxLength( $schemaText ) {
 		$maxLengthBytes = MediaWikiServices::getInstance()->getMainConfig()
-			->get( 'WBSchemaSchemaTextMaxSizeBytes' );
+			->get( 'EntitySchemaSchemaTextMaxSizeBytes' );
 		if ( strlen( $schemaText ) > $maxLengthBytes ) {
 			throw new InvalidArgumentException(
 				'Schema text is longer than the allowed max of ' . $maxLengthBytes . ' bytes!'

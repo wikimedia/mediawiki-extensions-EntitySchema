@@ -197,7 +197,7 @@ class EntitySchemaSlotViewRenderer {
 	}
 
 	private function renderSchemaCheckLink( Title $title ) {
-		$url = $this->config->get( 'WBSchemaShExSimpleUrl' );
+		$url = $this->config->get( 'EntitySchemaShExSimpleUrl' );
 		if ( !$url ) {
 			return '';
 		}

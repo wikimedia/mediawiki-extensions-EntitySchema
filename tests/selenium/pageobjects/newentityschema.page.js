@@ -51,13 +51,13 @@ class NewEntitySchemaPage extends Page {
 
 	getSchemaNameBadgeMaxSizeChars() {
 		return browser.execute( () => {
-			return mw.config.get( 'wgWBSchemaNameBadgeMaxSizeChars' );
+			return mw.config.get( 'wgEntitySchemaNameBadgeMaxSizeChars' );
 		} ).value;
 	}
 
 	getSchemaSchemaTextMaxSizeBytes() {
 		return browser.execute( () => {
-			return mw.config.get( 'wgWBSchemaSchemaTextMaxSizeBytes' );
+			return mw.config.get( 'wgEntitySchemaSchemaTextMaxSizeBytes' );
 		} ).value;
 	}
 

@@ -170,8 +170,8 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 			'ext.EntitySchema.special.setSchemaLabelDescriptionAliases.edit'
 		] );
 		$output->addJsConfigVars(
-			'wgWBSchemaNameBadgeMaxSizeChars',
-			intval( $this->getConfig()->get( 'WBSchemaNameBadgeMaxSizeChars' ) )
+			'wgEntitySchemaNameBadgeMaxSizeChars',
+			intval( $this->getConfig()->get( 'EntitySchemaNameBadgeMaxSizeChars' ) )
 		);
 		$this->displayWarnings( $output );
 		$form->displayForm( $submitStatus ?? Status::newGood() );

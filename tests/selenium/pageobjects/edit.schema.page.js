@@ -30,7 +30,7 @@ class EditSchemaPage extends Page {
 
 	getSchemaSchemaTextMaxSizeBytes() {
 		return browser.execute( () => {
-			return mw.config.get( 'wgWBSchemaSchemaTextMaxSizeBytes' );
+			return mw.config.get( 'wgEntitySchemaSchemaTextMaxSizeBytes' );
 		} ).value;
 	}
 

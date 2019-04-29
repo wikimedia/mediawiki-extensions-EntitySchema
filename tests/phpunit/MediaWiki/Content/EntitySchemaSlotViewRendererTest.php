@@ -191,7 +191,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 			'en',
 			null,
 			new MultiConfig( [
-				new HashConfig( [ 'WBSchemaShExSimpleUrl' => 'http://my.test?foo=bar#fragment' ] ),
+				new HashConfig( [ 'EntitySchemaShExSimpleUrl' => 'http://my.test?foo=bar#fragment' ] ),
 				MediaWikiServices::getInstance()->getMainConfig(),
 			] )
 		);

@@ -217,10 +217,10 @@ class NewEntitySchema extends SpecialPage {
 			'ext.EntitySchema.special.newSchema',
 		] );
 		$output->addJsConfigVars( [
-			'wgWBSchemaSchemaTextMaxSizeBytes' =>
-				intval( $this->getConfig()->get( 'WBSchemaSchemaTextMaxSizeBytes' ) ),
-			'wgWBSchemaNameBadgeMaxSizeChars' =>
-				intval( $this->getConfig()->get( 'WBSchemaNameBadgeMaxSizeChars' ) )
+			'wgEntitySchemaSchemaTextMaxSizeBytes' =>
+				intval( $this->getConfig()->get( 'EntitySchemaSchemaTextMaxSizeBytes' ) ),
+			'wgEntitySchemaNameBadgeMaxSizeChars' =>
+				intval( $this->getConfig()->get( 'EntitySchemaNameBadgeMaxSizeChars' ) )
 		] );
 	}
 

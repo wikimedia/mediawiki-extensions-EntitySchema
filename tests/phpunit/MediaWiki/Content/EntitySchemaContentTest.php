@@ -53,7 +53,7 @@ class EntitySchemaContentTest extends MediaWikiTestCase {
 			'schemaText' => 'Some text must be present for link to show',
 			'serializationVersion' => '3.0',
 		] ) );
-		$this->setMwGlobals( 'wgWBSchemaShExSimpleUrl', $shExSimpleUrl );
+		$this->setMwGlobals( 'wgEntitySchemaShExSimpleUrl', $shExSimpleUrl );
 
 		$parserOutput = $content->getParserOutput( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ) );
 		$html = $parserOutput->getText();

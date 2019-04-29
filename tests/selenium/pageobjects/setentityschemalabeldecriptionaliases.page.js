@@ -53,7 +53,7 @@ class SetEntitySchemaLabelDescriptionAliasesPage extends Page {
 
 	getSchemaNameBadgeMaxSizeChars() {
 		return browser.execute( () => {
-			return mw.config.get( 'wgWBSchemaNameBadgeMaxSizeChars' );
+			return mw.config.get( 'wgEntitySchemaNameBadgeMaxSizeChars' );
 		} ).value;
 	}
 
