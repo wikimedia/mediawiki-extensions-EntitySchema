@@ -6,7 +6,7 @@
 		]
 	},
 	"entityschema-desc": "تخزين ومناقشة المخططات لكيانات قاعدة الويكي",
-	"special-newschema": "إنشاء مخطط جديد",
+	"special-newschema": "إنشاء مخطط كيان جديد",
 	"entityschema-newschema-label": "التسمية:",
 	"entityschema-newschema-description": "الوصف:",
 	"entityschema-newschema-aliases": "الأسماء المستعارة، مفصولة بأنابيب:",
@@ -69,7 +69,7 @@
 	"entityschema-restore-heading-failed": "فشل الاسترجاع",
 	"entityschema-restore-empty": "النسخة السابقة التي حاولت استعادتها مطابقة للنسخة الحالية؛ لا شيء لفعله.",
 	"entityschema-restoreold": "استرجاع",
-	"special-schematext": "نص المخطط",
+	"special-schematext": "نص مخطط الكيان",
 	"entityschema-schematext-text": "توفر هذه الصفحة واجهة للنص الخام للمخطط، الرجاء تقديم معرف المخطط في المسار، باستخدام بناء جملة الصفحة الفرعية.",
 	"entityschema-schematext-missing": "مخطط مفقود أو محذوف: $1.",
 	"entityschema-special-setlabeldescriptionaliases": "تعيين التسمية والوصف والأسماء المستعارة لمخطط",

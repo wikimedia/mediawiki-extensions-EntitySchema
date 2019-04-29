@@ -6,7 +6,7 @@
 		]
 	},
 	"entityschema-desc": "Stocker et discuter des schémas pour les entités de Wikibase",
-	"special-newschema": "Créer un nouveau schéma",
+	"special-newschema": "Créer un nouveau EntitySchema",
 	"entityschema-newschema-label": "Libellé :",
 	"entityschema-newschema-description": "Description :",
 	"entityschema-newschema-aliases": "Alias séparés par des barres verticales :",
@@ -69,7 +69,7 @@
 	"entityschema-restore-heading-failed": "Echec du rétablissment",
 	"entityschema-restore-empty": "La révision que vous essayez de restaurer est identique à la révision actuelle. Rien à faire.",
 	"entityschema-restoreold": "rétablir",
-	"special-schematext": "Texte du schéma",
+	"special-schematext": "Texte de EntitySchema",
 	"entityschema-schematext-text": "Cette page fournit une interface pour le texte brut d’un schéma. Veuillez fournir l’ID du schéma dans l’URL, en utilisant la syntaxe d’une sous-page.",
 	"entityschema-schematext-missing": "Schéma manquant ou supprimé : $1.",
 	"entityschema-special-setlabeldescriptionaliases": "Définir le libellé, la description et les alias pour le schéma",

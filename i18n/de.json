@@ -5,7 +5,7 @@
 		]
 	},
 	"entityschema-desc": "Ermöglicht die Speicherung und Diskussion von Schemata für Wikibase-Objekte",
-	"special-newschema": "Ein neues Schema erstellen",
+	"special-newschema": "Ein neues EntitySchema erstellen",
 	"entityschema-newschema-label": "Bezeichnung:",
 	"entityschema-newschema-description": "Beschreibung:",
 	"entityschema-newschema-aliases": "Aliasse, durch senkrechte Striche getrennt:",
@@ -68,7 +68,7 @@
 	"entityschema-restore-heading-failed": "Wiederherstellung fehlgeschlagen",
 	"entityschema-restore-empty": "Die Version, die du wiederherstellen wolltest, ist mit der aktuellen Version identisch. Es gibt nichts zu tun.",
 	"entityschema-restoreold": "wiederherstellen",
-	"special-schematext": "Schematext",
+	"special-schematext": "EntitySchema-Text",
 	"entityschema-schematext-text": "Diese Seite stellt eine Oberfläche für den Rohtext eines Schemas bereit. Gib bitte die Kennung des Schemas in der URL an und verwende die Unterseitensyntax.",
 	"entityschema-schematext-missing": "Fehlendes oder gelöschtes Schema: $1.",
 	"entityschema-special-setlabeldescriptionaliases": "Bezeichnung, Beschreibung und Aliasse für das Schema festlegen",
