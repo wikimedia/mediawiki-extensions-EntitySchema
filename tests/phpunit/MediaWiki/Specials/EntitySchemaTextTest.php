@@ -9,7 +9,7 @@ use MediaWiki\Revision\SlotRecord;
 use SpecialPageTestBase;
 use Title;
 use WebResponse;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Specials\EntitySchemaText;
 use WikiPage;
 
@@ -82,7 +82,7 @@ ShExC;
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {
 		$content['serializationVersion'] = '3.0';
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new WikibaseSchemaContent( json_encode( $content ) ) );
+		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
 		$firstRevRecord = $updater->saveRevision(
 			CommentStoreComment::newUnsavedComment(
 				'test summary 1'

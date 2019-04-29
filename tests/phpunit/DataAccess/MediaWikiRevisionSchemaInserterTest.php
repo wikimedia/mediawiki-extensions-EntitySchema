@@ -10,7 +10,7 @@ use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 
 /**
  * @license GPL-2.0-or-later
@@ -27,7 +27,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiTestCase {
 		$schemaText = '#some fake schema {}';
 		$id = 'E123';
 
-		$expectedContent = new WikibaseSchemaContent(
+		$expectedContent = new EntitySchemaContent(
 			json_encode(
 				[
 					'id' => $id,
@@ -116,7 +116,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiTestCase {
 	}
 
 	private function getPageUpdaterFactoryExpectingContent(
-		WikibaseSchemaContent $expectedContent
+		EntitySchemaContent $expectedContent
 	): MediaWikiPageUpdaterFactory {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'wasSuccessful' )->willReturn( true );

@@ -10,8 +10,8 @@ use RequestContext;
 use TextSlotDiffRenderer;
 use Title;
 use EntitySchema\MediaWiki\Actions\RestoreViewAction;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use WikiPage;
 
 /**
@@ -56,7 +56,7 @@ final class RestoreViewActionTest extends MediaWikiTestCase {
 
 		$textSlotDiffRenderer = new TextSlotDiffRenderer();
 		$textSlotDiffRenderer->setEngine( TextSlotDiffRenderer::ENGINE_PHP );
-		$diffRenderer = new WikibaseSchemaSlotDiffRenderer(
+		$diffRenderer = new EntitySchemaSlotDiffRenderer(
 			$context,
 			$textSlotDiffRenderer
 		);
@@ -74,7 +74,7 @@ final class RestoreViewActionTest extends MediaWikiTestCase {
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {
 		$content['serializationVersion'] = '3.0';
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new WikibaseSchemaContent( json_encode( $content ) ) );
+		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
 		$firstRevRecord = $updater->saveRevision(
 			CommentStoreComment::newUnsavedComment(
 				'test summary 1'

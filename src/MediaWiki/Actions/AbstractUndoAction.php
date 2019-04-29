@@ -9,7 +9,7 @@ use MediaWiki\Revision\SlotRecord;
 use Status;
 use ViewAction;
 use WebRequest;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\UndoHandler;
 
 /**
@@ -32,9 +32,9 @@ abstract class AbstractUndoAction extends ViewAction {
 			return Status::newFatal( 'entityschema-undo-bad-revisions' );
 		}
 
-		/** @var WikibaseSchemaContent $undoFromContent */
+		/** @var EntitySchemaContent $undoFromContent */
 		$undoFromContent = $newerRevision->getContent( SlotRecord::MAIN );
-		/** @var WikibaseSchemaContent $undoToContent */
+		/** @var EntitySchemaContent $undoToContent */
 		$undoToContent = $olderRevision->getContent( SlotRecord::MAIN );
 		$undoHandler = new UndoHandler();
 		try {
@@ -56,7 +56,7 @@ abstract class AbstractUndoAction extends ViewAction {
 	protected function tryPatching( Diff $diff ): Status {
 		$revStore = MediaWikiServices::getInstance()->getRevisionStore();
 		$baseRevId = $this->getTitle()->getLatestRevID();
-		/** @var WikibaseSchemaContent $baseContent */
+		/** @var EntitySchemaContent $baseContent */
 		$baseContent = $revStore
 			->getRevisionById( $baseRevId )
 			->getContent( SlotRecord::MAIN );

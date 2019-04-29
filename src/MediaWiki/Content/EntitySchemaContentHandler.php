@@ -27,20 +27,20 @@ use EntitySchema\Presentation\InputValidator;
 use WikiPage;
 
 /**
- * Content handler for the Wikibase Schema content
+ * Content handler for the EntitySchema content
  */
-class WikibaseSchemaContentHandler extends JsonContentHandler {
+class EntitySchemaContentHandler extends JsonContentHandler {
 
-	public function __construct( $modelId = WikibaseSchemaContent::CONTENT_MODEL_ID ) {
+	public function __construct( $modelId = EntitySchemaContent::CONTENT_MODEL_ID ) {
 		parent::__construct( $modelId );
 	}
 
 	protected function getContentClass() {
-		return WikibaseSchemaContent::class;
+		return EntitySchemaContent::class;
 	}
 
 	protected function getSlotDiffRendererInternal( IContextSource $context ): SlotDiffRenderer {
-		return new WikibaseSchemaSlotDiffRenderer( $context );
+		return new EntitySchemaSlotDiffRenderer( $context );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 				) {
 					return new UndoViewAction(
 						$page,
-						new WikibaseSchemaSlotDiffRenderer( $context ),
+						new EntitySchemaSlotDiffRenderer( $context ),
 						$context
 					);
 				}
@@ -92,7 +92,7 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 				if ( $req->getCheck( 'restore' ) ) {
 					return new RestoreViewAction(
 						$page,
-						new WikibaseSchemaSlotDiffRenderer( $context ),
+						new EntitySchemaSlotDiffRenderer( $context ),
 						$context
 					);
 				}
@@ -177,7 +177,7 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 		}
 		$patchedSchema = $patchStatus->getValue()->data;
 
-		return new WikibaseSchemaContent( SchemaEncoder::getPersistentRepresentation(
+		return new EntitySchemaContent( SchemaEncoder::getPersistentRepresentation(
 			$schemaId,
 			$patchedSchema['labels'],
 			$patchedSchema['descriptions'],
@@ -190,7 +190,7 @@ class WikibaseSchemaContentHandler extends JsonContentHandler {
 	 * Returns true to indicate that the parser cache can be used for Schemas.
 	 *
 	 * @note: The html representation of Schemas depends on the user language, so
-	 * WikibaseSchemaContent::getParserOutput needs to make sure
+	 * EntitySchemaContent::getParserOutput needs to make sure
 	 * ParserOutput::recordOption( 'userlang' ) is called to split the cache by user language.
 	 *
 	 * @see ContentHandler::isParserCacheSupported

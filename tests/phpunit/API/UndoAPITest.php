@@ -9,12 +9,12 @@ use MediaWikiTestCase;
 use Title;
 use EntitySchema\DataAccess\SchemaEncoder;
 use EntitySchema\Domain\Model\SchemaId;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use WikiPage;
 
 /**
  * @group Database
- * @covers \EntitySchema\MediaWiki\Content\WikibaseSchemaContentHandler::getUndoContent
+ * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler::getUndoContent
  *
  * @license GPL-2.0-or-later
  */
@@ -28,7 +28,7 @@ class UndoAPITest extends MediaWikiTestCase {
 	}
 
 	public function testGetUndoContentUndoLatest() {
-		$handler = new \EntitySchema\MediaWiki\Content\WikibaseSchemaContentHandler();
+		$handler = new \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler();
 
 		$id = 'E456';
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
@@ -56,7 +56,7 @@ class UndoAPITest extends MediaWikiTestCase {
 	}
 
 	public function testGetUndoContent() {
-		$handler = new \EntitySchema\MediaWiki\Content\WikibaseSchemaContentHandler();
+		$handler = new \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler();
 
 		$id = 'E456';
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
@@ -96,7 +96,7 @@ class UndoAPITest extends MediaWikiTestCase {
 	private function saveSchemaPageContent( WikiPage $page, array $content ): RevisionRecord {
 		$content['serializationVersion'] = '3.0';
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new WikibaseSchemaContent( json_encode( $content ) ) );
+		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
 		$firstRevRecord = $updater->saveRevision(
 			CommentStoreComment::newUnsavedComment(
 				'test summary 1'

@@ -5,14 +5,14 @@ namespace EntitySchema\Tests\MediaWiki\Content;
 use PHPUnit\Framework\TestCase;
 use RequestContext;
 use TextSlotDiffRenderer;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 
 /**
  * @license GPL-2.0-or-later
- * @covers \EntitySchema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer
+ * @covers \EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer
  */
-class WikibaseSchemaSlotDiffRendererTest extends TestCase {
+class EntitySchemaSlotDiffRendererTest extends TestCase {
 
 	public function diffDataProvider() {
 
@@ -165,12 +165,12 @@ HTML;
 	 * @dataProvider diffDataProvider
 	 */
 	public function testGetDiff( $oldSchema, $newSchema, $expectedHTML ) {
-		$oldContent = new WikibaseSchemaContent( json_encode( $oldSchema ) );
-		$newContent = new WikibaseSchemaContent( json_encode( $newSchema ) );
+		$oldContent = new EntitySchemaContent( json_encode( $oldSchema ) );
+		$newContent = new EntitySchemaContent( json_encode( $newSchema ) );
 		$context = RequestContext::getMain();
 		$textSlotDiffRenderer = new TextSlotDiffRenderer();
 		$textSlotDiffRenderer->setEngine( TextSlotDiffRenderer::ENGINE_PHP );
-		$diffRenderer = new WikibaseSchemaSlotDiffRenderer(
+		$diffRenderer = new EntitySchemaSlotDiffRenderer(
 			$context,
 			$textSlotDiffRenderer
 		);

@@ -15,12 +15,12 @@ use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\SchemaId;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
- * Edit a Wikibase Schema via the mediawiki editing action
+ * Edit a EntitySchema via the mediawiki editing action
  */
 class SchemaEditAction extends FormAction {
 
@@ -69,10 +69,10 @@ class SchemaEditAction extends FormAction {
 	 */
 	public function onSubmit( $data ) {
 		/**
-		 * @var $content WikibaseSchemaContent
+		 * @var $content EntitySchemaContent
 		 */
 		$content = $this->getContext()->getWikiPage()->getContent();
-		if ( !$content instanceof WikibaseSchemaContent ) {
+		if ( !$content instanceof EntitySchemaContent ) {
 			return Status::newFatal( $this->msg( 'entityschema-error-schemadeleted' ) );
 		}
 
@@ -112,7 +112,7 @@ class SchemaEditAction extends FormAction {
 			throw new RuntimeException( $this->msg( 'entityschema-error-schemadeleted' ) );
 		}
 
-		/** @var WikibaseSchemaContent $content */
+		/** @var EntitySchemaContent $content */
 		$content = $currentRevRecord->getContent( SlotRecord::MAIN );
 		// @phan-suppress-next-line PhanUndeclaredMethod
 		$schemaText = ( new SchemaConverter() )->getSchemaText( $content->getText() );

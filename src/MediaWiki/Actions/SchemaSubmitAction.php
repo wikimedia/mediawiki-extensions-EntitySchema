@@ -3,7 +3,7 @@
 namespace EntitySchema\MediaWiki\Actions;
 
 /**
- * Action to handle a submitted Wikibase Schema page
+ * Action to handle a submitted EntitySchema page
  */
 class SchemaSubmitAction extends SchemaEditAction {
 

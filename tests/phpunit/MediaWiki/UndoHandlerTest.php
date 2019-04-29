@@ -6,7 +6,7 @@ use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpChange;
 use DomainException;
 use MediaWikiTestCase;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\UndoHandler;
 
 /**
@@ -19,19 +19,19 @@ class UndoHandlerTest extends MediaWikiTestCase {
 	public function testAssertSameId() {
 		$id = 'E123';
 
-		$content1 = new WikibaseSchemaContent(
+		$content1 = new EntitySchemaContent(
 			json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 			] )
 		);
-		$content2 = new WikibaseSchemaContent(
+		$content2 = new EntitySchemaContent(
 			json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 			] )
 		);
-		$contentBase = new WikibaseSchemaContent(
+		$contentBase = new EntitySchemaContent(
 			json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
@@ -58,13 +58,13 @@ class UndoHandlerTest extends MediaWikiTestCase {
 	 * @dataProvider inconsistentIdProvider
 	 */
 	public function testAssertSameIdFail( $firstID, $secondID, $thirdID ) {
-		$content1 = new WikibaseSchemaContent(
+		$content1 = new EntitySchemaContent(
 			json_encode( [
 				'id' => $firstID,
 				'serializationVersion' => '3.0',
 			] )
 		);
-		$content2 = new WikibaseSchemaContent(
+		$content2 = new EntitySchemaContent(
 			json_encode( [
 				'id' => $secondID,
 				'serializationVersion' => '3.0',
@@ -72,7 +72,7 @@ class UndoHandlerTest extends MediaWikiTestCase {
 		);
 		$contentBase = null;
 		if ( $thirdID !== null ) {
-			$contentBase = new WikibaseSchemaContent(
+			$contentBase = new EntitySchemaContent(
 				json_encode( [
 					'id' => $thirdID,
 					'serializationVersion' => '3.0',
@@ -86,7 +86,7 @@ class UndoHandlerTest extends MediaWikiTestCase {
 	}
 
 	public function testGetDiffFromContents() {
-		$goodContent = new WikibaseSchemaContent(
+		$goodContent = new EntitySchemaContent(
 			json_encode( [
 				'labels' => [
 					'en' => 'abc',
@@ -94,7 +94,7 @@ class UndoHandlerTest extends MediaWikiTestCase {
 				'serializationVersion' => '3.0',
 			] )
 		);
-		$contentToBeUndone = new WikibaseSchemaContent(
+		$contentToBeUndone = new EntitySchemaContent(
 			json_encode( [
 				'labels' => [
 					'en' => 'def',
@@ -125,7 +125,7 @@ class UndoHandlerTest extends MediaWikiTestCase {
 
 	public function testTryPatching() {
 
-		$baseContent = new WikibaseSchemaContent(
+		$baseContent = new EntitySchemaContent(
 			json_encode( [
 				'labels' => [
 					'en' => 'def',
@@ -163,7 +163,7 @@ class UndoHandlerTest extends MediaWikiTestCase {
 
 	public function testTryPatchingFail() {
 
-		$baseContent = new WikibaseSchemaContent(
+		$baseContent = new EntitySchemaContent(
 			json_encode( [
 				'labels' => [
 					'en' => 'ghi',

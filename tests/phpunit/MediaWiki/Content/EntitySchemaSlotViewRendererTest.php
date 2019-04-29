@@ -10,22 +10,22 @@ use MultiConfig;
 use ParserOutput;
 use SpecialPage;
 use Title;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaSlotViewRenderer;
+use EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer;
 use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
 use EntitySchema\Services\SchemaConverter\NameBadge;
 
 /**
- * @covers \EntitySchema\MediaWiki\Content\WikibaseSchemaSlotViewRenderer
+ * @covers \EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer
  *
  * @license GPL-2.0-or-later
  */
-class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
+class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 
 	/**
 	 * @dataProvider provideSchemaDataAndHtmlFragments
 	 */
 	public function testFillParserOutput( FullViewSchemaData $schemaData, array $fragments ) {
-		$renderer = new WikibaseSchemaSlotViewRenderer( 'en' );
+		$renderer = new EntitySchemaSlotViewRenderer( 'en' );
 
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
@@ -121,7 +121,7 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 		$schemaData = new FullViewSchemaData( [
 			'en' => new NameBadge( 'label', 'description', [ 'alias' ] ),
 		], '' );
-		$renderer = new WikibaseSchemaSlotViewRenderer(
+		$renderer = new EntitySchemaSlotViewRenderer(
 			'qqx' // use (message-key) instead of real translations
 		);
 		$this->setMwGlobals( 'wgLang', Language::factory( 'en' ) );
@@ -150,7 +150,7 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 		$schemaData = new FullViewSchemaData( [
 			'en' => new NameBadge( $label, 'description', [ 'alias' ] ),
 		], '' );
-		$renderer = new WikibaseSchemaSlotViewRenderer( 'en' );
+		$renderer = new EntitySchemaSlotViewRenderer( 'en' );
 
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
@@ -185,7 +185,7 @@ class WikibaseSchemaSlotViewRendererTest extends MediaWikiTestCase {
 			[ 'en' => new NameBadge( '', '', [] ) ],
 			'schema text'
 		);
-		$renderer = new WikibaseSchemaSlotViewRenderer(
+		$renderer = new EntitySchemaSlotViewRenderer(
 			'en',
 			null,
 			new MultiConfig( [

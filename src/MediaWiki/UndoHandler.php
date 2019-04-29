@@ -7,7 +7,7 @@ use Diff\Patcher\PatcherException;
 use DomainException;
 use Status;
 use EntitySchema\Domain\Model\SchemaId;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Diff\SchemaDiffer;
 use EntitySchema\Services\Diff\SchemaPatcher;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
@@ -21,9 +21,9 @@ final class UndoHandler {
 	 * @throws DomainException
 	 */
 	public function validateContentIds(
-		WikibaseSchemaContent $undoFromContent,
-		WikibaseSchemaContent $undoToContent,
-		WikibaseSchemaContent $baseContent = null
+		EntitySchemaContent $undoFromContent,
+		EntitySchemaContent $undoToContent,
+		EntitySchemaContent $baseContent = null
 	): SchemaId {
 		$converter = new SchemaConverter();
 		$firstID = $converter->getSchemaID( $undoFromContent->getText() );
@@ -42,8 +42,8 @@ final class UndoHandler {
 	}
 
 	public function getDiffFromContents(
-		WikibaseSchemaContent $undoFromContent,
-		WikibaseSchemaContent $undoToContent
+		EntitySchemaContent $undoFromContent,
+		EntitySchemaContent $undoToContent
 	): Status {
 
 		$differ = new SchemaDiffer();
@@ -56,7 +56,7 @@ final class UndoHandler {
 		return Status::newGood( $diff );
 	}
 
-	public function tryPatching( Diff $diff, WikibaseSchemaContent $baseContent ): Status {
+	public function tryPatching( Diff $diff, EntitySchemaContent $baseContent ): Status {
 
 		$patcher = new SchemaPatcher();
 		$converter = new SchemaConverter();

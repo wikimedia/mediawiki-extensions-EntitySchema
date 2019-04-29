@@ -6,20 +6,20 @@ use MediaWikiTestCase;
 use SpecialPage;
 use Title;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
-use EntitySchema\MediaWiki\WikibaseSchemaHooks;
+use EntitySchema\MediaWiki\EntitySchemaHooks;
 
 /**
- * @covers \EntitySchema\MediaWiki\WikibaseSchemaHooks
+ * @covers \EntitySchema\MediaWiki\EntitySchemaHooks
  *
  * @license GPL-2.0-or-later
  */
-class WikibaseSchemaHooksTest extends MediaWikiTestCase {
+class EntitySchemaHooksTest extends MediaWikiTestCase {
 
 	public function testOnFormatAutocomments_titleUnset() {
 		$comment = null;
 		$this->setMwGlobals( 'wgTitle', null );
 
-		$ret = WikibaseSchemaHooks::onFormatAutocomments(
+		$ret = EntitySchemaHooks::onFormatAutocomments(
 			$comment,
 			false,
 			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
@@ -35,7 +35,7 @@ class WikibaseSchemaHooksTest extends MediaWikiTestCase {
 	public function testOnFormatAutocomments_titleInOtherNamespace() {
 		$comment = null;
 
-		$ret = WikibaseSchemaHooks::onFormatAutocomments(
+		$ret = EntitySchemaHooks::onFormatAutocomments(
 			$comment,
 			false,
 			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
@@ -51,7 +51,7 @@ class WikibaseSchemaHooksTest extends MediaWikiTestCase {
 	public function testOnFormatAutocomments_unknownAutocomment() {
 		$comment = null;
 
-		$ret = WikibaseSchemaHooks::onFormatAutocomments(
+		$ret = EntitySchemaHooks::onFormatAutocomments(
 			$comment,
 			false,
 			'blah blah',
@@ -68,7 +68,7 @@ class WikibaseSchemaHooksTest extends MediaWikiTestCase {
 		$comment = null;
 		$this->setUserLang( 'qqx' );
 
-		$ret = WikibaseSchemaHooks::onFormatAutocomments(
+		$ret = EntitySchemaHooks::onFormatAutocomments(
 			$comment,
 			false,
 			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,

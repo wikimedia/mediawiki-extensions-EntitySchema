@@ -9,8 +9,8 @@ use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use Page;
 use Status;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use EntitySchema\Presentation\ConfirmationFormRenderer;
 use EntitySchema\Presentation\DiffRenderer;
 use EntitySchema\Services\Diff\SchemaDiffer;
@@ -25,7 +25,7 @@ final class RestoreViewAction extends AbstractRestoreAction {
 
 	public function __construct(
 		Page $page,
-		WikibaseSchemaSlotDiffRenderer $slotDiffRenderer,
+		EntitySchemaSlotDiffRenderer $slotDiffRenderer,
 		IContextSource $context = null
 	) {
 		parent::__construct( $page, $context );
@@ -84,10 +84,10 @@ final class RestoreViewAction extends AbstractRestoreAction {
 
 	private function getDiffFromRevision( RevisionRecord $revToRestore ): Status {
 
-		/** @var WikibaseSchemaContent $contentToRestore */
+		/** @var EntitySchemaContent $contentToRestore */
 		$contentToRestore = $revToRestore->getContent( SlotRecord::MAIN );
 
-		/** @var WikibaseSchemaContent $baseContent */
+		/** @var EntitySchemaContent $baseContent */
 		$baseContent = MediaWikiServices::getInstance()->getRevisionStore()
 			->getRevisionById( $this->getTitle()->getLatestRevID() )
 			->getContent( SlotRecord::MAIN );

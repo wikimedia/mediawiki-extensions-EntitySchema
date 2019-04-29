@@ -18,7 +18,7 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Presentation\InputValidator;
 
 /**
- * Page for creating a new Wikibase Schema.
+ * Page for creating a new EntitySchema.
  *
  * @license GPL-2.0-or-later
  */

@@ -12,7 +12,7 @@ use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\SchemaId;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
@@ -74,7 +74,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 	}
 
 	private function restore( RevisionRecord $revToRestore ): Status {
-		/** @var WikibaseSchemaContent $contentToRestore */
+		/** @var EntitySchemaContent $contentToRestore */
 		$contentToRestore = $revToRestore->getContent( SlotRecord::MAIN );
 
 		$converter = new SchemaConverter();

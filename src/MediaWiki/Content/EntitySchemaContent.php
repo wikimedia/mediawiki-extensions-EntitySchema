@@ -9,9 +9,9 @@ use Title;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
- * Represents the content of a Wikibase Schema page
+ * Represents the content of a EntitySchema page
  */
-class WikibaseSchemaContent extends JsonContent {
+class EntitySchemaContent extends JsonContent {
 
 	const CONTENT_MODEL_ID = 'WikibaseSchema';
 
@@ -30,7 +30,7 @@ class WikibaseSchemaContent extends JsonContent {
 
 		if ( $generateHtml && $this->isValid() ) {
 			$languageCode = $options->getUserLang();
-			$renderer = new WikibaseSchemaSlotViewRenderer( $languageCode );
+			$renderer = new EntitySchemaSlotViewRenderer( $languageCode );
 			$renderer->fillParserOutput(
 				( new SchemaConverter() )
 					->getFullViewSchemaData( $this->getText(), [ $languageCode ] ),

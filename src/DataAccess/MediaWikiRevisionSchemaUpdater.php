@@ -10,7 +10,7 @@ use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\SlotRecord;
 use RuntimeException;
 use EntitySchema\Domain\Model\SchemaId;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
@@ -77,7 +77,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 
 		$updater->setContent(
 			SlotRecord::MAIN,
-			new WikibaseSchemaContent(
+			new EntitySchemaContent(
 				SchemaEncoder::getPersistentRepresentation(
 					$id,
 					$labels,
@@ -139,7 +139,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 
 		$updater->setContent(
 			SlotRecord::MAIN,
-			new WikibaseSchemaContent(
+			new EntitySchemaContent(
 				SchemaEncoder::getPersistentRepresentation(
 					$id,
 					$schemaData->labels,
@@ -259,7 +259,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 
 		$updater->setContent(
 			SlotRecord::MAIN,
-			new WikibaseSchemaContent( $persistentRepresentation )
+			new EntitySchemaContent( $persistentRepresentation )
 		);
 
 		$commentText = '/* ' . self::AUTOCOMMENT_UPDATED_SCHEMATEXT . ' */' . $userSummary;

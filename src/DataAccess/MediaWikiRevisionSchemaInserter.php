@@ -8,7 +8,7 @@ use MediaWiki\Revision\SlotRecord;
 use RuntimeException;
 use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\Domain\Storage\IdGenerator;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
@@ -59,7 +59,7 @@ class MediaWikiRevisionSchemaInserter implements SchemaInserter {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$updater->setContent(
 			SlotRecord::MAIN,
-			new WikibaseSchemaContent( $persistentRepresentation )
+			new EntitySchemaContent( $persistentRepresentation )
 		);
 
 		$schemaConverter = new SchemaConverter();

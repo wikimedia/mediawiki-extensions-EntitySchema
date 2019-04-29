@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use SpecialPage;
 use Title;
 use EntitySchema\Domain\Model\SchemaId;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use WikiPage;
 
@@ -50,7 +50,7 @@ class EntitySchemaText extends SpecialPage {
 		return 'wikibase';
 	}
 
-	private function sendContentSchemaText( WikibaseSchemaContent $schemaContent, SchemaId $id ) {
+	private function sendContentSchemaText( EntitySchemaContent $schemaContent, SchemaId $id ) {
 		$converter = new SchemaConverter();
 		$schemaText = $converter->getSchemaText( $schemaContent->getText() );
 		$out = $this->getOutput();

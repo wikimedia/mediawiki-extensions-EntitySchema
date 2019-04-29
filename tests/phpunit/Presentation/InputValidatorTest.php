@@ -9,7 +9,7 @@ use MediaWikiTestCase;
 use Message;
 use MessageLocalizer;
 use Title;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
 use WikiPage;
 
@@ -124,7 +124,7 @@ class InputValidatorTest extends MediaWikiTestCase {
 
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new WikibaseSchemaContent( json_encode( $content ) ) );
+		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
 		$updater->saveRevision(
 			CommentStoreComment::newUnsavedComment(
 				'test summary 1'

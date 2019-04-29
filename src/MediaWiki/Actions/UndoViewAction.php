@@ -4,7 +4,7 @@ namespace EntitySchema\MediaWiki\Actions;
 
 use IContextSource;
 use Page;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaSlotDiffRenderer;
+use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use EntitySchema\Presentation\ConfirmationFormRenderer;
 use EntitySchema\Presentation\DiffRenderer;
 
@@ -17,7 +17,7 @@ class UndoViewAction extends AbstractUndoAction {
 
 	public function __construct(
 		Page $page,
-		WikibaseSchemaSlotDiffRenderer $slotDiffRenderer,
+		EntitySchemaSlotDiffRenderer $slotDiffRenderer,
 		IContextSource $context = null
 	) {
 		parent::__construct( $page, $context );

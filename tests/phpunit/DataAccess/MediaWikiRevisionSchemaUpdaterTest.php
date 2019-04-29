@@ -14,7 +14,7 @@ use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\SchemaId;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\NameBadge;
 
 /**
@@ -37,14 +37,15 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @param WikibaseSchemaContent $expectedContent The content to expect in a setContent() call.
-	 * @param WikibaseSchemaContent|null $existingContent Used to override $this->parentRevision
+	 * @param EntitySchemaContent $expectedContent The content to expect in a setContent() call.
+	 * @param EntitySchemaContent|null $existingContent Used to override $this->parentRevision
 	 * if not null. grabParentRevision() is only mocked if a page revision is available.
+	 *
 	 * @return MediaWikiPageUpdaterFactory
 	 */
 	private function getPageUpdaterFactoryProvidingAndExpectingContent(
-		WikibaseSchemaContent $expectedContent,
-		WikibaseSchemaContent $existingContent = null
+		EntitySchemaContent $expectedContent,
+		EntitySchemaContent $existingContent = null
 	): MediaWikiPageUpdaterFactory {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		if ( $existingContent !== null ) {
@@ -66,7 +67,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 	private function getPageUpdaterFactoryExpectingComment(
 		CommentStoreComment $expectedComment,
-		WikibaseSchemaContent $existingContent = null
+		EntitySchemaContent $existingContent = null
 	): MediaWikiPageUpdaterFactory {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		if ( $existingContent !== null ) {
@@ -92,7 +93,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	private function newMediaWikiRevisionSchemaUpdaterFailingToSave(): MediaWikiRevisionSchemaUpdater {
-		$existingContent = new WikibaseSchemaContent( '{}' );
+		$existingContent = new EntitySchemaContent( '{}' );
 		$this->parentRevision = $this->createMockRevisionRecord( $existingContent );
 
 		$pageUpdater = $this->createMock( PageUpdater::class );
@@ -182,8 +183,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$description = 'englishDescription';
 		$aliases = [ 'englishAlias' ];
 		$schemaText = '#some schema about goats';
-		$existingContent = new WikibaseSchemaContent( '' );
-		$expectedContent = new WikibaseSchemaContent( json_encode(
+		$existingContent = new EntitySchemaContent( '' );
+		$expectedContent = new EntitySchemaContent( json_encode(
 			[
 				'id' => $id,
 				'serializationVersion' => '3.0',
@@ -271,7 +272,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testUpdateSchemaText_throwsForUnknownSerializationVersion() {
 		$this->parentRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'serializationVersion' => '4.0',
 				'schema' => [
 					'replacing this' => 'with the new text',
@@ -300,7 +301,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testUpdateSchemaText_throwsForEditConflict() {
-		$this->parentRevision = $this->createMockRevisionRecord( new WikibaseSchemaContent(
+		$this->parentRevision = $this->createMockRevisionRecord( new EntitySchemaContent(
 			'{
 		"serializationVersion": "3.0",
 		"schemaText": "conflicting text"
@@ -308,7 +309,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
-		$this->baseRevision = $this->createMockRevisionRecord( new WikibaseSchemaContent(
+		$this->baseRevision = $this->createMockRevisionRecord( new EntitySchemaContent(
 			'{
 		"serializationVersion": "3.0",
 		"schemaText": "original text"
@@ -333,7 +334,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$labels = [ $language => 'englishLabel' ];
 		$descriptions = [ $language => 'englishDescription' ];
 		$aliases = [ $language => [ 'englishAlias' ] ];
-		$existingContent = new WikibaseSchemaContent( json_encode( [
+		$existingContent = new EntitySchemaContent( json_encode( [
 			'id' => $id,
 			'serializationVersion' => '3.0',
 			'labels' => $labels,
@@ -343,7 +344,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			'type' => 'ShExC',
 		] ) );
 		$newSchemaText = '# some schema about cats';
-		$expectedContent = new WikibaseSchemaContent( json_encode( [
+		$expectedContent = new EntitySchemaContent( json_encode( [
 			'id' => $id,
 			'serializationVersion' => '3.0',
 			'labels' => $labels,
@@ -378,7 +379,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$newSchemaText = 'new schema text';
 
 		$this->baseRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $oldLabels,
@@ -389,7 +390,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			] ) )
 		);
 		$this->parentRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $newLabels,
@@ -401,7 +402,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			2
 		);
 		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $newLabels,
@@ -467,7 +468,7 @@ SHEXC;
 SHEXC;
 
 		$this->baseRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $labels,
@@ -478,7 +479,7 @@ SHEXC;
 			] ) )
 		);
 		$this->parentRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $labels,
@@ -490,7 +491,7 @@ SHEXC;
 			2
 		);
 		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $labels,
@@ -538,7 +539,7 @@ SHEXC;
 		);
 
 		$id = new SchemaId( 'E1' );
-		$existingContent = new WikibaseSchemaContent( json_encode( [
+		$existingContent = new EntitySchemaContent( json_encode( [
 			'id' => $id,
 			'serializationVersion' => '3.0',
 			'labels' => [],
@@ -568,7 +569,7 @@ SHEXC;
 
 	public function testUpdateSchemaText_onlySerializationVersionChanges() {
 		$this->parentRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'serializationVersion' => '2.0',
 				'schema' => 'schema text',
 			] ) )
@@ -598,7 +599,7 @@ SHEXC;
 		$labels = [ $language => 'englishLabel' ];
 		$descriptions = [ $language => 'englishDescription' ];
 		$aliases = [ $language => [ 'englishAlias' ] ];
-		$existingContent = new WikibaseSchemaContent( json_encode( [
+		$existingContent = new EntitySchemaContent( json_encode( [
 			'id' => $id,
 			'serializationVersion' => '3.0',
 			'labels' => [ 'en' => 'Cat' ],
@@ -607,7 +608,7 @@ SHEXC;
 			'schemaText' => '# some schema about goats',
 			'type' => 'ShExC',
 		] ) );
-		$expectedContent = new WikibaseSchemaContent( json_encode( [
+		$expectedContent = new EntitySchemaContent( json_encode( [
 			'id' => $id,
 			'serializationVersion' => '3.0',
 			'labels' => $labels,
@@ -641,7 +642,7 @@ SHEXC;
 		$englishLabel = 'Goat';
 		$englishDescription = 'This is what a goat looks like';
 		$englishAliases = [ 'Capra' ];
-		$existingContent = new WikibaseSchemaContent( json_encode( [
+		$existingContent = new EntitySchemaContent( json_encode( [
 			'id' => $id,
 			'serializationVersion' => '3.0',
 			'labels' => [
@@ -659,7 +660,7 @@ SHEXC;
 			'schemaText' => '# some schema about goats',
 			'type' => 'ShExC',
 		] ) );
-		$expectedContent = new WikibaseSchemaContent( json_encode( [
+		$expectedContent = new EntitySchemaContent( json_encode( [
 			'id' => $id,
 			'serializationVersion' => '3.0',
 			'labels' => [
@@ -735,7 +736,7 @@ SHEXC;
 			]
 		);
 
-		$oldContent = new WikibaseSchemaContent( json_encode( $oldArray ) );
+		$oldContent = new EntitySchemaContent( json_encode( $oldArray ) );
 		$pageUpdaterFactory = $this->getPageUpdaterFactoryExpectingComment(
 			$expectedComment,
 			$oldContent
@@ -838,7 +839,7 @@ SHEXC;
 	}
 
 	public function testUpdateSchemaNameBadge_throwsForEditConflict() {
-		$this->parentRevision = $this->createMockRevisionRecord( new WikibaseSchemaContent(
+		$this->parentRevision = $this->createMockRevisionRecord( new EntitySchemaContent(
 			json_encode(
 				[
 					'serializationVersion' => '3.0',
@@ -849,7 +850,7 @@ SHEXC;
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 
-		$this->baseRevision = $this->createMockRevisionRecord( new WikibaseSchemaContent(
+		$this->baseRevision = $this->createMockRevisionRecord( new EntitySchemaContent(
 			json_encode(
 				[
 					'serializationVersion' => '3.0',
@@ -880,7 +881,7 @@ SHEXC;
 		$labels = [ $language => 'englishLabel' ];
 		$descriptions = [ $language => 'englishDescription' ];
 		$aliases = [ $language => [ 'englishAlias' ] ];
-		$existingContent = new WikibaseSchemaContent( json_encode( [
+		$existingContent = new EntitySchemaContent( json_encode( [
 			'id' => $id,
 			'serializationVersion' => '3.0',
 			'labels' => [ 'en' => 'Cat' ],
@@ -889,7 +890,7 @@ SHEXC;
 			'schemaText' => '# some schema about goats',
 			'type' => 'ShExC',
 		] ) );
-		$expectedContent = new WikibaseSchemaContent( json_encode( [
+		$expectedContent = new EntitySchemaContent( json_encode( [
 			'id' => $id,
 			'serializationVersion' => '3.0',
 			'labels' => $labels,
@@ -899,7 +900,7 @@ SHEXC;
 			'type' => 'ShExC',
 		] ) );
 
-		$this->baseRevision = $this->createMockRevisionRecord( new WikibaseSchemaContent(
+		$this->baseRevision = $this->createMockRevisionRecord( new EntitySchemaContent(
 			json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
@@ -938,7 +939,7 @@ SHEXC;
 		$newSchemaText = 'new schema text';
 
 		$this->baseRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $oldLabels,
@@ -949,7 +950,7 @@ SHEXC;
 			] ) )
 		);
 		$this->parentRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $oldLabels,
@@ -961,7 +962,7 @@ SHEXC;
 			2
 		);
 		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $newLabels,
@@ -998,7 +999,7 @@ SHEXC;
 		$schemaText = 'schema text';
 
 		$this->baseRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $baseLabels,
@@ -1009,7 +1010,7 @@ SHEXC;
 			] ) )
 		);
 		$this->parentRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $parentLabels,
@@ -1021,7 +1022,7 @@ SHEXC;
 			2
 		);
 		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $finalLabels,
@@ -1057,7 +1058,7 @@ SHEXC;
 		$schemaText = 'schema text';
 
 		$this->baseRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $oldLabels,
@@ -1068,7 +1069,7 @@ SHEXC;
 			] ) )
 		);
 		$this->parentRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $oldLabels,
@@ -1080,7 +1081,7 @@ SHEXC;
 			2
 		);
 		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => $newLabels,
@@ -1125,7 +1126,7 @@ SHEXC;
 
 	public function testUpdateSchemaNameBadge_onlySerializationVersionChanges() {
 		$this->parentRevision = $this->createMockRevisionRecord(
-			new WikibaseSchemaContent( json_encode( [
+			new EntitySchemaContent( json_encode( [
 				'serializationVersion' => '2.0',
 				'labels' => [ 'en' => 'label' ],
 			] ) )
@@ -1153,7 +1154,7 @@ SHEXC;
 	}
 
 	private function createMockRevisionRecord(
-		WikibaseSchemaContent $content = null,
+		EntitySchemaContent $content = null,
 		$id = 1
 	): RevisionRecord {
 		$revisionRecord = $this->createMock( RevisionRecord::class );

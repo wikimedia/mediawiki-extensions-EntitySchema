@@ -13,7 +13,7 @@ use RequestContext;
 use Title;
 use UserBlockedError;
 use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use WikiPage;
 
 /**
@@ -127,7 +127,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	private function getCurrentSchemaContent( $pageName ) {
-		/** @var WikibaseSchemaContent $content */
+		/** @var EntitySchemaContent $content */
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $pageName );
 		$rev = MediaWikiServices::getInstance()
 			->getRevisionStore()
@@ -138,7 +138,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {
 		$content['serializationVersion'] = '3.0';
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new WikibaseSchemaContent( json_encode( $content ) ) );
+		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
 		$firstRevRecord = $updater->saveRevision(
 			CommentStoreComment::newUnsavedComment(
 				'test summary 1'

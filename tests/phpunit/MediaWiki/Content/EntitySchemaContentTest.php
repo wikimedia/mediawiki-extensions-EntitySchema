@@ -6,17 +6,17 @@ use Language;
 use MediaWikiTestCase;
 use ParserOptions;
 use Title;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 
 /**
- * @covers \EntitySchema\MediaWiki\Content\WikibaseSchemaContent
+ * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContent
  *
  * @license GPL-2.0-or-later
  */
-class WikibaseSchemaContentTest extends MediaWikiTestCase {
+class EntitySchemaContentTest extends MediaWikiTestCase {
 
 	public function testGetParserOutput_usesUserLangAndSplitsParserCache() {
-		$content = new WikibaseSchemaContent( json_encode( [
+		$content = new EntitySchemaContent( json_encode( [
 			'serializationVersion' => '3.0',
 		] ) );
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' );
@@ -31,7 +31,7 @@ class WikibaseSchemaContentTest extends MediaWikiTestCase {
 	}
 
 	public function testGetParserOutput_noHtml() {
-		$content = new WikibaseSchemaContent( json_encode( [
+		$content = new EntitySchemaContent( json_encode( [
 			'serializationVersion' => '3.0',
 		] ) );
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' );
@@ -46,7 +46,7 @@ class WikibaseSchemaContentTest extends MediaWikiTestCase {
 	 * @dataProvider provideShExSimpleUrlsAndExpectedLinks
 	 */
 	public function testGetParserOutput_schemaCheckLink( $shExSimpleUrl, $expected ) {
-		$content = new WikibaseSchemaContent( json_encode( [
+		$content = new EntitySchemaContent( json_encode( [
 			'labels' => [ 'en' => 'label' ],
 			'descriptions' => [ 'en' => 'description' ],
 			'aliases' => [ 'en' => [ 'alias' ] ],
@@ -80,7 +80,7 @@ class WikibaseSchemaContentTest extends MediaWikiTestCase {
 	}
 
 	public function testGetTextForSearchIndex() {
-		$content = new WikibaseSchemaContent( json_encode( [
+		$content = new EntitySchemaContent( json_encode( [
 			'labels' => [ 'de' => 'german label', 'en' => 'english label' ],
 			'descriptions' => [ 'en' => 'english description' ],
 			'aliases' => [ 'en' => [ 'first', 'second' ] ],

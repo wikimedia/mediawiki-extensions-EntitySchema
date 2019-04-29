@@ -19,7 +19,7 @@ use EntitySchema\Services\SchemaConverter\NameBadge;
 /**
  * @license GPL-2.0-or-later
  */
-class WikibaseSchemaSlotViewRenderer {
+class EntitySchemaSlotViewRenderer {
 
 	/** @var MessageLocalizer */
 	private $messageLocalizer;

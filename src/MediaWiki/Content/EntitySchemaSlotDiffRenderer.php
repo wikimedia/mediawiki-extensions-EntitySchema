@@ -23,7 +23,7 @@ use EntitySchema\Services\SchemaConverter\SchemaConverter;
 /**
  * @license GPL-2.0-or-later
  */
-class WikibaseSchemaSlotDiffRenderer extends SlotDiffRenderer {
+class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 
 	/** @var SchemaConverter */
 	private $schemaConverter;
@@ -62,13 +62,13 @@ class WikibaseSchemaSlotDiffRenderer extends SlotDiffRenderer {
 	/**
 	 * @phan-suppress PhanParamSignatureMismatch
 	 *
-	 * @param WikibaseSchemaContent|null $oldContent
-	 * @param WikibaseSchemaContent|null $newContent
+	 * @param EntitySchemaContent|null $oldContent
+	 * @param EntitySchemaContent|null $newContent
 	 *
 	 * @return string
 	 */
 	public function getDiff( Content $oldContent = null, Content $newContent = null ) {
-		$this->normalizeContents( $oldContent, $newContent, WikibaseSchemaContent::class );
+		$this->normalizeContents( $oldContent, $newContent, EntitySchemaContent::class );
 
 		$diff = $this->schemaDiffer->diffSchemas(
 			$this->schemaConverter->getFullArraySchemaData( $oldContent->getText() ),

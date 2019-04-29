@@ -16,7 +16,7 @@
 		"EntitySchema\\Tests\\": "tests/phpunit/"
 	},
 	"ExtensionMessagesFiles": {
-		"WikibaseSchemaAlias": "WikibaseSchema.i18n.alias.php"
+		"WikibaseSchemaAlias": "EntitySchema.i18n.alias.php"
 	},
 	"MessagesDirs": {
 		"WikibaseSchema": [
@@ -24,19 +24,19 @@
 		]
 	},
 	"Hooks": {
-		"SkinTemplateNavigation": "EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onSkinTemplateNavigation",
-		"LoadExtensionSchemaUpdates": "EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onCreateDBSchema",
-		"ExtensionTypes": "EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onExtensionTypes",
-		"BeforeDisplayNoArticleText": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onBeforeDisplayNoArticleText",
-		"PageHistoryLineEnding": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onPageHistoryLineEnding",
-		"FormatAutocomments": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onFormatAutocomments",
-		"ContentModelCanBeUsedOn": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onContentModelCanBeUsedOn",
-		"ImportHandleRevisionXMLTag": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onImportHandleRevisionXMLTag",
-		"NamespaceIsMovable": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onNamespaceIsMovable",
-		"TitleGetRestrictionTypes": "\\EntitySchema\\MediaWiki\\WikibaseSchemaHooks::onTitleGetRestrictionTypes"
+		"SkinTemplateNavigation": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onSkinTemplateNavigation",
+		"LoadExtensionSchemaUpdates": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onCreateDBSchema",
+		"ExtensionTypes": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onExtensionTypes",
+		"BeforeDisplayNoArticleText": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onBeforeDisplayNoArticleText",
+		"PageHistoryLineEnding": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onPageHistoryLineEnding",
+		"FormatAutocomments": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onFormatAutocomments",
+		"ContentModelCanBeUsedOn": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onContentModelCanBeUsedOn",
+		"ImportHandleRevisionXMLTag": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onImportHandleRevisionXMLTag",
+		"NamespaceIsMovable": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onNamespaceIsMovable",
+		"TitleGetRestrictionTypes": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onTitleGetRestrictionTypes"
 	},
 	"ContentHandlers": {
-		"WikibaseSchema": "EntitySchema\\MediaWiki\\Content\\WikibaseSchemaContentHandler"
+		"WikibaseSchema": "EntitySchema\\MediaWiki\\Content\\EntitySchemaContentHandler"
 	},
 	"namespaces": [
 		{

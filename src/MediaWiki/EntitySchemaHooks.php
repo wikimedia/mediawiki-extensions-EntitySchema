@@ -12,14 +12,14 @@ use MWException;
 use MWNamespace;
 use SkinTemplate;
 use Title;
-use EntitySchema\MediaWiki\Content\WikibaseSchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\AutocommentFormatter;
 use WikiImporter;
 
 /**
- * Hooks utilized by the WikibaseSchema extension
+ * Hooks utilized by the EntitySchema extension
  */
-final class WikibaseSchemaHooks {
+final class EntitySchemaHooks {
 
 	/**
 	 * @param DatabaseUpdater $updater
@@ -101,7 +101,7 @@ final class WikibaseSchemaHooks {
 
 		$wikiPage = $history->getWikiPage();
 
-		if ( $wikiPage->getContentModel() === WikibaseSchemaContent::CONTENT_MODEL_ID
+		if ( $wikiPage->getContentModel() === EntitySchemaContent::CONTENT_MODEL_ID
 			&& $wikiPage->getLatest() !== $rev->getId()
 			&& $wikiPage->getTitle()->quickUserCan( 'edit', $history->getUser() )
 			&& !$rev->isDeleted( RevisionRecord::DELETED_TEXT )
@@ -180,12 +180,12 @@ final class WikibaseSchemaHooks {
 	public static function onContentModelCanBeUsedOn( $modelId, Title $title, &$ok ) {
 		if (
 			$title->inNamespace( NS_ENTITYSCHEMA_JSON ) &&
-			$modelId !== WikibaseSchemaContent::CONTENT_MODEL_ID
+			$modelId !== EntitySchemaContent::CONTENT_MODEL_ID
 		) {
 			$ok = false;
 			return false; // skip other hooks
 		}
-		// the other direction is guarded by WikibaseSchemaContentHandler::canBeUsedOn()
+		// the other direction is guarded by EntitySchemaContentHandler::canBeUsedOn()
 
 		return null;
 	}
@@ -197,7 +197,7 @@ final class WikibaseSchemaHooks {
 	) {
 		if (
 			array_key_exists( 'model', $revisionInfo ) &&
-			$revisionInfo['model'] === WikibaseSchemaContent::CONTENT_MODEL_ID
+			$revisionInfo['model'] === EntitySchemaContent::CONTENT_MODEL_ID
 		) {
 			throw new MWException(
 				'To avoid ID conflicts, the import of Schemas is not supported.'
