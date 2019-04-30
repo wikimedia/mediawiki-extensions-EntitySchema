@@ -1,6 +1,6 @@
 [gerrit]
 host=gerrit.wikimedia.org
 port=29418
-project=mediawiki/extensions/WikibaseSchema.git
+project=mediawiki/extensions/EntitySchema.git
 track=1
 defaultrebase=0
