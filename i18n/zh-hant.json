@@ -6,7 +6,7 @@
 		]
 	},
 	"entityschema-desc": "儲存並討論用於 Wikibase 實體的架構",
-	"special-newschema": "建立一個新架構",
+	"special-newschema": "建立一個新實體架構",
 	"entityschema-newschema-label": "標籤：",
 	"entityschema-newschema-description": "描述：",
 	"entityschema-newschema-aliases": "別名，以豎線符號分隔：",
@@ -69,7 +69,7 @@
 	"entityschema-restore-heading-failed": "還原失敗",
 	"entityschema-restore-empty": "您嘗試還原的修訂與目前版本一致，不影響。",
 	"entityschema-restoreold": "還原",
-	"special-schematext": "架構文字",
+	"special-schematext": "實體架構文字",
 	"entityschema-schematext-text": "此頁面提供出架構原始文字的介面。請使用子頁面語法在 URL 提供架構 ID。",
 	"entityschema-schematext-missing": "缺少或刪除架構：$1。",
 	"entityschema-special-setlabeldescriptionaliases": "設定架構的標籤、描述與別名",

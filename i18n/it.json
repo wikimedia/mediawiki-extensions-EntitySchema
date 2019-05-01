@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Beta16"
+			"Beta16",
+			"Ghebbro"
 		]
 	},
-	"special-newschema": "Crea un nuovo schema",
+	"special-newschema": "Crea un nuovo EntitySchema",
 	"entityschema-newschema-label": "Etichetta:",
 	"entityschema-newschema-description": "Descrizione:",
 	"entityschema-newschema-submit": "Crea",
@@ -28,10 +29,17 @@
 	"entityschema-diff-description": "Descrizioni",
 	"entityschema-diff-aliases": "Alias",
 	"entityschema-edit": "modifica",
+	"entityschema-summary-update": "Schema aggiornato",
+	"entityschema-summary-update-schema-text": "Testo dello schema aggiornato",
+	"entityschema-summary-update-schema-text-user": "Testo dello schema aggiornato: $1",
 	"entityschema-summary-update-schema-namebadge": "Aggiorna etichetta, descrizione e alias in $1",
 	"entityschema-summary-undo-autocomment": "Annullata la modifica $1 di [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|discussione]])",
 	"entityschema-summary-restore-autocomment": "Ripristina versione $1 di [[Special:Contributions/$2|{{GENDER:$2|$2}}]]",
+	"entityschema-undo-heading": "Annullare la modifica a $1",
 	"entityschema-undo-heading-failed": "Annullamento fallito",
+	"entityschema-undo-bad-revisions": "La modifica non può essere annullata perché non esiste o è stata cancellata.",
+	"entityschema-undo-cannot-apply-patch": "La modifica non può essere annullata perché è stata cambiata.",
+	"entityschema-undo-old-revision": "Versione da annullare",
 	"entityschema-special-id-inputlabel": "ID",
 	"entityschema-special-language-inputlabel": "Codice lingua",
 	"entityschema-special-id-submit": "Imposta etichetta, descrizione e alias",

@@ -6,7 +6,7 @@
 		]
 	},
 	"entityschema-desc": "Armazenar e discutir esquemas para entidades do Wikibase",
-	"special-newschema": "Criar um nova Schema",
+	"special-newschema": "Criar um novo EntitySchema",
 	"entityschema-newschema-label": "Etiqueta:",
 	"entityschema-newschema-description": "Descrição:",
 	"entityschema-newschema-aliases": "Nomes alternativos, separados por barras:",
@@ -69,7 +69,7 @@
 	"entityschema-restore-heading-failed": "Restauração falhou",
 	"entityschema-restore-empty": "A revisão que você tentou restaurar é idêntica à revisão atual. Nada para fazer.",
 	"entityschema-restoreold": "restaurar",
-	"special-schematext": "Texto do esquema",
+	"special-schematext": "Texto de EntitySchema",
 	"entityschema-schematext-text": "Esta página fornece uma interface para o texto bruto de um esquema. Forneça o ID do esquema no URL, usando a sintaxe da subpágina.",
 	"entityschema-schematext-missing": "Esquema ausente ou excluído: $1.",
 	"entityschema-special-setlabeldescriptionaliases": "Definir rótulo, descrição e aliases para o esquema",

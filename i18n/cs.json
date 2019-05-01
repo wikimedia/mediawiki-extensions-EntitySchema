@@ -1,12 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Michaelbrabec"
+			"Michaelbrabec",
+			"Ján Kepler"
 		]
 	},
 	"entityschema-namebadge-header-language-code": "kód jazyka",
 	"entityschema-namebadge-header-label": "štítek",
 	"entityschema-namebadge-header-description": "popis",
 	"entityschema-namebadge-header-aliases": "aliasy",
-	"entityschema-namebadge-header-edit": "editovat"
+	"entityschema-namebadge-header-edit": "editovat",
+	"entityschema-undo-heading-failed": "Vrácení editace zpět se nezdařilo"
 }
