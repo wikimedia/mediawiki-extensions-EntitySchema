@@ -72,12 +72,12 @@
 	"entityschema-schematext-text": "This page provides an interface to the raw text of a Schema. Please provide the Schema ID in the URL, using subpage syntax.",
 	"entityschema-schematext-missing": "Missing or deleted Schema: $1.",
 	"entityschema-special-setlabeldescriptionaliases": "Set label, description and aliases for EntitySchema",
-	"entityschema-special-id-inputlabel": "ID",
+	"entityschema-special-id-inputlabel": "EntitySchema ID",
 	"entityschema-special-language-inputlabel": "Language Code",
 	"entityschema-special-id-submit": "Set label, description and aliases",
 	"entityschema-special-setlabeldescriptionaliases-info": "You are setting label, description and aliases in '''$1''' for Schema [[$3|$2]].",
 	"entityschema-special-label": "Label:",
 	"entityschema-special-description": "Description:",
 	"entityschema-special-aliases": "Aliases, pipe-separated:",
-	"entityschema-special-id-placeholder": "Schema ID"
+	"entityschema-special-id-placeholder": "E123"
 }
