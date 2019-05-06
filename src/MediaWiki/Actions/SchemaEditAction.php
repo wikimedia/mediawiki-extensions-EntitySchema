@@ -43,6 +43,7 @@ class SchemaEditAction extends FormAction {
 		parent::show();
 
 		$output = $this->getOutput();
+		$output->clearSubtitle();
 		$output->addModules( [
 			'ext.EntitySchema.action.edit'
 		] );
