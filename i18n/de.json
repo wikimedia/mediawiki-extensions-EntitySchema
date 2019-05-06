@@ -72,12 +72,11 @@
 	"entityschema-schematext-text": "Diese Seite stellt eine Oberfläche für den Rohtext eines Schemas bereit. Gib bitte die Kennung des Schemas in der URL an und verwende die Unterseitensyntax.",
 	"entityschema-schematext-missing": "Fehlendes oder gelöschtes Schema: $1.",
 	"entityschema-special-setlabeldescriptionaliases": "Bezeichnung, Beschreibung und Aliasse für das Schema festlegen",
-	"entityschema-special-id-inputlabel": "Kennung",
+	"entityschema-special-id-inputlabel": "EntitySchema-Kennung",
 	"entityschema-special-language-inputlabel": "Sprachcode",
 	"entityschema-special-id-submit": "Bezeichnung, Beschreibung und Aliasse festlegen",
 	"entityschema-special-setlabeldescriptionaliases-info": "Du legst die Bezeichnung, Beschreibung und Aliasse in '''$1''' für das Schema [[$3|$2]] fest.",
 	"entityschema-special-label": "Bezeichnung:",
 	"entityschema-special-description": "Beschreibung:",
-	"entityschema-special-aliases": "Aliasse, durch senkrechte Striche getrennt:",
-	"entityschema-special-id-placeholder": "Kennung des Schemas"
+	"entityschema-special-aliases": "Aliasse, durch senkrechte Striche getrennt:"
 }

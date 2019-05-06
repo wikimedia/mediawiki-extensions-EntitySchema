@@ -79,6 +79,5 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "您正設定架構[[$3|$2]]裡'''$1'''的標籤、描述與別名。",
 	"entityschema-special-label": "標籤：",
 	"entityschema-special-description": "描述：",
-	"entityschema-special-aliases": "別名，以豎線符號分隔：",
-	"entityschema-special-id-placeholder": "架構 ID"
+	"entityschema-special-aliases": "別名，以豎線符號分隔："
 }
