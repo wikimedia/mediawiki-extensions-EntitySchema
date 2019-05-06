@@ -42,11 +42,15 @@ class ArrayRevisionLookup implements RevisionLookup {
 		return null;
 	}
 
-	public function getPreviousRevision( RevisionRecord $rev, Title $title = null ) {
+	public function getPreviousRevision( RevisionRecord $rev, $flags = 0 ) {
 		return null;
 	}
 
-	public function getNextRevision( RevisionRecord $rev, Title $title = null ) {
+	public function getNextRevision( RevisionRecord $rev, $flags = 0 ) {
+		return null;
+	}
+
+	public function getTimestampFromId( $id, $flags = 0 ) {
 		return null;
 	}
 
