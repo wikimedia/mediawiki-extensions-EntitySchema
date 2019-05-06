@@ -35,6 +35,5 @@
 	"special-schematext": "Teste de l'EntitySchema",
 	"entityschema-special-id-inputlabel": "ID",
 	"entityschema-special-label": "Etichette:",
-	"entityschema-special-description": "Descrizione:",
-	"entityschema-special-id-placeholder": "ID d'u scheme"
+	"entityschema-special-description": "Descrizione:"
 }

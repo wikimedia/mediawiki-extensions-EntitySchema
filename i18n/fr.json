@@ -73,12 +73,11 @@
 	"entityschema-schematext-text": "Cette page fournit une interface pour le texte brut d’un schéma. Veuillez fournir l’ID du schéma dans l’URL, en utilisant la syntaxe d’une sous-page.",
 	"entityschema-schematext-missing": "Schéma manquant ou supprimé : $1.",
 	"entityschema-special-setlabeldescriptionaliases": "Définir le libellé, la description et les alias pour le schéma",
-	"entityschema-special-id-inputlabel": "ID",
+	"entityschema-special-id-inputlabel": "ID de EntitySchema",
 	"entityschema-special-language-inputlabel": "Code de langue",
 	"entityschema-special-id-submit": "Définir le libellé, la description et les alias",
 	"entityschema-special-setlabeldescriptionaliases-info": "Vous allez définir le libellé, la description et les alias dans '''$1''' pour le schéma [[$3|$2]].",
 	"entityschema-special-label": "Libellé :",
 	"entityschema-special-description": "Description :",
-	"entityschema-special-aliases": "Alias (séparés par des barres verticales) :",
-	"entityschema-special-id-placeholder": "ID du schéma"
+	"entityschema-special-aliases": "Alias (séparés par des barres verticales) :"
 }

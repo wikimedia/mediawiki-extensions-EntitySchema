@@ -73,12 +73,11 @@
 	"entityschema-schematext-text": "Esta página fornece uma interface para o texto bruto de um esquema. Forneça o ID do esquema no URL, usando a sintaxe da subpágina.",
 	"entityschema-schematext-missing": "Esquema ausente ou excluído: $1.",
 	"entityschema-special-setlabeldescriptionaliases": "Definir rótulo, descrição e aliases para o esquema",
-	"entityschema-special-id-inputlabel": "ID",
+	"entityschema-special-id-inputlabel": "ID de EntitySchema",
 	"entityschema-special-language-inputlabel": "Código de Idioma",
 	"entityschema-special-id-submit": "Definir rótulo, descrição e nomes alternativos",
 	"entityschema-special-setlabeldescriptionaliases-info": "Você está definindo rótulo, descrição e aliases em '''$1''' para Esquema [[$3|$2]].",
 	"entityschema-special-label": "Etiqueta:",
 	"entityschema-special-description": "Descrição:",
-	"entityschema-special-aliases": "Aliases (separados por barras):",
-	"entityschema-special-id-placeholder": "ID do esquema"
+	"entityschema-special-aliases": "Aliases (separados por barras):"
 }

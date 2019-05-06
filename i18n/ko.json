@@ -42,6 +42,5 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "[[$3|$2]] 스키마의 '''$1'''의 레이블, 설명, 다른 이름을 설정하고 있습니다.",
 	"entityschema-special-label": "레이블:",
 	"entityschema-special-description": "설명:",
-	"entityschema-special-aliases": "다른 이름, 파이프로 구분:",
-	"entityschema-special-id-placeholder": "스키마 ID"
+	"entityschema-special-aliases": "다른 이름, 파이프로 구분:"
 }
