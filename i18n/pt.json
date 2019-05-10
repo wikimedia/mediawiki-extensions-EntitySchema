@@ -73,7 +73,7 @@
 	"entityschema-schematext-text": "Esta página fornece uma interface para o texto em bruto de um esquema. Forneça o identificador do esquema no URL, usando a sintaxe de subpáginas.",
 	"entityschema-schematext-missing": "Esquema em falta ou eliminado: $1.",
 	"entityschema-special-setlabeldescriptionaliases": "Definir etiqueta, descrição e nomes alternativos para o esquema de entidade",
-	"entityschema-special-id-inputlabel": "Identificador",
+	"entityschema-special-id-inputlabel": "Identificador do esquema de entidade",
 	"entityschema-special-language-inputlabel": "Código de língua",
 	"entityschema-special-id-submit": "Definir etiqueta, descrição e nomes alternativos",
 	"entityschema-special-setlabeldescriptionaliases-info": "Está a definir a etiqueta, descrição e nomes alternativos em '''$1''' do esquema [[$3|$2]].",

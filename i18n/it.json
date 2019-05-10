@@ -40,7 +40,7 @@
 	"entityschema-undo-bad-revisions": "La modifica non può essere annullata perché non esiste o è stata cancellata.",
 	"entityschema-undo-cannot-apply-patch": "La modifica non può essere annullata perché è stata cambiata.",
 	"entityschema-undo-old-revision": "Versione da annullare",
-	"entityschema-special-id-inputlabel": "ID",
+	"entityschema-special-id-inputlabel": "ID EntitySchema",
 	"entityschema-special-language-inputlabel": "Codice lingua",
 	"entityschema-special-id-submit": "Imposta etichetta, descrizione e alias",
 	"entityschema-special-label": "Etichetta:",
