@@ -50,6 +50,10 @@
 	"entityschema-restore-bad-revisions": "Редагування не може бути відновлене, бо його не існує або було вилучено.",
 	"entityschema-restore-heading-failed": "Відновлення не вдалося",
 	"entityschema-restoreold": "відновити",
+	"special-schematext": "Текст схеми",
+	"entityschema-special-id-inputlabel": "ID схеми",
+	"entityschema-special-language-inputlabel": "Код мови",
+	"entityschema-special-id-submit": "Задати назву, опис та додаткові назви",
 	"entityschema-special-label": "Назва:",
 	"entityschema-special-description": "Опис:",
 	"entityschema-special-aliases": "Альтернативні назви (через вертикальну риску):"
