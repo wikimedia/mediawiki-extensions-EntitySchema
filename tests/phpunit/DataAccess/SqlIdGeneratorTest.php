@@ -33,6 +33,28 @@ class SqlIdGeneratorTest extends MediaWikiTestCase {
 		$this->assertSame( $id2 + 1, $id3 );
 	}
 
+	public function testIdsSkipped() {
+		$loadbalancer = MediaWikiServices::getInstance()->getDBLoadBalancer();
+		$db = $loadbalancer->getConnection( DB_MASTER );
+		$currentId = $db->selectRow(
+			'entityschema_id_counter',
+			'id_value',
+			[],
+			__METHOD__
+		);
+
+		$currentId = $currentId->id_value ?? 0;
+
+		$testGenerator = new SqlIdGenerator(
+			MediaWikiServices::getInstance()->getDBLoadBalancer(),
+			'entityschema_id_counter',
+			[ $currentId + 1, $currentId + 2 ]
+		);
+		$actualId = $testGenerator->getNewId();
+
+		$this->assertSame( $currentId + 3, $actualId, 'SqlIdGenerator should skipped provided IDs' );
+	}
+
 	/**
 	 * @expectedException RuntimeException
 	 * @expectedExceptionMessage read-only for test

@@ -71,6 +71,11 @@
 			"value": null,
 			"description": "The URL for a shex-simple installation. Users are sent here to check entities against schema, with a schemaURL=… url query parameter appended to the URL specifying a URL for the schema text.",
 			"public": true
+		},
+		"EntitySchemaSkippedIDs": {
+			"value": [],
+			"description": "A list of integers to skip when generating new IDs. These must be pure integer numbers, _not_ strings starting with an E!",
+			"public": true
 		}
 	},
 	"ResourceModules": {
