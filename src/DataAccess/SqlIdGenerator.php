@@ -22,13 +22,18 @@ class SqlIdGenerator implements IdGenerator {
 	/** @var string */
 	private $tableName;
 
+	/** @var array */
+	private $idsToSkip;
+
 	/**
 	 * @param ILoadBalancer $loadBalancer
-	 * @param string       $tableName
+	 * @param string        $tableName
+	 * @param int[]         $idsToSkip
 	 */
-	public function __construct( ILoadBalancer $loadBalancer, $tableName ) {
+	public function __construct( ILoadBalancer $loadBalancer, $tableName, array $idsToSkip = [] ) {
 		$this->loadBalancer = $loadBalancer;
 		$this->tableName = $tableName;
+		$this->idsToSkip = $idsToSkip;
 	}
 
 	/**
@@ -95,6 +100,10 @@ class SqlIdGenerator implements IdGenerator {
 
 		if ( !$success ) {
 			throw new RuntimeException( 'Could not generate a reliably unique ID.' );
+		}
+
+		if ( in_array( $id, $this->idsToSkip ) ) {
+			$id = $this->generateNewId( $database, $retry );
 		}
 
 		return $id;
