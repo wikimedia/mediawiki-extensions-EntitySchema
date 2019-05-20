@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"YaronSh"
+			"YaronSh",
+			"Erelon"
 		]
 	},
 	"entityschema-newschema-label": "תווית:",
@@ -9,6 +10,7 @@
 	"entityschema-newschema-schema-shexc": "קוד ביטויי צורה:",
 	"entityschema-newschema-submit": "יצירה",
 	"entityschema-description-edit-placeholder": "תיאור הסכמה באנגלית",
+	"entityschema-edit": "עריכה",
 	"entityschema-special-label": "תווית:",
 	"entityschema-special-description": "תיאור:",
 	"entityschema-special-aliases": "כינויים (מופרדים בקו ניצב):"
