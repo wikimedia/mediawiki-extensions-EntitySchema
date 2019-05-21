@@ -65,7 +65,7 @@ class ConfirmationFormRenderer {
 
 		$formHTML .= "<div class='editOptions'>\n";
 
-		$labelText = $this->msgLocalizer->msg( 'entityschema-summary-generated' )->text();
+		$labelText = $this->msgLocalizer->msg( 'entityschema-summary-generated' )->escaped();
 		$formHTML .= $this->getSummaryInput( $labelText );
 		$formHTML .= "<div class='editButtons'>\n";
 		$formHTML .= $this->getEditButton() . "\n";

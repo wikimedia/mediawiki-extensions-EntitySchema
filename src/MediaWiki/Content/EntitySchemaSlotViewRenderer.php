@@ -85,7 +85,7 @@ class EntitySchemaSlotViewRenderer {
 		// entityschema-namebadge-header-aliases
 		// entityschema-namebadge-header-edit
 		foreach ( [ 'language-code', 'label', 'description', 'aliases', 'edit' ] as $key ) {
-			$tableHeaders .= Html::element(
+			$tableHeaders .= Html::rawElement(
 				'th',
 				[],
 				$this->msg( 'entityschema-namebadge-header-' . $key )
@@ -155,7 +155,7 @@ class EntitySchemaSlotViewRenderer {
 			],
 			$this->linkRenderer->makeKnownLink(
 				$specialPageTitleValue,
-				$this->msg( 'entityschema-edit' ),
+				$this->msg( 'entityschema-edit' )->text(),
 				[ 'class' => 'edit-icon' ]
 			)
 		);
@@ -244,7 +244,7 @@ class EntitySchemaSlotViewRenderer {
 			],
 			$this->linkRenderer->makeKnownLink(
 				$title,
-				$this->msg( 'entityschema-add-schema-text' ),
+				$this->msg( 'entityschema-add-schema-text' )->text(),
 				[ 'class' => 'add-icon' ],
 				[ 'action' => 'edit' ]
 			)
@@ -260,7 +260,7 @@ class EntitySchemaSlotViewRenderer {
 			],
 			$this->linkRenderer->makeKnownLink(
 				$title,
-				$this->msg( 'entityschema-edit' ),
+				$this->msg( 'entityschema-edit' )->text(),
 				[ 'class' => 'edit-icon' ],
 				[ 'action' => 'edit' ]
 			)
