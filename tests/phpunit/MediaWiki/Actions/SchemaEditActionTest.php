@@ -42,11 +42,8 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 	 * @expectedException PermissionsError
 	 */
 	public function testNoRights() {
-		global $wgGroupPermissions;
-
-		$groupPermissions = $wgGroupPermissions;
-		$groupPermissions['*']['edit'] = false;
-		$this->setMwGlobals( 'wgGroupPermissions', $groupPermissions );
+		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions',
+			[ '*' => [ 'edit' => false ] ] );
 		$action = new SchemaEditAction(
 			new WikiPage( Title::newFromDBkey( 'E1' ) ),
 			$this->getMockBuilder( InputValidator::class )

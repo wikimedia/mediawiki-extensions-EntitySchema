@@ -39,11 +39,8 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	 * @expectedException PermissionsError
 	 */
 	public function testNoRights() {
-		global $wgGroupPermissions;
-
-		$groupPermissions = $wgGroupPermissions;
-		$groupPermissions['*']['createpage'] = false;
-		$this->setMwGlobals( 'wgGroupPermissions', $groupPermissions );
+		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions',
+			[ '*' => [ 'createpage' => false ] ] );
 		$this->executeSpecialPage( null );
 	}
 

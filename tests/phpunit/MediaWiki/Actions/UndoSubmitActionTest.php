@@ -127,11 +127,8 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 	}
 
 	public function testUndoSubmitNoPermissions() {
-		global $wgGroupPermissions;
-
-		$groupPermissions = $wgGroupPermissions;
-		$groupPermissions['*']['edit'] = false;
-		$this->setMwGlobals( 'wgGroupPermissions', $groupPermissions );
+		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions',
+			[ '*' => [ 'edit' => false ] ] );
 
 		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
