@@ -3,7 +3,8 @@
 		"authors": [
 			"Olghinabella",
 			"Vlad5250",
-			"Andrew J.Kurbiko"
+			"Andrew J.Kurbiko",
+			"Ата"
 		]
 	},
 	"entityschema-desc": "Зберігання та обговорення схем для сутностей Вікібази",
@@ -14,6 +15,9 @@
 	"entityschema-newschema-submit": "Створити",
 	"entityschema-newschema-copyright": "Натиснувши «$1», Ви погоджуєтесь із [[$2|умовами використання]], і погоджуєтесь поширювати Ваше редагування на умовах $3.",
 	"entityschema-anonymouseditwarning": "Увага: Ви не увійшли до системи. Вашу IP-адресу буде записано у історії редагування цієї схеми.",
+	"entityschema-label-edit-placeholder": "введіть назву мовою $1",
+	"entityschema-description-edit-placeholder": "введіть опис мовою $1",
+	"entityschema-aliases-edit-placeholder": "введіть альтернативні назви мовою $1",
 	"entityschema-error-schemadeleted": "Схема, яку Ви намагаєтесь редагувати, не існує. Можливо, її вилучено?",
 	"entityschema-error-schemaupdate-failed": "Схема не може бути оновлена",
 	"entityschema-error-saving-failed": "Не вдалося зберегти схему, із наступним повідомленням: $1",
@@ -22,8 +26,12 @@
 	"entityschema-error-wrong-page-revisions": "Вказана версія не належить поточній сторінці.",
 	"entityschema-error-invalid-id": "Ідентифікатор є неприпустимим.",
 	"entityschema-error-unsupported-langcode": "Цей мовний код не підтримується.",
+	"entityschema-error-one-more-message-available": "Є проблеми з деяким вашим виводом. Будь ласка, ознайомтеся з повідомлення про помилку нижче.",
+	"entityschema-error-possibly-multiple-messages-available": "Є проблеми з деяким вашим виводом. Будь ласка, ознайомтеся з повідомлення(ми) про помилку нижче.",
+	"entityschema-error-input-too-long": "Введений вам текст надто довгий. Максимальна довжина складає {{PLURAL:$1|один символ|$1 символи|$1 символів}}. Довжина вашого тексту — {{PLURAL:$2|один символ|$2 символи|$2 символів}}.",
 	"entityschema-noschema": "Тут немає схеми. Перейдіть на [[Special:NewSchema]], аби створити нову.",
 	"entityschema-summary-generated": "Короткий опис (буде додано до автоматично згенерованого опису):",
+	"entityschema-label-empty": "Назва ще не вказана.",
 	"entityschema-namebadge-header-language-code": "код мови",
 	"entityschema-namebadge-header-label": "позначка",
 	"entityschema-namebadge-header-description": "опис",
@@ -39,6 +47,7 @@
 	"entityschema-summary-newschema-nolabel": "Створено нову схему",
 	"entityschema-summary-update": "Оновлена схема",
 	"entityschema-summary-update-schema-text": "Оновлено текст схеми",
+	"entityschema-summary-update-schema-namebadge": "Оновлено назву, опис чи альтернативні назви мовою $1",
 	"entityschema-summary-undo-autocomment": "Скасування редагування № $1 користувача [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|обговорення]])",
 	"entityschema-summary-restore-autocomment": "Відновлена версія $1, зроблена [[Special:Contributions/$2|{{GENDER:$2|$2}}]]",
 	"entityschema-undo-heading": "Скасування редагування на $1",
@@ -49,6 +58,7 @@
 	"entityschema-restore-heading": "Відновлення старої версії «$1»",
 	"entityschema-restore-bad-revisions": "Редагування не може бути відновлене, бо його не існує або було вилучено.",
 	"entityschema-restore-heading-failed": "Відновлення не вдалося",
+	"entityschema-restore-empty": "Версію, яку ви намагалися відновити, ідентична поточній версії. Немає чого виконувати.",
 	"entityschema-restoreold": "відновити",
 	"special-schematext": "Текст схеми",
 	"entityschema-special-id-inputlabel": "ID схеми",
