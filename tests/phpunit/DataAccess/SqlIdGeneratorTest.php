@@ -19,6 +19,11 @@ use Wikimedia\Rdbms\ILoadBalancer;
  */
 class SqlIdGeneratorTest extends MediaWikiTestCase {
 
+	protected function setUp() {
+		parent::setUp();
+		$this->tablesUsed[] = 'entityschema_id_counter';
+	}
+
 	public function testGetNewId() {
 		$generator = new SqlIdGenerator(
 			MediaWikiServices::getInstance()->getDBLoadBalancer(),
