@@ -1,10 +1,10 @@
 <?php
 
-namespace EntitySchema;
+namespace EntitySchema\Maintenance;
 
 $basePath = getenv( 'MW_INSTALL_PATH' ) !== false
 	? getenv( 'MW_INSTALL_PATH' )
-	: __DIR__ . '/../../../..';
+	: __DIR__ . '/../../..';
 
 require_once $basePath . '/maintenance/Maintenance.php';
 require_once $basePath . '/extensions/EntitySchema/src/Domain/Storage/IdGenerator.php';
@@ -27,8 +27,6 @@ class CreatePreexistingSchemas extends Maintenance {
 
 	const LABEL = 'label';
 	const DESC = 'desc';
-	const ALIASES = 'aliases';
-	const SCHEMATEXT = 'schematext';
 
 	public function __construct() {
 		$this->addDescription(
@@ -86,7 +84,7 @@ class CreatePreexistingSchemas extends Maintenance {
 			],
 
 			'E6' => [
-				self::LABEL => 'Language maps',
+				self::LABEL => 'Language mappings',
 				self::DESC => 'Schema for language mappings in Wikidata',
 			],
 
@@ -184,8 +182,8 @@ class CreatePreexistingSchemas extends Maintenance {
 				'en',
 				$dataMap[self::LABEL] ?? '',
 				$dataMap[self::DESC] ?? '',
-				$dataMap[self::ALIASES] ?? [],
-				$dataMap[self::SCHEMATEXT] ?? ''
+				[],
+				''
 			);
 		} catch ( RuntimeException $e ) {
 			$this->output(
