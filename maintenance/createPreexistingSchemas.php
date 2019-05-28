@@ -145,11 +145,6 @@ class CreatePreexistingSchemas extends Maintenance {
 				self::DESC => 'An EntitySchema to try things out, not intended for productive use',
 			],
 
-			'E3300' => [
-				self::LABEL => 'human',
-				self::DESC => 'basic schema for instances of Q5',
-			],
-
 			'E11424' => [
 				self::LABEL => 'Films',
 				self::DESC => 'basic schema for films',
