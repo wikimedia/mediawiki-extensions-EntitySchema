@@ -1,6 +1,6 @@
 <?php
 
-namespace EntitySchema;
+namespace EntitySchema\Maintenance;
 
 use EntitySchema\Domain\Storage\IdGenerator;
 
