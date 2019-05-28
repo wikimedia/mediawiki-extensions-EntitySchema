@@ -37,7 +37,8 @@ class CreatePreexistingSchemas extends Maintenance {
 	}
 
 	public function execute() {
-		$user = User::newSystemUser( 'Maintenance script' );
+		// "Maintenance script" is in MediaWiki's $wgReservedUsernames
+		$user = User::newSystemUser( 'Maintenance script', [ 'steal' => true ] );
 
 		if ( !ExtensionRegistry::getInstance()->isLoaded( 'EntitySchema' ) ) {
 			$this->fatalError(
