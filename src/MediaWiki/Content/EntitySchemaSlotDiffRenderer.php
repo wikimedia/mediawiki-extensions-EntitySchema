@@ -16,7 +16,6 @@ use MessageLocalizer;
 use RequestContext;
 use SlotDiffRenderer;
 use TextSlotDiffRenderer;
-use UnexpectedValueException;
 use EntitySchema\Services\Diff\SchemaDiffer;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
@@ -49,7 +48,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 			$textSlotDiffRenderer = ContentHandler::getForModelID( CONTENT_MODEL_TEXT )
 				->getSlotDiffRenderer( $context );
 			if ( !is_a( $textSlotDiffRenderer, TextSlotDiffRenderer::class ) ) {
-				throw new UnexpectedValueException( 'Expected a TextSlotDiffRenderer' );
+				$textSlotDiffRenderer = new TextSlotDiffRenderer();
 			}
 		}
 

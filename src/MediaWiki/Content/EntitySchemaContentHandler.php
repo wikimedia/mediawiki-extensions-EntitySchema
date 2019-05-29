@@ -5,6 +5,7 @@ namespace EntitySchema\MediaWiki\Content;
 use Action;
 use Article;
 use Content;
+use DifferenceEngine;
 use IContextSource;
 use JsonContentHandler;
 use Language;
@@ -37,6 +38,14 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 
 	protected function getContentClass() {
 		return EntitySchemaContent::class;
+	}
+
+	public function createDifferenceEngine( IContextSource $context,
+		$old = 0, $new = 0,
+		$rcid = 0, // FIXME: Deprecated, no longer used
+		$refreshCache = false, $unhide = false
+	) {
+		return new DifferenceEngine( $context, $old, $new, $rcid, $refreshCache, $unhide );
 	}
 
 	protected function getSlotDiffRendererInternal( IContextSource $context ): SlotDiffRenderer {
