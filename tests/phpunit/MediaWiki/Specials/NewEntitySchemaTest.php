@@ -2,10 +2,10 @@
 
 namespace EntitySchema\Tests\MediaWiki\Specials;
 
+use MediaWiki\Block\DatabaseBlock;
 use PermissionsError;
 use ReadOnlyError;
 use ReadOnlyMode;
-use Block;
 use FauxRequest;
 use SpecialPageTestBase;
 use UserBlockedError;
@@ -64,7 +64,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 
 	public function testNewSchemaIsNotCreatedWhenBlocked() {
 		$testuser = self::getTestUser()->getUser();
-		$this->block = new Block(
+		$this->block = new DatabaseBlock(
 			[
 				'address' => $testuser,
 				'reason' => 'testing in ' . __CLASS__,

@@ -3,9 +3,9 @@
 namespace EntitySchema\Tests\MediaWiki\Actions;
 
 use Action;
-use Block;
 use CommentStoreComment;
 use FauxRequest;
+use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MediaWikiTestCase;
@@ -25,7 +25,7 @@ use WikiPage;
  */
 final class RestoreSubmitActionTest extends MediaWikiTestCase {
 
-	/** @var Block */
+	/** @var DatabaseBlock */
 	private $block;
 
 	public function setUp() {
@@ -96,7 +96,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 
 	public function testRestoreSubmitBlocked() {
 		$testuser = self::getTestUser()->getUser();
-		$this->block = new Block(
+		$this->block = new DatabaseBlock(
 			[
 				'address' => $testuser,
 				'reason' => 'testing in ' . __CLASS__,

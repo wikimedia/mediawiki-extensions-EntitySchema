@@ -2,9 +2,9 @@
 
 namespace EntitySchema\Tests\MediaWiki\Actions;
 
-use Block;
 use CommentStoreComment;
 use FauxRequest;
+use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MediaWikiTestCase;
@@ -34,7 +34,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 		$this->tablesUsed[] = 'recentchanges';
 	}
 
-	/** @var Block */
+	/** @var DatabaseBlock */
 	private $block;
 
 	protected function tearDown() {
@@ -95,7 +95,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 
 	public function testUndoSubmitBlocked() {
 		$testuser = self::getTestUser()->getUser();
-		$this->block = new Block(
+		$this->block = new DatabaseBlock(
 			[
 				'address' => $testuser,
 				'reason' => 'testing in ' . __CLASS__,
