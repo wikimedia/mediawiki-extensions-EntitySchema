@@ -4,11 +4,16 @@
 			"Angrydog001",
 			"94rain",
 			"Zazzzz",
-			"A Chinese Wikipedian"
+			"A Chinese Wikipedian",
+			"Ps2049"
 		]
 	},
 	"entityschema-newschema-submit": "创建",
 	"entityschema-summary-generated": "摘要（将附加于自动生成的摘要中）：",
+	"entityschema-namebadge-header-edit": "编辑",
+	"entityschema-diff-label": "标签",
+	"entityschema-diff-description": "说明",
+	"entityschema-diff-aliases": "别名",
 	"entityschema-summary-update": "更新模式",
 	"entityschema-undo-heading": "正在撤销到“$1”的编辑",
 	"entityschema-undo-heading-failed": "撤销失败",
