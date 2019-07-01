@@ -38,7 +38,9 @@ final class EntitySchemaHooks {
 	}
 
 	public static function onExtensionTypes( array &$extTypes ) {
-		$extTypes['wikibase'] = 'Wikibase';
+		if ( !isset( $extTypes['wikibase'] ) ) {
+			$extTypes['wikibase'] = wfMessage( 'version-wikibase' )->text();
+		}
 	}
 
 	public static function onSkinTemplateNavigation( SkinTemplate $skinTemplate, array &$links ) {
