@@ -39,7 +39,7 @@ final class EntitySchemaHooks {
 
 	public static function onExtensionTypes( array &$extTypes ) {
 		if ( !isset( $extTypes['wikibase'] ) ) {
-			$extTypes['wikibase'] = wfMessage( 'version-wikibase' )->text();
+			$extTypes['wikibase'] = 'Wikibase';
 		}
 	}
 
