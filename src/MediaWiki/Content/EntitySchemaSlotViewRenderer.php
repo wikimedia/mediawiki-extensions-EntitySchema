@@ -209,7 +209,7 @@ class EntitySchemaSlotViewRenderer {
 
 		return $this->makeExternalLink(
 			$url,
-			wfMessage( 'entityschema-check-entities' )->parse(),
+			$this->msg( 'entityschema-check-entities' )->parse(),
 			false, // link text already escaped in ->parse()
 			'',
 			[ 'class' => 'entityschema-check-schema' ]

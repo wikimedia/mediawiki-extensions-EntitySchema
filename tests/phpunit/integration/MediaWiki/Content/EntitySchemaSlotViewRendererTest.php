@@ -188,7 +188,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 			'schema text'
 		);
 		$renderer = new EntitySchemaSlotViewRenderer(
-			'en',
+			'qqx',
 			null,
 			new MultiConfig( [
 				new HashConfig( [ 'EntitySchemaShExSimpleUrl' => 'http://my.test?foo=bar#fragment' ] ),
@@ -212,6 +212,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 			'E12345#fragment"',
 			$html
 		);
+		$this->assertContains( '(entityschema-check-entities)', $html );
 	}
 
 }
