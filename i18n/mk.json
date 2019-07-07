@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Bjankuloski06"
+			"Bjankuloski06",
+			"Vlad5250"
 		]
 	},
 	"entityschema-desc": "Складирање на и расправа по шеми за единици на Викибазата",
@@ -17,7 +18,7 @@
 	"entityschema-description-edit-placeholder": "внесете опис на $1",
 	"entityschema-aliases-edit-placeholder": "внесете некои истозначници на $1",
 	"entityschema-id-edit-placeholder": "Назнака на шемата",
-	"entityschema-editpage-schema-inputlabel": "ИзрОбл:",
+	"entityschema-editpage-schema-inputlabel": "ShEx:",
 	"entityschema-error-schemadeleted": "Шемата што сакате да ја уредите не постои. Да не е избришана?",
 	"entityschema-error-schemaupdate-failed": "Не можев да ја подновам шемата",
 	"entityschema-error-schematext-conflict": "Оваа шема во меѓувреме се измени. Вратете се на нејзината страница и уредете ја повторно.",
