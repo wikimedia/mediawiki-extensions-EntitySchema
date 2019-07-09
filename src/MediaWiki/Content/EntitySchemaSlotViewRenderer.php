@@ -207,6 +207,7 @@ class EntitySchemaSlotViewRenderer {
 			'schemaURL' => $schemaTextTitle->getFullURL()
 		] );
 
+		// @phan-suppress-next-line SecurityCheck-DoubleEscaped False positive
 		return $this->makeExternalLink(
 			$url,
 			$this->msg( 'entityschema-check-entities' )->parse(),
