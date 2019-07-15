@@ -9,6 +9,7 @@
 	"entityschema-newschema-label": "Etichette:",
 	"entityschema-newschema-description": "Descrizione:",
 	"entityschema-newschema-aliases": "Alias, separate da 'na barre verticale:",
+	"entityschema-newschema-schema-shexc": "Codece de l'espressiune d'a fegure:",
 	"entityschema-newschema-submit": "Ccreje",
 	"entityschema-label-edit-placeholder": "mitte 'n'etichette jndr'à $1",
 	"entityschema-description-edit-placeholder": "mitte 'na descrizione jndr'à $1",
@@ -33,7 +34,7 @@
 	"entityschema-summary-update-schema-aliases": "Aggiornate $1 alias d'u scheme",
 	"entityschema-restoreold": "repristine",
 	"special-schematext": "Teste de l'EntitySchema",
-	"entityschema-special-id-inputlabel": "ID",
+	"entityschema-special-id-inputlabel": "ID de l'EntitySchema",
 	"entityschema-special-label": "Etichette:",
 	"entityschema-special-description": "Descrizione:"
 }

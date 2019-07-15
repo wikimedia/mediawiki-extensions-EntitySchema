@@ -1,20 +1,49 @@
 {
 	"@metadata": {
 		"authors": [
-			"Shirayuki"
+			"Shirayuki",
+			"Afaz"
 		]
 	},
+	"entityschema-desc": "ウィキベース・エンティティのスキーマの格納、および議論",
+	"special-newschema": "スキーマの新規作成",
 	"entityschema-newschema-label": "ラベル:",
+	"entityschema-newschema-description": "説明:",
+	"entityschema-newschema-aliases": "別名（複数ある場合、縦線<code>|</code>で区切り）:",
+	"entityschema-newschema-schema-shexc": "ShExコード:",
 	"entityschema-newschema-submit": "作成",
+	"entityschema-newschema-copyright": "「$1」をクリックすることで、あなたは[[$2|利用規約]]に同意し、自分の投稿内容を$3のもとで公開することに撤回不可能な形で同意することになります。",
+	"entityschema-anonymouseditwarning": "警告: ログインしていません。\n編集すると、IP アドレスがこのスキーマの編集履歴に記録されます。",
+	"entityschema-label-edit-placeholder": "$1でのラベル名を設定してください",
+	"entityschema-description-edit-placeholder": "説明を$1で入力してください",
+	"entityschema-aliases-edit-placeholder": "別名をいくつか$1で入力してください",
+	"entityschema-id-edit-placeholder": "スキーマID",
+	"entityschema-editpage-schema-inputlabel": "ShEx:",
+	"entityschema-summary-generated": "要約（自動生成される要約に追加されます）：",
+	"entityschema-label-empty": "ラベルは設定されていません",
 	"entityschema-namebadge-header-language-code": "言語コード",
 	"entityschema-namebadge-header-label": "ラベル",
+	"entityschema-namebadge-header-description": "説明",
 	"entityschema-namebadge-header-aliases": "別名",
 	"entityschema-namebadge-header-edit": "編集",
 	"entityschema-diff-label": "ラベル",
+	"entityschema-diff-description": "説明",
 	"entityschema-diff-aliases": "別名",
+	"entityschema-diff-schema": "スキーマ",
 	"entityschema-edit": "編集",
+	"entityschema-summary-newschema-nolabel": "スキーマを新規作成",
+	"entityschema-summary-update": "スキーマを更新",
+	"entityschema-summary-undo-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|talk]])による版 $1 を取り消し",
+	"entityschema-summary-restore-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]]による版 $1 を復元",
+	"entityschema-undo-heading-failed": "取り消しに失敗しました",
+	"entityschema-undo-bad-revisions": "取り消そうとした編集が存在しないか削除済みのため取り消せませんでした。",
+	"entityschema-restore-heading": "「$1」の古い版の復元",
+	"entityschema-restore-heading-failed": "復元に失敗しました",
 	"entityschema-restoreold": "復元",
-	"entityschema-special-id-inputlabel": "ID",
+	"entityschema-special-id-inputlabel": "スキーマID",
 	"entityschema-special-language-inputlabel": "言語コード",
-	"entityschema-special-label": "ラベル:"
+	"entityschema-special-id-submit": "ラベル、説明、別名の設定",
+	"entityschema-special-label": "ラベル:",
+	"entityschema-special-description": "説明:",
+	"entityschema-special-aliases": "別名（複数ある場合、縦線<code>|</code>で区切り）:"
 }
