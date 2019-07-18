@@ -13,6 +13,7 @@
 	"entityschema-newschema-submit": "Ccreje",
 	"entityschema-label-edit-placeholder": "mitte 'n'etichette jndr'à $1",
 	"entityschema-description-edit-placeholder": "mitte 'na descrizione jndr'à $1",
+	"entityschema-aliases-edit-placeholder": "'nzerisce de le alias jndr'à $1",
 	"entityschema-id-edit-placeholder": "ID d'u scheme",
 	"entityschema-editpage-schema-inputlabel": "ShEx:",
 	"entityschema-error-invalid-id": "Stu ID non g'è valide.",
