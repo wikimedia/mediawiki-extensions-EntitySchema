@@ -13,7 +13,6 @@ require_once 'FixedIdGenerator.php';
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\DataAccess\WatchlistUpdater;
-use ExtensionRegistry;
 use Maintenance;
 use RuntimeException;
 use User;
@@ -29,22 +28,18 @@ class CreatePreexistingSchemas extends Maintenance {
 	const DESC = 'desc';
 
 	public function __construct() {
+		parent::__construct();
+
 		$this->addDescription(
 			'Create initial EntitySchemas. Prossibly not that useful beyond wikidata.'
 		);
 
-		parent::__construct();
+		$this->requireExtension( 'EntitySchema' );
 	}
 
 	public function execute() {
 		// "Maintenance script" is in MediaWiki's $wgReservedUsernames
 		$user = User::newSystemUser( 'Maintenance script', [ 'steal' => true ] );
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'EntitySchema' ) ) {
-			$this->fatalError(
-				"You need to have EntitySchema enabled in order to use this maintenance script!\n\n"
-			);
-		}
 
 		$entities = $this->getSchemasToCreate();
 
