@@ -1,10 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Vlad5250"
+			"Vlad5250",
+			"Movses"
 		]
 	},
-	"special-newschema": "Создать новую схему",
+	"special-newschema": "Создать новую схему сущностей",
 	"entityschema-summary-undo-autocomment": "Отмена правки $1, сделанной [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|обсуждение]])",
+	"special-schematext": "Текст схемы сущностей",
+	"entityschema-special-setlabeldescriptionaliases": "Установка подписи, описания и псевдонимов схемы сущностей",
 	"entityschema-special-aliases": "Псевдонимы, разделённые верт. чертой:"
 }
