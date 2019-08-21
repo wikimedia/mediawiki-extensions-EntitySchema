@@ -7,12 +7,12 @@
 			"Vodnokon4e"
 		]
 	},
-	"entityschema-desc": "Складиране на и дискусия по схеми за единици на Уикибазата",
+	"entityschema-desc": "Складиране на и дискусия по схеми за единици на Уикибаза",
 	"special-newschema": "Създаване на нова схема",
 	"entityschema-newschema-label": "Етикет:",
 	"entityschema-newschema-description": "Описание:",
 	"entityschema-newschema-aliases": "Псевдоними, отделени с вертикални черти:",
-	"entityschema-newschema-schema-shexc": "Код за израза на облика:",
+	"entityschema-newschema-schema-shexc": "Код за Shape Expressions:",
 	"entityschema-newschema-submit": "Създаване",
 	"entityschema-newschema-copyright": "Щраквайки върху „$1“, се съгласявате с [[$2|условията за ползване]] и безвъзвратно публикувате приноса си под условията на $3.",
 	"entityschema-anonymouseditwarning": "Предупреждение: Не сте влезли. Вашият IP-адрес ще бъде запазен в историята на тази Схема.",
@@ -25,7 +25,7 @@
 	"entityschema-error-not-post": "Това действие трябва да се извърши с POST-заявка.",
 	"entityschema-error-inconsistent-id": "Не всички указани версии принадлежат на даденото заглавие.",
 	"entityschema-error-wrong-page-revisions": "Посочената версия не принадлежи на текущата страница.",
-	"entityschema-noschema": "Тук няма схема. Отидете на [[Special:NewSchema]], за да създадете нова.",
+	"entityschema-noschema": "Тук няма Схема. Отидете на [[Special:NewEntitySchema]], за да създадете нова.",
 	"entityschema-summary-generated": "Описание (за прикачване към автоматично генерирано описание):",
 	"entityschema-diff-label": "Етикети",
 	"entityschema-diff-description": "Описания",
@@ -41,11 +41,11 @@
 	"entityschema-undo-old-revision": "Версията за връщане",
 	"entityschema-restore-heading": "Възстановяване на стара версия на „$1“",
 	"entityschema-restore-bad-revisions": "Редакцията не може да бъде възстановена, тъй като не съществува или е била изтрита.",
-	"entityschema-restore-changed": "Схемата междувременно е променена. Моля, проверете отново.",
+	"entityschema-restore-changed": "Схемата е променена междувременно. Моля, проверете отново.",
 	"entityschema-restore-heading-failed": "Възстановяването е неуспешно",
-	"entityschema-restore-empty": "Версията, която се опитахте да възстановите, е идентична с текущата. Няма нищо за правене.",
+	"entityschema-restore-empty": "Версията, която се опитахте да възстановите е идентична с текущата. Няма нищо за правене.",
 	"entityschema-restoreold": "възстановяване",
-	"entityschema-special-label": "Етикети:",
+	"entityschema-special-label": "Етикет:",
 	"entityschema-special-description": "Описание:",
-	"entityschema-special-aliases": "Псевдоними (отделени с вертикални черти):"
+	"entityschema-special-aliases": "Псевдоними, отделени с вертикални черти:"
 }
