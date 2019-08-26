@@ -4,7 +4,6 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use MediaWikiTestCase;
 use RecentChange;
-use User;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 
 /**
@@ -14,7 +13,7 @@ use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 class MediaWikiPageUpdaterFactoryTest extends MediaWikiTestCase {
 
 	public function testGetPageUpdater() {
-		$user = $this->createMock( User::class );
+		$user = self::getTestUser()->getUser();
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$pageUpdater = $pageUpdaterFactory->getPageUpdater( 'testTitle' );
