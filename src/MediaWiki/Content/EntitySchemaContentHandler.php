@@ -75,6 +75,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 	public function getActionOverrides() {
 		return [
 			'edit' => function( Page $page, IContextSource $context = null ) {
+				global $wgEditSubmitButtonLabelPublish;
 				if ( $context === null ) {
 					$context = RequestContext::getMain();
 				}
@@ -114,6 +115,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 						$context,
 						MediaWikiServices::getInstance()->getMainConfig()
 					),
+					$wgEditSubmitButtonLabelPublish,
 					$context
 				);
 			},

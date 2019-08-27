@@ -32,6 +32,7 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 			new WikiPage( Title::newFromDBkey( 'E1' ) ),
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
+			'savechanges',
 			new RequestContext()
 		);
 
@@ -48,6 +49,7 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 			new WikiPage( Title::newFromDBkey( 'E1' ) ),
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
+			'savechanges',
 			new RequestContext()
 		);
 

@@ -29,14 +29,17 @@ class SchemaEditAction extends FormAction {
 	/* public */ const FIELD_EDIT_SUMMARY = 'edit-summary';
 
 	private $inputValidator;
+	private $submitMsgKey;
 
 	public function __construct(
 		Page $page,
 		InputValidator $inputValidator,
+		$wgEditSubmitButtonLabelPublish,
 		IContextSource $context = null
 	) {
 		$this->inputValidator = $inputValidator;
 		parent::__construct( $page, $context );
+		$this->submitMsgKey = $wgEditSubmitButtonLabelPublish ? 'publishchanges' : 'savechanges';
 	}
 
 	public function show() {
@@ -104,6 +107,15 @@ class SchemaEditAction extends FormAction {
 	}
 
 	protected function alterForm( HTMLForm $form ) {
+		$form->suppressDefaultSubmit();
+		$form->addButton( [
+			'name' => 'wpSave',
+			'value' => $this->msg( $this->submitMsgKey )->text(),
+			'label' => $this->msg( $this->submitMsgKey )->text(),
+			'attribs' => [ 'accessKey' => $this->msg( 'accesskey-save' )->plain() ],
+			'flags' => [ 'primary', 'progressive' ],
+			'type' => 'submit'
+		] );
 		$form->setValidationErrorMessage( [ [ 'entityschema-error-one-more-message-available' ] ] );
 	}
 
