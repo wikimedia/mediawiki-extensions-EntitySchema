@@ -8,12 +8,17 @@
 			"Ps2049"
 		]
 	},
+	"entityschema-newschema-label": "标签：",
 	"entityschema-newschema-submit": "创建",
 	"entityschema-summary-generated": "摘要（将附加于自动生成的摘要中）：",
+	"entityschema-namebadge-header-label": "标签",
+	"entityschema-namebadge-header-description": "描述",
+	"entityschema-namebadge-header-aliases": "别名",
 	"entityschema-namebadge-header-edit": "编辑",
 	"entityschema-diff-label": "标签",
 	"entityschema-diff-description": "说明",
 	"entityschema-diff-aliases": "别名",
+	"entityschema-edit": "编辑",
 	"entityschema-summary-update": "更新模式",
 	"entityschema-undo-heading": "正在撤销到“$1”的编辑",
 	"entityschema-undo-heading-failed": "撤销失败",
