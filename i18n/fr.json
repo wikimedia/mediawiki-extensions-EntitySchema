@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Gomoko",
-			"Wladek92"
+			"Wladek92",
+			"Thibaut120094"
 		]
 	},
 	"entityschema-desc": "Stocker et discuter des schémas pour les entités de Wikibase",
@@ -12,7 +13,7 @@
 	"entityschema-newschema-aliases": "Alias séparés par des barres verticales :",
 	"entityschema-newschema-schema-shexc": "Code d’expressions de forme :",
 	"entityschema-newschema-submit": "Créer",
-	"entityschema-newschema-copyright": "En cliquant sur « $1 », vous acceptez les [[$2|conditions d’utilisation]], et acceptez de façon irrévocable de mettre votre contribution sous $3.",
+	"entityschema-newschema-copyright": "En cliquant sur « $1 », vous acceptez les [[$2|conditions d’utilisation]], et acceptez de façon irrévocable de mettre votre contribution sous $3.",
 	"entityschema-anonymouseditwarning": "Attention : Vous n’êtes pas connecté. Votre adresse IP sera enregistrée dans l’historique des modifications de ce schéma.",
 	"entityschema-label-edit-placeholder": "entrez une étiquette en $1",
 	"entityschema-description-edit-placeholder": "entrer une description en $1",
