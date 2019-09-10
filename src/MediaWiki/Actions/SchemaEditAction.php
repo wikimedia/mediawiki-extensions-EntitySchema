@@ -27,9 +27,11 @@ class SchemaEditAction extends FormAction {
 	/* public */ const FIELD_SCHEMA_TEXT = 'schema-text';
 	/* public */ const FIELD_BASE_REV = 'base-rev';
 	/* public */ const FIELD_EDIT_SUMMARY = 'edit-summary';
+	/* public */ const FIELD_IGNORE_EMPTY_SUMMARY = 'ignore-blank-summary';
 
 	private $inputValidator;
 	private $submitMsgKey;
+	private $summaryWarned;
 
 	public function __construct(
 		Page $page,
@@ -75,12 +77,23 @@ class SchemaEditAction extends FormAction {
 		/**
 		 * @var $content EntitySchemaContent
 		 */
+		$request = $this->getContext()->getRequest();
+		$output = $this->getOutput();
+
 		$content = $this->getContext()->getWikiPage()->getContent();
 		if ( !$content instanceof EntitySchemaContent ) {
 			return Status::newFatal( $this->msg( 'entityschema-error-schemadeleted' ) );
 		}
 
 		$user = $this->getUser();
+		if (
+			$data['edit-summary'] === ''
+			&& $user->getOption( 'forceeditsummary' ) === '1'
+			&& !$request->getBool( self::FIELD_IGNORE_EMPTY_SUMMARY )
+		) {
+			return $output->wrapWikiMsg( "<div id='mw-missingsummary'>\n$1\n</div>",
+				[ 'missingsummary', $this->msg( $this->submitMsgKey )->text() ] );
+		}
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$id = new SchemaId( $this->getTitle()->getText() );
 		$watchListUpdater = new WatchlistUpdater( $user, NS_ENTITYSCHEMA_JSON );
@@ -108,6 +121,11 @@ class SchemaEditAction extends FormAction {
 
 	protected function alterForm( HTMLForm $form ) {
 		$form->suppressDefaultSubmit();
+		$request = $this->getContext()->getRequest();
+		if ( $request->getVal( 'wpedit-summary' ) === '' ) {
+			$form->addHiddenField( self::FIELD_IGNORE_EMPTY_SUMMARY, true );
+		}
+
 		$form->addButton( [
 			'name' => 'wpSave',
 			'value' => $this->msg( $this->submitMsgKey )->text(),
