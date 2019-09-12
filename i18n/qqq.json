@@ -4,7 +4,8 @@
 			"The Wikidata Team",
 			"Robby",
 			"A2093064",
-			"Raymond"
+			"Raymond",
+			"Amire80"
 		]
 	},
 	"entityschema-desc": "{{desc|name=EntitySchema|url=https://www.mediawiki.org/wiki/Extension:EntitySchema}}",
@@ -20,7 +21,7 @@
 	"entityschema-description-edit-placeholder": "Placeholder to add the description in the provided language.\n\nParameters:\n* $1 - the name of the language in the user interface language",
 	"entityschema-aliases-edit-placeholder": "Placeholder to add aliases in the provided language.\n\nParameters:\n* $1 - the name of the language in the user interface language",
 	"entityschema-id-edit-placeholder": "Input label for the ID field on the edit page",
-	"entityschema-editpage-schema-inputlabel": "Input label for the Schema field on the edit page",
+	"entityschema-editpage-schema-inputlabel": "Input label for the Schema field on the edit page.\n\n[[:w:en:ShEx|ShEx]] is a language for validating and describing RDF.",
 	"entityschema-error-schemadeleted": "Error message when trying to edit a schema that doesn't exist.",
 	"entityschema-error-schemaupdate-failed": "Error message when saving the Schema after edit wasn't successful",
 	"entityschema-error-schematext-conflict": "Error message if there was an edit conflict for the Schema text from which we cannot recover.",

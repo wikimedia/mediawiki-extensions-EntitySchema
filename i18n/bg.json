@@ -8,7 +8,7 @@
 		]
 	},
 	"entityschema-desc": "Складиране на и дискусия по схеми за единици на Уикибаза",
-	"special-newschema": "Създаване на нова схема",
+	"special-newschema": "Създаване на нова EntitySchema",
 	"entityschema-newschema-label": "Етикет:",
 	"entityschema-newschema-description": "Описание:",
 	"entityschema-newschema-aliases": "Псевдоними, отделени с вертикални черти:",
