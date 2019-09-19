@@ -33,9 +33,14 @@
 	"entityschema-summary-update-schema-label": "Aggiornate $1 etichette d'u scheme",
 	"entityschema-summary-update-schema-description": "Aggiornate $1 descriziune d'u scheme",
 	"entityschema-summary-update-schema-aliases": "Aggiornate $1 alias d'u scheme",
+	"entityschema-undo-heading-failed": "Annullamende fallite",
+	"entityschema-undo-bad-revisions": "'U cangiamende non ge pò essere annullete purcè non g'esiste o a state scangellete.",
+	"entityschema-undo-old-revision": "Versione da annullà",
 	"entityschema-restoreold": "repristine",
 	"special-schematext": "Teste de l'EntitySchema",
 	"entityschema-special-id-inputlabel": "ID de l'EntitySchema",
+	"entityschema-special-language-inputlabel": "Codece d'a lènghe",
+	"entityschema-special-id-submit": "'Mboste etichette, descrizione e le alias",
 	"entityschema-special-label": "Etichette:",
 	"entityschema-special-description": "Descrizione:"
 }
