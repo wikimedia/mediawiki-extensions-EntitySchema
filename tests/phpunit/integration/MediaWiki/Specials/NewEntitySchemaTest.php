@@ -2,12 +2,17 @@
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
+use ContentHandler;
 use MediaWiki\Block\DatabaseBlock;
+use MediaWiki\Linker\LinkTarget;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Storage\SlotRecord;
 use PermissionsError;
 use ReadOnlyError;
 use ReadOnlyMode;
 use FauxRequest;
 use SpecialPageTestBase;
+use TitleValue;
 use UserBlockedError;
 
 use EntitySchema\MediaWiki\Specials\NewEntitySchema;
@@ -131,37 +136,33 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 		parent::tearDown();
 	}
 
-	protected function getLastCreatedPageText() {
-		$row = $this->db->select(
-			[ 'page', 'revision', 'text' ],
-			[
-				'page_namespace',
-				'page_title',
-				'old_text',
-			],
+	/**
+	 * Gets the last created page.
+	 * @return LinkTarget
+	 */
+	private function getLastCreatedTitle() {
+		$row = $this->db->selectRow(
+			[ 'page' ],
+			[ 'page_namespace',  'page_title' ],
 			[],
 			__METHOD__,
-			[
-				'ORDER BY' => [
-					'page_id DESC',
-				],
-				'LIMIT' => 1,
-			],
-			[
-				'revision' => [
-					'INNER JOIN',
-					'page_latest=rev_id',
-				],
-				'text' => [
-					'INNER JOIN',
-					'rev_text_id=old_id',
-				],
-			]
-
+			[ 'ORDER BY' => [ 'page_id DESC' ] ]
 		);
-		$data = $row->fetchRow();
+		return new TitleValue( (int)$row->page_namespace, $row->page_title );
+	}
 
-		return $data['old_text'];
+	/**
+	 * Gets the text of the last created page.
+	 * @return string
+	 * @throws \MWException
+	 */
+	protected function getLastCreatedPageText() {
+		return ContentHandler::getContentText(
+			MediaWikiServices::getInstance()
+				->getRevisionLookup()
+				->getRevisionByTitle( $this->getLastCreatedTitle() )
+				->getContent( SlotRecord::MAIN )
+		);
 	}
 
 	protected function newSpecialPage() {
