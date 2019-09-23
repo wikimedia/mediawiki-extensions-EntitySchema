@@ -44,5 +44,6 @@
 	"entityschema-special-language-inputlabel": "Codece d'a lènghe",
 	"entityschema-special-id-submit": "'Mboste etichette, descrizione e le alias",
 	"entityschema-special-label": "Etichette:",
-	"entityschema-special-description": "Descrizione:"
+	"entityschema-special-description": "Descrizione:",
+	"entityschema-special-aliases": "Alias, separate da 'na barre verticale:"
 }
