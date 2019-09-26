@@ -42,7 +42,8 @@ abstract class AbstractRestoreAction extends EditAction {
 	 * @throws PermissionsError
 	 */
 	protected function checkPermissions() {
-		if ( $this->getUser()->isBlockedFrom( $this->getTitle() ) ) {
+		$pm = MediaWikiServices::getInstance()->getPermissionManager();
+		if ( $pm->isBlockedFrom( $this->getUser(), $this->getTitle() ) ) {
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 
@@ -50,7 +51,7 @@ abstract class AbstractRestoreAction extends EditAction {
 			throw new ReadOnlyError;
 		}
 
-		if ( !$this->getUser()->isAllowed( $this->getRestriction() ) ) {
+		if ( !$pm->userHasRight( $this->getUser(), $this->getRestriction() ) ) {
 			throw new PermissionsError( $this->getRestriction() );
 		}
 	}

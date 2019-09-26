@@ -232,7 +232,9 @@ class NewEntitySchema extends SpecialPage {
 	 * @throws UserBlockedError
 	 */
 	protected function checkBlocked( $subPage ) {
-		if ( $this->getUser()->isBlockedFrom( $this->getPageTitle( $subPage ) ) ) {
+		if ( MediaWikiServices::getInstance()->getPermissionManager()
+			->isBlockedFrom( $this->getUser(), $this->getPageTitle( $subPage ) )
+		) {
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 	}

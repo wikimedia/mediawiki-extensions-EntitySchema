@@ -6,6 +6,7 @@ use Html;
 use HTMLForm;
 use InvalidArgumentException;
 use Language;
+use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MWException;
@@ -406,8 +407,10 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		return 'wikibase';
 	}
 
-	private function checkBlocked( Title $title ) {
-		if ( $this->getUser()->isBlockedFrom( $title ) ) {
+	private function checkBlocked( LinkTarget $title ) {
+		if ( MediaWikiServices::getInstance()->getPermissionManager()
+			->isBlockedFrom( $this->getUser(), $title )
+		) {
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 	}

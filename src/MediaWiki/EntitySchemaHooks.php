@@ -9,7 +9,6 @@ use Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MWException;
-use MWNamespace;
 use SkinTemplate;
 use Title;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
@@ -99,13 +98,14 @@ final class EntitySchemaHooks {
 		&$html,
 		array &$classes
 	) {
+		$pm = MediaWikiServices::getInstance()->getPermissionManager();
 		$rev = MediaWikiServices::getInstance()->getRevisionStore()->newRevisionFromRow( $row );
 
 		$wikiPage = $history->getWikiPage();
 
 		if ( $wikiPage->getContentModel() === EntitySchemaContent::CONTENT_MODEL_ID
 			&& $wikiPage->getLatest() !== $rev->getId()
-			&& $wikiPage->getTitle()->quickUserCan( 'edit', $history->getUser() )
+			&& $pm->quickUserCan( 'edit', $history->getUser(), $wikiPage->getTitle() )
 			&& !$rev->isDeleted( RevisionRecord::DELETED_TEXT )
 		) {
 			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
@@ -216,7 +216,9 @@ final class EntitySchemaHooks {
 	 * @return null|false
 	 */
 	public static function onNamespaceIsMovable( $index, &$result ) {
-		if ( MWNamespace::equals( $index, NS_ENTITYSCHEMA_JSON ) ) {
+		if ( MediaWikiServices::getInstance()->getNamespaceInfo()
+			->equals( $index, NS_ENTITYSCHEMA_JSON )
+		) {
 			$result = false;
 			return false; // skip other hooks
 		}
