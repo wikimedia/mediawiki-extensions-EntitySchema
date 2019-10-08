@@ -7,6 +7,7 @@ use DomainException;
 use InvalidArgumentException;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\PageUpdater;
+use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use stdClass;
 use EntitySchema\DataAccess\EditConflict;
@@ -22,8 +23,7 @@ use EntitySchema\Services\SchemaConverter\NameBadge;
  * @covers \EntitySchema\DataAccess\SchemaUpdateGuard
  * @license GPL-2.0-or-later
  */
-class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
-	use \PHPUnit4And6Compat;
+class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 
 	/** @var RevisionRecord|null */
 	private $baseRevision;
@@ -164,7 +164,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 			$this->getMockWatchlistUpdater(),
 			new ArrayRevisionLookup( [ $this->parentRevision ] )
 		);
-		$this->setExpectedException( InvalidArgumentException::class, $exceptionMessage );
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( $exceptionMessage );
 		$schmeaUpdater->overwriteWholeSchema(
 			new SchemaId( 'E1' ),
 			[ $testLanguage => $testLabel ],
@@ -222,10 +223,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends \PHPUnit_Framework_TestCase {
 	public function testOverwriteWholeSchema_saveFails() {
 		$schmeaUpdater = $this->newMediaWikiRevisionSchemaUpdaterFailingToSave();
 
-		$this->setExpectedException(
-			RuntimeException::class,
-			'The revision could not be saved'
-		);
+		$this->expectException( RuntimeException::class );
+		$this->expectExceptionMessage( 'The revision could not be saved' );
 		$schmeaUpdater->overwriteWholeSchema(
 			new SchemaId( 'E1' ),
 			[],
@@ -517,10 +516,8 @@ SHEXC;
 	public function testUpdateSchemaText_saveFails() {
 		$schmeaUpdater = $this->newMediaWikiRevisionSchemaUpdaterFailingToSave();
 
-		$this->setExpectedException(
-			RuntimeException::class,
-			'The revision could not be saved'
-		);
+		$this->expectException( RuntimeException::class );
+		$this->expectExceptionMessage( 'The revision could not be saved' );
 		$schmeaUpdater->updateSchemaText(
 			new SchemaId( 'E1' ),
 			'qwerty',
@@ -1110,10 +1107,8 @@ SHEXC;
 	public function testUpdateSchemaNameBadge_saveFails() {
 		$schmeaUpdater = $this->newMediaWikiRevisionSchemaUpdaterFailingToSave();
 
-		$this->setExpectedException(
-			RuntimeException::class,
-			'The revision could not be saved'
-		);
+		$this->expectException( RuntimeException::class );
+		$this->expectExceptionMessage( 'The revision could not be saved' );
 		$schmeaUpdater->updateSchemaNameBadge(
 			new SchemaId( 'E1' ),
 			'en',

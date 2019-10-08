@@ -102,10 +102,8 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiTestCase {
 	public function testInsertSchema_saveFails() {
 		$inserter = $this->newMediaWikiRevisionSchemaInserterFailingToSave();
 
-		$this->setExpectedException(
-			RuntimeException::class,
-			'The revision could not be saved'
-		);
+		$this->expectException( RuntimeException::class );
+		$this->expectExceptionMessage( 'The revision could not be saved' );
 		$inserter->insertSchema(
 			'en',
 			'',

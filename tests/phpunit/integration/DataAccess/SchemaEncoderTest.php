@@ -104,10 +104,8 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 		$schemaText,
 		$expectedMessage
 	) {
-		$this->setExpectedException(
-			InvalidArgumentException::class,
-			$expectedMessage
-		);
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( $expectedMessage );
 
 		SchemaEncoder::getPersistentRepresentation(
 			new SchemaId( 'E1' ),
@@ -200,10 +198,8 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 	public function testSchemaTooLongException() {
 		$this->setMwGlobals( 'wgEntitySchemaSchemaTextMaxSizeBytes', 5 );
 
-		$this->setExpectedException(
-			InvalidArgumentException::class,
-			'is longer than'
-		);
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( 'is longer than' );
 
 		SchemaEncoder::getPersistentRepresentation(
 			new SchemaId( 'E1' ),
@@ -217,10 +213,8 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 	public function testLabelTooLongException() {
 		$this->setMwGlobals( 'wgEntitySchemaNameBadgeMaxSizeChars', 5 );
 
-		$this->setExpectedException(
-			InvalidArgumentException::class,
-			'is longer than'
-		);
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( 'is longer than' );
 
 		SchemaEncoder::getPersistentRepresentation(
 			new SchemaId( 'E1' ),
@@ -234,10 +228,8 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 	public function testDescriptionTooLongException() {
 		$this->setMwGlobals( 'wgEntitySchemaNameBadgeMaxSizeChars', 5 );
 
-		$this->setExpectedException(
-			InvalidArgumentException::class,
-			'is longer than'
-		);
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( 'is longer than' );
 
 		SchemaEncoder::getPersistentRepresentation(
 			new SchemaId( 'E1' ),
@@ -251,10 +243,8 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 	public function testAliasesTooLongException() {
 		$this->setMwGlobals( 'wgEntitySchemaNameBadgeMaxSizeChars', 5 );
 
-		$this->setExpectedException(
-			InvalidArgumentException::class,
-			'is longer than'
-		);
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( 'is longer than' );
 
 		SchemaEncoder::getPersistentRepresentation(
 			new SchemaId( 'E1' ),
