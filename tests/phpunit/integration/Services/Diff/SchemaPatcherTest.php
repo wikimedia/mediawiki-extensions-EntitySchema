@@ -19,8 +19,6 @@ use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
  */
 class SchemaPatcherTest extends TestCase {
 
-	use \PHPUnit4And6Compat;
-
 	public function provideValidSchemaPatches() {
 
 		yield 'restore label' => [
