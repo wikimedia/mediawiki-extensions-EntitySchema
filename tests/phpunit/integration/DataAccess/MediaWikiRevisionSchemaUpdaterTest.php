@@ -31,7 +31,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 	/** @var RevisionRecord|null */
 	private $parentRevision;
 
-	protected function tearDown() {
+	protected function tearDown() : void {
 		$this->baseRevision = null;
 		$this->parentRevision = null;
 	}

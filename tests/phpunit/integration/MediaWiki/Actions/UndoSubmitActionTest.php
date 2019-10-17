@@ -27,7 +27,7 @@ use WikiPage;
  */
 class UndoSubmitActionTest extends MediaWikiTestCase {
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 		$this->tablesUsed[] = 'page';
 		$this->tablesUsed[] = 'revision';
@@ -37,7 +37,7 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 	/** @var DatabaseBlock */
 	private $block;
 
-	protected function tearDown() {
+	protected function tearDown() : void {
 		if ( isset( $this->block ) ) {
 			$this->block->delete();
 		}
