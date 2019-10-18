@@ -165,7 +165,9 @@ class SchemaEncoder {
 	private static function isSequentialArrayOfStrings( array $array ) {
 		$values = array_values( $array );
 		if ( $array !== $values ) {
-			return false; // array is associative - fast solution see: https://stackoverflow.com/questions/173400/how-to-check-if-php-array-is-associative-or-sequential
+			// Array is associative or sparse. Fast solution from
+			// https://stackoverflow.com/questions/173400/how-to-check-if-php-array-is-associative-or-sequential
+			return false;
 		}
 		foreach ( $values as $value ) {
 			if ( !is_string( $value ) ) {

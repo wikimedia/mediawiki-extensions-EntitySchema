@@ -145,7 +145,7 @@ final class EntitySchemaHooks {
 	 * @return null|false
 	 */
 	public static function onFormatAutocomments( &$comment, $pre, $auto, $post, $title, $local ) {
-		// phpcs:ignore MediaWiki.VariableAnalysis.ForbiddenGlobalVariables.ForbiddenGlobal$wgTitle
+		// phpcs:ignore MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgTitle
 		global $wgTitle;
 
 		if ( !( $title instanceof Title ) ) {

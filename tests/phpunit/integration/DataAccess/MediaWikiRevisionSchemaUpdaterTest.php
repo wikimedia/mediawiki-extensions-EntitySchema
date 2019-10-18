@@ -698,7 +698,7 @@ SHEXC;
 	 * @dataProvider provideNameBadgesWithComments
 	 */
 	public function testUpdateSchemaNameBadge_comment(
-		NameBadge $old = null, // FIXME PHP7.1 nullable typehint
+		?NameBadge $old,
 		NameBadge $new,
 		$expectedAutocommentKey,
 		$expectedAutosummary

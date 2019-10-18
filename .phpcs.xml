@@ -1,10 +1,7 @@
 <?xml version="1.0"?>
 <ruleset>
 	<rule ref="./vendor/wikibase/wikibase-codesniffer/Wikibase">
-		<exclude name="Generic.Files.LineLength.MaxExceeded" />
 		<exclude name="MediaWiki.Commenting.FunctionAnnotations.UnrecognizedAnnotation" />
-		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgTitle" />
-		<exclude name="MediaWiki.Usage.NullableType.PHP71NullableStyle" />
 		<exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
 	</rule>
 	<rule ref="Generic.Metrics.CyclomaticComplexity" />
