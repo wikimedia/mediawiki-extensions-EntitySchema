@@ -60,10 +60,6 @@ class SqlIdGeneratorTest extends MediaWikiTestCase {
 		$this->assertSame( $currentId + 3, $actualId, 'SqlIdGenerator should skipped provided IDs' );
 	}
 
-	/**
-	 * @expectedException RuntimeException
-	 * @expectedExceptionMessage read-only for test
-	 */
 	public function testExceptionReadOnlyDB() {
 		$database = $this->createMock( IDatabase::class );
 		$database->method( 'insert' )
@@ -77,6 +73,8 @@ class SqlIdGeneratorTest extends MediaWikiTestCase {
 			'entityschema_id_counter'
 		);
 
+		$this->expectException( RuntimeException::class );
+		$this->expectExceptionMessage( 'read-only for test' );
 		$generator->getNewId();
 	}
 

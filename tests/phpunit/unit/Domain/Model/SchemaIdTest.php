@@ -35,9 +35,9 @@ class SchemaIdTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * @dataProvider provideInvalidIds
-	 * @expectedException InvalidArgumentException
 	 */
 	public function testConstructorRejectsInvalidId( $id ) {
+		$this->expectException( InvalidArgumentException::class );
 		new SchemaId( $id );
 	}
 

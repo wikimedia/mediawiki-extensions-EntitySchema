@@ -19,9 +19,6 @@ use WikiPage;
  */
 class SchemaEditActionTest extends MediaWikiTestCase {
 
-	/**
-	 * @expectedException ReadOnlyError
-	 */
 	public function testReadOnly() {
 		$readOnlyMode = $this->getMockBuilder( ReadOnlyMode::class )
 			->disableOriginalConstructor()
@@ -36,12 +33,10 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 			new RequestContext()
 		);
 
+		$this->expectException( ReadOnlyError::class );
 		$action->show();
 	}
 
-	/**
-	 * @expectedException PermissionsError
-	 */
 	public function testNoRights() {
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions',
 			[ '*' => [ 'edit' => false ] ] );
@@ -53,6 +48,7 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 			new RequestContext()
 		);
 
+		$this->expectException( PermissionsError::class );
 		$action->show();
 	}
 

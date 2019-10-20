@@ -28,24 +28,20 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 
 	private $block;
 
-	/**
-	 * @expectedException ReadOnlyError
-	 */
 	public function testReadOnly() {
 		$readOnlyMode = $this->getMockBuilder( ReadOnlyMode::class )
 			->disableOriginalConstructor()
 			->getMock();
 		$readOnlyMode->method( 'isReadOnly' )->willReturn( true );
 		$this->setService( 'ReadOnlyMode', $readOnlyMode );
+		$this->expectException( ReadOnlyError::class );
 		$this->executeSpecialPage( null );
 	}
 
-	/**
-	 * @expectedException PermissionsError
-	 */
 	public function testNoRights() {
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions',
 			[ '*' => [ 'createpage' => false ] ] );
+		$this->expectException( PermissionsError::class );
 		$this->executeSpecialPage( null );
 	}
 
