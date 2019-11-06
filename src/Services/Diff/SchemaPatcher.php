@@ -68,9 +68,6 @@ class SchemaPatcher {
 		return $terms;
 	}
 
-	/**
-	 * @suppress PhanUndeclaredMethod
-	 */
 	private function patchTerm( $terms, $lang, AtomicDiffOp $diffOp ) {
 		switch ( true ) {
 			case $diffOp instanceof DiffOpAdd:
@@ -110,8 +107,6 @@ class SchemaPatcher {
 	 * @param DiffOp|null $diffOp
 	 *
 	 * @return string
-	 *
-	 * @suppress PhanUndeclaredMethod
 	 */
 	private function patchString( $base, DiffOp $diffOp = null ) {
 		switch ( true ) {
