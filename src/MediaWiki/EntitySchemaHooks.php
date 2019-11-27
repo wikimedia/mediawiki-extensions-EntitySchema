@@ -28,12 +28,6 @@ final class EntitySchemaHooks {
 			'entityschema_id_counter',
 			__DIR__ . '/../../sql/EntitySchema.sql'
 		);
-
-		$updater->modifyExtensionField(
-			'page',
-			'page_namespace',
-			__DIR__ . '/../../sql/patch-move-page-namespace.sql'
-		);
 	}
 
 	public static function onExtensionTypes( array &$extTypes ) {
