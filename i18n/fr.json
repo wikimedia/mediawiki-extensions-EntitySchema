@@ -20,7 +20,7 @@
 	"entityschema-aliases-edit-placeholder": "entrer quelques alias en $1",
 	"entityschema-id-edit-placeholder": "ID du schéma",
 	"entityschema-editpage-schema-inputlabel": "ShEx :",
-	"entityschema-error-schemadeleted": "Le schéma que vous essayez de modifier n’existe pas. Peut-être a-t-il été supprimé ?",
+	"entityschema-error-schemadeleted": "Le schéma que vous essayez de modifier n’existe pas. Peut-être a-t-il été supprimé ?",
 	"entityschema-error-schemaupdate-failed": "Le schéma n'a pas pu être mis à jour",
 	"entityschema-error-schematext-conflict": "Ce schéma a été modifié entre-temps. Veuillez retourner sur la page du schéma et essayer de refaire la modification.",
 	"entityschema-error-namebadge-conflict": "Ce schéma a été modifié entre-temps. Veuillez revenir sur la page du schéma et essayer à nouveau de modifier les étiquettes, les descriptions et les alias vers cette langue.",
