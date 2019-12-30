@@ -12,10 +12,12 @@
 	},
 	"load_composer_autoloader": true,
 	"AutoloadNamespaces": {
-		"EntitySchema\\": "src/",
-		"EntitySchema\\Tests\\Integration\\": "tests/phpunit/integration",
-		"EntitySchema\\Tests\\Unit\\": "tests/phpunit/unit",
-		"EntitySchema\\Tests\\Mocks\\": "tests/phpunit/Mocks"
+		"EntitySchema\\": "src/"
+	},
+	"TestAutoloadNamespaces": {
+		"EntitySchema\\Tests\\Integration\\": "tests/phpunit/integration/",
+		"EntitySchema\\Tests\\Unit\\": "tests/phpunit/unit/",
+		"EntitySchema\\Tests\\Mocks\\": "tests/phpunit/Mocks/"
 	},
 	"ExtensionMessagesFiles": {
 		"EntitySchemaAlias": "EntitySchema.i18n.alias.php"
