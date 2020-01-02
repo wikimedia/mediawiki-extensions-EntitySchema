@@ -1,18 +1,21 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ykhwong"
+			"Ykhwong",
+			"Kwj2772"
 		]
 	},
-	"special-newschema": "새 스키마 만들기",
+	"special-newschema": "새 엔티티스키마 만들기",
 	"entityschema-newschema-label": "레이블:",
 	"entityschema-newschema-description": "설명:",
 	"entityschema-newschema-aliases": "다른 이름 (파이프로 구분):",
 	"entityschema-newschema-submit": "만들기",
+	"entityschema-newschema-copyright": "\"$1\"을 클릭함으로써, 당신은 [[$2|이용 약관]]에 동의하고, 당신의 기여를 불가역적으로 $3에 따라 배포하는 데 동의합니다.",
 	"entityschema-anonymouseditwarning": "경고: 로그인이 되어 있지 않습니다. IP 주소가 이 스키마의 편집 역사에 남게 됩니다.",
 	"entityschema-label-edit-placeholder": "$1의 스키마의 레이블",
 	"entityschema-id-edit-placeholder": "스키마 ID",
 	"entityschema-editpage-schema-inputlabel": "ShEx:",
+	"entityschema-error-schemadeleted": "당신이 편집하려 한 스키마가 존재하지 않습니다. 이것이 혹시 삭제되었나요?",
 	"entityschema-error-schemaupdate-failed": "스키마를 업데이트할 수 없습니다",
 	"entityschema-error-not-post": "이 동작은 POST 요청으로 완료되어야 합니다.",
 	"entityschema-error-invalid-id": "이 ID는 유효하지 않습니다.",
@@ -30,6 +33,7 @@
 	"entityschema-diff-schema": "스키마",
 	"entityschema-edit": "편집",
 	"entityschema-add-schema-text": "스키마 텍스트 추가",
+	"entityschema-check-entities": "엔티티를 이 스키마에 대해 검사하기",
 	"entityschema-summary-newschema-nolabel": "새 스키마를 만듦",
 	"entityschema-undo-heading": "$1(으)로 편집을 되돌립니다",
 	"entityschema-undo-heading-failed": "실행 취소를 실패했습니다",
@@ -38,7 +42,8 @@
 	"entityschema-undo-old-revision": "편집을 취소할 판",
 	"special-schematext": "스키마 텍스트",
 	"entityschema-schematext-missing": "존재하지 않거나 삭제된 스키마: $1.",
-	"entityschema-special-id-inputlabel": "ID",
+	"entityschema-special-setlabeldescriptionaliases": "엔티티스키마의 레이블, 설명, 다른 이름 설정하기",
+	"entityschema-special-id-inputlabel": "엔티티스키마 ID",
 	"entityschema-special-language-inputlabel": "언어 코드",
 	"entityschema-special-id-submit": "레이블, 설명, 다른 이름 설정하기",
 	"entityschema-special-setlabeldescriptionaliases-info": "[[$3|$2]] 스키마의 '''$1'''의 레이블, 설명, 다른 이름을 설정하고 있습니다.",
