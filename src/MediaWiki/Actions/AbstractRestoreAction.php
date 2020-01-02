@@ -22,7 +22,7 @@ abstract class AbstractRestoreAction extends EditAction {
 	}
 
 	protected function getRevisionFromRequest( WebRequest $req ): Status {
-		$restoreID = $req->getText( 'restore' );
+		$restoreID = $req->getInt( 'restore' );
 		$revStore = MediaWikiServices::getInstance()->getRevisionStore();
 		$revToRestore = $revStore->getRevisionById( $restoreID );
 		if ( $revToRestore === null || $revToRestore->isDeleted( RevisionRecord::DELETED_TEXT ) ) {
