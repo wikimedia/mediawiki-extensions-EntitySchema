@@ -54,7 +54,7 @@ class ArrayRevisionLookup implements RevisionLookup {
 		return null;
 	}
 
-	public function getKnownCurrentRevision( Title $title, $revId ) {
+	public function getKnownCurrentRevision( Title $title, $revId = 0 ) {
 		return null;
 	}
 
