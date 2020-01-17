@@ -219,7 +219,7 @@ class SchemaConverterTest extends MediaWikiTestCase {
 
 		$actualSchema = $converter->getFullViewSchemaData( $schemaJSON, $preferredLanguages );
 
-		$this->assertType( FullViewSchemaData::class, $actualSchema );
+		$this->assertInstanceOf( FullViewSchemaData::class, $actualSchema );
 		$this->assertEquals( $expectedSchemaData, $actualSchema );
 	}
 
@@ -258,7 +258,7 @@ class SchemaConverterTest extends MediaWikiTestCase {
 	public function testMonolingualNameBadgeData( $schemaJSON, $expectedNameBadgeData ) {
 		$converter = new SchemaConverter();
 		$actualNameBadge = $converter->getMonolingualNameBadgeData( $schemaJSON, 'en' );
-		$this->assertType( NameBadge::class, $actualNameBadge );
+		$this->assertInstanceOf( NameBadge::class, $actualNameBadge );
 		$this->assertEquals( $expectedNameBadgeData, $actualNameBadge );
 	}
 
