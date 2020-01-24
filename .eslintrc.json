@@ -8,5 +8,9 @@
 		"mw": false,
 		"OO": false,
 		"require": false
+	},
+	"rules": {
+		"no-jquery/no-event-shorthand": "warn",
+		"no-jquery/no-global-selector": "warn"
 	}
 }

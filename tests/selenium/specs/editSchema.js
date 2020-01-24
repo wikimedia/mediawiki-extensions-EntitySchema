@@ -89,9 +89,9 @@ describe( 'Schema Edit Page', () => {
 			LoginPage.loginAdmin();
 			ViewSchemaPage.open( 'E1', { action: 'edit' } );
 
-			const firstHeading = $( '#firstHeading' );
-			firstHeading.waitForVisible();
-			assert.strictEqual( firstHeading.getText(), 'Permission error' );
+			const $firstHeading = $( '#firstHeading' );
+			$firstHeading.waitForVisible();
+			assert.strictEqual( $firstHeading.getText(), 'Permission error' );
 		} );
 
 	} );
