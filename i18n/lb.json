@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Soued031"
 		]
 	},
 	"entityschema-newschema-label": "Etikett:",
@@ -12,7 +13,7 @@
 	"entityschema-aliases-edit-placeholder": "gitt e puer Aliasen op $1 an",
 	"entityschema-error-invalid-id": "Dës ID ass net valabel.",
 	"entityschema-error-unsupported-langcode": "Dëse Sproochcode gëtt net ënnerstëtzt",
-	"entityschema-error-one-more-message-available": "Et gëtt Problemer mat deem wat Dir aginn hutt. Kuckt w.e.g. de Feelermessage hei drënner.",
+	"entityschema-error-one-more-message-available": "Et gëtt Problemer mat deem wat Dir aginn hutt. Kuckt wgl. de Feelermessage hei drënner.",
 	"entityschema-label-empty": "Keng Etikett definéiert",
 	"entityschema-namebadge-header-language-code": "Sproochcode",
 	"entityschema-namebadge-header-label": "Etikett",
