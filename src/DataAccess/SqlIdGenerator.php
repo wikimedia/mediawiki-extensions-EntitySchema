@@ -13,7 +13,7 @@ use Wikimedia\Rdbms\ILoadBalancer;
  *
  * @license GPL-2.0-or-later
  * based on
- * @see \Wikibase\SqlIdGenerator
+ * @see \Wikibase\Repo\Store\Sql\SqlIdGenerator
  */
 class SqlIdGenerator implements IdGenerator {
 	/** @var ILoadBalancer */
