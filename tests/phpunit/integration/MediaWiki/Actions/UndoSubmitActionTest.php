@@ -2,6 +2,7 @@
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
+use Article;
 use CommentStoreComment;
 use FauxRequest;
 use MediaWiki\Block\DatabaseBlock;
@@ -62,7 +63,10 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 			], true )
 		);
 
-		$undoSubmitAction = new UndoSubmitAction( $page, $context );
+		$undoSubmitAction = new UndoSubmitAction(
+			Article::newFromWikiPage( $page, $context ),
+			$context
+		);
 
 		$undoSubmitAction->show();
 
@@ -85,7 +89,10 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 			], false )
 		);
 
-		$undoSubmitAction = new UndoSubmitAction( $page, $context );
+		$undoSubmitAction = new UndoSubmitAction(
+			Article::newFromWikiPage( $page, $context ),
+			$context
+		);
 
 		$undoSubmitAction->show();
 
@@ -119,7 +126,10 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 		);
 		$context->setUser( $testuser );
 
-		$undoSubmitAction = new UndoSubmitAction( $page, $context );
+		$undoSubmitAction = new UndoSubmitAction(
+			Article::newFromWikiPage( $page, $context ),
+			$context
+		);
 
 		$this->expectException( UserBlockedError::class );
 
@@ -144,7 +154,10 @@ class UndoSubmitActionTest extends MediaWikiTestCase {
 			], true )
 		);
 
-		$undoSubmitAction = new UndoSubmitAction( $page, $context );
+		$undoSubmitAction = new UndoSubmitAction(
+			Article::newFromWikiPage( $page, $context ),
+			$context
+		);
 
 		$this->expectException( PermissionsError::class );
 

@@ -3,6 +3,7 @@
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
 use Action;
+use Article;
 use CommentStoreComment;
 use FauxRequest;
 use MediaWiki\Block\DatabaseBlock;
@@ -58,7 +59,10 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 			], true )
 		);
 
-		$restoreSubmitAction = new RestoreSubmitAction( $page, $context );
+		$restoreSubmitAction = new RestoreSubmitAction(
+			Article::newFromWikiPage( $page, $context ),
+			$context
+		);
 
 		$restoreSubmitAction->show();
 
@@ -82,7 +86,10 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 			], true )
 		);
 
-		$restoreSubmitAction = new RestoreSubmitAction( $page, $context );
+		$restoreSubmitAction = new RestoreSubmitAction(
+			Article::newFromWikiPage( $page, $context ),
+			$context
+		);
 
 		$restoreSubmitAction->show();
 
@@ -119,7 +126,10 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 		);
 		$context->setUser( $testuser );
 
-		$restoreSubmitAction = new RestoreSubmitAction( $page, $context );
+		$restoreSubmitAction = new RestoreSubmitAction(
+			Article::newFromWikiPage( $page, $context ),
+			$context
+		);
 
 		$this->expectException( UserBlockedError::class );
 
@@ -154,7 +164,11 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 		$context = RequestContext::newExtraneousContext( $title, $requestParameters );
 
 		$actionName = Action::getActionName( $context );
-		$action = Action::factory( $actionName, $context->getWikiPage(), $context );
+		$action = Action::factory(
+			$actionName,
+			Article::newFromTitle( $title, $context ),
+			$context
+		);
 
 		$this->assertInstanceOf( RestoreSubmitAction::class, $action );
 	}

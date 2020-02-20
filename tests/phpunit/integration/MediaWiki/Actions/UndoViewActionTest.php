@@ -2,6 +2,7 @@
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
+use Article;
 use CommentStoreComment;
 use FauxRequest;
 use MediaWiki\Revision\SlotRecord;
@@ -62,7 +63,11 @@ class UndoViewActionTest extends MediaWikiTestCase {
 			$context,
 			$textSlotDiffRenderer
 		);
-		$undoViewAction = new UndoViewAction( $page, $diffRenderer, $context );
+		$undoViewAction = new UndoViewAction(
+			Article::newFromWikiPage( $page, $context ),
+			$diffRenderer,
+			$context
+		);
 
 		// act
 		$undoViewAction->show();

@@ -2,6 +2,7 @@
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
+use Article;
 use MediaWikiTestCase;
 use PermissionsError;
 use ReadOnlyError;
@@ -10,7 +11,6 @@ use RequestContext;
 use Title;
 use EntitySchema\MediaWiki\Actions\SchemaEditAction;
 use EntitySchema\Presentation\InputValidator;
-use WikiPage;
 
 /**
  * @covers \EntitySchema\MediaWiki\Actions\SchemaEditAction
@@ -25,12 +25,16 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 			->getMock();
 		$readOnlyMode->method( 'isReadOnly' )->willReturn( true );
 		$this->setService( 'ReadOnlyMode', $readOnlyMode );
+		$context = RequestContext::getMain();
 		$action = new SchemaEditAction(
-			new WikiPage( Title::newFromDBkey( 'E1' ) ),
+			Article::newFromTitle(
+				Title::newFromDBkey( 'E1' ),
+				$context
+			),
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			'savechanges',
-			new RequestContext()
+			$context
 		);
 
 		$this->expectException( ReadOnlyError::class );
@@ -40,12 +44,16 @@ class SchemaEditActionTest extends MediaWikiTestCase {
 	public function testNoRights() {
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions',
 			[ '*' => [ 'edit' => false ] ] );
+		$context = RequestContext::getMain();
 		$action = new SchemaEditAction(
-			new WikiPage( Title::newFromDBkey( 'E1' ) ),
+			Article::newFromTitle(
+				Title::newFromDBkey( 'E1' ),
+				$context
+			),
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			'savechanges',
-			new RequestContext()
+			$context
 		);
 
 		$this->expectException( PermissionsError::class );

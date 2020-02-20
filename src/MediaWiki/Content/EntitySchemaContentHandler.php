@@ -16,6 +16,7 @@ use RequestContext;
 use Revision;
 use SlotDiffRenderer;
 use Title;
+use WikiPage;
 use EntitySchema\DataAccess\SchemaEncoder;
 use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
 use EntitySchema\MediaWiki\Actions\RestoreViewAction;
@@ -25,7 +26,6 @@ use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
 use EntitySchema\MediaWiki\Actions\UndoViewAction;
 use EntitySchema\MediaWiki\UndoHandler;
 use EntitySchema\Presentation\InputValidator;
-use WikiPage;
 
 /**
  * Content handler for the EntitySchema content
@@ -74,72 +74,111 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 
 	public function getActionOverrides() {
 		return [
-			'edit' => function( Page $page, IContextSource $context = null ) {
-				global $wgEditSubmitButtonLabelPublish;
-				if ( $context === null ) {
-					$context = RequestContext::getMain();
-				}
-
-				/** @var Article|WikiPage $page */
-				// @phan-suppress-next-line PhanUndeclaredMethod
-				if ( $page->getRevision() === null ) {
-					return Action::factory( 'view', $page, $context );
-				}
-
-				$req = $context->getRequest();
-
-				if (
-					$req->getCheck( 'undo' )
-					|| $req->getCheck( 'undoafter' )
-				) {
-					return new UndoViewAction(
-						$page,
-						new EntitySchemaSlotDiffRenderer( $context ),
-						$context
-					);
-				}
-
-				if ( $req->getCheck( 'restore' ) ) {
-					return new RestoreViewAction(
-						$page,
-						new EntitySchemaSlotDiffRenderer( $context ),
-						$context
-					);
-				}
-
-				// TODo: check redirect?
-				// !$page->isRedirect()
-				return new SchemaEditAction(
-					$page,
-					new InputValidator(
-						$context,
-						MediaWikiServices::getInstance()->getMainConfig()
-					),
-					$wgEditSubmitButtonLabelPublish,
-					$context
-				);
+			'edit' => function( Page $article, IContextSource $context = null ) {
+				return $this->getActionOverridesEdit( $article, $context );
 			},
-			'submit' => function( Page $page, IContextSource $context = null ) {
-				if ( $context === null ) {
-					$context = RequestContext::getMain();
-				}
-
-				$req = $context->getRequest();
-
-				if (
-					$req->getCheck( 'undo' )
-					|| $req->getCheck( 'undoafter' )
-				) {
-					return new UndoSubmitAction( $page, $context );
-				}
-
-				if ( $req->getCheck( 'restore' ) ) {
-					return new RestoreSubmitAction( $page, $context );
-				}
-
-				return SchemaSubmitAction::class;
+			'submit' => function( Page $article, IContextSource $context = null ) {
+				return $this->getActionOverridesSubmit( $article, $context );
 			},
 		];
+	}
+
+	/**
+	 * @param Article|Page $page
+	 * @param IContextSource|null $context
+	 * @return Action|callable
+	 */
+	private function getActionOverridesEdit(
+		Page $page,
+		?IContextSource $context
+	) {
+		global $wgEditSubmitButtonLabelPublish;
+
+		$article = $this->prepareActionForBC( $page, $context, __METHOD__ );
+		$context = $context ?? RequestContext::getMain();
+
+		if ( $article->getPage()->getRevision() === null ) {
+			return Action::factory( 'view', $article, $context );
+		}
+
+		$req = $context->getRequest();
+
+		if (
+			$req->getCheck( 'undo' )
+			|| $req->getCheck( 'undoafter' )
+		) {
+			return new UndoViewAction(
+				$article,
+				new EntitySchemaSlotDiffRenderer( $context ),
+				$context
+			);
+		}
+
+		if ( $req->getCheck( 'restore' ) ) {
+			return new RestoreViewAction(
+				$article,
+				new EntitySchemaSlotDiffRenderer( $context ),
+				$context
+			);
+		}
+
+		// TODo: check redirect?
+		// !$article->isRedirect()
+		return new SchemaEditAction(
+			$article,
+			new InputValidator(
+				$context,
+				MediaWikiServices::getInstance()->getMainConfig()
+			),
+			$wgEditSubmitButtonLabelPublish,
+			$context
+		);
+	}
+
+	/**
+	 * @param Article|Page $page
+	 * @param IContextSource|null $context
+	 * @return RestoreSubmitAction|UndoSubmitAction|string
+	 */
+	private function getActionOverridesSubmit(
+		Page $page,
+		?IContextSource $context
+	) {
+		$article = $this->prepareActionForBC( $page, $context, __METHOD__ );
+		$context = $context ?? RequestContext::getMain();
+		$req = $context->getRequest();
+
+		if (
+			$req->getCheck( 'undo' )
+			|| $req->getCheck( 'undoafter' )
+		) {
+			return new UndoSubmitAction( $article, $context );
+		}
+
+		if ( $req->getCheck( 'restore' ) ) {
+			return new RestoreSubmitAction( $article, $context );
+		}
+
+		return SchemaSubmitAction::class;
+	}
+
+	private function prepareActionForBC(
+		Page $article,
+		?IContextSource $context,
+		string $action
+	): Article {
+		if ( $article instanceof WikiPage ) {
+			$article = Article::newFromWikiPage(
+				$article,
+				$context ?? RequestContext::getMain()
+			);
+		} elseif ( !$article instanceof Article ) {
+			throw new LogicException(
+				"Hook: {$action} call with unknown page: " . get_class( $article )
+			);
+		}
+
+		return $article;
 	}
 
 	public function supportsDirectApiEditing() {
