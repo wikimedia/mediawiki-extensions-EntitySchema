@@ -23,35 +23,33 @@ class SchemaPatcher {
 	 * @return FullArraySchemaData
 	 *
 	 * @throws PatcherException throws exception if patch cannot be applied
-	 * @suppress PhanPluginDuplicateConditionalNullCoalescing
 	 */
 	public function patchSchema( FullArraySchemaData $baseSchema, Diff $patch ): FullArraySchemaData {
 		$patchedSchema = $this->patchFingerprint( $baseSchema->data, $patch );
 
 		$patchedSchema['schemaText'] = $this->patchString(
 			$baseSchema->data['schemaText'] ?? '',
-			isset( $patch['schemaText'] ) ? $patch['schemaText'] : null
+			$patch['schemaText'] ?? null
 		);
 
 		return new FullArraySchemaData( $patchedSchema );
 	}
 
-	/** @suppress PhanPluginDuplicateConditionalNullCoalescing */
 	private function patchFingerprint( array $baseSchema, Diff $patch ): array {
 		$aliasGroupPatcher = new AliasGroupListPatcher();
 
 		$patchedSchema = [
 			'labels' => $this->patchTermlist(
 				$baseSchema['labels'] ?? [],
-				isset( $patch['labels'] ) ? $patch['labels'] : null
+				$patch['labels'] ?? null
 			),
 			'descriptions' => $this->patchTermlist(
 				$baseSchema['descriptions'] ?? [],
-				isset( $patch['descriptions'] ) ? $patch['descriptions'] : null
+				$patch['descriptions'] ?? null
 			),
 			'aliases' => $aliasGroupPatcher->patchAliasGroupList(
 				$baseSchema['aliases'] ?? [],
-				isset( $patch['aliases'] ) ? $patch['aliases'] : null
+				$patch['aliases'] ?? null
 			),
 		];
 
