@@ -122,9 +122,8 @@ class SchemaPatcher {
 				$from = $diffOp->getOldValue();
 				$to = $diffOp->getNewValue();
 				break;
-			case $diffOp === null;
+			default:
 				$from = $to = null;
-				break;
 		}
 		if ( $from !== $to ) {
 			$ok = wfMerge(
