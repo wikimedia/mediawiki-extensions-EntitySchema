@@ -4,7 +4,8 @@
 			"Olghinabella",
 			"Vlad5250",
 			"Andrew J.Kurbiko",
-			"Ата"
+			"Ата",
+			"Piramidion"
 		]
 	},
 	"entityschema-desc": "Зберігання та обговорення схем для сутностей Вікібази",
@@ -67,13 +68,18 @@
 	"entityschema-undo-old-revision": "Версія для скасування",
 	"entityschema-restore-heading": "Відновлення старої версії «$1»",
 	"entityschema-restore-bad-revisions": "Редагування не може бути відновлене, бо його не існує або було вилучено.",
+	"entityschema-restore-changed": "Тим часом схема вже змінилася. Будь ласка, перевірте ще раз.",
 	"entityschema-restore-heading-failed": "Відновлення не вдалося",
 	"entityschema-restore-empty": "Версію, яку ви намагалися відновити, ідентична поточній версії. Немає чого виконувати.",
 	"entityschema-restoreold": "відновити",
 	"special-schematext": "Текст схеми",
-	"entityschema-special-id-inputlabel": "ID схеми",
+	"entityschema-schematext-text": "Сторінка надає інтерфейс сирому тексту схеми. Будь ласка, вкажіть ідентифікатор схеми в URL-адресі, скориставшись синтаксисом підсторінки.",
+	"entityschema-schematext-missing": "Відсутня або вилучена схема: $1.",
+	"entityschema-special-setlabeldescriptionaliases": "Встановлення назви, опису та альтернативних назв для схеми сутності",
+	"entityschema-special-id-inputlabel": "ID схеми сутності",
 	"entityschema-special-language-inputlabel": "Код мови",
 	"entityschema-special-id-submit": "Задати назву, опис та додаткові назви",
+	"entityschema-special-setlabeldescriptionaliases-info": "Ви задаєте назву, опис та альтернативні назви для схеми [[$3|$2]] мовою: '''$1'''.",
 	"entityschema-special-label": "Назва:",
 	"entityschema-special-description": "Опис:",
 	"entityschema-special-aliases": "Альтернативні назви (через вертикальну риску):"
