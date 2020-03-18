@@ -39,7 +39,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 			return;
 		}
 
-		$revStatus = $this->getRevisionFromRequest( $this->context->getRequest() );
+		$revStatus = $this->getRevisionFromRequest( $this->getContext()->getRequest() );
 		if ( !$revStatus->isOK() ) {
 			$this->showRestoreErrorPage( $revStatus );
 			return;
@@ -64,7 +64,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 	}
 
 	private function checkCurrentRevison(): Status {
-		$req = $this->context->getRequest();
+		$req = $this->getContext()->getRequest();
 
 		if ( $this->getTitle()->getLatestRevID() !== (int)$req->getText( 'wpBaseRev' ) ) {
 			return Status::newFatal( $this->msg( 'entityschema-restore-changed' ) );
@@ -80,7 +80,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		$converter = new SchemaConverter();
 
 		$summary = $this->createSummaryMessageForRestore(
-			$this->context->getRequest()->getText( 'wpSummary' ),
+			$this->getContext()->getRequest()->getText( 'wpSummary' ),
 			$revToRestore
 		);
 
@@ -89,7 +89,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 			// @phan-suppress-next-line PhanUndeclaredMethod
 				$contentToRestore->getText()
 			),
-			$this->context->getRequest()->getInt( 'wpBaseRev' ),
+			$this->getContext()->getRequest()->getInt( 'wpBaseRev' ),
 			$summary
 		);
 	}

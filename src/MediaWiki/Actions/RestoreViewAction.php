@@ -35,7 +35,7 @@ final class RestoreViewAction extends AbstractRestoreAction {
 	public function show() {
 		$this->checkPermissions();
 
-		$req = $this->context->getRequest();
+		$req = $this->getContext()->getRequest();
 		$revStatus = $this->getRevisionFromRequest( $req );
 		if ( !$revStatus->isOK() ) {
 			$this->showRestoreErrorPage( $revStatus );

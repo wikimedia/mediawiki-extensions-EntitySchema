@@ -38,7 +38,7 @@ class UndoViewAction extends AbstractUndoAction {
 			)
 		);
 
-		$req = $this->context->getRequest();
+		$req = $this->getContext()->getRequest();
 		$diffStatus = $this->getDiffFromRequest( $req );
 		if ( !$diffStatus->isOK() ) {
 			$this->showUndoErrorPage( $diffStatus );
