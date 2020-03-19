@@ -54,8 +54,8 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 			null,
 			new FauxRequest(
 				[
-					'label' => $testLabel,
-					'languagecode' => 'en',
+					NewEntitySchema::FIELD_LABEL => $testLabel,
+					NewEntitySchema::FIELD_LANGUAGE => 'en',
 				],
 				true
 			)
@@ -82,7 +82,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 				null,
 				new FauxRequest(
 					[
-						'label' => $testLabel,
+						NewEntitySchema::FIELD_LABEL => $testLabel,
 					],
 					true
 				),
