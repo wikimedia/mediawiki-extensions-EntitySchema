@@ -60,7 +60,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$setSchemaInfo = $this->newSpecialPage();
 		$infoGood = $setSchemaInfo->submitEditFormCallback( $dataGood );
 
-		$this->assertTrue( $infoGood->ok );
+		$this->assertTrue( $infoGood->isOK() );
 	}
 
 	public function testSubmitEditFormCallbackNonEnglish() {
@@ -79,7 +79,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
 		$setSchemaInfo = $this->newSpecialPage();
 		$infoGood = $setSchemaInfo->submitEditFormCallback( $dataGood );
-		$this->assertTrue( $infoGood->ok );
+		$this->assertTrue( $infoGood->isOK() );
 
 		$schemaContent = $this->getCurrentSchemaContent( $dataGood['ID'] );
 		$expectedLabels = array_merge(
@@ -124,7 +124,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$setSchemaInfo = $this->newSpecialPage();
 		$infoGood = $setSchemaInfo->submitEditFormCallback( $dataGood );
 
-		$this->assertTrue( $infoGood->ok );
+		$this->assertTrue( $infoGood->isOK() );
 		$schemaContent = $this->getCurrentSchemaContent( $dataGood['ID'] );
 		$this->assertSame( [ 'foo', 'bar', 'baz' ], $schemaContent['aliases']['en'] );
 	}
@@ -143,9 +143,9 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$setSchemaInfo = $this->newSpecialPage();
 		$infoFalse = $setSchemaInfo->submitEditFormCallback( $dataWrong );
 
-		$this->assertFalse( $infoFalse->ok );
+		$this->assertFalse( $infoFalse->isOK() );
 		$this->assertSame( 'error',
-			$infoFalse->errors[0]['type'],
+			$infoFalse->getErrors()[0]['type'],
 			'The object $infoIncomplete should contain an error'
 		);
 	}
@@ -164,7 +164,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$setSchemaInfo = $this->newSpecialPage();
 		$infoIncomplete = $setSchemaInfo->submitEditFormCallback( $dataIncomplete );
 
-		$this->assertFalse( $infoIncomplete->ok );
+		$this->assertFalse( $infoIncomplete->isOK() );
 	}
 
 	public function testValidateSchemaSelectionFormData() {
