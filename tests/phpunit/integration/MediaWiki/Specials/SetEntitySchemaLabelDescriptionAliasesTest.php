@@ -253,7 +253,8 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 					'title' => 'Special:SetEntitySchemaLabelDescriptionAliases',
 				], $additionalRequestParams ),
 				$wasPosted
-			)
+			),
+			'en' // default is qqx but qqx terms do not exist
 		);
 
 		$mockHTMLFormProvider = $this->mockHTMLFormProvider; // FIXME: PHP7: inline this variable!

@@ -55,6 +55,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 			new FauxRequest(
 				[
 					'label' => $testLabel,
+					'languagecode' => 'en',
 				],
 				true
 			)
@@ -103,6 +104,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	}
 
 	public function testNewSchemaIsNotCreatedWithInvalidData() {
+		$this->setUserLang( 'qqx' );
 		list( $html, ) = $this->executeSpecialPage(
 			null,
 			new FauxRequest(
@@ -113,12 +115,12 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 		);
 
 		$this->assertContains(
-			'There are problems with some of your input.',
+			'(entityschema-error-',
 			$html,
 			'error status message is missing'
 		);
 		$this->assertContains(
-			'This value is required.',
+			'(htmlform-required)',
 			$html,
 			'message about required value is missing'
 		);
