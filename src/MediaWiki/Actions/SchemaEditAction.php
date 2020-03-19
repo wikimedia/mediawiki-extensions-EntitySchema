@@ -138,7 +138,7 @@ class SchemaEditAction extends FormAction {
 	}
 
 	protected function getFormFields() {
-		$currentRevRecord = $this->context->getWikiPage()->getRevisionRecord();
+		$currentRevRecord = $this->getContext()->getWikiPage()->getRevisionRecord();
 		if ( !$currentRevRecord ) {
 			throw new RuntimeException( $this->msg( 'entityschema-error-schemadeleted' ) );
 		}
@@ -147,7 +147,7 @@ class SchemaEditAction extends FormAction {
 		$content = $currentRevRecord->getContent( SlotRecord::MAIN );
 		// @phan-suppress-next-line PhanUndeclaredMethod
 		$schemaText = ( new SchemaConverter() )->getSchemaText( $content->getText() );
-		$baseRev = $this->context->getRequest()->getInt(
+		$baseRev = $this->getContext()->getRequest()->getInt(
 			'wp' . self::FIELD_BASE_REV,
 			$currentRevRecord->getId()
 		);

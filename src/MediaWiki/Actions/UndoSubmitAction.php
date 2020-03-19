@@ -73,7 +73,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 	}
 
 	private function undo(): Status {
-		$req = $this->context->getRequest();
+		$req = $this->getContext()->getRequest();
 
 		$diffStatus = $this->getDiffFromRequest( $req );
 		if ( !$diffStatus->isOK() ) {
@@ -96,8 +96,8 @@ class UndoSubmitAction extends AbstractUndoAction {
 		);
 
 		$summary = $this->createSummaryCommentForUndoRev(
-			$this->context->getRequest()->getText( 'wpSummary' ),
-			$this->context->getRequest()->getInt( 'undo' )
+			$this->getContext()->getRequest()->getText( 'wpSummary' ),
+			$this->getContext()->getRequest()->getInt( 'undo' )
 			);
 
 		try {
