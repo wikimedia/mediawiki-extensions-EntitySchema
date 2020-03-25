@@ -58,4 +58,24 @@ class ArrayRevisionLookup implements RevisionLookup {
 		return null;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
+	public function getRevisionByTimestamp(
+		LinkTarget $title,
+		string $timestamp,
+		int $flags = RevisionLookup::READ_NORMAL
+	): ?RevisionRecord {
+		return null;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getFirstRevision(
+		LinkTarget $title,
+		int $flags = RevisionLookup::READ_NORMAL
+	): ?RevisionRecord {
+		return null;
+	}
 }
