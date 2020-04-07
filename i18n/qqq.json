@@ -1,12 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"The Wikidata Team",
-			"Robby",
 			"A2093064",
-			"Raymond",
 			"Amire80",
-			"Pikne"
+			"Pikne",
+			"Raymond",
+			"Robby",
+			"The Wikidata Team"
 		]
 	},
 	"entityschema-desc": "{{desc|name=EntitySchema|url=https://www.mediawiki.org/wiki/Extension:EntitySchema}}",

@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Olghinabella",
-			"Vlad5250",
 			"Andrew J.Kurbiko",
-			"Ата",
-			"Piramidion"
+			"Olghinabella",
+			"Piramidion",
+			"Vlad5250",
+			"Ата"
 		]
 	},
 	"entityschema-desc": "Зберігання та обговорення схем для сутностей Вікібази",
