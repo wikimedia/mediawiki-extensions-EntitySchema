@@ -97,7 +97,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		$article = $this->prepareActionForBC( $page, $context, __METHOD__ );
 		$context = $context ?? RequestContext::getMain();
 
-		if ( $article->getPage()->getRevision() === null ) {
+		if ( $article->getPage()->getRevisionRecord() === null ) {
 			return Action::factory( 'view', $article, $context );
 		}
 
