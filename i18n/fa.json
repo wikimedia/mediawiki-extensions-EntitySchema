@@ -1,9 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amirsara"
+			"Amirsara",
+			"FarsiNevis"
 		]
 	},
 	"entityschema-newschema-label": "برچسب:",
+	"entityschema-error-schemaupdate-failed": "طرحواره روزآمد نشد",
+	"entityschema-summary-update": "طرحوارهٔ روزآمد",
+	"entityschema-summary-update-schema-text-user": "متن طرحوارهٔ روزآمد: $1",
+	"entityschema-summary-update-schema-label": "برچسب طرحوارهٔ روزآمد $1",
+	"entityschema-summary-update-schema-aliases": "نام‌های مستعار طرحوارهٔ روزآمد $1",
 	"entityschema-special-label": "برچسب:"
 }
