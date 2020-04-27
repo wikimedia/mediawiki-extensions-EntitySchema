@@ -1,16 +1,23 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mirzali"
+			"Mirzali",
+			"Orbot707"
 		]
 	},
+	"entityschema-desc": "Seba vıraştekanê wikibase şemaya bınımnê u  werênê",
 	"special-newschema": "Yew şemaya biyayışiya newiye vıraze",
 	"entityschema-newschema-label": "Etiket:",
 	"entityschema-newschema-description": "Şınasnayış",
+	"entityschema-newschema-aliases": "Namey bıni, çuweya pera abırne (|) :",
 	"entityschema-newschema-schema-shexc": "Kodê ifadeyanê şeklan:",
 	"entityschema-newschema-submit": "Vıraze",
 	"entityschema-description-edit-placeholder": "Yew arezekerdış $1 ke",
+	"entityschema-id-edit-placeholder": "Kamiya Şemay",
 	"entityschema-editpage-schema-inputlabel": "ShEx:",
+	"entityschema-error-invalid-id": "Ena kamiye xıraba",
+	"entityschema-error-unsupported-langcode": "No kodê zıwani peşti nêgêno",
+	"entityschema-label-empty": "Qet yew etiket nêşınasneyayo",
 	"entityschema-namebadge-header-language-code": "kodê zıwani",
 	"entityschema-namebadge-header-label": "etiket",
 	"entityschema-namebadge-header-description": "şınasnayış",
@@ -21,11 +28,17 @@
 	"entityschema-diff-aliases": "Nameyê bini",
 	"entityschema-diff-schema": "Teslağ",
 	"entityschema-edit": "bıvurne",
+	"entityschema-add-schema-text": "Metinê şema cı kerê",
+	"entityschema-check-entities": "Esteka gorey Şema kontrol kerê",
+	"entityschema-summary-newschema-nolabel": "Yu şemaya newiye vıraziyê",
+	"entityschema-summary-update": "Şema  rocaneyê",
+	"entityschema-summary-update-schema-text": "Rocaneyayi metinê şemay",
 	"entityschema-undo-heading-failed": "Peyser nêgêriya",
 	"entityschema-restore-bad-revisions": "Vurnayış peyser nêgêriyeno, çıke çıniyo ya zi esteriyayo.",
 	"entityschema-restoreold": "peyser biya",
-	"entityschema-special-id-inputlabel": "Kamiye",
+	"entityschema-special-id-inputlabel": "Kamiya EntitySchema",
 	"entityschema-special-language-inputlabel": "Kodê zıwani",
 	"entityschema-special-label": "Etiket:",
-	"entityschema-special-description": "Şınasnayış:"
+	"entityschema-special-description": "Şınasnayış:",
+	"entityschema-special-aliases": "Namey bıni, çuweya pera abırne (|) :"
 }
