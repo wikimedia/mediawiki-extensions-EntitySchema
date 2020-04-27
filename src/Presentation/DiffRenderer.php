@@ -21,8 +21,8 @@ class DiffRenderer {
 		$diffEngine = new DifferenceEngine();
 		return $diffEngine->addHeader(
 			$diffEngine->localiseLineNumbers( $diffRowsHTML ),
-			$leftSideHeading,
-			$this->msgLocalizer->msg( 'yourtext' )
+			$leftSideHeading->parse(),
+			$this->msgLocalizer->msg( 'yourtext' )->parse()
 		);
 	}
 

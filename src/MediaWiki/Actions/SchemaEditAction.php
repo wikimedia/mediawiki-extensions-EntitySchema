@@ -140,7 +140,7 @@ class SchemaEditAction extends FormAction {
 	protected function getFormFields() {
 		$currentRevRecord = $this->getContext()->getWikiPage()->getRevisionRecord();
 		if ( !$currentRevRecord ) {
-			throw new RuntimeException( $this->msg( 'entityschema-error-schemadeleted' ) );
+			throw new RuntimeException( $this->msg( 'entityschema-error-schemadeleted' )->text() );
 		}
 
 		/** @var EntitySchemaContent $content */
