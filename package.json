@@ -6,7 +6,7 @@
 		"selenium-test": "echo Please run \\`npm run selenium-test -- --spec extensions/EntitySchema/tests/selenium/spec\\` in the mediawiki directory."
 	},
 	"devDependencies": {
-		"eslint-config-wikimedia": "0.15.0",
+		"eslint-config-wikimedia": "0.15.3",
 		"grunt": "1.0.4",
 		"grunt-banana-checker": "0.8.1",
 		"grunt-eslint": "22.0.0",
