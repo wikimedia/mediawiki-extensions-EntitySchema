@@ -70,7 +70,7 @@
 	"entityschema-restore-empty": "復元しようとした版は、現在の版と同じです。実行できるものはありません。",
 	"entityschema-restoreold": "復元",
 	"special-schematext": "スキーマの本文",
-	"entityschema-schematext-text": "このページは、スキーマの本文データへのインタフェースを提供します。サブページの構文で、URLにスキーマIDを指定してください。",
+	"entityschema-schematext-text": "このページは、スキーマの本文データへのインターフェイスを提供します。下位ページの構文で、URL にスキーマ ID を指定してください。",
 	"entityschema-schematext-missing": "スキーマが見つからないか削除されています: $1",
 	"entityschema-special-setlabeldescriptionaliases": "ラベル、説明、別名の設定",
 	"entityschema-special-id-inputlabel": "スキーマID",
