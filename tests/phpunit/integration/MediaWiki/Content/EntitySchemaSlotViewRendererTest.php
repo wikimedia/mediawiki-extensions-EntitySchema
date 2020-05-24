@@ -36,7 +36,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 		$html = $parserOutput->getText();
 
 		foreach ( $fragments as $fragment ) {
-			$this->assertContains( $fragment, $html );
+			$this->assertStringContainsString( $fragment, $html );
 		}
 	}
 
@@ -139,10 +139,10 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 		// the "not contains" assertions below may be broken by unrelated changes in the future,
 		// especially the "Edit" one (could be part of some Special:EditSomething URL, for example);
 		// feel free to just remove them in that case if that seems appropriate
-		$this->assertContains( '(entityschema-namebadge-header-language-code)', $html );
-		$this->assertNotContains( 'language code', $html );
-		$this->assertContains( '(entityschema-edit)', $html );
-		$this->assertNotContains( 'Edit', $html );
+		$this->assertStringContainsString( '(entityschema-namebadge-header-language-code)', $html );
+		$this->assertStringNotContainsString( 'language code', $html );
+		$this->assertStringContainsString( '(entityschema-edit)', $html );
+		$this->assertStringNotContainsString( 'Edit', $html );
 	}
 
 	/**
@@ -162,7 +162,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 		);
 		$html = $parserOutput->getDisplayTitle();
 
-		$this->assertContains( $expected, $html );
+		$this->assertStringContainsString( $expected, $html );
 	}
 
 	public function provideLabelsAndHeadings() {
@@ -204,15 +204,15 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 		);
 		$html = $parserOutput->getText();
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			' href="http://my.test?foo=bar&amp;schemaURL=',
 			$html
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'E12345#fragment"',
 			$html
 		);
-		$this->assertContains( '(entityschema-check-entities)', $html );
+		$this->assertStringContainsString( '(entityschema-check-entities)', $html );
 	}
 
 }

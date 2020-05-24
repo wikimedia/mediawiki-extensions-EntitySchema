@@ -26,7 +26,7 @@ class EntitySchemaContentTest extends MediaWikiTestCase {
 		$parserOutput = $content->getParserOutput( $title, null, $parserOptions );
 		$html = $parserOutput->getText();
 
-		$this->assertContains( '(entityschema-namebadge-header-label)', $html );
+		$this->assertStringContainsString( '(entityschema-namebadge-header-label)', $html );
 		$this->assertContains( 'userlang', $parserOutput->getUsedOptions() );
 	}
 
@@ -59,9 +59,9 @@ class EntitySchemaContentTest extends MediaWikiTestCase {
 		$html = $parserOutput->getText();
 
 		if ( $expected === false ) {
-			$this->assertNotContains( 'entityschema-check-entities', $html );
+			$this->assertStringNotContainsString( 'entityschema-check-entities', $html );
 		} else {
-			$this->assertContains( $expected, $html );
+			$this->assertStringContainsString( $expected, $html );
 		}
 	}
 

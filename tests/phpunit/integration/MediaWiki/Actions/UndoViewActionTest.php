@@ -74,8 +74,14 @@ class UndoViewActionTest extends MediaWikiTestCase {
 
 		// assert
 		$actualHTML = $undoViewAction->getContext()->getOutput()->getHTML();
-		$this->assertContains( '<ins class="diffchange diffchange-inline">abc</ins>', $actualHTML );
-		$this->assertContains( '<del class="diffchange diffchange-inline">def</del>', $actualHTML );
+		$this->assertStringContainsString(
+			'<ins class="diffchange diffchange-inline">abc</ins>',
+			$actualHTML
+		);
+		$this->assertStringContainsString(
+			'<del class="diffchange diffchange-inline">def</del>',
+			$actualHTML
+		);
 	}
 
 	private function saveSchemaPageContent( WikiPage $page, array $content ) {

@@ -61,7 +61,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 			)
 		);
 		$textOfNewestPage = $this->getLastCreatedPageText();
-		$this->assertContains( $testLabel, $textOfNewestPage );
+		$this->assertStringContainsString( $testLabel, $textOfNewestPage );
 	}
 
 	public function testNewSchemaIsNotCreatedWhenBlocked() {
@@ -96,7 +96,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 		}
 
 		$textOfNewestPage = $this->getLastCreatedPageText();
-		$this->assertNotContains(
+		$this->assertStringNotContainsString(
 			$testLabel,
 			$textOfNewestPage,
 			'Blocked User was able to create new Schema!'
@@ -114,12 +114,12 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 			)
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'(entityschema-error-',
 			$html,
 			'error status message is missing'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'(htmlform-required)',
 			$html,
 			'message about required value is missing'
