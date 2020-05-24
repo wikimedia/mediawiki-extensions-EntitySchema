@@ -75,7 +75,7 @@ class SqlIdGenerator implements IdGenerator {
 			$success = $database->update(
 				$this->tableName,
 				[ 'id_value' => $id ],
-				[]
+				IDatabase::ALL_ROWS
 			);
 		} else {
 			$id = 1;
