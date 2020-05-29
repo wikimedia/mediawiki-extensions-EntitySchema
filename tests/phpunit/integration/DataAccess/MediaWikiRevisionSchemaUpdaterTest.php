@@ -9,7 +9,6 @@ use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\PageUpdater;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use stdClass;
 use EntitySchema\DataAccess\EditConflict;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
@@ -134,12 +133,12 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 			. 'and aliases must be an array of strings';
 		return [
 			'language is not supported' => [ 'not a real langcode', '', '', [], '', $langExceptionMsg ],
-			'label is not string' => [ 'de', new StdClass(), '', [], '', $typeExceptionMsg ],
-			'description is not string' => [ 'en', '', new StdClass(), [], '', $typeExceptionMsg ],
-			'aliases is non-string array' => [ 'fr', '', '', [ new stdClass() ], '', $typeExceptionMsg ],
-			'aliases is mixed array' => [ 'ar', '', '', [ new stdClass(), 'foo' ], '', $typeExceptionMsg ],
+			'label is not string' => [ 'de', (object)[], '', [], '', $typeExceptionMsg ],
+			'description is not string' => [ 'en', '', (object)[], [], '', $typeExceptionMsg ],
+			'aliases is non-string array' => [ 'fr', '', '', [ (object)[] ], '', $typeExceptionMsg ],
+			'aliases is mixed array' => [ 'ar', '', '', [ (object)[], 'foo' ], '', $typeExceptionMsg ],
 			'aliases is associative array' => [ 'hu', '', '', [ 'en' => 'foo' ], '', $typeExceptionMsg ],
-			'schema text is not string' => [ 'he', '', '', [], new StdClass(), $typeExceptionMsg ],
+			'schema text is not string' => [ 'he', '', '', [], (object)[], $typeExceptionMsg ],
 		];
 	}
 
