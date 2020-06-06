@@ -75,7 +75,8 @@ class SqlIdGenerator implements IdGenerator {
 			$success = $database->update(
 				$this->tableName,
 				[ 'id_value' => $id ],
-				IDatabase::ALL_ROWS
+				IDatabase::ALL_ROWS,
+				__METHOD__
 			);
 		} else {
 			$id = 1;
@@ -84,7 +85,8 @@ class SqlIdGenerator implements IdGenerator {
 				$this->tableName,
 				[
 					'id_value' => $id,
-				]
+				],
+				__METHOD__
 			);
 
 			// Retry once, since a race condition on initial insert can cause one to fail.
