@@ -64,7 +64,7 @@ class ViewSchemaPage extends Page {
 
 	getId() {
 		browser.$( this.constructor.SCHEMA_SELECTORS.LABEL ).waitForVisible();
-		let id = browser.execute( () => {
+		const id = browser.execute( () => {
 			return window.mw.config.get( 'wgTitle' );
 		} );
 		return id.value;

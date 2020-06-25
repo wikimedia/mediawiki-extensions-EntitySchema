@@ -93,12 +93,10 @@ describe( 'NewEntitySchema:Page', () => {
 	} );
 
 	it( 'limits the name badge input length', () => {
-		let schemaNameBadgeMaxSizeChars, overlyLongString;
-
 		NewEntitySchemaPage.open();
-		schemaNameBadgeMaxSizeChars = NewEntitySchemaPage
+		const schemaNameBadgeMaxSizeChars = NewEntitySchemaPage
 			.getSchemaNameBadgeMaxSizeChars();
-		overlyLongString = 'a'.repeat( schemaNameBadgeMaxSizeChars + 1 );
+		const overlyLongString = 'a'.repeat( schemaNameBadgeMaxSizeChars + 1 );
 
 		NewEntitySchemaPage.setLabel( overlyLongString );
 		assert.strictEqual(
@@ -129,10 +127,8 @@ describe( 'NewEntitySchema:Page', () => {
 	} );
 
 	it( 'limits the schema text input length', () => {
-		let schemaSchemaTextMaxSizeBytes;
-
 		NewEntitySchemaPage.open();
-		schemaSchemaTextMaxSizeBytes = NewEntitySchemaPage
+		const schemaSchemaTextMaxSizeBytes = NewEntitySchemaPage
 			.getSchemaSchemaTextMaxSizeBytes();
 
 		NewEntitySchemaPage.pasteSchemaText(

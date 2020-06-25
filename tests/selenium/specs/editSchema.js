@@ -10,7 +10,7 @@ const assert = require( 'assert' ),
 describe( 'Schema Edit Page', () => {
 
 	describe( 'given that a user is allowed', () => {
-		let schemaText = '<some shex>';
+		const schemaText = '<some shex>';
 
 		beforeEach( 'create new schema page and open', () => {
 			NewEntitySchemaPage.open();
@@ -22,7 +22,7 @@ describe( 'Schema Edit Page', () => {
 		} );
 
 		it( 'has a text area', () => {
-			let id = ViewSchemaPage.getId();
+			const id = ViewSchemaPage.getId();
 			EditSchemaPage.open( id );
 			EditSchemaPage.schemaTextArea.waitForVisible();
 			assert.strictEqual( EditSchemaPage.schemaText, schemaText );
@@ -30,13 +30,13 @@ describe( 'Schema Edit Page', () => {
 		} );
 
 		it( 'it has a submit button', () => {
-			let id = ViewSchemaPage.getId();
+			const id = ViewSchemaPage.getId();
 			EditSchemaPage.open( id );
 			assert.ok( EditSchemaPage.submitButton.waitForVisible() );
 		} );
 
 		it( 'returns to schema view page on submit', () => {
-			let id = ViewSchemaPage.getId(),
+			const id = ViewSchemaPage.getId(),
 				viewSchemaUrl = browser.getUrl();
 			EditSchemaPage.open( id );
 			EditSchemaPage.clickSubmit();
@@ -47,7 +47,7 @@ describe( 'Schema Edit Page', () => {
 		} );
 
 		it( 'detects an edit conflict when re-submitting the same form', () => {
-			let id = ViewSchemaPage.getId();
+			const id = ViewSchemaPage.getId();
 			EditSchemaPage.open( id );
 			EditSchemaPage.schemaTextArea.setValue( 'edit conflict shex 1' );
 			EditSchemaPage.clickSubmit();
@@ -63,12 +63,11 @@ describe( 'Schema Edit Page', () => {
 		} );
 
 		it( 'properly limits the input length', () => {
-			let id = ViewSchemaPage.getId(),
-				schemaSchemaTextMaxSizeBytes;
+			const id = ViewSchemaPage.getId();
 
 			EditSchemaPage.open( id );
 
-			schemaSchemaTextMaxSizeBytes = EditSchemaPage.getSchemaSchemaTextMaxSizeBytes();
+			const schemaSchemaTextMaxSizeBytes = EditSchemaPage.getSchemaSchemaTextMaxSizeBytes();
 			EditSchemaPage.setSchemaText( 'a'.repeat( schemaSchemaTextMaxSizeBytes ) );
 			EditSchemaPage.schemaTextArea.addValue( 'b' );
 
