@@ -1,8 +1,6 @@
 'use strict';
 
 const assert = require( 'assert' ),
-	Api = require( 'wdio-mediawiki/Api.js' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage.js' ),
 	NewEntitySchemaPage = require( '../../pageobjects/newentityschema.page' ),
 	SetEntitySchemaLabelDescriptionAliasesPage = require( '../../pageobjects/setentityschemalabeldecriptionaliases.page' ),
 	ViewSchemaPage = require( '../../pageobjects/view.schema.page' );
@@ -22,14 +20,12 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 	} );
 
 	it( 'shows a schema set label, description aliases form and submit button', () => {
-		let id = ViewSchemaPage.getId();
 		SetEntitySchemaLabelDescriptionAliasesPage.open();
 		SetEntitySchemaLabelDescriptionAliasesPage.schemaSubmitButton.waitForVisible();
 	} );
 
 	it( 'is possible to get Schema identifying information', () => {
-
-		let id = ViewSchemaPage.getId();
+		const id = ViewSchemaPage.getId();
 		SetEntitySchemaLabelDescriptionAliasesPage.open();
 		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
 		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
@@ -40,7 +36,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 
 	it( 'is possible to edit Schema identifying information', () => {
 
-		let id = ViewSchemaPage.getId();
+		const id = ViewSchemaPage.getId();
 		SetEntitySchemaLabelDescriptionAliasesPage.open();
 		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
 		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
@@ -54,7 +50,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 
 	it( 'is possible to edit Schema in another language', () => {
 
-		let id = ViewSchemaPage.getId(),
+		const id = ViewSchemaPage.getId(),
 			langCode = 'de';
 		SetEntitySchemaLabelDescriptionAliasesPage.open();
 		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
@@ -70,7 +66,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 	} );
 
 	it( 'detects an edit conflict when re-submitting the same form', () => {
-		let id = ViewSchemaPage.getId();
+		const id = ViewSchemaPage.getId();
 		SetEntitySchemaLabelDescriptionAliasesPage.open();
 		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
 		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
@@ -88,15 +84,14 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 	} );
 
 	it( 'limits the input length', () => {
-		let id = ViewSchemaPage.getId(),
-			schemaNameBadgeMaxSizeChars, overlyLongString;
+		const id = ViewSchemaPage.getId();
 
 		SetEntitySchemaLabelDescriptionAliasesPage.open();
 		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
 		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
-		schemaNameBadgeMaxSizeChars = SetEntitySchemaLabelDescriptionAliasesPage
+		const schemaNameBadgeMaxSizeChars = SetEntitySchemaLabelDescriptionAliasesPage
 			.getSchemaNameBadgeMaxSizeChars();
-		overlyLongString = 'a'.repeat( schemaNameBadgeMaxSizeChars + 1 );
+		const overlyLongString = 'a'.repeat( schemaNameBadgeMaxSizeChars + 1 );
 
 		SetEntitySchemaLabelDescriptionAliasesPage.setLabel( overlyLongString );
 		assert.strictEqual(

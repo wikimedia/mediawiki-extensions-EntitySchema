@@ -1,13 +1,12 @@
 {
+	"root": true,
+	"extends": [
+		"wikimedia/selenium"
+	],
 	"globals": {
-		"browser": false
+		"mw": "readonly"
 	},
 	"env": {
-		"es6": true,
-		"mocha": true,
-		"node": true
-	},
-	"rules": {
-		"no-console": 0
+		"browser": true
 	}
 }

@@ -61,19 +61,19 @@ class NewEntitySchemaPage extends Page {
 		} ).value;
 	}
 
-	getLabel( label ) {
+	getLabel() {
 		return browser.$( this.constructor.NEW_SCHEMA_SELECTORS.LABEL + ' input' ).getValue();
 	}
 
-	getDescription( description ) {
+	getDescription() {
 		return browser.$( this.constructor.NEW_SCHEMA_SELECTORS.DESCRIPTION + ' input' ).getValue();
 	}
 
-	getAliases( aliases ) {
+	getAliases() {
 		return browser.$( this.constructor.NEW_SCHEMA_SELECTORS.ALIASES + ' input' ).getValue();
 	}
 
-	getSchemaText( schemaText ) {
+	getSchemaText() {
 		return browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_TEXT + ' textarea' ).getValue();
 	}
 
