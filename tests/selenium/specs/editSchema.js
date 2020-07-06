@@ -46,7 +46,7 @@ describe( 'Schema Edit Page', () => {
 			// todo assert that contents are saved using api call
 		} );
 
-		it( 'detects an edit conflict when re-submitting the same form', () => {
+		it.skip( 'detects an edit conflict when re-submitting the same form', () => {
 			const id = ViewSchemaPage.getId();
 			EditSchemaPage.open( id );
 			EditSchemaPage.schemaTextArea.setValue( 'edit conflict shex 1' );
@@ -62,7 +62,7 @@ describe( 'Schema Edit Page', () => {
 			assert.strictEqual( ViewSchemaPage.getSchemaText(), 'edit conflict shex 1' );
 		} );
 
-		it( 'properly limits the input length', () => {
+		it.skip( 'properly limits the input length', () => {
 			const id = ViewSchemaPage.getId();
 
 			EditSchemaPage.open( id );
