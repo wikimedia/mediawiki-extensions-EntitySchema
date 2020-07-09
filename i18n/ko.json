@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Kwj2772",
+			"MemphisA5",
 			"Ykhwong"
 		]
 	},
@@ -40,7 +41,7 @@
 	"entityschema-undo-bad-revisions": "이 편집은 존재하지 않거나 삭제되었기 때문에 취소하지 못했습니다.",
 	"entityschema-undo-cannot-apply-patch": "이 편집은 변경되었기 때문에 취소하지 못했습니다.",
 	"entityschema-undo-old-revision": "편집을 취소할 판",
-	"special-schematext": "스키마 텍스트",
+	"special-schematext": "엔티티스키마 텍스트",
 	"entityschema-schematext-missing": "존재하지 않거나 삭제된 스키마: $1.",
 	"entityschema-special-setlabeldescriptionaliases": "엔티티스키마의 레이블, 설명, 다른 이름 설정하기",
 	"entityschema-special-id-inputlabel": "엔티티스키마 ID",
