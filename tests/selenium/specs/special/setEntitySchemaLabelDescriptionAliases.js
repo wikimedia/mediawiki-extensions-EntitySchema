@@ -65,7 +65,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 		assert.strictEqual( ViewSchemaPage.getLabel(), 'Test Label' );
 	} );
 
-	it( 'detects an edit conflict when re-submitting the same form', () => {
+	it.skip( 'detects an edit conflict when re-submitting the same form', () => {
 		const id = ViewSchemaPage.getId();
 		SetEntitySchemaLabelDescriptionAliasesPage.open();
 		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
@@ -83,7 +83,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 		assert.strictEqual( ViewSchemaPage.getLabel(), 'edit conflict label 1' );
 	} );
 
-	it( 'limits the input length', () => {
+	it.skip( 'limits the input length', () => {
 		const id = ViewSchemaPage.getId();
 
 		SetEntitySchemaLabelDescriptionAliasesPage.open();

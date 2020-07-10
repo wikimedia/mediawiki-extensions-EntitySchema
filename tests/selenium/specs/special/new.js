@@ -92,7 +92,7 @@ describe( 'NewEntitySchema:Page', () => {
 		assert.strictEqual( actualNamespace, 'EntitySchema' );
 	} );
 
-	it( 'limits the name badge input length', () => {
+	it.skip( 'limits the name badge input length', () => {
 		NewEntitySchemaPage.open();
 		const schemaNameBadgeMaxSizeChars = NewEntitySchemaPage
 			.getSchemaNameBadgeMaxSizeChars();
@@ -126,7 +126,7 @@ describe( 'NewEntitySchema:Page', () => {
 		);
 	} );
 
-	it( 'limits the schema text input length', () => {
+	it.skip( 'limits the schema text input length', () => {
 		NewEntitySchemaPage.open();
 		const schemaSchemaTextMaxSizeBytes = NewEntitySchemaPage
 			.getSchemaSchemaTextMaxSizeBytes();
