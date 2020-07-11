@@ -31,7 +31,7 @@ class SqlIdGeneratorTest extends MediaWikiTestCase {
 		);
 
 		$id1 = $generator->getNewId();
-		$this->assertInternalType( 'int', $id1 );
+		$this->assertIsInt( $id1 );
 		$id2 = $generator->getNewId();
 		$this->assertSame( $id1 + 1, $id2 );
 		$id3 = $generator->getNewId();
