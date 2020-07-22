@@ -7,7 +7,7 @@ describe( 'Special:Version', function () {
 
 	it( 'has the EntitySchema extension enabled', function () {
 		SpecialVersionPage.open();
-		assert( SpecialVersionPage.wikibaseSchemaExtensionLink.waitForVisible() );
+		assert( SpecialVersionPage.wikibaseSchemaExtensionLink.waitForDisplayed() );
 	} );
 
 } );

@@ -7,6 +7,11 @@ const assert = require( 'assert' ),
 	ViewSchemaPage = require( '../../pageobjects/view.schema.page' );
 
 describe( 'NewEntitySchema:Page', () => {
+	let bot;
+
+	before( async () => {
+		bot = await Api.bot();
+	} );
 
 	it( 'request with "createpage" right shows form', () => {
 		NewEntitySchemaPage.open();
@@ -16,7 +21,7 @@ describe( 'NewEntitySchema:Page', () => {
 
 	it( 'shows a submit button', () => {
 		NewEntitySchemaPage.open();
-		NewEntitySchemaPage.schemaSubmitButton.waitForVisible();
+		NewEntitySchemaPage.schemaSubmitButton.waitForDisplayed();
 	} );
 
 	it( 'is possible to create a new schema', () => {
@@ -44,13 +49,13 @@ describe( 'NewEntitySchema:Page', () => {
 		/** necessary to translate between regular promises and WebdriverIO's magic concurrency */
 		function blockUser() {
 			let blocked = false;
-			Api.blockUser().then( () => {
+			Api.blockUser( bot ).then( () => {
 				blocked = true;
 			} );
 			browser.waitUntil( () => blocked );
 		}
 
-		afterEach( () => Api.unblockUser() );
+		afterEach( () => Api.unblockUser( bot ) );
 
 		it( 'cannot load form', () => {
 			blockUser();
@@ -58,7 +63,7 @@ describe( 'NewEntitySchema:Page', () => {
 			LoginPage.loginAdmin();
 			NewEntitySchemaPage.open();
 
-			$( '#mw-returnto' ).waitForVisible();
+			$( '#mw-returnto' ).waitForDisplayed();
 			assert.strictEqual( $( '#firstHeading' ).getText(), 'User is blocked' );
 		} );
 
@@ -72,7 +77,7 @@ describe( 'NewEntitySchema:Page', () => {
 
 			NewEntitySchemaPage.clickSubmit();
 
-			$( '#mw-returnto' ).waitForVisible();
+			$( '#mw-returnto' ).waitForDisplayed();
 			assert.strictEqual( $( '#firstHeading' ).getText(), 'User is blocked' );
 		} );
 	} );

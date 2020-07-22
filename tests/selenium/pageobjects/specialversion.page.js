@@ -4,7 +4,7 @@ const Page = require( 'wdio-mediawiki/Page' );
 
 class SpecialVersionPage extends Page {
 	get wikibaseSchemaExtensionLink() {
-		return browser.element( '#mw-version-ext-wikibase-EntitySchema' );
+		return $( '#mw-version-ext-wikibase-EntitySchema' );
 	}
 
 	open() {

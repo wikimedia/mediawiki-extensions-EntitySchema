@@ -21,7 +21,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 
 	it( 'shows a schema set label, description aliases form and submit button', () => {
 		SetEntitySchemaLabelDescriptionAliasesPage.open();
-		SetEntitySchemaLabelDescriptionAliasesPage.schemaSubmitButton.waitForVisible();
+		SetEntitySchemaLabelDescriptionAliasesPage.schemaSubmitButton.waitForDisplayed();
 	} );
 
 	it( 'is possible to get Schema identifying information', () => {

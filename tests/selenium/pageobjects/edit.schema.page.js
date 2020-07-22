@@ -12,11 +12,11 @@ class EditSchemaPage extends Page {
 	}
 
 	get schemaTextArea() {
-		return browser.element( this.constructor.SCHEMA_EDIT_SELECTORS.SCHEMAAREA );
+		return $( this.constructor.SCHEMA_EDIT_SELECTORS.SCHEMAAREA );
 	}
 
 	get submitButton() {
-		return browser.element( this.constructor.SCHEMA_EDIT_SELECTORS.SUBMIT_BUTTON );
+		return $( this.constructor.SCHEMA_EDIT_SELECTORS.SUBMIT_BUTTON );
 	}
 
 	get schemaText() {
@@ -24,14 +24,14 @@ class EditSchemaPage extends Page {
 	}
 
 	clickSubmit() {
-		this.submitButton.waitForVisible();
+		this.submitButton.waitForDisplayed();
 		this.submitButton.click();
 	}
 
 	getSchemaSchemaTextMaxSizeBytes() {
 		return browser.execute( () => {
 			return mw.config.get( 'wgEntitySchemaSchemaTextMaxSizeBytes' );
-		} ).value;
+		} );
 	}
 
 	setSchemaText( schemaText ) {

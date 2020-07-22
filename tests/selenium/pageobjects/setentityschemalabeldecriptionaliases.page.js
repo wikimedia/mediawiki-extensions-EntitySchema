@@ -19,20 +19,20 @@ class SetEntitySchemaLabelDescriptionAliasesPage extends Page {
 	}
 
 	get schemaSubmitButton() {
-		return browser.element( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.SUBMIT_BUTTON );
+		return $( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.SUBMIT_BUTTON );
 	}
 
 	showsForm() {
-		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.ID ).waitForVisible();
-		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.LANGUAGE ).waitForVisible();
+		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.ID ).waitForDisplayed();
+		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.LANGUAGE ).waitForDisplayed();
 
 		return true;
 	}
 
 	showsEditForm() {
-		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.LABEL ).waitForVisible();
-		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.DESCRIPTION ).waitForVisible();
-		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.ALIASES ).waitForVisible();
+		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.LABEL ).waitForDisplayed();
+		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.DESCRIPTION ).waitForDisplayed();
+		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.ALIASES ).waitForDisplayed();
 		return true;
 	}
 
@@ -54,7 +54,7 @@ class SetEntitySchemaLabelDescriptionAliasesPage extends Page {
 	getSchemaNameBadgeMaxSizeChars() {
 		return browser.execute( () => {
 			return mw.config.get( 'wgEntitySchemaNameBadgeMaxSizeChars' );
-		} ).value;
+		} );
 	}
 
 	setIdField( id ) {

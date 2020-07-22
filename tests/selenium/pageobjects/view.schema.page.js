@@ -20,7 +20,7 @@ class ViewSchemaPage extends Page {
 	getNamespace() {
 		const namespace = browser.executeAsync( ( done ) => {
 			done( window.mw.config.get( 'wgCanonicalNamespace' ) );
-		} ).value;
+		} );
 		return namespace;
 	}
 
@@ -63,11 +63,11 @@ class ViewSchemaPage extends Page {
 	}
 
 	getId() {
-		browser.$( this.constructor.SCHEMA_SELECTORS.LABEL ).waitForVisible();
+		browser.$( this.constructor.SCHEMA_SELECTORS.LABEL ).waitForDisplayed();
 		const id = browser.execute( () => {
 			return window.mw.config.get( 'wgTitle' );
 		} );
-		return id.value;
+		return id;
 	}
 
 }

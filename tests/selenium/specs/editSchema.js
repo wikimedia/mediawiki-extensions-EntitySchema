@@ -24,7 +24,7 @@ describe( 'Schema Edit Page', () => {
 		it( 'has a text area', () => {
 			const id = ViewSchemaPage.getId();
 			EditSchemaPage.open( id );
-			EditSchemaPage.schemaTextArea.waitForVisible();
+			EditSchemaPage.schemaTextArea.waitForDisplayed();
 			assert.strictEqual( EditSchemaPage.schemaText, schemaText );
 			// todo assert that contents are there using api call
 		} );
@@ -32,7 +32,7 @@ describe( 'Schema Edit Page', () => {
 		it( 'it has a submit button', () => {
 			const id = ViewSchemaPage.getId();
 			EditSchemaPage.open( id );
-			assert.ok( EditSchemaPage.submitButton.waitForVisible() );
+			assert.ok( EditSchemaPage.submitButton.waitForDisplayed() );
 		} );
 
 		it( 'returns to schema view page on submit', () => {
@@ -79,17 +79,22 @@ describe( 'Schema Edit Page', () => {
 	} );
 
 	describe( 'given the user is blocked', () => {
+		let bot;
 
-		beforeEach( () => Api.blockUser() );
+		before( async () => {
+			bot = await Api.bot();
+		} );
 
-		afterEach( () => Api.unblockUser() );
+		beforeEach( () => Api.blockUser( bot ) );
+
+		afterEach( () => Api.unblockUser( bot ) );
 
 		it( 'cannot be edited', () => {
 			LoginPage.loginAdmin();
 			ViewSchemaPage.open( 'E1', { action: 'edit' } );
 
 			const $firstHeading = $( '#firstHeading' );
-			$firstHeading.waitForVisible();
+			$firstHeading.waitForDisplayed();
 			assert.strictEqual( $firstHeading.getText(), 'Permission error' );
 		} );
 

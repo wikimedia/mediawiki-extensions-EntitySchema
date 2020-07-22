@@ -17,14 +17,14 @@ class NewEntitySchemaPage extends Page {
 		super.openTitle( 'Special:NewEntitySchema' );
 	}
 	get schemaSubmitButton() {
-		return browser.element( this.constructor.NEW_SCHEMA_SELECTORS.SUBMIT_BUTTON );
+		return $( this.constructor.NEW_SCHEMA_SELECTORS.SUBMIT_BUTTON );
 	}
 
 	showsForm() {
-		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.LABEL ).waitForVisible();
-		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.DESCRIPTION ).waitForVisible();
-		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.ALIASES ).waitForVisible();
-		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_TEXT ).waitForVisible();
+		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.LABEL ).waitForDisplayed();
+		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.DESCRIPTION ).waitForDisplayed();
+		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.ALIASES ).waitForDisplayed();
+		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_TEXT ).waitForDisplayed();
 
 		return true;
 	}
@@ -52,13 +52,13 @@ class NewEntitySchemaPage extends Page {
 	getSchemaNameBadgeMaxSizeChars() {
 		return browser.execute( () => {
 			return mw.config.get( 'wgEntitySchemaNameBadgeMaxSizeChars' );
-		} ).value;
+		} );
 	}
 
 	getSchemaSchemaTextMaxSizeBytes() {
 		return browser.execute( () => {
 			return mw.config.get( 'wgEntitySchemaSchemaTextMaxSizeBytes' );
-		} ).value;
+		} );
 	}
 
 	getLabel() {
