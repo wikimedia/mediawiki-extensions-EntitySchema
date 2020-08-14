@@ -6,7 +6,8 @@
 			"Pikne",
 			"Raymond",
 			"Robby",
-			"The Wikidata Team"
+			"The Wikidata Team",
+			"Umherirrender"
 		]
 	},
 	"entityschema-desc": "{{desc|name=EntitySchema|url=https://www.mediawiki.org/wiki/Extension:EntitySchema}}",
@@ -55,7 +56,7 @@
 	"entityschema-summary-newschema-nolabel": "A generic message for the recent changes or page history, stating that the Schema was created.",
 	"entityschema-summary-update": "A generic message used when different parts of a Schema may have been updated.",
 	"entityschema-summary-update-schema-text": "Edit summary message used when a Schema's text was updated. Edit summary as supplied by the user will be shown after, if given.",
-	"entityschema-summary-update-schema-text-user": "{{notranslate}}\nEdit summary message used when a Schema's text was updated.\n\nParameters:\n* $1 - Edit summary as given by the user.",
+	"entityschema-summary-update-schema-text-user": "Edit summary message used when a Schema's text was updated.\n\nParameters:\n* $1 - Edit summary as given by the user.",
 	"entityschema-summary-update-schema-namebadge": "A generic message used when different parts of a Schema may have been updated.\n\nParameters:\n* $1 - the language in which the edit was made.",
 	"entityschema-summary-update-schema-label": "Edit summary message used when a Schema's label has been updated. \n\nParameters:\n* $1 - the language in which the edit was made.",
 	"entityschema-summary-update-schema-description": "Edit summary message used when a Schema's description has been updated. \n\nParameters:\\n* $1 - the language in which the edit was made.",
@@ -84,5 +85,5 @@
 	"entityschema-special-label": "Input label for the label field on Special:SetSchemaLabelDescriptionAliases",
 	"entityschema-special-description": "Input label for the description field on Special:SetSchemaLabelDescriptionAliases:",
 	"entityschema-special-aliases": "Input label for the aliases field on Special:SetSchemaLabelDescriptionAliases",
-	"entityschema-special-id-placeholder": "Placeholder for the Schema ID field when retrieving a Schema to edit on Special:SetSchemaLabelDescriptionAliases"
+	"entityschema-special-id-placeholder": "{{notranslate}}\nPlaceholder for the Schema ID field when retrieving a Schema to edit on Special:SetSchemaLabelDescriptionAliases"
 }
