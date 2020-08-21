@@ -3,18 +3,18 @@
 namespace EntitySchema\MediaWiki\Actions;
 
 use Diff\DiffOp\Diff\Diff;
-use IContextSource;
-use MediaWiki\MediaWikiServices;
-use MediaWiki\Revision\RevisionRecord;
-use MediaWiki\Revision\SlotRecord;
-use Page;
-use Status;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use EntitySchema\Presentation\ConfirmationFormRenderer;
 use EntitySchema\Presentation\DiffRenderer;
 use EntitySchema\Services\Diff\SchemaDiffer;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use IContextSource;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Revision\SlotRecord;
+use Page;
+use Status;
 
 /**
  * @license GPL-2.0-or-later

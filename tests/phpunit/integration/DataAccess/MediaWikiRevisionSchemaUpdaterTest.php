@@ -4,11 +4,6 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use CommentStoreComment;
 use DomainException;
-use InvalidArgumentException;
-use MediaWiki\Revision\RevisionRecord;
-use MediaWiki\Storage\PageUpdater;
-use PHPUnit\Framework\TestCase;
-use RuntimeException;
 use EntitySchema\DataAccess\EditConflict;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
@@ -16,6 +11,11 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\NameBadge;
+use InvalidArgumentException;
+use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Storage\PageUpdater;
+use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 /**
  * @covers \EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater

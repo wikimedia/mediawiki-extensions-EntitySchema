@@ -3,14 +3,14 @@
 namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
 use CommentStoreComment;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\Specials\EntitySchemaText;
 use FauxRequest;
 use HttpError;
 use MediaWiki\Revision\SlotRecord;
 use SpecialPageTestBase;
 use Title;
 use WebResponse;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\MediaWiki\Specials\EntitySchemaText;
 use WikiPage;
 
 /**

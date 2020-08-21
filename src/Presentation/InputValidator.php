@@ -4,14 +4,14 @@ namespace EntitySchema\Presentation;
 
 use Config;
 use ConfigException;
+use EntitySchema\Domain\Model\SchemaId;
 use InvalidArgumentException;
 use Language;
-use Message;
 use MediaWiki\MediaWikiServices;
+use Message;
 use MessageLocalizer;
 use RequestContext;
 use Title;
-use EntitySchema\Domain\Model\SchemaId;
 
 /**
  * @license GPL-2.0-or-later

@@ -3,9 +3,9 @@
 namespace EntitySchema\DataAccess;
 
 use CommentStoreComment;
+use EntitySchema\Domain\Model\SchemaId;
 use InvalidArgumentException;
 use RuntimeException;
-use EntitySchema\Domain\Model\SchemaId;
 
 /**
  * @license GPL-2.0-or-later

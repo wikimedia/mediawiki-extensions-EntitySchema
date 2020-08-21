@@ -2,11 +2,11 @@
 
 namespace EntitySchema\MediaWiki\Content;
 
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use JsonContent;
 use ParserOptions;
 use ParserOutput;
 use Title;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * Represents the content of a EntitySchema page

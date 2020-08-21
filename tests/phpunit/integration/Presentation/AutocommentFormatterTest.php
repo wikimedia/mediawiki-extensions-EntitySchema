@@ -2,10 +2,10 @@
 
 namespace EntitySchema\Tests\Integration\Presentation;
 
-use MediaWikiTestCase;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\Presentation\AutocommentFormatter;
+use MediaWikiTestCase;
 
 /**
  * @license GPL-2.0-or-later

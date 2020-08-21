@@ -5,12 +5,12 @@ namespace EntitySchema\MediaWiki;
 use Diff\DiffOp\Diff\Diff;
 use Diff\Patcher\PatcherException;
 use DomainException;
-use Status;
 use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Diff\SchemaDiffer;
 use EntitySchema\Services\Diff\SchemaPatcher;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use Status;
 
 /**
  * @license GPL-2.0-or-later

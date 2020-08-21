@@ -2,9 +2,9 @@
 
 namespace EntitySchema\Tests\Unit\Domain\Model;
 
+use EntitySchema\Domain\Model\SchemaId;
 use InvalidArgumentException;
 use MediaWikiUnitTestCase;
-use EntitySchema\Domain\Model\SchemaId;
 
 /**
  * @covers EntitySchema\Domain\Model\SchemaId

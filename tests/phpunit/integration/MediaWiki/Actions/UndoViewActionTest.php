@@ -4,15 +4,15 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
 use Article;
 use CommentStoreComment;
+use EntitySchema\MediaWiki\Actions\UndoViewAction;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use FauxRequest;
 use MediaWiki\Revision\SlotRecord;
 use MediaWikiTestCase;
 use RequestContext;
 use TextSlotDiffRenderer;
 use Title;
-use EntitySchema\MediaWiki\Actions\UndoViewAction;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use WikiPage;
 
 /**

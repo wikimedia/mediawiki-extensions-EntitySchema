@@ -2,10 +2,10 @@
 
 namespace EntitySchema\Tests\Integration\MediaWiki;
 
+use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;
 use Language;
 use MediaWikiTestCase;
 use Message;
-use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;
 
 /**
  * @covers \EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer

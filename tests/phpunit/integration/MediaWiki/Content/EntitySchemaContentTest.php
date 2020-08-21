@@ -2,11 +2,11 @@
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use Language;
 use MediaWikiTestCase;
 use ParserOptions;
 use Title;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContent

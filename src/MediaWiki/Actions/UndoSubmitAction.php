@@ -3,17 +3,17 @@
 namespace EntitySchema\MediaWiki\Actions;
 
 use CommentStoreComment;
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use MediaWiki\MediaWikiServices;
 use PermissionsError;
 use ReadOnlyError;
 use RuntimeException;
 use Status;
 use UserBlockedError;
-use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
-use EntitySchema\DataAccess\WatchlistUpdater;
-use EntitySchema\Domain\Model\SchemaId;
-use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 
 /**
  * @license GPL-2.0-or-later

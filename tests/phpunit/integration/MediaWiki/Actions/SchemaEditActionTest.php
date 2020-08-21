@@ -3,14 +3,14 @@
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
 use Article;
+use EntitySchema\MediaWiki\Actions\SchemaEditAction;
+use EntitySchema\Presentation\InputValidator;
 use MediaWikiTestCase;
 use PermissionsError;
 use ReadOnlyError;
 use ReadOnlyMode;
 use RequestContext;
 use Title;
-use EntitySchema\MediaWiki\Actions\SchemaEditAction;
-use EntitySchema\Presentation\InputValidator;
 
 /**
  * @covers \EntitySchema\MediaWiki\Actions\SchemaEditAction

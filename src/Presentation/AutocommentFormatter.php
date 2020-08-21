@@ -2,11 +2,11 @@
 
 namespace EntitySchema\Presentation;
 
-use RequestContext;
-use User;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use Language;
+use RequestContext;
+use User;
 
 /**
  * @license GPL-2.0-or-later

@@ -2,6 +2,9 @@
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
+use EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer;
+use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
+use EntitySchema\Services\SchemaConverter\NameBadge;
 use HashConfig;
 use Language;
 use MediaWiki\MediaWikiServices;
@@ -10,9 +13,6 @@ use MultiConfig;
 use ParserOutput;
 use SpecialPage;
 use Title;
-use EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer;
-use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
-use EntitySchema\Services\SchemaConverter\NameBadge;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer

@@ -2,10 +2,10 @@
 
 namespace EntitySchema\DataAccess;
 
+use EntitySchema\Domain\Model\SchemaId;
 use InvalidArgumentException;
 use Language;
 use MediaWiki\MediaWikiServices;
-use EntitySchema\Domain\Model\SchemaId;
 
 /**
  * @license GPL-2.0-or-later

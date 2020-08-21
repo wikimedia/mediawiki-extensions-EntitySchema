@@ -3,11 +3,6 @@
 namespace EntitySchema\MediaWiki\Actions;
 
 use CommentStoreComment;
-use MediaWiki\MediaWikiServices;
-use MediaWiki\Revision\RevisionRecord;
-use MediaWiki\Revision\SlotRecord;
-use RuntimeException;
-use Status;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
@@ -15,6 +10,11 @@ use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Revision\SlotRecord;
+use RuntimeException;
+use Status;
 
 /**
  * @license GPL-2.0-or-later

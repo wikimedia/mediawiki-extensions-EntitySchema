@@ -2,11 +2,11 @@
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use PHPUnit\Framework\TestCase;
 use RequestContext;
 use TextSlotDiffRenderer;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 
 /**
  * @license GPL-2.0-or-later

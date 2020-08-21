@@ -3,6 +3,8 @@
 namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
 use ContentHandler;
+use EntitySchema\MediaWiki\Specials\NewEntitySchema;
+use FauxRequest;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
@@ -10,12 +12,9 @@ use MediaWiki\Storage\SlotRecord;
 use PermissionsError;
 use ReadOnlyError;
 use ReadOnlyMode;
-use FauxRequest;
 use SpecialPageTestBase;
 use TitleValue;
 use UserBlockedError;
-
-use EntitySchema\MediaWiki\Specials\NewEntitySchema;
 
 /**
  * @covers \EntitySchema\MediaWiki\Specials\NewEntitySchema

@@ -2,11 +2,11 @@
 
 namespace EntitySchema\Tests\Integration\DataAccess;
 
+use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\Domain\Model\SchemaId;
 use MediaWiki\MediaWikiServices;
 use MediaWikiTestCase;
 use WatchedItem;
-use EntitySchema\DataAccess\WatchlistUpdater;
-use EntitySchema\Domain\Model\SchemaId;
 
 /**
  * @license GPL-2.0-or-later

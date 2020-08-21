@@ -4,6 +4,8 @@ namespace EntitySchema\MediaWiki;
 
 use Article;
 use DatabaseUpdater;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\Presentation\AutocommentFormatter;
 use HistoryPager;
 use Html;
 use MediaWiki\MediaWikiServices;
@@ -11,8 +13,6 @@ use MediaWiki\Revision\RevisionRecord;
 use MWException;
 use SkinTemplate;
 use Title;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\Presentation\AutocommentFormatter;
 use WikiImporter;
 
 /**

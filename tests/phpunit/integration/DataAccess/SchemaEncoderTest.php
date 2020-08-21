@@ -2,10 +2,10 @@
 
 namespace EntitySchema\Tests\Integration\DataAccess;
 
-use InvalidArgumentException;
-use MediaWikiTestCase;
 use EntitySchema\DataAccess\SchemaEncoder;
 use EntitySchema\Domain\Model\SchemaId;
+use InvalidArgumentException;
+use MediaWikiTestCase;
 
 /**
  * @covers \EntitySchema\DataAccess\SchemaEncoder

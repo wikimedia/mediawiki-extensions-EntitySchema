@@ -2,13 +2,13 @@
 
 namespace EntitySchema\MediaWiki\Specials;
 
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use HttpError;
 use InvalidArgumentException;
 use SpecialPage;
 use Title;
-use EntitySchema\Domain\Model\SchemaId;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use WikiPage;
 
 /**

@@ -2,8 +2,8 @@
 
 namespace EntitySchema\Tests\Unit\MediaWiki\Content;
 
-use MediaWikiUnitTestCase;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
+use MediaWikiUnitTestCase;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler

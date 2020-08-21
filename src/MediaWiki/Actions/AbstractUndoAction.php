@@ -4,13 +4,13 @@ namespace EntitySchema\MediaWiki\Actions;
 
 use Diff\DiffOp\Diff\Diff;
 use DomainException;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\UndoHandler;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use Status;
 use ViewAction;
 use WebRequest;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\MediaWiki\UndoHandler;
 
 /**
  * @license GPL-2.0-or-later

@@ -6,5 +6,4 @@
 	<rule ref="Generic.Metrics.CyclomaticComplexity" />
 	<rule ref="Generic.Metrics.NestingLevel" />
 	<file>.</file>
-	<exclude-pattern>vendor</exclude-pattern>
 </ruleset>

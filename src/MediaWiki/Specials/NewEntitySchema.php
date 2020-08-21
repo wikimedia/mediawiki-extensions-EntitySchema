@@ -2,6 +2,11 @@
 
 namespace EntitySchema\MediaWiki\Specials;
 
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\DataAccess\SqlIdGenerator;
+use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\Presentation\InputValidator;
 use Html;
 use HTMLForm;
 use Language;
@@ -11,11 +16,6 @@ use SpecialPage;
 use Status;
 use Title;
 use UserBlockedError;
-use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
-use EntitySchema\DataAccess\SqlIdGenerator;
-use EntitySchema\DataAccess\WatchlistUpdater;
-use EntitySchema\Presentation\InputValidator;
 
 /**
  * Page for creating a new EntitySchema.

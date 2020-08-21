@@ -5,6 +5,8 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 use Action;
 use Article;
 use CommentStoreComment;
+use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use FauxRequest;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\MediaWikiServices;
@@ -13,8 +15,6 @@ use MediaWikiTestCase;
 use RequestContext;
 use Title;
 use UserBlockedError;
-use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use WikiPage;
 
 /**

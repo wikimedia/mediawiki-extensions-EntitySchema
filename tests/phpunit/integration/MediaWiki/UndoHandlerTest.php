@@ -5,9 +5,9 @@ namespace EntitySchema\Tests\Integration\MediaWiki;
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpChange;
 use DomainException;
-use MediaWikiTestCase;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\UndoHandler;
+use MediaWikiTestCase;
 
 /**
  * @license GPL-2.0-or-later

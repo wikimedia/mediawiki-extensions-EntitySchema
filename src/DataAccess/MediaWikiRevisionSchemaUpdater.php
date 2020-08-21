@@ -3,16 +3,16 @@
 namespace EntitySchema\DataAccess;
 
 use CommentStoreComment;
-use InvalidArgumentException;
-use Language;
-use MediaWiki\Revision\RevisionRecord;
-use MediaWiki\Revision\RevisionLookup;
-use MediaWiki\Revision\SlotRecord;
-use RuntimeException;
 use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use InvalidArgumentException;
+use Language;
+use MediaWiki\Revision\RevisionLookup;
+use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Revision\SlotRecord;
+use RuntimeException;
 
 /**
  * @license GPL-2.0-or-later

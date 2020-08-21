@@ -3,13 +3,13 @@
 namespace EntitySchema\Tests\Integration\API;
 
 use CommentStoreComment;
+use EntitySchema\DataAccess\SchemaEncoder;
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWikiTestCase;
 use Title;
-use EntitySchema\DataAccess\SchemaEncoder;
-use EntitySchema\Domain\Model\SchemaId;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use WikiPage;
 
 /**

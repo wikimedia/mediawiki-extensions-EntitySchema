@@ -3,14 +3,14 @@
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use CommentStoreComment;
-use MediaWiki\Storage\PageUpdater;
-use MediaWikiTestCase;
-use RuntimeException;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use MediaWiki\Storage\PageUpdater;
+use MediaWikiTestCase;
+use RuntimeException;
 
 /**
  * @license GPL-2.0-or-later

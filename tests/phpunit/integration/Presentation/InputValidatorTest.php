@@ -4,13 +4,13 @@ namespace EntitySchema\Tests\Integration\Presentation;
 
 use CommentStoreComment;
 use Config;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\Presentation\InputValidator;
 use MediaWiki\Revision\SlotRecord;
 use MediaWikiTestCase;
 use Message;
 use MessageLocalizer;
 use Title;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\Presentation\InputValidator;
 use WikiPage;
 
 /**

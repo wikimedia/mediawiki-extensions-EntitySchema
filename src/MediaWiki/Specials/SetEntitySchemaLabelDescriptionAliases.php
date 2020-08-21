@@ -2,6 +2,14 @@
 
 namespace EntitySchema\MediaWiki\Specials;
 
+use EntitySchema\DataAccess\EditConflict;
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Presentation\InputValidator;
+use EntitySchema\Services\SchemaConverter\NameBadge;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use Html;
 use HTMLForm;
 use InvalidArgumentException;
@@ -17,14 +25,6 @@ use Status;
 use Title;
 use UserBlockedError;
 use WebRequest;
-use EntitySchema\DataAccess\EditConflict;
-use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
-use EntitySchema\DataAccess\WatchlistUpdater;
-use EntitySchema\Domain\Model\SchemaId;
-use EntitySchema\Presentation\InputValidator;
-use EntitySchema\Services\SchemaConverter\NameBadge;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use WikiPage;
 
 /**

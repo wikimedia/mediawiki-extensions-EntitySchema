@@ -2,11 +2,11 @@
 
 namespace EntitySchema\Tests\Integration\MediaWiki;
 
+use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\MediaWiki\EntitySchemaHooks;
 use MediaWikiTestCase;
 use SpecialPage;
 use Title;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
-use EntitySchema\MediaWiki\EntitySchemaHooks;
 
 /**
  * @covers \EntitySchema\MediaWiki\EntitySchemaHooks

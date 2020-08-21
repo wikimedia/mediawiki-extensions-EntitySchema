@@ -6,9 +6,9 @@ use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
-use MediaWikiUnitTestCase;
 use EntitySchema\Services\Diff\SchemaDiffer;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
+use MediaWikiUnitTestCase;
 
 /**
  * @covers EntitySchema\Services\Diff\SchemaDiffer

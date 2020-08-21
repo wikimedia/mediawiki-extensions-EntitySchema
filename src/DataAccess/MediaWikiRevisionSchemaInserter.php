@@ -3,13 +3,13 @@
 namespace EntitySchema\DataAccess;
 
 use CommentStoreComment;
-use Language;
-use MediaWiki\Revision\SlotRecord;
-use RuntimeException;
 use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use Language;
+use MediaWiki\Revision\SlotRecord;
+use RuntimeException;
 
 /**
  * @license GPL-2.0-or-later

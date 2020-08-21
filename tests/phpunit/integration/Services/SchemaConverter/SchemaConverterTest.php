@@ -2,11 +2,11 @@
 
 namespace EntitySchema\Tests\Integration\Services\SchemaConverter;
 
-use MediaWikiTestCase;
 use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
 use EntitySchema\Services\SchemaConverter\NameBadge;
 use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use MediaWikiTestCase;
 
 /**
  * @license GPL-2.0-or-later

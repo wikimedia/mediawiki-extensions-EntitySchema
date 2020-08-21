@@ -10,14 +10,14 @@ use Diff\DiffOp\DiffOp;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
+use EntitySchema\Services\Diff\SchemaDiffer;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use Html;
 use IContextSource;
 use MessageLocalizer;
 use RequestContext;
 use SlotDiffRenderer;
 use TextSlotDiffRenderer;
-use EntitySchema\Services\Diff\SchemaDiffer;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
 
 /**
  * @license GPL-2.0-or-later

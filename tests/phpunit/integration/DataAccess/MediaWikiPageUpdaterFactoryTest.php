@@ -2,9 +2,9 @@
 
 namespace EntitySchema\Tests\Integration\DataAccess;
 
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use MediaWikiTestCase;
 use RecentChange;
-use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use Wikimedia\TestingAccessWrapper;
 
 /**

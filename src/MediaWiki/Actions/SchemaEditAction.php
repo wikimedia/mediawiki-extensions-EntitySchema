@@ -2,14 +2,6 @@
 
 namespace EntitySchema\MediaWiki\Actions;
 
-use FormAction;
-use HTMLForm;
-use IContextSource;
-use MediaWiki\MediaWikiServices;
-use MediaWiki\Revision\SlotRecord;
-use Page;
-use RuntimeException;
-use Status;
 use EntitySchema\DataAccess\EditConflict;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
@@ -18,6 +10,14 @@ use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use FormAction;
+use HTMLForm;
+use IContextSource;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\SlotRecord;
+use Page;
+use RuntimeException;
+use Status;
 
 /**
  * Edit a EntitySchema via the mediawiki editing action

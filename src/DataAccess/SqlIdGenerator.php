@@ -2,8 +2,8 @@
 
 namespace EntitySchema\DataAccess;
 
-use RuntimeException;
 use EntitySchema\Domain\Storage\IdGenerator;
+use RuntimeException;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\ILoadBalancer;
 

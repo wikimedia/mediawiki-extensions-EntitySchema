@@ -6,6 +6,15 @@ use Action;
 use Article;
 use Content;
 use DifferenceEngine;
+use EntitySchema\DataAccess\SchemaEncoder;
+use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
+use EntitySchema\MediaWiki\Actions\RestoreViewAction;
+use EntitySchema\MediaWiki\Actions\SchemaEditAction;
+use EntitySchema\MediaWiki\Actions\SchemaSubmitAction;
+use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
+use EntitySchema\MediaWiki\Actions\UndoViewAction;
+use EntitySchema\MediaWiki\UndoHandler;
+use EntitySchema\Presentation\InputValidator;
 use IContextSource;
 use JsonContentHandler;
 use Language;
@@ -17,15 +26,6 @@ use Revision;
 use SlotDiffRenderer;
 use Title;
 use WikiPage;
-use EntitySchema\DataAccess\SchemaEncoder;
-use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
-use EntitySchema\MediaWiki\Actions\RestoreViewAction;
-use EntitySchema\MediaWiki\Actions\SchemaEditAction;
-use EntitySchema\MediaWiki\Actions\SchemaSubmitAction;
-use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
-use EntitySchema\MediaWiki\Actions\UndoViewAction;
-use EntitySchema\MediaWiki\UndoHandler;
-use EntitySchema\Presentation\InputValidator;
 
 /**
  * Content handler for the EntitySchema content
