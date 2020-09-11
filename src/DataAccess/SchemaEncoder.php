@@ -162,7 +162,10 @@ class SchemaEncoder {
 		}
 	}
 
-	private static function isSequentialArrayOfStrings( array $array ) {
+	private static function isSequentialArrayOfStrings( $array ) {
+		if ( !is_array( $array ) ) {
+			return false;
+		}
 		$values = array_values( $array );
 		if ( $array !== $values ) {
 			// Array is associative or sparse. Fast solution from
