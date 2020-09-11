@@ -162,7 +162,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 			'language, label, description and schemaText must be strings',
 		];
 
-		yield 'invalid type (aliases)' => [
+		yield 'invalid type (aliases/non-array)' => [
 			$validLabels,
 			$validDescriptions,
 			[ 'en' => 'invalid alias' ],
@@ -170,7 +170,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 			'aliases must be an array of strings',
 		];
 
-		yield 'invalid type (aliases)' => [
+		yield 'invalid type (aliases/list)' => [
 			$validLabels,
 			$validDescriptions,
 			[ 'en' => [ 1 ] ],
@@ -178,7 +178,7 @@ class SchemaEncoderTest extends MediaWikiTestCase {
 			'aliases must be an array of strings',
 		];
 
-		yield 'invalid type (aliases)' => [
+		yield 'invalid type (aliases/assoc array)' => [
 			$validLabels,
 			$validDescriptions,
 			[ 'en' => [ 'invalid' => 'alias' ] ],
