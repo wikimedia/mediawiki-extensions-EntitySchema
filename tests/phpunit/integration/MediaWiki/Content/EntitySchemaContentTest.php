@@ -20,7 +20,10 @@ class EntitySchemaContentTest extends MediaWikiTestCase {
 			'serializationVersion' => '3.0',
 		] ) );
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' );
-		$parserOptions = new ParserOptions( null, Language::factory( 'qqx' ) );
+		$parserOptions = new ParserOptions(
+			$this->getTestUser()->getUser(),
+			Language::factory( 'qqx' )
+		);
 		$this->setMwGlobals( 'wgLang', Language::factory( 'en' ) );
 
 		$parserOutput = $content->getParserOutput( $title, null, $parserOptions );
