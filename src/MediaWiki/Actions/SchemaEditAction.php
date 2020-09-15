@@ -24,10 +24,10 @@ use Status;
  */
 class SchemaEditAction extends FormAction {
 
-	/* public */ const FIELD_SCHEMA_TEXT = 'schema-text';
-	/* public */ const FIELD_BASE_REV = 'base-rev';
-	/* public */ const FIELD_EDIT_SUMMARY = 'edit-summary';
-	/* public */ const FIELD_IGNORE_EMPTY_SUMMARY = 'ignore-blank-summary';
+	public const FIELD_SCHEMA_TEXT = 'schema-text';
+	public const FIELD_BASE_REV = 'base-rev';
+	public const FIELD_EDIT_SUMMARY = 'edit-summary';
+	public const FIELD_IGNORE_EMPTY_SUMMARY = 'ignore-blank-summary';
 
 	private $inputValidator;
 	private $submitMsgKey;
