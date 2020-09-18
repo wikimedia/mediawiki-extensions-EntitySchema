@@ -85,8 +85,8 @@ class NewEntitySchemaPage extends Page {
 	 * @param {string} schemaText
 	 */
 	pasteSchemaText( schemaText ) {
-		browser.executeAsync( ( query, schemaText, done ) => {
-			done( window.$( query ).val( schemaText ) );
+		browser.executeAsync( ( query, innerSchemaText, done ) => {
+			done( window.$( query ).val( innerSchemaText ) );
 		}, this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_TEXT + ' textarea', schemaText );
 	}
 

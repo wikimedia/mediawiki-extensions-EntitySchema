@@ -38,8 +38,8 @@ class EditSchemaPage extends Page {
 		// Go directly through the DOM in order to avoid having to slowly "type"
 		// very long schema texts char by char.
 		return browser.execute(
-			( selector, schemaText ) => {
-				$( selector ).val( schemaText );
+			( selector, innerSchemaText ) => {
+				$( selector ).val( innerSchemaText );
 			},
 			this.constructor.SCHEMA_EDIT_SELECTORS.SCHEMAAREA,
 			schemaText
