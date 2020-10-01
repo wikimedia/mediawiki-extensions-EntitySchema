@@ -41,7 +41,7 @@
 			"vendor/bin/phpcs -s"
 		],
 		"*.json": [
-			"jsonlint"
+			"eslint --fix"
 		],
 		"*.{css,scss,less}": [
 			"stylelint --fix",
