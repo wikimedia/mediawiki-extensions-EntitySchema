@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Chrumps"
+			"Chrumps",
+			"Nux"
 		]
 	},
+	"entityschema-newschema-copyright": "Klikając „$1”, zgadzasz się na [[$2|warunki użytkowania]] oraz wyrażasz nieodwołalną zgodę na udostępnianie twojego wkładu na warunkach $3.",
 	"entityschema-special-language-inputlabel": "Kod języka"
 }
