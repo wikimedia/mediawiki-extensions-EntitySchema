@@ -26,7 +26,7 @@ final class EntitySchemaHooks {
 	public static function onCreateDBSchema( DatabaseUpdater $updater ) {
 		$updater->addExtensionTable(
 			'entityschema_id_counter',
-			__DIR__ . '/../../sql/EntitySchema.sql'
+			dirname( __DIR__, 2 ) . "/sql/{$updater->getDB()->getType()}/tables-generated.sql"
 		);
 	}
 
