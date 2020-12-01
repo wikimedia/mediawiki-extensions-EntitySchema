@@ -1,12 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
+			"Balyozxane",
 			"Mirzali"
 		]
 	},
 	"entityschema-newschema-label": "Etîket:",
 	"entityschema-newschema-description": "Danasîn:",
 	"entityschema-editpage-schema-inputlabel": "ShEx:",
+	"entityschema-namebadge-header-description": "danasîn",
 	"entityschema-special-label": "Etîket:",
 	"entityschema-special-description": "Danasîn:"
 }
