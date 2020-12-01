@@ -21,11 +21,12 @@ class NewEntitySchemaPage extends Page {
 	}
 
 	showsForm() {
-		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.LABEL ).waitForDisplayed();
-		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.DESCRIPTION ).waitForDisplayed();
-		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.ALIASES ).waitForDisplayed();
-		browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_TEXT ).waitForDisplayed();
-
+		browser.waitUntil( () =>
+			browser.$( this.constructor.NEW_SCHEMA_SELECTORS.LABEL ).isDisplayed() &&
+			browser.$( this.constructor.NEW_SCHEMA_SELECTORS.DESCRIPTION ).isDisplayed() &&
+			browser.$( this.constructor.NEW_SCHEMA_SELECTORS.ALIASES ).isDisplayed() &&
+			browser.$( this.constructor.NEW_SCHEMA_SELECTORS.SCHEMA_TEXT ).isDisplayed()
+		);
 		return true;
 	}
 

@@ -6,7 +6,7 @@
 
 	$( function () {
 		var schemaSchemaTextMaxSizeBytes = mw.config.get( 'wgEntitySchemaSchemaTextMaxSizeBytes' ),
-			schemaTextInput = OO.ui.infuse( 'mw-input-wpschema-text' );
+			schemaTextInput = OO.ui.infuse( $( '#mw-input-wpschema-text' ) );
 
 		mw.widgets.visibleByteLimit( schemaTextInput, schemaSchemaTextMaxSizeBytes );
 	} );

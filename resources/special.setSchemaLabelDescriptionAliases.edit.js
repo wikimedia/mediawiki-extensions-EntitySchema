@@ -13,9 +13,9 @@
 
 	$( function () {
 		var schemaNameBadgeMaxSizeChars = mw.config.get( 'wgEntitySchemaNameBadgeMaxSizeChars' ),
-			labelInput = OO.ui.infuse( 'entityschema-title-label' ),
-			descriptionInput = OO.ui.infuse( 'entityschema-heading-description' ),
-			aliasInput = OO.ui.infuse( 'entityschema-heading-aliases' );
+			labelInput = OO.ui.infuse( $( '#entityschema-title-label' ) ),
+			descriptionInput = OO.ui.infuse( $( '#entityschema-heading-description' ) ),
+			aliasInput = OO.ui.infuse( $( '#entityschema-heading-aliases' ) );
 
 		mw.widgets.visibleCodePointLimit( labelInput, schemaNameBadgeMaxSizeChars );
 		mw.widgets.visibleCodePointLimit( descriptionInput, schemaNameBadgeMaxSizeChars );

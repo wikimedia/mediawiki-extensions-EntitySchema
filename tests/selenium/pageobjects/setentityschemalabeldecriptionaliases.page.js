@@ -30,9 +30,11 @@ class SetEntitySchemaLabelDescriptionAliasesPage extends Page {
 	}
 
 	showsEditForm() {
-		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.LABEL ).waitForDisplayed();
-		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.DESCRIPTION ).waitForDisplayed();
-		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.ALIASES ).waitForDisplayed();
+		browser.waitUntil( () =>
+			browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.LABEL ).isDisplayed() &&
+			browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.DESCRIPTION ).isDisplayed() &&
+			browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.ALIASES ).isDisplayed()
+		);
 		return true;
 	}
 
