@@ -13,10 +13,10 @@ class NameBadge {
 	/** @var string */
 	public $description;
 
-	/** string[] */
+	/** @var string[] */
 	public $aliases;
 
-	public function __construct( $label, $description, array $aliases ) {
+	public function __construct( string $label, string $description, array $aliases ) {
 		$this->label = $label;
 		$this->description = $description;
 		$this->aliases = $aliases;

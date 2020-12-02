@@ -21,6 +21,7 @@ use Status;
  */
 final class RestoreViewAction extends AbstractRestoreAction {
 
+	/** @var EntitySchemaSlotDiffRenderer */
 	private $slotDiffRenderer;
 
 	public function __construct(

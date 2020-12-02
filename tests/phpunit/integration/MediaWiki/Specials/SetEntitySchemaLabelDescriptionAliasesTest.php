@@ -257,8 +257,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			'en' // default is qqx but qqx terms do not exist
 		);
 
-		$mockHTMLFormProvider = $this->mockHTMLFormProvider; // FIXME: PHP7: inline this variable!
-		$mockHTMLFormProvider::assertFormFieldData( $expectedFieldData );
+		$this->mockHTMLFormProvider::assertFormFieldData( $expectedFieldData );
 	}
 
 	/**

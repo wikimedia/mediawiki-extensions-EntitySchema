@@ -9,6 +9,8 @@ use PHPUnit\Framework\Assert;
  * @license GPL-2.0-or-later
  */
 class HTMLFormSpy {
+
+	/** @var HTMLForm */
 	private static $form;
 
 	public static function factory( ...$arguments ) {

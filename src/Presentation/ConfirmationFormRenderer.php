@@ -18,6 +18,7 @@ use User;
  */
 class ConfirmationFormRenderer {
 
+	/** @var MessageLocalizer */
 	private $msgLocalizer;
 
 	public function __construct( MessageLocalizer $msgLocalizer ) {

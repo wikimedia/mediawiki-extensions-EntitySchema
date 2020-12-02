@@ -43,6 +43,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	const SUBMIT_SELECTION_NAME = 'submit-selection';
 	const SUBMIT_EDIT_NAME = 'submit-edit';
 
+	/** @var string */
 	private $htmlFormProvider;
 
 	public function __construct( $htmlFormProvider = HTMLForm::class ) {
@@ -128,8 +129,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	private function displaySchemaLanguageSelectionForm( $defaultId, $defaultLanguage ) {
 		$formDescriptor = $this->getSchemaSelectionFormFields( $defaultId, $defaultLanguage );
 
-		$formProvider = $this->htmlFormProvider; // FIXME: PHP7: inline this variable!
-		$form = $formProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
+		$form = $this->htmlFormProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
 			->setSubmitName( self::SUBMIT_SELECTION_NAME )
 			->setSubmitID( 'entityschema-special-schema-id-submit' )
 			->setSubmitTextMsg( 'entityschema-special-id-submit' )
@@ -145,8 +145,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$schemaNameBadge = $this->getSchemaNameBadge( $title, $langCode, $baseRevId );
 		$formDescriptor = $this->getEditFormFields( $id, $langCode, $schemaNameBadge, $baseRevId );
 
-		$formProvider = $this->htmlFormProvider; // FIXME: PHP7: inline this variable!
-		$form = $formProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
+		$form = $this->htmlFormProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
 			->setSubmitName( self::SUBMIT_EDIT_NAME )
 			->setSubmitID( 'entityschema-special-schema-id-submit' )
 			->setSubmitTextMsg( 'entityschema-special-id-submit' )

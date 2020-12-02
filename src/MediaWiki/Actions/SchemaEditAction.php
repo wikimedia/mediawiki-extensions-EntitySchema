@@ -31,9 +31,10 @@ class SchemaEditAction extends FormAction {
 	public const FIELD_EDIT_SUMMARY = 'edit-summary';
 	public const FIELD_IGNORE_EMPTY_SUMMARY = 'ignore-blank-summary';
 
+	/** @var InputValidator */
 	private $inputValidator;
+	/** @var string */
 	private $submitMsgKey;
-	private $summaryWarned;
 
 	public function __construct(
 		Page $page,

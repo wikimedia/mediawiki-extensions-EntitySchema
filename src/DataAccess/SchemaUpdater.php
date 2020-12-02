@@ -18,7 +18,7 @@ interface SchemaUpdater {
 	 * @param SchemaId $id
 	 * @param string[] $labels
 	 * @param string[] $descriptions
-	 * @param string[] $aliasGroups
+	 * @param string[][] $aliasGroups
 	 * @param string $schemaText
 	 * @param int $baseRevId
 	 * @param CommentStoreComment $summary

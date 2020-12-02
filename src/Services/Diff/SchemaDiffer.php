@@ -25,6 +25,7 @@ use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
  */
 class SchemaDiffer {
 
+	/** @var MapDiffer */
 	private $recursiveMapDiffer;
 
 	public function __construct() {

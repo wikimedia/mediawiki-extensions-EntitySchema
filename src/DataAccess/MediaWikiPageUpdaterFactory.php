@@ -14,6 +14,7 @@ use WikiPage;
  */
 class MediaWikiPageUpdaterFactory {
 
+	/** @var User */
 	private $user;
 
 	public function __construct( User $user ) {

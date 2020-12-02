@@ -13,16 +13,14 @@ use EntitySchema\Domain\Storage\IdGenerator;
  */
 class FixedIdGenerator implements IdGenerator {
 
+	/** @var int */
 	private $fixId;
 
-	public function __construct( $fixId ) {
+	public function __construct( int $fixId ) {
 		$this->fixId = $fixId;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getNewId() {
+	public function getNewId(): int {
 		return $this->fixId;
 	}
 

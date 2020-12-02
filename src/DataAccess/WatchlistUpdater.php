@@ -12,14 +12,12 @@ use WatchAction;
  */
 class WatchlistUpdater {
 
+	/** @var User */
 	private $user;
+	/** @var int */
 	private $namespace;
 
-	/**
-	 * @param User $user
-	 * @param int  $namespaceID
-	 */
-	public function __construct( User $user, $namespaceID ) {
+	public function __construct( User $user, int $namespaceID ) {
 		$this->user = $user;
 		$this->namespace = $namespaceID;
 	}

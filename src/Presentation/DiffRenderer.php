@@ -11,6 +11,7 @@ use MessageLocalizer;
  */
 class DiffRenderer {
 
+	/** @var MessageLocalizer */
 	private $msgLocalizer;
 
 	public function __construct( MessageLocalizer $msgLocalizer ) {

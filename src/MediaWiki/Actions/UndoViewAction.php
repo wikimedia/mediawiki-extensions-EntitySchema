@@ -13,6 +13,7 @@ use Page;
  */
 class UndoViewAction extends AbstractUndoAction {
 
+	/** @var EntitySchemaSlotDiffRenderer */
 	private $slotDiffRenderer;
 
 	public function __construct(

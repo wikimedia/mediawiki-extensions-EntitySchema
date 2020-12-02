@@ -17,14 +17,17 @@ use RuntimeException;
 class MediaWikiRevisionSchemaInserter implements SchemaInserter {
 	const AUTOCOMMENT_NEWSCHEMA = 'entityschema-summary-newschema-nolabel';
 
+	/** @var MediaWikiPageUpdaterFactory */
 	private $pageUpdaterFactory;
+	/** @var IdGenerator */
 	private $idGenerator;
+	/** @var WatchlistUpdater */
 	private $watchListUpdater;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
 		WatchlistUpdater $watchListUpdater,
-		IdGenerator $idGenerator = null
+		IdGenerator $idGenerator
 	) {
 		$this->idGenerator = $idGenerator;
 		$this->pageUpdaterFactory = $pageUpdaterFactory;

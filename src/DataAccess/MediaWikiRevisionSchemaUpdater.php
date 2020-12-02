@@ -27,8 +27,11 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	public const AUTOCOMMENT_RESTORE = 'entityschema-summary-restore';
 	public const AUTOCOMMENT_UNDO = 'entityschema-summary-undo';
 
+	/** @var MediaWikiPageUpdaterFactory */
 	private $pageUpdaterFactory;
+	/** @var WatchlistUpdater */
 	private $watchListUpdater;
+	/** @var RevisionLookup */
 	private $revisionLookup;
 
 	public function __construct(
@@ -52,7 +55,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	 * @param SchemaId $id
 	 * @param string[] $labels
 	 * @param string[] $descriptions
-	 * @param string[] $aliasGroups
+	 * @param string[][] $aliasGroups
 	 * @param string $schemaText
 	 * @param int $baseRevId
 	 * @param CommentStoreComment $summary
