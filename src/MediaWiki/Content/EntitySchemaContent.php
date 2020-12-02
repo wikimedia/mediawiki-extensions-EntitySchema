@@ -10,6 +10,8 @@ use Title;
 
 /**
  * Represents the content of a EntitySchema page
+ *
+ * @license GPL-2.0-or-later
  */
 class EntitySchemaContent extends JsonContent {
 

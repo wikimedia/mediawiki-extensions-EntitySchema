@@ -46,7 +46,7 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 		yield 'change from empty schema counts as addition (not change)' => [
 			[ 'schemaText' => '', 'serializationVersion' => '3.0' ],
 			[ 'schemaText' => 'test schema', 'serializationVersion' => '3.0' ],
-			// phpcs:disable Generic.Files.LineLength.MaxExceeded
+			// phpcs:disable Generic.Files.LineLength.TooLong
 			'<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Schema</td></tr><tr><td colspan="2"></td><td class="diff-marker">+</td><td class="diff-addedline">test schema</td></tr>',
 			// phpcs:enable
 		];
@@ -54,7 +54,7 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 		yield 'change to empty schema counts as removal (not change)' => [
 			[ 'schemaText' => 'test schema', 'serializationVersion' => '3.0' ],
 			[ 'schemaText' => '', 'serializationVersion' => '3.0' ],
-			// phpcs:disable Generic.Files.LineLength.MaxExceeded
+			// phpcs:disable Generic.Files.LineLength.TooLong
 			'<tr><td colspan="2" class="diff-lineno">Schema</td><td colspan="2" class="diff-lineno"></td></tr><tr><td class="diff-marker">−</td><td class="diff-deletedline">test schema</td><td colspan="2"></td></tr>',
 			// phpcs:enable
 		];
@@ -67,7 +67,7 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 				],
 				'serializationVersion' => '3.0',
 			],
-			// phpcs:disable Generic.Files.LineLength.MaxExceeded
+			// phpcs:disable Generic.Files.LineLength.TooLong
 			'<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Labels / en</td></tr><tr><td colspan="2"></td><td class="diff-marker">+</td><td class="diff-addedline">testlabel</td></tr>'
 			// phpcs:enable
 		];

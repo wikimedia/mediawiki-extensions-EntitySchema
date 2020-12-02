@@ -21,6 +21,8 @@ use Status;
 
 /**
  * Edit a EntitySchema via the mediawiki editing action
+ *
+ * @license GPL-2.0-or-later
  */
 class SchemaEditAction extends FormAction {
 
@@ -36,12 +38,12 @@ class SchemaEditAction extends FormAction {
 	public function __construct(
 		Page $page,
 		InputValidator $inputValidator,
-		$wgEditSubmitButtonLabelPublish,
+		bool $editSubmitButtonLabelPublish,
 		IContextSource $context = null
 	) {
 		$this->inputValidator = $inputValidator;
 		parent::__construct( $page, $context );
-		$this->submitMsgKey = $wgEditSubmitButtonLabelPublish ? 'publishchanges' : 'savechanges';
+		$this->submitMsgKey = $editSubmitButtonLabelPublish ? 'publishchanges' : 'savechanges';
 	}
 
 	public function show() {

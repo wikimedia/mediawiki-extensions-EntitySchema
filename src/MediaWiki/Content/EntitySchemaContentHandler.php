@@ -29,6 +29,8 @@ use WikiPage;
 
 /**
  * Content handler for the EntitySchema content
+ *
+ * @license GPL-2.0-or-later
  */
 class EntitySchemaContentHandler extends JsonContentHandler {
 

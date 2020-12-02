@@ -17,6 +17,8 @@ use WikiImporter;
 
 /**
  * Hooks utilized by the EntitySchema extension
+ *
+ * @license GPL-2.0-or-later
  */
 final class EntitySchemaHooks {
 
