@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Abbas dhothar"
+		]
+	},
+	"entityschema-error-schematext-too-long": "The Schema text you entered is too long. The maximum length is {{PLURAL:$1|اک بائیٹ|$1 بائیٹس}}. Your text has a length of {{PLURAL:$2|اک بائیٹ|$2 بائیٹس}}."
+}
