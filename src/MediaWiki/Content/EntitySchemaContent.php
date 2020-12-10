@@ -15,7 +15,7 @@ use Title;
  */
 class EntitySchemaContent extends JsonContent {
 
-	const CONTENT_MODEL_ID = 'EntitySchema';
+	public const CONTENT_MODEL_ID = 'EntitySchema';
 
 	public function __construct( $text, $modelId = self::CONTENT_MODEL_ID ) {
 		parent::__construct( $text, $modelId );

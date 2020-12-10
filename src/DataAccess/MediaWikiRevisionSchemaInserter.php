@@ -15,7 +15,7 @@ use RuntimeException;
  * @license GPL-2.0-or-later
  */
 class MediaWikiRevisionSchemaInserter implements SchemaInserter {
-	const AUTOCOMMENT_NEWSCHEMA = 'entityschema-summary-newschema-nolabel';
+	public const AUTOCOMMENT_NEWSCHEMA = 'entityschema-summary-newschema-nolabel';
 
 	/** @var MediaWikiPageUpdaterFactory */
 	private $pageUpdaterFactory;

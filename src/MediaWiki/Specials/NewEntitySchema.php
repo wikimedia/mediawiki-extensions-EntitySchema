@@ -24,16 +24,15 @@ use UserBlockedError;
  */
 class NewEntitySchema extends SpecialPage {
 
-	/* public */
-	const FIELD_DESCRIPTION = 'description';
-	/* public */
-	const FIELD_LABEL = 'label';
-	/* public */
-	const FIELD_ALIASES = 'aliases';
-	/* public */
-	const FIELD_SCHEMA_TEXT = 'schema-text';
-	/* public */
-	const FIELD_LANGUAGE = 'languagecode';
+	public const FIELD_DESCRIPTION = 'description';
+
+	public const FIELD_LABEL = 'label';
+
+	public const FIELD_ALIASES = 'aliases';
+
+	public const FIELD_SCHEMA_TEXT = 'schema-text';
+
+	public const FIELD_LANGUAGE = 'languagecode';
 
 	public function __construct() {
 		parent::__construct(

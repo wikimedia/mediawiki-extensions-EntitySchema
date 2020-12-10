@@ -19,11 +19,11 @@ use RuntimeException;
  */
 class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 
-	const AUTOCOMMENT_UPDATED_SCHEMATEXT = 'entityschema-summary-update-schema-text';
-	const AUTOCOMMENT_UPDATED_NAMEBADGE = 'entityschema-summary-update-schema-namebadge';
-	const AUTOCOMMENT_UPDATED_LABEL = 'entityschema-summary-update-schema-label';
-	const AUTOCOMMENT_UPDATED_DESCRIPTION = 'entityschema-summary-update-schema-description';
-	const AUTOCOMMENT_UPDATED_ALIASES = 'entityschema-summary-update-schema-aliases';
+	public const AUTOCOMMENT_UPDATED_SCHEMATEXT = 'entityschema-summary-update-schema-text';
+	public const AUTOCOMMENT_UPDATED_NAMEBADGE = 'entityschema-summary-update-schema-namebadge';
+	public const AUTOCOMMENT_UPDATED_LABEL = 'entityschema-summary-update-schema-label';
+	public const AUTOCOMMENT_UPDATED_DESCRIPTION = 'entityschema-summary-update-schema-description';
+	public const AUTOCOMMENT_UPDATED_ALIASES = 'entityschema-summary-update-schema-aliases';
 	public const AUTOCOMMENT_RESTORE = 'entityschema-summary-restore';
 	public const AUTOCOMMENT_UNDO = 'entityschema-summary-undo';
 

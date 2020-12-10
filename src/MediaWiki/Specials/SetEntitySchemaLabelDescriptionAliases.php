@@ -34,14 +34,14 @@ use WikiPage;
  */
 class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 
-	const FIELD_ID = 'ID';
-	const FIELD_LANGUAGE = 'languagecode';
-	const FIELD_DESCRIPTION = 'description';
-	const FIELD_LABEL = 'label';
-	const FIELD_ALIASES = 'aliases';
-	const FIELD_BASE_REV = 'base-rev';
-	const SUBMIT_SELECTION_NAME = 'submit-selection';
-	const SUBMIT_EDIT_NAME = 'submit-edit';
+	public const FIELD_ID = 'ID';
+	public const FIELD_LANGUAGE = 'languagecode';
+	public const FIELD_DESCRIPTION = 'description';
+	public const FIELD_LABEL = 'label';
+	public const FIELD_ALIASES = 'aliases';
+	public const FIELD_BASE_REV = 'base-rev';
+	private const SUBMIT_SELECTION_NAME = 'submit-selection';
+	private const SUBMIT_EDIT_NAME = 'submit-edit';
 
 	/** @var string */
 	private $htmlFormProvider;

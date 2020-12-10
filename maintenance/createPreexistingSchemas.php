@@ -24,8 +24,8 @@ use User;
  */
 class CreatePreexistingSchemas extends Maintenance {
 
-	const LABEL = 'label';
-	const DESC = 'desc';
+	private const LABEL = 'label';
+	private const DESC = 'desc';
 
 	public function __construct() {
 		parent::__construct();

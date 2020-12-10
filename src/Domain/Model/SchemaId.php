@@ -12,7 +12,7 @@ class SchemaId {
 	/** @var string */
 	private $id;
 
-	const PATTERN = '/^E[1-9][0-9]*\z/';
+	private const PATTERN = '/^E[1-9][0-9]*\z/';
 
 	/**
 	 * @param string $id
