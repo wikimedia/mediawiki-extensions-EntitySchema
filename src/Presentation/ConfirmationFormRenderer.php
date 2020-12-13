@@ -72,6 +72,7 @@ class ConfirmationFormRenderer {
 		$formHTML .= $this->getEditButton() . "\n";
 		$formHTML .= $this->getCancelLink( $title );
 		$formHTML .= '</div>'; // editButtons
+		// @phan-suppress-next-line PhanPluginDuplicateAdjacentStatement
 		$formHTML .= '</div>'; // editOptions
 
 		$hidden = [

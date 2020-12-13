@@ -59,8 +59,6 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 	}
 
 	/**
-	 * @suppress PhanParamSignatureMismatch
-	 *
 	 * @param EntitySchemaContent|null $oldContent
 	 * @param EntitySchemaContent|null $newContent
 	 *
