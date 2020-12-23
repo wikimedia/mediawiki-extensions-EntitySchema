@@ -1,0 +1,13 @@
+[
+	{
+		"name": "entityschema_id_counter",
+		"columns": [
+			{
+				"name": "id_value",
+				"type": "integer",
+				"options": { "notnull": true, "unsigned": true }
+			}
+		],
+		"indexes": []
+	}
+]
