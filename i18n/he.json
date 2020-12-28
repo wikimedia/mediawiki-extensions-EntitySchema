@@ -29,7 +29,7 @@
 	"entityschema-error-saving-failed": "שמירת הסכֵמה נכשלה בעקבות ההודעה הבאה: $1",
 	"entityschema-error-not-post": "הפעולה חייבת להתבצע עם בקשת post.",
 	"entityschema-error-inconsistent-id": "הגרסאות שסופקו אינן שייכות כולן לכותרת שצוינה.",
-	"entityschema-error-wrong-page-revisions": "המהדורות שסופרו אינן שייכות לעמוד הנוכחי.",
+	"entityschema-error-wrong-page-revisions": "המהדורות שסופרו אינן שייכות לדף הנוכחי.",
 	"entityschema-error-invalid-id": "המזהה אינו תקין.",
 	"entityschema-error-unsupported-langcode": "קוד השפה הזה לא נתמך.",
 	"entityschema-error-one-more-message-available": "ישנן בעיות עם חלק מסוים מהקלט שלך. נא לבדוק את הודעת השגיאה להלן.",
