@@ -133,9 +133,9 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 	<td colspan="2" class="diff-lineno">Schema / <!--LINE 1--></td>
 </tr>
 <tr>
-	<td class='diff-marker'>−</td>
+	<td class='diff-marker' data-marker="−"/>
 	<td class='diff-deletedline'><div><del class="diffchange diffchange-inline">test </del>schema</div></td>
-	<td class='diff-marker'>+</td>
+	<td class='diff-marker' data-marker="+"/>
 	<td class='diff-addedline'><div>schema <ins class="diffchange diffchange-inline">updated</ins></div></td>
 </tr>
 HTML;
