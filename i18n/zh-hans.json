@@ -5,11 +5,13 @@
 			"A Chinese Wikipedian",
 			"Angrydog001",
 			"Ps2049",
+			"Yfdyh000",
 			"Zazzzz"
 		]
 	},
 	"entityschema-newschema-label": "标签：",
 	"entityschema-newschema-submit": "创建",
+	"entityschema-newschema-copyright": "点击“$1”即代表您同意[[$2|使用条款]]，且您不可撤销地同意按$3发布您的贡献。",
 	"entityschema-summary-generated": "摘要（将附加于自动生成的摘要中）：",
 	"entityschema-namebadge-header-label": "标签",
 	"entityschema-namebadge-header-description": "描述",
