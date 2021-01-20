@@ -18,11 +18,11 @@ class MediaWikiPageUpdaterFactoryTest extends MediaWikiTestCase {
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$pageUpdater = TestingAccessWrapper::newFromObject(
-			$pageUpdaterFactory->getPageUpdater( 'testTitle' )
+			$pageUpdaterFactory->getPageUpdater( 'TestTitle' )
 		);
 		$this->assertEquals( $user, $pageUpdater->user );
 		$title = $pageUpdater->wikiPage->getTitle();
-		$this->assertEquals( 'testTitle', $title->getText() );
+		$this->assertEquals( 'TestTitle', $title->getText() );
 	}
 
 	public function testAutopatrolledFlagIsSetForSysop() {
@@ -30,7 +30,7 @@ class MediaWikiPageUpdaterFactoryTest extends MediaWikiTestCase {
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$pageUpdater = TestingAccessWrapper::newFromObject(
-			$pageUpdaterFactory->getPageUpdater( 'testTitle' )
+			$pageUpdaterFactory->getPageUpdater( 'TestTitle' )
 		);
 		$this->assertEquals( RecentChange::PRC_AUTOPATROLLED, $pageUpdater->rcPatrolStatus );
 	}
@@ -40,7 +40,7 @@ class MediaWikiPageUpdaterFactoryTest extends MediaWikiTestCase {
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$pageUpdater = TestingAccessWrapper::newFromObject(
-			$pageUpdaterFactory->getPageUpdater( 'testTitle' )
+			$pageUpdaterFactory->getPageUpdater( 'TestTitle' )
 		);
 		$this->assertEquals( RecentChange::PRC_UNPATROLLED, $pageUpdater->rcPatrolStatus );
 	}
