@@ -47,7 +47,7 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 			[ 'schemaText' => '', 'serializationVersion' => '3.0' ],
 			[ 'schemaText' => 'test schema', 'serializationVersion' => '3.0' ],
 			// phpcs:disable Generic.Files.LineLength.TooLong
-			'<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Schema</td></tr><tr><td colspan="2"></td><td class="diff-marker">+</td><td class="diff-addedline">test schema</td></tr>',
+			'<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Schema</td></tr><tr><td colspan="2"></td><td class="diff-marker" data-marker="+"/><td class="diff-addedline">test schema</td></tr>',
 			// phpcs:enable
 		];
 
@@ -55,7 +55,7 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 			[ 'schemaText' => 'test schema', 'serializationVersion' => '3.0' ],
 			[ 'schemaText' => '', 'serializationVersion' => '3.0' ],
 			// phpcs:disable Generic.Files.LineLength.TooLong
-			'<tr><td colspan="2" class="diff-lineno">Schema</td><td colspan="2" class="diff-lineno"></td></tr><tr><td class="diff-marker">−</td><td class="diff-deletedline">test schema</td><td colspan="2"></td></tr>',
+			'<tr><td colspan="2" class="diff-lineno">Schema</td><td colspan="2" class="diff-lineno"></td></tr><tr><td class="diff-marker" data-marker="−"/><td class="diff-deletedline">test schema</td><td colspan="2"></td></tr>',
 			// phpcs:enable
 		];
 
@@ -68,7 +68,7 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 				'serializationVersion' => '3.0',
 			],
 			// phpcs:disable Generic.Files.LineLength.TooLong
-			'<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Labels / en</td></tr><tr><td colspan="2"></td><td class="diff-marker">+</td><td class="diff-addedline">testlabel</td></tr>'
+			'<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Labels / en</td></tr><tr><td colspan="2"></td><td class="diff-marker" data-marker="+"/><td class="diff-addedline">testlabel</td></tr>'
 			// phpcs:enable
 		];
 
@@ -79,9 +79,9 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 	<td colspan="2" class="diff-lineno">Labels / en</td>
 </tr>
 <tr>
-	<td class="diff-marker">−</td>
+	<td class="diff-marker" data-marker="−"/>
 	<td class="diff-deletedline">test label</td>
-	<td class="diff-marker">+</td>
+	<td class="diff-marker" data-marker="+"/>
 	<td class="diff-addedline">updated label</td>
 </tr>
 <tr>
@@ -89,7 +89,7 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 	<td colspan="2" class="diff-lineno"></td>
 </tr>
 <tr>
-	<td class="diff-marker">−</td>
+	<td class="diff-marker" data-marker="−"/>
 	<td class="diff-deletedline">test description</td>
 	<td colspan="2"></td>
 </tr>
@@ -99,7 +99,7 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 </tr>
 <tr>
 	<td colspan="2"></td>
-	<td class="diff-marker">+</td>
+	<td class="diff-marker" data-marker="+"/>
 	<td class="diff-addedline">Testbeschreibung</td>
 </tr>
 <tr>
@@ -108,14 +108,14 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 </tr>
 <tr>
 	<td colspan="2"></td>
-	<td class="diff-marker">+</td><td class="diff-addedline">test alias 3</td>
+	<td class="diff-marker" data-marker="+"/><td class="diff-addedline">test alias 3</td>
 </tr>
 <tr>
 	<td colspan="2" class="diff-lineno">Aliases / en / 1</td>
 	<td colspan="2" class="diff-lineno"></td>
 </tr>
 <tr>
-	<td class="diff-marker">−</td>
+	<td class="diff-marker" data-marker="−"/>
 	<td class="diff-deletedline">test alias 2</td>
 	<td colspan="2"></td>
 </tr>
@@ -125,7 +125,7 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 </tr>
 <tr>
 	<td colspan="2"></td>
-	<td class="diff-marker">+</td>
+	<td class="diff-marker" data-marker="+"/>
 	<td class="diff-addedline">Testalias</td>
 </tr>
 <tr>

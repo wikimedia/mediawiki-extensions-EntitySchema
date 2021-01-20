@@ -184,8 +184,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 	private function diffMarker( $marker ) {
 		return Html::element(
 			'td',
-			[ 'class' => 'diff-marker' ],
-			$marker
+			[ 'class' => 'diff-marker', 'data-marker' => $marker ]
 		);
 	}
 
