@@ -22,7 +22,7 @@ class SchemaIdTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $expected, $actual );
 	}
 
-	public function  provideInvalidIds() {
+	public function provideInvalidIds() {
 		yield 'missing prefix' => [ '1' ];
 		yield 'missing number' => [ 'E' ];
 		yield 'malformed number' => [ 'E01' ];
