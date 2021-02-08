@@ -12,6 +12,7 @@ use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\NameBadge;
 use InvalidArgumentException;
+use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\PageUpdater;
 use PHPUnit\Framework\TestCase;
@@ -91,6 +92,19 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		return $pageUpdaterFactory;
 	}
 
+	private function createMockRevisionLookup( array $revisionRecords = [] ) {
+		$revisionRecordMap = [];
+		foreach ( $revisionRecords as $revisionRecord ) {
+			$revisionRecordMap[$revisionRecord->getId()] = $revisionRecord;
+		}
+		$mockRevLookup = $this->getMockForAbstractClass( RevisionLookup::class );
+		$mockRevLookup->method( 'getRevisionById' )
+			->willReturnCallback( function ( $id, $flags = 0 ) use ( $revisionRecordMap ) {
+				return $revisionRecordMap[$id] ?? null;
+			} );
+		return $mockRevLookup;
+	}
+
 	private function newMediaWikiRevisionSchemaUpdaterFailingToSave(): MediaWikiRevisionSchemaUpdater {
 		$existingContent = new EntitySchemaContent( '{}' );
 		$this->parentRevision = $this->createMockRevisionRecord( $existingContent );
@@ -99,20 +113,25 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$pageUpdater->method( 'wasSuccessful' )->willReturn( false );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
+
 		return new MediaWikiRevisionSchemaUpdater(
 			$this->getPageUpdaterFactory( $pageUpdater ),
 			$this->getMockWatchlistUpdater(),
-			new ArrayRevisionLookup( [ $this->parentRevision ] )
+			$mockRevLookup
 		);
 	}
 
 	public function testOverwriteWholeSchema_throwsForNonExistantPage() {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
+
+		$mockRevLookup = $this->createMockRevisionLookup();
+
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			new ArrayRevisionLookup()
+			$mockRevLookup
 		);
 
 		$this->expectException( RuntimeException::class );
@@ -157,11 +176,12 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
 
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			new ArrayRevisionLookup( [ $this->parentRevision ] )
+			$mockRevLookup
 		);
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( $exceptionMessage );
@@ -203,10 +223,11 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		) );
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new ArrayRevisionLookup( [ $this->parentRevision ] )
+			$mockRevLookup
 		);
 		$schmeaUpdater->overwriteWholeSchema(
 			new SchemaId( 'E1' ),
@@ -253,11 +274,12 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 	}
 
 	public function testUpdateSchemaText_throwsForInvalidParams() {
+		$mockRevLookup = $this->createMockRevisionLookup();
 		$pageUpdaterFactory = $this->getPageUpdaterFactory();
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			new ArrayRevisionLookup()
+			$mockRevLookup
 		);
 
 		$this->expectException( InvalidArgumentException::class );
@@ -284,10 +306,11 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			new ArrayRevisionLookup( [ $this->parentRevision ] )
+			$mockRevLookup
 		);
 
 		$this->expectException( DomainException::class );
@@ -311,11 +334,13 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 			'{
 		"serializationVersion": "3.0",
 		"schemaText": "original text"
-		}' ) );
+		}'
+		) );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->baseRevision, $this->parentRevision ] );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+			$mockRevLookup
 		);
 
 		$this->expectException( EditConflict::class );
@@ -354,10 +379,11 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new ArrayRevisionLookup( [ $this->parentRevision ] )
+			$mockRevLookup
 		);
 
 		$schmeaUpdater->updateSchemaText(
@@ -410,11 +436,12 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 				'type' => 'ShExC',
 			] ) )
 		);
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->baseRevision, $this->parentRevision ] );
 
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+			$mockRevLookup
 		);
 		$schemaUpdater->updateSchemaText(
 			new SchemaId( $id ),
@@ -499,11 +526,12 @@ SHEXC;
 				'type' => 'ShExC',
 			] ) )
 		);
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->baseRevision, $this->parentRevision ] );
 
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+			$mockRevLookup
 		);
 		$schemaUpdater->updateSchemaText(
 			new SchemaId( $id ),
@@ -549,10 +577,11 @@ SHEXC;
 			$expectedComment,
 			$existingContent
 		);
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new ArrayRevisionLookup( [ $this->parentRevision ] )
+			$mockRevLookup
 		);
 
 		$schmeaUpdater->updateSchemaText(
@@ -576,10 +605,11 @@ SHEXC;
 		$pageUpdater->expects( $this->never() )->method( 'setContent' );
 		$pageUpdater->expects( $this->never() )->method( 'saveRevision' );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			new ArrayRevisionLookup( [ $this->parentRevision ] )
+			$mockRevLookup
 		);
 
 		$schemaUpdater->updateSchemaText(
@@ -616,10 +646,11 @@ SHEXC;
 
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
+			$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new ArrayRevisionLookup( [ $this->parentRevision ] )
+			$mockRevLookup
 		);
 
 		$schmeaUpdater->updateSchemaNameBadge(
@@ -677,10 +708,11 @@ SHEXC;
 
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new ArrayRevisionLookup( [ $this->parentRevision ] )
+			$mockRevLookup
 		);
 
 		$schmeaUpdater->updateSchemaNameBadge(
@@ -737,10 +769,11 @@ SHEXC;
 			$expectedComment,
 			$oldContent
 		);
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
 		$writer = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new ArrayRevisionLookup( [ $this->parentRevision ] )
+			$mockRevLookup
 		);
 
 		$writer->updateSchemaNameBadge(
@@ -841,7 +874,8 @@ SHEXC;
 					'serializationVersion' => '3.0',
 					'labels' => [ 'en' => 'conflicting label' ],
 				]
-			) ), 2 );
+			)
+		), 2 );
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
@@ -852,12 +886,14 @@ SHEXC;
 					'serializationVersion' => '3.0',
 					'labels' => [ 'en' => 'original label' ],
 				]
-			) ) );
+			)
+		) );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->baseRevision, $this->parentRevision ] );
 
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+			$mockRevLookup
 		);
 
 		$this->expectException( EditConflict::class );
@@ -905,14 +941,16 @@ SHEXC;
 				'aliases' => [ 'en' => [ 'Tiger', 'Lion' ] ],
 				'schemaText' => '# some schema about goats',
 				'type' => 'ShExC',
-			] ) ) );
+			] )
+		) );
 
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->baseRevision, $this->parentRevision ] );
 		$updater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+			$mockRevLookup
 		);
 
 		$updater->updateSchemaNameBadge(
@@ -968,11 +1006,12 @@ SHEXC;
 				'type' => 'ShExC',
 			] ) )
 		);
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->baseRevision, $this->parentRevision ] );
 
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+			$mockRevLookup
 		);
 		$schemaUpdater->updateSchemaNameBadge(
 			new SchemaId( $id ),
@@ -1028,11 +1067,12 @@ SHEXC;
 				'type' => 'ShExC',
 			] ) )
 		);
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->baseRevision, $this->parentRevision ] );
 
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+			$mockRevLookup
 		);
 		$schemaUpdater->updateSchemaNameBadge(
 			new SchemaId( $id ),
@@ -1087,11 +1127,12 @@ SHEXC;
 				'type' => 'ShExC',
 			] ) )
 		);
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->baseRevision,$this->parentRevision ] );
 
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			new ArrayRevisionLookup( [ $this->baseRevision, $this->parentRevision ] )
+			$mockRevLookup
 		);
 		$schemaUpdater->updateSchemaNameBadge(
 			new SchemaId( $id ),
@@ -1131,10 +1172,11 @@ SHEXC;
 		$pageUpdater->expects( $this->never() )->method( 'setContent' );
 		$pageUpdater->expects( $this->never() )->method( 'saveRevision' );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			new ArrayRevisionLookup( [ $this->parentRevision ] )
+			$mockRevLookup
 		);
 
 		$schemaUpdater->updateSchemaNameBadge(
@@ -1156,5 +1198,4 @@ SHEXC;
 		$revisionRecord->method( 'getId' )->willReturn( $id );
 		return $revisionRecord;
 	}
-
 }
