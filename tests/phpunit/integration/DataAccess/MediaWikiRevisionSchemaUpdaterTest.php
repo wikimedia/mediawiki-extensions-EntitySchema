@@ -334,8 +334,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 			'{
 		"serializationVersion": "3.0",
 		"schemaText": "original text"
-		}'
-		) );
+		}' ) );
 		$mockRevLookup = $this->createMockRevisionLookup( [ $this->baseRevision, $this->parentRevision ] );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
@@ -646,7 +645,7 @@ SHEXC;
 
 		$pageUpdaterFactory = $this
 			->getPageUpdaterFactoryProvidingAndExpectingContent( $expectedContent, $existingContent );
-			$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
@@ -1198,4 +1197,5 @@ SHEXC;
 		$revisionRecord->method( 'getId' )->willReturn( $id );
 		return $revisionRecord;
 	}
+
 }
