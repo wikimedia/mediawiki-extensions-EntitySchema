@@ -18,8 +18,10 @@
 	"entityschema-diff-description": "Beskrivelse",
 	"entityschema-diff-aliases": "Aliasser",
 	"entityschema-edit": "redigér",
+	"entityschema-restoreold": "gendan",
 	"entityschema-special-id-inputlabel": "ID",
 	"entityschema-special-language-inputlabel": "Sprogkode",
 	"entityschema-special-id-submit": "Angiv etiket, beskrivelse og aliasser",
+	"entityschema-special-label": "Etiket:",
 	"entityschema-special-description": "Beskrivelse:"
 }
