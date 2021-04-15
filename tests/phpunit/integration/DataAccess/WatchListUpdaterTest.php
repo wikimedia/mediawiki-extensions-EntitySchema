@@ -105,14 +105,23 @@ final class WatchListUpdaterTest extends MediaWikiTestCase {
 	 */
 	public function testWatchNewSchema( $optionsToBeSet, $pageid, $expectedToBeWatched ) {
 		$testUser = self::getTestUser()->getUser();
-		foreach ( $optionsToBeSet as $optionToBeSet ) {
-			$testUser->setOption( $optionToBeSet['key'], $optionToBeSet['value'] );
+		$services = MediaWikiServices::getInstance();
+		if ( method_exists( $services, 'getUserOptionsManager' ) ) {
+			// MW 1.35+
+			$userOptionsManager = $services->getUserOptionsManager();
+			foreach ( $optionsToBeSet as $optionToBeSet ) {
+				$userOptionsManager->setOption( $testUser, $optionToBeSet['key'], $optionToBeSet['value'] );
+			}
+		} else {
+			foreach ( $optionsToBeSet as $optionToBeSet ) {
+				$testUser->setOption( $optionToBeSet['key'], $optionToBeSet['value'] );
+			}
 		}
 		$watchlistUpdater = new WatchlistUpdater( $testUser, NS_ENTITYSCHEMA_JSON );
 
 		$watchlistUpdater->optionallyWatchNewSchema( new SchemaId( $pageid ) );
 
-		$watchedItemStore = MediaWikiServices::getInstance()->getWatchedItemStore();
+		$watchedItemStore = $services->getWatchedItemStore();
 		$actualItems = $watchedItemStore->getWatchedItemsForUser( $testUser );
 
 		$actualItems = array_unique(
