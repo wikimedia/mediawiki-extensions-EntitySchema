@@ -6,6 +6,7 @@ use Config;
 use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;
 use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
 use EntitySchema\Services\SchemaConverter\NameBadge;
+use ExtensionRegistry;
 use Html;
 use LanguageCode;
 use Linker;
@@ -14,6 +15,7 @@ use MediaWiki\MediaWikiServices;
 use MessageLocalizer;
 use ParserOutput;
 use SpecialPage;
+use SyntaxHighlight;
 use Title;
 
 /**
@@ -30,17 +32,25 @@ class EntitySchemaSlotViewRenderer {
 	/** @var Config */
 	private $config;
 
+	/** @var bool */
+	private $useSyntaxHighlight;
+
 	/**
 	 * @param string $languageCode The language in which to render the view.
 	 */
 	public function __construct(
 		$languageCode,
 		LinkRenderer $linkRenderer = null,
-		Config $config = null
+		Config $config = null,
+		bool $useSyntaxHighlight = null
 	) {
 		$this->messageLocalizer = new SpecificLanguageMessageLocalizer( $languageCode );
 		$this->linkRenderer = $linkRenderer ?: MediaWikiServices::getInstance()->getLinkRenderer();
 		$this->config = $config ?: MediaWikiServices::getInstance()->getMainConfig();
+		if ( $useSyntaxHighlight === null ) {
+			$useSyntaxHighlight = ExtensionRegistry::getInstance()->isLoaded( 'SyntaxHighlight' );
+		}
+		$this->useSyntaxHighlight = $useSyntaxHighlight;
 	}
 
 	private function msg( $key ) {
@@ -54,6 +64,9 @@ class EntitySchemaSlotViewRenderer {
 	) {
 		$output->addModules( 'ext.EntitySchema.action.view.trackclicks' );
 		$output->addModuleStyles( 'ext.EntitySchema.view' );
+		if ( $this->useSyntaxHighlight ) {
+			$output->addModuleStyles( 'ext.pygments' );
+		}
 		$output->setText(
 			$this->renderNameBadges( $title, $schemaData->nameBadges ) .
 			$this->renderSchemaSection( $title, $schemaData->schemaText )
@@ -174,13 +187,27 @@ class EntitySchemaSlotViewRenderer {
 	}
 
 	private function renderSchemaText( $schemaText ) {
+		$attribs = [
+			'id' => 'entityschema-schema-text',
+			'class' => 'entityschema-schema-text',
+			'dir' => 'ltr',
+		];
+
+		if ( $this->useSyntaxHighlight ) {
+			$highlighted = SyntaxHighlight::highlight( $schemaText, 'shex' );
+
+			if ( $highlighted->isOK() ) {
+				return Html::rawElement(
+					'div',
+					$attribs,
+					$highlighted->getValue()
+				);
+			}
+		}
+
 		return Html::element(
 			'pre',
-			[
-				'id' => 'entityschema-schema-text',
-				'class' => 'entityschema-schema-text',
-				'dir' => 'ltr',
-			],
+			$attribs,
 			$schemaText
 		);
 	}

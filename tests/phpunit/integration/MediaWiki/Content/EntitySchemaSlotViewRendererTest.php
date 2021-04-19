@@ -5,6 +5,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer;
 use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
 use EntitySchema\Services\SchemaConverter\NameBadge;
+use ExtensionRegistry;
 use HashConfig;
 use Language;
 use MediaWiki\MediaWikiServices;
@@ -25,7 +26,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 	 * @dataProvider provideSchemaDataAndHtmlFragments
 	 */
 	public function testFillParserOutput( FullViewSchemaData $schemaData, array $fragments ) {
-		$renderer = new EntitySchemaSlotViewRenderer( 'en' );
+		$renderer = new EntitySchemaSlotViewRenderer( 'en', null, null, false );
 
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
@@ -124,7 +125,10 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 			'en' => new NameBadge( 'label', 'description', [ 'alias' ] ),
 		], '' );
 		$renderer = new EntitySchemaSlotViewRenderer(
-			'qqx' // use (message-key) instead of real translations
+			'qqx', // use (message-key) instead of real translations
+			null,
+			null,
+			false
 		);
 		$this->setMwGlobals( 'wgLang', Language::factory( 'en' ) );
 
@@ -152,7 +156,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 		$schemaData = new FullViewSchemaData( [
 			'en' => new NameBadge( $label, 'description', [ 'alias' ] ),
 		], '' );
-		$renderer = new EntitySchemaSlotViewRenderer( 'en' );
+		$renderer = new EntitySchemaSlotViewRenderer( 'en', null, null, false );
 
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
@@ -193,7 +197,8 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 			new MultiConfig( [
 				new HashConfig( [ 'EntitySchemaShExSimpleUrl' => 'http://my.test?foo=bar#fragment' ] ),
 				MediaWikiServices::getInstance()->getMainConfig(),
-			] )
+			] ),
+			false
 		);
 
 		$parserOutput = new ParserOutput();
@@ -213,6 +218,29 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 			$html
 		);
 		$this->assertStringContainsString( '(entityschema-check-entities)', $html );
+	}
+
+	public function testFillParserOutput_SyntaxHighlight() {
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'SyntaxHighlight' ) ) {
+			$this->markTestSkipped( 'SyntaxHighlight not available' );
+		}
+
+		$schemaData = new FullViewSchemaData(
+			[ 'en' => new NameBadge( '', '', [] ) ],
+			'schema text'
+		);
+		$renderer = new EntitySchemaSlotViewRenderer( 'qqx' );
+
+		$parserOutput = new ParserOutput();
+		$renderer->fillParserOutput(
+			$schemaData,
+			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E12345' ),
+			$parserOutput
+		);
+		$html = $parserOutput->getText();
+
+		$this->assertStringContainsString( 'mw-highlight', $html );
+		$this->assertStringContainsString( 'mw-highlight-lang-shex', $html );
 	}
 
 }
