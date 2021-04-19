@@ -7,6 +7,7 @@
 		]
 	},
 	"entityschema-newschema-copyright": "Klikając „$1”, zgadzasz się na [[$2|warunki użytkowania]] oraz wyrażasz nieodwołalną zgodę na udostępnianie twojego wkładu na warunkach $3.",
+	"entityschema-label-empty": "Brak zdefiniowanej etykiety",
 	"entityschema-namebadge-header-language-code": "kod języka",
 	"entityschema-namebadge-header-label": "etykieta",
 	"entityschema-namebadge-header-description": "opis",
