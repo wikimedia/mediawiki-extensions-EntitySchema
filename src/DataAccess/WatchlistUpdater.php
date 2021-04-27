@@ -3,9 +3,9 @@
 namespace EntitySchema\DataAccess;
 
 use EntitySchema\Domain\Model\SchemaId;
+use MediaWiki\MediaWikiServices;
 use Title;
 use User;
-use WatchAction;
 
 /**
  * @license GPL-2.0-or-later
@@ -23,21 +23,28 @@ class WatchlistUpdater {
 	}
 
 	public function optionallyWatchEditedSchema( SchemaId $schemaID ) {
-		if ( $this->user->getOption( 'watchdefault' ) ) {
-			WatchAction::doWatchOrUnwatch(
+		$services = MediaWikiServices::getInstance();
+		$userOptionsLookup = $services->getUserOptionsLookup();
+		$watchlistManager = $services->getWatchlistManager();
+		if ( $userOptionsLookup->getOption( $this->user, 'watchdefault' ) ) {
+			$watchlistManager->setWatch(
 				true,
-				Title::makeTitle( $this->namespace, $schemaID->getId() ),
-				$this->user
+				$this->user,
+				Title::makeTitle( $this->namespace, $schemaID->getId() )
 			);
 		}
 	}
 
 	public function optionallyWatchNewSchema( SchemaId $schemaID ) {
-		if ( $this->user->getOption( 'watchcreations' ) || $this->user->getOption( 'watchdefault' ) ) {
-			WatchAction::doWatchOrUnwatch(
+		$services = MediaWikiServices::getInstance();
+		$userOptionsLookup = $services->getUserOptionsLookup();
+		$watchlistManager = $services->getWatchlistManager();
+		if ( $userOptionsLookup->getOption( $this->user, 'watchcreations' )
+			|| $userOptionsLookup->getOption( $this->user, 'watchdefault' ) ) {
+			$watchlistManager->setWatch(
 				true,
-				Title::makeTitle( $this->namespace, $schemaID->getId() ),
-				$this->user
+				$this->user,
+				Title::makeTitle( $this->namespace, $schemaID->getId() )
 			);
 		}
 	}
