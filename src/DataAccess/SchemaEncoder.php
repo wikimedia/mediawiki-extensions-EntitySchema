@@ -96,7 +96,7 @@ class SchemaEncoder {
 		);
 		$invalidLangCodes = array_filter(
 			$providedLangCodes,
-			function( $langCode ) {
+			static function( $langCode ) {
 				return !Language::isSupportedLanguage( $langCode );
 			}
 		);

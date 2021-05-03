@@ -42,7 +42,7 @@ class SqlIdGenerator implements IdGenerator {
 	 * @throws RuntimeException
 	 */
 	public function getNewId() {
-		$database = $this->loadBalancer->getConnection( DB_MASTER );
+		$database = $this->loadBalancer->getConnection( DB_PRIMARY );
 
 		$id = $this->generateNewId( $database );
 		$this->loadBalancer->reuseConnection( $database );

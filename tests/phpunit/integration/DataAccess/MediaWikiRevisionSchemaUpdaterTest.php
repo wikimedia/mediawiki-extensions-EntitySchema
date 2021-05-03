@@ -99,7 +99,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		}
 		$mockRevLookup = $this->getMockForAbstractClass( RevisionLookup::class );
 		$mockRevLookup->method( 'getRevisionById' )
-			->willReturnCallback( function ( $id, $flags = 0 ) use ( $revisionRecordMap ) {
+			->willReturnCallback( static function ( $id, $flags = 0 ) use ( $revisionRecordMap ) {
 				return $revisionRecordMap[$id] ?? null;
 			} );
 		return $mockRevLookup;

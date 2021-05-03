@@ -121,7 +121,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$schemaData = $updateGuard->guardSchemaUpdate(
 			$baseRevision,
 			$parentRevision,
-			function ( FullArraySchemaData $schemaData ) use ( $langCode, $label, $description, $aliases ) {
+			static function ( FullArraySchemaData $schemaData ) use ( $langCode, $label, $description, $aliases ) {
 				$schemaData->data['labels'][$langCode] = $label;
 				$schemaData->data['descriptions'][$langCode] = $description;
 				$schemaData->data['aliases'][$langCode] = $aliases;
@@ -243,7 +243,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$schemaData = $updateGuard->guardSchemaUpdate(
 			$baseRevision,
 			$parentRevision,
-			function ( FullArraySchemaData $schemaData ) use ( $schemaText ) {
+			static function ( FullArraySchemaData $schemaData ) use ( $schemaText ) {
 				$schemaData->data['schemaText'] = $schemaText;
 			}
 		);

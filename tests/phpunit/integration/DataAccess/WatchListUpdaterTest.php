@@ -45,7 +45,7 @@ final class WatchListUpdaterTest extends MediaWikiTestCase {
 		$actualItems = $watchedItemStore->getWatchedItemsForUser( $testUser );
 
 		$actualItems = array_unique(
-			array_map( function( WatchedItem $watchedItem ) {
+			array_map( static function( WatchedItem $watchedItem ) {
 				return $watchedItem->getLinkTarget()->getText();
 			}, $actualItems )
 		);
@@ -116,7 +116,7 @@ final class WatchListUpdaterTest extends MediaWikiTestCase {
 		$actualItems = $watchedItemStore->getWatchedItemsForUser( $testUser );
 
 		$actualItems = array_unique(
-			array_map( function( WatchedItem $watchedItem ) {
+			array_map( static function( WatchedItem $watchedItem ) {
 				return $watchedItem->getLinkTarget()->getText();
 			}, $actualItems )
 		);

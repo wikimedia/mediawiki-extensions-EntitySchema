@@ -40,7 +40,7 @@ class SqlIdGeneratorTest extends MediaWikiTestCase {
 
 	public function testIdsSkipped() {
 		$loadbalancer = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$db = $loadbalancer->getConnection( DB_MASTER );
+		$db = $loadbalancer->getConnection( DB_PRIMARY );
 		$currentId = $db->selectRow(
 			'entityschema_id_counter',
 			'id_value',
