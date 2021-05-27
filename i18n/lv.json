@@ -4,7 +4,10 @@
 			"Papuass"
 		]
 	},
+	"entityschema-newschema-description": "Apraksts:",
 	"entityschema-newschema-submit": "Izveidot",
+	"entityschema-namebadge-header-language-code": "valodas kods",
+	"entityschema-diff-description": "Apraksti",
 	"entityschema-edit": "labot",
 	"entityschema-special-id-inputlabel": "ID",
 	"entityschema-special-language-inputlabel": "Valodas kods",
