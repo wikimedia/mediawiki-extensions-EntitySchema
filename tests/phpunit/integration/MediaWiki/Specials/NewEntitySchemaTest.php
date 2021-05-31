@@ -69,7 +69,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 			[
 				'address' => $testuser,
 				'reason' => 'testing in ' . __CLASS__,
-				'by' => $testuser->getId(),
+				'by' => $testuser,
 			]
 		);
 		$this->block->insert();
