@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Anakmalaysia"
+		]
+	},
+	"entityschema-error-unsupported-langcode": "Kod bahasa ini tidak disokong.",
+	"entityschema-namebadge-header-language-code": "kod bahasa",
+	"entityschema-special-language-inputlabel": "Kod Bahasa"
+}
