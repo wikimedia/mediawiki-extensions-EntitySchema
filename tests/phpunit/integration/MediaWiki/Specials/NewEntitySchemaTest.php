@@ -2,17 +2,16 @@
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
-use ContentHandler;
 use EntitySchema\MediaWiki\Specials\NewEntitySchema;
 use FauxRequest;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Linker\LinkTarget;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Storage\SlotRecord;
 use PermissionsError;
 use ReadOnlyError;
 use ReadOnlyMode;
 use SpecialPageTestBase;
+use TextContent;
 use TitleValue;
 use UserBlockedError;
 
@@ -150,16 +149,14 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 
 	/**
 	 * Gets the text of the last created page.
-	 * @return string
-	 * @throws \MWException
+	 * @return string|null
 	 */
 	protected function getLastCreatedPageText() {
-		return ContentHandler::getContentText(
-			MediaWikiServices::getInstance()
-				->getRevisionLookup()
-				->getRevisionByTitle( $this->getLastCreatedTitle() )
-				->getContent( SlotRecord::MAIN )
-		);
+		$content = $this->getServiceContainer()
+			->getRevisionLookup()
+			->getRevisionByTitle( $this->getLastCreatedTitle() )
+			->getContent( SlotRecord::MAIN );
+		return ( $content instanceof TextContent ) ? $content->getText() : null;
 	}
 
 	protected function newSpecialPage() {
