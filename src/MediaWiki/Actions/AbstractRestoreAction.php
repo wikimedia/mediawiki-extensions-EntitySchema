@@ -43,7 +43,8 @@ abstract class AbstractRestoreAction extends EditAction {
 	 */
 	protected function checkPermissions() {
 		$pm = MediaWikiServices::getInstance()->getPermissionManager();
-		if ( $pm->isBlockedFrom( $this->getUser(), $this->getTitle() ) ) {
+		$checkReplica = !$this->getRequest()->wasPosted();
+		if ( $pm->isBlockedFrom( $this->getUser(), $this->getTitle(), $checkReplica ) ) {
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 
