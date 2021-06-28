@@ -82,8 +82,14 @@ class SchemaEditAction extends FormAction {
 		 */
 		$request = $this->getContext()->getRequest();
 		$output = $this->getOutput();
+		$context = $this->getContext();
+		$revisionStore = MediaWikiServices::getInstance()->getRevisionStore();
+		$currentRevision = $revisionStore->getKnownCurrentRevision( $context->getTitle() );
+		if ( !$currentRevision ) {
+			return Status::newFatal( $this->msg( 'entityschema-error-schemadeleted' ) );
+		}
 
-		$content = $this->getContext()->getWikiPage()->getContent();
+		$content = $currentRevision->getContent( SlotRecord::MAIN );
 		if ( !$content instanceof EntitySchemaContent ) {
 			return Status::newFatal( $this->msg( 'entityschema-error-schemadeleted' ) );
 		}
@@ -141,7 +147,9 @@ class SchemaEditAction extends FormAction {
 	}
 
 	protected function getFormFields() {
-		$currentRevRecord = $this->getContext()->getWikiPage()->getRevisionRecord();
+		$context = $this->getContext();
+		$revisionStore = MediaWikiServices::getInstance()->getRevisionStore();
+		$currentRevRecord = $revisionStore->getKnownCurrentRevision( $context->getTitle() );
 		if ( !$currentRevRecord ) {
 			throw new RuntimeException( $this->msg( 'entityschema-error-schemadeleted' )->text() );
 		}

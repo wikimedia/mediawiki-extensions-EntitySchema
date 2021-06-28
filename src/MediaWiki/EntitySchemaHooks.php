@@ -94,19 +94,21 @@ final class EntitySchemaHooks {
 		&$html,
 		array &$classes
 	) {
-		$pm = MediaWikiServices::getInstance()->getPermissionManager();
-		$rev = MediaWikiServices::getInstance()->getRevisionStore()->newRevisionFromRow( $row );
+		$services = MediaWikiServices::getInstance();
+		$pm = $services->getPermissionManager();
+		$rev = $services->getRevisionStore()->newRevisionFromRow( $row );
+		$title = $history->getTitle();
+		$contentModel = $title->getContentModel();
+		$latestRevId = $title->getLatestRevID();
 
-		$wikiPage = $history->getWikiPage();
-
-		if ( $wikiPage->getContentModel() === EntitySchemaContent::CONTENT_MODEL_ID
-			&& $wikiPage->getLatest() !== $rev->getId()
-			&& $pm->quickUserCan( 'edit', $history->getUser(), $wikiPage->getTitle() )
+		if ( $contentModel === EntitySchemaContent::CONTENT_MODEL_ID
+			&& $latestRevId !== $rev->getId()
+			&& $pm->quickUserCan( 'edit', $history->getUser(), $title )
 			&& !$rev->isDeleted( RevisionRecord::DELETED_TEXT )
 		) {
-			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+			$linkRenderer = $services->getLinkRenderer();
 			$link = $linkRenderer->makeKnownLink(
-				$wikiPage->getTitle(),
+				$title,
 				$history->msg( 'entityschema-restoreold' )->text(),
 				[],
 				[
