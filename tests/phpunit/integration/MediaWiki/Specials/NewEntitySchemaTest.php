@@ -124,7 +124,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 		);
 	}
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		if ( isset( $this->block ) ) {
 			$this->block->delete();
 		}

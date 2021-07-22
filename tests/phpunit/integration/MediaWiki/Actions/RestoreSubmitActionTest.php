@@ -29,14 +29,14 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 	/** @var DatabaseBlock */
 	private $block;
 
-	public function setUp() : void {
+	public function setUp(): void {
 		parent::setUp();
 		$this->tablesUsed[] = 'page';
 		$this->tablesUsed[] = 'revision';
 		$this->tablesUsed[] = 'recentchanges';
 	}
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		if ( isset( $this->block ) ) {
 			$this->block->delete();
 		}

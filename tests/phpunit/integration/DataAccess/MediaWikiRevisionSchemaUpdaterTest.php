@@ -31,7 +31,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 	/** @var RevisionRecord|null */
 	private $parentRevision;
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		$this->baseRevision = null;
 		$this->parentRevision = null;
 	}
@@ -83,8 +83,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		return $this->getPageUpdaterFactory( $pageUpdater );
 	}
 
-	private function getPageUpdaterFactory( PageUpdater $pageUpdater = null )
-		: MediaWikiPageUpdaterFactory {
+	private function getPageUpdaterFactory( PageUpdater $pageUpdater = null ): MediaWikiPageUpdaterFactory {
 		$pageUpdaterFactory = $this->createMock( MediaWikiPageUpdaterFactory::class );
 		if ( $pageUpdater !== null ) {
 			$pageUpdaterFactory->method( 'getPageUpdater' )->willReturn( $pageUpdater );

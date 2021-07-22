@@ -20,7 +20,7 @@ class MediaWikiPageUpdaterFactoryTest extends MediaWikiTestCase {
 		$pageUpdater = TestingAccessWrapper::newFromObject(
 			$pageUpdaterFactory->getPageUpdater( 'TestTitle' )
 		);
-		$this->assertEquals( $user, $pageUpdater->performer );
+		$this->assertEquals( $user, $pageUpdater->author );
 		$title = $pageUpdater->wikiPage->getTitle();
 		$this->assertEquals( 'TestTitle', $title->getText() );
 	}

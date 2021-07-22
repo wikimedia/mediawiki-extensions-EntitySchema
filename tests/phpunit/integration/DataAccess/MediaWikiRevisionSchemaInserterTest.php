@@ -142,8 +142,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiTestCase {
 		return $this->getPageUpdaterFactory( $pageUpdater );
 	}
 
-	private function getPageUpdaterFactory( PageUpdater $pageUpdater = null )
-	: MediaWikiPageUpdaterFactory {
+	private function getPageUpdaterFactory( PageUpdater $pageUpdater = null ): MediaWikiPageUpdaterFactory {
 		$pageUpdaterFactory = $this->createMock( MediaWikiPageUpdaterFactory::class );
 		if ( $pageUpdater !== null ) {
 			$pageUpdaterFactory->method( 'getPageUpdater' )->willReturn( $pageUpdater );
@@ -151,8 +150,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiTestCase {
 		return $pageUpdaterFactory;
 	}
 
-	private function newMediaWikiRevisionSchemaInserterFailingToSave()
-	: MediaWikiRevisionSchemaInserter {
+	private function newMediaWikiRevisionSchemaInserterFailingToSave(): MediaWikiRevisionSchemaInserter {
 
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'wasSuccessful' )->willReturn( false );

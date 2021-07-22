@@ -25,14 +25,14 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
 	private $mockHTMLFormProvider;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->tablesUsed[] = 'page';
 		$this->tablesUsed[] = 'revision';
 		$this->tablesUsed[] = 'recentchanges';
 	}
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		$this->mockHTMLFormProvider = null;
 		parent::tearDown();
 	}
