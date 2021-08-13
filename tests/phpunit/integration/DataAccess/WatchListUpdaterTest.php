@@ -36,7 +36,7 @@ final class WatchListUpdaterTest extends MediaWikiTestCase {
 	 */
 	public function testWatchEditedSchema( $optionKey, $optionValue, $pageid, $expectedToBeWatched ) {
 		$testUser = self::getTestUser()->getUser();
-		$testUser->setOption( $optionKey, $optionValue );
+		$this->getServiceContainer()->getUserOptionsManager()->setOption( $testUser, $optionKey, $optionValue );
 		$watchlistUpdater = new WatchlistUpdater( $testUser, NS_ENTITYSCHEMA_JSON );
 
 		$watchlistUpdater->optionallyWatchEditedSchema( new SchemaId( $pageid ) );
@@ -105,17 +105,10 @@ final class WatchListUpdaterTest extends MediaWikiTestCase {
 	 */
 	public function testWatchNewSchema( $optionsToBeSet, $pageid, $expectedToBeWatched ) {
 		$testUser = self::getTestUser()->getUser();
-		$services = MediaWikiServices::getInstance();
-		if ( method_exists( $services, 'getUserOptionsManager' ) ) {
-			// MW 1.35+
-			$userOptionsManager = $services->getUserOptionsManager();
-			foreach ( $optionsToBeSet as $optionToBeSet ) {
-				$userOptionsManager->setOption( $testUser, $optionToBeSet['key'], $optionToBeSet['value'] );
-			}
-		} else {
-			foreach ( $optionsToBeSet as $optionToBeSet ) {
-				$testUser->setOption( $optionToBeSet['key'], $optionToBeSet['value'] );
-			}
+		$services = $this->getServiceContainer();
+		$userOptionsManager = $services->getUserOptionsManager();
+		foreach ( $optionsToBeSet as $optionToBeSet ) {
+			$userOptionsManager->setOption( $testUser, $optionToBeSet['key'], $optionToBeSet['value'] );
 		}
 		$watchlistUpdater = new WatchlistUpdater( $testUser, NS_ENTITYSCHEMA_JSON );
 
