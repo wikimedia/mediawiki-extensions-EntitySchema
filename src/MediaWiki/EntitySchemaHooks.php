@@ -206,7 +206,7 @@ final class EntitySchemaHooks {
 	}
 
 	/**
-	 * @see MWNamespace::isMovable()
+	 * @see NamespaceInfo::isMovable()
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/NamespaceIsMovable
 	 *
 	 * @param int $index
