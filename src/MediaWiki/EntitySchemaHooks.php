@@ -206,25 +206,6 @@ final class EntitySchemaHooks {
 	}
 
 	/**
-	 * @see NamespaceInfo::isMovable()
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/NamespaceIsMovable
-	 *
-	 * @param int $index
-	 * @param bool &$result
-	 * @return null|false
-	 */
-	public static function onNamespaceIsMovable( $index, &$result ) {
-		if ( MediaWikiServices::getInstance()->getNamespaceInfo()
-			->equals( $index, NS_ENTITYSCHEMA_JSON )
-		) {
-			$result = false;
-			return false; // skip other hooks
-		}
-
-		return null;
-	}
-
-	/**
 	 * Handler for the TitleGetRestrictionTypes hook.
 	 *
 	 * Implemented to prevent people from protecting pages from being

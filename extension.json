@@ -36,7 +36,6 @@
 		"FormatAutocomments": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onFormatAutocomments",
 		"ContentModelCanBeUsedOn": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onContentModelCanBeUsedOn",
 		"ImportHandleRevisionXMLTag": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onImportHandleRevisionXMLTag",
-		"NamespaceIsMovable": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onNamespaceIsMovable",
 		"TitleGetRestrictionTypes": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onTitleGetRestrictionTypes"
 	},
 	"ContentHandlers": {
@@ -49,7 +48,8 @@
 			"name": "EntitySchema",
 			"subpages": false,
 			"content": true,
-			"defaultcontentmodel": "EntitySchema"
+			"defaultcontentmodel": "EntitySchema",
+			"movable": false
 		},
 		{
 			"id": 641,
