@@ -34,8 +34,10 @@ abstract class AbstractUndoAction extends ViewAction {
 
 		/** @var EntitySchemaContent $undoFromContent */
 		$undoFromContent = $newerRevision->getContent( SlotRecord::MAIN );
+		'@phan-var EntitySchemaContent $undoFromContent';
 		/** @var EntitySchemaContent $undoToContent */
 		$undoToContent = $olderRevision->getContent( SlotRecord::MAIN );
+		'@phan-var EntitySchemaContent $undoToContent';
 		$undoHandler = new UndoHandler();
 		try {
 			$undoHandler->validateContentIds( $undoFromContent, $undoToContent );
@@ -60,6 +62,7 @@ abstract class AbstractUndoAction extends ViewAction {
 		$baseContent = $revStore
 			->getRevisionById( $baseRevId )
 			->getContent( SlotRecord::MAIN );
+		'@phan-var EntitySchemaContent $baseContent';
 		$undoHandler = new UndoHandler();
 		$status = $undoHandler->tryPatching( $diff, $baseContent );
 		if ( $status->isGood() ) {

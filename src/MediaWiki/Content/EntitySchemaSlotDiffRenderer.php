@@ -63,6 +63,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 	 * @param EntitySchemaContent|null $newContent
 	 *
 	 * @return string
+	 * @suppress PhanParamSignatureMismatch LSP violation
 	 */
 	public function getDiff( Content $oldContent = null, Content $newContent = null ) {
 		$this->normalizeContents( $oldContent, $newContent, EntitySchemaContent::class );
