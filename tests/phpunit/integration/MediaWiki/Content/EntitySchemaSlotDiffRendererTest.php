@@ -134,9 +134,9 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 </tr>
 <tr>
 	<td class='diff-marker' data-marker="−"/>
-	<td class='diff-deletedline diff-left'><div><del class="diffchange diffchange-inline">test </del>schema</div></td>
+	<td class='diff-deletedline diff-side-deleted'><div><del class="diffchange diffchange-inline">test </del>schema</div></td>
 	<td class='diff-marker' data-marker="+"/>
-	<td class='diff-addedline diff-right'><div>schema <ins class="diffchange diffchange-inline">updated</ins></div></td>
+	<td class='diff-addedline diff-side-added'><div>schema <ins class="diffchange diffchange-inline">updated</ins></div></td>
 </tr>
 HTML;
 		// phpcs:enable
