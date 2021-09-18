@@ -2,11 +2,11 @@
 
 namespace EntitySchema\Tests\Integration\DataAccess;
 
-use DBReadOnlyError;
 use EntitySchema\DataAccess\SqlIdGenerator;
 use MediaWiki\MediaWikiServices;
 use MediaWikiTestCase;
 use RuntimeException;
+use Wikimedia\Rdbms\DBReadOnlyError;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\ILoadBalancer;
 
