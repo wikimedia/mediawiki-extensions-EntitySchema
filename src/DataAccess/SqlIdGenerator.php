@@ -22,7 +22,7 @@ class SqlIdGenerator implements IdGenerator {
 	/** @var string */
 	private $tableName;
 
-	/** @var array */
+	/** @var int[] */
 	private $idsToSkip;
 
 	/**
@@ -59,7 +59,7 @@ class SqlIdGenerator implements IdGenerator {
 	 * @throws RuntimeException
 	 * @return int
 	 */
-	private function generateNewId( IDatabase $database, $retry = true ) {
+	private function generateNewId( IDatabase $database, bool $retry = true ) {
 		$database->startAtomic( __METHOD__ );
 
 		$currentId = $database->selectRow(

@@ -239,6 +239,7 @@ class NewEntitySchema extends SpecialPage {
 				$checkReplica
 			)
 		) {
+			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 	}

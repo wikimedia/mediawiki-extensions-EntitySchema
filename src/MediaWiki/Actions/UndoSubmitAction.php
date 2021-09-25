@@ -59,6 +59,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 		$services = MediaWikiServices::getInstance();
 		$pm = $services->getPermissionManager();
 		if ( $pm->isBlockedFrom( $this->getUser(), $this->getTitle() ) ) {
+			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 

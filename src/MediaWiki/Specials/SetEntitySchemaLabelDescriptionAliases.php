@@ -410,6 +410,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		if ( MediaWikiServices::getInstance()->getPermissionManager()
 			->isBlockedFrom( $this->getUser(), $title )
 		) {
+			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 	}

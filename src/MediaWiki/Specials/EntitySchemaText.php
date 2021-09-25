@@ -39,6 +39,7 @@ class EntitySchemaText extends SpecialPage {
 			) );
 		}
 
+		// @phan-suppress-next-line PhanTypeMismatchArgumentSuperType
 		$this->sendContentSchemaText( WikiPage::factory( $title )->getContent(), $schemaId );
 	}
 

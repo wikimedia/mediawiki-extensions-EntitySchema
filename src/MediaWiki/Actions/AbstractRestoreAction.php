@@ -46,6 +46,7 @@ abstract class AbstractRestoreAction extends EditAction {
 		$pm = $services->getPermissionManager();
 		$checkReplica = !$this->getRequest()->wasPosted();
 		if ( $pm->isBlockedFrom( $this->getUser(), $this->getTitle(), $checkReplica ) ) {
+			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 
