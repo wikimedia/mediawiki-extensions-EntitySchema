@@ -1,12 +1,30 @@
 {
 	"@metadata": {
 		"authors": [
+			"MITO",
 			"Pyscowicz"
 		]
 	},
+	"entityschema-newschema-label": "Nimi:",
+	"entityschema-newschema-description": "Kuvaus:",
+	"entityschema-newschema-aliases": "Aliakset, erotusmerkkinä pystyviiva:",
 	"entityschema-newschema-submit": "Luo",
 	"entityschema-namebadge-header-language-code": "kielikoodi",
+	"entityschema-namebadge-header-label": "nimi",
+	"entityschema-namebadge-header-description": "kuvaus",
+	"entityschema-namebadge-header-aliases": "aliakset",
+	"entityschema-namebadge-header-edit": "muokkaa",
+	"entityschema-diff-label": "Nimet",
+	"entityschema-diff-description": "Kuvaukset",
+	"entityschema-diff-aliases": "Aliakset",
+	"entityschema-edit": "muokkaa",
 	"entityschema-summary-undo-autocomment": "Kumottu muokkaus $1, jonka teki [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|keskustelu]])",
+	"entityschema-undo-heading-failed": "Kumoaminen epäonnistui",
+	"entityschema-undo-bad-revisions": "Muokkausta ei voi kumota, koska sitä ei ole tai se on poistettu.",
+	"entityschema-undo-cannot-apply-patch": "Muokkausta ei voi kumota, koska sitä on muutettu.",
+	"entityschema-restoreold": "palauta",
 	"entityschema-special-language-inputlabel": "Kielikoodi",
-	"entityschema-special-description": "Kuvaus:"
+	"entityschema-special-label": "Nimi:",
+	"entityschema-special-description": "Kuvaus:",
+	"entityschema-special-aliases": "Aliakset, erotusmerkkinä pystyviiva:"
 }
