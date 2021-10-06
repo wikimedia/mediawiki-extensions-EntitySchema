@@ -3,14 +3,18 @@
 		"authors": [
 			"Diman Russkov",
 			"Movses",
+			"Okras",
 			"Vlad5250"
 		]
 	},
 	"special-newschema": "Создать новую схему сущностей",
+	"entityschema-newschema-description": "Описание:",
 	"entityschema-newschema-submit": "Создать",
+	"entityschema-editpage-schema-inputlabel": "ShEx:",
 	"entityschema-namebadge-header-language-code": "код языка",
 	"entityschema-namebadge-header-description": "описание",
 	"entityschema-namebadge-header-edit": "правка",
+	"entityschema-diff-description": "Описания",
 	"entityschema-diff-schema": "Схема",
 	"entityschema-edit": "править",
 	"entityschema-summary-undo-autocomment": "Отмена правки $1, сделанной [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|обсуждение]])",
