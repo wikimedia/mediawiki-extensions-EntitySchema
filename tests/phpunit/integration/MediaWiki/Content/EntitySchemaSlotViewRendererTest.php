@@ -9,11 +9,11 @@ use ExtensionRegistry;
 use HashConfig;
 use Language;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\PageReferenceValue;
 use MediaWikiTestCase;
 use MultiConfig;
 use ParserOutput;
 use SpecialPage;
-use Title;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer
@@ -26,12 +26,12 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 	 * @dataProvider provideSchemaDataAndHtmlFragments
 	 */
 	public function testFillParserOutput( FullViewSchemaData $schemaData, array $fragments ) {
-		$renderer = new EntitySchemaSlotViewRenderer( 'en', null, null, false );
+		$renderer = new EntitySchemaSlotViewRenderer( 'en', null, null, null, false );
 
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
 			$schemaData,
-			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E16354758' ),
+			PageReferenceValue::localReference( NS_ENTITYSCHEMA_JSON, 'E16354758' ),
 			$parserOutput
 		);
 		$html = $parserOutput->getText();
@@ -128,6 +128,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 			'qqx', // use (message-key) instead of real translations
 			null,
 			null,
+			null,
 			false
 		);
 		$this->setMwGlobals( 'wgLang', Language::factory( 'en' ) );
@@ -135,7 +136,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
 			$schemaData,
-			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ),
+			PageReferenceValue::localReference( NS_ENTITYSCHEMA_JSON, 'E1' ),
 			$parserOutput
 		);
 		$html = $parserOutput->getText();
@@ -156,12 +157,12 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 		$schemaData = new FullViewSchemaData( [
 			'en' => new NameBadge( $label, 'description', [ 'alias' ] ),
 		], '' );
-		$renderer = new EntitySchemaSlotViewRenderer( 'en', null, null, false );
+		$renderer = new EntitySchemaSlotViewRenderer( 'en', null, null, null, false );
 
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
 			$schemaData,
-			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ),
+			PageReferenceValue::localReference( NS_ENTITYSCHEMA_JSON, 'E1' ),
 			$parserOutput
 		);
 		$html = $parserOutput->getDisplayTitle();
@@ -198,13 +199,14 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 				new HashConfig( [ 'EntitySchemaShExSimpleUrl' => 'http://my.test?foo=bar#fragment' ] ),
 				MediaWikiServices::getInstance()->getMainConfig(),
 			] ),
+			null,
 			false
 		);
 
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
 			$schemaData,
-			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E12345' ),
+			PageReferenceValue::localReference( NS_ENTITYSCHEMA_JSON, 'E12345' ),
 			$parserOutput
 		);
 		$html = $parserOutput->getText();
@@ -234,7 +236,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
 			$schemaData,
-			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E12345' ),
+			PageReferenceValue::localReference( NS_ENTITYSCHEMA_JSON, 'E12345' ),
 			$parserOutput
 		);
 		$html = $parserOutput->getText();
