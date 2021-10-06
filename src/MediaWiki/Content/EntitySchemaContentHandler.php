@@ -15,12 +15,15 @@ use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
 use EntitySchema\MediaWiki\Actions\UndoViewAction;
 use EntitySchema\MediaWiki\UndoHandler;
 use EntitySchema\Presentation\InputValidator;
+use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use IContextSource;
 use JsonContentHandler;
 use Language;
 use LogicException;
+use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\MediaWikiServices;
 use Page;
+use ParserOutput;
 use RequestContext;
 use SlotDiffRenderer;
 use Title;
@@ -59,7 +62,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 	 * This implementation returns the user language, because Schemas get rendered in
 	 * the user's language. The PageContentLanguage hook is bypassed.
 	 *
-	 * @param Title        $title   (unused) the page to determine the language for.
+	 * @param Title $title (unused) the page to determine the language for.
 	 * @param Content|null $content (unused) the page's content
 	 *
 	 * @return Language The page's language
@@ -75,10 +78,10 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 
 	public function getActionOverrides() {
 		return [
-			'edit' => function( Page $article, IContextSource $context = null ) {
+			'edit' => function ( Page $article, IContextSource $context = null ) {
 				return $this->getActionOverridesEdit( $article, $context );
 			},
-			'submit' => function( Page $article, IContextSource $context = null ) {
+			'submit' => function ( Page $article, IContextSource $context = null ) {
 				return $this->getActionOverridesSubmit( $article, $context );
 			},
 		];
@@ -260,6 +263,31 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 	 */
 	public function isParserCacheSupported() {
 		return true;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	protected function fillParserOutput(
+		Content $content,
+		ContentParseParams $cpoParams,
+		ParserOutput &$output
+	) {
+		'@phan-var EntitySchemaContent $content';
+		$parserOptions = $cpoParams->getParserOptions();
+		$generateHtml = $cpoParams->getGenerateHtml();
+		if ( $generateHtml && $content->isValid() ) {
+			$languageCode = $parserOptions->getUserLang();
+			$renderer = new EntitySchemaSlotViewRenderer( $languageCode );
+			$renderer->fillParserOutput(
+				( new SchemaConverter() )
+					->getFullViewSchemaData( $content->getText(), [ $languageCode ] ),
+				$cpoParams->getPage(),
+				$output
+			);
+		} else {
+			$output->setText( '' );
+		}
 	}
 
 }

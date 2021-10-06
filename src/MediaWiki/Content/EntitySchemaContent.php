@@ -4,9 +4,6 @@ namespace EntitySchema\MediaWiki\Content;
 
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use JsonContent;
-use ParserOptions;
-use ParserOutput;
-use Title;
 
 /**
  * Represents the content of a EntitySchema page
@@ -19,29 +16,6 @@ class EntitySchemaContent extends JsonContent {
 
 	public function __construct( $text, $modelId = self::CONTENT_MODEL_ID ) {
 		parent::__construct( $text, $modelId );
-	}
-
-	protected function fillParserOutput(
-		Title $title,
-		$revId,
-		ParserOptions $options,
-		$generateHtml,
-		/** @noinspection ReferencingObjectsInspection */
-		ParserOutput &$output
-	) {
-
-		if ( $generateHtml && $this->isValid() ) {
-			$languageCode = $options->getUserLang();
-			$renderer = new EntitySchemaSlotViewRenderer( $languageCode );
-			$renderer->fillParserOutput(
-				( new SchemaConverter() )
-					->getFullViewSchemaData( $this->getText(), [ $languageCode ] ),
-				$title,
-				$output
-			);
-		} else {
-			$output->setText( '' );
-		}
 	}
 
 	public function getTextForSearchIndex() {
