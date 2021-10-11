@@ -7,7 +7,7 @@ use Config;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
 use MediaWiki\Revision\SlotRecord;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use Message;
 use MessageLocalizer;
 use Title;
@@ -20,7 +20,7 @@ use WikiPage;
  *
  * @covers \EntitySchema\Presentation\InputValidator
  */
-class InputValidatorTest extends MediaWikiTestCase {
+class InputValidatorTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();

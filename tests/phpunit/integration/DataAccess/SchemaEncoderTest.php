@@ -5,14 +5,14 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 use EntitySchema\DataAccess\SchemaEncoder;
 use EntitySchema\Domain\Model\SchemaId;
 use InvalidArgumentException;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 
 /**
  * @covers \EntitySchema\DataAccess\SchemaEncoder
  *
  * @license GPL-2.0-or-later
  */
-class SchemaEncoderTest extends MediaWikiTestCase {
+class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideValidArguments

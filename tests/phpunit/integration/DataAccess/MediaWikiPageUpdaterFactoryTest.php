@@ -3,7 +3,7 @@
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use RecentChange;
 use Wikimedia\TestingAccessWrapper;
 
@@ -11,7 +11,7 @@ use Wikimedia\TestingAccessWrapper;
  * @covers \EntitySchema\DataAccess\MediaWikiPageUpdaterFactory
  * @license GPL-2.0-or-later
  */
-class MediaWikiPageUpdaterFactoryTest extends MediaWikiTestCase {
+class MediaWikiPageUpdaterFactoryTest extends MediaWikiIntegrationTestCase {
 
 	public function testGetPageUpdater() {
 		$user = self::getTestUser()->getUser();

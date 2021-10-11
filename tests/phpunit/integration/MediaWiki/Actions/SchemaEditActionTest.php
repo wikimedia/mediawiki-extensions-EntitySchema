@@ -5,7 +5,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 use Article;
 use EntitySchema\MediaWiki\Actions\SchemaEditAction;
 use EntitySchema\Presentation\InputValidator;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use PermissionsError;
 use ReadOnlyError;
 use ReadOnlyMode;
@@ -17,7 +17,7 @@ use Title;
  *
  * @license GPL-2.0-or-later
  */
-class SchemaEditActionTest extends MediaWikiTestCase {
+class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 
 	public function testReadOnly() {
 		$readOnlyMode = $this->getMockBuilder( ReadOnlyMode::class )

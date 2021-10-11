@@ -7,14 +7,14 @@ use Diff\DiffOp\DiffOpChange;
 use DomainException;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\UndoHandler;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 
 /**
  * @license GPL-2.0-or-later
  *
  * @covers \EntitySchema\MediaWiki\UndoHandler
  */
-class UndoHandlerTest extends MediaWikiTestCase {
+class UndoHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testAssertSameId() {
 		$id = 'E123';

@@ -11,7 +11,7 @@ use FauxRequest;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use RequestContext;
 use Title;
 use UserBlockedError;
@@ -24,7 +24,7 @@ use WikiPage;
  *
  * @covers \EntitySchema\MediaWiki\Actions\RestoreSubmitAction
  */
-final class RestoreSubmitActionTest extends MediaWikiTestCase {
+final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 
 	/** @var DatabaseBlock */
 	private $block;

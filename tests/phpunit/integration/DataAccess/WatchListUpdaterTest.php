@@ -5,7 +5,7 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\SchemaId;
 use MediaWiki\MediaWikiServices;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use WatchedItem;
 
 /**
@@ -13,7 +13,7 @@ use WatchedItem;
  *
  * @covers \EntitySchema\DataAccess\WatchlistUpdater
  */
-final class WatchListUpdaterTest extends MediaWikiTestCase {
+final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 
 	public function editPageDataProvider() {
 		yield [

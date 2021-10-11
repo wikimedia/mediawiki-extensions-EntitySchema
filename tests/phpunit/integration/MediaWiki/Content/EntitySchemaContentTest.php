@@ -4,7 +4,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use Language;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use ParserOptions;
 use Title;
 
@@ -13,7 +13,7 @@ use Title;
  *
  * @license GPL-2.0-or-later
  */
-class EntitySchemaContentTest extends MediaWikiTestCase {
+class EntitySchemaContentTest extends MediaWikiIntegrationTestCase {
 
 	public function testGetParserOutput_usesUserLangAndSplitsParserCache() {
 		$content = new EntitySchemaContent( json_encode( [

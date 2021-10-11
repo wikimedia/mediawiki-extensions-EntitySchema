@@ -9,7 +9,7 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use MediaWiki\Storage\PageUpdater;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use RuntimeException;
 
 /**
@@ -17,7 +17,7 @@ use RuntimeException;
  *
  * @covers \EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter
  */
-class MediaWikiRevisionSchemaInserterTest extends MediaWikiTestCase {
+class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 
 	public function testInsertSchema() {
 		$language = 'en';

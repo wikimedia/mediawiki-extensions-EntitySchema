@@ -4,7 +4,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki;
 
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\MediaWiki\EntitySchemaHooks;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use SpecialPage;
 use Title;
 
@@ -13,7 +13,7 @@ use Title;
  *
  * @license GPL-2.0-or-later
  */
-class EntitySchemaHooksTest extends MediaWikiTestCase {
+class EntitySchemaHooksTest extends MediaWikiIntegrationTestCase {
 
 	public function testOnFormatAutocomments_titleUnset() {
 		$comment = null;

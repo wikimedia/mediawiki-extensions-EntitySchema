@@ -4,7 +4,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki;
 
 use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;
 use Language;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use Message;
 
 /**
@@ -12,7 +12,7 @@ use Message;
  *
  * @license GPL-2.0-or-later
  */
-class SpecificLanguageMessageLocalizerTest extends MediaWikiTestCase {
+class SpecificLanguageMessageLocalizerTest extends MediaWikiIntegrationTestCase {
 
 	public function testMsg() {
 		$messageLocalizer = new SpecificLanguageMessageLocalizer( 'qqx' );

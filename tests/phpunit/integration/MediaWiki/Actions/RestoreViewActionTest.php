@@ -9,7 +9,7 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use FauxRequest;
 use MediaWiki\Revision\SlotRecord;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use RequestContext;
 use TextSlotDiffRenderer;
 use Title;
@@ -24,7 +24,7 @@ use WikiPage;
  * @covers \EntitySchema\Presentation\DiffRenderer
  * @covers \EntitySchema\Presentation\ConfirmationFormRenderer
  */
-final class RestoreViewActionTest extends MediaWikiTestCase {
+final class RestoreViewActionTest extends MediaWikiIntegrationTestCase {
 
 	public function setUp(): void {
 		parent::setUp();

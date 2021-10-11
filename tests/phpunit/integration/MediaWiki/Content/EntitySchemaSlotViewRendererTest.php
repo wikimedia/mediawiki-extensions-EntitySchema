@@ -10,7 +10,7 @@ use HashConfig;
 use Language;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReferenceValue;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use MultiConfig;
 use ParserOutput;
 use SpecialPage;
@@ -20,7 +20,7 @@ use SpecialPage;
  *
  * @license GPL-2.0-or-later
  */
-class EntitySchemaSlotViewRendererTest extends MediaWikiTestCase {
+class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideSchemaDataAndHtmlFragments

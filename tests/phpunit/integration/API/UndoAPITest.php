@@ -9,7 +9,7 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use Title;
 use WikiPage;
 
@@ -19,7 +19,7 @@ use WikiPage;
  *
  * @license GPL-2.0-or-later
  */
-class UndoAPITest extends MediaWikiTestCase {
+class UndoAPITest extends MediaWikiIntegrationTestCase {
 
 	public function setUp(): void {
 		parent::setUp();

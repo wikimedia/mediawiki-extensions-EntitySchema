@@ -6,14 +6,14 @@ use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
 use EntitySchema\Services\SchemaConverter\NameBadge;
 use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 
 /**
  * @license GPL-2.0-or-later
  *
  * @covers \EntitySchema\Services\SchemaConverter\SchemaConverter
  */
-class SchemaConverterTest extends MediaWikiTestCase {
+class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 
 	public function validFullViewDataProvider() {
 		yield 'schema in interface language only' => [

@@ -4,7 +4,7 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\DataAccess\SqlIdGenerator;
 use MediaWiki\MediaWikiServices;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use RuntimeException;
 use Wikimedia\Rdbms\DBReadOnlyError;
 use Wikimedia\Rdbms\IDatabase;
@@ -17,7 +17,7 @@ use Wikimedia\Rdbms\ILoadBalancer;
  *
  * @license GPL-2.0-or-later
  */
-class SqlIdGeneratorTest extends MediaWikiTestCase {
+class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();

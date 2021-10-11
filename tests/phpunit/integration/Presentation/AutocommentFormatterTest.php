@@ -5,14 +5,14 @@ namespace EntitySchema\Tests\Integration\Presentation;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\Presentation\AutocommentFormatter;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 
 /**
  * @license GPL-2.0-or-later
  *
  * @covers \EntitySchema\Presentation\AutocommentFormatter
  */
-class AutocommentFormatterTest extends MediaWikiTestCase {
+class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
 	public function provideAutoComments() {
 		yield 'unknown autocomment' => [

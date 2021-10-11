@@ -10,7 +10,7 @@ use FauxRequest;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use PermissionsError;
 use RequestContext;
 use Title;
@@ -26,7 +26,7 @@ use WikiPage;
  * @covers \EntitySchema\MediaWiki\Actions\AbstractUndoAction
  * @covers \EntitySchema\MediaWiki\UndoHandler
  */
-class UndoSubmitActionTest extends MediaWikiTestCase {
+class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 
 	public function setUp(): void {
 		parent::setUp();
