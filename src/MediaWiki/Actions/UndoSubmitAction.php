@@ -56,12 +56,13 @@ class UndoSubmitAction extends AbstractUndoAction {
 			return Status::newFatal( 'entityschema-error-not-post' );
 		}
 
-		$pm = MediaWikiServices::getInstance()->getPermissionManager();
+		$services = MediaWikiServices::getInstance();
+		$pm = $services->getPermissionManager();
 		if ( $pm->isBlockedFrom( $this->getUser(), $this->getTitle() ) ) {
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 
-		if ( wfReadOnly() ) {
+		if ( $services->getReadOnlyMode()->isReadOnly() ) {
 			throw new ReadOnlyError;
 		}
 
