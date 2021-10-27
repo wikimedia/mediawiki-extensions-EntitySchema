@@ -40,6 +40,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 		SetEntitySchemaLabelDescriptionAliasesPage.open();
 		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
 		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
+		browser.pause( 2000 ); // T294417
 		SetEntitySchemaLabelDescriptionAliasesPage.setDescription( 'This is a test description' );
 		SetEntitySchemaLabelDescriptionAliasesPage.setAliases( 'Alias1 | Alias2' );
 		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
