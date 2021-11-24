@@ -34,6 +34,7 @@ class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			'savechanges',
+			$this->getServiceContainer()->getUserOptionsLookup(),
 			$context
 		);
 
@@ -53,6 +54,7 @@ class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			'savechanges',
+			$this->getServiceContainer()->getUserOptionsLookup(),
 			$context
 		);
 

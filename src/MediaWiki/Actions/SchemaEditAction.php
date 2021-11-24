@@ -15,6 +15,7 @@ use HTMLForm;
 use IContextSource;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\User\UserOptionsLookup;
 use Page;
 use RuntimeException;
 use Status;
@@ -35,14 +36,18 @@ class SchemaEditAction extends FormAction {
 	private $inputValidator;
 	/** @var string */
 	private $submitMsgKey;
+	/** @var UserOptionsLookup */
+	private $userOptionsLookup;
 
 	public function __construct(
 		Page $page,
 		InputValidator $inputValidator,
 		bool $editSubmitButtonLabelPublish,
+		UserOptionsLookup $userOptionsLookup,
 		IContextSource $context = null
 	) {
 		$this->inputValidator = $inputValidator;
+		$this->userOptionsLookup = $userOptionsLookup;
 		parent::__construct( $page, $context );
 		$this->submitMsgKey = $editSubmitButtonLabelPublish ? 'publishchanges' : 'savechanges';
 	}
@@ -97,7 +102,7 @@ class SchemaEditAction extends FormAction {
 		$user = $this->getUser();
 		if (
 			$data['edit-summary'] === ''
-			&& $user->getOption( 'forceeditsummary' ) === '1'
+			&& $this->userOptionsLookup->getOption( $user, 'forceeditsummary' ) === '1'
 			&& !$request->getBool( self::FIELD_IGNORE_EMPTY_SUMMARY )
 		) {
 			return $output->wrapWikiMsg( "<div id='mw-missingsummary'>\n$1\n</div>",
