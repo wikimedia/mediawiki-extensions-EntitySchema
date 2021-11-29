@@ -19,11 +19,11 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MWException;
 use OutputPage;
+use PermissionsError;
 use RuntimeException;
 use SpecialPage;
 use Status;
 use Title;
-use UserBlockedError;
 use WebRequest;
 use WikiPage;
 
@@ -48,7 +48,8 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 
 	public function __construct( $htmlFormProvider = HTMLForm::class ) {
 		parent::__construct(
-			'SetEntitySchemaLabelDescriptionAliases'
+			'SetEntitySchemaLabelDescriptionAliases',
+			'edit'
 		);
 
 		$this->htmlFormProvider = $htmlFormProvider;
@@ -407,10 +408,10 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	}
 
 	private function checkBlocked( LinkTarget $title ) {
-		if ( MediaWikiServices::getInstance()->getPermissionManager()
-			->isBlockedFrom( $this->getUser(), $title )
-		) {
-			throw new UserBlockedError( $this->getUser()->getBlock() );
+		$errors = MediaWikiServices::getInstance()->getPermissionManager()
+			->getPermissionErrors( $this->getRestriction(), $this->getUser(), $title );
+		if ( $errors !== [] ) {
+			throw new PermissionsError( $this->getRestriction(), $errors );
 		}
 	}
 
