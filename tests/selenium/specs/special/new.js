@@ -58,8 +58,8 @@ describe( 'NewEntitySchema:Page', () => {
 			LoginPage.loginAdmin();
 			NewEntitySchemaPage.open();
 
-			$( '#mw-returnto' ).waitForVisible();
-			assert.strictEqual( $( '#firstHeading' ).getText(), 'User is blocked' );
+			$( '.permissions-errors' ).waitForVisible();
+			assert.strictEqual( $( '#firstHeading' ).getText(), 'Permission error' );
 		} );
 
 		it( 'cannot submit form', () => {
@@ -72,8 +72,8 @@ describe( 'NewEntitySchema:Page', () => {
 
 			NewEntitySchemaPage.clickSubmit();
 
-			$( '#mw-returnto' ).waitForVisible();
-			assert.strictEqual( $( '#firstHeading' ).getText(), 'User is blocked' );
+			$( '.permissions-errors' ).waitForVisible();
+			assert.strictEqual( $( '#firstHeading' ).getText(), 'Permission error' );
 		} );
 	} );
 
