@@ -12,10 +12,10 @@ use HTMLForm;
 use Language;
 use MediaWiki\MediaWikiServices;
 use OutputPage;
+use PermissionsError;
 use SpecialPage;
 use Status;
 use Title;
-use UserBlockedError;
 
 /**
  * Page for creating a new EntitySchema.
@@ -44,8 +44,7 @@ class NewEntitySchema extends SpecialPage {
 	public function execute( $subPage ) {
 		parent::execute( $subPage );
 
-		$this->checkPermissions();
-		$this->checkBlocked( $subPage );
+		$this->checkPermissionsWithSubpage( $subPage );
 		$this->checkReadOnly();
 
 		$form = HTMLForm::factory( 'ooui', $this->getFormFields(), $this->getContext() )
@@ -225,16 +224,29 @@ class NewEntitySchema extends SpecialPage {
 	}
 
 	/**
-	 * Checks if the user is blocked from this page,
-	 * and if they are, throws a {@link UserBlockedError}.
+	 * Checks if the user has permissions to perform this page’s action,
+	 * and throws a {@link PermissionsError} if they don’t.
 	 *
-	 * @throws UserBlockedError
+	 * @throws PermissionsError
 	 */
-	protected function checkBlocked( $subPage ) {
-		if ( MediaWikiServices::getInstance()->getPermissionManager()
-			->isBlockedFrom( $this->getUser(), $this->getPageTitle( $subPage ) )
-		) {
-			throw new UserBlockedError( $this->getUser()->getBlock() );
+	protected function checkPermissionsWithSubpage( $subPage ) {
+		$pm = MediaWikiServices::getInstance()->getPermissionManager();
+		$checkReplica = !$this->getRequest()->wasPosted();
+		$permissionErrors = $pm->getPermissionErrors(
+			$this->getRestriction(),
+			$this->getUser(),
+			$this->getPageTitle( $subPage ),
+			$checkReplica ? $pm::RIGOR_FULL : $pm::RIGOR_SECURE,
+			[
+				'ns-specialprotected', // ignore “special pages cannot be edited”
+			]
+		);
+		if ( $permissionErrors !== [] ) {
+			// reindex $permissionErrors:
+			// the ignoreErrors param (ns-specialprotected) may have left holes,
+			// but PermissionsError expects $errors[0] to exist
+			$permissionErrors = array_values( $permissionErrors );
+			throw new PermissionsError( $this->getRestriction(), $permissionErrors );
 		}
 	}
 
