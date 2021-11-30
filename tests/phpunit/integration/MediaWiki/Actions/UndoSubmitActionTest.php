@@ -14,7 +14,6 @@ use MediaWikiIntegrationTestCase;
 use PermissionsError;
 use RequestContext;
 use Title;
-use UserBlockedError;
 use WikiPage;
 
 /**
@@ -131,7 +130,7 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 			$context
 		);
 
-		$this->expectException( UserBlockedError::class );
+		$this->expectException( PermissionsError::class );
 
 		$undoSubmitAction->show();
 	}
