@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Amirsara",
-			"FarsiNevis"
+			"FarsiNevis",
+			"Jeeputer"
 		]
 	},
 	"entityschema-newschema-label": "برچسب:",
+	"entityschema-newschema-submit": "ایجاد",
 	"entityschema-error-schemaupdate-failed": "طرحواره روزآمد نشد",
 	"entityschema-summary-update": "طرحوارهٔ روزآمد",
 	"entityschema-summary-update-schema-text-user": "متن طرحوارهٔ روزآمد: $1",
