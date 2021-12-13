@@ -1,8 +1,20 @@
 {
 	"@metadata": {
 		"authors": [
-			"Chrumps"
+			"Chrumps",
+			"Nux",
+			"Rzuwig"
 		]
 	},
-	"entityschema-special-language-inputlabel": "Kod języka"
+	"entityschema-newschema-label": "Etykieta:",
+	"entityschema-newschema-copyright": "Klikając „$1”, zgadzasz się na [[$2|warunki użytkowania]] oraz wyrażasz nieodwołalną zgodę na udostępnianie twojego wkładu na warunkach $3.",
+	"entityschema-label-empty": "Brak zdefiniowanej etykiety",
+	"entityschema-namebadge-header-language-code": "kod języka",
+	"entityschema-namebadge-header-label": "etykieta",
+	"entityschema-namebadge-header-description": "opis",
+	"entityschema-namebadge-header-aliases": "aliasy",
+	"entityschema-special-setlabeldescriptionaliases": "Ustaw etykietę, opis i aliasy dla EntitySchema",
+	"entityschema-special-language-inputlabel": "Kod języka",
+	"entityschema-special-setlabeldescriptionaliases-info": "Ustawiasz etykietę, opis i aliasy w języku '''$1''' dla schematu [[$3|$2]].",
+	"entityschema-special-label": "Etykieta:"
 }

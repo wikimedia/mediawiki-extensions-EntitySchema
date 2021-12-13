@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ajeje Brazorf"
+		]
+	},
+	"entityschema-newschema-label": "Etichetta:",
+	"entityschema-newschema-description": "Discrizzioni:",
+	"entityschema-label-edit-placeholder": "nzirisci n'etichetta n $1",
+	"entityschema-description-edit-placeholder": "nzirisci na discrizzioni n $1",
+	"entityschema-namebadge-header-language-code": "còdici dâ lingua",
+	"entityschema-namebadge-header-label": "etichetta",
+	"entityschema-namebadge-header-description": "discrizzioni",
+	"entityschema-namebadge-header-edit": "cancia",
+	"entityschema-diff-label": "Etichetti",
+	"entityschema-diff-description": "Discrizzioni",
+	"entityschema-edit": "cancia",
+	"entityschema-special-language-inputlabel": "Còdici dâ lingua",
+	"entityschema-special-label": "Etichetta:",
+	"entityschema-special-description": "Discrizzioni:"
+}

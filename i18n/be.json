@@ -1,8 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Artsiom91"
+			"Artsiom91",
+			"ZlyiLev"
 		]
 	},
-	"entityschema-summary-generated": "Кароткае апісанне (будзе дададзена да аўтаматычна згенераванага апісання):"
+	"entityschema-summary-generated": "Кароткае апісанне (будзе дададзена да аўтаматычна згенераванага апісання):",
+	"entityschema-summary-undo-autocomment": "Адкат праўкі $1 аўтарства [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|размовы]])",
+	"entityschema-undo-old-revision": "Версія для адкату",
+	"entityschema-special-id-submit": "Дадаць метку, апісанне і сінонімы"
 }
