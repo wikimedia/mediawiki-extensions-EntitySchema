@@ -14,7 +14,6 @@ use ReadOnlyError;
 use ReadOnlyMode;
 use SpecialPageTestBase;
 use TitleValue;
-use UserBlockedError;
 
 /**
  * @covers \EntitySchema\MediaWiki\Specials\NewEntitySchema
@@ -90,7 +89,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 			);
 
 			$this->fail( 'a blocked user must cause an exception!' );
-		} catch ( UserBlockedError $e ) {
+		} catch ( PermissionsError $e ) {
 			// we expect that
 		}
 

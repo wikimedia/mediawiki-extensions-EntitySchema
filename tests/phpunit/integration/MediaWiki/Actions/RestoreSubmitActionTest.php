@@ -12,9 +12,9 @@ use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MediaWikiTestCase;
+use PermissionsError;
 use RequestContext;
 use Title;
-use UserBlockedError;
 use WikiPage;
 
 /**
@@ -131,7 +131,7 @@ final class RestoreSubmitActionTest extends MediaWikiTestCase {
 			$context
 		);
 
-		$this->expectException( UserBlockedError::class );
+		$this->expectException( PermissionsError::class );
 
 		$restoreSubmitAction->show();
 	}
