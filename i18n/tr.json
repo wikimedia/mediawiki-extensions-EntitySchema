@@ -3,7 +3,8 @@
 		"authors": [
 			"BaRaN6161 TURK",
 			"Hedda",
-			"MuratTheTurkish"
+			"MuratTheTurkish",
+			"SaldırganSincap"
 		]
 	},
 	"entityschema-desc": "Wikibase oluşumları için şemaları saklayın ve tartışın",
@@ -40,11 +41,11 @@
 	"entityschema-namebadge-header-language-code": "dil kodu",
 	"entityschema-namebadge-header-label": "etiket",
 	"entityschema-namebadge-header-description": "açıklama",
-	"entityschema-namebadge-header-aliases": "takma adları",
+	"entityschema-namebadge-header-aliases": "diğer adlar",
 	"entityschema-namebadge-header-edit": "düzenle",
 	"entityschema-diff-label": "Etiketler",
 	"entityschema-diff-description": "Açıklamalar",
-	"entityschema-diff-aliases": "Takma adlar",
+	"entityschema-diff-aliases": "Diğer adlar",
 	"entityschema-diff-schema": "Şema",
 	"entityschema-edit": "düzenle",
 	"entityschema-add-schema-text": "Şema metni ekle",
