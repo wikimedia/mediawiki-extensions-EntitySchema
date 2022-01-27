@@ -272,7 +272,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 	protected function fillParserOutput(
 		Content $content,
 		ContentParseParams $cpoParams,
-		ParserOutput &$output
+		ParserOutput &$parserOutput
 	) {
 		'@phan-var EntitySchemaContent $content';
 		$parserOptions = $cpoParams->getParserOptions();
@@ -284,10 +284,10 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 				( new SchemaConverter() )
 					->getFullViewSchemaData( $content->getText(), [ $languageCode ] ),
 				$cpoParams->getPage(),
-				$output
+				$parserOutput
 			);
 		} else {
-			$output->setText( '' );
+			$parserOutput->setText( '' );
 		}
 	}
 

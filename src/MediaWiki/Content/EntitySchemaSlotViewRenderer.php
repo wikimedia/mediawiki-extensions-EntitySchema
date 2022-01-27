@@ -66,18 +66,18 @@ class EntitySchemaSlotViewRenderer {
 	public function fillParserOutput(
 		FullViewSchemaData $schemaData,
 		PageReference $page,
-		ParserOutput $output
+		ParserOutput $parserOutput
 	) {
-		$output->addModules( [ 'ext.EntitySchema.action.view.trackclicks' ] );
-		$output->addModuleStyles( [ 'ext.EntitySchema.view' ] );
+		$parserOutput->addModules( [ 'ext.EntitySchema.action.view.trackclicks' ] );
+		$parserOutput->addModuleStyles( [ 'ext.EntitySchema.view' ] );
 		if ( $this->useSyntaxHighlight ) {
-			$output->addModuleStyles( [ 'ext.pygments' ] );
+			$parserOutput->addModuleStyles( [ 'ext.pygments' ] );
 		}
-		$output->setText(
+		$parserOutput->setText(
 			$this->renderNameBadges( $page, $schemaData->nameBadges ) .
 			$this->renderSchemaSection( $page, $schemaData->schemaText )
 		);
-		$output->setDisplayTitle(
+		$parserOutput->setDisplayTitle(
 			$this->renderHeading( reset( $schemaData->nameBadges ), $page )
 		);
 	}
