@@ -68,10 +68,10 @@ class EntitySchemaSlotViewRenderer {
 		PageReference $page,
 		ParserOutput $output
 	) {
-		$output->addModules( 'ext.EntitySchema.action.view.trackclicks' );
-		$output->addModuleStyles( 'ext.EntitySchema.view' );
+		$output->addModules( [ 'ext.EntitySchema.action.view.trackclicks' ] );
+		$output->addModuleStyles( [ 'ext.EntitySchema.view' ] );
 		if ( $this->useSyntaxHighlight ) {
-			$output->addModuleStyles( 'ext.pygments' );
+			$output->addModuleStyles( [ 'ext.pygments' ] );
 		}
 		$output->setText(
 			$this->renderNameBadges( $page, $schemaData->nameBadges ) .
