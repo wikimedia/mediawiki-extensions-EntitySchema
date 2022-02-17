@@ -62,7 +62,7 @@ describe( 'Schema Edit Page', () => {
 			assert.strictEqual( ViewSchemaPage.getSchemaText(), 'edit conflict shex 1' );
 		} );
 
-		it.skip( 'properly limits the input length', () => {
+		it( 'properly limits the input length', () => {
 			const id = ViewSchemaPage.getId();
 
 			EditSchemaPage.open( id );
