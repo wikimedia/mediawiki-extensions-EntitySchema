@@ -34,7 +34,7 @@
 	"entityschema-error-schematext-too-long": "入力したスキーマの本文が長すぎます。最大{{PLURAL:$1|$1バイト}}。入力した本文は{{PLURAL:$2|$2バイト}}あります。",
 	"entityschema-error-input-too-long": "入力した文章が長すぎます。最大{{PLURAL:$1|$1文字}}。入力した文章は{{PLURAL:$2|$2文字}}あります。",
 	"entityschema-noschema": "スキーマが存在しません。[[Special:NewEntitySchema]]で新規作成してください。",
-	"entityschema-summary-generated": "要約（自動生成される要約に追加されます）：",
+	"entityschema-summary-generated": "要約 (自動生成される要約に追加されます):",
 	"entityschema-label-empty": "ラベル未設定",
 	"entityschema-namebadge-header-language-code": "言語コード",
 	"entityschema-namebadge-header-label": "ラベル",
