@@ -84,7 +84,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 		assert.strictEqual( ViewSchemaPage.getLabel(), 'edit conflict label 1' );
 	} );
 
-	it.skip( 'limits the input length', () => {
+	it( 'limits the input length', () => {
 		const id = ViewSchemaPage.getId();
 
 		SetEntitySchemaLabelDescriptionAliasesPage.open();
