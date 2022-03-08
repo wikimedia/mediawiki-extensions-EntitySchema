@@ -2,16 +2,29 @@
 	"@metadata": {
 		"authors": [
 			"Amirsara",
+			"Beginneruser",
 			"FarsiNevis",
 			"Jeeputer"
 		]
 	},
 	"entityschema-newschema-label": "برچسب:",
+	"entityschema-newschema-description": "توضیحات:",
 	"entityschema-newschema-submit": "ایجاد",
 	"entityschema-error-schemaupdate-failed": "طرحواره روزآمد نشد",
+	"entityschema-error-unsupported-langcode": "این کد زبان پشتیبانی نمی‌شود.",
+	"entityschema-namebadge-header-label": "برچسب",
+	"entityschema-namebadge-header-description": "توضیحات",
+	"entityschema-namebadge-header-edit": "ویرایش",
+	"entityschema-diff-label": "برچسب‌ها",
+	"entityschema-diff-description": "توضیحات",
+	"entityschema-diff-schema": "طرح کلی",
+	"entityschema-edit": "ویرایش",
+	"entityschema-add-schema-text": "افزودن متن طرح کلی",
 	"entityschema-summary-update": "طرحوارهٔ روزآمد",
 	"entityschema-summary-update-schema-text-user": "متن طرحوارهٔ روزآمد: $1",
 	"entityschema-summary-update-schema-label": "برچسب طرحوارهٔ روزآمد $1",
 	"entityschema-summary-update-schema-aliases": "نام‌های مستعار طرحوارهٔ روزآمد $1",
-	"entityschema-special-label": "برچسب:"
+	"entityschema-restoreold": "بازیابی",
+	"entityschema-special-label": "برچسب:",
+	"entityschema-special-description": "توضیحات:"
 }
