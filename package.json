@@ -1,4 +1,5 @@
 {
+	"name": "EntitySchema",
 	"private": true,
 	"scripts": {
 		"fix": "grunt fix",
