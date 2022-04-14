@@ -6,7 +6,7 @@ use EntitySchema\MediaWiki\Specials\NewEntitySchema;
 use FauxRequest;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Linker\LinkTarget;
-use MediaWiki\Storage\SlotRecord;
+use MediaWiki\Revision\SlotRecord;
 use PermissionsError;
 use ReadOnlyError;
 use ReadOnlyMode;
