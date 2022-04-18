@@ -13,10 +13,10 @@ use Linker;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReference;
+use MediaWiki\SyntaxHighlight\SyntaxHighlight;
 use MessageLocalizer;
 use ParserOutput;
 use SpecialPage;
-use SyntaxHighlight;
 use TitleFormatter;
 
 /**

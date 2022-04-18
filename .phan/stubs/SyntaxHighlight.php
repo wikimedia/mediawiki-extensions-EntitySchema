@@ -5,6 +5,8 @@
  * relying on the SyntaxHighlight extension.
  */
 
+namespace MediaWiki\SyntaxHighlight;
+
 class SyntaxHighlight {
 
 	public static function highlight(
