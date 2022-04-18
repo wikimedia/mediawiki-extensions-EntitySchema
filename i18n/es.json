@@ -3,7 +3,8 @@
 		"authors": [
 			"Fitoschido",
 			"Ihojose",
-			"Marcelo9987"
+			"Marcelo9987",
+			"DiegoAmbrocio"
 		]
 	},
 	"entityschema-newschema-label": "Etiqueta:",
@@ -24,6 +25,8 @@
 	"entityschema-diff-label": "Etiquetas",
 	"entityschema-diff-description": "Descripciones",
 	"entityschema-diff-aliases": "Alias",
+	"entityschema-undo-bad-revisions": "La edición no se ha podido deshacer porque no existe o se ha borrado.",
+	"entityschema-undo-cannot-apply-patch": "La edición no puede deshacerse porque ha sido modificada.",
 	"entityschema-restore-bad-revisions": "No se pudo restaurar la edición porque no existe o se borró.",
 	"entityschema-restore-empty": "La revisión que se intentó restaurar es idéntica a la actual. No se hará nada.",
 	"entityschema-restoreold": "restaurar",
