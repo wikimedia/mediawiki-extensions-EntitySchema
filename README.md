@@ -1,3 +1,6 @@
+# Entity Schema Extension
+
+## Development
 
 1. install nodejs, npm, and PHP composer
 2. change to the extension's directory
