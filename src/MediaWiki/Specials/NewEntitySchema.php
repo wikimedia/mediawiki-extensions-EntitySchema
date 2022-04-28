@@ -235,7 +235,9 @@ class NewEntitySchema extends SpecialPage {
 		$permissionErrors = $pm->getPermissionErrors(
 			$this->getRestriction(),
 			$this->getUser(),
-			$this->getPageTitle( $subPage ),
+			// Checking with the main page as a workaround for T306358.
+			// It should ideally be checking $this->getPageTitle( $subPage ) instead.
+			Title::newMainPage(),
 			$checkReplica ? $pm::RIGOR_FULL : $pm::RIGOR_SECURE,
 			[
 				'ns-specialprotected', // ignore “special pages cannot be edited”
