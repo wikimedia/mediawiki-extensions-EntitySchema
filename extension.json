@@ -28,7 +28,7 @@
 		]
 	},
 	"Hooks": {
-		"SkinTemplateNavigation": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onSkinTemplateNavigation",
+		"SkinTemplateNavigation::Universal": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onSkinTemplateNavigationUniversal",
 		"LoadExtensionSchemaUpdates": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onCreateDBSchema",
 		"ExtensionTypes": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onExtensionTypes",
 		"BeforeDisplayNoArticleText": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onBeforeDisplayNoArticleText",

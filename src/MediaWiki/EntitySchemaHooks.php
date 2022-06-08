@@ -38,7 +38,7 @@ final class EntitySchemaHooks {
 		}
 	}
 
-	public static function onSkinTemplateNavigation( SkinTemplate $skinTemplate, array &$links ) {
+	public static function onSkinTemplateNavigationUniversal( SkinTemplate $skinTemplate, array &$links ) {
 		$title = $skinTemplate->getRelevantTitle();
 		if ( !$title->inNamespace( NS_ENTITYSCHEMA_JSON ) ) {
 			return;
