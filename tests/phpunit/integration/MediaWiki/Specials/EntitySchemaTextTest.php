@@ -40,7 +40,10 @@ PREFIX wd: <http://www.wikidata.org/entity/>
 ShExC;
 		$id = 'E54687';
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
-		$this->saveSchemaPageContent( new WikiPage( $title ), [ 'schemaText' => $testSchema ] );
+		$this->saveSchemaPageContent(
+			$this->getServiceContainer()->getWikiPageFactory()->newFromTitle( $title ),
+			[ 'schemaText' => $testSchema ]
+		);
 
 		/** @var WebResponse $actualWebResponse */
 		list( $specialPageResult, $actualWebResponse ) = $this->executeSpecialPage(

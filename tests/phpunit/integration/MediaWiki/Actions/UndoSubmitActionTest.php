@@ -47,7 +47,8 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 
 	public function testUndoSubmit() {
 		$schemaId = 'E123';
-		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId ) );
+		$page = $this->getServiceContainer()->getWikiPageFactory()
+			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc', 'id' => $schemaId ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def', 'id' => $schemaId ] );
@@ -74,7 +75,8 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testUndoSubmitNoPOST() {
-		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
+		$page = $this->getServiceContainer()->getWikiPageFactory()
+			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -110,7 +112,8 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 		);
 		$this->block->insert();
 
-		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
+		$page = $this->getServiceContainer()->getWikiPageFactory()
+			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -139,7 +142,8 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions',
 			[ '*' => [ 'edit' => false ] ] );
 
-		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
+		$page = $this->getServiceContainer()->getWikiPageFactory()
+			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );

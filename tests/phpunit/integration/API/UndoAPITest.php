@@ -33,7 +33,7 @@ class UndoAPITest extends MediaWikiIntegrationTestCase {
 
 		$id = 'E456';
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
-		$page = WikiPage::factory( $title );
+		$page = $this->getServiceContainer()->getWikiPageFactory()->newFromTitle( $title );
 		$this->saveSchemaPageContent( $page, [
 			'labels' => [ 'en' => 'en label original ver' ],
 		] );
@@ -61,7 +61,7 @@ class UndoAPITest extends MediaWikiIntegrationTestCase {
 
 		$id = 'E456';
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
-		$page = WikiPage::factory( $title );
+		$page = $this->getServiceContainer()->getWikiPageFactory()->newFromTitle( $title );
 		$rev1 = $this->saveSchemaPageContent( $page, [
 			'id' => $id,
 			'labels' => [ 'en' => 'en label original ver' ],

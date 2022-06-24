@@ -7,9 +7,9 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use HttpError;
 use InvalidArgumentException;
+use MediaWiki\MediaWikiServices;
 use SpecialPage;
 use Title;
-use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
@@ -39,8 +39,11 @@ class EntitySchemaText extends SpecialPage {
 			) );
 		}
 
-		// @phan-suppress-next-line PhanTypeMismatchArgumentSuperType
-		$this->sendContentSchemaText( WikiPage::factory( $title )->getContent(), $schemaId );
+		$this->sendContentSchemaText(
+			// @phan-suppress-next-line PhanTypeMismatchArgumentSuperType
+			MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title )->getContent(),
+			$schemaId
+		);
 	}
 
 	public function getDescription() {

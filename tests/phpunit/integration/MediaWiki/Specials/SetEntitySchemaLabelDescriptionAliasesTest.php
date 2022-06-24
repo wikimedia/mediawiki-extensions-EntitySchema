@@ -264,7 +264,8 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 	 * @return array $actualSchema an array of Schema text + namebadge
 	 */
 	private function createTestSchema() {
-		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
+		$page = $this->getServiceContainer()->getWikiPageFactory()
+			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 		$this->saveSchemaPageContent(
 			$page,
 			[

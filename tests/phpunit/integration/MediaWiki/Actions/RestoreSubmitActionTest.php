@@ -45,7 +45,8 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testRestoreSubmit() {
-		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
+		$page = $this->getServiceContainer()->getWikiPageFactory()
+			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -71,7 +72,8 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testRestoreNotCurrent() {
-		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
+		$page = $this->getServiceContainer()->getWikiPageFactory()
+			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
@@ -112,7 +114,8 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 		);
 		$this->block->insert();
 
-		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
+		$page = $this->getServiceContainer()->getWikiPageFactory()
+			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
 		$this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );

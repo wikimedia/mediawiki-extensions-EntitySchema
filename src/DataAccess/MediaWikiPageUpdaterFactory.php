@@ -7,7 +7,6 @@ use MediaWiki\Storage\PageUpdater;
 use RecentChange;
 use Title;
 use User;
-use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
@@ -23,7 +22,7 @@ class MediaWikiPageUpdaterFactory {
 
 	public function getPageUpdater( $pageTitleString ): PageUpdater {
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $pageTitleString );
-		$wikipage = WikiPage::factory( $title );
+		$wikipage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
 		$pageUpdater = $wikipage->newPageUpdater( $this->user );
 		$this->setPatrolStatus( $pageUpdater, $title );
 

@@ -38,7 +38,8 @@ class UndoViewActionTest extends MediaWikiIntegrationTestCase {
 	public function test_UndoView() {
 		// arrange
 		$schemaId = 'E123';
-		$page = WikiPage::factory( Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId ) );
+		$page = $this->getServiceContainer()->getWikiPageFactory()
+			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc', 'id' => $schemaId ] );
 		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def', 'id' => $schemaId ] );

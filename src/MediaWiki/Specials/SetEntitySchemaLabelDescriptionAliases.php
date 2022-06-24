@@ -25,7 +25,6 @@ use SpecialPage;
 use Status;
 use Title;
 use WebRequest;
-use WikiPage;
 
 /**
  * Page for editing label, description and aliases of a Schema
@@ -207,7 +206,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				throw new MWException( 'revision does not match title' );
 			}
 		} else {
-			$wikiPage = WikiPage::factory( $title );
+			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
 			$revision = $wikiPage->getRevisionRecord();
 			$revId = $revision->getId();
 		}
