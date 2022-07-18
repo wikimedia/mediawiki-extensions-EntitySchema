@@ -7,6 +7,7 @@
 			"Beginneruser"
 		]
 	},
+	"special-newschema": "ایجاد یک طرحوارهٔ هستار جدید",
 	"entityschema-newschema-label": "برچسب:",
 	"entityschema-newschema-description": "توضیحات:",
 	"entityschema-newschema-submit": "ایجاد",
@@ -25,6 +26,8 @@
 	"entityschema-summary-update-schema-label": "برچسب طرحوارهٔ روزآمد $1",
 	"entityschema-summary-update-schema-aliases": "نام‌های مستعار طرحوارهٔ روزآمد $1",
 	"entityschema-restoreold": "بازیابی",
+	"special-schematext": "متن طرحوارهٔ هستار",
+	"entityschema-special-setlabeldescriptionaliases": "تنظیم برچسب، توصیف، نام‌های مستعار برای طرحوارهٔ هستار",
 	"entityschema-special-label": "برچسب:",
 	"entityschema-special-description": "توضیحات:"
 }
