@@ -191,7 +191,7 @@ class NewEntitySchema extends SpecialPage {
 		return $this->msg( 'entityschema-newschema-copyright' )
 			->params(
 				$this->msg( 'entityschema-newschema-submit' )->text(),
-				$this->msg( 'copyrightpage' )->text(),
+				$this->msg( 'copyrightpage' )->inContentLanguage()->text(),
 				// FIXME: make license configurable
 				'[https://creativecommons.org/publicdomain/zero/1.0/ Creative Commons CC0 License]'
 			)
