@@ -13,11 +13,14 @@
 	"entityschema-newschema-submit": "ایجاد",
 	"entityschema-error-schemaupdate-failed": "طرحواره روزآمد نشد",
 	"entityschema-error-unsupported-langcode": "این کد زبان پشتیبانی نمی‌شود.",
+	"entityschema-namebadge-header-language-code": "شناسهٔ زبان",
 	"entityschema-namebadge-header-label": "برچسب",
 	"entityschema-namebadge-header-description": "توضیحات",
+	"entityschema-namebadge-header-aliases": "نام‌های مستعار",
 	"entityschema-namebadge-header-edit": "ویرایش",
 	"entityschema-diff-label": "برچسب‌ها",
 	"entityschema-diff-description": "توضیحات",
+	"entityschema-diff-aliases": "نام‌های مستعار",
 	"entityschema-diff-schema": "طرح کلی",
 	"entityschema-edit": "ویرایش",
 	"entityschema-add-schema-text": "افزودن متن طرح کلی",
@@ -28,6 +31,7 @@
 	"entityschema-restoreold": "بازیابی",
 	"special-schematext": "متن طرحوارهٔ هستار",
 	"entityschema-special-setlabeldescriptionaliases": "تنظیم برچسب، توصیف، نام‌های مستعار برای طرحوارهٔ هستار",
+	"entityschema-special-language-inputlabel": "شناسهٔ زبان",
 	"entityschema-special-label": "برچسب:",
 	"entityschema-special-description": "توضیحات:"
 }
