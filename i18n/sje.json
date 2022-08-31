@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Olve Utne"
+		]
+	},
+	"entityschema-newschema-description": "Gåvådibme:",
+	"entityschema-description-edit-placeholder": "tjále $1 gåvådimev",
+	"entityschema-namebadge-header-description": "gåvådibme",
+	"entityschema-diff-description": "Gåvådime",
+	"entityschema-special-description": "Gåvådibme:"
+}
