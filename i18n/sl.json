@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar"
+		]
+	},
+	"special-newschema": "Ustvari novo shemo EnrityScheme",
+	"entityschema-newschema-aliases": "Sopomenke, ločene z navpičnico:",
+	"entityschema-newschema-schema-shexc": "Koda Shape Expression:",
+	"entityschema-newschema-submit": "Ustvari",
+	"entityschema-newschema-copyright": "S klikom gumba »$1« izražate strinjanje s [[$2|pogoji uporabe]] in nepreklicno privoljujete v objavo svojega prispevka pod licenco $3.",
+	"entityschema-label-edit-placeholder": "vnesite oznako v jeziku $1",
+	"entityschema-description-edit-placeholder": "vnesite opis v jeziku $1",
+	"entityschema-aliases-edit-placeholder": "vnesite nekaj sopomenk v jeziku $1",
+	"entityschema-id-edit-placeholder": "ID sheme",
+	"entityschema-noschema": "Tu ni sheme. Pojdite na [[Special:NewEntitySchema]], da ustvarite novo.",
+	"entityschema-namebadge-header-language-code": "Oznaka jezika",
+	"entityschema-diff-description": "Opisi",
+	"entityschema-summary-newschema-nolabel": "Ustvarjena je nova shema",
+	"entityschema-summary-undo-autocomment": "razveljavljena redakcija $1 uporabnika(-ce) [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|pogovor]])",
+	"entityschema-summary-restore-autocomment": "obnovljena redakcija $1 uporabnika(-ce)[[Special:Contributions/$2|{{GENDER:$2|$2}}]]",
+	"special-schematext": "Besedilo EntitySchema",
+	"entityschema-schematext-text": "Ta stran zagotavlja vmesnik na golo besedilo sheme. V URL-ju navedite ID sheme, pri čemer uporabite skladnjo podstrani.",
+	"entityschema-special-setlabeldescriptionaliases": "Nastavi oznako, opis in sopomenke za EntitySchema",
+	"entityschema-special-id-submit": "Nastavi oznako, opis in sopomenke",
+	"entityschema-special-aliases": "Sopomenke, ločene z navpičnico:"
+}
