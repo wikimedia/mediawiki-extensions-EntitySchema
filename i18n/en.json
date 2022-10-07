@@ -8,7 +8,6 @@
 	"special-newschema": "Create a new EntitySchema",
 	"nstab-entityschema": "EntitySchema",
 	"tooltip-ca-nstab-entityschema": "EntitySchema definition",
-	"nstab-entityschema_talk": "EntitySchema talk",
 	"entityschema-newschema-label": "Label:",
 	"entityschema-newschema-description": "Description:",
 	"entityschema-newschema-aliases": "Aliases, pipe-separated:",
