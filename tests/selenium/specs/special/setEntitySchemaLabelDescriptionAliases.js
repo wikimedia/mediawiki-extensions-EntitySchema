@@ -40,7 +40,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 		SetEntitySchemaLabelDescriptionAliasesPage.open();
 		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
 		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
-		browser.pause( 2000 ); // T294417
+		SetEntitySchemaLabelDescriptionAliasesPage.showsEditForm();
 		SetEntitySchemaLabelDescriptionAliasesPage.setDescription( 'This is a test description' );
 		SetEntitySchemaLabelDescriptionAliasesPage.setAliases( 'Alias1 | Alias2' );
 		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
@@ -57,7 +57,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
 		SetEntitySchemaLabelDescriptionAliasesPage.setLanguageField( langCode );
 		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
-		browser.pause( 2000 ); // T320257
+		SetEntitySchemaLabelDescriptionAliasesPage.showsEditForm();
 		SetEntitySchemaLabelDescriptionAliasesPage.setDescription( 'Dies ist eine deutsche Testbeschreibung' );
 		SetEntitySchemaLabelDescriptionAliasesPage.setAliases( 'Alias1 | Alias2' );
 		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
@@ -91,7 +91,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 		SetEntitySchemaLabelDescriptionAliasesPage.open();
 		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
 		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
-		browser.pause( 2000 ); // T320257
+		SetEntitySchemaLabelDescriptionAliasesPage.showsEditForm();
 		const schemaNameBadgeMaxSizeChars = SetEntitySchemaLabelDescriptionAliasesPage
 			.getSchemaNameBadgeMaxSizeChars();
 		const overlyLongString = 'a'.repeat( schemaNameBadgeMaxSizeChars + 1 );
