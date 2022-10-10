@@ -5,7 +5,10 @@
 		]
 	},
 	"entityschema-desc": "Omogoča shranjevanje in pogovor o shemah za entitete Wikibase",
-	"special-newschema": "Ustvari novo shemo EntityScheme",
+	"special-newschema": "Ustvari novo shemo entitet",
+	"nstab-entityschema": "Shema entitet",
+	"tooltip-ca-nstab-entityschema": "Definicija sheme entitet",
+	"nstab-entityschema_talk": "Pogovor o shemi entitet",
 	"entityschema-newschema-label": "Oznaka:",
 	"entityschema-newschema-description": "Opis:",
 	"entityschema-newschema-aliases": "Sopomenke, ločene z navpičnico:",

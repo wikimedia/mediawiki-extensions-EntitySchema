@@ -4,10 +4,14 @@
 			"Diman Russkov",
 			"Movses",
 			"Okras",
+			"UniCollab",
 			"Vlad5250"
 		]
 	},
 	"special-newschema": "Создать новую схему сущностей",
+	"nstab-entityschema": "EntitySchema",
+	"tooltip-ca-nstab-entityschema": "Определение EntitySchema",
+	"nstab-entityschema_talk": "Обсуждение EntitySchema",
 	"entityschema-newschema-description": "Описание:",
 	"entityschema-newschema-submit": "Создать",
 	"entityschema-editpage-schema-inputlabel": "ShEx:",

@@ -6,6 +6,9 @@
 		]
 	},
 	"special-newschema": "Crea un nuovo EntitySchema",
+	"nstab-entityschema": "EntitySchema",
+	"tooltip-ca-nstab-entityschema": "Definizione EntitySchema",
+	"nstab-entityschema_talk": "Discussione EntitySchema",
 	"entityschema-newschema-label": "Etichetta:",
 	"entityschema-newschema-description": "Descrizione:",
 	"entityschema-newschema-submit": "Crea",
