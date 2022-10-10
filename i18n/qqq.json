@@ -14,7 +14,6 @@
 	"special-newschema": "Title for the new Schema Special Page",
 	"nstab-entityschema": "Tab title for pages in the EntitySchema namespace.",
 	"tooltip-ca-nstab-entityschema": "Tooltip for the tab title for pages in the EntitySchema namespace.",
-	"nstab-entityschema_talk": "Tab title for pages in the EntitySchema talk namespace",
 	"entityschema-newschema-label": "Input label for the label field on Special:NewSchema",
 	"entityschema-newschema-description": "Input label for the description field on Special:NewSchema",
 	"entityschema-newschema-aliases": "Input label for the aliases field on Special:NewSchema",
