@@ -2,11 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Jon Harald Søby",
-			"Kingu"
+			"Kingu",
+			"Telaneo"
 		]
 	},
 	"entityschema-desc": "Lagre og diskuter skjemaer for Wikibase-entiteter",
 	"special-newschema": "Opprett nytt entitetsskjema",
+	"nstab-entityschema": "Entitetsskjema",
+	"tooltip-ca-nstab-entityschema": "EntitySchema-definisjon",
 	"entityschema-newschema-label": "Etikett:",
 	"entityschema-newschema-description": "Beskrivelse:",
 	"entityschema-newschema-aliases": "Alias adskilt av vertikalstrek:",

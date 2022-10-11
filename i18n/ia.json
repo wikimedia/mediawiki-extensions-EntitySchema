@@ -8,7 +8,6 @@
 	"special-newschema": "Crear un nove EntitySchema",
 	"nstab-entityschema": "EntitySchema",
 	"tooltip-ca-nstab-entityschema": "Definition EntitySchema",
-	"nstab-entityschema_talk": "Discussion EntitySchema",
 	"entityschema-newschema-label": "Etiquetta:",
 	"entityschema-newschema-description": "Description:",
 	"entityschema-newschema-aliases": "Aliases, separate per barras vertical:",

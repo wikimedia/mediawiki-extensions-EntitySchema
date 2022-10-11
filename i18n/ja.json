@@ -2,11 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Afaz",
-			"Shirayuki"
+			"Shirayuki",
+			"Winston Sung"
 		]
 	},
 	"entityschema-desc": "ウィキベース・エンティティのスキーマの格納、および議論",
 	"special-newschema": "スキーマの新規作成",
+	"nstab-entityschema": "スキーマ",
 	"entityschema-newschema-label": "ラベル:",
 	"entityschema-newschema-description": "説明:",
 	"entityschema-newschema-aliases": "別名（複数ある場合、縦線<code>|</code>で区切り）:",

@@ -6,7 +6,6 @@
 		]
 	},
 	"nstab-entityschema": "EntitySchema",
-	"nstab-entityschema_talk": "EntitySchema სხუნუა",
 	"entityschema-restore-bad-revisions": "რედაქტირაფა ვეგიუქვებუ, თიშენ ნამჷ-და ვარსებენს ვარდა ლასირი რე.",
 	"entityschema-restoreold": "ახალშო ეკონწყუალა"
 }
