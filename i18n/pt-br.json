@@ -8,6 +8,7 @@
 	},
 	"entityschema-desc": "Armazenar e discutir esquemas para entidades do Wikibase",
 	"special-newschema": "Criar um novo EntitySchema",
+	"nstab-entityschema": "Esquema de entidade",
 	"entityschema-newschema-label": "Etiqueta:",
 	"entityschema-newschema-description": "Descrição:",
 	"entityschema-newschema-aliases": "Nomes alternativos, separados por barras:",
