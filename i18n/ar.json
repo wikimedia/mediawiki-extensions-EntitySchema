@@ -7,6 +7,8 @@
 	},
 	"entityschema-desc": "تخزين ومناقشة المخططات لكيانات قاعدة الويكي",
 	"special-newschema": "إنشاء مخطط كيان جديد",
+	"nstab-entityschema": "معرف مخطط الكيان",
+	"tooltip-ca-nstab-entityschema": "تعريف مخطط الكيان",
 	"entityschema-newschema-label": "التسمية:",
 	"entityschema-newschema-description": "الوصف:",
 	"entityschema-newschema-aliases": "الأسماء المستعارة، مفصولة بأنابيب:",
