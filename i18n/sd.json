@@ -4,5 +4,8 @@
 			"Mehtab ahmed"
 		]
 	},
-	"entityschema-newschema-description": "تشريح:"
+	"entityschema-newschema-label": "ليبل:",
+	"entityschema-newschema-description": "تشريح:",
+	"entityschema-namebadge-header-label": "ليبل",
+	"entityschema-special-label": "ليبل:"
 }
