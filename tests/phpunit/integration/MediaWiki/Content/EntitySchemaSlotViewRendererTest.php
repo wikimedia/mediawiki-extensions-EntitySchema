@@ -7,7 +7,6 @@ use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
 use EntitySchema\Services\SchemaConverter\NameBadge;
 use ExtensionRegistry;
 use HashConfig;
-use Language;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReferenceValue;
 use MediaWikiIntegrationTestCase;
@@ -131,7 +130,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			null,
 			false
 		);
-		$this->setMwGlobals( 'wgLang', Language::factory( 'en' ) );
+		$this->setUserLang( 'en' );
 
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(

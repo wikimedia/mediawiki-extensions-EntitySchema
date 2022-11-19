@@ -3,7 +3,6 @@
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use Language;
 use MediaWikiIntegrationTestCase;
 use ParserOptions;
 use Title;
@@ -22,9 +21,9 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' );
 		$parserOptions = new ParserOptions(
 			$this->getTestUser()->getUser(),
-			Language::factory( 'qqx' )
+			$this->getServiceContainer()->getLanguageFactory()->getLanguage( 'qqx' )
 		);
-		$this->setMwGlobals( 'wgLang', Language::factory( 'en' ) );
+		$this->setUserLang( 'en' );
 
 		$contentRenderer = $this->getServiceContainer()->getContentRenderer();
 		$parserOutput = $contentRenderer->getParserOutput( $content, $title, null, $parserOptions );

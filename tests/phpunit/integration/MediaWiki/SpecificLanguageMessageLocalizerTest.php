@@ -3,7 +3,6 @@
 namespace EntitySchema\Tests\Integration\MediaWiki;
 
 use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;
-use Language;
 use MediaWikiIntegrationTestCase;
 use Message;
 
@@ -16,7 +15,7 @@ class SpecificLanguageMessageLocalizerTest extends MediaWikiIntegrationTestCase 
 
 	public function testMsg() {
 		$messageLocalizer = new SpecificLanguageMessageLocalizer( 'qqx' );
-		$this->setMwGlobals( 'wgLang', Language::factory( 'en' ) );
+		$this->setUserLang( 'en' );
 
 		$message = $messageLocalizer->msg( 'parentheses' )
 			->plaintextParams( 'param' )
