@@ -67,24 +67,6 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 		assert.strictEqual( ViewSchemaPage.getLabel(), 'Test Label' );
 	} );
 
-	it.skip( 'detects an edit conflict when re-submitting the same form', () => {
-		const id = ViewSchemaPage.getId();
-		SetEntitySchemaLabelDescriptionAliasesPage.open();
-		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
-		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
-		SetEntitySchemaLabelDescriptionAliasesPage.setLabel( 'edit conflict label 1' );
-		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
-
-		browser.back();
-		SetEntitySchemaLabelDescriptionAliasesPage.setLabel( 'edit conflict label 2' );
-		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
-
-		assert.ok( SetEntitySchemaLabelDescriptionAliasesPage.showsEditForm() );
-
-		ViewSchemaPage.open( id );
-		assert.strictEqual( ViewSchemaPage.getLabel(), 'edit conflict label 1' );
-	} );
-
 	it( 'limits the input length', () => {
 		const id = ViewSchemaPage.getId();
 
