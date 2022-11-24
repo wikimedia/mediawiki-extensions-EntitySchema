@@ -64,8 +64,8 @@ final class RestoreViewActionTest extends MediaWikiIntegrationTestCase {
 		);
 		$undoViewAction = new RestoreViewAction(
 			Article::newFromWikiPage( $page, $context ),
-			$diffRenderer,
-			$context
+			$context,
+			$diffRenderer
 		);
 
 		// act

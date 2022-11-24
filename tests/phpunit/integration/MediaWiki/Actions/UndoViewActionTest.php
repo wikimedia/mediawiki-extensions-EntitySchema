@@ -66,8 +66,8 @@ class UndoViewActionTest extends MediaWikiIntegrationTestCase {
 		);
 		$undoViewAction = new UndoViewAction(
 			Article::newFromWikiPage( $page, $context ),
-			$diffRenderer,
-			$context
+			$context,
+			$diffRenderer
 		);
 
 		// act

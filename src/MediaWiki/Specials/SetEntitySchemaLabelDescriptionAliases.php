@@ -58,6 +58,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		parent::execute( $subPage );
 
 		$request = $this->getRequest();
+		$subPage = $subPage ?: '';
 		$id = $this->getIdFromSubpageOrRequest( $subPage, $request );
 		$language = $this->getLanguageFromSubpageOrRequestOrUI( $subPage, $request );
 
@@ -109,7 +110,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		return $this->msg( 'entityschema-special-setlabeldescriptionaliases' )->text();
 	}
 
-	private function getIdFromSubpageOrRequest( $subpage, WebRequest $request ) {
+	private function getIdFromSubpageOrRequest( string $subpage, WebRequest $request ) {
 		$subpageParts = array_filter( explode( '/', $subpage, 2 ) );
 		if ( count( $subpageParts ) > 0 ) {
 			return $subpageParts[0];
@@ -117,7 +118,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		return $request->getText( self::FIELD_ID ) ?: null;
 	}
 
-	private function getLanguageFromSubpageOrRequestOrUI( $subpage, WebRequest $request ) {
+	private function getLanguageFromSubpageOrRequestOrUI( string $subpage, WebRequest $request ) {
 		$subpageParts = array_filter( explode( '/', $subpage, 2 ) );
 		if ( count( $subpageParts ) === 2 ) {
 			return $subpageParts[1];

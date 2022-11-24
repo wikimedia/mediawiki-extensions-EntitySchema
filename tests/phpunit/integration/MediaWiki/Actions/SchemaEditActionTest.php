@@ -31,11 +31,11 @@ class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 				Title::newFromDBkey( 'E1' ),
 				$context
 			),
+			$context,
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			'savechanges',
-			$this->getServiceContainer()->getUserOptionsLookup(),
-			$context
+			$this->getServiceContainer()->getUserOptionsLookup()
 		);
 
 		$this->expectException( ReadOnlyError::class );
@@ -51,11 +51,11 @@ class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 				Title::newFromDBkey( 'E1' ),
 				$context
 			),
+			$context,
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			'savechanges',
-			$this->getServiceContainer()->getUserOptionsLookup(),
-			$context
+			$this->getServiceContainer()->getUserOptionsLookup()
 		);
 
 		$this->expectException( PermissionsError::class );

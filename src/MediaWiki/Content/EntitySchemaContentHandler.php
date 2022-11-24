@@ -22,12 +22,10 @@ use Language;
 use LogicException;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\MediaWikiServices;
-use Page;
 use ParserOutput;
 use RequestContext;
 use SlotDiffRenderer;
 use Title;
-use WikiPage;
 
 /**
  * Content handler for the EntitySchema content
@@ -78,28 +76,25 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 
 	public function getActionOverrides() {
 		return [
-			'edit' => function ( Page $article, IContextSource $context = null ) {
+			'edit' => function ( Article $article, IContextSource $context ) {
 				return $this->getActionOverridesEdit( $article, $context );
 			},
-			'submit' => function ( Page $article, IContextSource $context = null ) {
+			'submit' => function ( Article $article, IContextSource $context ) {
 				return $this->getActionOverridesSubmit( $article, $context );
 			},
 		];
 	}
 
 	/**
-	 * @param Article|Page $page
-	 * @param IContextSource|null $context
+	 * @param Article $article
+	 * @param IContextSource $context
 	 * @return Action|callable
 	 */
 	private function getActionOverridesEdit(
-		Page $page,
-		?IContextSource $context
+		Article $article,
+		IContextSource $context
 	) {
 		global $wgEditSubmitButtonLabelPublish;
-
-		$article = $this->prepareActionForBC( $page, $context, __METHOD__ );
-		$context = $context ?? RequestContext::getMain();
 
 		if ( $article->getPage()->getRevisionRecord() === null ) {
 			return Action::factory( 'view', $article, $context );
@@ -113,16 +108,16 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		) {
 			return new UndoViewAction(
 				$article,
-				new EntitySchemaSlotDiffRenderer( $context ),
-				$context
+				$context,
+				new EntitySchemaSlotDiffRenderer( $context )
 			);
 		}
 
 		if ( $req->getCheck( 'restore' ) ) {
 			return new RestoreViewAction(
 				$article,
-				new EntitySchemaSlotDiffRenderer( $context ),
-				$context
+				$context,
+				new EntitySchemaSlotDiffRenderer( $context )
 			);
 		}
 
@@ -130,27 +125,25 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		// !$article->isRedirect()
 		return new SchemaEditAction(
 			$article,
+			$context,
 			new InputValidator(
 				$context,
 				MediaWikiServices::getInstance()->getMainConfig()
 			),
 			$wgEditSubmitButtonLabelPublish,
-			MediaWikiServices::getInstance()->getUserOptionsLookup(),
-			$context
+			MediaWikiServices::getInstance()->getUserOptionsLookup()
 		);
 	}
 
 	/**
-	 * @param Article|Page $page
-	 * @param IContextSource|null $context
+	 * @param Article $article
+	 * @param IContextSource $context
 	 * @return RestoreSubmitAction|UndoSubmitAction|string
 	 */
 	private function getActionOverridesSubmit(
-		Page $page,
-		?IContextSource $context
+		Article $article,
+		IContextSource $context
 	) {
-		$article = $this->prepareActionForBC( $page, $context, __METHOD__ );
-		$context = $context ?? RequestContext::getMain();
 		$req = $context->getRequest();
 
 		if (
@@ -165,25 +158,6 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		}
 
 		return SchemaSubmitAction::class;
-	}
-
-	private function prepareActionForBC(
-		Page $article,
-		?IContextSource $context,
-		string $action
-	): Article {
-		if ( $article instanceof WikiPage ) {
-			$article = Article::newFromWikiPage(
-				$article,
-				$context ?? RequestContext::getMain()
-			);
-		} elseif ( !$article instanceof Article ) {
-			throw new LogicException(
-				"Hook: {$action} call with unknown page: " . get_class( $article )
-			);
-		}
-
-		return $article;
 	}
 
 	public function supportsDirectApiEditing() {

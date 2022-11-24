@@ -2,6 +2,7 @@
 
 namespace EntitySchema\MediaWiki\Actions;
 
+use Article;
 use EntitySchema\DataAccess\EditConflict;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
@@ -16,7 +17,6 @@ use IContextSource;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\User\UserOptionsLookup;
-use Page;
 use RuntimeException;
 use Status;
 
@@ -40,15 +40,15 @@ class SchemaEditAction extends FormAction {
 	private $userOptionsLookup;
 
 	public function __construct(
-		Page $page,
+		Article $article,
+		IContextSource $context,
 		InputValidator $inputValidator,
 		bool $editSubmitButtonLabelPublish,
-		UserOptionsLookup $userOptionsLookup,
-		IContextSource $context = null
+		UserOptionsLookup $userOptionsLookup
 	) {
+		parent::__construct( $article, $context );
 		$this->inputValidator = $inputValidator;
 		$this->userOptionsLookup = $userOptionsLookup;
-		parent::__construct( $page, $context );
 		$this->submitMsgKey = $editSubmitButtonLabelPublish ? 'publishchanges' : 'savechanges';
 	}
 

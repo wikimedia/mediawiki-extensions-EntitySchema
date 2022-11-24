@@ -2,6 +2,7 @@
 
 namespace EntitySchema\MediaWiki\Actions;
 
+use Article;
 use Diff\DiffOp\Diff\Diff;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
@@ -13,7 +14,6 @@ use IContextSource;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
-use Page;
 use Status;
 
 /**
@@ -25,11 +25,11 @@ final class RestoreViewAction extends AbstractRestoreAction {
 	private $slotDiffRenderer;
 
 	public function __construct(
-		Page $page,
-		EntitySchemaSlotDiffRenderer $slotDiffRenderer,
-		IContextSource $context = null
+		Article $article,
+		IContextSource $context,
+		EntitySchemaSlotDiffRenderer $slotDiffRenderer
 	) {
-		parent::__construct( $page, $context );
+		parent::__construct( $article, $context );
 		$this->slotDiffRenderer = $slotDiffRenderer;
 	}
 
