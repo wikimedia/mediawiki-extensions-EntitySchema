@@ -44,7 +44,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 		$parserOutput = $contentRenderer->getParserOutput( $content, $title, null, null, false );
 		$html = $parserOutput->getText();
 
-		$this->assertEmpty( $html );
+		$this->assertSame( '', $html );
 	}
 
 	/**

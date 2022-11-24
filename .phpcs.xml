@@ -3,7 +3,6 @@
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="Generic.Metrics.CyclomaticComplexity.TooHigh" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPrivate" />
-		<exclude name="MediaWiki.PHPUnit.AssertEmpty.AssertEmptyUsed" />
 	</rule>
 
 	<!-- The function comment sniff is way to rigorous about way to many details that need
