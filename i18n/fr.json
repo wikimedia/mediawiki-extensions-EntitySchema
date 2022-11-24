@@ -35,7 +35,7 @@
 	"entityschema-error-unsupported-langcode": "Ce code de langue n’est pas pris en charge.",
 	"entityschema-error-one-more-message-available": "Certaines de vos entrées posent problème. Veuillez prendre en compte le message d’erreur ci-dessous.",
 	"entityschema-error-possibly-multiple-messages-available": "Certaines de vos entrées posent problème. Veuillez prendre en compte le(s) message(s) d’erreur ci-dessous.",
-	"entityschema-error-schematext-too-long": "Le texte du schéma que vous avez saisi est trop long. La longueur maximale est de {{PLURAL:$1|un octet|$1 octets}}. Votre texte a une longueur de {{PLURAL:$2|un octet|$2 octets}}.",
+	"entityschema-error-schematext-too-long": "Le texte du schéma que vous avez saisi est trop long. La longueur maximale est de {{PLURAL:$1|un octet|$1 octets}}. Votre texte a une longueur de {{PLURAL:$2|un octet|$2 octets}}.",
 	"entityschema-error-input-too-long": "Le texte que vous avez saisi est trop long. La longueur maximale est de {{PLURAL:$1|un caractère|$1 careactères}}. Votre texte a une longueur de {{PLURAL:$2|un caractère|$2 caractères}}.",
 	"entityschema-noschema": "Il n’y aucun schéma ici. Allez sur [[Special:NewEntitySchema]] pour en créer un nouveau.",
 	"entityschema-summary-generated": "Résumé (sera ajouté à un résumé généré automatiquement) :",
