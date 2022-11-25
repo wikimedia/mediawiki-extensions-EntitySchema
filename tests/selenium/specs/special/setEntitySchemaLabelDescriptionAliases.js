@@ -102,7 +102,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 			schemaNameBadgeMaxSizeChars
 		);
 
-		SetEntitySchemaLabelDescriptionAliasesPage.setDescription( overlyLongString );
+		SetEntitySchemaLabelDescriptionAliasesPage.setDescription( overlyLongString, false );
 		assert.strictEqual(
 			SetEntitySchemaLabelDescriptionAliasesPage.getDescription().length,
 			schemaNameBadgeMaxSizeChars
