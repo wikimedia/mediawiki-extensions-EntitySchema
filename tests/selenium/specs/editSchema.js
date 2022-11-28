@@ -46,22 +46,6 @@ describe( 'Schema Edit Page', () => {
 			// todo assert that contents are saved using api call
 		} );
 
-		it.skip( 'detects an edit conflict when re-submitting the same form', () => {
-			const id = ViewSchemaPage.getId();
-			EditSchemaPage.open( id );
-			EditSchemaPage.schemaTextArea.setValue( 'edit conflict shex 1' );
-			EditSchemaPage.clickSubmit();
-
-			browser.back();
-			EditSchemaPage.schemaTextArea.setValue( 'edit conflict shex 2' );
-			EditSchemaPage.clickSubmit();
-
-			assert.ok( EditSchemaPage.schemaTextArea );
-
-			ViewSchemaPage.open( id );
-			assert.strictEqual( ViewSchemaPage.getSchemaText(), 'edit conflict shex 1' );
-		} );
-
 		it( 'properly limits the input length', () => {
 			const id = ViewSchemaPage.getId();
 
