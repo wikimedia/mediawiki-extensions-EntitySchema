@@ -71,8 +71,22 @@ class SetEntitySchemaLabelDescriptionAliasesPage extends Page {
 		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.LABEL + ' input' ).setValue( label );
 	}
 
-	setDescription( description ) {
-		browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.DESCRIPTION + ' input' ).setValue( description );
+	setDescription( description, assertInputMatches = true ) {
+		let attempt = 0;
+		browser.waitUntil(
+			() => {
+				attempt++;
+				browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.DESCRIPTION + ' input' ).setValue( description );
+				const actualValue = browser.$( this.constructor.SCHEMA_NAMEBADGE_SELECTORS.DESCRIPTION + ' input' ).getValue();
+				return assertInputMatches ? actualValue === description : actualValue.length > 0;
+			},
+			{
+				timeout: 20000,
+				interval: 1000,
+				timeoutMsg: `failed to set the description after ${attempt} attempts`
+			}
+		);
+		console.log( `Succeeded to set the description on attempt number ${attempt}` );
 	}
 
 	setAliases( aliases ) {
