@@ -73,7 +73,7 @@
 	"special-schematext": "Besedilo EntitySchema",
 	"entityschema-schematext-text": "Ta stran zagotavlja vmesnik na golo besedilo sheme. V URL-ju navedite ID sheme, pri čemer uporabite skladnjo podstrani.",
 	"entityschema-schematext-missing": "Manjkajoča ali izbrisana shema: $1.",
-	"entityschema-special-setlabeldescriptionaliases": "Nastavitev oznake, opisa in sopomenk za EntitySchema",
+	"entityschema-special-setlabeldescriptionaliases": "Nastavitev oznake, opisa in sopomenk za shemo entitete",
 	"entityschema-special-id-inputlabel": "ID EntitySchema",
 	"entityschema-special-language-inputlabel": "Oznaka jezika",
 	"entityschema-special-id-submit": "Nastavi oznako, opis in sopomenke",
