@@ -58,7 +58,7 @@
 	"entityschema-summary-update-schema-description": "Posodobljen opis sheme v jeziku $1",
 	"entityschema-summary-update-schema-aliases": "Posodobljene sopomenke sheme v jeziku $1",
 	"entityschema-summary-undo-autocomment": "razveljavljena redakcija $1 uporabnika(-ce) [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|pogovor]])",
-	"entityschema-summary-restore-autocomment": "obnovljena redakcija $1 uporabnika(-ce)[[Special:Contributions/$2|{{GENDER:$2|$2}}]]",
+	"entityschema-summary-restore-autocomment": "obnovljena redakcija $1 {{GENDER:$2|uporabnika|uporabnice|uporabnika_ce}}[[Special:Contributions/$2|{{GENDER:$2|$2}}]]",
 	"entityschema-undo-heading": "Razveljavljam urejanje $1",
 	"entityschema-undo-heading-failed": "Razveljavitev ni uspela",
 	"entityschema-undo-bad-revisions": "Urejanja ni bilo mogoče razveljaviti, ker ne obstaja ali je bilo izbrisano.",
