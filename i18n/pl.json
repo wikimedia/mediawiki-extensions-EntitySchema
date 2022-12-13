@@ -13,6 +13,7 @@
 	"entityschema-namebadge-header-label": "etykieta",
 	"entityschema-namebadge-header-description": "opis",
 	"entityschema-namebadge-header-aliases": "aliasy",
+	"entityschema-edit": "edycja",
 	"entityschema-special-setlabeldescriptionaliases": "Ustaw etykietę, opis i aliasy dla EntitySchema",
 	"entityschema-special-language-inputlabel": "Kod języka",
 	"entityschema-special-setlabeldescriptionaliases-info": "Ustawiasz etykietę, opis i aliasy w języku '''$1''' dla schematu [[$3|$2]].",
