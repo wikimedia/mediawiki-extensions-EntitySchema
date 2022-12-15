@@ -126,7 +126,7 @@ final class EntitySchemaHooks {
 	 * into the user language. Only supports a fixed set of autocomments.
 	 *
 	 * @param string|null &$comment The comment HTML. Initially null; if set to a string, then
-	 * @see \MediaWiki\CommentFormatter\CommentParser::doSectionLinks() will skip the default formatting.
+	 * {@link \MediaWiki\CommentFormatter\CommentParser::doSectionLinks()} will skip the default formatting.
 	 * In that case, the actual autocomment should be wrapped in <span dir="auto"><span class="autocomment">.
 	 * @param bool $pre Whether any text appears in the summary before this autocomment.
 	 * If true, we insert the autocomment-prefix before the autocomment
