@@ -125,9 +125,9 @@ final class EntitySchemaHooks {
 	 * Handler for the FormatAutocomments hook, used to translate parts of edit summaries
 	 * into the user language. Only supports a fixed set of autocomments.
 	 *
-	 * @param string|null &$comment The comment HTML. Initially null; if set to a string,
-	 * Linker::formatAutocomments() will skip the default formatting. In that case,
-	 * the actual autocomment should be wrapped in <span dir="auto"><span class="autocomment">.
+	 * @param string|null &$comment The comment HTML. Initially null; if set to a string, then
+	 * @see \MediaWiki\CommentFormatter\CommentParser::doSectionLinks() will skip the default formatting.
+	 * In that case, the actual autocomment should be wrapped in <span dir="auto"><span class="autocomment">.
 	 * @param bool $pre Whether any text appears in the summary before this autocomment.
 	 * If true, we insert the autocomment-prefix before the autocomment
 	 * (outside the two <span>s) to separate it from that.
