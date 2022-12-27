@@ -4,7 +4,7 @@ namespace EntitySchema\Presentation;
 
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
-use Language;
+use MediaWiki\MediaWikiServices;
 use RequestContext;
 use User;
 
@@ -55,7 +55,7 @@ class AutocommentFormatter {
 				$comment = wfMessage( 'entityschema-summary-update-schema-text' );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_NAMEBADGE:
-				$languageName = Language::fetchLanguageName(
+				$languageName = MediaWikiServices::getInstance()->getLanguageNameUtils()->getLanguageName(
 					$commentParts[1],
 					$context->getLanguage()->getCode()
 				);
@@ -63,7 +63,7 @@ class AutocommentFormatter {
 					->params( $languageName );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_LABEL:
-				$languageName = Language::fetchLanguageName(
+				$languageName = MediaWikiServices::getInstance()->getLanguageNameUtils()->getLanguageName(
 					$commentParts[1],
 					$context->getLanguage()->getCode()
 				);
@@ -71,7 +71,7 @@ class AutocommentFormatter {
 					->params( $languageName );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_DESCRIPTION:
-				$languageName = Language::fetchLanguageName(
+				$languageName = MediaWikiServices::getInstance()->getLanguageNameUtils()->getLanguageName(
 					$commentParts[1],
 					$context->getLanguage()->getCode()
 				);
@@ -79,7 +79,7 @@ class AutocommentFormatter {
 					->params( $languageName );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_ALIASES:
-				$languageName = Language::fetchLanguageName(
+				$languageName = MediaWikiServices::getInstance()->getLanguageNameUtils()->getLanguageName(
 					$commentParts[1],
 					$context->getLanguage()->getCode()
 				);

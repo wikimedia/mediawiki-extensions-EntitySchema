@@ -13,7 +13,6 @@ use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use Html;
 use HTMLForm;
 use InvalidArgumentException;
-use Language;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
@@ -258,7 +257,8 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$description = $nameBadge->description;
 		$aliases = implode( '|', $nameBadge->aliases );
 		$uiLangCode = $this->getLanguage()->getCode();
-		$langName = Language::fetchLanguageName( $badgeLangCode, $uiLangCode );
+		$langName = MediaWikiServices::getInstance()->getLanguageNameUtils()
+			->getLanguageName( $badgeLangCode, $uiLangCode );
 		$inputValidator = InputValidator::newFromGlobalState();
 		return [
 			'notice' => [

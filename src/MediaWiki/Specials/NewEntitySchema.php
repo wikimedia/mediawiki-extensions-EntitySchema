@@ -9,7 +9,6 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Presentation\InputValidator;
 use Html;
 use HTMLForm;
-use Language;
 use MediaWiki\MediaWikiServices;
 use OutputPage;
 use PermissionsError;
@@ -112,7 +111,8 @@ class NewEntitySchema extends SpecialPage {
 
 	private function getFormFields(): array {
 		$langCode = $this->getLanguage()->getCode();
-		$langName = Language::fetchLanguageName( $langCode, $langCode );
+		$langName = MediaWikiServices::getInstance()->getLanguageNameUtils()
+			->getLanguageName( $langCode, $langCode );
 		$inputValidator = InputValidator::newFromGlobalState();
 		return [
 			self::FIELD_LABEL => [
