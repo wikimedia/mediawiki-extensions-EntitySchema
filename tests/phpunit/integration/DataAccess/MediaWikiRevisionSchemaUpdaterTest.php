@@ -12,6 +12,7 @@ use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\NameBadge;
 use InvalidArgumentException;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\PageUpdater;
@@ -117,7 +118,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		return new MediaWikiRevisionSchemaUpdater(
 			$this->getPageUpdaterFactory( $pageUpdater ),
 			$this->getMockWatchlistUpdater(),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 	}
 
@@ -130,7 +132,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$this->expectException( RuntimeException::class );
@@ -180,7 +183,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( $exceptionMessage );
@@ -226,7 +230,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$schmeaUpdater->overwriteWholeSchema(
 			new SchemaId( 'E1' ),
@@ -278,7 +283,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$this->expectException( InvalidArgumentException::class );
@@ -309,7 +315,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$this->expectException( DomainException::class );
@@ -338,7 +345,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$this->expectException( EditConflict::class );
@@ -381,7 +389,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$schmeaUpdater->updateSchemaText(
@@ -439,7 +448,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$schemaUpdater->updateSchemaText(
 			new SchemaId( $id ),
@@ -529,7 +539,8 @@ SHEXC;
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$schemaUpdater->updateSchemaText(
 			new SchemaId( $id ),
@@ -579,7 +590,8 @@ SHEXC;
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$schmeaUpdater->updateSchemaText(
@@ -607,7 +619,8 @@ SHEXC;
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$schemaUpdater->updateSchemaText(
@@ -648,7 +661,8 @@ SHEXC;
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$schmeaUpdater->updateSchemaNameBadge(
@@ -710,7 +724,8 @@ SHEXC;
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$schmeaUpdater->updateSchemaNameBadge(
@@ -771,7 +786,8 @@ SHEXC;
 		$writer = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$writer->updateSchemaNameBadge(
@@ -891,7 +907,8 @@ SHEXC;
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$this->expectException( EditConflict::class );
@@ -948,7 +965,8 @@ SHEXC;
 		$updater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$updater->updateSchemaNameBadge(
@@ -1009,7 +1027,8 @@ SHEXC;
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$schemaUpdater->updateSchemaNameBadge(
 			new SchemaId( $id ),
@@ -1070,7 +1089,8 @@ SHEXC;
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$schemaUpdater->updateSchemaNameBadge(
 			new SchemaId( $id ),
@@ -1130,7 +1150,8 @@ SHEXC;
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$schemaUpdater->updateSchemaNameBadge(
 			new SchemaId( $id ),
@@ -1174,7 +1195,8 @@ SHEXC;
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
-			$mockRevLookup
+			$mockRevLookup,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$schemaUpdater->updateSchemaNameBadge(

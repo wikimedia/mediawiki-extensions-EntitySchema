@@ -14,6 +14,7 @@ use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use Maintenance;
+use MediaWiki\MediaWikiServices;
 use RuntimeException;
 use User;
 
@@ -170,7 +171,8 @@ class CreatePreexistingSchemas extends Maintenance {
 		$schemaInserter = new MediaWikiRevisionSchemaInserter(
 			$pageUpdaterFactory,
 			new WatchlistUpdater( $user, NS_ENTITYSCHEMA_JSON ),
-			$fixedIdGenerator
+			$fixedIdGenerator,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		try {

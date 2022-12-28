@@ -8,7 +8,7 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use InvalidArgumentException;
-use Language;
+use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
@@ -33,19 +33,23 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	private $watchListUpdater;
 	/** @var RevisionLookup */
 	private $revisionLookup;
+	/** @var LanguageFactory */
+	private $languageFactory;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
 		WatchlistUpdater $watchListUpdater,
-		RevisionLookup $revisionLookup
+		RevisionLookup $revisionLookup,
+		LanguageFactory $languageFactory
 	) {
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
 		$this->watchListUpdater = $watchListUpdater;
 		$this->revisionLookup = $revisionLookup;
+		$this->languageFactory = $languageFactory;
 	}
 
 	private function truncateSchemaTextForCommentData( $schemaText ) {
-		$language = Language::factory( 'en' );
+		$language = $this->languageFactory->getLanguage( 'en' );
 		return $language->truncateForVisual( $schemaText, 5000 );
 	}
 
@@ -178,7 +182,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$label = SchemaCleaner::trimWhitespaceAndControlChars( $label );
 		$description = SchemaCleaner::trimWhitespaceAndControlChars( $description );
 		$aliases = SchemaCleaner::cleanupArrayOfStrings( $aliases );
-		$language = Language::factory( $langCode );
+		$language = $this->languageFactory->getLanguage( $langCode );
 
 		$typeOfChange = [];
 		if ( ( $schemaData->labels[$langCode] ?? '' ) !== $label ) {

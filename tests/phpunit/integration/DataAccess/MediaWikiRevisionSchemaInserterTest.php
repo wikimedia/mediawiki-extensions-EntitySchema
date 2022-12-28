@@ -8,6 +8,7 @@ use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Storage\PageUpdater;
 use MediaWikiIntegrationTestCase;
 use RuntimeException;
@@ -56,7 +57,8 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 		$inserter = new MediaWikiRevisionSchemaInserter(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchNewSchema' ),
-			$idGenerator
+			$idGenerator,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$inserter->insertSchema( $language,
@@ -87,7 +89,8 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 		$inserter = new MediaWikiRevisionSchemaInserter(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchNewSchema' ),
-			$idGenerator
+			$idGenerator,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		$inserter->insertSchema(
@@ -161,7 +164,8 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 		return new MediaWikiRevisionSchemaInserter(
 			$this->getPageUpdaterFactory( $pageUpdater ),
 			$this->getMockWatchlistUpdater(),
-			$idGenerator
+			$idGenerator,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 	}
 

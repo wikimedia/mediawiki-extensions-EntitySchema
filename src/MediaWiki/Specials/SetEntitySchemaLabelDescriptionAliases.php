@@ -84,7 +84,8 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$updaterFactory,
 			$watchListUpdater,
-			MediaWikiServices::getInstance()->getRevisionLookup()
+			MediaWikiServices::getInstance()->getRevisionLookup(),
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		try {

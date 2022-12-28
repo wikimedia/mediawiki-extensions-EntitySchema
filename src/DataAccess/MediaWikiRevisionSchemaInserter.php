@@ -7,7 +7,7 @@ use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
-use Language;
+use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Revision\SlotRecord;
 use RuntimeException;
 
@@ -23,15 +23,19 @@ class MediaWikiRevisionSchemaInserter implements SchemaInserter {
 	private $idGenerator;
 	/** @var WatchlistUpdater */
 	private $watchListUpdater;
+	/** @var LanguageFactory */
+	private $languageFactory;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
 		WatchlistUpdater $watchListUpdater,
-		IdGenerator $idGenerator
+		IdGenerator $idGenerator,
+		LanguageFactory $languageFactory
 	) {
 		$this->idGenerator = $idGenerator;
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
 		$this->watchListUpdater = $watchListUpdater;
+		$this->languageFactory = $languageFactory;
 	}
 
 	/**
@@ -97,7 +101,7 @@ class MediaWikiRevisionSchemaInserter implements SchemaInserter {
 	}
 
 	private function truncateSchemaTextForCommentData( $schemaText ) {
-		$language = Language::factory( 'en' );
+		$language = $this->languageFactory->getLanguage( 'en' );
 		return $language->truncateForVisual( $schemaText, 5000 );
 	}
 

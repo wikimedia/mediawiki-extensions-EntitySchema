@@ -103,7 +103,8 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
 			new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON ),
-			MediaWikiServices::getInstance()->getRevisionLookup()
+			MediaWikiServices::getInstance()->getRevisionLookup(),
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 
 		try {
