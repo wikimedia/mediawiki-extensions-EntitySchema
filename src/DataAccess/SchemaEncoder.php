@@ -4,7 +4,6 @@ namespace EntitySchema\DataAccess;
 
 use EntitySchema\Domain\Model\SchemaId;
 use InvalidArgumentException;
-use Language;
 use MediaWiki\MediaWikiServices;
 
 /**
@@ -94,10 +93,11 @@ class SchemaEncoder {
 				array_keys( $aliasGroups )
 			)
 		);
+		$languageNameUtils = MediaWikiServices::getInstance()->getLanguageNameUtils();
 		$invalidLangCodes = array_filter(
 			$providedLangCodes,
-			static function( $langCode ) {
-				return !Language::isSupportedLanguage( $langCode );
+			static function( $langCode ) use ( $languageNameUtils ) {
+				return !$languageNameUtils->isSupportedLanguage( $langCode );
 			}
 		);
 		if ( count( $invalidLangCodes ) > 0 ) {

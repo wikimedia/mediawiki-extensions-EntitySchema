@@ -104,7 +104,8 @@ class InputValidatorTest extends MediaWikiIntegrationTestCase {
 		);
 		return new InputValidator(
 			$msgLocalizer,
-			$mockConfig
+			$mockConfig,
+			$this->getServiceContainer()->getLanguageNameUtils()
 		);
 	}
 

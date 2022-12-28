@@ -128,7 +128,8 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			$context,
 			new InputValidator(
 				$context,
-				MediaWikiServices::getInstance()->getMainConfig()
+				MediaWikiServices::getInstance()->getMainConfig(),
+				MediaWikiServices::getInstance()->getLanguageNameUtils()
 			),
 			$wgEditSubmitButtonLabelPublish,
 			MediaWikiServices::getInstance()->getUserOptionsLookup()

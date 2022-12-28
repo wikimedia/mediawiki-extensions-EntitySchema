@@ -6,7 +6,7 @@ use Config;
 use ConfigException;
 use EntitySchema\Domain\Model\SchemaId;
 use InvalidArgumentException;
-use Language;
+use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\MediaWikiServices;
 use Message;
 use MessageLocalizer;
@@ -26,17 +26,27 @@ class InputValidator {
 	 * @var Config
 	 */
 	private $configService;
+	/**
+	 * @var LanguageNameUtils
+	 */
+	private $languageNameUtils;
 
 	public static function newFromGlobalState() {
 		return new self(
 			RequestContext::getMain(),
-			MediaWikiServices::getInstance()->getMainConfig()
+			MediaWikiServices::getInstance()->getMainConfig(),
+			MediaWikiServices::getInstance()->getLanguageNameUtils()
 		);
 	}
 
-	public function __construct( MessageLocalizer $msgLocalizer, Config $config ) {
+	public function __construct(
+		MessageLocalizer $msgLocalizer,
+		Config $config,
+		LanguageNameUtils $languageNameUtils
+	) {
 		$this->msgLocalizer = $msgLocalizer;
 		$this->configService = $config;
+		$this->languageNameUtils = $languageNameUtils;
 	}
 
 	/**
@@ -64,7 +74,7 @@ class InputValidator {
 	 * @return true|Message returns true on success and Message on failure
 	 */
 	public function validateLangCodeIsSupported( $langCode ) {
-		if ( !Language::isSupportedLanguage( $langCode ) ) {
+		if ( !$this->languageNameUtils->isSupportedLanguage( $langCode ) ) {
 			return $this->msgLocalizer->msg( 'entityschema-error-unsupported-langcode' );
 		}
 		return true;
