@@ -39,7 +39,12 @@
 		"TitleGetRestrictionTypes": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onTitleGetRestrictionTypes"
 	},
 	"ContentHandlers": {
-		"EntitySchema": "EntitySchema\\MediaWiki\\Content\\EntitySchemaContentHandler"
+		"EntitySchema": {
+			"class": "EntitySchema\\MediaWiki\\Content\\EntitySchemaContentHandler",
+			"services": [
+				"ContentHandlerFactory"
+			]
+		}
 	},
 	"namespaces": [
 		{

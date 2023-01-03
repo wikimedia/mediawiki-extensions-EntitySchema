@@ -6,7 +6,6 @@ use CommentStoreComment;
 use EntitySchema\DataAccess\SchemaEncoder;
 use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWikiIntegrationTestCase;
@@ -29,7 +28,8 @@ class UndoAPITest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testGetUndoContentUndoLatest() {
-		$handler = new EntitySchemaContentHandler();
+		$handler = $this->getServiceContainer()->getContentHandlerFactory()
+			->getContentHandler( EntitySchemaContent::CONTENT_MODEL_ID );
 
 		$id = 'E456';
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
@@ -57,7 +57,8 @@ class UndoAPITest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testGetUndoContent() {
-		$handler = new EntitySchemaContentHandler();
+		$handler = $this->getServiceContainer()->getContentHandlerFactory()
+			->getContentHandler( EntitySchemaContent::CONTENT_MODEL_ID );
 
 		$id = 'E456';
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );

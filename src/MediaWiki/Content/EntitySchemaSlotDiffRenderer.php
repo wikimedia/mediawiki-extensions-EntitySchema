@@ -3,7 +3,6 @@
 namespace EntitySchema\MediaWiki\Content;
 
 use Content;
-use ContentHandler;
 use Diff\DiffOp\AtomicDiffOp;
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOp;
@@ -14,6 +13,7 @@ use EntitySchema\Services\Diff\SchemaDiffer;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use Html;
 use IContextSource;
+use MediaWiki\Content\IContentHandlerFactory;
 use MessageLocalizer;
 use RequestContext;
 use SlotDiffRenderer;
@@ -37,6 +37,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 	private $msgLocalizer;
 
 	public function __construct(
+		IContentHandlerFactory $contentHandlerFactory,
 		IContextSource $context = null,
 		TextSlotDiffRenderer $textSlotDiffRenderer = null
 	) {
@@ -45,7 +46,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 		}
 
 		if ( $textSlotDiffRenderer === null ) {
-			$textSlotDiffRenderer = ContentHandler::getForModelID( CONTENT_MODEL_TEXT )
+			$textSlotDiffRenderer = $contentHandlerFactory->getContentHandler( CONTENT_MODEL_TEXT )
 				->getSlotDiffRenderer( $context );
 			if ( !is_a( $textSlotDiffRenderer, TextSlotDiffRenderer::class ) ) {
 				$textSlotDiffRenderer = new TextSlotDiffRenderer();

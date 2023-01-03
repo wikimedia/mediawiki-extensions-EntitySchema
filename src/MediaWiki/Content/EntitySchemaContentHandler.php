@@ -20,11 +20,11 @@ use IContextSource;
 use JsonContentHandler;
 use Language;
 use LogicException;
+use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\MediaWikiServices;
 use ParserOutput;
 use RequestContext;
-use SlotDiffRenderer;
 use Title;
 
 /**
@@ -34,8 +34,16 @@ use Title;
  */
 class EntitySchemaContentHandler extends JsonContentHandler {
 
-	public function __construct( $modelId = EntitySchemaContent::CONTENT_MODEL_ID ) {
+	/** @var IContentHandlerFactory */
+	private $contentHandlerFactory;
+
+	public function __construct(
+		string $modelId,
+		IContentHandlerFactory $contentHandlerFactory
+	) {
+		// $modelId is typically EntitySchemaContent::CONTENT_MODEL_ID
 		parent::__construct( $modelId );
+		$this->contentHandlerFactory = $contentHandlerFactory;
 	}
 
 	protected function getContentClass() {
@@ -50,8 +58,11 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		return new DifferenceEngine( $context, $old, $new, $rcid, $refreshCache, $unhide );
 	}
 
-	protected function getSlotDiffRendererInternal( IContextSource $context ): SlotDiffRenderer {
-		return new EntitySchemaSlotDiffRenderer( $context );
+	protected function getSlotDiffRendererInternal( IContextSource $context ): EntitySchemaSlotDiffRenderer {
+		return new EntitySchemaSlotDiffRenderer(
+			$this->contentHandlerFactory,
+			$context
+		);
 	}
 
 	/**
@@ -109,7 +120,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			return new UndoViewAction(
 				$article,
 				$context,
-				new EntitySchemaSlotDiffRenderer( $context )
+				$this->getSlotDiffRendererInternal( $context )
 			);
 		}
 
@@ -117,7 +128,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			return new RestoreViewAction(
 				$article,
 				$context,
-				new EntitySchemaSlotDiffRenderer( $context )
+				$this->getSlotDiffRendererInternal( $context )
 			);
 		}
 

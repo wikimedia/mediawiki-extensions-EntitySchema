@@ -4,6 +4,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
+use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
 use RequestContext;
 use TextSlotDiffRenderer;
@@ -171,6 +172,7 @@ HTML;
 		$textSlotDiffRenderer = new TextSlotDiffRenderer();
 		$textSlotDiffRenderer->setEngine( TextSlotDiffRenderer::ENGINE_PHP );
 		$diffRenderer = new EntitySchemaSlotDiffRenderer(
+			MediaWikiServices::getInstance()->getContentHandlerFactory(),
 			$context,
 			$textSlotDiffRenderer
 		);
