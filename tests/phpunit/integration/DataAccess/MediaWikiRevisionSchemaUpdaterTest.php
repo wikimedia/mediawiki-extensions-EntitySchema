@@ -15,6 +15,7 @@ use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Storage\PageUpdater;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -59,7 +60,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$pageUpdater->expects( $this->once() )
 			->method( 'setContent' )
 			->with(
-				'main',
+				SlotRecord::MAIN,
 				$this->equalTo( $expectedContent )
 			);
 

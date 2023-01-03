@@ -9,6 +9,7 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Storage\PageUpdater;
 use MediaWikiIntegrationTestCase;
 use RuntimeException;
@@ -124,7 +125,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 		$pageUpdater->expects( $this->once() )
 			->method( 'setContent' )
 			->with(
-				'main',
+				SlotRecord::MAIN,
 				$this->equalTo( $expectedContent )
 			);
 
