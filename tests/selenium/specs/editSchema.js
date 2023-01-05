@@ -46,6 +46,35 @@ describe( 'Schema Edit Page', () => {
 			// todo assert that contents are saved using api call
 		} );
 
+		it( 'detects an edit conflict when submitting the same form from two windows', () => {
+			const id = ViewSchemaPage.getId();
+			// First browser window
+			EditSchemaPage.open( id );
+			EditSchemaPage.schemaTextArea.setValue( 'shex that will conflict' );
+			// not submitting the form yet
+
+			const secondWindowUrl = browser.config.baseUrl + '/index.php?title=EntitySchema:' + id + '&action=edit&second=window';
+			browser.newWindow( secondWindowUrl, { windowName: 'second window' } );
+			browser.waitUntil( () => {
+				try {
+					browser.switchWindow( 'second=window' );
+					return true;
+				} catch ( e ) {
+					return false;
+				}
+			} );
+			// Second browser window
+			EditSchemaPage.schemaTextArea.setValue( 'shex that is actually saved first' );
+			EditSchemaPage.clickSubmit();
+			browser.closeWindow();
+
+			// back to first window
+			EditSchemaPage.clickSubmit();
+			assert.ok( EditSchemaPage.schemaTextArea );
+			ViewSchemaPage.open( id );
+			assert.strictEqual( ViewSchemaPage.getSchemaText(), 'shex that is actually saved first' );
+		} );
+
 		it( 'properly limits the input length', () => {
 			const id = ViewSchemaPage.getId();
 

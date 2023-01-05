@@ -67,6 +67,40 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 		assert.strictEqual( ViewSchemaPage.getLabel(), 'Test Label' );
 	} );
 
+	it( 'detects an edit conflict when submitting the same form from two windows', () => {
+		const id = ViewSchemaPage.getId();
+
+		// First browser window
+		SetEntitySchemaLabelDescriptionAliasesPage.open();
+		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
+		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
+		SetEntitySchemaLabelDescriptionAliasesPage.setLabel( 'label that will conflict' );
+		// not submitting the form yet
+
+		const secondWindowUrl = browser.config.baseUrl + '/index.php?title=Special:SetEntitySchemaLabelDescriptionAliases&second=window';
+		browser.newWindow( secondWindowUrl, { windowName: 'second window' } );
+		browser.waitUntil( () => {
+			try {
+				browser.switchWindow( 'second=window' );
+				return true;
+			} catch ( e ) {
+				return false;
+			}
+		} );
+		// Second browser window
+		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
+		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
+		SetEntitySchemaLabelDescriptionAliasesPage.setLabel( 'label that was submitted first' );
+		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
+		browser.closeWindow();
+
+		// back to first window
+		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
+		assert.ok( SetEntitySchemaLabelDescriptionAliasesPage.showsEditForm() );
+		ViewSchemaPage.open( id );
+		assert.strictEqual( ViewSchemaPage.getLabel(), 'label that was submitted first' );
+	} );
+
 	it( 'limits the input length', () => {
 		const id = ViewSchemaPage.getId();
 
