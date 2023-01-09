@@ -71,7 +71,7 @@
 	"entityschema-restore-empty": "Redakcija, ki ste jo poskušali obnoviti, je enaka trenutni redakciji. Ničesar ni treba storiti.",
 	"entityschema-restoreold": "obnovi",
 	"special-schematext": "Besedilo sheme entitet",
-	"entityschema-schematext-text": "Ta stran zagotavlja vmesnik na golo besedilo sheme. V URL-ju navedite ID sheme, pri čemer uporabite skladnjo podstrani.",
+	"entityschema-schematext-text": "Ta stran zagotavlja vmesnik za golo besedilo sheme. V URL-ju navedite ID sheme, pri čemer uporabite skladnjo podstrani.",
 	"entityschema-schematext-missing": "Manjkajoča ali izbrisana shema: $1.",
 	"entityschema-special-setlabeldescriptionaliases": "Določitev oznake, opisa in sopomenk za shemo entitet",
 	"entityschema-special-id-inputlabel": "ID sheme entitet",
