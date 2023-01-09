@@ -1,8 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Seipinne"
+			"Seipinne",
+			"Yupik"
 		]
 	},
-	"entityschema-newschema-submit": "Räähti"
+	"entityschema-newschema-description": "Kuvvim:",
+	"entityschema-newschema-submit": "Räähti",
+	"entityschema-namebadge-header-language-code": "kielâkoodi",
+	"entityschema-namebadge-header-description": "kuvvim",
+	"entityschema-namebadge-header-edit": "mute",
+	"entityschema-edit": "mute",
+	"entityschema-special-language-inputlabel": "Kielâkoodi",
+	"entityschema-special-description": "Kuvvim:"
 }
