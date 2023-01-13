@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Brettchenweber",
+			"Justman10000",
 			"Metalhead64"
 		]
 	},
@@ -32,7 +33,7 @@
 	"entityschema-error-invalid-id": "Diese Kennung ist ungültig.",
 	"entityschema-error-unsupported-langcode": "Dieser Sprachcode wird nicht unterstützt.",
 	"entityschema-error-one-more-message-available": "Mit einigen deiner Eingaben gibt es Probleme. Überprüfe bitte die unten stehende Fehlermeldung.",
-	"entityschema-error-possibly-multiple-messages-available": "Es gibt Probleme mit einigen deiner Eingaben. Überprüfe bitte die unten stehende(n) Fehlermeldung(en).",
+	"entityschema-error-possibly-multiple-messages-available": "Es existieren Probleme mit einigen deiner Eingaben. Bitte überprüfe die Fehlermeldung(en) unten.",
 	"entityschema-error-schematext-too-long": "Der eingegebene Schematext ist zu lang. Die maximal erlaubte Länge ist {{PLURAL:$1|ein Byte|$1 Bytes}}. Dein Text hat eine Länge von {{PLURAL:$2|einen Byte|$2 Bytes}}.",
 	"entityschema-error-input-too-long": "Der von dir eingegebene Text ist zu lang. Die maximale Länge ist {{PLURAL:$1|ein|$1}} Zeichen. Dein Text hat eine Länge von {{PLURAL:$2|einem|$2}} Zeichen.",
 	"entityschema-noschema": "Es gibt hier kein Schema. Gehe auf [[Special:NewSchema]], um ein neues zu erstellen.",
