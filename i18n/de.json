@@ -1,7 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Metalhead64"
+			"Metalhead64",
+			"Brettchenweber",
+			"Justman10000"
 		]
 	},
 	"entityschema-desc": "Ermöglicht die Speicherung und Diskussion von Schemata für Wikibase-Objekte",
@@ -29,7 +31,7 @@
 	"entityschema-error-invalid-id": "Diese Kennung ist ungültig.",
 	"entityschema-error-unsupported-langcode": "Dieser Sprachcode wird nicht unterstützt.",
 	"entityschema-error-one-more-message-available": "Mit einigen deiner Eingaben gibt es Probleme. Überprüfe bitte die unten stehende Fehlermeldung.",
-	"entityschema-error-possibly-multiple-messages-available": "Es gibt Probleme mit einigen deiner Eingaben. Überprüfe bitte die unten stehende(n) Fehlernachricht(en).",
+	"entityschema-error-possibly-multiple-messages-available": "Es existieren Probleme mit einigen deiner Eingaben. Bitte überprüfe die Fehlermeldung(en) unten.",
 	"entityschema-error-schematext-too-long": "Der eingegebene Schematext ist zu lang. Die maximal erlaubte Länge ist {{PLURAL:$1|ein Byte|$1 Bytes}}. Dein Text hat eine Länge von {{PLURAL:$2|einen Byte|$2 Bytes}}.",
 	"entityschema-error-input-too-long": "Der von dir eingegebene Text ist zu lang. Die maximale Länge ist {{PLURAL:$1|ein|$1}} Zeichen. Dein Text hat eine Länge von {{PLURAL:$2|einem|$2}} Zeichen.",
 	"entityschema-noschema": "Es gibt hier kein Schema. Gehe auf [[Special:NewSchema]], um ein neues zu erstellen.",
@@ -61,7 +63,7 @@
 	"entityschema-undo-heading-failed": "Rückgängigmachung fehlgeschlagen",
 	"entityschema-undo-bad-revisions": "Die Bearbeitung konnte nicht rückgängig gemacht werden, da sie nicht vorhanden ist oder gelöscht wurde.",
 	"entityschema-undo-cannot-apply-patch": "Die Bearbeitung konnte nicht rückgängig gemacht werden, da sie geändert wurde.",
-	"entityschema-undo-old-revision": "Zu rückgängig machende Version",
+	"entityschema-undo-old-revision": "Rückgängig zu machende Version",
 	"entityschema-restore-heading": "Alte Version von „$1“ wiederherstellen",
 	"entityschema-restore-bad-revisions": "Die Bearbeitung konnte nicht wiederhergestellt werden, da sie nicht vorhanden ist oder gelöscht wurde.",
 	"entityschema-restore-changed": "Das Schema wurde in der Zwischenzeit verändert. Bitte erneut überprüfen.",
