@@ -4,6 +4,7 @@
 			"BaRaN6161 TURK",
 			"Hedda",
 			"MuratTheTurkish",
+			"Rapsar",
 			"SaldırganSincap"
 		]
 	},
@@ -47,7 +48,7 @@
 	"entityschema-diff-description": "Açıklamalar",
 	"entityschema-diff-aliases": "Diğer adlar",
 	"entityschema-diff-schema": "Şema",
-	"entityschema-edit": "düzenle",
+	"entityschema-edit": "değiştir",
 	"entityschema-add-schema-text": "Şema metni ekle",
 	"entityschema-check-entities": "varlıkları bu şemaya karşı kontrol et",
 	"entityschema-summary-newschema-nolabel": "Yeni bir Şema oluşturdu",
