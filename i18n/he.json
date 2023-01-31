@@ -12,7 +12,7 @@
 	"special-newschema": "יצירת סכֵמת ישות חדשה",
 	"entityschema-newschema-label": "תווית:",
 	"entityschema-newschema-description": "תיאור:",
-	"entityschema-newschema-aliases": "כינויים, מופרדים בקו אנכי:",
+	"entityschema-newschema-aliases": "כינויים, מופרדים בקו ניצב:",
 	"entityschema-newschema-schema-shexc": "קוד ביטויי צורה:",
 	"entityschema-newschema-submit": "יצירה",
 	"entityschema-newschema-copyright": "לחיצה על \"$1\" מהווה את הסכמתך ל[[$2|תנאי השימוש]] ולשחרור של תרומתך לפי $3.",
@@ -82,5 +82,5 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "כאן מגדירים תווית, תיאור, וכינויים ב{{GRAMMAR:תחילית|$1}} בעבור הסכֵמה [[$3|$2]].",
 	"entityschema-special-label": "תווית:",
 	"entityschema-special-description": "תיאור:",
-	"entityschema-special-aliases": "כינויים, מופרדים בקו אנכי:"
+	"entityschema-special-aliases": "כינויים, מופרדים בקו ניצב:"
 }
