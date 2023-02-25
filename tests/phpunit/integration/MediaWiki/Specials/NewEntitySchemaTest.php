@@ -23,6 +23,7 @@ use TitleValue;
  */
 class NewEntitySchemaTest extends SpecialPageTestBase {
 
+	/** @var DatabaseBlock */
 	private $block;
 
 	public function testReadOnly() {

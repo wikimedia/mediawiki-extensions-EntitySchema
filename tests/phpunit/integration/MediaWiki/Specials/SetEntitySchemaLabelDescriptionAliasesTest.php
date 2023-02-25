@@ -23,6 +23,7 @@ use WikiPage;
  */
 class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
+	/** @var HTMLFormSpy|null */
 	private $mockHTMLFormProvider;
 
 	protected function setUp(): void {
