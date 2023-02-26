@@ -96,7 +96,7 @@ class SchemaEncoder {
 		$languageNameUtils = MediaWikiServices::getInstance()->getLanguageNameUtils();
 		$invalidLangCodes = array_filter(
 			$providedLangCodes,
-			static function( $langCode ) use ( $languageNameUtils ) {
+			static function ( $langCode ) use ( $languageNameUtils ) {
 				return !$languageNameUtils->isSupportedLanguage( $langCode );
 			}
 		);

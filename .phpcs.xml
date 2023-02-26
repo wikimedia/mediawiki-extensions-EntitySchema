@@ -20,12 +20,6 @@
 		<severity>0</severity>
 	</rule>
 
-	<!-- Even if we encourage to use a space in "function ()", we don't think this sniff should
-		block patches from being merged. -->
-	<rule ref="MediaWiki.WhiteSpace.SpaceAfterClosure">
-		<severity>0</severity>
-	</rule>
-
 	<!-- Even if we encourage to use spaces in comments, we don't think this sniff should block
 		patches from being merged. -->
 	<rule ref="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment">
