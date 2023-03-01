@@ -3,9 +3,9 @@
 namespace EntitySchema\Tests\Integration\Presentation;
 
 use CommentStoreComment;
-use Config;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
+use HashConfig;
 use MediaWiki\Revision\SlotRecord;
 use MediaWikiIntegrationTestCase;
 use Message;
@@ -92,10 +92,10 @@ class InputValidatorTest extends MediaWikiIntegrationTestCase {
 	}
 
 	private function getInputValidator( $configLengthToReturn = null ): InputValidator {
-		$mockConfig = $this->getMockBuilder(
-			Config::class
-		)->getMock();
-		$mockConfig->method( 'get' )->willReturn( $configLengthToReturn );
+		$config = new HashConfig( [
+			'EntitySchemaNameBadgeMaxSizeChars' => $configLengthToReturn,
+			'EntitySchemaSchemaTextMaxSizeBytes' => $configLengthToReturn,
+		] );
 		$msgLocalizer = $this->getMockBuilder(
 			MessageLocalizer::class
 		)->getMock();
@@ -104,7 +104,7 @@ class InputValidatorTest extends MediaWikiIntegrationTestCase {
 		);
 		return new InputValidator(
 			$msgLocalizer,
-			$mockConfig,
+			$config,
 			$this->getServiceContainer()->getLanguageNameUtils()
 		);
 	}
