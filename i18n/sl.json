@@ -20,7 +20,7 @@
 	"entityschema-aliases-edit-placeholder": "vnesite nekaj sopomenk v jeziku $1",
 	"entityschema-id-edit-placeholder": "ID sheme",
 	"entityschema-editpage-schema-inputlabel": "ShEx:",
-	"entityschema-error-schemadeleted": "Shema, ki ste jo poskusili urejati, ne obstaja. Je bila morda izbrisana?",
+	"entityschema-error-schemadeleted": "Shema, ki ste jo poskusili urejati, ne obstaja. Je bila mogoče izbrisana?",
 	"entityschema-error-schemaupdate-failed": "Sheme ni bilo mogoče posodobiti.",
 	"entityschema-error-schematext-conflict": "Ta shema je bila medtem spremenjena. Vrnite se na stran Shema in jo poskusite znova urediti.",
 	"entityschema-error-namebadge-conflict": "Ta shema je bila medtem spremenjena. Vrnite se na stran s shemo in poskusite znova urediti oznake, opise in sopomnke v tem jeziku.",
