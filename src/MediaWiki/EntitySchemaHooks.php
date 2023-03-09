@@ -6,10 +6,7 @@ use Article;
 use DatabaseUpdater;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\AutocommentFormatter;
-use HistoryPager;
 use Html;
-use MediaWiki\MediaWikiServices;
-use MediaWiki\Revision\RevisionRecord;
 use MWException;
 use SkinTemplate;
 use Title;
@@ -76,49 +73,6 @@ final class EntitySchemaHooks {
 		);
 
 		return false;
-	}
-
-	/**
-	 * Modify line endings on history page.
-	 *
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageHistoryLineEnding
-	 *
-	 * @param HistoryPager $history
-	 * @param object &$row
-	 * @param string &$html
-	 * @param array &$classes
-	 */
-	public static function onPageHistoryLineEnding(
-		HistoryPager $history,
-		&$row,
-		&$html,
-		array &$classes
-	) {
-		$services = MediaWikiServices::getInstance();
-		$pm = $services->getPermissionManager();
-		$rev = $services->getRevisionStore()->newRevisionFromRow( $row );
-		$title = $history->getTitle();
-		$contentModel = $title->getContentModel();
-		$latestRevId = $title->getLatestRevID();
-
-		if ( $contentModel === EntitySchemaContent::CONTENT_MODEL_ID
-			&& $latestRevId !== $rev->getId()
-			&& $pm->quickUserCan( 'edit', $history->getUser(), $title )
-			&& !$rev->isDeleted( RevisionRecord::DELETED_TEXT )
-		) {
-			$linkRenderer = $services->getLinkRenderer();
-			$link = $linkRenderer->makeKnownLink(
-				$title,
-				$history->msg( 'entityschema-restoreold' )->text(),
-				[],
-				[
-					'action' => 'edit',
-					'restore' => $rev->getId(),
-				]
-			);
-
-			$html .= ' ' . $history->msg( 'parentheses' )->rawParams( $link )->escaped();
-		}
 	}
 
 	/**

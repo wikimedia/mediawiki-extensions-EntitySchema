@@ -27,12 +27,22 @@
 			"i18n"
 		]
 	},
+	"HookHandlers": {
+		"PageHistoryLineEnding": {
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\PageHistoryLineEndingHandler",
+			"services": [
+				"LinkRenderer",
+				"PermissionManager",
+				"RevisionStore"
+			]
+		}
+	},
 	"Hooks": {
 		"SkinTemplateNavigation::Universal": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onSkinTemplateNavigationUniversal",
 		"LoadExtensionSchemaUpdates": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onCreateDBSchema",
 		"ExtensionTypes": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onExtensionTypes",
 		"BeforeDisplayNoArticleText": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onBeforeDisplayNoArticleText",
-		"PageHistoryLineEnding": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onPageHistoryLineEnding",
+		"PageHistoryLineEnding": "PageHistoryLineEnding",
 		"FormatAutocomments": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onFormatAutocomments",
 		"ContentModelCanBeUsedOn": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onContentModelCanBeUsedOn",
 		"ImportHandleRevisionXMLTag": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onImportHandleRevisionXMLTag",
