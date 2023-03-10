@@ -2,15 +2,15 @@
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
 
-	<!-- The function comment sniff is way too rigorous about way too many details that need
-		exceptions:
-		* It complains about missing documentation on fully self-explanatory function headers
-		  with strict type hints.
-		* It complains about missing documentation if there is a proper @see tag.
-		* It complains about duplicate spaces in "@param <type>  $<var>", but removing these
-		  doesn't make the code easier to read.
-		* It does not understand "@param <type> [$optional,…]. -->
 	<rule ref="MediaWiki.Commenting.FunctionComment">
+		<include-pattern>/src/Mediawiki/Hooks/</include-pattern>
+		<include-pattern>/tests/phpunit/unit/Mediawiki/Hooks/</include-pattern>
+	</rule>
+	<rule ref="MediaWiki.Commenting.PropertyDocumentation">
+		<include-pattern>/src/Mediawiki/Hooks/</include-pattern>
+		<include-pattern>/tests/phpunit/unit/Mediawiki/Hooks/</include-pattern>
+	</rule>
+	<rule ref="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate">
 		<severity>0</severity>
 	</rule>
 
