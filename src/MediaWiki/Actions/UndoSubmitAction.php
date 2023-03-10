@@ -88,7 +88,8 @@ class UndoSubmitAction extends AbstractUndoAction {
 			return $patchStatus;
 		}
 
-		return $this->storePatchedSchema( ...$patchStatus->getValue() );
+		[ $patchedSchema, $baseRevId ] = $patchStatus->getValue();
+		return $this->storePatchedSchema( $patchedSchema, $baseRevId );
 	}
 
 	private function storePatchedSchema( FullArraySchemaData $patchedSchema, $baseRevId ): Status {
