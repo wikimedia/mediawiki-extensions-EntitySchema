@@ -28,14 +28,14 @@ class SchemaDifferTest extends MediaWikiUnitTestCase {
 			[],
 			[
 				'labels' => [
-					'en' => 'testlabel'
-				]
+					'en' => 'testlabel',
+				],
 			],
 			new Diff( [
 				'labels' => new Diff( [
 					'en' => new DiffOpAdd( 'testlabel' ),
 				], true ),
-			], true )
+			], true ),
 		];
 
 		$schemaEn = [
@@ -90,7 +90,7 @@ class SchemaDifferTest extends MediaWikiUnitTestCase {
 					], false ),
 				], true ),
 				'schemaText' => new DiffOpChange( 'test schema', 'updated schema' ),
-			], true )
+			], true ),
 		];
 
 		yield 'change from empty schema counts as addition (not change)' => [
@@ -123,7 +123,7 @@ class SchemaDifferTest extends MediaWikiUnitTestCase {
 				],
 				'schemaText' => 'test schema',
 			],
-			new Diff( [], true )
+			new Diff( [], true ),
 		];
 	}
 

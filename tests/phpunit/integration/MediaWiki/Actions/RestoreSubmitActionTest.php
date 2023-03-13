@@ -56,7 +56,7 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 		$context->setRequest( new FauxRequest( [
 				'action' => 'submit',
 				'restore' => $firstID,
-				'wpBaseRev' => $secondId
+				'wpBaseRev' => $secondId,
 			], true )
 		);
 
@@ -84,7 +84,7 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 		$context->setRequest( new FauxRequest( [
 				'action' => 'submit',
 				'restore' => $firstID,
-				'wpBaseRev' => $secondId
+				'wpBaseRev' => $secondId,
 			], true )
 		);
 

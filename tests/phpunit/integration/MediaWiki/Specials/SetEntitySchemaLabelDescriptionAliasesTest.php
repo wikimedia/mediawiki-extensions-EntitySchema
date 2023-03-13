@@ -93,7 +93,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$expectedDescriptions = array_merge(
 			$initialContent['descriptions'],
 			[
-				$dataGood[$langFormKey] => $dataGood[SetEntitySchemaLabelDescriptionAliases::FIELD_DESCRIPTION]
+				$dataGood[$langFormKey] => $dataGood[SetEntitySchemaLabelDescriptionAliases::FIELD_DESCRIPTION],
 			]
 		);
 		ksort( $expectedDescriptions );

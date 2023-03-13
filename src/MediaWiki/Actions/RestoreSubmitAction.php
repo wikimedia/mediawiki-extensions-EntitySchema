@@ -145,7 +145,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 				'key' => MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE,
 				'revId' => $revId,
 				'userName' => $userName,
-				'summary' => $userSummary
+				'summary' => $userSummary,
 			]
 		);
 	}

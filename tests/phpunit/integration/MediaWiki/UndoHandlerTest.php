@@ -46,11 +46,11 @@ class UndoHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function inconsistentIdProvider() {
 		yield 'invalidWithoutThirdId' => [
-			'E12', 'E123', null
+			'E12', 'E123', null,
 		];
 
 		yield 'thirdIdDifferent' => [
-			'E123', 'E123', 'E12'
+			'E123', 'E123', 'E12',
 		];
 	}
 
@@ -155,7 +155,7 @@ class UndoHandlerTest extends MediaWikiIntegrationTestCase {
 			],
 			'descriptions' => [],
 			'aliases' => [],
-			'schemaText' => ''
+			'schemaText' => '',
 		];
 		$actualSchema = $actualPatchStatus->getValue()->data;
 		$this->assertSame( $expectedSchema, $actualSchema );

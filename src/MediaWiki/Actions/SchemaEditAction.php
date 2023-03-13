@@ -58,7 +58,7 @@ class SchemaEditAction extends FormAction {
 		$output = $this->getOutput();
 		$output->clearSubtitle();
 		$output->addModules( [
-			'ext.EntitySchema.action.edit'
+			'ext.EntitySchema.action.edit',
 		] );
 		$output->addJsConfigVars(
 			'wgEntitySchemaSchemaTextMaxSizeBytes',
@@ -147,7 +147,7 @@ class SchemaEditAction extends FormAction {
 			'label' => $this->msg( $this->submitMsgKey )->text(),
 			'attribs' => [ 'accessKey' => $this->msg( 'accesskey-save' )->plain() ],
 			'flags' => [ 'primary', 'progressive' ],
-			'type' => 'submit'
+			'type' => 'submit',
 		] );
 		$form->setValidationErrorMessage( [ [ 'entityschema-error-one-more-message-available' ] ] );
 	}

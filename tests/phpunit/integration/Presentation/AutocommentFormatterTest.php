@@ -28,7 +28,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 			false,
 			'<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-newschema-nolabel)'
-			. '</span></span>'
+			. '</span></span>',
 		];
 
 		yield 'valid new schema comment with pre' => [
@@ -37,7 +37,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 			false,
 			'(autocomment-prefix)<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-newschema-nolabel)'
-			. '</span></span>'
+			. '</span></span>',
 		];
 
 		yield 'valid new schema comment with post' => [
@@ -46,7 +46,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 			true,
 			'<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-newschema-nolabel)(colon-separator)'
-			. '</span></span>'
+			. '</span></span>',
 		];
 
 		yield 'valid schema text updated comment' => [
@@ -55,7 +55,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 			false,
 			'<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-update-schema-text)'
-			. '</span></span>'
+			. '</span></span>',
 		];
 
 		yield 'valid undo comment with username' => [
@@ -65,7 +65,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 			false,
 			'<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-undo-autocomment: 1, Username)'
-			. '</span></span>'
+			. '</span></span>',
 		];
 
 		yield 'valid undo comment with ipv4' => [
@@ -75,7 +75,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 			false,
 			'<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-undo-autocomment: 1, 198.51.100.10)'
-			. '</span></span>'
+			. '</span></span>',
 		];
 
 		yield 'valid undo comment with ipv6' => [
@@ -85,7 +85,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 			false,
 			'<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-undo-autocomment: 1, 2001:db8::1)'
-			. '</span></span>'
+			. '</span></span>',
 		];
 
 		yield 'valid restore comment with username' => [
@@ -95,7 +95,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 			false,
 			'<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-restore-autocomment: 1, Username)'
-			. '</span></span>'
+			. '</span></span>',
 		];
 
 		yield 'valid restore comment with ipv4' => [
@@ -105,7 +105,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 			false,
 			'<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-restore-autocomment: 1, 198.51.100.10)'
-			. '</span></span>'
+			. '</span></span>',
 		];
 
 		yield 'valid restore comment with ipv6' => [
@@ -115,7 +115,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 			false,
 			'<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-restore-autocomment: 1, 2001:db8::1)'
-			. '</span></span>'
+			. '</span></span>',
 		];
 	}
 

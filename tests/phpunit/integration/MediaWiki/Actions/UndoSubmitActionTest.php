@@ -59,7 +59,7 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 				'action' => 'submit',
 				'undoafter' => $firstID,
 				'undo' => $secondId,
-				'title' => 'Schema:' . $schemaId
+				'title' => 'Schema:' . $schemaId,
 			], true )
 		);
 

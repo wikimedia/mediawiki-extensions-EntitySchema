@@ -52,7 +52,7 @@ class UndoViewActionTest extends MediaWikiIntegrationTestCase {
 					'action' => 'edit',
 					'undoafter' => $firstID,
 					'undo' => $secondId,
-					'title' => 'Schema:' . $schemaId
+					'title' => 'Schema:' . $schemaId,
 				],
 				false
 			)

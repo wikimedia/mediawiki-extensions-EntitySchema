@@ -51,7 +51,7 @@ class NewEntitySchema extends SpecialPage {
 			->setSubmitID( 'entityschema-newschema-submit' )
 			->setSubmitTextMsg( 'entityschema-newschema-submit' )
 			->setValidationErrorMessage( [ [
-				'entityschema-error-possibly-multiple-messages-available'
+				'entityschema-error-possibly-multiple-messages-available',
 			] ] )
 			->setSubmitCallback( [ $this, 'submitCallback' ] );
 		$form->prepareForm();
@@ -127,7 +127,7 @@ class NewEntitySchema extends SpecialPage {
 				'label-message' => 'entityschema-newschema-label',
 				'validation-callback' => [
 					$inputValidator,
-					'validateStringInputLength'
+					'validateStringInputLength',
 				],
 			],
 			self::FIELD_DESCRIPTION => [
@@ -140,7 +140,7 @@ class NewEntitySchema extends SpecialPage {
 				'label-message' => 'entityschema-newschema-description',
 				'validation-callback' => [
 					$inputValidator,
-					'validateStringInputLength'
+					'validateStringInputLength',
 				],
 			],
 			self::FIELD_ALIASES => [
@@ -153,7 +153,7 @@ class NewEntitySchema extends SpecialPage {
 				'label-message' => 'entityschema-newschema-aliases',
 				'validation-callback' => [
 					$inputValidator,
-					'validateAliasesLength'
+					'validateAliasesLength',
 				],
 			],
 			self::FIELD_SCHEMA_TEXT => [
@@ -165,7 +165,7 @@ class NewEntitySchema extends SpecialPage {
 				'label-message' => 'entityschema-newschema-schema-shexc',
 				'validation-callback' => [
 					$inputValidator,
-					'validateSchemaTextLength'
+					'validateSchemaTextLength',
 				],
 				'useeditfont' => true,
 			],
@@ -220,7 +220,7 @@ class NewEntitySchema extends SpecialPage {
 			'wgEntitySchemaSchemaTextMaxSizeBytes' =>
 				intval( $this->getConfig()->get( 'EntitySchemaSchemaTextMaxSizeBytes' ) ),
 			'wgEntitySchemaNameBadgeMaxSizeChars' =>
-				intval( $this->getConfig()->get( 'EntitySchemaNameBadgeMaxSizeChars' ) )
+				intval( $this->getConfig()->get( 'EntitySchemaNameBadgeMaxSizeChars' ) ),
 		] );
 	}
 

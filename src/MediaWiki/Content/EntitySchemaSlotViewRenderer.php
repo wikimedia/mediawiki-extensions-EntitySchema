@@ -144,7 +144,7 @@ class EntitySchemaSlotViewRenderer {
 			[
 				'class' => 'entityschema-description',
 				'lang' => $bcp47,
-				'dir' => 'auto'
+				'dir' => 'auto',
 			],
 			$nameBadge->description
 		);
@@ -153,7 +153,7 @@ class EntitySchemaSlotViewRenderer {
 			[
 				'class' => 'entityschema-aliases',
 				'lang' => $bcp47,
-				'dir' => 'auto'
+				'dir' => 'auto',
 			],
 			implode( ' | ', $nameBadge->aliases )
 		);
@@ -241,7 +241,7 @@ class EntitySchemaSlotViewRenderer {
 
 		$schemaTextTitle = SpecialPage::getTitleFor( 'EntitySchemaText', $page->getDBkey() );
 		$url = wfAppendQuery( $url, [
-			'schemaURL' => $schemaTextTitle->getFullURL()
+			'schemaURL' => $schemaTextTitle->getFullURL(),
 		] );
 
 		// @phan-suppress-next-line SecurityCheck-DoubleEscaped False positive

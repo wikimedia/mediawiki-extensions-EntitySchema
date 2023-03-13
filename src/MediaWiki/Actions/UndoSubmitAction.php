@@ -136,7 +136,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 				'key' => MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO,
 				'summary' => $userSummary,
 				'undoRevId' => $undoRevId,
-				'userName' => $userName
+				'userName' => $userName,
 			]
 		);
 	}

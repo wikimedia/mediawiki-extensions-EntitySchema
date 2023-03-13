@@ -245,7 +245,7 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 					'serializationVersion' => '3.0',
 				]
 			),
-			$expectedNameBadgeData
+			$expectedNameBadgeData,
 		];
 	}
 
@@ -462,10 +462,10 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 		$expectedSchemaData = new PersistenceSchemaData();
 		$expectedSchemaData->labels = [
 			'de' => 'deutsche Testbezeichnung',
-			'en' => 'english test label'
+			'en' => 'english test label',
 		];
-		$expectedSchemaData->descriptions = [ 'de' => 'deutsche Testbeschreibung', ];
-		$expectedSchemaData->aliases = [ 'pt' => [ 'alias de teste em português' ], ];
+		$expectedSchemaData->descriptions = [ 'de' => 'deutsche Testbeschreibung' ];
+		$expectedSchemaData->aliases = [ 'pt' => [ 'alias de teste em português' ] ];
 		$expectedSchemaData->schemaText = 'test schema';
 		yield 'multiple languages' => [
 			[
@@ -522,7 +522,7 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 				'aliases' => [
 					'pt' => [ [
 						'language' => 'pt',
-						'value' => 'alias de teste em português'
+						'value' => 'alias de teste em português',
 					] ],
 				],
 				'schema' => 'test schema',

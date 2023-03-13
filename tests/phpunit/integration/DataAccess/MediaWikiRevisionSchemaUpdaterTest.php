@@ -213,13 +213,13 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 				'id' => $id,
 				'serializationVersion' => '3.0',
 				'labels' => [
-					$language => $label
+					$language => $label,
 				],
 				'descriptions' => [
-					$language => $description
+					$language => $description,
 				],
 				'aliases' => [
-					$language => $aliases
+					$language => $aliases,
 				],
 				'schemaText' => $schemaText,
 				'type' => 'ShExC',
@@ -691,11 +691,11 @@ SHEXC;
 			],
 			'descriptions' => [
 				'en' => 'This is what a cat looks like',
-				'de' => 'Wichtigste Eigenschaften einer Ziege'
+				'de' => 'Wichtigste Eigenschaften einer Ziege',
 			],
 			'aliases' => [
 				'en' => [ 'Tiger', 'Lion' ],
-				'de' => [ 'Capra', 'Hausziege' ]
+				'de' => [ 'Capra', 'Hausziege' ],
 			],
 			'schemaText' => '# some schema about goats',
 			'type' => 'ShExC',
@@ -878,7 +878,7 @@ SHEXC;
 			$oldBadge,
 			new NameBadge( 'new label', $oldBadge->description, [] ),
 			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_NAMEBADGE,
-			''
+			'',
 		];
 	}
 

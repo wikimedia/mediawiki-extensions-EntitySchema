@@ -70,7 +70,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		yield 'schema text' => [
 			new FullViewSchemaData( $emptyNameBadges, '_:empty {}' ),
 			[
-				'<pre id="entityschema-schema-text" class="entityschema-schema-text" dir="ltr">_:empty {}</pre>'
+				'<pre id="entityschema-schema-text" class="entityschema-schema-text" dir="ltr">_:empty {}</pre>',
 			],
 		];
 
@@ -88,7 +88,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			[
 				'<td class="entityschema-description" lang="en" dir="auto">english description</td>',
 				'<td class="entityschema-description" lang="de" dir="auto">deutsche Beschreibung</td>',
-			]
+			],
 		];
 
 		yield 'description edit link' => [
@@ -100,8 +100,8 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 					'SetEntitySchemaLabelDescriptionAliases',
 					'E16354758/en'
 				)->getText(),
-				':E16354758&amp;action=edit'
-			]
+				':E16354758&amp;action=edit',
+			],
 		];
 
 		yield 'edit schema link' => [

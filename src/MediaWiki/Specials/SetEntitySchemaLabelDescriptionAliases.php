@@ -151,7 +151,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 			->setSubmitID( 'entityschema-special-schema-id-submit' )
 			->setSubmitTextMsg( 'entityschema-special-id-submit' )
 			->setValidationErrorMessage( [ [
-				'entityschema-error-possibly-multiple-messages-available'
+				'entityschema-error-possibly-multiple-messages-available',
 			] ] );
 		$form->prepareForm();
 
@@ -168,7 +168,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		}
 
 		$output->addModules( [
-			'ext.EntitySchema.special.setSchemaLabelDescriptionAliases.edit'
+			'ext.EntitySchema.special.setSchemaLabelDescriptionAliases.edit',
 		] );
 		$output->addJsConfigVars(
 			'wgEntitySchemaNameBadgeMaxSizeChars',
@@ -230,7 +230,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				'label-message' => 'entityschema-special-id-inputlabel',
 				'validation-callback' => [
 					$inputValidator,
-					'validateIDExists'
+					'validateIDExists',
 				],
 			],
 			self::FIELD_LANGUAGE => [
@@ -242,7 +242,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				'label-message' => 'entityschema-special-language-inputlabel',
 				'validation-callback' => [
 					$inputValidator,
-					'validateLangCodeIsSupported'
+					'validateLangCodeIsSupported',
 				],
 			],
 		];
@@ -291,7 +291,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				'label-message' => 'entityschema-special-label',
 				'validation-callback' => [
 					$inputValidator,
-					'validateStringInputLength'
+					'validateStringInputLength',
 				],
 			],
 			self::FIELD_DESCRIPTION => [
@@ -304,7 +304,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				'label-message' => 'entityschema-special-description',
 				'validation-callback' => [
 					$inputValidator,
-					'validateStringInputLength'
+					'validateStringInputLength',
 				],
 			],
 			self::FIELD_ALIASES => [
@@ -317,7 +317,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 				'label-message' => 'entityschema-special-aliases',
 				'validation-callback' => [
 					$inputValidator,
-					'validateAliasesLength'
+					'validateAliasesLength',
 				],
 			],
 			self::FIELD_BASE_REV => [

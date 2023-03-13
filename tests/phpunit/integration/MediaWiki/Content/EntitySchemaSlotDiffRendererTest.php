@@ -69,7 +69,7 @@ class EntitySchemaSlotDiffRendererTest extends TestCase {
 				'serializationVersion' => '3.0',
 			],
 			// phpcs:disable Generic.Files.LineLength.TooLong
-			'<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Labels / en</td></tr><tr><td colspan="2"></td><td class="diff-marker" data-marker="+"/><td class="diff-addedline">testlabel</td></tr>'
+			'<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">Labels / en</td></tr><tr><td colspan="2"></td><td class="diff-marker" data-marker="+"/><td class="diff-addedline">testlabel</td></tr>',
 			// phpcs:enable
 		];
 
