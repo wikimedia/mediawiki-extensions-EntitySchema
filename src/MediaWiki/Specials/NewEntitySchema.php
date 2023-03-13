@@ -4,8 +4,8 @@ namespace EntitySchema\MediaWiki\Specials;
 
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
-use EntitySchema\DataAccess\SqlIdGenerator;
 use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\Presentation\InputValidator;
 use Html;
 use HTMLForm;
@@ -33,11 +33,14 @@ class NewEntitySchema extends SpecialPage {
 
 	public const FIELD_LANGUAGE = 'languagecode';
 
-	public function __construct() {
+	private IdGenerator $idGenerator;
+
+	public function __construct( IdGenerator $idGenerator ) {
 		parent::__construct(
 			'NewEntitySchema',
 			'createpage'
 		);
+		$this->idGenerator = $idGenerator;
 	}
 
 	public function execute( $subPage ) {
@@ -75,18 +78,12 @@ class NewEntitySchema extends SpecialPage {
 	public function submitCallback( $data, HTMLForm $form ) {
 		// TODO: no form data validation??
 
-		$idGenerator = new SqlIdGenerator(
-			MediaWikiServices::getInstance()->getDBLoadBalancer(),
-			'entityschema_id_counter',
-			$this->getConfig()->get( 'EntitySchemaSkippedIDs' )
-		);
-
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $this->getUser() );
 
 		$schemaInserter = new MediaWikiRevisionSchemaInserter(
 			$pageUpdaterFactory,
 			new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON ),
-			$idGenerator,
+			$this->idGenerator,
 			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$newId = $schemaInserter->insertSchema(

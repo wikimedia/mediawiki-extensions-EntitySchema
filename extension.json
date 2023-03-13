@@ -127,9 +127,17 @@
 		}
 	},
 	"SpecialPages": {
-		"NewEntitySchema": "EntitySchema\\MediaWiki\\Specials\\NewEntitySchema",
+		"NewEntitySchema": {
+			"class": "EntitySchema\\MediaWiki\\Specials\\NewEntitySchema",
+			"services": [
+				"EntitySchema.IdGenerator"
+			]
+		},
 		"EntitySchemaText": "EntitySchema\\MediaWiki\\Specials\\EntitySchemaText",
 		"SetEntitySchemaLabelDescriptionAliases": "EntitySchema\\MediaWiki\\Specials\\SetEntitySchemaLabelDescriptionAliases"
 	},
-	"manifest_version": 2
+	"manifest_version": 2,
+	"ServiceWiringFiles": [
+		"src/EntitySchema.ServiceWiring.php"
+	]
 }
