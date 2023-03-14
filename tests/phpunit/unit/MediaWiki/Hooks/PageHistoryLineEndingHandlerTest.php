@@ -7,15 +7,13 @@ namespace phpunit\unit\MediaWiki\Hooks;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Hooks\PageHistoryLineEndingHandler;
 use HistoryPager;
-use Language;
-use LanguageQqx;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
+use MediaWiki\Tests\Unit\FakeQqxMessageLocalizer;
 use MediaWiki\Title\Title;
 use MediaWikiUnitTestCase;
-use Message;
 use stdClass;
 use User;
 
@@ -211,32 +209,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 			$historyActionStub->method( 'getUser' )->willReturn( $user );
 		}
 		$historyActionStub->method( 'msg' )->willReturnCallback(
-			/**
-			 * taken from \ListToggleTest::testGetHTML
-			 * TODO: extract next to @see \MockMessageLocalizer
-			 */
-			fn( $key ) => new class( $key ) extends Message {
-
-				protected function fetchMessage(): string {
-					return "($this->key$*)";
-				}
-
-				public function getLanguage(): Language {
-					return new class() extends LanguageQqx {
-
-						public function __construct() {
-						}
-
-						public function getCode(): string {
-							return 'qqx';
-						}
-					};
-				}
-
-				protected function transformText( $string ) {
-					return $string;
-				}
-			}
+			[ new FakeQqxMessageLocalizer(), 'msg' ]
 		);
 		return $historyActionStub;
 	}
