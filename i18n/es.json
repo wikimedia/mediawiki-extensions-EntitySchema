@@ -4,13 +4,16 @@
 			"Fitoschido",
 			"Ihojose",
 			"Marcelo9987",
-			"DiegoAmbrocio"
+			"DiegoAmbrocio",
+			"MarcoAurelio"
 		]
 	},
 	"entityschema-newschema-label": "Etiqueta:",
 	"entityschema-newschema-description": "Descripción:",
 	"entityschema-newschema-aliases": "Alias, separados por plecas:",
 	"entityschema-newschema-submit": "Crear",
+	"entityschema-newschema-copyright": "Al pulsar sobre «$1» aceptas los [[$2|términos de uso]], lo que comprende además liberar tu contribución de forma irrevocable bajo la [$3 $4].",
+	"entityschema-anonymouseditwarning": "Advertencia: no has iniciado sesión. Tu dirección IP quedará grabada en el historial de ediciones de este esquema.",
 	"entityschema-label-edit-placeholder": "introduzca una etiqueta en $1",
 	"entityschema-description-edit-placeholder": "introduzca una descripción en $1",
 	"entityschema-aliases-edit-placeholder": "introduzca algunos alias en $1",
