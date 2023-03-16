@@ -10,7 +10,7 @@ const assert = require( 'assert' ),
 function createNewSchemaAndOpen( schemaText ) {
 	NewEntitySchemaPage.open();
 	NewEntitySchemaPage.showsForm();
-	NewEntitySchemaPage.setLabel( 'foo' );
+	NewEntitySchemaPage.setLabel( 'Edit Schema Browser test' );
 	NewEntitySchemaPage.setSchemaText( schemaText );
 	NewEntitySchemaPage.clickSubmit();
 }
