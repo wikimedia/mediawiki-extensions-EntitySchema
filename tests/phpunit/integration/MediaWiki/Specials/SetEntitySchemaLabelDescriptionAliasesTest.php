@@ -274,7 +274,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 				'descriptions' => [ 'en' => 'Schema description' ],
 				'aliases' => [],
 				'schemaText' => 'abc',
-				"serializationVersion" => "3.0",
+				'serializationVersion' => '3.0',
 			]
 		);
 		return $this->getCurrentSchemaContent( 'E123' );
