@@ -2,6 +2,10 @@
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
 
+	<rule ref="Generic.PHP.RequireStrictTypes">
+		<include-pattern>/src/Mediawiki/Hooks/</include-pattern>
+		<include-pattern>/tests/phpunit/unit/Mediawiki/Hooks/</include-pattern>
+	</rule>
 	<rule ref="MediaWiki.Commenting.FunctionComment">
 		<include-pattern>/src/Mediawiki/Hooks/</include-pattern>
 		<include-pattern>/tests/phpunit/unit/Mediawiki/Hooks/</include-pattern>
