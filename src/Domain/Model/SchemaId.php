@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Domain\Model;
 
 use InvalidArgumentException;
@@ -9,15 +11,11 @@ use InvalidArgumentException;
  */
 class SchemaId {
 
-	/** @var string */
-	private $id;
+	private string $id;
 
 	private const PATTERN = '/^E[1-9][0-9]*\z/';
 
-	/**
-	 * @param string $id
-	 */
-	public function __construct( $id ) {
+	public function __construct( string $id ) {
 		if ( !preg_match( self::PATTERN, $id ) ) {
 			throw new InvalidArgumentException( 'ID must match ' . self::PATTERN );
 		}
@@ -25,10 +23,7 @@ class SchemaId {
 		$this->id = $id;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getId() {
+	public function getId(): string {
 		return $this->id;
 	}
 
