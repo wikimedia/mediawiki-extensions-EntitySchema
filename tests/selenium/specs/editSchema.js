@@ -7,17 +7,21 @@ const assert = require( 'assert' ),
 	Api = require( 'wdio-mediawiki/Api.js' ),
 	LoginPage = require( 'wdio-mediawiki/LoginPage.js' );
 
+function createNewSchemaAndOpen( schemaText ) {
+	NewEntitySchemaPage.open();
+	NewEntitySchemaPage.showsForm();
+	NewEntitySchemaPage.setLabel( 'foo' );
+	NewEntitySchemaPage.setSchemaText( schemaText );
+	NewEntitySchemaPage.clickSubmit();
+}
+
 describe( 'Schema Edit Page', () => {
 
 	describe( 'given that a user is allowed', () => {
 		const schemaText = '<some shex>';
 
 		beforeEach( 'create new schema page and open', () => {
-			NewEntitySchemaPage.open();
-			NewEntitySchemaPage.showsForm();
-			NewEntitySchemaPage.setLabel( 'foo' );
-			NewEntitySchemaPage.setSchemaText( schemaText );
-			NewEntitySchemaPage.clickSubmit();
+			createNewSchemaAndOpen( schemaText );
 			// todo make with Api call
 		} );
 
@@ -98,13 +102,17 @@ describe( 'Schema Edit Page', () => {
 			bot = await Api.bot();
 		} );
 
-		beforeEach( () => Api.blockUser( bot ) );
+		beforeEach( () => {
+			createNewSchemaAndOpen( '<bar>' );
+			Api.blockUser( bot );
+		} );
 
 		afterEach( () => Api.unblockUser( bot ) );
 
 		it( 'cannot be edited', () => {
+			const id = ViewSchemaPage.getId();
 			LoginPage.loginAdmin();
-			ViewSchemaPage.open( 'E1', { action: 'edit' } );
+			EditSchemaPage.open( id );
 
 			const $firstHeading = $( '#firstHeading' );
 			$firstHeading.waitForDisplayed();
