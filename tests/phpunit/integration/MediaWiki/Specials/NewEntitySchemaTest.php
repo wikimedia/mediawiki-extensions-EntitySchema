@@ -13,6 +13,7 @@ use ReadOnlyMode;
 use SpecialPageTestBase;
 use TextContent;
 use TitleValue;
+use Wikimedia\Rdbms\SelectQueryBuilder;
 
 /**
  * @covers \EntitySchema\MediaWiki\Specials\NewEntitySchema
@@ -137,13 +138,12 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	 * @return LinkTarget
 	 */
 	private function getLastCreatedTitle() {
-		$row = $this->db->selectRow(
-			[ 'page' ],
-			[ 'page_namespace',  'page_title' ],
-			[],
-			__METHOD__,
-			[ 'ORDER BY' => [ 'page_id DESC' ] ]
-		);
+		$row = $this->db->newSelectQueryBuilder()
+			->select( [ 'page_namespace',  'page_title' ] )
+			->from( 'page' )
+			->orderBy( [ 'page_id' ], SelectQueryBuilder::SORT_DESC )
+			->caller( __METHOD__ )
+			->fetchRow();
 		return new TitleValue( (int)$row->page_namespace, $row->page_title );
 	}
 

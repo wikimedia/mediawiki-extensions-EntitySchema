@@ -9,6 +9,7 @@ use RuntimeException;
 use Wikimedia\Rdbms\DBReadOnlyError;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\ILoadBalancer;
+use Wikimedia\Rdbms\SelectQueryBuilder;
 
 /**
  * @covers \EntitySchema\DataAccess\SqlIdGenerator
@@ -41,12 +42,10 @@ class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 	public function testIdsSkipped() {
 		$loadbalancer = MediaWikiServices::getInstance()->getDBLoadBalancer();
 		$db = $loadbalancer->getConnection( DB_PRIMARY );
-		$currentId = $db->selectRow(
-			'entityschema_id_counter',
-			'id_value',
-			[],
-			__METHOD__
-		);
+		$currentId = $db->newSelectQueryBuilder()->select( [ 'id_value' ] )
+			->from( 'entityschema_id_counter' )
+			->caller( __METHOD__ )
+			->fetchRow();
 
 		$currentId = $currentId->id_value ?? 0;
 
@@ -64,10 +63,13 @@ class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 		$database = $this->createMock( IDatabase::class );
 		$database->method( 'insert' )
 			->willThrowException( new DBReadOnlyError( $database, 'read-only for test' ) );
+		$database->method( 'newSelectQueryBuilder' )
+			->willReturn(
+				new SelectQueryBuilder( $database )
+			);
 		$loadBalancer = $this->createMock( ILoadBalancer::class );
 		$loadBalancer->method( 'getConnection' )
 			->willReturn( $database );
-
 		$generator = new SqlIdGenerator(
 			$loadBalancer,
 			'entityschema_id_counter'
