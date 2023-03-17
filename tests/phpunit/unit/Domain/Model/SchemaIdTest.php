@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Unit\Domain\Model;
 
 use EntitySchema\Domain\Model\SchemaId;
@@ -13,7 +15,7 @@ use MediaWikiUnitTestCase;
  */
 class SchemaIdTest extends MediaWikiUnitTestCase {
 
-	public function testConstructorAndGetter() {
+	public function testConstructorAndGetter(): void {
 		$expected = 'E1';
 
 		$schemaId = new SchemaId( $expected );
@@ -22,7 +24,7 @@ class SchemaIdTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $expected, $actual );
 	}
 
-	public function provideInvalidIds() {
+	public function provideInvalidIds(): iterable {
 		yield 'missing prefix' => [ '1' ];
 		yield 'missing number' => [ 'E' ];
 		yield 'malformed number' => [ 'E01' ];
@@ -36,7 +38,7 @@ class SchemaIdTest extends MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideInvalidIds
 	 */
-	public function testConstructorRejectsInvalidId( $id ) {
+	public function testConstructorRejectsInvalidId( string $id ): void {
 		$this->expectException( InvalidArgumentException::class );
 		new SchemaId( $id );
 	}

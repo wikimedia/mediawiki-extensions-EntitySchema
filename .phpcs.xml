@@ -3,7 +3,9 @@
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
 
 	<rule ref="Generic.PHP.RequireStrictTypes">
+		<include-pattern>/src/Domain/Model/</include-pattern>
 		<include-pattern>/src/MediaWiki/Hooks/</include-pattern>
+		<include-pattern>/tests/phpunit/unit/Domain/Model/</include-pattern>
 		<include-pattern>/tests/phpunit/unit/MediaWiki/Hooks/</include-pattern>
 	</rule>
 	<rule ref="MediaWiki.Commenting.FunctionComment">

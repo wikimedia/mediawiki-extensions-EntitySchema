@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Domain\Storage;
 
 use RuntimeException;
@@ -10,10 +12,8 @@ use RuntimeException;
 interface IdGenerator {
 
 	/**
-	 * @return int
-	 *
 	 * @throws RuntimeException
 	 */
-	public function getNewId();
+	public function getNewId(): int;
 
 }

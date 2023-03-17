@@ -37,11 +37,9 @@ class SqlIdGenerator implements IdGenerator {
 	}
 
 	/**
-	 * @return int
-	 *
 	 * @throws RuntimeException
 	 */
-	public function getNewId() {
+	public function getNewId(): int {
 		$database = $this->loadBalancer->getConnection( DB_PRIMARY );
 
 		$id = $this->generateNewId( $database );
