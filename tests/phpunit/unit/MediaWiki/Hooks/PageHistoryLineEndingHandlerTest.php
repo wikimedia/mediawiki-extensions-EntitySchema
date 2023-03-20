@@ -189,13 +189,6 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 			$revisionRecord
 				->expects( $this->once() )
 				->method( 'isDeleted' )
-				/**
-				 * The constant DELETED_TEXT indicates that the content of the revision is hidden,
-				 * as opposed to its summary or the user that created the revision.
-				 * For more information see:
-				 * https://www.mediawiki.org/wiki/Manual:Revision_table#rev_deleted
-				 * https://www.mediawiki.org/wiki/Manual:RevisionDelete
-				 */
 				->with( RevisionRecord::DELETED_TEXT )
 				->willReturn( $isDeleted );
 		}
