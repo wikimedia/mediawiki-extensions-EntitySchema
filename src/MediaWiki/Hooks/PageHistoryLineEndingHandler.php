@@ -48,6 +48,13 @@ class PageHistoryLineEndingHandler implements PageHistoryLineEndingHook {
 			return;
 		}
 
+		/**
+		 * The constant DELETED_TEXT indicates that the content of the revision is hidden,
+		 * as opposed to its summary or the user that created the revision.
+		 * For more information see:
+		 * https://www.mediawiki.org/wiki/Manual:Revision_table#rev_deleted
+		 * https://www.mediawiki.org/wiki/Manual:RevisionDelete
+		 */
 		if ( $rev->isDeleted( RevisionRecord::DELETED_TEXT ) ) {
 			return;
 		}
