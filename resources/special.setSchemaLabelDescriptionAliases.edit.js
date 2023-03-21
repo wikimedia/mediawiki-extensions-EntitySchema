@@ -12,7 +12,7 @@
 	}
 
 	$( function () {
-		var schemaNameBadgeMaxSizeChars = mw.config.get( 'wgEntitySchemaNameBadgeMaxSizeChars' ),
+		const schemaNameBadgeMaxSizeChars = mw.config.get( 'wgEntitySchemaNameBadgeMaxSizeChars' ),
 			labelInput = OO.ui.infuse( $( '#entityschema-title-label' ) ),
 			descriptionInput = OO.ui.infuse( $( '#entityschema-heading-description' ) ),
 			aliasInput = OO.ui.infuse( $( '#entityschema-heading-aliases' ) );
