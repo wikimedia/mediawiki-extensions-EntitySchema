@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"BadDog"
+			"BadDog",
+			"Milicevic01"
 		]
 	},
 	"entityschema-newschema-description": "Опис:",
+	"entityschema-undo-cannot-apply-patch": "Измену није могуће поништити зато што је у међувремену промењена.",
 	"entityschema-special-label": "Ознака:",
 	"entityschema-special-description": "Опис:",
 	"entityschema-special-aliases": "Псеудоними (раздвојени усправном цртом):"
