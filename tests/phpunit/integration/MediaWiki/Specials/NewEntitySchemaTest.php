@@ -2,6 +2,7 @@
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
+use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\MediaWiki\Specials\NewEntitySchema;
 use FauxRequest;
 use MediaWiki\Block\DatabaseBlock;
@@ -160,7 +161,8 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	}
 
 	protected function newSpecialPage() {
-		return new NewEntitySchema();
+		$idGenerator = EntitySchemaServices::getIdGenerator( $this->getServiceContainer() );
+		return new NewEntitySchema( $idGenerator );
 	}
 
 }
