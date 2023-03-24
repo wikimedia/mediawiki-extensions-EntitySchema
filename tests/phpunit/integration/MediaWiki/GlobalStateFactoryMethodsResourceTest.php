@@ -5,6 +5,7 @@ namespace EntitySchema\Tests\MediaWiki;
 use ApiMain;
 use ApiQuery;
 use ApiTestContext;
+use ContentHandler;
 use FauxRequest;
 use MediaWiki\Http\HttpRequestFactory;
 use MediaWiki\MediaWikiServices;
@@ -58,6 +59,25 @@ class GlobalStateFactoryMethodsResourceTest extends MediaWikiIntegrationTestCase
 	public function provideHookHandlerNames(): iterable {
 		foreach ( $this->getExtensionJson()['HookHandlers'] ?? [] as $hookHandlerName => $specification ) {
 			yield [ $hookHandlerName ];
+		}
+	}
+
+	/** @dataProvider provideContentModelIDs */
+	public function testContentHandler( string $contentModelID ): void {
+		$specification = $this->getExtensionJson()['ContentHandlers'][$contentModelID];
+		$objectFactory = MediaWikiServices::getInstance()->getObjectFactory();
+		$objectFactory->createObject( $specification, [
+			'assertClass' => ContentHandler::class,
+			'allowCallable' => true,
+			'allowClassName' => true,
+			'extraArgs' => [ $contentModelID ],
+		] );
+		$this->assertTrue( true );
+	}
+
+	public function provideContentModelIDs(): iterable {
+		foreach ( $this->getExtensionJson()['ContentHandlers'] ?? [] as $contentModelID => $specification ) {
+			yield [ $contentModelID ];
 		}
 	}
 
@@ -143,6 +163,10 @@ class GlobalStateFactoryMethodsResourceTest extends MediaWikiIntegrationTestCase
 	public function provideSpecifications(): iterable {
 		foreach ( $this->provideHookHandlerNames() as [ $hookHandlerName ] ) {
 			yield "HookHandlers/$hookHandlerName" => $this->getExtensionJson()['HookHandlers'][$hookHandlerName];
+		}
+
+		foreach ( $this->provideContentModelIDs() as [ $contentModelID ] ) {
+			yield "ContentHandlers/$contentModelID" => $this->getExtensionJson()['ContentHandlers'][$contentModelID];
 		}
 
 		foreach ( $this->provideApiModuleNames() as [ $moduleName ] ) {
