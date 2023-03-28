@@ -1,9 +1,8 @@
-@import 'mediawiki.ui/variables';
+@import 'mediawiki.skin.variables.less';
 
-@button-disabled-color: #72777d;
 @ooui-icons: '../../../resources/lib/ooui/themes/wikimediaui/images/icons';
 
-.prepend-with-oojs-icon(@image) {
+.prepend-with-oojs-icon( @image ) {
 	&:before {
 		content: '';
 
@@ -13,27 +12,28 @@
 		height: 15px;
 		display: inline-block;
 		vertical-align: middle;
-		background-position: center;
+		background-position: @background-position-base;
 		@icon-path: '@{ooui-icons}/@{image}';
 		/* @embed */
 		background-image: url( @icon-path );
-		/* @embed */
-		background-image: linear-gradient( transparent, transparent ), url( @icon-path );
-		opacity: 0.7;
+		opacity: @opacity-icon-subtle;
 	}
 
 	&:hover:before {
+		// TODO: Icons normally apply `@opacity-icon-base--hover: 0.74` on hover.
 		opacity: 1;
 	}
 }
 
 .entityschema-title {
 	.entityschema-title-label-empty {
-		color: @colorTextLight;
+		// TODO: Replace by Codex' `@color-subtle`, which features slightly darker `#54595d`.
+		color: #72777d;
 	}
 
 	.entityschema-title-id {
-		color: @colorTextLight;
+		// TODO: Replace by Codex' `@color-subtle`, which features slightly darker `#54595d`.
+		color: #72777d;
 		font-size: 60%;
 	}
 }
@@ -52,10 +52,10 @@
 
 .entityschema-edit-button {
 	.edit-icon {
-		.prepend-with-oojs-icon('edit-progressive.svg');
+		.prepend-with-oojs-icon( 'edit-progressive.svg' );
 	}
 
 	.add-icon {
-		.prepend-with-oojs-icon('add-progressive.svg');
+		.prepend-with-oojs-icon( 'add-progressive.svg' );
 	}
 }
