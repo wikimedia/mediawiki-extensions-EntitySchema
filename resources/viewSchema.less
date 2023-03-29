@@ -3,7 +3,7 @@
 @ooui-icons: '../../../resources/lib/ooui/themes/wikimediaui/images/icons';
 
 .prepend-with-oojs-icon( @image ) {
-	&:before {
+	&::before {
 		content: '';
 
 		/* Copied from .wikibase-toolbar-button .wb-icon */
@@ -19,7 +19,7 @@
 		opacity: @opacity-icon-subtle;
 	}
 
-	&:hover:before {
+	&:hover::before {
 		// TODO: Icons normally apply `@opacity-icon-base--hover: 0.74` on hover.
 		opacity: 1;
 	}
@@ -41,7 +41,7 @@
 	float: right;
 	padding: 1em;
 
-	> :not( :first-child ):before {
+	> :not( :first-child )::before {
 		margin-left: 0.5em;
 		content: '|';
 		margin-right: 0.5em;
