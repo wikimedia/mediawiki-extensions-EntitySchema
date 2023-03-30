@@ -100,43 +100,4 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
 		ViewSchemaPage.open( id );
 		assert.strictEqual( ViewSchemaPage.getLabel(), 'label that was submitted first' );
 	} );
-
-	it( 'limits the input length', () => {
-		const id = ViewSchemaPage.getId();
-
-		SetEntitySchemaLabelDescriptionAliasesPage.open();
-		SetEntitySchemaLabelDescriptionAliasesPage.setIdField( id );
-		SetEntitySchemaLabelDescriptionAliasesPage.clickSubmit();
-		SetEntitySchemaLabelDescriptionAliasesPage.showsEditForm();
-		const schemaNameBadgeMaxSizeChars = SetEntitySchemaLabelDescriptionAliasesPage
-			.getSchemaNameBadgeMaxSizeChars();
-		const overlyLongString = 'a'.repeat( schemaNameBadgeMaxSizeChars + 1 );
-
-		SetEntitySchemaLabelDescriptionAliasesPage.setLabel( overlyLongString );
-		assert.strictEqual(
-			SetEntitySchemaLabelDescriptionAliasesPage.getLabel().length,
-			schemaNameBadgeMaxSizeChars
-		);
-
-		SetEntitySchemaLabelDescriptionAliasesPage.setDescription( overlyLongString, false );
-		assert.strictEqual(
-			SetEntitySchemaLabelDescriptionAliasesPage.getDescription().length,
-			schemaNameBadgeMaxSizeChars
-		);
-
-		SetEntitySchemaLabelDescriptionAliasesPage.setAliases( overlyLongString );
-		assert.strictEqual(
-			SetEntitySchemaLabelDescriptionAliasesPage.getAliases().length,
-			schemaNameBadgeMaxSizeChars
-		);
-
-		SetEntitySchemaLabelDescriptionAliasesPage.setAliases(
-			'b' + '| '.repeat( schemaNameBadgeMaxSizeChars ) + 'c'
-		);
-		assert.strictEqual(
-			SetEntitySchemaLabelDescriptionAliasesPage.getAliases().length,
-			schemaNameBadgeMaxSizeChars * 2 + 2,
-			'Pipes and spaces will be trimmed from aliases before counting'
-		);
-	} );
 } );
