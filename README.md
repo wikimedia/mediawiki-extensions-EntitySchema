@@ -2,6 +2,13 @@
 
 ## Development
 
+EntitySchema is a MediaWiki extension.
+These instructions assume that it is installed with [mwcli](https://www.mediawiki.org/wiki/Cli).
+
+Note that for a working development installation of MediaWiki,
+the environment variables `MW_SERVER`, `MW_SCRIPT_PATH`, `MEDIAWIKI_USER` and `MEDIAWIKI_PASSWORD` must be set.
+They will also be used for browser testing in this extension.
+
 ### Installing the extension
 Clone the code into your `extensions/` directory and add the following lines to your `LocalSettings.php`:
 ```php
