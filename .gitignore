@@ -6,3 +6,8 @@
 /node_modules
 /tests/selenium/log
 .eslintcache
+
+cypress/.cache
+cypress/videos
+cypress/screenshots
+cypress/downloads

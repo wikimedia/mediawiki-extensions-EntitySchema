@@ -155,6 +155,17 @@ npm run selenium-test # all tests
 npm run selenium-test -- --spec tests/selenium/specs/editSchema.js # just a single test
 ```
 
+#### Cypress
+
+For local development purposes, Cypress needs to be run headed as well.
+Thus using `fresh` is not an option.
+
+You can open up Cypress by executing
+
+```
+npm run cypress:open
+```
+
 ### Chore: Updating dependencies
 
 Many of the dependencies of EntitySchema are kept up-to-date by [LibraryUpgrader](https://www.mediawiki.org/wiki/Libraryupgrader).
