@@ -14,6 +14,17 @@ export class SpecialSetLabelDescriptionAliasesPage {
 		return this;
 	}
 
+	submitEditForm() {
+		cy.get( 'button[name=submit-edit]' ).click();
+		return this;
+	}
+
+	assertEditFormIsShown() {
+		cy.get( '#entityschema-title-label' ).should( 'be.visible' );
+		cy.get( '#entityschema-heading-description' ).should( 'be.visible' );
+		cy.get( '#entityschema-heading-aliases' ).should( 'be.visible' );
+	}
+
 	setLabel( label ) {
 		cy.get( 'input[name=label]' ).clear( { force: true } );
 		cy.get( 'input[name=label]' ).type( label );

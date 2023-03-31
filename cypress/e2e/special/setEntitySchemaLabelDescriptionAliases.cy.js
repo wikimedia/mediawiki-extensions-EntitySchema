@@ -15,6 +15,35 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', function () {
 		viewSchemaPage.getId().as( 'entitySchemaId' );
 	} );
 
+	it( 'detects an edit conflict based on the baserev parameter', function () {
+		specialSetLabelDescriptionAliasesPage
+			.open()
+			.setIdField( this.entitySchemaId )
+			.submitIdForm();
+
+		specialSetLabelDescriptionAliasesPage
+			.setLabel( 'label that will conflict' );
+
+		// act like the same form is submitted in a different window or tab
+		cy.get( '#mw-content-text form' ).then( ( $form ) => {
+			const url = $form[ 0 ].action;
+			const formData = new FormData( $form[ 0 ] );
+			formData.set( 'label', 'label that was submitted first' );
+			cy.request( {
+				method: 'POST',
+				url,
+				body: formData
+			} );
+		} );
+
+		// try to submit "second" form
+		specialSetLabelDescriptionAliasesPage
+			.submitEditForm()
+			.assertEditFormIsShown();
+
+		viewSchemaPage.open( this.entitySchemaId ).assertLabel( 'label that was submitted first' );
+	} );
+
 	it( 'limits the input length', function () {
 		specialSetLabelDescriptionAliasesPage
 			.open()
