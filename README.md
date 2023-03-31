@@ -27,10 +27,11 @@ mw docker mediawiki exec php maintenance/run.php update
 
 ### Setting up the extension's development environment
 
-Install the npm dependencies, recommended way is with [fresh](https://github.com/wikimedia/fresh) being run in the `EntitySchema/` directory:
+Install the npm dependencies,
+recommended way is to use the `fresh` tool integrated into mwcli,
+by running the following in the `EntitySchema/` directory:
 ```bash
-$ fresh-node
-I have no name!@c91178c3ea7d:/EntitySchema$ npm install
+$ mw docker mediawiki fresh npm ci
 ```
 
 Install the composer dependencies, recommended way is with [mwcli](https://www.mediawiki.org/wiki/Cli) being run in the `EntitySchema/` directory:
@@ -87,8 +88,7 @@ Use that command to reproduce CI failures when working with _unit_ tests specifi
 
 In the `EntitySchema/` directory:
 ```bash
-$ fresh-node
-I have no name!@c91178c3ea7d:/EntitySchema$ npm test
+$ mw docker mediawiki fresh npm test
 ```
 
 ### Running Browser tests
