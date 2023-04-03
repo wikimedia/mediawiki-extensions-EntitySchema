@@ -40,6 +40,11 @@ Install the composer dependencies, recommended way is with [mwcli](https://www.m
 $ mw docker mediawiki composer install
 ```
 
+Optionally add a pre-commit Git hook for lint-staged (requires Node, but wont work in `fresh-node` as `.git` is mounted read-only there and php is not available):
+```bash
+$ ln -s ../../node_modules/.bin/lint-staged .git/hooks/pre-commit
+```
+
 ### Running PHP linting and static analysis
 
 PHPCS and other PHP linting
