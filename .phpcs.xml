@@ -5,16 +5,22 @@
 	<rule ref="Generic.PHP.RequireStrictTypes">
 		<include-pattern>/src/Domain/Model/</include-pattern>
 		<include-pattern>/src/MediaWiki/Hooks/</include-pattern>
+		<include-pattern>/src/Wikibase/</include-pattern>
 		<include-pattern>/tests/phpunit/unit/Domain/Model/</include-pattern>
 		<include-pattern>/tests/phpunit/unit/MediaWiki/Hooks/</include-pattern>
+		<include-pattern>/tests/phpunit/unit/Wikibase/</include-pattern>
 	</rule>
 	<rule ref="MediaWiki.Commenting.FunctionComment">
 		<include-pattern>/src/MediaWiki/Hooks/</include-pattern>
+		<include-pattern>/src/Wikibase/</include-pattern>
 		<include-pattern>/tests/phpunit/unit/MediaWiki/Hooks/</include-pattern>
+		<include-pattern>/tests/phpunit/unit/Wikibase/</include-pattern>
 	</rule>
 	<rule ref="MediaWiki.Commenting.PropertyDocumentation">
 		<include-pattern>/src/MediaWiki/Hooks/</include-pattern>
+		<include-pattern>/src/Wikibase/</include-pattern>
 		<include-pattern>/tests/phpunit/unit/MediaWiki/Hooks/</include-pattern>
+		<include-pattern>/tests/phpunit/unit/Wikibase/</include-pattern>
 	</rule>
 	<rule ref="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate">
 		<severity>0</severity>

@@ -35,6 +35,12 @@
 				"PermissionManager",
 				"RevisionStore"
 			]
+		},
+		"WikibaseRepoDataTypes": {
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseDataTypesHandler",
+			"services": [
+				"MainConfig"
+			]
 		}
 	},
 	"Hooks": {
@@ -46,7 +52,8 @@
 		"FormatAutocomments": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onFormatAutocomments",
 		"ContentModelCanBeUsedOn": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onContentModelCanBeUsedOn",
 		"ImportHandleRevisionXMLTag": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onImportHandleRevisionXMLTag",
-		"TitleGetRestrictionTypes": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onTitleGetRestrictionTypes"
+		"TitleGetRestrictionTypes": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onTitleGetRestrictionTypes",
+		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes"
 	},
 	"ContentHandlers": {
 		"EntitySchema": {
