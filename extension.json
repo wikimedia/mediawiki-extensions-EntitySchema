@@ -95,6 +95,11 @@
 			"value": [],
 			"description": "A list of integers to skip when generating new IDs. These must be pure integer numbers, _not_ strings starting with an E!",
 			"public": true
+		},
+		"EntitySchemaEnableDatatype": {
+			"value": false,
+			"description": "Enable the upcoming EntitySchema Datatype for Wikibase",
+			"public": false
 		}
 	},
 	"ResourceModules": {
