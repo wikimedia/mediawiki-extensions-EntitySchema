@@ -5,11 +5,14 @@ declare( strict_types = 1 );
 namespace EntitySchema\Wikibase\Hooks;
 
 use Config;
+use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\Title\TitleFactory;
+use ValueFormatters\FormatterOptions;
 use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikibase\Repo\Rdf\ValueSnakRdfBuilder;
@@ -27,19 +30,25 @@ class WikibaseDataTypesHandler {
 	private EntitySchemaExistsValidator $entitySchemaExistsValidator;
 	private ValidatorBuilders $validatorBuilders;
 	private DatabaseEntitySource $localEntitySource;
+	private TitleFactory $titleFactory;
+	private LabelLookup $labelLookup;
 
 	public function __construct(
 		LinkRenderer $linkRenderer,
 		Config $settings,
+		TitleFactory $titleFactory,
 		ValidatorBuilders $validatorBuilders,
 		DatabaseEntitySource $localEntitySource,
-		EntitySchemaExistsValidator $entitySchemaExistsValidator
+		EntitySchemaExistsValidator $entitySchemaExistsValidator,
+		LabelLookup $labelLookup
 	) {
 		$this->linkRenderer = $linkRenderer;
 		$this->settings = $settings;
 		$this->entitySchemaExistsValidator = $entitySchemaExistsValidator;
 		$this->validatorBuilders = $validatorBuilders;
 		$this->localEntitySource = $localEntitySource;
+		$this->titleFactory = $titleFactory;
+		$this->labelLookup = $labelLookup;
 	}
 
 	public function onWikibaseRepoDataTypes( array &$dataTypeDefinitions ): void {
@@ -48,10 +57,13 @@ class WikibaseDataTypesHandler {
 		}
 		$dataTypeDefinitions['PT:entity-schema'] = [
 			'value-type' => 'string',
-			'formatter-factory-callback' => function ( $format ) {
+			'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
 				return new EntitySchemaFormatter(
 					$format,
-					$this->linkRenderer
+					$options,
+					$this->linkRenderer,
+					$this->labelLookup,
+					$this->titleFactory
 				);
 			},
 			'validator-factory-callback' => function (): array {

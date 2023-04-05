@@ -5,9 +5,12 @@ declare( strict_types = 1 );
 namespace EntitySchema\Wikibase\Formatters;
 
 use DataValues\StringValue;
+use EntitySchema\DataAccess\LabelLookup;
 use InvalidArgumentException;
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\Title\TitleFactory;
 use TitleValue;
+use ValueFormatters\FormatterOptions;
 use ValueFormatters\ValueFormatter;
 use Wikibase\Lib\Formatters\SnakFormat;
 use Wikibase\Lib\Formatters\SnakFormatter;
@@ -20,10 +23,23 @@ class EntitySchemaFormatter implements ValueFormatter {
 	private string $format;
 	private LinkRenderer $linkRenderer;
 
-	public function __construct( string $format, LinkRenderer $linkRenderer ) {
+	private LabelLookup $labelLookup;
 
+	private FormatterOptions $options;
+	private TitleFactory $titleFactory;
+
+	public function __construct(
+		string $format,
+		FormatterOptions $options,
+		LinkRenderer $linkRenderer,
+		LabelLookup $labelLookup,
+		TitleFactory $titleFactory
+	) {
 		$this->format = $format;
 		$this->linkRenderer = $linkRenderer;
+		$this->labelLookup = $labelLookup;
+		$this->options = $options;
+		$this->titleFactory = $titleFactory;
 	}
 
 	/**
@@ -47,10 +63,37 @@ class EntitySchemaFormatter implements ValueFormatter {
 	}
 
 	private function makeHtmlLink( string $entitySchemaId ): string {
-		$title = new TitleValue( NS_ENTITYSCHEMA_JSON, $entitySchemaId );
+		$linkTarget = new TitleValue( NS_ENTITYSCHEMA_JSON, $entitySchemaId );
+		$schemaPageIdentity = $this->titleFactory->newFromText( $entitySchemaId, NS_ENTITYSCHEMA_JSON );
+
+		if ( $schemaPageIdentity === null ) {
+			return $this->linkRenderer->makePreloadedLink(
+				$linkTarget,
+				$entitySchemaId
+			);
+		}
+
+		$requestedLanguageCode = $this->options->getOption( ValueFormatter::OPT_LANG );
+		$labelTerm = $this->labelLookup->getLabelForTitle(
+			$schemaPageIdentity,
+			$requestedLanguageCode
+		);
+
+		if ( $labelTerm ) {
+			$linkHtml = $this->linkRenderer->makePreloadedLink(
+				$linkTarget,
+				$labelTerm->getText(),
+				'',
+				[
+					'lang' => $labelTerm->getLanguageCode(),
+				]
+			);
+
+			return $linkHtml;
+		}
 
 		return $this->linkRenderer->makePreloadedLink(
-			$title,
+			$linkTarget,
 			$entitySchemaId
 		);
 	}

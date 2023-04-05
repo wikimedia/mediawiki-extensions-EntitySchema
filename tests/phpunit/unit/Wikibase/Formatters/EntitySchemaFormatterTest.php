@@ -5,10 +5,16 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Unit\Wikibase\Formatters;
 
 use DataValues\StringValue;
+use EntitySchema\DataAccess\EntitySchemaTerm;
+use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use MediaWikiUnitTestCase;
+use ValueFormatters\FormatterOptions;
+use ValueFormatters\ValueFormatter;
 use Wikibase\Lib\Formatters\SnakFormatter;
 
 /**
@@ -40,8 +46,14 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 		$linkRenderer = $this->createMock( LinkRenderer::class );
 		$linkRenderer->expects( $this->never() )
 			->method( $this->anything() );
-
-		$sut = new EntitySchemaFormatter( $format, $linkRenderer );
+		$options = new FormatterOptions( [ ValueFormatter::OPT_LANG => 'en' ] );
+		$mockLabelLookup = $this->createMock( LabelLookup::class );
+		$mockLabelLookup->expects( $this->never() )
+			->method( $this->anything() );
+		$mockTitleFactory = $this->createMock( TitleFactory::class );
+		$mockTitleFactory->expects( $this->never() )
+			->method( $this->anything() );
+		$sut = new EntitySchemaFormatter( $format, $options, $linkRenderer, $mockLabelLookup, $mockTitleFactory );
 
 		$this->assertSame( 'E123', $sut->format( new StringValue( 'E123' ) ) );
 	}
@@ -56,20 +68,75 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideHtmlCases
 	 */
-	public function testHtmlLinks( string $format ): void {
+	public function testHtmlNoLabel( string $format ): void {
+		$schemaId = 'E123';
+		$options = new FormatterOptions( [ ValueFormatter::OPT_LANG => 'en' ] );
+		$stubPageIdentity = $this->createStub( Title::class );
+		$mockTitleFactory = $this->createMock( TitleFactory::class );
+		$mockTitleFactory->expects( $this->once() )
+			->method( 'newFromText' )
+			->with( $schemaId, NS_ENTITYSCHEMA_JSON )
+			->willReturn( $stubPageIdentity );
+		$mockLabelLookup = $this->createMock( LabelLookup::class );
+		$mockLabelLookup->expects( $this->once() )
+			->method( 'getLabelForTitle' )
+			->with(
+				$stubPageIdentity,
+				'en'
+			)
+		->willReturn( null );
 		$fakeLinkHtml = '<a>E123</a>';
 		$linkRenderer = $this->createMock( LinkRenderer::class );
 		$linkRenderer->expects( $this->once() )
 			->method( 'makePreloadedLink' )
 			->with(
-				$this->callback( $this->getCallbackToAssertLinkTarget( 'E123' ) ),
-				'E123'
+				$this->callback( $this->getCallbackToAssertLinkTarget( $schemaId ) ),
+				$schemaId
 			)
 			->willReturn( $fakeLinkHtml );
 
-		$sut = new EntitySchemaFormatter( $format, $linkRenderer );
+		$sut = new EntitySchemaFormatter( $format, $options, $linkRenderer, $mockLabelLookup, $mockTitleFactory );
 
-		$this->assertSame( $fakeLinkHtml, $sut->format( new StringValue( 'E123' ) ) );
+		$this->assertSame( $fakeLinkHtml, $sut->format( new StringValue( $schemaId ) ) );
+	}
+
+	/**
+	 * @dataProvider provideHtmlCases
+	 */
+	public function testHtmlWithLabel( string $format ): void {
+		$schemaId = 'E1234';
+		$englishLabel = 'English Label';
+		$langCode = 'en';
+		$options = new FormatterOptions( [ ValueFormatter::OPT_LANG => $langCode ] );
+		$stubPageIdentity = $this->createStub( Title::class );
+		$mockTitleFactory = $this->createMock( TitleFactory::class );
+		$mockTitleFactory->expects( $this->once() )
+			->method( 'newFromText' )
+			->with( $schemaId, NS_ENTITYSCHEMA_JSON )
+			->willReturn( $stubPageIdentity );
+		$mockLabelLookup = $this->createMock( LabelLookup::class );
+		$mockLabelLookup->expects( $this->once() )
+			->method( 'getLabelForTitle' )
+			->with(
+				$stubPageIdentity,
+				'en'
+			)
+			->willReturn( new EntitySchemaTerm( $langCode, $englishLabel ) );
+		$fakeLinkHtml = '<a>English Label</a>';
+		$linkRenderer = $this->createMock( LinkRenderer::class );
+		$linkRenderer->expects( $this->once() )
+			->method( 'makePreloadedLink' )
+			->with(
+				$this->callback( $this->getCallbackToAssertLinkTarget( $schemaId ) ),
+				$englishLabel,
+				'',
+				[ 'lang' => $langCode ]
+			)
+			->willReturn( $fakeLinkHtml );
+
+		$sut = new EntitySchemaFormatter( $format, $options, $linkRenderer, $mockLabelLookup, $mockTitleFactory );
+
+		$this->assertSame( $fakeLinkHtml, $sut->format( new StringValue( $schemaId ) ) );
 	}
 
 	private function getCallbackToAssertLinkTarget( string $expectedText ): callable {

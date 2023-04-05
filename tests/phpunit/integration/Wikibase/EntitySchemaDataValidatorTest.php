@@ -5,10 +5,12 @@ declare( strict_types=1 );
 namespace EntitySchema\Tests\Integration\Wikibase;
 
 use DataValues\StringValue;
+use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use HashConfig;
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
 use ValueValidators\Result;
 use Wikibase\DataAccess\DatabaseEntitySource;
@@ -40,9 +42,11 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 		$handler = new WikibaseDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
+			$this->createStub( TitleFactory::class ),
 			$validatorBuilders,
 			$stubDatabaseEntitySource,
-			$existsValidator
+			$existsValidator,
+			$this->createStub( LabelLookup::class )
 		);
 		$dataTypeDefinitions = [];
 		$handler->onWikibaseRepoDataTypes( $dataTypeDefinitions );
@@ -68,9 +72,11 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 		$handler = new WikibaseDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
+			$this->createStub( TitleFactory::class ),
 			$validatorBuilders,
 			$stubDatabaseEntitySource,
-			$existsValidator
+			$existsValidator,
+			$this->createStub( LabelLookup::class )
 		);
 		$dataTypeDefinitions = [];
 		$handler->onWikibaseRepoDataTypes( $dataTypeDefinitions );

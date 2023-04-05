@@ -41,9 +41,11 @@
 			"services": [
 				"LinkRenderer",
 				"MainConfig",
+				"TitleFactory",
 				"WikibaseRepo.DefaultValidatorBuilders",
 				"WikibaseRepo.LocalEntitySource",
-				"EntitySchema.EntitySchemaExistsValidator"
+				"EntitySchema.EntitySchemaExistsValidator",
+				"EntitySchema.LabelLookup"
 			]
 		},
 		"WikibaseRepoOnParserOutputUpdaterConstruction": {

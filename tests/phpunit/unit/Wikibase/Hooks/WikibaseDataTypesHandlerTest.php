@@ -5,13 +5,16 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 
 use DataValues\StringValue;
+use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use HashConfig;
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\Title\TitleFactory;
 use MediaWikiUnitTestCase;
+use ValueFormatters\FormatterOptions;
 use ValueValidators\Result;
 use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\Repo\Rdf\RdfVocabulary;
@@ -37,9 +40,11 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 		$sut = new WikibaseDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
+			$this->createStub( TitleFactory::class ),
 			$stubValidatorBuilders,
 			$stubDatabaseEntitySource,
-			$stubExistsValidator
+			$stubExistsValidator,
+			$this->createStub( LabelLookup::class )
 		);
 
 		$dataTypeDefinitions = [ 'PT:wikibase-item' => [] ];
@@ -49,7 +54,7 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 		$this->assertArrayHasKey( 'PT:entity-schema', $dataTypeDefinitions );
 		$this->assertInstanceOf(
 			EntitySchemaFormatter::class,
-			$dataTypeDefinitions['PT:entity-schema']['formatter-factory-callback']( 'html' )
+			$dataTypeDefinitions['PT:entity-schema']['formatter-factory-callback']( 'html', new FormatterOptions() )
 		);
 		$this->assertInstanceOf(
 			EntitySchemaRdfBuilder::class,
@@ -73,9 +78,11 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 		$sut = new WikibaseDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
+			$this->createStub( TitleFactory::class ),
 			$stubValidatorBuilders,
 			$stubDatabaseEntitySource,
-			$stubExistsValidator
+			$stubExistsValidator,
+			$this->createStub( LabelLookup::class )
 		);
 
 		$dataTypeDefinitions = [ 'PT:wikibase-item' => [] ];
@@ -111,9 +118,11 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 		$handler = new WikibaseDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
+			$this->createStub( TitleFactory::class ),
 			$validatorBuilders,
 			$stubDatabaseEntitySource,
-			$stubExistsValidator
+			$stubExistsValidator,
+			$this->createStub( LabelLookup::class )
 		);
 		$dataTypeDefinitions = [];
 		$handler->onWikibaseRepoDataTypes( $dataTypeDefinitions );
