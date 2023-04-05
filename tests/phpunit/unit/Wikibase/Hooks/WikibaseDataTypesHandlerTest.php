@@ -4,8 +4,10 @@ declare( strict_types = 1 );
 
 namespace phpunit\unit\Wikibase\Hooks;
 
+use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
 use HashConfig;
+use MediaWiki\Linker\LinkRenderer;
 use MediaWikiUnitTestCase;
 
 /**
@@ -18,26 +20,28 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 		$settings = new HashConfig( [
 			'EntitySchemaEnableDatatype' => true,
 		] );
+		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 
-		$sut = new WikibaseDataTypesHandler( $settings );
+		$sut = new WikibaseDataTypesHandler( $stubLinkRenderer, $settings );
 
 		$dataTypeDefinitions = [ 'PT:wikibase-item' => [] ];
 		$sut->onWikibaseRepoDataTypes( $dataTypeDefinitions );
 
-		$this->assertSame( [
-			'PT:wikibase-item' => [],
-			'PT:entity-schema' => [
-				'value-type' => 'string',
-			],
-		], $dataTypeDefinitions );
+		$this->assertArrayHasKey( 'PT:wikibase-item', $dataTypeDefinitions );
+		$this->assertArrayHasKey( 'PT:entity-schema', $dataTypeDefinitions );
+		$this->assertInstanceOf(
+			EntitySchemaFormatter::class,
+			$dataTypeDefinitions['PT:entity-schema']['formatter-factory-callback']( 'html' )
+		);
 	}
 
 	public function testOnWikibaseRepoDataTypesDoesNothingWhenDisabled(): void {
 		$settings = new HashConfig( [
 			'EntitySchemaEnableDatatype' => false,
 		] );
+		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 
-		$sut = new WikibaseDataTypesHandler( $settings );
+		$sut = new WikibaseDataTypesHandler( $stubLinkRenderer, $settings );
 
 		$dataTypeDefinitions = [ 'PT:wikibase-item' => [] ];
 		$sut->onWikibaseRepoDataTypes( $dataTypeDefinitions );
