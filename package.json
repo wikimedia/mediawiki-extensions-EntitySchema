@@ -35,8 +35,7 @@
 	],
 	"lint-staged": {
 		"*.js": [
-			"eslint --fix",
-			"git add"
+			"eslint --fix"
 		],
 		"*.php": [
 			"vendor/bin/parallel-lint --colors",
@@ -47,8 +46,7 @@
 			"eslint --fix"
 		],
 		"*.{css,scss,less}": [
-			"stylelint --fix",
-			"git add"
+			"stylelint --fix"
 		]
 	}
 }
