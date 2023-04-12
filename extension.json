@@ -39,6 +39,7 @@
 		"WikibaseRepoDataTypes": {
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseDataTypesHandler",
 			"services": [
+				"LinkRenderer",
 				"MainConfig"
 			]
 		}
