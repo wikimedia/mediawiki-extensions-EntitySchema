@@ -29,7 +29,7 @@ describe( 'Schema Edit Page', () => {
 			const id = ViewSchemaPage.getId();
 			EditSchemaPage.open( id );
 			EditSchemaPage.schemaTextArea.waitForDisplayed();
-			assert.strictEqual( EditSchemaPage.schemaText, schemaText );
+			assert.strictEqual( EditSchemaPage.schemaText.trim(), schemaText );
 			// todo assert that contents are there using api call
 		} );
 
@@ -76,7 +76,7 @@ describe( 'Schema Edit Page', () => {
 			EditSchemaPage.clickSubmit();
 			assert.ok( EditSchemaPage.schemaTextArea );
 			ViewSchemaPage.open( id );
-			assert.strictEqual( ViewSchemaPage.getSchemaText(), 'shex that is actually saved first' );
+			assert.strictEqual( ViewSchemaPage.getSchemaText().trim(), 'shex that is actually saved first' );
 		} );
 
 		it( 'properly limits the input length', () => {

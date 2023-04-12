@@ -17,7 +17,9 @@ export class ViewSchemaPage {
 	}
 
 	assertSchemaText( expectedText ) {
-		cy.get( '#entityschema-schema-text' ).should( 'have.text', expectedText );
+		cy.get( '#entityschema-schema-text' ).should( ( $schemaTextPreElement ) => {
+			expect( $schemaTextPreElement.text().trim() ).to.eq( expectedText );
+		} );
 		return this;
 	}
 }

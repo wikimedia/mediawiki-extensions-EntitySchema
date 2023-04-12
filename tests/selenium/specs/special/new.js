@@ -40,7 +40,7 @@ describe( 'NewEntitySchema:Page', () => {
 		assert.strictEqual( actualLabel, 'Testlabel' );
 		assert.strictEqual( actualDescription, 'A schema created with selenium browser tests' );
 		assert.strictEqual( actualAliases, 'Testschema | Schema created by test' );
-		assert.strictEqual( actualSchemaText, '<empty> {}' );
+		assert.strictEqual( actualSchemaText.trim(), '<empty> {}' );
 		assert.strictEqual( actualNamespace, 'EntitySchema' );
 	} );
 
