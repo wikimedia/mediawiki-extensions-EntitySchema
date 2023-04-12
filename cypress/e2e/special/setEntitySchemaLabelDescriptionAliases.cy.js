@@ -72,4 +72,47 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', function () {
 
 	} );
 
+	it( 'is possible to edit Schema in another language', function () {
+		const langcode = 'de';
+
+		specialSetLabelDescriptionAliasesPage
+			.open()
+			.setIdField( this.entitySchemaId )
+			.setLanguageField( langcode )
+			.submitIdForm();
+
+		specialSetLabelDescriptionAliasesPage
+			.setLabel( 'Label auf Deutsch' )
+			.setDescription( 'Dies ist eine deutsche Testbeschreibung' )
+			.setAliases( 'Alias1 | Alias2' )
+			.submitEditForm();
+
+		viewSchemaPage.open( this.entitySchemaId )
+			.assertLabel( 'Label auf Deutsch', langcode )
+			.assertDescription( 'Dies ist eine deutsche Testbeschreibung', langcode )
+			.assertAliases( 'Alias1 | Alias2', langcode );
+	} );
+
+	it( 'has existing data already prefilled', function () {
+		specialSetLabelDescriptionAliasesPage
+			.open()
+			.setIdField( this.entitySchemaId )
+			.submitIdForm();
+
+		specialSetLabelDescriptionAliasesPage
+			.setLabel( 'Label' )
+			.setDescription( 'Description' )
+			.setAliases( 'Alias1 | Alias2' )
+			.submitEditForm();
+
+		specialSetLabelDescriptionAliasesPage
+			.open()
+			.setIdField( this.entitySchemaId )
+			.submitIdForm();
+
+		specialSetLabelDescriptionAliasesPage
+			.assertLabel( 'Label' )
+			.assertDescription( 'Description' )
+			.assertAliases( 'Alias1|Alias2' );
+	} );
 } );
