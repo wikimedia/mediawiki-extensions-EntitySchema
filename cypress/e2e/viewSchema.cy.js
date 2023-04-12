@@ -10,7 +10,7 @@ describe( 'Schema Viewing Page', () => {
 		specialNewEntitySchemaPage
 			.open()
 			.enterLabel( 'browser test: whitespace in schema' )
-			.enterSchemaText( schemaTextWithSpaces )
+			.addSchemaText( schemaTextWithSpaces )
 			.submit();
 
 		viewSchemaPage.assertSchemaText( schemaTextWithSpaces );
