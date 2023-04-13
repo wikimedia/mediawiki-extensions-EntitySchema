@@ -9,6 +9,12 @@ export class SpecialSetLabelDescriptionAliasesPage {
 		return this;
 	}
 
+	setLanguageField( language ) {
+		cy.get( 'input[name=languagecode]' ).clear();
+		cy.get( 'input[name=languagecode]' ).type( language );
+		return this;
+	}
+
 	submitIdForm() {
 		cy.get( 'button[name=submit-selection]' ).click();
 		return this;
@@ -31,6 +37,11 @@ export class SpecialSetLabelDescriptionAliasesPage {
 		return this;
 	}
 
+	assertLabel( expectedLabel ) {
+		cy.get( 'input[name=label]' ).should( 'have.value', expectedLabel );
+		return this;
+	}
+
 	assertLabelLength( expectedLength ) {
 		cy.get( 'input[name=label]' ).invoke( 'val' ).its( 'length' ).should( 'eq', expectedLength );
 		return this;
@@ -42,6 +53,11 @@ export class SpecialSetLabelDescriptionAliasesPage {
 		return this;
 	}
 
+	assertDescription( expectedDescription ) {
+		cy.get( 'input[name=description]' ).should( 'have.value', expectedDescription );
+		return this;
+	}
+
 	assertDescriptionLength( expectedLength ) {
 		cy.get( 'input[name=description]' ).invoke( 'val' ).its( 'length' ).should( 'eq', expectedLength );
 		return this;
@@ -50,6 +66,11 @@ export class SpecialSetLabelDescriptionAliasesPage {
 	setAliases( aliases ) {
 		cy.get( 'input[name=aliases]' ).clear();
 		cy.get( 'input[name=aliases]' ).type( aliases );
+		return this;
+	}
+
+	assertAliases( expectedAliases ) {
+		cy.get( 'input[name=aliases]' ).should( 'have.value', expectedAliases );
 		return this;
 	}
 
