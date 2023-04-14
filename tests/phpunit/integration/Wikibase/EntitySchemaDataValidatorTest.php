@@ -6,9 +6,11 @@ namespace EntitySchema\Tests\Integration\Wikibase;
 
 use DataValues\StringValue;
 use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
+use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use HashConfig;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWikiIntegrationTestCase;
+use ValueValidators\Result;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\WikibaseRepo;
@@ -31,7 +33,14 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 		] );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$validatorBuilders = WikibaseRepo::getDefaultValidatorBuilders( $this->getServiceContainer() );
-		$handler = new WikibaseDataTypesHandler( $stubLinkRenderer, $settings, $validatorBuilders );
+		$existsValidator = $this->createStub( EntitySchemaExistsValidator::class );
+		$existsValidator->method( 'validate' )->willReturn( Result::newSuccess() );
+		$handler = new WikibaseDataTypesHandler(
+			$stubLinkRenderer,
+			$settings,
+			$validatorBuilders,
+			$existsValidator
+		);
 		$dataTypeDefinitions = [];
 		$handler->onWikibaseRepoDataTypes( $dataTypeDefinitions );
 		$validator = new CompositeValidator(
@@ -50,7 +59,14 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 		] );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$validatorBuilders = WikibaseRepo::getDefaultValidatorBuilders( $this->getServiceContainer() );
-		$handler = new WikibaseDataTypesHandler( $stubLinkRenderer, $settings, $validatorBuilders );
+		$existsValidator = $this->createMock( EntitySchemaExistsValidator::class );
+		$existsValidator->expects( $this->never() )->method( 'validate' );
+		$handler = new WikibaseDataTypesHandler(
+			$stubLinkRenderer,
+			$settings,
+			$validatorBuilders,
+			$existsValidator
+		);
 		$dataTypeDefinitions = [];
 		$handler->onWikibaseRepoDataTypes( $dataTypeDefinitions );
 		$validator = new CompositeValidator(

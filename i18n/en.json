@@ -81,5 +81,6 @@
 	"entityschema-special-label": "Label:",
 	"entityschema-special-description": "Description:",
 	"entityschema-special-aliases": "Aliases, pipe-separated:",
-	"entityschema-special-id-placeholder": "E123"
+	"entityschema-special-id-placeholder": "E123",
+	"wikibase-validator-no-such-entity-schema": "The EntitySchema $1 does not exist."
 }

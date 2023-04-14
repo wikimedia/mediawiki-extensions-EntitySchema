@@ -3,10 +3,17 @@ declare( strict_types = 1 );
 
 use EntitySchema\DataAccess\SqlIdGenerator;
 use EntitySchema\Domain\Storage\IdGenerator;
+use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\MediaWikiServices;
 
 /** @phpcs-require-sorted-array */
 return [
+	'EntitySchema.EntitySchemaExistsValidator' => static function (
+		MediaWikiServices $services
+	): EntitySchemaExistsValidator {
+		return new EntitySchemaExistsValidator( $services->getTitleFactory() );
+	},
+
 	'EntitySchema.IdGenerator' => static function ( MediaWikiServices $services ): IdGenerator {
 		return new SqlIdGenerator(
 			$services->getDBLoadBalancer(),
