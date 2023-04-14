@@ -39,7 +39,7 @@
 		],
 		"*.php": [
 			"vendor/bin/parallel-lint --colors",
-			"vendor/bin/phpcbf",
+			"./.phpcbf",
 			"vendor/bin/phpcs -s"
 		],
 		"*.json": [
