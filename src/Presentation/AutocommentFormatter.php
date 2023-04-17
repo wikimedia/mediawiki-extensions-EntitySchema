@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Presentation;
 
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
@@ -24,7 +26,7 @@ class AutocommentFormatter {
 	 *
 	 * @return string|null
 	 */
-	public function formatAutocomment( $pre, $auto, $post ) {
+	public function formatAutocomment( bool $pre, string $auto, bool $post ): ?string {
 		$comment = $this->parseAutocomment( $auto );
 		if ( $comment === null ) {
 			return null;
@@ -43,7 +45,7 @@ class AutocommentFormatter {
 		return $comment;
 	}
 
-	private function parseAutocomment( $auto ) {
+	private function parseAutocomment( string $auto ): ?string {
 		$commentParts = explode( ':', $auto, 2 );
 		$context = RequestContext::getMain();
 

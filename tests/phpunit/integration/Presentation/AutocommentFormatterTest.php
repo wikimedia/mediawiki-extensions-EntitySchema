@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\Presentation;
 
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
@@ -14,7 +16,7 @@ use MediaWikiIntegrationTestCase;
  */
 class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
-	public function provideAutoComments() {
+	public function provideAutoComments(): iterable {
 		yield 'unknown autocomment' => [
 			false,
 			'foo bar',
@@ -122,7 +124,12 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideAutoComments
 	 */
-	public function testFormatAutocomment( $preFlag, $inputComment, $postFlag, $expectedComment ) {
+	public function testFormatAutocomment(
+		bool $preFlag,
+		string $inputComment,
+		bool $postFlag,
+		?string $expectedComment
+	) {
 		$this->setUserLang( 'qqx' );
 		$formatter = new AutocommentFormatter();
 

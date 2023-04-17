@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\Presentation;
 
 use CommentStoreComment;
@@ -29,69 +31,69 @@ class InputValidatorTest extends MediaWikiIntegrationTestCase {
 		$this->tablesUsed[] = 'recentchanges';
 	}
 
-	public function testValidateId() {
+	public function testValidateId(): void {
 		$this->createTestSchema();
 
 		$inputValidator = $this->getInputValidator();
 		$this->assertTrue( $inputValidator->validateIDExists( 'E123' ) );
 	}
 
-	public function testValidateIdEmpty() {
+	public function testValidateIdEmpty(): void {
 		$inputValidator = $this->getInputValidator();
 		$this->assertNotTrue( $inputValidator->validateIDExists( '' ) );
 	}
 
-	public function testValidateIdWrongId() {
+	public function testValidateIdWrongId(): void {
 		$inputValidator = $this->getInputValidator();
 		$this->assertNotTrue( $inputValidator->validateIDExists( 'bla' ) );
 	}
 
-	public function testValidateLangCode() {
+	public function testValidateLangCode(): void {
 		$inputValidator = $this->getInputValidator();
 		$this->assertTrue( $inputValidator->validateLangCodeIsSupported( 'de' ) );
 	}
 
-	public function testValidateLangCodeEmpty() {
+	public function testValidateLangCodeEmpty(): void {
 		$inputValidator = $this->getInputValidator();
 		$this->assertNotTrue( $inputValidator->validateLangCodeIsSupported( '' ) );
 	}
 
-	public function testValidateLangCodeWrongCode() {
+	public function testValidateLangCodeWrongCode(): void {
 		$inputValidator = $this->getInputValidator();
 		$this->assertNotTrue( $inputValidator->validateLangCodeIsSupported( 'i do not exist' ) );
 	}
 
-	public function testSchemaTextLengthPass() {
+	public function testSchemaTextLengthPass(): void {
 		$inputValidator = $this->getInputValidator( 5 );
 		$this->assertTrue( $inputValidator->validateSchemaTextLength( 'abcde' ) );
 	}
 
-	public function testSchemaTextLengthFail() {
+	public function testSchemaTextLengthFail(): void {
 		$inputValidator = $this->getInputValidator( 5 );
 		$this->assertNotTrue( $inputValidator->validateSchemaTextLength( 'abcdä' ) );
 	}
 
-	public function testAliasesLengthPass() {
+	public function testAliasesLengthPass(): void {
 		$inputValidator = $this->getInputValidator( 5 );
 		$this->assertTrue( $inputValidator->validateAliasesLength( 'ab | cd | ä' ) );
 	}
 
-	public function testAliasesLengthFail() {
+	public function testAliasesLengthFail(): void {
 		$inputValidator = $this->getInputValidator( 5 );
 		$this->assertNotTrue( $inputValidator->validateAliasesLength( 'ab | cd | ef' ) );
 	}
 
-	public function testInputStringLengthPass() {
+	public function testInputStringLengthPass(): void {
 		$inputValidator = $this->getInputValidator( 5 );
 		$this->assertTrue( $inputValidator->validateStringInputLength( 'abcdä' ) );
 	}
 
-	public function testInputStringLengthFail() {
+	public function testInputStringLengthFail(): void {
 		$inputValidator = $this->getInputValidator( 5 );
 		$this->assertNotTrue( $inputValidator->validateStringInputLength( 'abcdef' ) );
 	}
 
-	private function getInputValidator( $configLengthToReturn = null ): InputValidator {
+	private function getInputValidator( int $configLengthToReturn = null ): InputValidator {
 		$config = new HashConfig( [
 			'EntitySchemaNameBadgeMaxSizeChars' => $configLengthToReturn,
 			'EntitySchemaSchemaTextMaxSizeBytes' => $configLengthToReturn,
@@ -109,7 +111,7 @@ class InputValidatorTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	private function createTestSchema() {
+	private function createTestSchema(): void {
 		$page = $this->getServiceContainer()->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 		$this->saveSchemaPageContent(
@@ -124,7 +126,7 @@ class InputValidatorTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	private function saveSchemaPageContent( WikiPage $page, array $content ) {
+	private function saveSchemaPageContent( WikiPage $page, array $content ): void {
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
 		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
 		$updater->saveRevision(

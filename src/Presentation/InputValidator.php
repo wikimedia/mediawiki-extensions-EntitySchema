@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Presentation;
 
 use Config;
@@ -18,18 +20,9 @@ use Title;
  */
 class InputValidator {
 
-	/**
-	 * @var MessageLocalizer
-	 */
-	private $msgLocalizer;
-	/**
-	 * @var Config
-	 */
-	private $configService;
-	/**
-	 * @var LanguageNameUtils
-	 */
-	private $languageNameUtils;
+	private MessageLocalizer $msgLocalizer;
+	private Config $configService;
+	private LanguageNameUtils $languageNameUtils;
 
 	public static function newFromGlobalState() {
 		return new self(
@@ -50,11 +43,11 @@ class InputValidator {
 	}
 
 	/**
-	 * @param $id
+	 * @param string $id
 	 *
 	 * @return true|Message returns true on success and Message on failure
 	 */
-	public function validateIDExists( $id ) {
+	public function validateIDExists( string $id ) {
 		try {
 			$schemaId = new SchemaId( $id );
 		} catch ( InvalidArgumentException $e ) {
@@ -69,11 +62,11 @@ class InputValidator {
 	}
 
 	/**
-	 * @param $langCode
+	 * @param string $langCode
 	 *
 	 * @return true|Message returns true on success and Message on failure
 	 */
-	public function validateLangCodeIsSupported( $langCode ) {
+	public function validateLangCodeIsSupported( string $langCode ) {
 		if ( !$this->languageNameUtils->isSupportedLanguage( $langCode ) ) {
 			return $this->msgLocalizer->msg( 'entityschema-error-unsupported-langcode' );
 		}
@@ -81,12 +74,12 @@ class InputValidator {
 	}
 
 	/**
-	 * @param $schemaText
+	 * @param string $schemaText
 	 *
 	 * @return true|Message returns true on success and Message on failure
 	 * @throws ConfigException
 	 */
-	public function validateSchemaTextLength( $schemaText ) {
+	public function validateSchemaTextLength( string $schemaText ) {
 		$maxLengthBytes = $this->configService->get( 'EntitySchemaSchemaTextMaxSizeBytes' );
 		$schemaTextLengthBytes = strlen( $schemaText );
 		if ( $schemaTextLengthBytes > $maxLengthBytes ) {
@@ -97,7 +90,7 @@ class InputValidator {
 		return true;
 	}
 
-	public function validateAliasesLength( $aliasesInput ) {
+	public function validateAliasesLength( string $aliasesInput ) {
 		$maxLengthChars = $this->configService->get( 'EntitySchemaNameBadgeMaxSizeChars' );
 		$cleanAliasesString = implode( '', array_map( 'trim', explode( '|', $aliasesInput ) ) );
 		$aliasesLengthChars = mb_strlen( $cleanAliasesString );
@@ -109,7 +102,7 @@ class InputValidator {
 		return true;
 	}
 
-	public function validateStringInputLength( $labelOrDescriptionInput ) {
+	public function validateStringInputLength( string $labelOrDescriptionInput ) {
 		$maxLengthChars = $this->configService->get( 'EntitySchemaNameBadgeMaxSizeChars' );
 		$numInputChars = mb_strlen( $labelOrDescriptionInput );
 		if ( $numInputChars > $maxLengthChars ) {

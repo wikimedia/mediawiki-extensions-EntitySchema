@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Presentation;
 
 use DifferenceEngine;
@@ -11,14 +13,13 @@ use MessageLocalizer;
  */
 class DiffRenderer {
 
-	/** @var MessageLocalizer */
-	private $msgLocalizer;
+	private MessageLocalizer $msgLocalizer;
 
 	public function __construct( MessageLocalizer $msgLocalizer ) {
 		$this->msgLocalizer = $msgLocalizer;
 	}
 
-	public function renderSchemaDiffTable( $diffRowsHTML, Message $leftSideHeading ) {
+	public function renderSchemaDiffTable( string $diffRowsHTML, Message $leftSideHeading ): string {
 		$diffEngine = new DifferenceEngine();
 		return $diffEngine->addHeader(
 			$diffEngine->localiseLineNumbers( $diffRowsHTML ),
