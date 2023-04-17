@@ -13,7 +13,7 @@ class SchemaId {
 
 	private string $id;
 
-	private const PATTERN = '/^E[1-9][0-9]*\z/';
+	public const PATTERN = '/^E[1-9][0-9]*\z/';
 
 	public function __construct( string $id ) {
 		if ( !preg_match( self::PATTERN, $id ) ) {

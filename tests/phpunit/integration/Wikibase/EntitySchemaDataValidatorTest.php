@@ -1,0 +1,78 @@
+<?php
+
+declare( strict_types=1 );
+
+namespace EntitySchema\Tests\Integration\Wikibase;
+
+use DataValues\StringValue;
+use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
+use HashConfig;
+use MediaWiki\Linker\LinkRenderer;
+use MediaWikiIntegrationTestCase;
+use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\Repo\Validators\CompositeValidator;
+use Wikibase\Repo\WikibaseRepo;
+
+/**
+ * Integration test for the validator factory callback of the EntitySchema data type.
+ * Most of the test cases here involve Wikibase’s own string validators;
+ * there is also some basic testing in the {@link WikibaseDataTypesHandlerTest} unit test,
+ * which doesn’t require integration with Wikibase.
+ *
+ * @covers \EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler
+ *
+ * @license GPL-2.0-or-later
+ */
+class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
+
+	public function testOnWikibaseRepoDataTypesValidatorValid(): void {
+		$settings = new HashConfig( [
+			'EntitySchemaEnableDatatype' => true,
+		] );
+		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
+		$validatorBuilders = WikibaseRepo::getDefaultValidatorBuilders( $this->getServiceContainer() );
+		$handler = new WikibaseDataTypesHandler( $stubLinkRenderer, $settings, $validatorBuilders );
+		$dataTypeDefinitions = [];
+		$handler->onWikibaseRepoDataTypes( $dataTypeDefinitions );
+		$validator = new CompositeValidator(
+			$dataTypeDefinitions['PT:entity-schema']['validator-factory-callback']()
+		);
+
+		$result = $validator->validate( new StringValue( 'E1' ) );
+
+		$this->assertTrue( $result->isValid() );
+	}
+
+	/** @dataProvider provideInvalidValue */
+	public function testOnWikibaseRepoDataTypesValidatorInvalid( $invalidValue ): void {
+		$settings = new HashConfig( [
+			'EntitySchemaEnableDatatype' => true,
+		] );
+		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
+		$validatorBuilders = WikibaseRepo::getDefaultValidatorBuilders( $this->getServiceContainer() );
+		$handler = new WikibaseDataTypesHandler( $stubLinkRenderer, $settings, $validatorBuilders );
+		$dataTypeDefinitions = [];
+		$handler->onWikibaseRepoDataTypes( $dataTypeDefinitions );
+		$validator = new CompositeValidator(
+			$dataTypeDefinitions['PT:entity-schema']['validator-factory-callback']()
+		);
+
+		$result = $validator->validate( $invalidValue );
+
+		$this->assertFalse( $result->isValid() );
+	}
+
+	public function provideInvalidValue(): iterable {
+		yield 'non-DataValue' => [ 'E1' ];
+		yield 'non-StringValue' => [ new ItemId( 'Q1' ) ];
+		yield 'empty StringValue' => [ new StringValue( '' ) ];
+		yield 'non-E-ID' => [ new StringValue( 'Q1' ) ];
+		yield 'lowercase E' => [ new StringValue( 'e1' ) ];
+		yield 'missing number' => [ new StringValue( 'E' ) ];
+		yield 'number zero' => [ new StringValue( 'E0' ) ];
+		yield 'negative number' => [ new StringValue( 'E-1' ) ];
+		yield 'decimal number' => [ new StringValue( 'E1.0' ) ];
+		yield 'number too long' => [ new StringValue( 'E12345678901234567890' ) ];
+	}
+
+}
