@@ -41,7 +41,8 @@
 			"services": [
 				"LinkRenderer",
 				"MainConfig",
-				"WikibaseRepo.DefaultValidatorBuilders"
+				"WikibaseRepo.DefaultValidatorBuilders",
+				"EntitySchema.EntitySchemaExistsValidator"
 			]
 		}
 	},

@@ -7,6 +7,7 @@ namespace EntitySchema\Wikibase\Hooks;
 use Config;
 use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
+use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\Linker\LinkRenderer;
 use Wikibase\Repo\ValidatorBuilders;
 use Wikibase\Repo\Validators\DataValueValidator;
@@ -19,15 +20,18 @@ class WikibaseDataTypesHandler {
 
 	private LinkRenderer $linkRenderer;
 	public Config $settings;
+	private EntitySchemaExistsValidator $entitySchemaExistsValidator;
 	private ValidatorBuilders $validatorBuilders;
 
 	public function __construct(
 		LinkRenderer $linkRenderer,
 		Config $settings,
-		ValidatorBuilders $validatorBuilders
+		ValidatorBuilders $validatorBuilders,
+		EntitySchemaExistsValidator $entitySchemaExistsValidator
 	) {
 		$this->linkRenderer = $linkRenderer;
 		$this->settings = $settings;
+		$this->entitySchemaExistsValidator = $entitySchemaExistsValidator;
 		$this->validatorBuilders = $validatorBuilders;
 	}
 
@@ -46,6 +50,7 @@ class WikibaseDataTypesHandler {
 			'validator-factory-callback' => function (): array {
 				$validators = $this->validatorBuilders->buildStringValidators( 11 );
 				$validators[] = new DataValueValidator( new RegexValidator( SchemaId::PATTERN ) );
+				$validators[] = $this->entitySchemaExistsValidator;
 				return $validators;
 			},
 		];

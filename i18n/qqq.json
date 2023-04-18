@@ -87,5 +87,6 @@
 	"entityschema-special-label": "Input label for the label field on Special:SetSchemaLabelDescriptionAliases",
 	"entityschema-special-description": "Input label for the description field on Special:SetSchemaLabelDescriptionAliases:",
 	"entityschema-special-aliases": "Input label for the aliases field on Special:SetSchemaLabelDescriptionAliases",
-	"entityschema-special-id-placeholder": "{{notranslate}}\nPlaceholder for the Schema ID field when retrieving a Schema to edit on Special:SetSchemaLabelDescriptionAliases"
+	"entityschema-special-id-placeholder": "{{notranslate}}\nPlaceholder for the Schema ID field when retrieving a Schema to edit on Special:SetSchemaLabelDescriptionAliases",
+	"wikibase-validator-no-such-entity-schema": "Error message shown when trying to save an EntitySchema value referring to an EntitySchema page that does not exist."
 }

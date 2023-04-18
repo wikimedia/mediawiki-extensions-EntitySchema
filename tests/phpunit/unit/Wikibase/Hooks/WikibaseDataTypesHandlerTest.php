@@ -7,9 +7,11 @@ namespace phpunit\unit\Wikibase\Hooks;
 use DataValues\StringValue;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
+use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use HashConfig;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWikiUnitTestCase;
+use ValueValidators\Result;
 use Wikibase\Repo\ValidatorBuilders;
 use Wikibase\Repo\Validators\CompositeValidator;
 
@@ -25,8 +27,14 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 		] );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$stubValidatorBuilders = $this->createStub( ValidatorBuilders::class );
+		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 
-		$sut = new WikibaseDataTypesHandler( $stubLinkRenderer, $settings, $stubValidatorBuilders );
+		$sut = new WikibaseDataTypesHandler(
+			$stubLinkRenderer,
+			$settings,
+			$stubValidatorBuilders,
+			$stubExistsValidator
+		);
 
 		$dataTypeDefinitions = [ 'PT:wikibase-item' => [] ];
 		$sut->onWikibaseRepoDataTypes( $dataTypeDefinitions );
@@ -45,8 +53,14 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 		] );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$stubValidatorBuilders = $this->createStub( ValidatorBuilders::class );
+		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 
-		$sut = new WikibaseDataTypesHandler( $stubLinkRenderer, $settings, $stubValidatorBuilders );
+		$sut = new WikibaseDataTypesHandler(
+			$stubLinkRenderer,
+			$settings,
+			$stubValidatorBuilders,
+			$stubExistsValidator
+		);
 
 		$dataTypeDefinitions = [ 'PT:wikibase-item' => [] ];
 		$sut->onWikibaseRepoDataTypes( $dataTypeDefinitions );
@@ -55,13 +69,17 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 	}
 
 	/**
-	 * Basic test for validating an EntitySchema ID value based on the pattern.
+	 * Basic test for validating an EntitySchema ID value.
 	 * Further test cases, especially invalid ones, require integration with Wikibase
 	 * (instead of stubbing ValidatorBuilders) and are tested in {@link EntitySchemaDataValidatorTest}.
 	 *
 	 * @dataProvider provideValuesWithValidity
 	 */
-	public function testOnWikibaseRepoDataTypesValidator( string $value, bool $isValid ): void {
+	public function testOnWikibaseRepoDataTypesValidator(
+		string $value,
+		Result $existenceResult,
+		bool $isValid
+	): void {
 		$settings = new HashConfig( [
 			'EntitySchemaEnableDatatype' => true,
 		] );
@@ -69,7 +87,15 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 		$validatorBuilders = $this->createConfiguredMock( ValidatorBuilders::class, [
 			'buildStringValidators' => [],
 		] );
-		$handler = new WikibaseDataTypesHandler( $stubLinkRenderer, $settings, $validatorBuilders );
+		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
+		$stubExistsValidator->method( 'validate' )
+			->willReturn( $existenceResult );
+		$handler = new WikibaseDataTypesHandler(
+			$stubLinkRenderer,
+			$settings,
+			$validatorBuilders,
+			$stubExistsValidator
+		);
 		$dataTypeDefinitions = [];
 		$handler->onWikibaseRepoDataTypes( $dataTypeDefinitions );
 		$validator = new CompositeValidator(
@@ -82,8 +108,9 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 	}
 
 	public static function provideValuesWithValidity(): iterable {
-		yield 'valid' => [ 'E1', true ];
-		yield 'invalid' => [ '', false ];
+		yield 'valid, existing' => [ 'E1', Result::newSuccess(), true ];
+		yield 'invalid, no pattern match' => [ '', Result::newError( [] ), false ];
+		yield 'invalid, does not exist' => [ 'E1', Result::newError( [] ), false ];
 	}
 
 }
