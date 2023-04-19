@@ -80,5 +80,6 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "Tu es sur le puncto de definir etiquetta, description e aliases in '''$1''' pro Schema [[$3|$2]].",
 	"entityschema-special-label": "Etiquetta:",
 	"entityschema-special-description": "Description:",
-	"entityschema-special-aliases": "Aliases, separate per barras vertical:"
+	"entityschema-special-aliases": "Aliases, separate per barras vertical:",
+	"wikibase-validator-no-such-entity-schema": "Le EntitySchema $1 non existe."
 }

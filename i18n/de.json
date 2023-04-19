@@ -82,5 +82,6 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "Du legst die Bezeichnung, Beschreibung und Aliasse in '''$1''' für das Schema [[$3|$2]] fest.",
 	"entityschema-special-label": "Bezeichnung:",
 	"entityschema-special-description": "Beschreibung:",
-	"entityschema-special-aliases": "Aliasse, durch senkrechte Striche getrennt:"
+	"entityschema-special-aliases": "Aliasse, durch senkrechte Striche getrennt:",
+	"wikibase-validator-no-such-entity-schema": "Das EntitySchema $1 existiert nicht."
 }

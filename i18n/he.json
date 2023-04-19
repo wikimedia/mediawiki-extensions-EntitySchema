@@ -84,5 +84,6 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "כאן מגדירים תווית, תיאור, וכינויים ב{{GRAMMAR:תחילית|$1}} בעבור הסכֵמה [[$3|$2]].",
 	"entityschema-special-label": "תווית:",
 	"entityschema-special-description": "תיאור:",
-	"entityschema-special-aliases": "כינויים, מופרדים בקו ניצב:"
+	"entityschema-special-aliases": "כינויים, מופרדים בקו ניצב:",
+	"wikibase-validator-no-such-entity-schema": "סכמת הישות $1 אינה קיימת."
 }
