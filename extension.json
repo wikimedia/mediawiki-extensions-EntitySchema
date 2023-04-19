@@ -114,12 +114,16 @@
 	},
 	"ResourceModules": {
 		"ext.EntitySchema.view": {
-			"styles": [ "viewSchema.less" ],
+			"styles": [
+				"viewSchema.less"
+			],
 			"localBasePath": "resources",
 			"remoteExtPath": "EntitySchema/resources"
 		},
 		"ext.EntitySchema.special.setSchemaLabelDescriptionAliases.edit": {
-			"scripts": [ "special.setSchemaLabelDescriptionAliases.edit.js" ],
+			"scripts": [
+				"special.setSchemaLabelDescriptionAliases.edit.js"
+			],
 			"dependencies": [
 				"oojs-ui-widgets",
 				"mediawiki.widgets.visibleLengthLimit"
@@ -128,7 +132,9 @@
 			"remoteExtPath": "EntitySchema/resources"
 		},
 		"ext.EntitySchema.special.newSchema": {
-			"scripts": [ "special.newSchema.js" ],
+			"scripts": [
+				"special.newSchema.js"
+			],
 			"dependencies": [
 				"oojs-ui-widgets",
 				"mediawiki.widgets.visibleLengthLimit"
@@ -137,7 +143,9 @@
 			"remoteExtPath": "EntitySchema/resources"
 		},
 		"ext.EntitySchema.action.edit": {
-			"scripts": [ "action.edit.js" ],
+			"scripts": [
+				"action.edit.js"
+			],
 			"dependencies": [
 				"oojs-ui-widgets",
 				"mediawiki.widgets.visibleLengthLimit"
@@ -146,7 +154,9 @@
 			"remoteExtPath": "EntitySchema/resources"
 		},
 		"ext.EntitySchema.action.view.trackclicks": {
-			"scripts": [ "action.view.trackclicks.js" ],
+			"scripts": [
+				"action.view.trackclicks.js"
+			],
 			"localBasePath": "resources",
 			"remoteExtPath": "EntitySchema/resources"
 		}

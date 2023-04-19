@@ -6,7 +6,7 @@ namespace EntitySchema\Wikibase\Validators;
 
 use DataValues\StringValue;
 use InvalidArgumentException;
-use TitleFactory;
+use MediaWiki\Title\TitleFactory;
 use ValueValidators\Error;
 use ValueValidators\Result;
 use ValueValidators\ValueValidator;
