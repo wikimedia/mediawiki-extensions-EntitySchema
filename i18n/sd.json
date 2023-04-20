@@ -6,6 +6,7 @@
 	},
 	"entityschema-newschema-label": "ليبل:",
 	"entityschema-newschema-description": "تشريح:",
+	"entityschema-newschema-copyright": "\"$1\" کي ڪلڪ ڪرڻ سان توھان [[$2|استعمال جي شرطن]] سان راضپو ڏيکاريو ٿا، ۽ توھان پنھنجي ڀاڱيداري ناقابل واپسي طور $3 اجازتنامي ھيٺ جاري ڪريو ٿا.",
 	"entityschema-namebadge-header-label": "ليبل",
 	"entityschema-special-label": "ليبل:"
 }
