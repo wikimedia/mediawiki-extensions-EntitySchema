@@ -4,6 +4,7 @@
 			"The Wikidata team"
 		]
 	},
+	"datatypes-type-entity-schema": "Entity Schema",
 	"entityschema-desc": "Store and discuss Schemas for Wikibase entities",
 	"special-newschema": "Create a new EntitySchema",
 	"nstab-entityschema": "EntitySchema",
@@ -82,5 +83,8 @@
 	"entityschema-special-description": "Description:",
 	"entityschema-special-aliases": "Aliases, pipe-separated:",
 	"entityschema-special-id-placeholder": "E123",
+	"wikibase-listdatatypes-entity-schema-head": "Entity Schema",
+	"wikibase-listdatatypes-entity-schema-body": "Link to Entity Schemas stored in the configured namespace in the same wiki. The value must be without the \"EntitySchema:\" namespace prefix",
+	"wikibase-validator-illegal-entity-schema-title": "Value must start with <code>E</code> and the rest should be only digits.",
 	"wikibase-validator-no-such-entity-schema": "The EntitySchema $1 does not exist."
 }
