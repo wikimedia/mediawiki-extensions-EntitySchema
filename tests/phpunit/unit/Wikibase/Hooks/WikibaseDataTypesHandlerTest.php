@@ -105,6 +105,11 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 		$result = $validator->validate( new StringValue( $value ) );
 
 		$this->assertSame( $isValid, $result->isValid() );
+		if ( !$isValid && $value === '' ) {
+			$errors = $result->getErrors();
+			$this->assertCount( 1, $errors );
+			$this->assertSame( 'illegal-entity-schema-title', $errors[0]->getCode() );
+		}
 	}
 
 	public static function provideValuesWithValidity(): iterable {
