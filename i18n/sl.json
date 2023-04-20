@@ -80,5 +80,6 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "Določate oznako, opis in sopomenke v jeziku '''$1''' za shemo [[$3|$2]].",
 	"entityschema-special-label": "Oznaka:",
 	"entityschema-special-description": "Opis:",
-	"entityschema-special-aliases": "Sopomenke, ločene z navpičnico:"
+	"entityschema-special-aliases": "Sopomenke, ločene z navpičnico:",
+	"wikibase-validator-no-such-entity-schema": "Shema entitet $1 ne obstaja."
 }
