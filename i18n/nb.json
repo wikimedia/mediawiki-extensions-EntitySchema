@@ -82,5 +82,6 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "Du setter etikett, beskrivelse og alias på '''$1''' for skjemaet [[$3|$2]].",
 	"entityschema-special-label": "Etikett:",
 	"entityschema-special-description": "Beskrivelse:",
-	"entityschema-special-aliases": "Alias adskilt av vertikalstrek:"
+	"entityschema-special-aliases": "Alias adskilt av vertikalstrek:",
+	"wikibase-validator-no-such-entity-schema": "EntitySchema-et $1 finnes ikke."
 }
