@@ -49,7 +49,11 @@ class WikibaseDataTypesHandler {
 			},
 			'validator-factory-callback' => function (): array {
 				$validators = $this->validatorBuilders->buildStringValidators( 11 );
-				$validators[] = new DataValueValidator( new RegexValidator( SchemaId::PATTERN ) );
+				$validators[] = new DataValueValidator( new RegexValidator(
+					SchemaId::PATTERN,
+					false,
+					'illegal-entity-schema-title'
+				) );
 				$validators[] = $this->entitySchemaExistsValidator;
 				return $validators;
 			},
