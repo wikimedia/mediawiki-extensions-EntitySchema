@@ -10,6 +10,7 @@
 			"Umherirrender"
 		]
 	},
+	"datatypes-type-entity-schema": "The name of a data type for entity schemas in Wikibase.\n{{related|Datatypes-type}}",
 	"entityschema-desc": "{{desc|name=EntitySchema|url=https://www.mediawiki.org/wiki/Extension:EntitySchema}}",
 	"special-newschema": "Title for the new Schema Special Page",
 	"nstab-entityschema": "Tab title for pages in the EntitySchema namespace.",
@@ -88,5 +89,8 @@
 	"entityschema-special-description": "Input label for the description field on Special:SetSchemaLabelDescriptionAliases:",
 	"entityschema-special-aliases": "Input label for the aliases field on Special:SetSchemaLabelDescriptionAliases",
 	"entityschema-special-id-placeholder": "{{notranslate}}\nPlaceholder for the Schema ID field when retrieving a Schema to edit on Special:SetSchemaLabelDescriptionAliases",
+	"wikibase-listdatatypes-entity-schema-head": "{{Wikibase-datatype-head|Entity Schema|entity-schema}}\n{{Identical|Entity Schema}}",
+	"wikibase-listdatatypes-entity-schema-body": "{{Wikibase-datatype-body|Entity Schema}}",
+	"wikibase-validator-illegal-entity-schema-title": "{{doc-important|Do not translate \"E\".}}\nValidator error message shown when a user tries to link to a entity schema page, but the page title doesn't follow the entity schema naming structure",
 	"wikibase-validator-no-such-entity-schema": "Error message shown when trying to save an EntitySchema value referring to an EntitySchema page that does not exist."
 }
