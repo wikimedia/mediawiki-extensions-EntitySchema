@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Minh Nguyen"
+			"Minh Nguyen",
+			"Vinhtantran"
 		]
 	},
 	"entityschema-desc": "Lưu và thảo luận về các sơ đồ thực thể Wikibase",
@@ -65,5 +66,6 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "Đang đặt nhãn, miêu tả, và biệt danh trong '''$1''' của sơ đồ [[$3|$2]].",
 	"entityschema-special-label": "Nhãn:",
 	"entityschema-special-description": "Miêu tả:",
-	"entityschema-special-aliases": "Các biệt danh, phân tách bằng dấu sổ thẳng:"
+	"entityschema-special-aliases": "Các biệt danh, phân tách bằng dấu sổ thẳng:",
+	"wikibase-validator-illegal-entity-schema-title": "Giá trị phải bắt đầu bằng <code>E</code> và nối tiếp bằng các con số."
 }

@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fulup"
+		]
+	},
+	"wikibase-listdatatypes-entity-schema-head": "Chema an entite",
+	"wikibase-listdatatypes-entity-schema-body": "Liamm war-zu ar chemaoù entiteoù miret en esaouenn anv kefluniet en hevelep wiki. Rankout a ra an talvoud bezañ hep ar raganv esaouenn anv \"EntitySchema\".",
+	"wikibase-validator-illegal-entity-schema-title": "Ret eo d'an talvoud kregiñ gant <code>E</code> hag ar peurrest ne zle bezañ nemet niveroù."
+}

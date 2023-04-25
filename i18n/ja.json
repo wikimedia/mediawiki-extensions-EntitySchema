@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Afaz",
+			"Kkairri",
 			"Shirayuki",
 			"Winston Sung"
 		]
 	},
+	"datatypes-type-entity-schema": "スキーマ",
 	"entityschema-desc": "ウィキベース・エンティティのスキーマの格納、および議論",
 	"special-newschema": "スキーマの新規作成",
 	"nstab-entityschema": "スキーマ",
@@ -81,5 +83,7 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "'''$1'''でスキーマ「[[$3|$2]]」にラベル、説明、別名を設定しようとしています。",
 	"entityschema-special-label": "ラベル:",
 	"entityschema-special-description": "説明:",
-	"entityschema-special-aliases": "別名（複数ある場合、縦線<code>|</code>で区切り）:"
+	"entityschema-special-aliases": "別名（複数ある場合、縦線<code>|</code>で区切り）:",
+	"wikibase-listdatatypes-entity-schema-head": "スキーマ",
+	"wikibase-validator-illegal-entity-schema-title": "値は、<code>E</code>から始まり、2文字目以降はすべて数字でなければなりません。"
 }

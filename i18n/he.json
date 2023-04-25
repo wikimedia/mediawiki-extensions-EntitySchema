@@ -8,6 +8,7 @@
 			"YaronSh"
 		]
 	},
+	"datatypes-type-entity-schema": "סכמת ישות",
 	"entityschema-desc": "אחסון של סכֵמות עבור ישויות ויקיבייס ודיון עליהן",
 	"special-newschema": "יצירת סכֵמת ישות חדשה",
 	"nstab-entityschema": "סכמת ישות",
@@ -85,5 +86,8 @@
 	"entityschema-special-label": "תווית:",
 	"entityschema-special-description": "תיאור:",
 	"entityschema-special-aliases": "כינויים, מופרדים בקו ניצב:",
+	"wikibase-listdatatypes-entity-schema-head": "סכמת ישות",
+	"wikibase-listdatatypes-entity-schema-body": "קישור לסכמת ישות שמאוחסנת במרחב השם המוגדר באותו הוויקי. הערך אמור להיות ללא תחילית מרחב השם \"EntitySchema:\".",
+	"wikibase-validator-illegal-entity-schema-title": "הערך אמור להתחיל עם <code>E</code> והשאר אמור להיות ספָרות.",
 	"wikibase-validator-no-such-entity-schema": "סכמת הישות $1 אינה קיימת."
 }

@@ -1,8 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Pebaryan"
+			"Daud I.F. Argana",
+			"Pebaryan",
+			"RXerself"
 		]
 	},
-	"entityschema-edit": "sunting"
+	"datatypes-type-entity-schema": "Skema Entitas",
+	"entityschema-edit": "sunting",
+	"wikibase-listdatatypes-entity-schema-head": "Skema Entitas",
+	"wikibase-listdatatypes-entity-schema-body": "Pranala ke Skema Entitas yang disimpan di ruang nama yang dikonfigurasi di wiki yang sama. Nilainya diisi tanpa awalan ruang nama \"EntitySchema:\".",
+	"wikibase-validator-illegal-entity-schema-title": "Nilai harus dimulai dengan <code>E</code> dan sisanya harus merupakan digit."
 }

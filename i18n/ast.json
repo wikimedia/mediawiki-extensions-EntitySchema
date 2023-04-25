@@ -4,6 +4,7 @@
 			"Xuacu"
 		]
 	},
+	"datatypes-type-entity-schema": "Esquema d'entidá",
 	"entityschema-newschema-label": "Etiqueta:",
 	"entityschema-newschema-description": "Descripción:",
 	"entityschema-newschema-aliases": "Alcuños, separaos por barres verticales:",
@@ -51,5 +52,6 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "Tas definiendo la etiqueta, descripción y alcuños en '''$1''' pal Esquema [[$3|$2]].",
 	"entityschema-special-label": "Etiqueta:",
 	"entityschema-special-description": "Descripción:",
-	"entityschema-special-aliases": "Alcuños, separaos por barres verticales:"
+	"entityschema-special-aliases": "Alcuños, separaos por barres verticales:",
+	"wikibase-validator-illegal-entity-schema-title": "El valor tien d'empezar con <code>E</code> ya'l restu tienen de ser sólo díxitos."
 }

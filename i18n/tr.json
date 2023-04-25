@@ -8,6 +8,7 @@
 			"SaldırganSincap"
 		]
 	},
+	"datatypes-type-entity-schema": "Varlık Şeması",
 	"entityschema-desc": "Wikibase oluşumları için şemaları saklayın ve tartışın",
 	"special-newschema": "Yeni bir EntitySchema oluştur",
 	"entityschema-newschema-label": "Etiket:",
@@ -82,5 +83,8 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "Etiket, açıklama ve diğer adları Şema [[$3|$2]] için '''$1''' içinde ayarlıyorsunuz.",
 	"entityschema-special-label": "Etiket:",
 	"entityschema-special-description": "Açıklama:",
-	"entityschema-special-aliases": "Ayrılan diğer adlar:"
+	"entityschema-special-aliases": "Ayrılan diğer adlar:",
+	"wikibase-listdatatypes-entity-schema-head": "Varlık Şeması",
+	"wikibase-listdatatypes-entity-schema-body": "Aynı vikide yapılandırılmış ad alanında depolanan Varlık Şemalarına bağlantı. Değer, \"EntitySchema:\" ad alanı öneki olmadan olmalıdır",
+	"wikibase-validator-illegal-entity-schema-title": "Değer <code>E</code> ile başlamalı ve geri kalanı yalnızca rakamlardan oluşmalıdır."
 }

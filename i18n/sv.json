@@ -1,10 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
+			"Abbe98",
 			"Mjälten",
+			"Sabelöga",
 			"WikiPhoenix"
 		]
 	},
+	"datatypes-type-entity-schema": "Entitetsschema",
 	"entityschema-error-invalid-id": "Detta ID är ogiligt.",
 	"entityschema-namebadge-header-language-code": "språkkod",
 	"entityschema-namebadge-header-label": "etikett",
@@ -24,5 +27,8 @@
 	"entityschema-special-id-inputlabel": "ID",
 	"entityschema-special-language-inputlabel": "Språkkod",
 	"entityschema-special-label": "Etikett:",
-	"entityschema-special-description": "Beskrivning:"
+	"entityschema-special-description": "Beskrivning:",
+	"wikibase-listdatatypes-entity-schema-head": "Entitetsschema",
+	"wikibase-listdatatypes-entity-schema-body": "Länk till entitetsscheman som lagras i den konfigurerade namnrymden på samma wiki. Värdet måste vara utan namnrymdsprefixet \"EntitySchema:\".",
+	"wikibase-validator-illegal-entity-schema-title": "Värden måste börja med <code>E</code> och resten bör endast vara siffror."
 }

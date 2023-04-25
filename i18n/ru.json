@@ -2,12 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Diman Russkov",
+			"Kaganer",
 			"Movses",
 			"Okras",
 			"UniCollab",
 			"Vlad5250"
 		]
 	},
+	"datatypes-type-entity-schema": "Схема элемента",
 	"special-newschema": "Создать новую схему сущностей",
 	"nstab-entityschema": "EntitySchema",
 	"tooltip-ca-nstab-entityschema": "Определение EntitySchema",

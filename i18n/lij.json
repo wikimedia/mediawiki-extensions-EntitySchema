@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Giromin Cangiaxo"
+		]
+	},
+	"datatypes-type-entity-schema": "Schema d'entitæ",
+	"wikibase-listdatatypes-entity-schema-head": "Schema d'entitæ",
+	"wikibase-listdatatypes-entity-schema-body": "Ingancio a-i Schemi d'Entitæ inmagazinæ into namespace configuou inta mæxima wiki. O valô o no dev'aveighe o prefisso de namespace \"EntitySchema:\"",
+	"wikibase-validator-illegal-entity-schema-title": "O valô o deve comensâ con <code>E</code> e o resto o g'ha da ese soo che di nummeri."
+}

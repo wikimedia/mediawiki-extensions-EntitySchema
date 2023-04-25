@@ -4,12 +4,15 @@
 			"94rain",
 			"A Chinese Wikipedian",
 			"Angrydog001",
+			"Njzjz",
 			"Ps2049",
 			"Shizhao",
+			"Xiplus",
 			"Yfdyh000",
 			"Zazzzz"
 		]
 	},
+	"datatypes-type-entity-schema": "实体架构",
 	"entityschema-desc": "存储和讨论Wikibase实体的架构",
 	"special-newschema": "创建一个新的实体架构",
 	"entityschema-newschema-label": "标签：",
@@ -84,5 +87,8 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "您正在'''$1'''中为架构[[$3|$2]]设置标签、描述和别名。",
 	"entityschema-special-label": "标签：",
 	"entityschema-special-description": "描述：",
-	"entityschema-special-aliases": "别名，以竖线分隔："
+	"entityschema-special-aliases": "别名，以竖线分隔：",
+	"wikibase-listdatatypes-entity-schema-head": "实体架构",
+	"wikibase-listdatatypes-entity-schema-body": "链接到存储在同一wiki上配置的命名空间中的实体架构。该值必须没有“EntitySchema:”命名空间前缀",
+	"wikibase-validator-illegal-entity-schema-title": "值必须以<code>E</code>作为开头，剩余部分则为数字。"
 }

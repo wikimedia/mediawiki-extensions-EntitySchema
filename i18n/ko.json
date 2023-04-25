@@ -7,6 +7,7 @@
 			"Ykhwong"
 		]
 	},
+	"datatypes-type-entity-schema": "엔티티 스키마",
 	"special-newschema": "새 엔티티스키마 만들기",
 	"entityschema-newschema-label": "레이블:",
 	"entityschema-newschema-description": "설명:",

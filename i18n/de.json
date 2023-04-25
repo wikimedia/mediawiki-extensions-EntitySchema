@@ -6,6 +6,7 @@
 			"Metalhead64"
 		]
 	},
+	"datatypes-type-entity-schema": "Entitäten-Schema",
 	"entityschema-desc": "Ermöglicht die Speicherung und Diskussion von Schemata für Wikibase-Objekte",
 	"special-newschema": "Ein neues EntitySchema erstellen",
 	"nstab-entityschema": "EntitySchema",
@@ -83,5 +84,8 @@
 	"entityschema-special-label": "Bezeichnung:",
 	"entityschema-special-description": "Beschreibung:",
 	"entityschema-special-aliases": "Aliasse, durch senkrechte Striche getrennt:",
+	"wikibase-listdatatypes-entity-schema-head": "Entitäten-Schema",
+	"wikibase-listdatatypes-entity-schema-body": "Verknüpfung mit Entitätsschemata, die im konfigurierten Namensraum im selben Wiki gespeichert sind. Der Wert muss ohne das Namensraum-Präfix \"EntitySchema:\" sein.",
+	"wikibase-validator-illegal-entity-schema-title": "Der Wert muss mit <code>E</code> beginnen und der Rest dürfen nur Zahlen sein.",
 	"wikibase-validator-no-such-entity-schema": "Das EntitySchema $1 existiert nicht."
 }

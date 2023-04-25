@@ -4,12 +4,14 @@
 			"Andrew J.Kurbiko",
 			"DDPAT",
 			"Ice bulldog",
+			"Movses",
 			"Olghinabella",
 			"Piramidion",
 			"Vlad5250",
 			"Ата"
 		]
 	},
+	"datatypes-type-entity-schema": "Entity Schema",
 	"entityschema-desc": "Зберігання та обговорення схем для сутностей Вікібази",
 	"special-newschema": "Створити нову схему",
 	"entityschema-newschema-label": "Мітка:",
@@ -84,5 +86,8 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "Ви задаєте назву, опис та альтернативні назви для схеми [[$3|$2]] мовою: '''$1'''.",
 	"entityschema-special-label": "Назва:",
 	"entityschema-special-description": "Опис:",
-	"entityschema-special-aliases": "Альтернативні назви (через вертикальну риску):"
+	"entityschema-special-aliases": "Альтернативні назви (через вертикальну риску):",
+	"wikibase-listdatatypes-entity-schema-head": "Entity Schema",
+	"wikibase-listdatatypes-entity-schema-body": "Посилання на Схеми сутностей (Entity Schemas) у відповідному просторі назв цієї вікі. Значення має бути без префіксу \"EntitySchema:\"",
+	"wikibase-validator-illegal-entity-schema-title": "Значення мусить починатися з <code>E</code>, а решта мають бути лише цифри."
 }

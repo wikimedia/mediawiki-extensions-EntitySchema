@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vyolla"
+		]
+	},
+	"datatypes-type-entity-schema": "Skema e entitetit",
+	"wikibase-listdatatypes-entity-schema-head": "Skema e entitetit",
+	"wikibase-listdatatypes-entity-schema-body": "Lidhja me skemat e entitetit të ruajtura në hapësirën e konfiguruar të emrave në të njëjtën wiki. Vlera duhet të jetë pa parashtesën e hapësirës së emrave \"EntitySchema:\"",
+	"wikibase-validator-illegal-entity-schema-title": "Vlera duhet të fillojë me <code>E</code> dhe pjesa tjetër duhet të jetë vetëm shifra."
+}

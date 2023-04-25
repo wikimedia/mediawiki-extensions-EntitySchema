@@ -7,6 +7,7 @@
 			"Jeeputer"
 		]
 	},
+	"datatypes-type-entity-schema": "طرحوارهٔ هستار",
 	"special-newschema": "ایجاد یک طرحوارهٔ هستار جدید",
 	"entityschema-newschema-label": "برچسب:",
 	"entityschema-newschema-description": "توضیحات:",
@@ -33,5 +34,6 @@
 	"entityschema-special-setlabeldescriptionaliases": "تنظیم برچسب، توصیف، نام‌های مستعار برای طرحوارهٔ هستار",
 	"entityschema-special-language-inputlabel": "شناسهٔ زبان",
 	"entityschema-special-label": "برچسب:",
-	"entityschema-special-description": "توضیحات:"
+	"entityschema-special-description": "توضیحات:",
+	"wikibase-listdatatypes-entity-schema-head": "طرحوارهٔ هستار"
 }

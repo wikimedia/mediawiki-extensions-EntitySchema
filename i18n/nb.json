@@ -6,6 +6,7 @@
 			"Telaneo"
 		]
 	},
+	"datatypes-type-entity-schema": "Entitetsskjema",
 	"entityschema-desc": "Lagre og diskuter skjemaer for Wikibase-entiteter",
 	"special-newschema": "Opprett nytt entitetsskjema",
 	"nstab-entityschema": "Entitetsskjema",
@@ -83,5 +84,8 @@
 	"entityschema-special-label": "Etikett:",
 	"entityschema-special-description": "Beskrivelse:",
 	"entityschema-special-aliases": "Alias adskilt av vertikalstrek:",
+	"wikibase-listdatatypes-entity-schema-head": "Entitetsskjema",
+	"wikibase-listdatatypes-entity-schema-body": "Lenke til entitetsskjema lagret i konfigurasjonsnavnerommet i samme wiki. Verdien må være uten navneromsprefikset «EntitySchema:»",
+	"wikibase-validator-illegal-entity-schema-title": "Verdien må begynne med <code>E</code> og resten kan kun være sifre.",
 	"wikibase-validator-no-such-entity-schema": "EntitySchema-et $1 finnes ikke."
 }

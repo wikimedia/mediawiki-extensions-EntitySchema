@@ -5,6 +5,7 @@
 			"ديفيد"
 		]
 	},
+	"datatypes-type-entity-schema": "مخطط الكيان",
 	"entityschema-desc": "تخزين ومناقشة المخططات لكيانات قاعدة الويكي",
 	"special-newschema": "إنشاء مخطط كيان جديد",
 	"nstab-entityschema": "معرف مخطط الكيان",
@@ -81,5 +82,8 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "أنت تقوم بتعيين التسمية والوصف والأسماء المستعارة ب'''$1''' للمخطط [[$3|$2]].",
 	"entityschema-special-label": "التسمية:",
 	"entityschema-special-description": "الوصف:",
-	"entityschema-special-aliases": "الأسماء المستعارة، مفصولة بأنابيب:"
+	"entityschema-special-aliases": "الأسماء المستعارة، مفصولة بأنابيب:",
+	"wikibase-listdatatypes-entity-schema-head": "مخطط الكيان",
+	"wikibase-listdatatypes-entity-schema-body": "رابط مخططات الكيانات المخزنة في النطاق المكون في نفس الويكي، يجب أن تكون القيمة بدون بادئة النطاق \"EntitySchema:\"",
+	"wikibase-validator-illegal-entity-schema-title": "يجب أن تبدأ القيمة بـ<code>E</code> وأن يكون الباقي مجرد أرقام."
 }

@@ -6,6 +6,7 @@
 			"NMaia"
 		]
 	},
+	"datatypes-type-entity-schema": "Esquema de Entidade",
 	"entityschema-desc": "Armazenar e discutir esquemas para entidades do Wikibase",
 	"special-newschema": "Criar um novo EntitySchema",
 	"nstab-entityschema": "Esquema de entidade",
@@ -81,5 +82,8 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "Você está definindo rótulo, descrição e aliases em '''$1''' para Esquema [[$3|$2]].",
 	"entityschema-special-label": "Etiqueta:",
 	"entityschema-special-description": "Descrição:",
-	"entityschema-special-aliases": "Aliases (separados por barras):"
+	"entityschema-special-aliases": "Aliases (separados por barras):",
+	"wikibase-listdatatypes-entity-schema-head": "Esquema de entidade",
+	"wikibase-listdatatypes-entity-schema-body": "Link para esquemas de entidade armazenados no espaço nominal configurado na mesma wiki. O valor não pode ter o prefixo de espaço nominal \"EntitySchema:\".",
+	"wikibase-validator-illegal-entity-schema-title": "O valor deve começar por <code>E</code> e o resto devem ser só algarismos."
 }

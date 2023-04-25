@@ -4,6 +4,7 @@
 			"Eleassar"
 		]
 	},
+	"datatypes-type-entity-schema": "Shema entitet",
 	"entityschema-desc": "Omogoča shranjevanje in pogovor o shemah za entitete Wikibase",
 	"special-newschema": "Ustvari novo shemo entitet",
 	"nstab-entityschema": "Shema entitet",
@@ -81,5 +82,8 @@
 	"entityschema-special-label": "Oznaka:",
 	"entityschema-special-description": "Opis:",
 	"entityschema-special-aliases": "Sopomenke, ločene z navpičnico:",
+	"wikibase-listdatatypes-entity-schema-head": "Shema entitete",
+	"wikibase-listdatatypes-entity-schema-body": "Povezava do shem entitet, shranjenih v konfiguriranem imenskem prostoru v istem vikiju. Vrednost mora biti brez predpone imenskega prostora »EntitySchema:«.",
+	"wikibase-validator-illegal-entity-schema-title": "Vrednost se mora začeti z <code>E</code>, preostalo pa so lahko samo števke.",
 	"wikibase-validator-no-such-entity-schema": "Shema entitet $1 ne obstaja."
 }

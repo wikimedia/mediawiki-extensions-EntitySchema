@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Snævar"
+		]
+	},
+	"wikibase-validator-illegal-entity-schema-title": "Gildi verður að byrja á <code>E</code> og restin á að vera eingöngu tölustafir."
+}

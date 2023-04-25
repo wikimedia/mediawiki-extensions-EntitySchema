@@ -5,7 +5,8 @@
 			"Fitoschido",
 			"Ihojose",
 			"Marcelo9987",
-			"MarcoAurelio"
+			"MarcoAurelio",
+			"Nancystodd"
 		]
 	},
 	"entityschema-newschema-label": "Etiqueta:",
@@ -60,5 +61,6 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "Estás por establecer la etiqueta, la descripción y los alias en '''$1''' del esquema [[$3|$2]].",
 	"entityschema-special-label": "Etiqueta:",
 	"entityschema-special-description": "Descripción:",
-	"entityschema-special-aliases": "Alias (separados por plecas):"
+	"entityschema-special-aliases": "Alias (separados por plecas):",
+	"wikibase-validator-illegal-entity-schema-title": "El valor debe comenzar con <code>E</code> y el resto debe ser solo dígitos."
 }

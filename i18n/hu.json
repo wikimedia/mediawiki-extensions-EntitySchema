@@ -42,5 +42,6 @@
 	"entityschema-special-id-submit": "Címke, leírás és más nevek beállítása",
 	"entityschema-special-label": "Címke:",
 	"entityschema-special-description": "Leírás:",
-	"entityschema-special-aliases": "További nevek, függőleges vonallal (|) elválasztva:"
+	"entityschema-special-aliases": "További nevek, függőleges vonallal (|) elválasztva:",
+	"wikibase-validator-illegal-entity-schema-title": "Az értéknek <code>E</code>-vel kell kezdődnie, és számjegyekkel kell folytatódnia."
 }

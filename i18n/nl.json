@@ -3,9 +3,11 @@
 		"authors": [
 			"Elroy",
 			"Mainframe98",
-			"McDutchie"
+			"McDutchie",
+			"Sjoerddebruin"
 		]
 	},
+	"datatypes-type-entity-schema": "Entiteitsschema",
 	"special-newschema": "Nieuw schema aanmaken",
 	"entityschema-newschema-label": "Label:",
 	"entityschema-newschema-description": "Beschrijving:",
@@ -36,5 +38,6 @@
 	"entityschema-special-id-submit": "Label, beschrijving en aliassen instellen",
 	"entityschema-special-label": "Label:",
 	"entityschema-special-description": "Beschrijving:",
-	"entityschema-special-aliases": "Aliassen, gescheiden door een sluisteken (|):"
+	"entityschema-special-aliases": "Aliassen, gescheiden door een sluisteken (|):",
+	"wikibase-listdatatypes-entity-schema-head": "Entiteitsschema"
 }

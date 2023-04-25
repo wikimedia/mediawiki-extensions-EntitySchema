@@ -7,6 +7,7 @@
 			"Wladek92"
 		]
 	},
+	"datatypes-type-entity-schema": "Schéma d’entité",
 	"entityschema-desc": "Stocker et discuter des schémas pour les entités de Wikibase",
 	"special-newschema": "Créer un nouveau schéma d’entités",
 	"nstab-entityschema": "Schéma d’entités",
@@ -84,5 +85,8 @@
 	"entityschema-special-label": "Libellé :",
 	"entityschema-special-description": "Description :",
 	"entityschema-special-aliases": "Alias (séparés par des barres verticales) :",
+	"wikibase-listdatatypes-entity-schema-head": "Schéma d’entité",
+	"wikibase-listdatatypes-entity-schema-body": "Lien vers les schémas d’entité stockés dans l’espace de noms configuré dans le même wiki. La valeur doit être sans le préfixe d’espace de noms « EntitySchema: ».",
+	"wikibase-validator-illegal-entity-schema-title": "La valeur doit commencer par <code>E</code> et le reste ne doit être que des chiffres décimaux.",
 	"wikibase-validator-no-such-entity-schema": "Le schéma d’entités « $1 » n’existe pas."
 }

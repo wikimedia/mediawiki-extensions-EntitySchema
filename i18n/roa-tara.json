@@ -4,6 +4,7 @@
 			"Joetaras"
 		]
 	},
+	"datatypes-type-entity-schema": "Scheme de l'endità",
 	"entityschema-desc": "Reggìstre e discute Schema pe le endità de Uicchibase",
 	"special-newschema": "Ccreje 'nu EntitySchema nuève",
 	"entityschema-newschema-label": "Etichette:",

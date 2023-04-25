@@ -4,6 +4,7 @@
 			"McDutchie"
 		]
 	},
+	"datatypes-type-entity-schema": "Schema de entitate",
 	"entityschema-desc": "Immagazinar e discuter Schemas pro entitates Wikibase",
 	"special-newschema": "Crear un nove EntitySchema",
 	"nstab-entityschema": "EntitySchema",
@@ -81,5 +82,8 @@
 	"entityschema-special-label": "Etiquetta:",
 	"entityschema-special-description": "Description:",
 	"entityschema-special-aliases": "Aliases, separate per barras vertical:",
+	"wikibase-listdatatypes-entity-schema-head": "Schema de entitate",
+	"wikibase-listdatatypes-entity-schema-body": "Ligamine al schemas de entitate immagazinate in le spatio de nomines configurate in le mesme wiki. Le valor debe esser sin le prefixo del spatio de nomines \"EntitySchema:\".",
+	"wikibase-validator-illegal-entity-schema-title": "Le valor debe comenciar con <code>E</code> e le resto debe esser solmente digitos.",
 	"wikibase-validator-no-such-entity-schema": "Le EntitySchema $1 non existe."
 }

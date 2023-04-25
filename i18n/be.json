@@ -2,11 +2,16 @@
 	"@metadata": {
 		"authors": [
 			"Artsiom91",
+			"Tomato Cream",
 			"ZlyiLev"
 		]
 	},
+	"datatypes-type-entity-schema": "Схема сутнасці",
 	"entityschema-summary-generated": "Кароткае апісанне (будзе дададзена да аўтаматычна згенераванага апісання):",
 	"entityschema-summary-undo-autocomment": "Адкат праўкі $1 аўтарства [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|размовы]])",
 	"entityschema-undo-old-revision": "Версія для адкату",
-	"entityschema-special-id-submit": "Дадаць метку, апісанне і сінонімы"
+	"entityschema-special-id-submit": "Дадаць метку, апісанне і сінонімы",
+	"wikibase-listdatatypes-entity-schema-head": "Схема сутнасці",
+	"wikibase-listdatatypes-entity-schema-body": "Спасылка на схемы сутнасцяў, якія захоўваюцца ў наладжанай прасторы імёнаў у той жа вікі. Значэнне павінна быць без прэфікса прасторы імёнаў «EntitySchema:».",
+	"wikibase-validator-illegal-entity-schema-title": "Значэнне павінна пачынацца з <code>E</code>, а астатнія сімвалы павінны быць толькі лічбамі."
 }

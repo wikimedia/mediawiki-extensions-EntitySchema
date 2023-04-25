@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saurmandal"
+		]
+	},
+	"datatypes-type-entity-schema": "सत्ता स्केमा",
+	"wikibase-listdatatypes-entity-schema-head": "सत्ता स्केमा",
+	"wikibase-listdatatypes-entity-schema-body": "इसी विकि पर कॉन्फिगर किए गए नामस्थान में रखे सत्ता स्केमास की कड़ी। वैल्यू में \"EntitySchema:\" नामस्थान उपसर्ग नहीं होना चाहिए।",
+	"wikibase-validator-illegal-entity-schema-title": "वैल्यू को <code>E</code> से शुरू होना चाहिए और बाकी का हिस्सा पूरी तरह से संख्यात्मक होना चाहिए।"
+}

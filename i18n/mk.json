@@ -5,6 +5,7 @@
 			"Vlad5250"
 		]
 	},
+	"datatypes-type-entity-schema": "Единична шема",
 	"entityschema-desc": "Складирање на и расправа по шеми за единици на Викибазата",
 	"special-newschema": "Создај нова шема",
 	"nstab-entityschema": "Шема на единици",
@@ -82,5 +83,8 @@
 	"entityschema-special-label": "Натпис:",
 	"entityschema-special-description": "Опис:",
 	"entityschema-special-aliases": "Истозначници (одделени со прави црти):",
+	"wikibase-listdatatypes-entity-schema-head": "Единична шема",
+	"wikibase-listdatatypes-entity-schema-body": "Врска до единичните шеми складирани во нагодениот именски простор на истото вики. Вредноста не треба да ја има претставката „Единична шема:“ или „EntitySchema:“",
+	"wikibase-validator-illegal-entity-schema-title": "Вредноста мора да почнува со <code>E</code>, а остатокот треба да биде само бројки.",
 	"wikibase-validator-no-such-entity-schema": "Шемата за единици $1 не постои."
 }

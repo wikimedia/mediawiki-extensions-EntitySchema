@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fitoschido"
+			"Fitoschido",
+			"Toniher"
 		]
 	},
+	"datatypes-type-entity-schema": "Esquema d'entitat",
 	"entityschema-newschema-label": "Etiqueta:",
 	"entityschema-newschema-description": "Descripció:",
 	"entityschema-newschema-submit": "Crea",
@@ -15,5 +17,6 @@
 	"entityschema-namebadge-header-aliases": "àlies",
 	"entityschema-restore-heading-failed": "Ha fallat la restauració",
 	"entityschema-restoreold": "restaura",
-	"entityschema-special-description": "Descripció:"
+	"entityschema-special-description": "Descripció:",
+	"wikibase-listdatatypes-entity-schema-head": "Esquema de l'entitat"
 }

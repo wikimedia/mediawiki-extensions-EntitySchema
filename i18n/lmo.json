@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Salvemm el lombard"
+		]
+	},
+	"datatypes-type-entity-schema": "Schema d'entità",
+	"wikibase-listdatatypes-entity-schema-head": "Schema d'entità",
+	"wikibase-listdatatypes-entity-schema-body": "Conligament ai schema d'entitad miss in archivi in del spazzi di nom impostad in de l'istess wiki. El valor el gh'hà de vesser senza el prefiss del namespace \"EntitySchema:\"",
+	"wikibase-validator-illegal-entity-schema-title": "El valor el gh'hà de comenzà con <code>E</code> e 'l rest el gh'avaria de vesser doma di numer."
+}

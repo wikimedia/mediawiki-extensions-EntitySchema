@@ -5,6 +5,7 @@
 			"Hamilton Abreu"
 		]
 	},
+	"datatypes-type-entity-schema": "Esquema de entidade",
 	"entityschema-desc": "Armazenar e discutir esquemas para entidades Wikibase",
 	"special-newschema": "Criar um esquema de entidade novo",
 	"nstab-entityschema": "Esquema de entidade",
@@ -81,5 +82,8 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "Está a definir a etiqueta, descrição e nomes alternativos em '''$1''' do esquema [[$3|$2]].",
 	"entityschema-special-label": "Etiqueta:",
 	"entityschema-special-description": "Descrição:",
-	"entityschema-special-aliases": "Nomes alternativos, separados por barras verticais (|):"
+	"entityschema-special-aliases": "Nomes alternativos, separados por barras verticais (|):",
+	"wikibase-listdatatypes-entity-schema-head": "Esquema de entidade",
+	"wikibase-listdatatypes-entity-schema-body": "Hiperligação para esquemas de entidade armazenados no espaço nominal configurado na mesma wiki. O valor não pode ter o prefixo de espaço nominal \"EntitySchema:\".",
+	"wikibase-validator-illegal-entity-schema-title": "O valor deve começar por <code>E</code> e o resto devem ser só algarismos."
 }
