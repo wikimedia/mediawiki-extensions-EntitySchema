@@ -32,7 +32,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', function () {
 			cy.request( {
 				method: 'POST',
 				url,
-				body: formData
+				body: formData,
 			} );
 		} );
 

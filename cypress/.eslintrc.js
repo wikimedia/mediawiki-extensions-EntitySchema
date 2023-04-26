@@ -1,9 +1,9 @@
 module.exports = {
 	extends: [
 		'plugin:cypress/recommended',
-		'plugin:chai-friendly/recommended'
+		'plugin:chai-friendly/recommended',
 	],
 	parserOptions: {
-		sourceType: 'module'
-	}
+		sourceType: 'module',
+	},
 };

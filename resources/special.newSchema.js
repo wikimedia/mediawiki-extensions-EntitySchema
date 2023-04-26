@@ -24,7 +24,7 @@
 		mw.widgets.visibleCodePointLimit(
 			aliasInput,
 			schemaNameBadgeMaxSizeChars,
-			aliasesLengthString
+			aliasesLengthString,
 		);
 		mw.widgets.visibleByteLimit( schemaTextInput, schemaSchemaTextMaxSizeBytes );
 	} );

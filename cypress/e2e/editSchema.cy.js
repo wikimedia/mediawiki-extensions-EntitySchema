@@ -47,7 +47,7 @@ describe( 'Schema Edit Page', () => {
 				cy.request( {
 					method: 'POST',
 					url,
-					body: formData
+					body: formData,
 				} );
 			} );
 

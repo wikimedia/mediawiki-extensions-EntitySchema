@@ -22,7 +22,7 @@
 		mw.widgets.visibleCodePointLimit(
 			aliasInput,
 			schemaNameBadgeMaxSizeChars,
-			aliasesLengthString
+			aliasesLengthString,
 		);
 	} );
 }() );
