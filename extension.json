@@ -43,6 +43,12 @@
 				"MainConfig",
 				"WikibaseRepo.DefaultValidatorBuilders"
 			]
+		},
+		"WikibaseRepoOnParserOutputUpdaterConstruction": {
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\ParserOutputUpdaterConstructionHandler",
+			"services": [
+				"WikibaseRepo.PropertyDataTypeLookup"
+			]
 		}
 	},
 	"Hooks": {
@@ -55,7 +61,8 @@
 		"ContentModelCanBeUsedOn": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onContentModelCanBeUsedOn",
 		"ImportHandleRevisionXMLTag": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onImportHandleRevisionXMLTag",
 		"TitleGetRestrictionTypes": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onTitleGetRestrictionTypes",
-		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes"
+		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes",
+		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepoOnParserOutputUpdaterConstruction"
 	},
 	"ContentHandlers": {
 		"EntitySchema": {
