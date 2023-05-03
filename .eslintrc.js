@@ -1,6 +1,7 @@
 module.exports = {
 	root: true,
 	extends: [
+		'wikimedia',
 		'wikimedia/language/es2018',
 		'wikimedia/jquery',
 		'wikimedia/mediawiki',
