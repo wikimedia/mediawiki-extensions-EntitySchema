@@ -1,8 +1,10 @@
 import { SpecialNewEntitySchemaPage } from '../../support/pageObjects/SpecialNewEntitySchemaPage';
 import { ViewSchemaPage } from '../../support/pageObjects/ViewSchemaPage';
+import { LoginPage } from '../../support/pageObjects/LoginPage';
 
 const specialNewEntitySchemaPage = new SpecialNewEntitySchemaPage();
 const viewSchemaPage = new ViewSchemaPage();
+const loginPage = new LoginPage();
 
 describe( 'NewEntitySchema:Page', () => {
 
@@ -33,7 +35,41 @@ describe( 'NewEntitySchema:Page', () => {
 			.assertSchemaText( '' );
 	} );
 
-	describe.skip( 'when blocked' );
+	describe( 'when blocked', () => {
+
+		it( 'cannot load form', () => {
+			cy.task( 'MwApi:CreateUser', { usernamePrefix: 'Alice' } ).then( ( { username, password } ) => {
+
+				cy.task( 'MwApi:BlockUser', { username } );
+
+				loginPage.open();
+				loginPage.login( username, password );
+			} );
+
+			specialNewEntitySchemaPage
+				.open();
+
+			cy.get( '.permissions-errors' ).should( 'be.visible' );
+		} );
+
+		it( 'cannot submit form', () => {
+			cy.task( 'MwApi:CreateUser', { usernamePrefix: 'Alice' } ).then( ( { username, password } ) => {
+				loginPage.open();
+				loginPage.login( username, password );
+
+				specialNewEntitySchemaPage
+					.open()
+					.enterLabel( 'evil schema' )
+					.enterDescription( 'should not be able to create this schema' );
+
+				cy.task( 'MwApi:BlockUser', { username } );
+			} );
+
+			specialNewEntitySchemaPage.submit();
+
+			cy.get( '.permissions-errors' ).should( 'be.visible' );
+		} );
+	} );
 
 	it( 'limits the name badge input length', () => {
 		specialNewEntitySchemaPage
