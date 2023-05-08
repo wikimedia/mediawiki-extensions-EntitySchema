@@ -96,74 +96,27 @@ In the `EntitySchema/` directory:
 $ mw docker mediawiki fresh npm test
 ```
 
-### Running Browser tests
-
-Since we're (for now) still using the legacy synchronous selenium/webdriver browser tests,
-we have to run them with Node v14.
+### Running Cypress Browser tests
 
 In general, there are two different approaches to run these tests.
 Headless (that is without a window opening, like in CI) and normal.
 
 #### Headless mode
 
-To run the browser tests in a headless way, we can make use of the `fresh` image that comes with mwcli that is also
-already preconfigured to run MediaWiki browser tests. \
-We just have to tell it to use Node v14:
-
-```bash
-mw docker env set MEDIAWIKI_FRESH_IMAGE "docker-registry.wikimedia.org/releng/node14-test-browser"
-```
-
-And then we can run browser tests like in CI with the following command:
+In CI, the browser tests are executed headlessly by invoking `npm run selenium-test`.
+To run the browser tests in a headless way locally, we can make use of the `fresh` image that comes with mwcli that is also
+already preconfigured to run MediaWiki browser tests:
 
 ```
 mw docker mediawiki fresh -- npm run selenium-test
 ```
 
-or you can run a specific test file with:
-
-```
-mw docker mediawiki fresh -- npm run selenium-test -- --spec tests/selenium/specs/editSchema.js
-```
-
-Note that while there is no window opening, you do get screenshots in the directory `tests/selenium/log`.
+Note that while there is no window opening, you do get videos in the directory `cypress/videos/`.
 
 #### Graphical/Headful/Normal
 
-If you want a window where you directly watch the browser test play out, then above solution cannot be used.
+For local development where you want to directly watch the browser test play out, then above solution cannot be used.
 We must run the browser test in the shell directly, without a docker container.
-
-To run the browser tests with a ui, we need to explicitly launch a utility that lets selenium control a browser instance.
-That is achieved by running chromedriver in a separate shell:
-
-```bash
-chromedriver --url-base=wd/hub --port=4444
-```
-
-Because we are still using the legacy browser tests, we have to ensure that we use Node v14.
-
-You can check your current Node version by running:
-```bash
-node --version
-```
-If you do not get a Node v14 version, then you need to switch to it.
-This can be done using the [Node Version Manager(nvm)](https://github.com/nvm-sh/nvm):
-
-```bash
-nvm install 14 # only the first time, if you don't have it yet
-nvm use 14
-```
-Then you can run:
-
-```bash
-npm run selenium-test # all tests
-npm run selenium-test -- --spec tests/selenium/specs/editSchema.js # just a single test
-```
-
-#### Cypress
-
-For local development purposes, Cypress needs to be run headed as well.
-Thus using `fresh` is not an option.
 
 You can open up Cypress by executing
 
