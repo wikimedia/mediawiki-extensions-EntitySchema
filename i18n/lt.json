@@ -1,9 +1,41 @@
 {
 	"@metadata": {
 		"authors": [
-			"Pavel1513"
+			"Pavel1513",
+			"Nokeoo"
 		]
 	},
 	"nstab-entityschema": "\"EntitySchema\"",
-	"tooltip-ca-nstab-entityschema": "\"EntitySchema\" apibrėžimas"
+	"tooltip-ca-nstab-entityschema": "\"EntitySchema\" apibrėžimas",
+	"entityschema-newschema-label": "Žymė:",
+	"entityschema-newschema-description": "Aprašymas:",
+	"entityschema-newschema-submit": "Sukurti",
+	"entityschema-newschema-copyright": "Paspausdamas „$1“ sutinkate su [[$2|naudojimo sąlygomis]] ir neatšaukiamai sutinkate savo indėlį platinti pagal $3.",
+	"entityschema-label-edit-placeholder": "įvesti žymą $1 kalba",
+	"entityschema-description-edit-placeholder": "įveskite aprašymą $1 kalba",
+	"entityschema-aliases-edit-placeholder": "įveskite alternatyvių pavadinimų $1",
+	"entityschema-error-invalid-id": "Šis ID netinkamas.",
+	"entityschema-error-unsupported-langcode": "Šis kalbos kodas nepalaikomas.",
+	"entityschema-error-one-more-message-available": "Yra problemų dėl kai kurių jūsų įvesties duomenų. Patikrinkite toliau pateiktą klaidos pranešimą.",
+	"entityschema-error-possibly-multiple-messages-available": "Yra problemų dėl kai kurių jūsų įvesties duomenų. Patikrinkite toliau pateiktą (-us) klaidos pranešimą (-us).",
+	"entityschema-error-input-too-long": "Įvestas tekstas per ilgas. Didžiausias ilgis yra {{PLURAL:$1|vienas simbolis|$1 simboliai}}. Jūsų teksto ilgis yra {{PLURAL:$2|vienas simbolis|$2 simboliai}}.",
+	"entityschema-summary-generated": "Santrauka (bus pridėta prie automatiškai sugeneruotos santraukos):",
+	"entityschema-label-empty": "Etiketė neapibrėžta",
+	"entityschema-namebadge-header-language-code": "kalbos kodas",
+	"entityschema-namebadge-header-label": "etiketė",
+	"entityschema-namebadge-header-description": "aprašymas",
+	"entityschema-diff-label": "Etiketės",
+	"entityschema-diff-description": "Aprašymai",
+	"entityschema-diff-aliases": "Alternatyvūs vardai",
+	"entityschema-edit": "keisti",
+	"entityschema-undo-heading-failed": "Atšaukti nepavyko",
+	"entityschema-undo-bad-revisions": "Keitimas negali būti atšauktas, kadangi jis neegzistuoja arba buvo ištrintas.",
+	"entityschema-undo-cannot-apply-patch": "Keitimo anuliuoti nepavyko, nes jis buvo pakeistas.",
+	"entityschema-restore-heading-failed": "Atkurti nepavyko",
+	"entityschema-restore-empty": "Keitimas, kurį bandėte atkurti, yra identiškas dabartinei versijai. Nėra ką daryti.",
+	"entityschema-restoreold": "atkurti",
+	"entityschema-special-language-inputlabel": "Kalbos kodas",
+	"entityschema-special-id-submit": "Nustatyti žymę, aprašymą ir alternatyvius vardus",
+	"entityschema-special-label": "Žymė:",
+	"entityschema-special-description": "Aprašymas:"
 }
