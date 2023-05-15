@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Alshamiri1",
 			"Meno25",
 			"ديفيد"
 		]
@@ -85,5 +86,6 @@
 	"entityschema-special-aliases": "الأسماء المستعارة، مفصولة بأنابيب:",
 	"wikibase-listdatatypes-entity-schema-head": "مخطط الكيان",
 	"wikibase-listdatatypes-entity-schema-body": "رابط مخططات الكيانات المخزنة في النطاق المكون في نفس الويكي، يجب أن تكون القيمة بدون بادئة النطاق \"EntitySchema:\"",
-	"wikibase-validator-illegal-entity-schema-title": "يجب أن تبدأ القيمة بـ<code>E</code> وأن يكون الباقي مجرد أرقام."
+	"wikibase-validator-illegal-entity-schema-title": "يجب أن تبدأ القيمة بـ<code>E</code> وأن يكون الباقي مجرد أرقام.",
+	"wikibase-validator-no-such-entity-schema": "إن EntitySchema $1 غير موجود."
 }
