@@ -4,9 +4,9 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\MediaWiki\Specials\NewEntitySchema;
-use FauxRequest;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
 use PermissionsError;
 use ReadOnlyError;
