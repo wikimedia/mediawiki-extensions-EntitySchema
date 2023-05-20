@@ -36,7 +36,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( $expected, json_decode( $actual, true ) );
 	}
 
-	public function provideValidArguments() {
+	public static function provideValidArguments() {
 		$id = 'E1';
 		$language = 'en';
 		$label = 'englishLabel';
@@ -116,7 +116,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	public function provideInvalidArguments() {
+	public static function provideInvalidArguments() {
 		$validLabels = [ 'en' => 'valid label' ];
 		$validDescriptions = [ 'en' => 'valid description' ];
 		$validAliasGroups = [ 'en' => [ 'valid alias', 'another valid alias' ] ];

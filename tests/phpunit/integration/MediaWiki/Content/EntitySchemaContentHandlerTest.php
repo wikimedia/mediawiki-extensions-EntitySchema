@@ -70,7 +70,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 		}
 	}
 
-	public function provideShExSimpleUrlsAndExpectedLinks() {
+	public static function provideShExSimpleUrlsAndExpectedLinks() {
 		yield 'not configured, no link' => [ null, false ];
 
 		yield 'no query parameters, append ?' => [

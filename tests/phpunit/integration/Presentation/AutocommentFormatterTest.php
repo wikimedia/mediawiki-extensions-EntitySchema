@@ -16,7 +16,7 @@ use MediaWikiIntegrationTestCase;
  */
 class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
-	public function provideAutoComments(): iterable {
+	public static function provideAutoComments(): iterable {
 		yield 'unknown autocomment' => [
 			false,
 			'foo bar',

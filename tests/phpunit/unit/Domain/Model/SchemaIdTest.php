@@ -24,7 +24,7 @@ class SchemaIdTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $expected, $actual );
 	}
 
-	public function provideInvalidIds(): iterable {
+	public static function provideInvalidIds(): iterable {
 		yield 'missing prefix' => [ '1' ];
 		yield 'missing number' => [ 'E' ];
 		yield 'malformed number' => [ 'E01' ];

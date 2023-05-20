@@ -15,7 +15,7 @@ use TextSlotDiffRenderer;
  */
 class EntitySchemaSlotDiffRendererTest extends TestCase {
 
-	public function diffDataProvider() {
+	public static function diffDataProvider() {
 
 		yield 'blank' => [
 			[],

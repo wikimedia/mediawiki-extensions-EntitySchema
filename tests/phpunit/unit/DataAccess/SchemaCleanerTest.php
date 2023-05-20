@@ -10,7 +10,7 @@ use EntitySchema\DataAccess\SchemaCleaner;
  */
 class SchemaCleanerTest extends \MediaWikiUnitTestCase {
 
-	public function provideTestData() {
+	public static function provideTestData() {
 		yield 'well formed data' => [
 			[ 'en' => 'en label' ],
 			[ 'en' => 'en description' ],

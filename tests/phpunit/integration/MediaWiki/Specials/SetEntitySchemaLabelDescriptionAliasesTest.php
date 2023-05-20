@@ -197,7 +197,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$this->assertFalse( $actualResult );
 	}
 
-	public function provideExecuteData() {
+	public static function provideExecuteData() {
 		yield 'plain request' => [
 			null,
 			[],

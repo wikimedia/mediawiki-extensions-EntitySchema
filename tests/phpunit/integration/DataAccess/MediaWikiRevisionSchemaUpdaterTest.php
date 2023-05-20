@@ -149,7 +149,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		);
 	}
 
-	public function provideBadParameters() {
+	public static function provideBadParameters() {
 		$langExceptionMsg = 'language codes must be valid!';
 		$typeExceptionMsg = 'language, label, description and schemaText must be strings '
 			. 'and aliases must be an array of strings';
@@ -801,7 +801,7 @@ SHEXC;
 		);
 	}
 
-	public function provideNameBadgesWithComments() {
+	public static function provideNameBadgesWithComments() {
 		$oldBadge = new NameBadge( 'old label', 'old description', [ 'old alias' ] );
 
 		yield 'everything changed' => [

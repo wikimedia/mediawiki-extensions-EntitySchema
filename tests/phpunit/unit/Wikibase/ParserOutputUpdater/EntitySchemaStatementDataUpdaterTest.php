@@ -23,7 +23,7 @@ use Wikibase\DataModel\Tests\NewStatement;
  */
 class EntitySchemaStatementDataUpdaterTest extends MediaWikiUnitTestCase {
 
-	public function provideProcessStatement(): iterable {
+	public static function provideProcessStatement(): iterable {
 		$propertyIdString = new NumericPropertyId( 'P42' );
 		$propertyIdNonExistent = new NumericPropertyId( 'P404' );
 		$propertyIdEntitySchema = new NumericPropertyId( 'P73505550' );

@@ -15,7 +15,7 @@ use WatchedItem;
  */
 final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 
-	public function editPageDataProvider() {
+	public static function editPageDataProvider() {
 		yield [
 			'watchdefault',
 			true,
@@ -57,7 +57,7 @@ final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 		}
 	}
 
-	public function newPageDataProvider() {
+	public static function newPageDataProvider() {
 		yield [
 			[
 				[

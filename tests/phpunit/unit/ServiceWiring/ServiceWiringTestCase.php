@@ -36,7 +36,7 @@ class ServiceWiringTestCase extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->wiring = $this->loadWiring();
+		$this->wiring = self::loadWiring();
 		$this->mockedServices = [];
 		$this->accessedServices = [];
 		$this->serviceContainer = $this->createMock( MediaWikiServices::class );
@@ -81,14 +81,14 @@ class ServiceWiringTestCase extends TestCase {
 		return $this->getDefinition( $name )( $this->serviceContainer );
 	}
 
-	public function provideWiring(): Generator {
-		$wiring = $this->loadWiring();
+	public static function provideWiring(): Generator {
+		$wiring = self::loadWiring();
 		foreach ( $wiring as $name => $definition ) {
 			yield $name => [ $name, $definition ];
 		}
 	}
 
-	private function loadWiring(): array {
+	private static function loadWiring(): array {
 		return require __DIR__ . '/../../../../src/EntitySchema.ServiceWiring.php';
 	}
 

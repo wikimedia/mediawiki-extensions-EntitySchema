@@ -17,7 +17,7 @@ use MediaWikiUnitTestCase;
  */
 class SchemaDifferTest extends MediaWikiUnitTestCase {
 
-	public function provideSchemaDiffs() {
+	public static function provideSchemaDiffs() {
 		yield 'blank' => [
 			[],
 			[],

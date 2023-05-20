@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
  */
 class SchemaPatcherTest extends TestCase {
 
-	public function provideValidSchemaPatches() {
+	public static function provideValidSchemaPatches() {
 
 		yield 'restore label' => [
 			[],
@@ -125,7 +125,7 @@ class SchemaPatcherTest extends TestCase {
 		$this->assertEquals( $expected, $actualPatched->data );
 	}
 
-	public function providInvalidSchemaPatches() {
+	public static function provideInvalidSchemaPatches() {
 		yield 'restore existing schema' => [
 			[ 'schemaText' => 'I exist!' ],
 			new Diff( [
@@ -174,7 +174,7 @@ class SchemaPatcherTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider providInvalidSchemaPatches
+	 * @dataProvider provideInvalidSchemaPatches
 	 */
 	public function testPatchSchemaFailure( $currentSchema, $patch ) {
 		$schemaPatcher = new SchemaPatcher();

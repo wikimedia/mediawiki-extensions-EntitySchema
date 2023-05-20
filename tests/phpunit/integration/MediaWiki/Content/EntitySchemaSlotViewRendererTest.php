@@ -40,7 +40,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		}
 	}
 
-	public function provideSchemaDataAndHtmlFragments() {
+	public static function provideSchemaDataAndHtmlFragments() {
 		$emptySchemaText = '';
 
 		yield 'description, user language' => [
@@ -169,7 +169,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		$this->assertStringContainsString( $expected, $html );
 	}
 
-	public function provideLabelsAndHeadings() {
+	public static function provideLabelsAndHeadings() {
 		yield 'simple case' => [
 			'english label',
 			'english label',

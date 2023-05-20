@@ -78,7 +78,7 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 		$this->assertFalse( $result->isValid() );
 	}
 
-	public function provideInvalidValue(): iterable {
+	public static function provideInvalidValue(): iterable {
 		yield 'non-DataValue' => [ 'E1' ];
 		yield 'non-StringValue' => [ new ItemId( 'Q1' ) ];
 		yield 'empty StringValue' => [ new StringValue( '' ) ];
