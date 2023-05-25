@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace phpunit\unit\Wikibase\Formatters;
+namespace EntitySchema\Tests\Unit\Wikibase\Formatters;
 
 use DataValues\StringValue;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;

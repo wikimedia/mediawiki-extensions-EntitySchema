@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace phpunit\unit\Wikibase\Hooks;
+namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 
 use DataValues\StringValue;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
