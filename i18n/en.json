@@ -4,7 +4,7 @@
 			"The Wikidata team"
 		]
 	},
-	"datatypes-type-entity-schema": "Entity Schema",
+	"datatypes-type-entity-schema": "EntitySchema",
 	"entityschema-desc": "Store and discuss Schemas for Wikibase entities",
 	"special-newschema": "Create a new EntitySchema",
 	"nstab-entityschema": "EntitySchema",
