@@ -50,6 +50,12 @@
 			"services": [
 				"WikibaseRepo.PropertyDataTypeLookup"
 			]
+		},
+		"AddConceptLinkToSidebar": {
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\SidebarHookHandler",
+			"services": [
+				"WikibaseRepo.LocalEntitySource"
+			]
 		}
 	},
 	"Hooks": {
@@ -63,7 +69,8 @@
 		"ImportHandleRevisionXMLTag": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onImportHandleRevisionXMLTag",
 		"TitleGetRestrictionTypes": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onTitleGetRestrictionTypes",
 		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes",
-		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepoOnParserOutputUpdaterConstruction"
+		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepoOnParserOutputUpdaterConstruction",
+		"SidebarBeforeOutput": "AddConceptLinkToSidebar"
 	},
 	"ContentHandlers": {
 		"EntitySchema": {
