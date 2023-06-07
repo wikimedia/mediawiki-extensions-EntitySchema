@@ -7,13 +7,17 @@ namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 use DataValues\StringValue;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
+use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use HashConfig;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWikiUnitTestCase;
 use ValueValidators\Result;
+use Wikibase\DataAccess\DatabaseEntitySource;
+use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikibase\Repo\ValidatorBuilders;
 use Wikibase\Repo\Validators\CompositeValidator;
+use Wikimedia\Purtle\RdfWriter;
 
 /**
  * @covers \EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler
@@ -28,11 +32,13 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$stubValidatorBuilders = $this->createStub( ValidatorBuilders::class );
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
+		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 
 		$sut = new WikibaseDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
 			$stubValidatorBuilders,
+			$stubDatabaseEntitySource,
 			$stubExistsValidator
 		);
 
@@ -45,6 +51,14 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 			EntitySchemaFormatter::class,
 			$dataTypeDefinitions['PT:entity-schema']['formatter-factory-callback']( 'html' )
 		);
+		$this->assertInstanceOf(
+			EntitySchemaRdfBuilder::class,
+			$dataTypeDefinitions['PT:entity-schema']['rdf-builder-factory-callback'](
+				null,
+				$this->createStub( RdfVocabulary::class ),
+				$this->createStub( RdfWriter::class )
+			)
+		);
 	}
 
 	public function testOnWikibaseRepoDataTypesDoesNothingWhenDisabled(): void {
@@ -54,11 +68,13 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$stubValidatorBuilders = $this->createStub( ValidatorBuilders::class );
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
+		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 
 		$sut = new WikibaseDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
 			$stubValidatorBuilders,
+			$stubDatabaseEntitySource,
 			$stubExistsValidator
 		);
 
@@ -90,10 +106,13 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$stubExistsValidator->method( 'validate' )
 			->willReturn( $existenceResult );
+		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
+
 		$handler = new WikibaseDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
 			$validatorBuilders,
+			$stubDatabaseEntitySource,
 			$stubExistsValidator
 		);
 		$dataTypeDefinitions = [];

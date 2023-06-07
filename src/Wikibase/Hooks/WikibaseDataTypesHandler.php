@@ -7,8 +7,12 @@ namespace EntitySchema\Wikibase\Hooks;
 use Config;
 use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
+use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\Linker\LinkRenderer;
+use Wikibase\DataAccess\DatabaseEntitySource;
+use Wikibase\Repo\Rdf\RdfVocabulary;
+use Wikibase\Repo\Rdf\ValueSnakRdfBuilder;
 use Wikibase\Repo\ValidatorBuilders;
 use Wikibase\Repo\Validators\DataValueValidator;
 use Wikibase\Repo\Validators\RegexValidator;
@@ -22,17 +26,20 @@ class WikibaseDataTypesHandler {
 	public Config $settings;
 	private EntitySchemaExistsValidator $entitySchemaExistsValidator;
 	private ValidatorBuilders $validatorBuilders;
+	private DatabaseEntitySource $localEntitySource;
 
 	public function __construct(
 		LinkRenderer $linkRenderer,
 		Config $settings,
 		ValidatorBuilders $validatorBuilders,
+		DatabaseEntitySource $localEntitySource,
 		EntitySchemaExistsValidator $entitySchemaExistsValidator
 	) {
 		$this->linkRenderer = $linkRenderer;
 		$this->settings = $settings;
 		$this->entitySchemaExistsValidator = $entitySchemaExistsValidator;
 		$this->validatorBuilders = $validatorBuilders;
+		$this->localEntitySource = $localEntitySource;
 	}
 
 	public function onWikibaseRepoDataTypes( array &$dataTypeDefinitions ): void {
@@ -56,6 +63,15 @@ class WikibaseDataTypesHandler {
 				) );
 				$validators[] = $this->entitySchemaExistsValidator;
 				return $validators;
+			},
+			'rdf-builder-factory-callback' => function (
+				$flags,
+				RdfVocabulary $vocab
+			): ValueSnakRdfBuilder {
+				return new EntitySchemaRdfBuilder(
+					$vocab,
+					$this->localEntitySource->getConceptBaseUri()
+				);
 			},
 		];
 	}
