@@ -42,6 +42,7 @@
 				"LinkRenderer",
 				"MainConfig",
 				"WikibaseRepo.DefaultValidatorBuilders",
+				"WikibaseRepo.LocalEntitySource",
 				"EntitySchema.EntitySchemaExistsValidator"
 			]
 		},

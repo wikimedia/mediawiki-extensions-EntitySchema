@@ -11,6 +11,7 @@ use HashConfig;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWikiIntegrationTestCase;
 use ValueValidators\Result;
+use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\WikibaseRepo;
@@ -35,10 +36,12 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 		$validatorBuilders = WikibaseRepo::getDefaultValidatorBuilders( $this->getServiceContainer() );
 		$existsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$existsValidator->method( 'validate' )->willReturn( Result::newSuccess() );
+		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 		$handler = new WikibaseDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
 			$validatorBuilders,
+			$stubDatabaseEntitySource,
 			$existsValidator
 		);
 		$dataTypeDefinitions = [];
@@ -61,10 +64,12 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 		$validatorBuilders = WikibaseRepo::getDefaultValidatorBuilders( $this->getServiceContainer() );
 		$existsValidator = $this->createMock( EntitySchemaExistsValidator::class );
 		$existsValidator->expects( $this->never() )->method( 'validate' );
+		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 		$handler = new WikibaseDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
 			$validatorBuilders,
+			$stubDatabaseEntitySource,
 			$existsValidator
 		);
 		$dataTypeDefinitions = [];
