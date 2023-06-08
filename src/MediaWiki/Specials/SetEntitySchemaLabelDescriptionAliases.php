@@ -16,7 +16,6 @@ use InvalidArgumentException;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
-use MWException;
 use OutputPage;
 use PermissionsError;
 use RuntimeException;
@@ -197,14 +196,13 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	 * of $title, in which case &$revId will be replaced with that revision's ID
 	 *
 	 * @return NameBadge
-	 * @throws MWException
 	 */
 	private function getSchemaNameBadge( Title $title, $langCode, &$revId ) {
 		if ( $revId > 0 ) {
 			$revision = MediaWikiServices::getInstance()->getRevisionLookup()
 				->getRevisionById( $revId );
 			if ( $revision->getPageId() !== $title->getArticleID() ) {
-				throw new MWException( 'revision does not match title' );
+				throw new InvalidArgumentException( 'revision does not match title' );
 			}
 		} else {
 			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );

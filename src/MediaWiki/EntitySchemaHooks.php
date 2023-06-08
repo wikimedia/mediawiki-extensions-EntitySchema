@@ -7,7 +7,7 @@ use DatabaseUpdater;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\AutocommentFormatter;
 use Html;
-use MWException;
+use RuntimeException;
 use SkinTemplate;
 use Title;
 use WikiImporter;
@@ -153,7 +153,7 @@ final class EntitySchemaHooks {
 			array_key_exists( 'model', $revisionInfo ) &&
 			$revisionInfo['model'] === EntitySchemaContent::CONTENT_MODEL_ID
 		) {
-			throw new MWException(
+			throw new RuntimeException(
 				'To avoid ID conflicts, the import of Schemas is not supported.'
 			);
 		}
