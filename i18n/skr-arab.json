@@ -4,5 +4,14 @@
 			"Saraiki"
 		]
 	},
-	"entityschema-newschema-label": "لیبل:"
+	"entityschema-newschema-label": "لیبل:",
+	"entityschema-namebadge-header-label": "لیبل",
+	"entityschema-namebadge-header-description": "تفصیل",
+	"entityschema-namebadge-header-aliases": "عرفی ناں",
+	"entityschema-namebadge-header-edit": "لکھو",
+	"entityschema-diff-label": "لیبل",
+	"entityschema-diff-description": "تفصیلاں",
+	"entityschema-diff-aliases": "عرفی ناں",
+	"entityschema-special-label": "لیبل:",
+	"entityschema-special-description": "تفصیل:"
 }
