@@ -87,5 +87,6 @@
 	"entityschema-special-aliases": "別名，以豎線符號分隔：",
 	"wikibase-listdatatypes-entity-schema-head": "實體架構",
 	"wikibase-listdatatypes-entity-schema-body": "連結到儲存於相同 wiki 裡設置的命名空間之實體架構。值不能帶有「EntitySchema:」命名空間字首",
-	"wikibase-validator-illegal-entity-schema-title": "值必須以<code>E</code>作為開頭，剩餘部份則為數字。"
+	"wikibase-validator-illegal-entity-schema-title": "值必須以<code>E</code>作為開頭，剩餘部份則為數字。",
+	"wikibase-validator-no-such-entity-schema": "實體架構$1不存在。"
 }
