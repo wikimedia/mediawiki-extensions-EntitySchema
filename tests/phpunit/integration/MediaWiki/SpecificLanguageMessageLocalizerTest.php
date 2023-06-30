@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\MediaWiki;
 
 use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;

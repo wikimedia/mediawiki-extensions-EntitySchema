@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\MediaWiki;
 
 use Diff\DiffOp\Diff\Diff;
@@ -44,7 +46,7 @@ class UndoHandlerTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( $id, $actualSchemaId->getId() );
 	}
 
-	public static function inconsistentIdProvider() {
+	public static function inconsistentIdProvider(): iterable {
 		yield 'invalidWithoutThirdId' => [
 			'E12', 'E123', null,
 		];
@@ -57,7 +59,7 @@ class UndoHandlerTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider inconsistentIdProvider
 	 */
-	public function testAssertSameIdFail( $firstID, $secondID, $thirdID ) {
+	public function testAssertSameIdFail( string $firstID, string $secondID, ?string $thirdID ) {
 		$content1 = new EntitySchemaContent(
 			json_encode( [
 				'id' => $firstID,

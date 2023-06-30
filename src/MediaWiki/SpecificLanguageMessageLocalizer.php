@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki;
 
 use Message;
@@ -10,17 +12,13 @@ use MessageLocalizer;
  */
 class SpecificLanguageMessageLocalizer implements MessageLocalizer {
 
-	/** @var string */
-	private $languageCode;
+	private string $languageCode;
 
-	/**
-	 * @param string $languageCode
-	 */
-	public function __construct( $languageCode ) {
+	public function __construct( string $languageCode ) {
 		$this->languageCode = $languageCode;
 	}
 
-	public function msg( $key, ...$params ) {
+	public function msg( $key, ...$params ): Message {
 		$message = ( new Message( $key, [] ) )->inLanguage( $this->languageCode );
 
 		if ( $params ) {

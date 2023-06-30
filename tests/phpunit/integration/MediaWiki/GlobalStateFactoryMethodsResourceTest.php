@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\MediaWiki;
 
 use MediaWiki\Tests\ExtensionJsonTestBase;

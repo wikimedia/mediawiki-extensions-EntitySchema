@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki;
 
 use Diff\DiffOp\Diff\Diff;

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki;
 
 use Article;
@@ -19,23 +21,20 @@ use WikiImporter;
  */
 final class EntitySchemaHooks {
 
-	/**
-	 * @param DatabaseUpdater $updater
-	 */
-	public static function onCreateDBSchema( DatabaseUpdater $updater ) {
+	public static function onCreateDBSchema( DatabaseUpdater $updater ): void {
 		$updater->addExtensionTable(
 			'entityschema_id_counter',
 			dirname( __DIR__, 2 ) . "/sql/{$updater->getDB()->getType()}/tables-generated.sql"
 		);
 	}
 
-	public static function onExtensionTypes( array &$extTypes ) {
+	public static function onExtensionTypes( array &$extTypes ): void {
 		if ( !isset( $extTypes['wikibase'] ) ) {
 			$extTypes['wikibase'] = 'Wikibase';
 		}
 	}
 
-	public static function onSkinTemplateNavigationUniversal( SkinTemplate $skinTemplate, array &$links ) {
+	public static function onSkinTemplateNavigationUniversal( SkinTemplate $skinTemplate, array &$links ): void {
 		$title = $skinTemplate->getRelevantTitle();
 		if ( !$title->inNamespace( NS_ENTITYSCHEMA_JSON ) ) {
 			return;
@@ -48,12 +47,8 @@ final class EntitySchemaHooks {
 	 * Handler for the BeforeDisplayNoArticleText called by Article.
 	 * We implement this solely to replace the standard message that
 	 * is shown when a Schema does not exists.
-	 *
-	 * @param Article $article
-	 *
-	 * @return bool
 	 */
-	public static function onBeforeDisplayNoArticleText( Article $article ) {
+	public static function onBeforeDisplayNoArticleText( Article $article ): bool {
 		if ( $article->getTitle()->getNamespace() !== NS_ENTITYSCHEMA_JSON ) {
 			return true;
 		}
@@ -96,7 +91,14 @@ final class EntitySchemaHooks {
 	 *
 	 * @return null|false
 	 */
-	public static function onFormatAutocomments( &$comment, $pre, $auto, $post, $title, $local ) {
+	public static function onFormatAutocomments(
+		?string &$comment,
+		bool $pre,
+		string $auto,
+		bool $post,
+		?Title $title,
+		bool $local
+	): ?bool {
 		// phpcs:ignore MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgTitle
 		global $wgTitle;
 
@@ -131,7 +133,7 @@ final class EntitySchemaHooks {
 	 *
 	 * @return null|false
 	 */
-	public static function onContentModelCanBeUsedOn( $modelId, Title $title, &$ok ) {
+	public static function onContentModelCanBeUsedOn( string $modelId, Title $title, bool &$ok ): ?bool {
 		if (
 			$title->inNamespace( NS_ENTITYSCHEMA_JSON ) &&
 			$modelId !== EntitySchemaContent::CONTENT_MODEL_ID
@@ -148,7 +150,7 @@ final class EntitySchemaHooks {
 		WikiImporter $importer,
 		array $pageInfo,
 		array $revisionInfo
-	) {
+	): void {
 		if (
 			array_key_exists( 'model', $revisionInfo ) &&
 			$revisionInfo['model'] === EntitySchemaContent::CONTENT_MODEL_ID
@@ -170,7 +172,7 @@ final class EntitySchemaHooks {
 	 * @param Title $title
 	 * @param string[] &$types The types of protection available
 	 */
-	public static function onTitleGetRestrictionTypes( Title $title, array &$types ) {
+	public static function onTitleGetRestrictionTypes( Title $title, array &$types ): void {
 		if ( $title->getNamespace() === NS_ENTITYSCHEMA_JSON ) {
 			// Remove create and move protection for Schema namespaces
 			$types = array_diff( $types, [ 'create', 'move' ] );
