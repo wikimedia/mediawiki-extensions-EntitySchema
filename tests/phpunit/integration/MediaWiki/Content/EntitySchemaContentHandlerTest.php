@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
@@ -49,7 +51,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideShExSimpleUrlsAndExpectedLinks
 	 */
-	public function testGetParserOutput_schemaCheckLink( $shExSimpleUrl, $expected ) {
+	public function testGetParserOutput_schemaCheckLink( ?string $shExSimpleUrl, $expected ) {
 		$content = new EntitySchemaContent( json_encode( [
 			'labels' => [ 'en' => 'label' ],
 			'descriptions' => [ 'en' => 'description' ],
@@ -70,7 +72,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 		}
 	}
 
-	public static function provideShExSimpleUrlsAndExpectedLinks() {
+	public static function provideShExSimpleUrlsAndExpectedLinks(): iterable {
 		yield 'not configured, no link' => [ null, false ];
 
 		yield 'no query parameters, append ?' => [

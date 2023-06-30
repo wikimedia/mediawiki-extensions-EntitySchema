@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Content;
 
 use Content;
@@ -24,17 +26,13 @@ use TextSlotDiffRenderer;
  */
 class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 
-	/** @var SchemaConverter */
-	private $schemaConverter;
+	private SchemaConverter $schemaConverter;
 
-	/** @var SchemaDiffer */
-	private $schemaDiffer;
+	private SchemaDiffer $schemaDiffer;
 
-	/** @var TextSlotDiffRenderer */
-	private $textSlotDiffRenderer;
+	private TextSlotDiffRenderer $textSlotDiffRenderer;
 
-	/** @var MessageLocalizer */
-	private $msgLocalizer;
+	private MessageLocalizer $msgLocalizer;
 
 	public function __construct(
 		IContentHandlerFactory $contentHandlerFactory,
@@ -66,7 +64,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 	 * @return string
 	 * @suppress PhanParamSignatureMismatch LSP violation
 	 */
-	public function getDiff( Content $oldContent = null, Content $newContent = null ) {
+	public function getDiff( Content $oldContent = null, Content $newContent = null ): string {
 		$this->normalizeContents( $oldContent, $newContent, EntitySchemaContent::class );
 
 		$diff = $this->schemaDiffer->diffSchemas(
@@ -77,7 +75,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 		return $this->renderSchemaDiffRows( $diff );
 	}
 
-	public function renderSchemaDiffRows( Diff $diff ) {
+	public function renderSchemaDiffRows( Diff $diff ): string {
 		// split $diff into labels/descriptions/aliases (renderDiffOp())
 		// and schema (renderTextDiff())
 		$nameBadgeDiffOps = [];
@@ -110,7 +108,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 		return $nameBadgeDiff . $schemaDiff;
 	}
 
-	private function renderDiffOp( array $keys, DiffOp $diffOp ) {
+	private function renderDiffOp( array $keys, DiffOp $diffOp ): string {
 		if ( $diffOp instanceof Diff ) {
 			$output = '';
 			foreach ( $diffOp->getOperations() as $key => $op ) {
@@ -146,7 +144,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 	/**
 	 * @suppress PhanUndeclaredMethod
 	 */
-	private function renderTextDiff( $key, AtomicDiffOp $diffOp ) {
+	private function renderTextDiff( string $key, AtomicDiffOp $diffOp ): string {
 		if ( $diffOp instanceof DiffOpAdd || $diffOp instanceof DiffOpRemove ) {
 			return $this->renderDiffOp( [ $key ], $diffOp );
 		}
@@ -163,7 +161,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 		);
 	}
 
-	private function diffRow( $content ) {
+	private function diffRow( string $content ): string {
 		return Html::rawElement(
 			'tr',
 			[],
@@ -171,7 +169,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 		);
 	}
 
-	private function diffContext( $context ) {
+	private function diffContext( string $context ): string {
 		return Html::element(
 			'td',
 			[ 'colspan' => '2', 'class' => 'diff-lineno' ],
@@ -179,18 +177,18 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 		);
 	}
 
-	private function diffBlankLine() {
+	private function diffBlankLine(): string {
 		return Html::element( 'td', [ 'colspan' => '2' ] );
 	}
 
-	private function diffMarker( $marker ) {
+	private function diffMarker( string $marker ): string {
 		return Html::element(
 			'td',
 			[ 'class' => 'diff-marker', 'data-marker' => $marker ]
 		);
 	}
 
-	private function diffAddedLine( $line ) {
+	private function diffAddedLine( string $line ): string {
 		return $this->diffMarker( '+' ) . Html::element(
 			'td',
 			[ 'class' => 'diff-addedline' ],
@@ -198,7 +196,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 		);
 	}
 
-	private function diffRemovedLine( $line ) {
+	private function diffRemovedLine( string $line ): string {
 		return $this->diffMarker( '−' ) . Html::element(
 			'td',
 			[ 'class' => 'diff-deletedline' ],

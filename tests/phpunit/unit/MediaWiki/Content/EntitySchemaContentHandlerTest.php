@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Unit\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;

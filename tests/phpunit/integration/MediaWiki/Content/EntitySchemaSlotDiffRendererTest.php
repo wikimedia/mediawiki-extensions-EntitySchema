@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
@@ -15,7 +17,7 @@ use TextSlotDiffRenderer;
  */
 class EntitySchemaSlotDiffRendererTest extends TestCase {
 
-	public static function diffDataProvider() {
+	public static function diffDataProvider(): iterable {
 
 		yield 'blank' => [
 			[],
@@ -165,7 +167,7 @@ HTML;
 	/**
 	 * @dataProvider diffDataProvider
 	 */
-	public function testGetDiff( $oldSchema, $newSchema, $expectedHTML ) {
+	public function testGetDiff( array $oldSchema, array $newSchema, string $expectedHTML ) {
 		$oldContent = new EntitySchemaContent( json_encode( $oldSchema ) );
 		$newContent = new EntitySchemaContent( json_encode( $newSchema ) );
 		$context = RequestContext::getMain();

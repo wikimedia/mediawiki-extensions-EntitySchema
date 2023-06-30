@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer;
@@ -40,7 +42,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		}
 	}
 
-	public static function provideSchemaDataAndHtmlFragments() {
+	public static function provideSchemaDataAndHtmlFragments(): iterable {
 		$emptySchemaText = '';
 
 		yield 'description, user language' => [
@@ -152,7 +154,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideLabelsAndHeadings
 	 */
-	public function testFillParserOutput_heading( $label, $expected ) {
+	public function testFillParserOutput_heading( string $label, string $expected ) {
 		$schemaData = new FullViewSchemaData( [
 			'en' => new NameBadge( $label, 'description', [ 'alias' ] ),
 		], '' );
@@ -169,7 +171,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		$this->assertStringContainsString( $expected, $html );
 	}
 
-	public static function provideLabelsAndHeadings() {
+	public static function provideLabelsAndHeadings(): iterable {
 		yield 'simple case' => [
 			'english label',
 			'english label',

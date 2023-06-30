@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Content;
 
 use Action;
@@ -34,8 +36,7 @@ use Title;
  */
 class EntitySchemaContentHandler extends JsonContentHandler {
 
-	/** @var IContentHandlerFactory */
-	private $contentHandlerFactory;
+	private IContentHandlerFactory $contentHandlerFactory;
 
 	public function __construct(
 		string $modelId,
@@ -46,7 +47,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		$this->contentHandlerFactory = $contentHandlerFactory;
 	}
 
-	protected function getContentClass() {
+	protected function getContentClass(): string {
 		return EntitySchemaContent::class;
 	}
 
@@ -54,7 +55,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		$old = 0, $new = 0,
 		$rcid = 0, // FIXME: Deprecated, no longer used
 		$refreshCache = false, $unhide = false
-	) {
+	): DifferenceEngine {
 		return new DifferenceEngine( $context, $old, $new, $rcid, $refreshCache, $unhide );
 	}
 
@@ -76,16 +77,16 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 	 *
 	 * @return Language The page's language
 	 */
-	public function getPageViewLanguage( Title $title, Content $content = null ) {
+	public function getPageViewLanguage( Title $title, Content $content = null ): Language {
 		$context = RequestContext::getMain();
 		return $context->getLanguage();
 	}
 
-	public function canBeUsedOn( Title $title ) {
+	public function canBeUsedOn( Title $title ): bool {
 		return $title->inNamespace( NS_ENTITYSCHEMA_JSON ) && parent::canBeUsedOn( $title );
 	}
 
-	public function getActionOverrides() {
+	public function getActionOverrides(): array {
 		return [
 			'edit' => function ( Article $article, IContextSource $context ) {
 				return $this->getActionOverridesEdit( $article, $context );
@@ -172,7 +173,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		return SchemaSubmitAction::class;
 	}
 
-	public function supportsDirectApiEditing() {
+	public function supportsDirectApiEditing(): bool {
 		return false;
 	}
 
@@ -248,7 +249,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 	 *
 	 * @return bool Always true in this default implementation.
 	 */
-	public function isParserCacheSupported() {
+	public function isParserCacheSupported(): bool {
 		return true;
 	}
 
@@ -259,7 +260,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		Content $content,
 		ContentParseParams $cpoParams,
 		ParserOutput &$parserOutput
-	) {
+	): void {
 		'@phan-var EntitySchemaContent $content';
 		$parserOptions = $cpoParams->getParserOptions();
 		$generateHtml = $cpoParams->getGenerateHtml();

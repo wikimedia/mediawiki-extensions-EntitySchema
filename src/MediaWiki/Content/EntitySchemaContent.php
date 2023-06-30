@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Content;
 
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
@@ -14,11 +16,11 @@ class EntitySchemaContent extends JsonContent {
 
 	public const CONTENT_MODEL_ID = 'EntitySchema';
 
-	public function __construct( $text, $modelId = self::CONTENT_MODEL_ID ) {
+	public function __construct( string $text, string $modelId = self::CONTENT_MODEL_ID ) {
 		parent::__construct( $text, $modelId );
 	}
 
-	public function getTextForSearchIndex() {
+	public function getTextForSearchIndex(): string {
 		$converter = new SchemaConverter();
 		$schemaData = $converter->getFullViewSchemaData( $this->getText(), [] );
 		$textForSearchIndex = '';
