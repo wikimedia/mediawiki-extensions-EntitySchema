@@ -3,11 +3,11 @@
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
 
 	<rule ref="Generic.PHP.RequireStrictTypes">
-		<include-pattern>/src/Domain/Model/</include-pattern>
+		<include-pattern>/src/Domain/</include-pattern>
 		<include-pattern>/src/MediaWiki/</include-pattern>
 		<include-pattern>/src/Presentation/</include-pattern>
 		<include-pattern>/src/Wikibase/</include-pattern>
-		<include-pattern>/tests/phpunit/unit/Domain/Model/</include-pattern>
+		<include-pattern>/tests/phpunit/unit/Domain/</include-pattern>
 		<include-pattern>/tests/phpunit/unit/MediaWiki/</include-pattern>
 		<include-pattern>/tests/phpunit/unit/Wikibase/</include-pattern>
 		<include-pattern>/tests/phpunit/integration/MediaWiki/</include-pattern>
