@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
 use EntitySchema\MediaWiki\EntitySchemaServices;
@@ -25,8 +27,7 @@ use Wikimedia\Rdbms\SelectQueryBuilder;
  */
 class NewEntitySchemaTest extends SpecialPageTestBase {
 
-	/** @var DatabaseBlock */
-	private $block;
+	private DatabaseBlock $block;
 
 	public function testReadOnly() {
 		$readOnlyMode = $this->getMockBuilder( ReadOnlyMode::class )
@@ -136,9 +137,8 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 
 	/**
 	 * Gets the last created page.
-	 * @return LinkTarget
 	 */
-	private function getLastCreatedTitle() {
+	private function getLastCreatedTitle(): LinkTarget {
 		$row = $this->db->newSelectQueryBuilder()
 			->select( [ 'page_namespace',  'page_title' ] )
 			->from( 'page' )
@@ -150,9 +150,8 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 
 	/**
 	 * Gets the text of the last created page.
-	 * @return string|null
 	 */
-	protected function getLastCreatedPageText() {
+	protected function getLastCreatedPageText(): ?string {
 		$content = $this->getServiceContainer()
 			->getRevisionLookup()
 			->getRevisionByTitle( $this->getLastCreatedTitle() )
@@ -160,7 +159,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 		return ( $content instanceof TextContent ) ? $content->getText() : null;
 	}
 
-	protected function newSpecialPage() {
+	protected function newSpecialPage(): NewEntitySchema {
 		$idGenerator = EntitySchemaServices::getIdGenerator( $this->getServiceContainer() );
 		return new NewEntitySchema( $idGenerator );
 	}

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Specials;
 
 use EntitySchema\Domain\Model\SchemaId;
@@ -23,7 +25,7 @@ class EntitySchemaText extends SpecialPage {
 		);
 	}
 
-	public function execute( $subPage ) {
+	public function execute( $subPage ): void {
 		parent::execute( $subPage );
 		$schemaId = $this->getIdFromSubpage( $subPage );
 		if ( !$schemaId ) {
@@ -46,15 +48,15 @@ class EntitySchemaText extends SpecialPage {
 		);
 	}
 
-	public function getDescription() {
+	public function getDescription(): string {
 		return $this->msg( 'special-schematext' )->text();
 	}
 
-	protected function getGroupName() {
+	protected function getGroupName(): string {
 		return 'wikibase';
 	}
 
-	private function sendContentSchemaText( EntitySchemaContent $schemaContent, SchemaId $id ) {
+	private function sendContentSchemaText( EntitySchemaContent $schemaContent, SchemaId $id ): void {
 		$converter = new SchemaConverter();
 		$schemaText = $converter->getSchemaText( $schemaContent->getText() );
 		$out = $this->getOutput();
@@ -69,19 +71,14 @@ class EntitySchemaText extends SpecialPage {
 		echo $schemaText;
 	}
 
-	/**
-	 * @param string $subPage
-	 *
-	 * @return false|SchemaId
-	 */
-	private function getIdFromSubpage( $subPage ) {
+	private function getIdFromSubpage( ?string $subPage ): ?SchemaId {
 		if ( !$subPage ) {
-			return false;
+			return null;
 		}
 		try {
 			$schemaId = new SchemaId( $subPage );
 		} catch ( InvalidArgumentException $e ) {
-			return false;
+			return null;
 		}
 		return $schemaId;
 	}

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Specials;
 
 use EntitySchema\DataAccess\EditConflict;
@@ -40,10 +42,9 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	private const SUBMIT_SELECTION_NAME = 'submit-selection';
 	private const SUBMIT_EDIT_NAME = 'submit-edit';
 
-	/** @var string */
-	private $htmlFormProvider;
+	private string $htmlFormProvider;
 
-	public function __construct( $htmlFormProvider = HTMLForm::class ) {
+	public function __construct( string $htmlFormProvider = HTMLForm::class ) {
 		parent::__construct(
 			'SetEntitySchemaLabelDescriptionAliases',
 			'edit'
@@ -52,7 +53,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$this->htmlFormProvider = $htmlFormProvider;
 	}
 
-	public function execute( $subPage ) {
+	public function execute( $subPage ): void {
 		parent::execute( $subPage );
 
 		$request = $this->getRequest();
@@ -62,6 +63,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 
 		if ( $this->isSelectionDataValid( $id, $language ) ) {
 			$baseRevId = $request->getInt( self::FIELD_BASE_REV );
+			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable isSelectionDataValid() guarantees $id !== null
 			$this->displayEditForm( new SchemaId( $id ), $language, $baseRevId );
 			return;
 		}
@@ -69,7 +71,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$this->displaySchemaLanguageSelectionForm( $id, $language );
 	}
 
-	public function submitEditFormCallback( $data ) {
+	public function submitEditFormCallback( array $data ): Status {
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $this->getContext()->getUser() );
 		$watchListUpdater = new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON );
 		try {
@@ -105,11 +107,11 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		return Status::newGood( $title->getFullURL() );
 	}
 
-	public function getDescription() {
+	public function getDescription(): string {
 		return $this->msg( 'entityschema-special-setlabeldescriptionaliases' )->text();
 	}
 
-	private function getIdFromSubpageOrRequest( string $subpage, WebRequest $request ) {
+	private function getIdFromSubpageOrRequest( string $subpage, WebRequest $request ): ?string {
 		$subpageParts = array_filter( explode( '/', $subpage, 2 ) );
 		if ( count( $subpageParts ) > 0 ) {
 			return $subpageParts[0];
@@ -117,7 +119,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		return $request->getText( self::FIELD_ID ) ?: null;
 	}
 
-	private function getLanguageFromSubpageOrRequestOrUI( string $subpage, WebRequest $request ) {
+	private function getLanguageFromSubpageOrRequestOrUI( string $subpage, WebRequest $request ): string {
 		$subpageParts = array_filter( explode( '/', $subpage, 2 ) );
 		if ( count( $subpageParts ) === 2 ) {
 			return $subpageParts[1];
@@ -126,7 +128,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		return $request->getText( self::FIELD_LANGUAGE ) ?: $this->getLanguage()->getCode();
 	}
 
-	private function displaySchemaLanguageSelectionForm( $defaultId, $defaultLanguage ) {
+	private function displaySchemaLanguageSelectionForm( ?string $defaultId, string $defaultLanguage ): void {
 		$formDescriptor = $this->getSchemaSelectionFormFields( $defaultId, $defaultLanguage );
 
 		$form = $this->htmlFormProvider::factory( 'ooui', $formDescriptor, $this->getContext() )
@@ -139,7 +141,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$form->displayForm( $submitStatus ?: Status::newGood() );
 	}
 
-	private function displayEditForm( SchemaId $id, $langCode, $baseRevId ) {
+	private function displayEditForm( SchemaId $id, string $langCode, int $baseRevId ): void {
 		$output = $this->getOutput();
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id->getId() );
 		$schemaNameBadge = $this->getSchemaNameBadge( $title, $langCode, $baseRevId );
@@ -180,10 +182,8 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 
 	/**
 	 * Check if the second form is requested.
-	 *
-	 * @return bool
 	 */
-	private function isSecondForm() {
+	private function isSecondForm(): bool {
 		return $this->getContext()->getRequest()->getCheck( self::SUBMIT_SELECTION_NAME );
 	}
 
@@ -197,7 +197,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	 *
 	 * @return NameBadge
 	 */
-	private function getSchemaNameBadge( Title $title, $langCode, &$revId ) {
+	private function getSchemaNameBadge( Title $title, string $langCode, int &$revId ): NameBadge {
 		if ( $revId > 0 ) {
 			$revision = MediaWikiServices::getInstance()->getRevisionLookup()
 				->getRevisionById( $revId );
@@ -215,7 +215,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		return $converter->getMonolingualNameBadgeData( $schema, $langCode );
 	}
 
-	private function getSchemaSelectionFormFields( $defaultId, $defaultLanguage ) {
+	private function getSchemaSelectionFormFields( ?string $defaultId, string $defaultLanguage ): array {
 		$inputValidator = InputValidator::newFromGlobalState();
 		return [
 			self::FIELD_ID => [
@@ -248,10 +248,10 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 
 	private function getEditFormFields(
 		SchemaId $id,
-		$badgeLangCode,
+		string $badgeLangCode,
 		NameBadge $nameBadge,
-		$baseRevId
-	) {
+		int $baseRevId
+	): array {
 		$label = $nameBadge->label;
 		$description = $nameBadge->description;
 		$aliases = implode( '|', $nameBadge->aliases );
@@ -335,7 +335,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	 *
 	 * @return bool
 	 */
-	private function isSelectionDataValid( $id, $language ) {
+	private function isSelectionDataValid( ?string $id, ?string $language ): bool {
 		if ( $id === null || $language === null ) {
 			return false;
 		}
@@ -345,11 +345,11 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 			$inputValidator->validateLangCodeIsSupported( $language ) === true;
 	}
 
-	private function displayCopyright( OutputPage $output ) {
+	private function displayCopyright( OutputPage $output ): void {
 		$output->addHTML( $this->getCopyrightHTML() );
 	}
 
-	private function displayWarnings( OutputPage $output ) {
+	private function displayWarnings( OutputPage $output ): void {
 		foreach ( $this->getWarnings() as $warning ) {
 			$output->addHTML( Html::rawElement( 'div', [ 'class' => 'warning' ], $warning ) );
 		}
@@ -360,7 +360,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	 *
 	 * @return string HTML
 	 */
-	private function buildLanguageAndSchemaNotice( $langName, $label, SchemaId $schemaId ) {
+	private function buildLanguageAndSchemaNotice( string $langName, string $label, SchemaId $schemaId ): string {
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId->getId() );
 		return $this->msg( 'entityschema-special-setlabeldescriptionaliases-info' )
 			->params( $langName )
@@ -369,7 +369,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 			->parse();
 	}
 
-	private function getSchemaDisplayLabel( $label, SchemaId $schemaId ) {
+	private function getSchemaDisplayLabel( string $label, SchemaId $schemaId ): string {
 		if ( !$label ) {
 			return $schemaId->getId();
 		}
@@ -380,7 +380,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	/**
 	 * @return string HTML
 	 */
-	private function getCopyrightHTML() {
+	private function getCopyrightHTML(): string {
 		return $this->msg( 'entityschema-newschema-copyright' )
 			->params(
 				$this->msg( 'entityschema-special-id-submit' )->text(),
@@ -402,11 +402,11 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		return [];
 	}
 
-	protected function getGroupName() {
+	protected function getGroupName(): string {
 		return 'wikibase';
 	}
 
-	private function checkBlocked( LinkTarget $title ) {
+	private function checkBlocked( LinkTarget $title ): void {
 		$errors = MediaWikiServices::getInstance()->getPermissionManager()
 			->getPermissionErrors( $this->getRestriction(), $this->getUser(), $title );
 		if ( $errors !== [] ) {

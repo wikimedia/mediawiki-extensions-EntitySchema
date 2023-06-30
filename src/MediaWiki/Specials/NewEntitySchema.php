@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Specials;
 
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
@@ -43,7 +45,7 @@ class NewEntitySchema extends SpecialPage {
 		$this->idGenerator = $idGenerator;
 	}
 
-	public function execute( $subPage ) {
+	public function execute( $subPage ): void {
 		parent::execute( $subPage );
 
 		$this->checkPermissionsWithSubpage( $subPage );
@@ -75,7 +77,7 @@ class NewEntitySchema extends SpecialPage {
 		$form->displayForm( $submitStatus ?: Status::newGood() );
 	}
 
-	public function submitCallback( $data, HTMLForm $form ) {
+	public function submitCallback( array $data, HTMLForm $form ): Status {
 		// TODO: no form data validation??
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $this->getUser() );
@@ -99,11 +101,11 @@ class NewEntitySchema extends SpecialPage {
 		return Status::newGood( $title->getFullURL() );
 	}
 
-	public function getDescription() {
+	public function getDescription(): string {
 		return $this->msg( 'special-newschema' )->text();
 	}
 
-	protected function getGroupName() {
+	protected function getGroupName(): string {
 		return 'wikibase';
 	}
 
@@ -174,7 +176,7 @@ class NewEntitySchema extends SpecialPage {
 		];
 	}
 
-	private function displayBeforeForm( OutputPage $output ) {
+	private function displayBeforeForm( OutputPage $output ): void {
 		$output->addHTML( $this->getCopyrightHTML() );
 
 		foreach ( $this->getWarnings() as $warning ) {
@@ -185,7 +187,7 @@ class NewEntitySchema extends SpecialPage {
 	/**
 	 * @return string HTML
 	 */
-	private function getCopyrightHTML() {
+	private function getCopyrightHTML(): string {
 		return $this->msg( 'entityschema-newschema-copyright' )
 			->params(
 				$this->msg( 'entityschema-newschema-submit' )->text(),
@@ -208,7 +210,7 @@ class NewEntitySchema extends SpecialPage {
 		return [];
 	}
 
-	private function addJavaScript() {
+	private function addJavaScript(): void {
 		$output = $this->getOutput();
 		$output->addModules( [
 			'ext.EntitySchema.special.newSchema',
@@ -227,7 +229,7 @@ class NewEntitySchema extends SpecialPage {
 	 *
 	 * @throws PermissionsError
 	 */
-	protected function checkPermissionsWithSubpage( $subPage ) {
+	protected function checkPermissionsWithSubpage( ?string $subPage ): void {
 		$pm = MediaWikiServices::getInstance()->getPermissionManager();
 		$checkReplica = !$this->getRequest()->wasPosted();
 		$permissionErrors = $pm->getPermissionErrors(

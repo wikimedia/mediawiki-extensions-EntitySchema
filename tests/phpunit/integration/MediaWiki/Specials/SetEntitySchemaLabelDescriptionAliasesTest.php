@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
 use CommentStoreComment;
@@ -23,8 +25,7 @@ use WikiPage;
  */
 class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
-	/** @var HTMLFormSpy|null */
-	private $mockHTMLFormProvider;
+	private ?string $mockHTMLFormProvider = null;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -38,7 +39,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		parent::tearDown();
 	}
 
-	protected function newSpecialPage() {
+	protected function newSpecialPage(): SetEntitySchemaLabelDescriptionAliases {
 		if ( $this->mockHTMLFormProvider !== null ) {
 			return new SetEntitySchemaLabelDescriptionAliases( $this->mockHTMLFormProvider );
 		}
@@ -197,7 +198,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$this->assertFalse( $actualResult );
 	}
 
-	public static function provideExecuteData() {
+	public static function provideExecuteData(): iterable {
 		yield 'plain request' => [
 			null,
 			[],
@@ -244,7 +245,12 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 	/**
 	 * @dataProvider provideExecuteData
 	 */
-	public function testExecute( $subPage, $additionalRequestParams, $wasPosted, $expectedFieldData ) {
+	public function testExecute(
+		?string $subPage,
+		array $additionalRequestParams,
+		bool $wasPosted,
+		array $expectedFieldData
+	) {
 		$this->mockHTMLFormProvider = HTMLFormSpy::class;
 		$this->executeSpecialPage(
 			$subPage,
@@ -264,7 +270,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 	/**
 	 * @return array $actualSchema an array of Schema text + namebadge
 	 */
-	private function createTestSchema() {
+	private function createTestSchema(): array {
 		$page = $this->getServiceContainer()->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 		$this->saveSchemaPageContent(
@@ -280,7 +286,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		return $this->getCurrentSchemaContent( 'E123' );
 	}
 
-	private function getCurrentSchemaContent( $pageName ) {
+	private function getCurrentSchemaContent( string $pageName ): array {
 		$revId = $this->getCurrentSchemaRevisionId( $pageName );
 		$rev = MediaWikiServices::getInstance()
 			->getRevisionStore()
@@ -289,12 +295,12 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		return json_decode( $rev->getContent( SlotRecord::MAIN )->getText(), true );
 	}
 
-	private function getCurrentSchemaRevisionId( $pageName ) {
+	private function getCurrentSchemaRevisionId( string $pageName ): int {
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $pageName );
 		return $title->getLatestRevID();
 	}
 
-	private function saveSchemaPageContent( WikiPage $page, array $content ) {
+	private function saveSchemaPageContent( WikiPage $page, array $content ): void {
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
 		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
 		$firstRevRecord = $updater->saveRevision(
