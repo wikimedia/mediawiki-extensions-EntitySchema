@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
 use Article;
@@ -86,7 +88,7 @@ class UndoViewActionTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	private function saveSchemaPageContent( WikiPage $page, array $content ) {
+	private function saveSchemaPageContent( WikiPage $page, array $content ): int {
 		$content['serializationVersion'] = '3.0';
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
 		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );

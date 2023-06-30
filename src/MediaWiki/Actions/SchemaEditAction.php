@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Actions;
 
 use Article;
@@ -32,12 +34,9 @@ class SchemaEditAction extends FormAction {
 	public const FIELD_EDIT_SUMMARY = 'edit-summary';
 	public const FIELD_IGNORE_EMPTY_SUMMARY = 'ignore-blank-summary';
 
-	/** @var InputValidator */
-	private $inputValidator;
-	/** @var string */
-	private $submitMsgKey;
-	/** @var UserOptionsLookup */
-	private $userOptionsLookup;
+	private InputValidator $inputValidator;
+	private string $submitMsgKey;
+	private UserOptionsLookup $userOptionsLookup;
 
 	public function __construct(
 		Article $article,
@@ -52,7 +51,7 @@ class SchemaEditAction extends FormAction {
 		$this->submitMsgKey = $editSubmitButtonLabelPublish ? 'publishchanges' : 'savechanges';
 	}
 
-	public function show() {
+	public function show(): void {
 		parent::show();
 
 		$output = $this->getOutput();
@@ -134,7 +133,7 @@ class SchemaEditAction extends FormAction {
 		return Status::newGood();
 	}
 
-	protected function alterForm( HTMLForm $form ) {
+	protected function alterForm( HTMLForm $form ): void {
 		$form->suppressDefaultSubmit();
 		$request = $this->getContext()->getRequest();
 		if ( $request->getVal( 'wpedit-summary' ) === '' ) {
@@ -152,7 +151,7 @@ class SchemaEditAction extends FormAction {
 		$form->setValidationErrorMessage( [ [ 'entityschema-error-one-more-message-available' ] ] );
 	}
 
-	protected function getFormFields() {
+	protected function getFormFields(): array {
 		$context = $this->getContext();
 		$revisionStore = MediaWikiServices::getInstance()->getRevisionStore();
 		$currentRevRecord = $revisionStore->getKnownCurrentRevision( $context->getTitle() );
@@ -188,7 +187,7 @@ class SchemaEditAction extends FormAction {
 		];
 	}
 
-	protected function usesOOUI() {
+	protected function usesOOUI(): bool {
 		return true;
 	}
 
@@ -197,7 +196,7 @@ class SchemaEditAction extends FormAction {
 	 * a confirmation message (watch, rollback, etc) or to redirect somewhere else (edit,
 	 * protect, etc).
 	 */
-	public function onSuccess() {
+	public function onSuccess(): void {
 		$redirectParams = $this->getRequest()->getVal( 'redirectparams', '' );
 		$this->getOutput()->redirect( $this->getTitle()->getFullURL( $redirectParams ) );
 	}
@@ -207,11 +206,11 @@ class SchemaEditAction extends FormAction {
 	 *
 	 * @return string Lowercase name
 	 */
-	public function getName() {
+	public function getName(): string {
 		return 'edit';
 	}
 
-	public function getRestriction() {
+	public function getRestriction(): string {
 		return $this->getName();
 	}
 

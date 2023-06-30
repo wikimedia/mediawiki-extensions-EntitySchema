@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Actions;
 
 use CommentStoreComment;
@@ -20,15 +22,15 @@ use UserBlockedError;
  */
 class UndoSubmitAction extends AbstractUndoAction {
 
-	public function getName() {
+	public function getName(): string {
 		return 'submit';
 	}
 
-	public function getRestriction() {
+	public function getRestriction(): string {
 		return 'edit';
 	}
 
-	public function show() {
+	public function show(): void {
 		$permStatus = $this->checkPermissions();
 		if ( !$permStatus->isOK() ) {
 			$this->showUndoErrorPage( $permStatus );
@@ -92,7 +94,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 		return $this->storePatchedSchema( $patchedSchema, $baseRevId );
 	}
 
-	private function storePatchedSchema( FullArraySchemaData $patchedSchema, $baseRevId ): Status {
+	private function storePatchedSchema( FullArraySchemaData $patchedSchema, int $baseRevId ): Status {
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
 			new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON ),
@@ -122,7 +124,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 		return Status::newGood();
 	}
 
-	private function createSummaryCommentForUndoRev( $userSummary, $undoRevId ): CommentStoreComment {
+	private function createSummaryCommentForUndoRev( string $userSummary, int $undoRevId ): CommentStoreComment {
 		$revToBeUndone = MediaWikiServices::getInstance()
 			->getRevisionStore()
 			->getRevisionById( $undoRevId );

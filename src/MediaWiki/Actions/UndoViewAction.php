@@ -1,8 +1,11 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Actions;
 
 use Article;
+use Diff\DiffOp\Diff\Diff;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use EntitySchema\Presentation\ConfirmationFormRenderer;
 use EntitySchema\Presentation\DiffRenderer;
@@ -13,8 +16,7 @@ use IContextSource;
  */
 class UndoViewAction extends AbstractUndoAction {
 
-	/** @var EntitySchemaSlotDiffRenderer */
-	private $slotDiffRenderer;
+	private EntitySchemaSlotDiffRenderer $slotDiffRenderer;
 
 	public function __construct(
 		Article $article,
@@ -25,11 +27,11 @@ class UndoViewAction extends AbstractUndoAction {
 		$this->slotDiffRenderer = $slotDiffRenderer;
 	}
 
-	public function getName() {
+	public function getName(): string {
 		return 'edit';
 	}
 
-	public function show() {
+	public function show(): void {
 		$this->getOutput()->enableOOUI();
 
 		$this->getOutput()->setPageTitle(
@@ -58,10 +60,8 @@ class UndoViewAction extends AbstractUndoAction {
 
 	/**
 	 * Shows a form that can be used to confirm the requested undo/restore action.
-	 *
-	 * @param int $undidRevision
 	 */
-	private function showConfirmationForm( $undidRevision = 0 ) {
+	private function showConfirmationForm( int $undidRevision = 0 ): void {
 		$req = $this->getRequest();
 		$renderer = new ConfirmationFormRenderer( $this );
 		$confFormHTML = $renderer->showUndoRestoreConfirmationForm(
@@ -78,7 +78,7 @@ class UndoViewAction extends AbstractUndoAction {
 		$this->getOutput()->addHTML( $confFormHTML );
 	}
 
-	private function displayUndoDiff( $diff ) {
+	private function displayUndoDiff( Diff $diff ): void {
 
 		$helper = new DiffRenderer( $this );
 		$this->getOutput()->addHTML(

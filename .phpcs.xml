@@ -4,6 +4,7 @@
 
 	<rule ref="Generic.PHP.RequireStrictTypes">
 		<include-pattern>/src/Domain/Model/</include-pattern>
+		<include-pattern>/src/MediaWiki/Actions/</include-pattern>
 		<include-pattern>/src/MediaWiki/Content/</include-pattern>
 		<include-pattern>/src/MediaWiki/Hooks/</include-pattern>
 		<include-pattern>/src/MediaWiki/Specials/</include-pattern>
@@ -13,6 +14,7 @@
 		<include-pattern>/tests/phpunit/unit/MediaWiki/Content/</include-pattern>
 		<include-pattern>/tests/phpunit/unit/MediaWiki/Hooks/</include-pattern>
 		<include-pattern>/tests/phpunit/unit/Wikibase/</include-pattern>
+		<include-pattern>/tests/phpunit/integration/MediaWiki/Actions/</include-pattern>
 		<include-pattern>/tests/phpunit/integration/MediaWiki/Content/</include-pattern>
 		<include-pattern>/tests/phpunit/integration/MediaWiki/Specials/</include-pattern>
 		<include-pattern>/tests/phpunit/integration/Presentation/</include-pattern>

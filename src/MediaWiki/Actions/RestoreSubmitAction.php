@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Actions;
 
 use CommentStoreComment;
@@ -21,11 +23,11 @@ use Status;
  */
 final class RestoreSubmitAction extends AbstractRestoreAction {
 
-	public function getName() {
+	public function getName(): string {
 		return 'submit';
 	}
 
-	public function show() {
+	public function show(): void {
 		$checkMethodStatus = $this->checkMethod();
 		if ( !$checkMethodStatus->isOK() ) {
 			$this->showRestoreErrorPage( Status::newFatal( $checkMethodStatus ) );
@@ -55,7 +57,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		);
 	}
 
-	private function checkMethod() {
+	private function checkMethod(): Status {
 		if ( !$this->getContext()->getRequest()->wasPosted() ) {
 			return Status::newFatal( 'entityschema-error-not-post' );
 		}
@@ -96,7 +98,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 
 	private function storeRestoredSchema(
 		PersistenceSchemaData $persistenceSchemaData,
-		$baseRevId,
+		int $baseRevId,
 		CommentStoreComment $summary
 	): Status {
 
@@ -124,14 +126,8 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		return Status::newGood();
 	}
 
-	/**
-	 * @param string $userSummary
-	 * @param RevisionRecord $revToBeRestored
-	 *
-	 * @return CommentStoreComment
-	 */
 	private function createSummaryMessageForRestore(
-		$userSummary,
+		string $userSummary,
 		RevisionRecord $revToBeRestored
 	): CommentStoreComment {
 		$revId = $revToBeRestored->getId();

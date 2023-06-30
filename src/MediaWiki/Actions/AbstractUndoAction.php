@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Actions;
 
 use Diff\DiffOp\Diff\Diff;
@@ -17,7 +19,7 @@ use WebRequest;
  */
 abstract class AbstractUndoAction extends ViewAction {
 
-	public function getRestriction() {
+	public function getRestriction(): string {
 		return $this->getName();
 	}
 
@@ -77,7 +79,7 @@ abstract class AbstractUndoAction extends ViewAction {
 	 *
 	 * @param Status $status The status to report.
 	 */
-	protected function showUndoErrorPage( Status $status ) {
+	protected function showUndoErrorPage( Status $status ): void {
 		$this->getOutput()->prepareErrorPage(
 			$this->msg( 'entityschema-undo-heading-failed' ),
 			$this->msg( 'errorpagetitle' )

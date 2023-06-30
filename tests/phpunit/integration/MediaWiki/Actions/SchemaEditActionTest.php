@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
 use Article;
@@ -34,7 +36,7 @@ class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 			$context,
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
-			'savechanges',
+			false,
 			$this->getServiceContainer()->getUserOptionsLookup()
 		);
 
@@ -54,7 +56,7 @@ class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 			$context,
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
-			'savechanges',
+			false,
 			$this->getServiceContainer()->getUserOptionsLookup()
 		);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
 use Action;
@@ -26,8 +28,7 @@ use WikiPage;
  */
 final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 
-	/** @var DatabaseBlock */
-	private $block;
+	private DatabaseBlock $block;
 
 	public function setUp(): void {
 		parent::setUp();
@@ -139,7 +140,7 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 		$restoreSubmitAction->show();
 	}
 
-	private function getCurrentSchemaContent( $pageName ) {
+	private function getCurrentSchemaContent( string $pageName ): array {
 		/** @var EntitySchemaContent $content */
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $pageName );
 		$rev = MediaWikiServices::getInstance()
@@ -148,7 +149,7 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 		return json_decode( $rev->getContent( SlotRecord::MAIN )->getText(), true );
 	}
 
-	private function saveSchemaPageContent( WikiPage $page, array $content ) {
+	private function saveSchemaPageContent( WikiPage $page, array $content ): int {
 		$content['serializationVersion'] = '3.0';
 		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
 		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );

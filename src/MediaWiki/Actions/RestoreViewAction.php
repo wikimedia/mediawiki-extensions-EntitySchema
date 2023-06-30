@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Actions;
 
 use Article;
@@ -21,8 +23,7 @@ use Status;
  */
 final class RestoreViewAction extends AbstractRestoreAction {
 
-	/** @var EntitySchemaSlotDiffRenderer */
-	private $slotDiffRenderer;
+	private EntitySchemaSlotDiffRenderer $slotDiffRenderer;
 
 	public function __construct(
 		Article $article,
@@ -33,7 +34,7 @@ final class RestoreViewAction extends AbstractRestoreAction {
 		$this->slotDiffRenderer = $slotDiffRenderer;
 	}
 
-	public function show() {
+	public function show(): void {
 		$this->checkPermissions();
 
 		$req = $this->getContext()->getRequest();
@@ -52,7 +53,7 @@ final class RestoreViewAction extends AbstractRestoreAction {
 		$this->showRestorePreview( $diffStatus->getValue(), $req->getInt( 'restore' ) );
 	}
 
-	private function showRestorePreview( Diff $diff, $restoredRevID ) {
+	private function showRestorePreview( Diff $diff, int $restoredRevID ): void {
 		$this->getOutput()->enableOOUI();
 		$this->getOutput()->setPageTitle(
 			$this->msg(

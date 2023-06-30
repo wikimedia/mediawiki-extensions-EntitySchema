@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\MediaWiki\Actions;
 
 /**
@@ -9,7 +11,7 @@ namespace EntitySchema\MediaWiki\Actions;
  */
 class SchemaSubmitAction extends SchemaEditAction {
 
-	public function getName() {
+	public function getName(): string {
 		return 'submit';
 	}
 
