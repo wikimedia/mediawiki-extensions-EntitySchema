@@ -68,12 +68,12 @@ class SqlIdGenerator implements IdGenerator {
 
 		if ( is_object( $currentId ) ) {
 			$id = $currentId->id_value + 1;
-			$success = $database->update(
-				$this->tableName,
-				[ 'id_value' => $id ],
-				IDatabase::ALL_ROWS,
-				__METHOD__
-			);
+			$database->newUpdateQueryBuilder()
+				->update( $this->tableName )
+				->set( [ 'id_value' => $id ] )
+				->where( $database::ALL_ROWS ) // there is only one row
+				->caller( __METHOD__ )->execute();
+			$success = true; // T339346
 		} else {
 			$id = 1;
 
