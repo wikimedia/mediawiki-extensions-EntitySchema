@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\DataAccess;
 
 use EntitySchema\Domain\Model\SchemaId;
@@ -19,11 +21,11 @@ interface SchemaInserter {
 	 * @return SchemaId id of inserted Schema
 	 */
 	public function insertSchema(
-		$language,
-		$label,
-		$description,
+		string $language,
+		string $label,
+		string $description,
 		array $aliases,
-		$schemaText
+		string $schemaText
 	): SchemaId;
 
 }

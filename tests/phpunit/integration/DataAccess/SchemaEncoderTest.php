@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\DataAccess\SchemaEncoder;
@@ -18,11 +20,11 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 	 * @dataProvider provideValidArguments
 	 */
 	public function testGetPersistentRepresentation_valid(
-		$id,
+		string $id,
 		array $labels,
 		array $descriptions,
 		array $aliasGroups,
-		$schemaText,
+		string $schemaText,
 		array $expected
 	) {
 		$actual = SchemaEncoder::getPersistentRepresentation(
@@ -36,7 +38,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( $expected, json_decode( $actual, true ) );
 	}
 
-	public static function provideValidArguments() {
+	public static function provideValidArguments(): iterable {
 		$id = 'E1';
 		$language = 'en';
 		$label = 'englishLabel';
@@ -101,8 +103,8 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 		array $labels,
 		array $descriptions,
 		array $aliasGroups,
-		$schemaText,
-		$expectedMessage
+		string $schemaText,
+		string $expectedMessage
 	) {
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( $expectedMessage );
@@ -116,7 +118,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	public static function provideInvalidArguments() {
+	public static function provideInvalidArguments(): iterable {
 		$validLabels = [ 'en' => 'valid label' ];
 		$validDescriptions = [ 'en' => 'valid description' ];
 		$validAliasGroups = [ 'en' => [ 'valid alias', 'another valid alias' ] ];
@@ -151,7 +153,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 			$validDescriptions,
 			$validAliasGroups,
 			$validSchemaText,
-			'language, label, description and schemaText must be strings',
+			'language, label and description must be strings',
 		];
 
 		yield 'invalid type (descriptions)' => [
@@ -159,15 +161,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 			[ 'en' => 1 ],
 			$validAliasGroups,
 			$validSchemaText,
-			'language, label, description and schemaText must be strings',
-		];
-
-		yield 'invalid type (aliases/non-array)' => [
-			$validLabels,
-			$validDescriptions,
-			[ 'en' => 'invalid alias' ],
-			$validSchemaText,
-			'aliases must be an array of strings',
+			'language, label and description must be strings',
 		];
 
 		yield 'invalid type (aliases/list)' => [
@@ -184,14 +178,6 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 			[ 'en' => [ 'invalid' => 'alias' ] ],
 			$validSchemaText,
 			'aliases must be an array of strings',
-		];
-
-		yield 'invalid type (text)' => [
-			$validLabels,
-			$validDescriptions,
-			$validAliasGroups,
-			1,
-			'language, label, description and schemaText must be strings',
 		];
 	}
 

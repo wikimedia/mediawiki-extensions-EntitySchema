@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\DataAccess;
 
 use CommentStoreComment;
@@ -27,14 +29,10 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	public const AUTOCOMMENT_RESTORE = 'entityschema-summary-restore';
 	public const AUTOCOMMENT_UNDO = 'entityschema-summary-undo';
 
-	/** @var MediaWikiPageUpdaterFactory */
-	private $pageUpdaterFactory;
-	/** @var WatchlistUpdater */
-	private $watchListUpdater;
-	/** @var RevisionLookup */
-	private $revisionLookup;
-	/** @var LanguageFactory */
-	private $languageFactory;
+	private MediaWikiPageUpdaterFactory $pageUpdaterFactory;
+	private WatchlistUpdater $watchListUpdater;
+	private RevisionLookup $revisionLookup;
+	private LanguageFactory $languageFactory;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
@@ -48,7 +46,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$this->languageFactory = $languageFactory;
 	}
 
-	private function truncateSchemaTextForCommentData( $schemaText ) {
+	private function truncateSchemaTextForCommentData( string $schemaText ): string {
 		$language = $this->languageFactory->getLanguage( 'en' );
 		return $language->truncateForVisual( $schemaText, 5000 );
 	}
@@ -72,10 +70,10 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		array $labels,
 		array $descriptions,
 		array $aliasGroups,
-		$schemaText,
-		$baseRevId,
+		string $schemaText,
+		int $baseRevId,
 		CommentStoreComment $summary
-	) {
+	): void {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$this->checkSchemaExists( $updater->grabParentRevision() );
 		if ( $updater->hasEditConflict( $baseRevId ) ) {
@@ -108,12 +106,12 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 
 	public function updateSchemaNameBadge(
 		SchemaId $id,
-		$langCode,
-		$label,
-		$description,
+		string $langCode,
+		string $label,
+		string $description,
 		array $aliases,
-		$baseRevId
-	) {
+		int $baseRevId
+	): void {
 
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
@@ -167,9 +165,9 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 
 	private function getUpdateNameBadgeAutocomment(
 		RevisionRecord $baseRevision,
-		$langCode,
-		$label,
-		$description,
+		string $langCode,
+		string $label,
+		string $description,
 		array $aliases
 	): CommentStoreComment {
 
@@ -229,14 +227,10 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	 */
 	public function updateSchemaText(
 		SchemaId $id,
-		$schemaText,
-		$baseRevId,
-		$userSummary = null
-	) {
-		if ( !is_string( $schemaText ) ) {
-			throw new InvalidArgumentException( 'schema text must be a string' );
-		}
-
+		string $schemaText,
+		int $baseRevId,
+		?string $userSummary = null
+	): void {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
 		$this->checkSchemaExists( $parentRevision );
@@ -296,7 +290,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	 *
 	 * @throws RuntimeException
 	 */
-	private function checkSchemaExists( RevisionRecord $parentRevision = null ) {
+	private function checkSchemaExists( RevisionRecord $parentRevision = null ): void {
 		if ( $parentRevision === null ) {
 			throw new RuntimeException( 'Schema to update does not exist' );
 		}

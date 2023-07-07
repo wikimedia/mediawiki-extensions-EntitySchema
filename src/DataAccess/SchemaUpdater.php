@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\DataAccess;
 
 use CommentStoreComment;
@@ -31,10 +33,10 @@ interface SchemaUpdater {
 		array $labels,
 		array $descriptions,
 		array $aliasGroups,
-		$schemaText,
-		$baseRevId,
+		string $schemaText,
+		int $baseRevId,
 		CommentStoreComment $summary
-	);
+	): void;
 
 	/**
 	 * @param SchemaId $id
@@ -46,12 +48,12 @@ interface SchemaUpdater {
 	 */
 	public function updateSchemaNameBadge(
 		SchemaId $id,
-		$langCode,
-		$label,
-		$description,
+		string $langCode,
+		string $label,
+		string $description,
 		array $aliases,
-		$baseRevId
-	);
+		int $baseRevId
+	): void;
 
 	/**
 	 * @param SchemaId $id
@@ -65,9 +67,9 @@ interface SchemaUpdater {
 	 */
 	public function updateSchemaText(
 		SchemaId $id,
-		$schemaText,
-		$baseRevId,
-		$userSummary = null
-	);
+		string $schemaText,
+		int $baseRevId,
+		?string $userSummary = null
+	): void;
 
 }

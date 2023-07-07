@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\DataAccess\WatchlistUpdater;
@@ -15,7 +17,7 @@ use WatchedItem;
  */
 final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 
-	public static function editPageDataProvider() {
+	public static function editPageDataProvider(): iterable {
 		yield [
 			'watchdefault',
 			true,
@@ -34,7 +36,12 @@ final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider editPageDataProvider
 	 */
-	public function testWatchEditedSchema( $optionKey, $optionValue, $pageid, $expectedToBeWatched ) {
+	public function testWatchEditedSchema(
+		string $optionKey,
+		bool $optionValue,
+		string $pageid,
+		bool $expectedToBeWatched
+	) {
 		$testUser = self::getTestUser()->getUser();
 		$this->getServiceContainer()->getUserOptionsManager()->setOption( $testUser, $optionKey, $optionValue );
 		$watchlistUpdater = new WatchlistUpdater( $testUser, NS_ENTITYSCHEMA_JSON );
@@ -57,7 +64,7 @@ final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 		}
 	}
 
-	public static function newPageDataProvider() {
+	public static function newPageDataProvider(): iterable {
 		yield [
 			[
 				[
@@ -103,7 +110,11 @@ final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider newPageDataProvider
 	 */
-	public function testWatchNewSchema( $optionsToBeSet, $pageid, $expectedToBeWatched ) {
+	public function testWatchNewSchema(
+		array $optionsToBeSet,
+		string $pageid,
+		bool $expectedToBeWatched
+	) {
 		$testUser = self::getTestUser()->getUser();
 		$services = $this->getServiceContainer();
 		$userOptionsManager = $services->getUserOptionsManager();

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\DataAccess\SqlIdGenerator;
