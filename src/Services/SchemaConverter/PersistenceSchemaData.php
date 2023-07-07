@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Services\SchemaConverter;
 
 /**
@@ -7,11 +9,10 @@ namespace EntitySchema\Services\SchemaConverter;
  */
 class PersistenceSchemaData {
 	/** @var string[] */
-	public $labels = [];
+	public array $labels = [];
 	/** @var string[] */
-	public $descriptions = [];
+	public array $descriptions = [];
 	/** @var string[][] */
-	public $aliases = [];
-	/** @var string */
-	public $schemaText = '';
+	public array $aliases = [];
+	public string $schemaText = '';
 }

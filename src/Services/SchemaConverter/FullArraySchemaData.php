@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Services\SchemaConverter;
 
 /**
@@ -17,8 +19,7 @@ namespace EntitySchema\Services\SchemaConverter;
  */
 class FullArraySchemaData {
 
-	/** @var array */
-	public $data;
+	public array $data;
 
 	public function __construct( array $data ) {
 		$this->data = $data;

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Services\SchemaConverter;
 
 use DomainException;
@@ -22,7 +24,7 @@ class SchemaConverter {
 	 * @throws LogicException
 	 */
 	public function getFullViewSchemaData(
-		$schemaJSON,
+		string $schemaJSON,
 		array $preferredLanguages
 	): FullViewSchemaData {
 		$schema = json_decode( $schemaJSON, true );
@@ -33,14 +35,7 @@ class SchemaConverter {
 		);
 	}
 
-	/**
-	 * @param string $schemaData
-	 * @param string $langCode
-	 *
-	 * @return NameBadge
-	 *
-	 */
-	public function getMonolingualNameBadgeData( $schemaData, $langCode ): NameBadge {
+	public function getMonolingualNameBadgeData( string $schemaData, string $langCode ): NameBadge {
 		$schema = json_decode( $schemaData, true );
 
 		return new NameBadge(
@@ -50,7 +45,7 @@ class SchemaConverter {
 		);
 	}
 
-	public function getFullArraySchemaData( $schemaJSON ): FullArraySchemaData {
+	public function getFullArraySchemaData( string $schemaJSON ): FullArraySchemaData {
 		$schema = json_decode( $schemaJSON, true );
 
 		$data = [
@@ -78,7 +73,7 @@ class SchemaConverter {
 		return new FullArraySchemaData( $data );
 	}
 
-	public function getPersistenceSchemaData( $schemaJSON ): PersistenceSchemaData {
+	public function getPersistenceSchemaData( string $schemaJSON ): PersistenceSchemaData {
 		$schema = json_decode( $schemaJSON, true );
 		$persistenceSchemaData = new PersistenceSchemaData();
 		$persistenceSchemaData->schemaText = $this->getSchemaTextFromSchema( $schema );
@@ -101,7 +96,7 @@ class SchemaConverter {
 		return $persistenceSchemaData;
 	}
 
-	public function getSchemaID( $schemaJSON ) {
+	public function getSchemaID( string $schemaJSON ) {
 		return $this->getIdFromSchema( json_decode( $schemaJSON, true ) );
 	}
 
@@ -122,17 +117,12 @@ class SchemaConverter {
 		}
 	}
 
-	/**
-	 * @param string $schemaJSON
-	 *
-	 * @return string
-	 */
-	public function getSchemaText( $schemaJSON ) {
+	public function getSchemaText( string $schemaJSON ): string {
 		$schema = json_decode( $schemaJSON, true );
 		return $this->getSchemaTextFromSchema( $schema );
 	}
 
-	private function getSchemaTextFromSchema( array $schema ) {
+	private function getSchemaTextFromSchema( array $schema ): string {
 		if ( !isset( $schema['serializationVersion'] ) ) {
 			return '';
 		}
@@ -177,7 +167,7 @@ class SchemaConverter {
 	 *
 	 * @return string[]
 	 */
-	private function getSchemaLanguages( $schema, array $preferredLanguages = [] ) {
+	private function getSchemaLanguages( array $schema, array $preferredLanguages = [] ): array {
 		$langs = $preferredLanguages;
 		if ( !empty( $schema['labels'] ) ) {
 			$langs = array_merge(
@@ -208,7 +198,7 @@ class SchemaConverter {
 	 *
 	 * @throws DomainException
 	 */
-	private function getLabelFromSchema( array $schema, $langCode ) {
+	private function getLabelFromSchema( array $schema, $langCode ): string {
 		if ( empty( $schema['labels'] ) ) {
 			return '';
 		}
@@ -241,7 +231,7 @@ class SchemaConverter {
 	 *
 	 * @throws DomainException
 	 */
-	private function getDescriptionFromSchema( array $schema, $langCode ) {
+	private function getDescriptionFromSchema( array $schema, $langCode ): string {
 		if ( empty( $schema['descriptions'] ) ) {
 			return '';
 		}
@@ -274,7 +264,7 @@ class SchemaConverter {
 	 *
 	 * @throws DomainException
 	 */
-	private function getAliasGroupFromSchema( array $schema, $langCode ) {
+	private function getAliasGroupFromSchema( array $schema, $langCode ): array {
 		if ( empty( $schema['aliases'] ) ) {
 			return [];
 		}

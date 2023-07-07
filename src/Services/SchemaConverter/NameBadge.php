@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Services\SchemaConverter;
 
 /**
@@ -7,14 +9,12 @@ namespace EntitySchema\Services\SchemaConverter;
  */
 class NameBadge {
 
-	/** @var string */
-	public $label;
+	public string $label;
 
-	/** @var string */
-	public $description;
+	public string $description;
 
 	/** @var string[] */
-	public $aliases;
+	public array $aliases;
 
 	public function __construct( string $label, string $description, array $aliases ) {
 		$this->label = $label;
