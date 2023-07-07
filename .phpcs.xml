@@ -2,23 +2,8 @@
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
 
-	<rule ref="Generic.PHP.RequireStrictTypes">
-		<include-pattern>/src/DataAccess/</include-pattern>
-		<include-pattern>/src/Domain/</include-pattern>
-		<include-pattern>/src/MediaWiki/</include-pattern>
-		<include-pattern>/src/Presentation/</include-pattern>
-		<include-pattern>/src/Services/</include-pattern>
-		<include-pattern>/src/Wikibase/</include-pattern>
-		<include-pattern>/tests/phpunit/unit/DataAccess/</include-pattern>
-		<include-pattern>/tests/phpunit/unit/Domain/</include-pattern>
-		<include-pattern>/tests/phpunit/unit/MediaWiki/</include-pattern>
-		<include-pattern>/tests/phpunit/unit/Services/</include-pattern>
-		<include-pattern>/tests/phpunit/unit/Wikibase/</include-pattern>
-		<include-pattern>/tests/phpunit/integration/DataAccess/</include-pattern>
-		<include-pattern>/tests/phpunit/integration/MediaWiki/</include-pattern>
-		<include-pattern>/tests/phpunit/integration/Presentation/</include-pattern>
-		<include-pattern>/tests/phpunit/integration/Services/</include-pattern>
-	</rule>
+	<rule ref="Generic.PHP.RequireStrictTypes" />
+
 	<rule ref="MediaWiki.Commenting.FunctionComment">
 		<include-pattern>/src/MediaWiki/Hooks/</include-pattern>
 		<include-pattern>/src/Wikibase/</include-pattern>

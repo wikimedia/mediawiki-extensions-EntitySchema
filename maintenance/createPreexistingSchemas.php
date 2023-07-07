@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Maintenance;
 
 $basePath = getenv( 'MW_INSTALL_PATH' ) !== false
@@ -38,7 +40,7 @@ class CreatePreexistingSchemas extends Maintenance {
 		$this->requireExtension( 'EntitySchema' );
 	}
 
-	public function execute() {
+	public function execute(): void {
 		// "Maintenance script" is in MediaWiki's $wgReservedUsernames
 		$user = User::newSystemUser( 'Maintenance script', [ 'steal' => true ] );
 
@@ -159,7 +161,7 @@ class CreatePreexistingSchemas extends Maintenance {
 		];
 	}
 
-	private function createSchema( $idString, array $dataMap, User $user ) {
+	private function createSchema( string $idString, array $dataMap, User $user ): void {
 		$this->output(
 			'Importing Schema with label ' . $dataMap[self::LABEL] . " as EntitySchema $idString... \n"
 		);
