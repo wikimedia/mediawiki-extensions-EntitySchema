@@ -15,9 +15,7 @@ use EntitySchema\Services\Diff\SchemaDiffer;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use Html;
 use IContextSource;
-use MediaWiki\Content\IContentHandlerFactory;
 use MessageLocalizer;
-use RequestContext;
 use SlotDiffRenderer;
 use TextSlotDiffRenderer;
 
@@ -35,22 +33,9 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 	private MessageLocalizer $msgLocalizer;
 
 	public function __construct(
-		IContentHandlerFactory $contentHandlerFactory,
-		IContextSource $context = null,
-		TextSlotDiffRenderer $textSlotDiffRenderer = null
+		IContextSource $context,
+		TextSlotDiffRenderer $textSlotDiffRenderer
 	) {
-		if ( $context === null ) {
-			$context = RequestContext::getMain();
-		}
-
-		if ( $textSlotDiffRenderer === null ) {
-			$textSlotDiffRenderer = $contentHandlerFactory->getContentHandler( CONTENT_MODEL_TEXT )
-				->getSlotDiffRenderer( $context );
-			if ( !is_a( $textSlotDiffRenderer, TextSlotDiffRenderer::class ) ) {
-				$textSlotDiffRenderer = new TextSlotDiffRenderer();
-			}
-		}
-
 		$this->schemaDiffer = new SchemaDiffer();
 		$this->schemaConverter = new SchemaConverter();
 		$this->textSlotDiffRenderer = $textSlotDiffRenderer;

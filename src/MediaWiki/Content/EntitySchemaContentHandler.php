@@ -7,7 +7,6 @@ namespace EntitySchema\MediaWiki\Content;
 use Action;
 use Article;
 use Content;
-use DifferenceEngine;
 use EntitySchema\DataAccess\SchemaEncoder;
 use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
 use EntitySchema\MediaWiki\Actions\RestoreViewAction;
@@ -51,18 +50,13 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		return EntitySchemaContent::class;
 	}
 
-	public function createDifferenceEngine( IContextSource $context,
-		$old = 0, $new = 0,
-		$rcid = 0, // FIXME: Deprecated, no longer used
-		$refreshCache = false, $unhide = false
-	): DifferenceEngine {
-		return new DifferenceEngine( $context, $old, $new, $rcid, $refreshCache, $unhide );
-	}
-
-	protected function getSlotDiffRendererInternal( IContextSource $context ): EntitySchemaSlotDiffRenderer {
+	protected function getSlotDiffRendererWithOptions(
+		IContextSource $context,
+		$options = []
+	): EntitySchemaSlotDiffRenderer {
 		return new EntitySchemaSlotDiffRenderer(
-			$this->contentHandlerFactory,
-			$context
+			$context,
+			$this->createTextSlotDiffRenderer( $options )
 		);
 	}
 
@@ -121,7 +115,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			return new UndoViewAction(
 				$article,
 				$context,
-				$this->getSlotDiffRendererInternal( $context )
+				$this->getSlotDiffRendererWithOptions( $context )
 			);
 		}
 
@@ -129,7 +123,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			return new RestoreViewAction(
 				$article,
 				$context,
-				$this->getSlotDiffRendererInternal( $context )
+				$this->getSlotDiffRendererWithOptions( $context )
 			);
 		}
 

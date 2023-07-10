@@ -58,10 +58,12 @@ final class RestoreViewActionTest extends MediaWikiIntegrationTestCase {
 			)
 		);
 
-		$textSlotDiffRenderer = new TextSlotDiffRenderer();
+		$textSlotDiffRenderer = $this->getServiceContainer()
+			->getContentHandlerFactory()
+			->getContentHandler( CONTENT_MODEL_TEXT )
+			->getSlotDiffRenderer( $context );
 		$textSlotDiffRenderer->setEngine( TextSlotDiffRenderer::ENGINE_PHP );
 		$diffRenderer = new EntitySchemaSlotDiffRenderer(
-			$this->getServiceContainer()->getContentHandlerFactory(),
 			$context,
 			$textSlotDiffRenderer
 		);

@@ -6,8 +6,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
-use MediaWiki\MediaWikiServices;
-use PHPUnit\Framework\TestCase;
+use MediaWikiIntegrationTestCase;
 use RequestContext;
 use TextSlotDiffRenderer;
 
@@ -15,7 +14,7 @@ use TextSlotDiffRenderer;
  * @license GPL-2.0-or-later
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer
  */
-class EntitySchemaSlotDiffRendererTest extends TestCase {
+class EntitySchemaSlotDiffRendererTest extends MediaWikiIntegrationTestCase {
 
 	public static function diffDataProvider(): iterable {
 
@@ -171,10 +170,12 @@ HTML;
 		$oldContent = new EntitySchemaContent( json_encode( $oldSchema ) );
 		$newContent = new EntitySchemaContent( json_encode( $newSchema ) );
 		$context = RequestContext::getMain();
-		$textSlotDiffRenderer = new TextSlotDiffRenderer();
+		$textSlotDiffRenderer = $this->getServiceContainer()
+			->getContentHandlerFactory()
+			->getContentHandler( CONTENT_MODEL_TEXT )
+			->getSlotDiffRenderer( $context );
 		$textSlotDiffRenderer->setEngine( TextSlotDiffRenderer::ENGINE_PHP );
 		$diffRenderer = new EntitySchemaSlotDiffRenderer(
-			MediaWikiServices::getInstance()->getContentHandlerFactory(),
 			$context,
 			$textSlotDiffRenderer
 		);
