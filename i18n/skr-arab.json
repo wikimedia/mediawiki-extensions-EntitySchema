@@ -5,6 +5,9 @@
 		]
 	},
 	"entityschema-newschema-label": "لیبل:",
+	"entityschema-newschema-description": "تفصیل:",
+	"entityschema-newschema-submit": "بݨاؤ",
+	"entityschema-namebadge-header-language-code": "زبان دا کوڈ",
 	"entityschema-namebadge-header-label": "لیبل",
 	"entityschema-namebadge-header-description": "تفصیل",
 	"entityschema-namebadge-header-aliases": "عرفی ناں",
@@ -12,6 +15,7 @@
 	"entityschema-diff-label": "لیبل",
 	"entityschema-diff-description": "تفصیلاں",
 	"entityschema-diff-aliases": "عرفی ناں",
+	"entityschema-restoreold": "بحال کرو",
 	"entityschema-special-label": "لیبل:",
 	"entityschema-special-description": "تفصیل:"
 }
