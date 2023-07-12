@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use CommentStoreComment;
@@ -170,12 +172,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	/**
-	 * @param string|null $methodToExpect
-	 *
-	 * @return WatchlistUpdater
-	 */
-	private function getMockWatchlistUpdater( $methodToExpect = null ): WatchlistUpdater {
+	private function getMockWatchlistUpdater( ?string $methodToExpect = null ): WatchlistUpdater {
 		$mockWatchlistUpdater = $this->getMockBuilder( WatchlistUpdater::class )
 			->disableOriginalConstructor()
 			->getMock();

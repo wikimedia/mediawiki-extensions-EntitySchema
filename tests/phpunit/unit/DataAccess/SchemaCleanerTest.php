@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Unit\DataAccess;
 
 use EntitySchema\DataAccess\SchemaCleaner;
@@ -10,7 +12,7 @@ use EntitySchema\DataAccess\SchemaCleaner;
  */
 class SchemaCleanerTest extends \MediaWikiUnitTestCase {
 
-	public static function provideTestData() {
+	public static function provideTestData(): iterable {
 		yield 'well formed data' => [
 			[ 'en' => 'en label' ],
 			[ 'en' => 'en description' ],
@@ -65,11 +67,11 @@ class SchemaCleanerTest extends \MediaWikiUnitTestCase {
 		array $labels,
 		array $descriptions,
 		array $aliasGroups,
-		$schemaText,
+		string $schemaText,
 		array $expectedLabels,
 		array $expectedDescriptions,
 		array $expectedAliasGroups,
-		$expectedSchemaText
+		string $expectedSchemaText
 	) {
 
 		SchemaCleaner::cleanupParameters(

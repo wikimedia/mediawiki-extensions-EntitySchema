@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use CommentStoreComment;
@@ -27,11 +29,8 @@ use RuntimeException;
  */
 class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 
-	/** @var RevisionRecord|null */
-	private $baseRevision;
-
-	/** @var RevisionRecord|null */
-	private $parentRevision;
+	private ?RevisionRecord $baseRevision;
+	private ?RevisionRecord $parentRevision;
 
 	protected function tearDown(): void {
 		$this->baseRevision = null;
@@ -93,7 +92,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		return $pageUpdaterFactory;
 	}
 
-	private function createMockRevisionLookup( array $revisionRecords = [] ) {
+	private function createMockRevisionLookup( array $revisionRecords = [] ): RevisionLookup {
 		$revisionRecordMap = [];
 		foreach ( $revisionRecords as $revisionRecord ) {
 			$revisionRecordMap[$revisionRecord->getId()] = $revisionRecord;
@@ -149,9 +148,9 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		);
 	}
 
-	public static function provideBadParameters() {
+	public static function provideBadParameters(): iterable {
 		$langExceptionMsg = 'language codes must be valid!';
-		$typeExceptionMsg = 'language, label, description and schemaText must be strings '
+		$typeExceptionMsg = 'language, label and description must be strings '
 			. 'and aliases must be an array of strings';
 		return [
 			'language is not supported' => [ 'not a real langcode', '', '', [], '', $langExceptionMsg ],
@@ -160,7 +159,6 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 			'aliases is non-string array' => [ 'fr', '', '', [ (object)[] ], '', $typeExceptionMsg ],
 			'aliases is mixed array' => [ 'ar', '', '', [ (object)[], 'foo' ], '', $typeExceptionMsg ],
 			'aliases is associative array' => [ 'hu', '', '', [ 'en' => 'foo' ], '', $typeExceptionMsg ],
-			'schema text is not string' => [ 'he', '', '', [], (object)[], $typeExceptionMsg ],
 		];
 	}
 
@@ -168,12 +166,12 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 	 * @dataProvider provideBadParameters
 	 */
 	public function testOverwriteWholeSchema_throwsForInvalidParams(
-		$testLanguage,
+		string $testLanguage,
 		$testLabel,
 		$testDescription,
 		$testAliases,
-		$testSchemaText,
-		$exceptionMessage
+		string $testSchemaText,
+		string $exceptionMessage
 	) {
 		$this->parentRevision = $this->createMockRevisionRecord();
 		$pageUpdater = $this->createMock( PageUpdater::class );
@@ -266,7 +264,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 	 *
 	 * @return WatchlistUpdater
 	 */
-	private function getMockWatchlistUpdater( $methodToExpect = null ): WatchlistUpdater {
+	private function getMockWatchlistUpdater( string $methodToExpect = null ): WatchlistUpdater {
 		$mockWatchlistUpdater = $this->getMockBuilder( WatchlistUpdater::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -279,8 +277,13 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 	}
 
 	public function testUpdateSchemaText_throwsForInvalidParams() {
-		$mockRevLookup = $this->createMockRevisionLookup();
-		$pageUpdaterFactory = $this->getPageUpdaterFactory();
+		$this->parentRevision = $this->createMockRevisionRecord(
+			new EntitySchemaContent( '{}' )
+		);
+		$pageUpdater = $this->createMock( PageUpdater::class );
+		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
+		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
 		$schmeaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
@@ -291,7 +294,8 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$this->expectException( InvalidArgumentException::class );
 		$schmeaUpdater->updateSchemaText(
 			new SchemaId( 'E1' ),
-			null,
+			str_repeat( '#', MediaWikiServices::getInstance()->getMainConfig()
+				->get( 'EntitySchemaSchemaTextMaxSizeBytes' ) + 100 ),
 			1
 		);
 	}
@@ -745,8 +749,8 @@ SHEXC;
 	public function testUpdateSchemaNameBadge_comment(
 		?NameBadge $old,
 		NameBadge $new,
-		$expectedAutocommentKey,
-		$expectedAutosummary
+		string $expectedAutocommentKey,
+		string $expectedAutosummary
 	) {
 		$id = 'E1';
 		$language = 'en';
@@ -801,7 +805,7 @@ SHEXC;
 		);
 	}
 
-	public static function provideNameBadgesWithComments() {
+	public static function provideNameBadgesWithComments(): iterable {
 		$oldBadge = new NameBadge( 'old label', 'old description', [ 'old alias' ] );
 
 		yield 'everything changed' => [
@@ -1212,7 +1216,7 @@ SHEXC;
 
 	private function createMockRevisionRecord(
 		EntitySchemaContent $content = null,
-		$id = 1
+		int $id = 1
 	): RevisionRecord {
 		$revisionRecord = $this->createMock( RevisionRecord::class );
 		$revisionRecord->method( 'getContent' )->willReturn( $content );

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\DataAccess;
 
 use CommentStoreComment;
@@ -17,14 +19,10 @@ use RuntimeException;
 class MediaWikiRevisionSchemaInserter implements SchemaInserter {
 	public const AUTOCOMMENT_NEWSCHEMA = 'entityschema-summary-newschema-nolabel';
 
-	/** @var MediaWikiPageUpdaterFactory */
-	private $pageUpdaterFactory;
-	/** @var IdGenerator */
-	private $idGenerator;
-	/** @var WatchlistUpdater */
-	private $watchListUpdater;
-	/** @var LanguageFactory */
-	private $languageFactory;
+	private MediaWikiPageUpdaterFactory $pageUpdaterFactory;
+	private IdGenerator $idGenerator;
+	private WatchlistUpdater $watchListUpdater;
+	private LanguageFactory $languageFactory;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
@@ -48,11 +46,11 @@ class MediaWikiRevisionSchemaInserter implements SchemaInserter {
 	 * @return SchemaId id of the inserted Schema
 	 */
 	public function insertSchema(
-		$language,
-		$label = '',
-		$description = '',
+		string $language,
+		string $label = '',
+		string $description = '',
 		array $aliases = [],
-		$schemaText = ''
+		string $schemaText = ''
 	): SchemaId {
 		$id = new SchemaId( 'E' . $this->idGenerator->getNewId() );
 		$persistentRepresentation = SchemaEncoder::getPersistentRepresentation(
@@ -100,7 +98,7 @@ class MediaWikiRevisionSchemaInserter implements SchemaInserter {
 		return $id;
 	}
 
-	private function truncateSchemaTextForCommentData( $schemaText ) {
+	private function truncateSchemaTextForCommentData( string $schemaText ): string {
 		$language = $this->languageFactory->getLanguage( 'en' );
 		return $language->truncateForVisual( $schemaText, 5000 );
 	}

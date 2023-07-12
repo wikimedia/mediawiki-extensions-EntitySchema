@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\DataAccess;
 
 use MediaWiki\MediaWikiServices;
@@ -13,14 +15,13 @@ use User;
  */
 class MediaWikiPageUpdaterFactory {
 
-	/** @var User */
-	private $user;
+	private User $user;
 
 	public function __construct( User $user ) {
 		$this->user = $user;
 	}
 
-	public function getPageUpdater( $pageTitleString ): PageUpdater {
+	public function getPageUpdater( string $pageTitleString ): PageUpdater {
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $pageTitleString );
 		$wikipage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
 		$pageUpdater = $wikipage->newPageUpdater( $this->user );
@@ -29,7 +30,7 @@ class MediaWikiPageUpdaterFactory {
 		return $pageUpdater;
 	}
 
-	private function setPatrolStatus( PageUpdater $pageUpdater, Title $title ) {
+	private function setPatrolStatus( PageUpdater $pageUpdater, Title $title ): void {
 		global $wgUseNPPatrol, $wgUseRCPatrol;
 		$needsPatrol = $wgUseRCPatrol || ( $wgUseNPPatrol && !$title->exists() );
 		$permissionsManager = MediaWikiServices::getInstance()->getPermissionManager();

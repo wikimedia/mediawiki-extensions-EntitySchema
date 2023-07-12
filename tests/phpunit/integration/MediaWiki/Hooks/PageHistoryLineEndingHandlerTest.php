@@ -10,6 +10,7 @@ use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
+use Language;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Request\FauxRequest;
 use MediaWikiIntegrationTestCase;
@@ -25,7 +26,10 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 	public function testOneRestoreLink(): void {
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $this->getTestUser()->getUser() );
 		$watchListUpdater = $this->createMock( WatchlistUpdater::class );
-		$languageFactory = $this->createMock( LanguageFactory::class );
+		$language = $this->createConfiguredMock( Language::class,
+			[ 'truncateForVisual' => '' ] );
+		$languageFactory = $this->createConfiguredMock( LanguageFactory::class,
+			[ 'getLanguage' => $language ] );
 		$schemaInserter = new MediaWikiRevisionSchemaInserter(
 			$updaterFactory,
 			$watchListUpdater,

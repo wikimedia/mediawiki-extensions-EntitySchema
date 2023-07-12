@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\DataAccess;
 
 /**
@@ -17,15 +19,15 @@ class SchemaCleaner {
 		array &$labels,
 		array &$descriptions,
 		array &$aliasGroups,
-		&$schemaText
-	) {
+		string &$schemaText
+	): void {
 		$labels = self::cleanupArrayOfStrings( $labels );
 		$descriptions = self::cleanupArrayOfStrings( $descriptions );
 		$aliasGroups = self::cleanAliasGroups( $aliasGroups );
 		$schemaText = self::trimWhitespaceAndControlChars( $schemaText );
 	}
 
-	public static function cleanupArrayOfStrings( array $arrayOfStrings ) {
+	public static function cleanupArrayOfStrings( array $arrayOfStrings ): array {
 		foreach ( $arrayOfStrings as &$string ) {
 			$string = self::trimWhitespaceAndControlChars( $string );
 		}
@@ -39,7 +41,7 @@ class SchemaCleaner {
 	 *
 	 * @return string The trimmed string after applying the regex
 	 */
-	public static function trimWhitespaceAndControlChars( $string ) {
+	public static function trimWhitespaceAndControlChars( string $string ): string {
 		return preg_replace( '/^[\p{Z}\p{Cc}\p{Cf}]+|[\p{Z}\p{Cc}\p{Cf}]+$/u', '', $string );
 	}
 

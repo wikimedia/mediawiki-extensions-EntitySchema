@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\DataAccess;
 
 use EntitySchema\Domain\Model\SchemaId;
@@ -12,17 +14,15 @@ use User;
  */
 class WatchlistUpdater {
 
-	/** @var User */
-	private $user;
-	/** @var int */
-	private $namespace;
+	private User $user;
+	private int $namespace;
 
 	public function __construct( User $user, int $namespaceID ) {
 		$this->user = $user;
 		$this->namespace = $namespaceID;
 	}
 
-	public function optionallyWatchEditedSchema( SchemaId $schemaID ) {
+	public function optionallyWatchEditedSchema( SchemaId $schemaID ): void {
 		$services = MediaWikiServices::getInstance();
 		$userOptionsLookup = $services->getUserOptionsLookup();
 		$watchlistManager = $services->getWatchlistManager();
@@ -35,7 +35,7 @@ class WatchlistUpdater {
 		}
 	}
 
-	public function optionallyWatchNewSchema( SchemaId $schemaID ) {
+	public function optionallyWatchNewSchema( SchemaId $schemaID ): void {
 		$services = MediaWikiServices::getInstance();
 		$userOptionsLookup = $services->getUserOptionsLookup();
 		$watchlistManager = $services->getWatchlistManager();

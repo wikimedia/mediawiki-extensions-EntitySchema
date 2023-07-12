@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\DataAccess;
 
 use EntitySchema\Domain\Model\SchemaId;
@@ -27,8 +29,8 @@ class SchemaEncoder {
 		array $labels,
 		array $descriptions,
 		array $aliases,
-		$schemaText
-	) {
+		string $schemaText
+	): string {
 		self::validateParameters(
 			$labels,
 			$descriptions,
@@ -64,14 +66,13 @@ class SchemaEncoder {
 		array $labels,
 		array $descriptions,
 		array $aliasGroups,
-		$schemaText
-	) {
+		string $schemaText
+	): void {
 		self::validateLangCodes( $labels, $descriptions, $aliasGroups );
 		self::validateParameterTypes(
 			$labels,
 			$descriptions,
-			$aliasGroups,
-			$schemaText
+			$aliasGroups
 		);
 		self::validateIdentifyingInfoMaxLength(
 			$labels,
@@ -85,7 +86,7 @@ class SchemaEncoder {
 		array $labels,
 		array $descriptions,
 		array $aliasGroups
-	) {
+	): void {
 		$providedLangCodes = array_unique(
 			array_merge(
 				array_keys( $labels ),
@@ -108,17 +109,15 @@ class SchemaEncoder {
 	private static function validateParameterTypes(
 		array $labels,
 		array $descriptions,
-		array $aliasGroups,
-		$schemaText
-	) {
+		array $aliasGroups
+	): void {
 		if ( count( array_filter( $labels, 'is_string' ) ) !== count( $labels )
 			|| count( array_filter( $descriptions, 'is_string' ) ) !== count( $descriptions )
-			|| !is_string( $schemaText )
 			|| count( array_filter( $aliasGroups, [ self::class, 'isSequentialArrayOfStrings' ] ) )
 			!== count( $aliasGroups )
 		) {
 			throw new InvalidArgumentException(
-				'language, label, description and schemaText must be strings '
+				'language, label and description must be strings '
 				. 'and aliases must be an array of strings'
 			);
 		}
@@ -128,7 +127,7 @@ class SchemaEncoder {
 		array $labels,
 		array $descriptions,
 		array $aliasGroups
-	) {
+	): void {
 		foreach ( $labels as $label ) {
 			self::validateLDAMaxLength( $label );
 		}
@@ -142,7 +141,7 @@ class SchemaEncoder {
 		}
 	}
 
-	private static function validateLDAMaxLength( $localizedString ) {
+	private static function validateLDAMaxLength( string $localizedString ): void {
 		$maxLengthChars = MediaWikiServices::getInstance()->getMainConfig()
 			->get( 'EntitySchemaNameBadgeMaxSizeChars' );
 		if ( mb_strlen( $localizedString ) > $maxLengthChars ) {
@@ -152,7 +151,7 @@ class SchemaEncoder {
 		}
 	}
 
-	private static function validateSchemaMaxLength( $schemaText ) {
+	private static function validateSchemaMaxLength( string $schemaText ): void {
 		$maxLengthBytes = MediaWikiServices::getInstance()->getMainConfig()
 			->get( 'EntitySchemaSchemaTextMaxSizeBytes' );
 		if ( strlen( $schemaText ) > $maxLengthBytes ) {
@@ -162,10 +161,7 @@ class SchemaEncoder {
 		}
 	}
 
-	private static function isSequentialArrayOfStrings( $array ) {
-		if ( !is_array( $array ) ) {
-			return false;
-		}
+	private static function isSequentialArrayOfStrings( array $array ): bool {
 		$values = array_values( $array );
 		if ( $array !== $values ) {
 			// Array is associative or sparse. Fast solution from

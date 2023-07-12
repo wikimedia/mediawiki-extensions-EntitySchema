@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\DataAccess;
 
 use Diff\Patcher\PatcherException;
@@ -16,14 +18,9 @@ use MediaWiki\Revision\SlotRecord;
  */
 class SchemaUpdateGuard {
 
-	/** @var SchemaConverter */
-	private $schemaConverter;
-
-	/** @var SchemaDiffer */
-	private $schemaDiffer;
-
-	/** @var SchemaPatcher */
-	private $schemaPatcher;
+	private SchemaConverter $schemaConverter;
+	private SchemaDiffer $schemaDiffer;
+	private SchemaPatcher $schemaPatcher;
 
 	public function __construct() {
 		$this->schemaConverter = new SchemaConverter();
@@ -44,7 +41,7 @@ class SchemaUpdateGuard {
 		RevisionRecord $baseRevision,
 		RevisionRecord $parentRevision,
 		callable $schemaUpdate
-	) {
+	): ?PersistenceSchemaData {
 		$baseData = $this->schemaConverter->getFullArraySchemaData(
 			// @phan-suppress-next-line PhanUndeclaredMethod
 			$baseRevision->getContent( SlotRecord::MAIN )->getText()
@@ -78,7 +75,7 @@ class SchemaUpdateGuard {
 		return $this->array2persistence( $patchedData );
 	}
 
-	private function cleanupData( FullArraySchemaData $data ) {
+	private function cleanupData( FullArraySchemaData $data ): void {
 		SchemaCleaner::cleanupParameters(
 			$data->data['labels'],
 			$data->data['descriptions'],

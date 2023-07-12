@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\DataAccess;
 
 use EntitySchema\Domain\Storage\IdGenerator;
@@ -16,21 +18,20 @@ use Wikimedia\Rdbms\ILoadBalancer;
  * @see \Wikibase\Repo\Store\Sql\SqlIdGenerator
  */
 class SqlIdGenerator implements IdGenerator {
-	/** @var ILoadBalancer */
-	private $loadBalancer;
 
-	/** @var string */
-	private $tableName;
+	private ILoadBalancer $loadBalancer;
+
+	private string $tableName;
 
 	/** @var int[] */
-	private $idsToSkip;
+	private array $idsToSkip;
 
 	/**
 	 * @param ILoadBalancer $loadBalancer
 	 * @param string        $tableName
 	 * @param int[]         $idsToSkip
 	 */
-	public function __construct( ILoadBalancer $loadBalancer, $tableName, array $idsToSkip = [] ) {
+	public function __construct( ILoadBalancer $loadBalancer, string $tableName, array $idsToSkip = [] ) {
 		$this->loadBalancer = $loadBalancer;
 		$this->tableName = $tableName;
 		$this->idsToSkip = $idsToSkip;
@@ -57,7 +58,7 @@ class SqlIdGenerator implements IdGenerator {
 	 * @throws RuntimeException
 	 * @return int
 	 */
-	private function generateNewId( IDatabase $database, bool $retry = true ) {
+	private function generateNewId( IDatabase $database, bool $retry = true ): int {
 		$database->startAtomic( __METHOD__ );
 		$currentId = $database->newSelectQueryBuilder()
 			->select( [ 'id_value' ] )
