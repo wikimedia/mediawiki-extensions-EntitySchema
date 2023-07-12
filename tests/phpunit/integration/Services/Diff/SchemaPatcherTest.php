@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\Services\Diff;
 
 use Diff\DiffOp\Diff\Diff;
@@ -19,7 +21,7 @@ use PHPUnit\Framework\TestCase;
  */
 class SchemaPatcherTest extends TestCase {
 
-	public static function provideValidSchemaPatches() {
+	public static function provideValidSchemaPatches(): iterable {
 
 		yield 'restore label' => [
 			[],
@@ -117,7 +119,7 @@ class SchemaPatcherTest extends TestCase {
 	/**
 	 * @dataProvider provideValidSchemaPatches
 	 */
-	public function testPatchSchema( $currentSchema, $patch, $expected ) {
+	public function testPatchSchema( array $currentSchema, Diff $patch, array $expected ) {
 		$schemaPatcher = new SchemaPatcher();
 
 		$actualPatched = $schemaPatcher->patchSchema( new FullArraySchemaData( $currentSchema ), $patch );
@@ -125,7 +127,7 @@ class SchemaPatcherTest extends TestCase {
 		$this->assertEquals( $expected, $actualPatched->data );
 	}
 
-	public static function provideInvalidSchemaPatches() {
+	public static function provideInvalidSchemaPatches(): iterable {
 		yield 'restore existing schema' => [
 			[ 'schemaText' => 'I exist!' ],
 			new Diff( [
@@ -176,7 +178,7 @@ class SchemaPatcherTest extends TestCase {
 	/**
 	 * @dataProvider provideInvalidSchemaPatches
 	 */
-	public function testPatchSchemaFailure( $currentSchema, $patch ) {
+	public function testPatchSchemaFailure( array $currentSchema, Diff $patch ) {
 		$schemaPatcher = new SchemaPatcher();
 
 		$this->expectException( PatcherException::class );

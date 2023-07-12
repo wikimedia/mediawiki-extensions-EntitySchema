@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Services\SchemaConverter;
 
 /**
@@ -8,10 +10,9 @@ namespace EntitySchema\Services\SchemaConverter;
 class FullViewSchemaData {
 
 	/** @var NameBadge[] */
-	public $nameBadges;
+	public array $nameBadges;
 
-	/** @var string */
-	public $schemaText;
+	public string $schemaText;
 
 	public function __construct( array $nameBadges, $schemaText ) {
 		$this->nameBadges = $nameBadges;

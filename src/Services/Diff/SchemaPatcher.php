@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Services\Diff;
 
 use Diff\DiffOp\AtomicDiffOp;
@@ -66,7 +68,7 @@ class SchemaPatcher {
 		return $terms;
 	}
 
-	private function patchTerm( $terms, $lang, AtomicDiffOp $diffOp ) {
+	private function patchTerm( array $terms, string $lang, AtomicDiffOp $diffOp ): array {
 		switch ( true ) {
 			case $diffOp instanceof DiffOpAdd:
 				if ( !empty( $terms[$lang] ) ) {
@@ -106,7 +108,7 @@ class SchemaPatcher {
 	 *
 	 * @return string
 	 */
-	private function patchString( $base, DiffOp $diffOp = null ) {
+	private function patchString( string $base, DiffOp $diffOp = null ): string {
 		switch ( true ) {
 			case $diffOp instanceof DiffOpAdd:
 				$from = '';

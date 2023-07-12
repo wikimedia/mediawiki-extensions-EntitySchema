@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Unit\Services\Diff;
 
 use Diff\DiffOp\Diff\Diff;
@@ -17,7 +19,7 @@ use MediaWikiUnitTestCase;
  */
 class SchemaDifferTest extends MediaWikiUnitTestCase {
 
-	public static function provideSchemaDiffs() {
+	public static function provideSchemaDiffs(): iterable {
 		yield 'blank' => [
 			[],
 			[],

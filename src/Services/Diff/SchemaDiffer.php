@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Services\Diff;
 
 use Diff\Differ\MapDiffer;
@@ -25,8 +27,7 @@ use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
  */
 class SchemaDiffer {
 
-	/** @var MapDiffer */
-	private $recursiveMapDiffer;
+	private MapDiffer $recursiveMapDiffer;
 
 	public function __construct() {
 		$this->recursiveMapDiffer = new MapDiffer( true );

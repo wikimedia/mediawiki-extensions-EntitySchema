@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Integration\Services\SchemaConverter;
 
 use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
@@ -15,7 +17,7 @@ use MediaWikiIntegrationTestCase;
  */
 class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 
-	public static function validFullViewDataProvider() {
+	public static function validFullViewDataProvider(): iterable {
 		yield 'schema in interface language only' => [
 			json_encode(
 				[
@@ -211,7 +213,7 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 	 * @param FullViewSchemaData $expectedSchemaData
 	 */
 	public function testFullViewSchemaData(
-		$schemaJSON,
+		string $schemaJSON,
 		array $preferredLanguages,
 		FullViewSchemaData $expectedSchemaData
 	) {
@@ -223,7 +225,7 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 		$this->assertEquals( $expectedSchemaData, $actualSchema );
 	}
 
-	public static function validMonoLingualNameBadgeDataProvider() {
+	public static function validMonoLingualNameBadgeDataProvider(): iterable {
 		$expectedNameBadgeData = new NameBadge(
 			'english testlabel',
 			'english testdescription',
@@ -251,18 +253,15 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider validMonoLingualNameBadgeDataProvider
-	 *
-	 * @param string $schemaJSON
-	 * @param NameBadge $expectedNameBadgeData
 	 */
-	public function testMonolingualNameBadgeData( $schemaJSON, $expectedNameBadgeData ) {
+	public function testMonolingualNameBadgeData( string $schemaJSON, NameBadge $expectedNameBadgeData ) {
 		$converter = new SchemaConverter();
 		$actualNameBadge = $converter->getMonolingualNameBadgeData( $schemaJSON, 'en' );
 		$this->assertInstanceOf( NameBadge::class, $actualNameBadge );
 		$this->assertEquals( $expectedNameBadgeData, $actualNameBadge );
 	}
 
-	public static function provideFullArraySchemaData() {
+	public static function provideFullArraySchemaData(): iterable {
 		yield 'single language' => [
 			[
 				'labels' => [
@@ -436,7 +435,7 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( $expectedSchemaData, $actualSchemaData );
 	}
 
-	public static function providePersistenceSchemaData() {
+	public static function providePersistenceSchemaData(): iterable {
 		$expectedSchemaData = new PersistenceSchemaData();
 		$expectedSchemaData->labels = [ 'en' => 'english test label' ];
 		$expectedSchemaData->descriptions = [ 'en' => 'english test description' ];
@@ -547,7 +546,7 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 		$this->assertEquals( $expectedSchemaData, $actualSchemaData );
 	}
 
-	public static function provideSerializationsWithId() {
+	public static function provideSerializationsWithId(): iterable {
 		yield 'serialization version 3.0' => [
 			[
 				'id' => 'E123',
@@ -578,7 +577,7 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 	 */
 	public function testGetID(
 		array $schema,
-		$expectedID
+		string $expectedID
 	) {
 		$schemaJSON = json_encode( $schema );
 		$converter = new SchemaConverter();

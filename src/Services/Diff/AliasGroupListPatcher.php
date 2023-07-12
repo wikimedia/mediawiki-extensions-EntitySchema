@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Services\Diff;
 
 use Diff\DiffOp\Diff\Diff;
@@ -30,14 +32,7 @@ class AliasGroupListPatcher {
 		return $groups;
 	}
 
-	/**
-	 * @param array $groups
-	 * @param string $lang
-	 * @param Diff $patch
-	 *
-	 * @return array
-	 */
-	private function applyAliasGroupDiff( array $groups, $lang, Diff $patch ) {
+	private function applyAliasGroupDiff( array $groups, string $lang, Diff $patch ): array {
 		$hasLang = !empty( $groups[$lang] );
 
 		if ( $hasLang || !$this->containsOperationsOnOldValues( $patch ) ) {
@@ -49,12 +44,7 @@ class AliasGroupListPatcher {
 		return $groups;
 	}
 
-	/**
-	 * @param Diff $diff
-	 *
-	 * @return bool
-	 */
-	private function containsOperationsOnOldValues( Diff $diff ) {
+	private function containsOperationsOnOldValues( Diff $diff ): bool {
 		return $diff->getChanges() !== []
 			|| $diff->getRemovals() !== [];
 	}
@@ -68,7 +58,7 @@ class AliasGroupListPatcher {
 	 * @throws PatcherException
 	 * @return string[]
 	 */
-	private function getPatchedAliases( array $aliases, Diff $patch ) {
+	private function getPatchedAliases( array $aliases, Diff $patch ): array {
 		foreach ( $patch as $diffOp ) {
 			switch ( true ) {
 				case $diffOp instanceof DiffOpAdd:
