@@ -62,10 +62,7 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 		$linkRenderer->expects( $this->once() )
 			->method( 'makePreloadedLink' )
 			->with(
-				$this->callback( static function ( LinkTarget $title ) {
-					return $title->getNamespace() === NS_ENTITYSCHEMA_JSON
-						&& $title->getText() === 'E123';
-				} ),
+				$this->callback( $this->getCallbackToAssertLinkTarget( 'E123' ) ),
 				'E123'
 			)
 			->willReturn( $fakeLinkHtml );
@@ -73,5 +70,12 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 		$sut = new EntitySchemaFormatter( $format, $linkRenderer );
 
 		$this->assertSame( $fakeLinkHtml, $sut->format( new StringValue( 'E123' ) ) );
+	}
+
+	private function getCallbackToAssertLinkTarget( string $expectedText ): callable {
+		return static function ( LinkTarget $title ) use ( $expectedText ) {
+			return $title->getNamespace() === NS_ENTITYSCHEMA_JSON
+				&& $title->getText() === $expectedText;
+		};
 	}
 }
