@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Tests\Mocks;
 
 use HTMLForm;
@@ -10,15 +12,14 @@ use PHPUnit\Framework\Assert;
  */
 class HTMLFormSpy {
 
-	/** @var HTMLForm */
-	private static $form;
+	private static HTMLForm $form;
 
-	public static function factory( ...$arguments ) {
+	public static function factory( ...$arguments ): HTMLForm {
 		self::$form = HTMLForm::factory( ...$arguments );
 		return self::$form;
 	}
 
-	public static function assertFormFieldData( $expectedContent ) {
+	public static function assertFormFieldData( array $expectedContent ): void {
 		Assert::assertSame( $expectedContent, self::$form->mFieldData );
 	}
 

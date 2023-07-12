@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace EntitySchema\Maintenance;
 
 use EntitySchema\Domain\Storage\IdGenerator;
@@ -13,8 +15,7 @@ use EntitySchema\Domain\Storage\IdGenerator;
  */
 class FixedIdGenerator implements IdGenerator {
 
-	/** @var int */
-	private $fixId;
+	private int $fixId;
 
 	public function __construct( int $fixId ) {
 		$this->fixId = $fixId;
