@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki;
 
+use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\MediaWikiServices;
@@ -22,5 +23,10 @@ class EntitySchemaServices {
 	public static function getIdGenerator( ContainerInterface $services = null ): IdGenerator {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'EntitySchema.IdGenerator' );
+	}
+
+	public static function getLabelLookup( ContainerInterface $services = null ): LabelLookup {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'EntitySchema.LabelLookup' );
 	}
 }

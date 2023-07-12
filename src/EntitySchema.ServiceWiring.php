@@ -1,6 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
+use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\DataAccess\SqlIdGenerator;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
@@ -19,6 +20,11 @@ return [
 			$services->getDBLoadBalancer(),
 			'entityschema_id_counter',
 			$services->getMainConfig()->get( 'EntitySchemaSkippedIDs' )
+		);
+	},
+	'EntitySchema.LabelLookup' => static function ( MediaWikiServices $services ): LabelLookup {
+		return new LabelLookup(
+			$services->getWikiPageFactory(),
 		);
 	},
 ];
