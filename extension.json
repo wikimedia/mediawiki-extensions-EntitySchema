@@ -57,6 +57,9 @@
 			"services": [
 				"WikibaseRepo.LocalEntitySource"
 			]
+		},
+		"TitleGetRestrictionTypes": {
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\TitleGetRestrictionTypesHookHandler"
 		}
 	},
 	"Hooks": {
@@ -68,7 +71,7 @@
 		"FormatAutocomments": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onFormatAutocomments",
 		"ContentModelCanBeUsedOn": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onContentModelCanBeUsedOn",
 		"ImportHandleRevisionXMLTag": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onImportHandleRevisionXMLTag",
-		"TitleGetRestrictionTypes": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onTitleGetRestrictionTypes",
+		"TitleGetRestrictionTypes": "TitleGetRestrictionTypes",
 		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes",
 		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepoOnParserOutputUpdaterConstruction",
 		"SidebarBeforeOutput": "AddConceptLinkToSidebar"

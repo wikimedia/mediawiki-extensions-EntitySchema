@@ -160,23 +160,4 @@ final class EntitySchemaHooks {
 			);
 		}
 	}
-
-	/**
-	 * Handler for the TitleGetRestrictionTypes hook.
-	 *
-	 * Implemented to prevent people from protecting pages from being
-	 * created or moved in a Schema namespace (which is pointless).
-	 *
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/TitleGetRestrictionTypes
-	 *
-	 * @param Title $title
-	 * @param string[] &$types The types of protection available
-	 */
-	public static function onTitleGetRestrictionTypes( Title $title, array &$types ): void {
-		if ( $title->getNamespace() === NS_ENTITYSCHEMA_JSON ) {
-			// Remove create and move protection for Schema namespaces
-			$types = array_diff( $types, [ 'create', 'move' ] );
-		}
-	}
-
 }
