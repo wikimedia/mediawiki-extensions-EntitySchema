@@ -60,6 +60,9 @@
 		},
 		"TitleGetRestrictionTypes": {
 			"class": "\\EntitySchema\\MediaWiki\\Hooks\\TitleGetRestrictionTypesHookHandler"
+		},
+		"ImportHandleRevisionXMLTag": {
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\ImportHandleRevisionXMLTagHookHandler"
 		}
 	},
 	"Hooks": {
@@ -70,7 +73,7 @@
 		"PageHistoryLineEnding": "PageHistoryLineEnding",
 		"FormatAutocomments": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onFormatAutocomments",
 		"ContentModelCanBeUsedOn": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onContentModelCanBeUsedOn",
-		"ImportHandleRevisionXMLTag": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onImportHandleRevisionXMLTag",
+		"ImportHandleRevisionXMLTag": "ImportHandleRevisionXMLTag",
 		"TitleGetRestrictionTypes": "TitleGetRestrictionTypes",
 		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes",
 		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepoOnParserOutputUpdaterConstruction",

@@ -9,10 +9,8 @@ use DatabaseUpdater;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\AutocommentFormatter;
 use Html;
-use RuntimeException;
 use SkinTemplate;
 use Title;
-use WikiImporter;
 
 /**
  * Hooks utilized by the EntitySchema extension
@@ -144,20 +142,5 @@ final class EntitySchemaHooks {
 		// the other direction is guarded by EntitySchemaContentHandler::canBeUsedOn()
 
 		return null;
-	}
-
-	public static function onImportHandleRevisionXMLTag(
-		WikiImporter $importer,
-		array $pageInfo,
-		array $revisionInfo
-	): void {
-		if (
-			array_key_exists( 'model', $revisionInfo ) &&
-			$revisionInfo['model'] === EntitySchemaContent::CONTENT_MODEL_ID
-		) {
-			throw new RuntimeException(
-				'To avoid ID conflicts, the import of Schemas is not supported.'
-			);
-		}
 	}
 }
