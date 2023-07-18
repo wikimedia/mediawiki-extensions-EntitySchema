@@ -6,7 +6,6 @@ namespace EntitySchema\MediaWiki;
 
 use Article;
 use DatabaseUpdater;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\AutocommentFormatter;
 use Html;
 use SkinTemplate;
@@ -118,28 +117,6 @@ final class EntitySchemaHooks {
 			$comment = $formattedComment;
 			return false;
 		}
-
-		return null;
-	}
-
-	/**
-	 * @see ContentHandler::canBeUsedOn()
-	 *
-	 * @param string $modelId The content model ID.
-	 * @param Title $title The title where the content model may or may not be used on.
-	 * @param bool &$ok Whether the content model can be used on the title or not.
-	 *
-	 * @return null|false
-	 */
-	public static function onContentModelCanBeUsedOn( string $modelId, Title $title, bool &$ok ): ?bool {
-		if (
-			$title->inNamespace( NS_ENTITYSCHEMA_JSON ) &&
-			$modelId !== EntitySchemaContent::CONTENT_MODEL_ID
-		) {
-			$ok = false;
-			return false; // skip other hooks
-		}
-		// the other direction is guarded by EntitySchemaContentHandler::canBeUsedOn()
 
 		return null;
 	}
