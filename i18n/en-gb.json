@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Piano1forte2"
+		]
+	},
+	"entityschema-newschema-copyright": "By clicking '$1', you agree to the [[$2|terms of use]], and you irrevocably agree to release your contribution under the $3.",
+	"entityschema-restore-heading": "Restoring old revision of '$1'"
+}
