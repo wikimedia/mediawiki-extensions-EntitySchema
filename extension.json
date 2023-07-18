@@ -65,6 +65,9 @@
 		},
 		"ImportHandleRevisionXMLTag": {
 			"class": "\\EntitySchema\\MediaWiki\\Hooks\\ImportHandleRevisionXMLTagHookHandler"
+		},
+		"ContentModelCanBeUsedOn": {
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\ContentModelCanBeUsedOnHookHandler"
 		}
 	},
 	"Hooks": {
@@ -74,7 +77,7 @@
 		"BeforeDisplayNoArticleText": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onBeforeDisplayNoArticleText",
 		"PageHistoryLineEnding": "PageHistoryLineEnding",
 		"FormatAutocomments": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onFormatAutocomments",
-		"ContentModelCanBeUsedOn": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onContentModelCanBeUsedOn",
+		"ContentModelCanBeUsedOn": "ContentModelCanBeUsedOn",
 		"ImportHandleRevisionXMLTag": "ImportHandleRevisionXMLTag",
 		"TitleGetRestrictionTypes": "TitleGetRestrictionTypes",
 		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes",
