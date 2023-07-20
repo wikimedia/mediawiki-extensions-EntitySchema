@@ -62,7 +62,7 @@ final class RestoreViewAction extends AbstractRestoreAction {
 			)
 		);
 
-		$diffRenderer = new DiffRenderer( $this );
+		$diffRenderer = new DiffRenderer( $this, $this->slotDiffRenderer );
 		$diffHTML = $diffRenderer->renderSchemaDiffTable(
 			$this->slotDiffRenderer->renderSchemaDiffRows( $diff ),
 			$this->msg( 'currentrev' )

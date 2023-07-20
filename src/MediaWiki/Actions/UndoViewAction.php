@@ -80,7 +80,7 @@ class UndoViewAction extends AbstractUndoAction {
 
 	private function displayUndoDiff( Diff $diff ): void {
 
-		$helper = new DiffRenderer( $this );
+		$helper = new DiffRenderer( $this, $this->slotDiffRenderer );
 		$this->getOutput()->addHTML(
 			$helper->renderSchemaDiffTable(
 				$this->slotDiffRenderer->renderSchemaDiffRows( $diff ),

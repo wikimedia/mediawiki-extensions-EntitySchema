@@ -60,6 +60,10 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 		return $this->renderSchemaDiffRows( $diff );
 	}
 
+	public function localizeDiff( string $diff, array $options = [] ) {
+		return $this->textSlotDiffRenderer->localizeDiff( $diff, $options );
+	}
+
 	public function renderSchemaDiffRows( Diff $diff ): string {
 		// split $diff into labels/descriptions/aliases (renderDiffOp())
 		// and schema (renderTextDiff())
