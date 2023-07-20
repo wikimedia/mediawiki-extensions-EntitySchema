@@ -14,7 +14,6 @@
 	"entityschema-newschema-aliases": "Aliases, pipe-separated:",
 	"entityschema-newschema-schema-shexc": "Shape Expressions code:",
 	"entityschema-newschema-submit": "Create",
-	"entityschema-newschema-copyright": "By clicking \"$1\", you agree to the [[$2|terms of use]], and you irrevocably agree to release your contribution under the $3.",
 	"entityschema-anonymouseditwarning": "Warning: You are not logged in. Your IP address will be recorded in the edit history of this Schema.",
 	"entityschema-label-edit-placeholder": "enter a label in $1",
 	"entityschema-description-edit-placeholder": "enter a description in $1",

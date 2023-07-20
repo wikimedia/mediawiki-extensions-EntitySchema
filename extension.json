@@ -191,6 +191,7 @@
 		"NewEntitySchema": {
 			"class": "EntitySchema\\MediaWiki\\Specials\\NewEntitySchema",
 			"services": [
+				"WikibaseRepo.Settings",
 				"EntitySchema.IdGenerator"
 			]
 		},
