@@ -68,12 +68,15 @@
 		},
 		"ContentModelCanBeUsedOn": {
 			"class": "\\EntitySchema\\MediaWiki\\Hooks\\ContentModelCanBeUsedOnHookHandler"
+		},
+		"ExtensionTypes": {
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\ExtensionTypesHookHandler"
 		}
 	},
 	"Hooks": {
 		"SkinTemplateNavigation::Universal": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onSkinTemplateNavigationUniversal",
 		"LoadExtensionSchemaUpdates": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onCreateDBSchema",
-		"ExtensionTypes": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onExtensionTypes",
+		"ExtensionTypes": "ExtensionTypes",
 		"BeforeDisplayNoArticleText": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onBeforeDisplayNoArticleText",
 		"PageHistoryLineEnding": "PageHistoryLineEnding",
 		"FormatAutocomments": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onFormatAutocomments",

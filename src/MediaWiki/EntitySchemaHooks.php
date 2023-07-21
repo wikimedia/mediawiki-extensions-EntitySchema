@@ -25,12 +25,6 @@ final class EntitySchemaHooks {
 		);
 	}
 
-	public static function onExtensionTypes( array &$extTypes ): void {
-		if ( !isset( $extTypes['wikibase'] ) ) {
-			$extTypes['wikibase'] = 'Wikibase';
-		}
-	}
-
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate $skinTemplate, array &$links ): void {
 		$title = $skinTemplate->getRelevantTitle();
 		if ( !$title->inNamespace( NS_ENTITYSCHEMA_JSON ) ) {
