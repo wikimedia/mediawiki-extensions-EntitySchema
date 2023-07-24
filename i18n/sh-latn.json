@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Vlad5250"
+			"Winston Sung"
 		]
 	},
 	"entityschema-summary-undo-autocomment": "Poništena izmjena $1 [[Special:Contributions/$2|{{GENDER:$2|korisnika $2}}]] ([[User talk:$2|razgovor]])",
