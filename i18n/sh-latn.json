@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Winston Sung"
+		]
+	},
+	"entityschema-summary-undo-autocomment": "Poništena izmjena $1 [[Special:Contributions/$2|{{GENDER:$2|korisnika $2}}]] ([[User talk:$2|razgovor]])",
+	"entityschema-summary-restore-autocomment": "Obnovljena izmjena $1 od [[Special:Contributions/$2|{{GENDER:$2|$2}}]]",
+	"entityschema-undo-heading": "Poništava se izmjena za $1",
+	"entityschema-undo-heading-failed": "Poništavanje nije uspjelo",
+	"entityschema-undo-bad-revisions": "Izmjena se ne može vratiti jer ne postoji ranija ili je obrisana.",
+	"entityschema-restore-heading": "Vraća se stara izmjena od \"$1\"",
+	"entityschema-restore-bad-revisions": "Izmjena se ne može vratiti jer ne postoji ili je obrisana.",
+	"entityschema-restoreold": "obnovi",
+	"entityschema-special-label": "Oznaka:",
+	"entityschema-special-description": "Opis:"
+}
