@@ -20,7 +20,6 @@
 	"entityschema-newschema-aliases": "Input label for the aliases field on Special:NewSchema",
 	"entityschema-newschema-schema-shexc": "Input label for the schema field (using Shape Expressions compact syntax) on Special:NewSchema",
 	"entityschema-newschema-submit": "Label on the submit button on the NewSchema special page",
-	"entityschema-newschema-copyright": "A short copyright warning displayed on the NewSchema special page.\n\nParameters:\n* $1 - the name of the button the message is referring to, set in the {{msg-mw|entityschema-newschema-submit}} message\n* $2 - the name of the wiki's page describing the terms of use\n* $3 - an external link to the license with the license's name as link text\n\nSee also:\n* {{msg-mw|wikibase-shortcopyrightwarning}}",
 	"entityschema-anonymouseditwarning": "Warning message that is displayed using the MediaWiki notification system each time an anonymous user starts to edit something on a Schema page (e.g. by clicking an edit button).\n\nBasically, the message shall make the user aware that their IP will be recorded when saving as long as they are not logged in.",
 	"entityschema-label-edit-placeholder": "Placeholder to add the label in the provided language.\n\nParameters:\n* $1 - the name of the language in the user interface language",
 	"entityschema-description-edit-placeholder": "Placeholder to add the description in the provided language.\n\nParameters:\n* $1 - the name of the language in the user interface language",

@@ -17,6 +17,9 @@ use PermissionsError;
 use SpecialPage;
 use Status;
 use Title;
+use Wikibase\Lib\SettingsArray;
+use Wikibase\Repo\CopyrightMessageBuilder;
+use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 
 /**
  * Page for creating a new EntitySchema.
@@ -37,12 +40,19 @@ class NewEntitySchema extends SpecialPage {
 
 	private IdGenerator $idGenerator;
 
-	public function __construct( IdGenerator $idGenerator ) {
+	private SpecialPageCopyrightView $copyrightView;
+
+	public function __construct( SettingsArray $repoSettings, IdGenerator $idGenerator ) {
 		parent::__construct(
 			'NewEntitySchema',
 			'createpage'
 		);
 		$this->idGenerator = $idGenerator;
+		$this->copyrightView = new SpecialPageCopyrightView(
+			new CopyrightMessageBuilder(),
+			$repoSettings->getSetting( 'dataRightsUrl' ),
+			$repoSettings->getSetting( 'dataRightsText' )
+		);
 	}
 
 	public function execute( $subPage ): void {
@@ -187,15 +197,9 @@ class NewEntitySchema extends SpecialPage {
 	/**
 	 * @return string HTML
 	 */
-	private function getCopyrightHTML(): string {
-		return $this->msg( 'entityschema-newschema-copyright' )
-			->params(
-				$this->msg( 'entityschema-newschema-submit' )->text(),
-				$this->msg( 'copyrightpage' )->inContentLanguage()->text(),
-				// FIXME: make license configurable
-				'[https://creativecommons.org/publicdomain/zero/1.0/ Creative Commons CC0 License]'
-			)
-			->parse();
+	private function getCopyrightHTML() {
+		return $this->copyrightView
+			->getHtml( $this->getLanguage(), 'entityschema-newschema-submit' );
 	}
 
 	private function getWarnings(): array {

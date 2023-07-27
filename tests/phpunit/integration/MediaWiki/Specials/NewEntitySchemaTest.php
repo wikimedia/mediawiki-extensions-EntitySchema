@@ -16,6 +16,7 @@ use ReadOnlyMode;
 use SpecialPageTestBase;
 use TextContent;
 use TitleValue;
+use Wikibase\Lib\SettingsArray;
 use Wikimedia\Rdbms\SelectQueryBuilder;
 
 /**
@@ -161,7 +162,8 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 
 	protected function newSpecialPage(): NewEntitySchema {
 		$idGenerator = EntitySchemaServices::getIdGenerator( $this->getServiceContainer() );
-		return new NewEntitySchema( $idGenerator );
+		$repoSettings = $this->createMock( SettingsArray::class );
+		return new NewEntitySchema( $repoSettings, $idGenerator );
 	}
 
 }
