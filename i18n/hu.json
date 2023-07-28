@@ -8,7 +8,6 @@
 	"entityschema-newschema-description": "Leírás:",
 	"entityschema-newschema-aliases": "További nevek, függőleges vonallal (|) elválasztva:",
 	"entityschema-newschema-submit": "Létrehozás",
-	"entityschema-newschema-copyright": "A „$1” gombra kattintással elfogadod a [[$2|felhasználási feltételeket]] és visszavonhatatlan engedélyt adsz szerkesztéseid felhasználására a $3 szerint.",
 	"entityschema-label-edit-placeholder": "Add meg a címkét $1 nyelven",
 	"entityschema-description-edit-placeholder": "Add meg a leírást $1 nyelven",
 	"entityschema-aliases-edit-placeholder": "Írj be más neveket $1 nyelven",

@@ -15,7 +15,6 @@
 	"entityschema-newschema-aliases": "Nomes alternativos, separados por barras verticais (|):",
 	"entityschema-newschema-schema-shexc": "Código de expressões de forma:",
 	"entityschema-newschema-submit": "Criar",
-	"entityschema-newschema-copyright": "Ao clicar \"$1\", concorda com as [[$2|condições de utilização]] e concorda irrevogavelmente em disponibilizar a sua contribuição ao abrigo da licença $3.",
 	"entityschema-anonymouseditwarning": "Aviso: não está autenticado. O seu endereço IP será gravado no historial de edições deste esquema.",
 	"entityschema-label-edit-placeholder": "introduzir uma etiqueta em $1",
 	"entityschema-description-edit-placeholder": "introduzir uma descrição em $1",

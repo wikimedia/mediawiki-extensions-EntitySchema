@@ -16,7 +16,6 @@
 	"entityschema-newschema-aliases": "別名（複数ある場合、縦線<code>|</code>で区切り）:",
 	"entityschema-newschema-schema-shexc": "ShExコード:",
 	"entityschema-newschema-submit": "作成",
-	"entityschema-newschema-copyright": "「$1」をクリックすることで、あなたは[[$2|利用規約]]に同意し、自分の投稿内容を$3のもとで公開することに撤回不可能な形で同意することになります。",
 	"entityschema-anonymouseditwarning": "警告: ログインしていません。\n編集すると、IP アドレスがこのスキーマの編集履歴に記録されます。",
 	"entityschema-label-edit-placeholder": "$1でのラベル名を設定してください",
 	"entityschema-description-edit-placeholder": "説明を$1で入力してください",

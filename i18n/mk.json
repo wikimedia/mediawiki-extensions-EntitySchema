@@ -15,7 +15,6 @@
 	"entityschema-newschema-aliases": "Истозначници, одделени со прави црти:",
 	"entityschema-newschema-schema-shexc": "Код за изразот на обликот:",
 	"entityschema-newschema-submit": "Создај",
-	"entityschema-newschema-copyright": "Стискајќи на „$1“, се согласувате со [[$2|условите на употреба]] и неотповикливо се согласувате вашите придонеси да се нудат под условите на $3.",
 	"entityschema-anonymouseditwarning": "Предупредување: Не сте најавени. Вашата IP-адреса ќе биде заведена во историјата на оваа шема.",
 	"entityschema-label-edit-placeholder": "внесете натпис на $1",
 	"entityschema-description-edit-placeholder": "внесете опис на $1",

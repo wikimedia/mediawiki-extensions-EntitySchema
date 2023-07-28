@@ -20,7 +20,6 @@
 	"entityschema-newschema-aliases": "别名，以竖线分隔：",
 	"entityschema-newschema-schema-shexc": "Shape Expressions代码：",
 	"entityschema-newschema-submit": "创建",
-	"entityschema-newschema-copyright": "点击“$1”即代表您同意[[$2|使用条款]]，且您不可撤销地同意按$3发布您的贡献。",
 	"entityschema-anonymouseditwarning": "警告：您尚未登录。您的IP地址将记录在此架构的编辑历史记录中。",
 	"entityschema-label-edit-placeholder": "用$1输入标签",
 	"entityschema-description-edit-placeholder": "用$1输入描述",

@@ -16,7 +16,6 @@
 	"entityschema-newschema-aliases": "الأسماء المستعارة، مفصولة بأنابيب:",
 	"entityschema-newschema-schema-shexc": "رمز تعبيرات الشكل:",
 	"entityschema-newschema-submit": "إنشاء",
-	"entityschema-newschema-copyright": "بالنقر على \"$1\"، فإنك توافق على [[$2| شروط الاستخدام]]، وتوافق بشكل لا رجعة فيه على نشر مساهمتك تحت $3.",
 	"entityschema-anonymouseditwarning": "تحذير: لم تقم بتسجيل الدخول؛ سيتم تسجيل عنوان الآيني الخاص بك في تاريخ تحرير هذا المخطط.",
 	"entityschema-label-edit-placeholder": "أدخل تسمية ب$1",
 	"entityschema-description-edit-placeholder": "أدخل وصفا ب$1",

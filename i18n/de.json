@@ -16,7 +16,6 @@
 	"entityschema-newschema-aliases": "Aliasse, durch senkrechte Striche getrennt:",
 	"entityschema-newschema-schema-shexc": "Shape-Expressions-Code:",
 	"entityschema-newschema-submit": "Erstellen",
-	"entityschema-newschema-copyright": "Durch das Anklicken von „$1“ stimmst du den [[$2|Nutzungsbedingungen]] und der unwiderruflichen Veröffentlichung deines Beitrags unter der Lizenz $3 zu.",
 	"entityschema-anonymouseditwarning": "Warnung: Du bist nicht angemeldet. Deine IP-Adresse wird in der Versionsgeschichte dieses Schemas aufgezeichnet.",
 	"entityschema-label-edit-placeholder": "Eine Bezeichnung auf $1 eingeben",
 	"entityschema-description-edit-placeholder": "Eine Beschreibung auf $1 eingeben",

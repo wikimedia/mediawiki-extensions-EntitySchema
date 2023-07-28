@@ -11,7 +11,6 @@
 	"entityschema-newschema-aliases": "Rööpkujud, eraldatud püstkriipsuga:",
 	"entityschema-newschema-schema-shexc": "Kood (Shape Expressions):",
 	"entityschema-newschema-submit": "Loo",
-	"entityschema-newschema-copyright": "Kui klõpsad \"$1\", nõustud [[$2|kasutustingimustega]] ja avaldad pöördumatult oma kaastöö litsentsi $3 all.",
 	"entityschema-anonymouseditwarning": "Hoiatus: Sa pole sisse loginud. Sinu IP-aadress salvestatakse selle skeemi ajaloos.",
 	"entityschema-label-edit-placeholder": "sisesta silt ($1)",
 	"entityschema-description-edit-placeholder": "sisesta kirjeldus ($1)",

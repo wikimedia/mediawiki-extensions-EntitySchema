@@ -14,7 +14,6 @@
 	"entityschema-newschema-aliases": "Aliases, separate per barras vertical:",
 	"entityschema-newschema-schema-shexc": "Codice de expressiones de forma:",
 	"entityschema-newschema-submit": "Crear",
-	"entityschema-newschema-copyright": "Cliccante sur \"$1\" tu accepta le [[$2|conditiones de uso]] e tu accepta irrevocabilemente de liberar tu contributiones sub le $3.",
 	"entityschema-anonymouseditwarning": "Attention: Tu non ha aperite session. Tu adresse IP essera registrate in le historia de modificationes de iste Schema.",
 	"entityschema-label-edit-placeholder": "insere un etiquetta in $1",
 	"entityschema-description-edit-placeholder": "insere un description in $1",

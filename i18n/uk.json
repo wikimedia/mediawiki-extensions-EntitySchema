@@ -19,7 +19,6 @@
 	"entityschema-newschema-aliases": "Альтернативні назви, через вертикальну риску:",
 	"entityschema-newschema-schema-shexc": "Код Shape Expressions:",
 	"entityschema-newschema-submit": "Створити",
-	"entityschema-newschema-copyright": "Натиснувши «$1», Ви погоджуєтесь із [[$2|умовами використання]], і погоджуєтесь поширювати Ваше редагування на умовах $3.",
 	"entityschema-anonymouseditwarning": "Увага: Ви не увійшли до системи. Вашу IP-адресу буде записано у історії редагування цієї схеми.",
 	"entityschema-label-edit-placeholder": "введіть назву мовою $1",
 	"entityschema-description-edit-placeholder": "введіть опис мовою $1",

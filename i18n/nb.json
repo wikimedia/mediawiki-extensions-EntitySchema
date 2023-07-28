@@ -16,7 +16,6 @@
 	"entityschema-newschema-aliases": "Alias adskilt av vertikalstrek:",
 	"entityschema-newschema-schema-shexc": "Shape Expressions-kode:",
 	"entityschema-newschema-submit": "Opprett",
-	"entityschema-newschema-copyright": "Ved å klikke «$1», godtar du [[$2|bruksvilkårene]] og samtykker ugjenkallelig til å gi ut bidraget ditt under $3.",
 	"entityschema-anonymouseditwarning": "Advarsel: Du er ikke logget inn. IP-adressen din vil logges i skjemaets redigeringshistorikk.",
 	"entityschema-label-edit-placeholder": "fyll inn etikett på $1",
 	"entityschema-description-edit-placeholder": "fyll inn beskrivelse på $1",

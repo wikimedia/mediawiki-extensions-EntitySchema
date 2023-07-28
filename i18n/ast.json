@@ -9,7 +9,6 @@
 	"entityschema-newschema-description": "Descripción:",
 	"entityschema-newschema-aliases": "Alcuños, separaos por barres verticales:",
 	"entityschema-newschema-submit": "Crear",
-	"entityschema-newschema-copyright": "Al pulsiar «$1», aceutes [[$2|les condiciones d'usu]] y aceutes ensin vuelta lliberar les tos collaboraciones baxo la $3.",
 	"entityschema-anonymouseditwarning": "Avisu: Nun aniciasti sesión. La direición IP quedará grabada nel historial d'edición d'esti Esquema.",
 	"entityschema-label-edit-placeholder": "escribi la etiqueta en $1",
 	"entityschema-description-edit-placeholder": "escribi la descripción en $1",

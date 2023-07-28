@@ -13,7 +13,6 @@
 	"entityschema-newschema-description": "설명:",
 	"entityschema-newschema-aliases": "다른 이름 (파이프로 구분):",
 	"entityschema-newschema-submit": "만들기",
-	"entityschema-newschema-copyright": "\"$1\"을 클릭함으로써, 당신은 [[$2|이용 약관]]에 동의하고, 당신의 기여를 불가역적으로 $3에 따라 배포하는 데 동의합니다.",
 	"entityschema-anonymouseditwarning": "경고: 로그인이 되어 있지 않습니다. IP 주소가 이 스키마의 편집 역사에 남게 됩니다.",
 	"entityschema-label-edit-placeholder": "$1의 스키마의 레이블",
 	"entityschema-id-edit-placeholder": "스키마 ID",

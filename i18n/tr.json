@@ -16,7 +16,6 @@
 	"entityschema-newschema-aliases": "Ayrılan diğer adlar:",
 	"entityschema-newschema-schema-shexc": "Şekil İfadeleri kodu:",
 	"entityschema-newschema-submit": "Oluştur",
-	"entityschema-newschema-copyright": "\"$1\" düğmesine tıkladığınızda [[$2|kullanım şartlarını]] kabul ederek katkınızı, $3 lisansı kapsamında geri döndürülemez bir biçimde yayımlamayı kabul etmiş olacaksınız.",
 	"entityschema-anonymouseditwarning": "Uyarı: Oturum açmadınız. IP adresiniz bu şemanın düzenleme geçmişine kaydedilecektir.",
 	"entityschema-label-edit-placeholder": "$1 dilinde bir etiket girin",
 	"entityschema-description-edit-placeholder": "$1 dilinde bir açıklama girin",

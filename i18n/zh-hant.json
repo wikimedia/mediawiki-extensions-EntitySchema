@@ -17,7 +17,6 @@
 	"entityschema-newschema-aliases": "別名，以豎線符號分隔：",
 	"entityschema-newschema-schema-shexc": "形式表達代碼：",
 	"entityschema-newschema-submit": "建立",
-	"entityschema-newschema-copyright": "點選「$1」代表您接受[[$2|使用條款]]，且不反悔同意基於$3來發佈您的貢獻。",
 	"entityschema-anonymouseditwarning": "警告：您尚未登入。您的 IP 位址將會被記錄在此架構的編輯歷史中。",
 	"entityschema-label-edit-placeholder": "輸入在$1的標籤",
 	"entityschema-description-edit-placeholder": "輸入在$1的描述",

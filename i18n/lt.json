@@ -10,7 +10,6 @@
 	"entityschema-newschema-label": "Žymė:",
 	"entityschema-newschema-description": "Aprašymas:",
 	"entityschema-newschema-submit": "Sukurti",
-	"entityschema-newschema-copyright": "Paspausdamas „$1“ sutinkate su [[$2|naudojimo sąlygomis]] ir neatšaukiamai sutinkate savo indėlį platinti pagal $3.",
 	"entityschema-label-edit-placeholder": "įvesti žymą $1 kalba",
 	"entityschema-description-edit-placeholder": "įveskite aprašymą $1 kalba",
 	"entityschema-aliases-edit-placeholder": "įveskite alternatyvių pavadinimų $1",

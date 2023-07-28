@@ -18,7 +18,6 @@
 	"entityschema-newschema-aliases": "כינויים, מופרדים בקו ניצב:",
 	"entityschema-newschema-schema-shexc": "קוד ביטויי צורה:",
 	"entityschema-newschema-submit": "יצירה",
-	"entityschema-newschema-copyright": "לחיצה על \"$1\" מהווה את הסכמתך ל[[$2|תנאי השימוש]] ולשחרור של תרומתך לפי $3.",
 	"entityschema-anonymouseditwarning": "אזהרה: לא נכנסת לחשבון. כתובת ה־IP שלך תירשם בהיסטוריית הסכֵמה הזאת.",
 	"entityschema-label-edit-placeholder": "נא להקליד תווית ב{{GRAMMAR:תחילית|$1}}",
 	"entityschema-description-edit-placeholder": "נא להקליד תיאור ב{{GRAMMAR:תחילית|$1}}",

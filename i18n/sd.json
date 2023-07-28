@@ -6,7 +6,6 @@
 	},
 	"entityschema-newschema-label": "ليبل:",
 	"entityschema-newschema-description": "تشريح:",
-	"entityschema-newschema-copyright": "\"$1\" کي ڪلڪ ڪرڻ سان توھان [[$2|استعمال جي شرطن]] سان راضپو ڏيکاريو ٿا، ۽ توھان پنھنجي ڀاڱيداري ناقابل واپسي طور $3 اجازتنامي ھيٺ جاري ڪريو ٿا.",
 	"entityschema-namebadge-header-label": "ليبل",
 	"entityschema-summary-undo-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|ڳالھ]]) پاران ورجاءُ $1 اڻڪريو",
 	"entityschema-summary-restore-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]] پاران ورجاءُ $1 موٽايو",

@@ -14,7 +14,6 @@
 	"entityschema-newschema-aliases": "Псевдоними, отделени с вертикални черти:",
 	"entityschema-newschema-schema-shexc": "Код за Shape Expressions:",
 	"entityschema-newschema-submit": "Създаване",
-	"entityschema-newschema-copyright": "Щраквайки върху „$1“, се съгласявате с [[$2|условията за ползване]] и безвъзвратно публикувате приноса си под условията на $3.",
 	"entityschema-anonymouseditwarning": "Предупреждение: Не сте влезли. Вашият IP-адрес ще бъде запазен в историята на тази Схема.",
 	"entityschema-label-edit-placeholder": "въведете етикет на $1",
 	"entityschema-description-edit-placeholder": "въведете етикет на $1",
