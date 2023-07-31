@@ -13,6 +13,7 @@ use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
 use SpecialPageTestBase;
 use Title;
+use Wikibase\Lib\SettingsArray;
 use Wikimedia\TestingAccessWrapper;
 use WikiPage;
 
@@ -40,10 +41,17 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 	}
 
 	protected function newSpecialPage(): SetEntitySchemaLabelDescriptionAliases {
+		$fakeSettings = new SettingsArray( [
+			'dataRightsUrl' => 'https://example.com',
+			'dataRightsText' => 'CC0',
+		] );
 		if ( $this->mockHTMLFormProvider !== null ) {
-			return new SetEntitySchemaLabelDescriptionAliases( $this->mockHTMLFormProvider );
+			return new SetEntitySchemaLabelDescriptionAliases(
+				$fakeSettings,
+				$this->mockHTMLFormProvider
+			);
 		}
-		return new SetEntitySchemaLabelDescriptionAliases();
+		return new SetEntitySchemaLabelDescriptionAliases( $fakeSettings );
 	}
 
 	public function testSubmitEditFormCallbackCorrectId() {

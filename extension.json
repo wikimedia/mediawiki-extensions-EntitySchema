@@ -199,7 +199,12 @@
 			]
 		},
 		"EntitySchemaText": "EntitySchema\\MediaWiki\\Specials\\EntitySchemaText",
-		"SetEntitySchemaLabelDescriptionAliases": "EntitySchema\\MediaWiki\\Specials\\SetEntitySchemaLabelDescriptionAliases"
+		"SetEntitySchemaLabelDescriptionAliases": {
+			"class": "EntitySchema\\MediaWiki\\Specials\\SetEntitySchemaLabelDescriptionAliases",
+			"services": [
+				"WikibaseRepo.Settings"
+			]
+		}
 	},
 	"manifest_version": 2,
 	"ServiceWiringFiles": [
