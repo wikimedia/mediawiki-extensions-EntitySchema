@@ -36,6 +36,13 @@
 				"RevisionStore"
 			]
 		},
+		"HtmlPageLinkRendererEnd": {
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\HtmlPageLinkRendererEndHookHandler",
+			"factory": "\\EntitySchema\\MediaWiki\\Hooks\\HtmlPageLinkRendererEndHookHandler::factory",
+			"services": [
+				"EntitySchema.LabelLookup"
+			]
+		},
 		"WikibaseRepoDataTypes": {
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseDataTypesHandler",
 			"services": [
@@ -82,6 +89,7 @@
 		"ExtensionTypes": "ExtensionTypes",
 		"BeforeDisplayNoArticleText": "BeforeDisplayNoArticleText",
 		"PageHistoryLineEnding": "PageHistoryLineEnding",
+		"HtmlPageLinkRendererEnd": "HtmlPageLinkRendererEnd",
 		"FormatAutocomments": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onFormatAutocomments",
 		"ContentModelCanBeUsedOn": "ContentModelCanBeUsedOn",
 		"ImportHandleRevisionXMLTag": "ImportHandleRevisionXMLTag",
