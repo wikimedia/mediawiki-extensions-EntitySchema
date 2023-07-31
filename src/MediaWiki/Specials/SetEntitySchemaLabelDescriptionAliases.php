@@ -25,6 +25,9 @@ use SpecialPage;
 use Status;
 use Title;
 use WebRequest;
+use Wikibase\Lib\SettingsArray;
+use Wikibase\Repo\CopyrightMessageBuilder;
+use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 
 /**
  * Page for editing label, description and aliases of a Schema
@@ -44,13 +47,20 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 
 	private string $htmlFormProvider;
 
-	public function __construct( string $htmlFormProvider = HTMLForm::class ) {
+	private SpecialPageCopyrightView $copyrightView;
+
+	public function __construct( SettingsArray $repoSettings, string $htmlFormProvider = HTMLForm::class ) {
 		parent::__construct(
 			'SetEntitySchemaLabelDescriptionAliases',
 			'edit'
 		);
 
 		$this->htmlFormProvider = $htmlFormProvider;
+		$this->copyrightView = new SpecialPageCopyrightView(
+			new CopyrightMessageBuilder(),
+			$repoSettings->getSetting( 'dataRightsUrl' ),
+			$repoSettings->getSetting( 'dataRightsText' )
+		);
 	}
 
 	public function execute( $subPage ): void {
@@ -346,7 +356,8 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	}
 
 	private function displayCopyright( OutputPage $output ): void {
-		$output->addHTML( $this->getCopyrightHTML() );
+		$output->addHTML( $this->copyrightView
+			->getHtml( $this->getLanguage(), 'entityschema-special-id-submit' ) );
 	}
 
 	private function displayWarnings( OutputPage $output ): void {
@@ -375,19 +386,6 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		}
 
 		return $label . ' ' . $this->msg( 'parentheses' )->params( $schemaId->getId() )->escaped();
-	}
-
-	/**
-	 * @return string HTML
-	 */
-	private function getCopyrightHTML(): string {
-		return $this->msg( 'entityschema-newschema-copyright' )
-			->params(
-				$this->msg( 'entityschema-special-id-submit' )->text(),
-				$this->msg( 'copyrightpage' )->inContentLanguage()->text(),
-				// FIXME: make license configurable
-				'[https://creativecommons.org/publicdomain/zero/1.0/ Creative Commons CC0 License]'
-			)->parse();
 	}
 
 	private function getWarnings(): array {
