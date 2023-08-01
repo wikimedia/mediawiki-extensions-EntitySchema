@@ -4,11 +4,15 @@ declare( strict_types = 1 );
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\DataAccess\SqlIdGenerator;
 use EntitySchema\Domain\Storage\IdGenerator;
+use EntitySchema\Presentation\AutocommentFormatter;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\MediaWikiServices;
 
 /** @phpcs-require-sorted-array */
 return [
+	'EntitySchema.AutocommentFormatter' => static function ( MediaWikiServices $services ): AutocommentFormatter {
+		return new AutocommentFormatter();
+	},
 	'EntitySchema.EntitySchemaExistsValidator' => static function (
 		MediaWikiServices $services
 	): EntitySchemaExistsValidator {

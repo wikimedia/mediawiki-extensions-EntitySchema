@@ -5,78 +5,86 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\MediaWiki;
 
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
-use EntitySchema\MediaWiki\EntitySchemaHooks;
+use EntitySchema\MediaWiki\Hooks\FormatAutocommentsHookHandler;
+use EntitySchema\Presentation\AutocommentFormatter;
 use MediaWikiIntegrationTestCase;
 use SpecialPage;
 use Title;
 
 /**
- * @covers \EntitySchema\MediaWiki\EntitySchemaHooks
+ * @covers \EntitySchema\MediaWiki\Hooks\FormatAutocommentsHookHandler
  *
  * @license GPL-2.0-or-later
  */
-class EntitySchemaHooksTest extends MediaWikiIntegrationTestCase {
-
-	public function testOnFormatAutocomments_titleUnset() {
+class FormatAutocommentsHookHandlerTest extends MediaWikiIntegrationTestCase {
+	public function testTitleUnset() {
 		$comment = null;
 		$this->setMwGlobals( 'wgTitle', null );
-
-		$ret = EntitySchemaHooks::onFormatAutocomments(
+		$autocommentFormatter = new AutocommentFormatter();
+		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter );
+		$ret = $hookHandler->onFormatAutocomments(
 			$comment,
 			false,
 			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			false,
 			null,
-			false
+			false,
+			null
 		);
 
 		$this->assertNull( $ret );
 		$this->assertNull( $comment );
 	}
 
-	public function testOnFormatAutocomments_titleInOtherNamespace() {
+	public function testTitleInOtherNamespace() {
 		$comment = null;
-
-		$ret = EntitySchemaHooks::onFormatAutocomments(
+		$autocommentFormatter = new AutocommentFormatter();
+		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter );
+		$ret = $hookHandler->onFormatAutocomments(
 			$comment,
 			false,
 			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			false,
 			SpecialPage::getTitleFor( 'Version' ),
-			false
+			false,
+			null
 		);
 
 		$this->assertNull( $ret );
 		$this->assertNull( $comment );
 	}
 
-	public function testOnFormatAutocomments_unknownAutocomment() {
+	public function testWithUnknownAutocomment() {
 		$comment = null;
-
-		$ret = EntitySchemaHooks::onFormatAutocomments(
+		$autocommentFormatter = new AutocommentFormatter();
+		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter );
+		$ret = $hookHandler->onFormatAutocomments(
 			$comment,
 			false,
 			'blah blah',
 			false,
 			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ),
-			false
+			false,
+			null
 		);
 
 		$this->assertNull( $ret );
 		$this->assertNull( $comment );
 	}
 
-	public function testOnFormatAutocomments_newSchema() {
+	public function testWithNewSchema() {
 		$comment = null;
 		$this->setUserLang( 'qqx' );
-
-		$ret = EntitySchemaHooks::onFormatAutocomments(
+		$autocommentFormatter = new AutocommentFormatter();
+		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter );
+		$ret = $hookHandler->onFormatAutocomments(
 			$comment,
 			false,
 			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			true, # usually followed by the label
 			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ),
-			false
+			false,
+			null
 		);
 
 		$this->assertFalse( $ret );
@@ -86,5 +94,4 @@ class EntitySchemaHooksTest extends MediaWikiIntegrationTestCase {
 			'</span></span>';
 		$this->assertSame( $expected, $comment );
 	}
-
 }
