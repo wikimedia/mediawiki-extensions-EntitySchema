@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use MediaWiki\Page\PageIdentity;
 use MediaWiki\Page\WikiPageFactory;
@@ -22,8 +23,7 @@ class LabelLookup {
 	public function getLabelForTitle( PageIdentity $title, string $langCode ): ?EntitySchemaTerm {
 		$wikiPage = $this->wikiPageFactory->newFromTitle( $title );
 		$content = $wikiPage->getContent();
-		'@phan-var \EntitySchema\MediaWiki\Content\EntitySchemaContent|null $content';
-		if ( !$content ) {
+		if ( !( $content instanceof EntitySchemaContent ) ) {
 			return null;
 		}
 
