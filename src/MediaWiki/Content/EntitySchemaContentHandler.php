@@ -27,6 +27,7 @@ use MediaWiki\MediaWikiServices;
 use ParserOutput;
 use RequestContext;
 use Title;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * Content handler for the EntitySchema content
@@ -129,6 +130,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 
 		// TODo: check redirect?
 		// !$article->isRedirect()
+		$repoSettings = WikibaseRepo::getSettings();
 		return new SchemaEditAction(
 			$article,
 			$context,
@@ -138,7 +140,9 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 				MediaWikiServices::getInstance()->getLanguageNameUtils()
 			),
 			$wgEditSubmitButtonLabelPublish,
-			MediaWikiServices::getInstance()->getUserOptionsLookup()
+			MediaWikiServices::getInstance()->getUserOptionsLookup(),
+			$repoSettings->getSetting( 'dataRightsUrl' ),
+			$repoSettings->getSetting( 'dataRightsText' )
 		);
 	}
 

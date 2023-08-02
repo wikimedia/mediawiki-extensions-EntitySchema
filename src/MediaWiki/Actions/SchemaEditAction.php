@@ -21,6 +21,8 @@ use MediaWiki\Revision\SlotRecord;
 use MediaWiki\User\UserOptionsLookup;
 use RuntimeException;
 use Status;
+use Wikibase\Repo\CopyrightMessageBuilder;
+use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 
 /**
  * Edit a EntitySchema via the mediawiki editing action
@@ -37,18 +39,26 @@ class SchemaEditAction extends FormAction {
 	private InputValidator $inputValidator;
 	private string $submitMsgKey;
 	private UserOptionsLookup $userOptionsLookup;
+	private SpecialPageCopyrightView $copyrightView;
 
 	public function __construct(
 		Article $article,
 		IContextSource $context,
 		InputValidator $inputValidator,
 		bool $editSubmitButtonLabelPublish,
-		UserOptionsLookup $userOptionsLookup
+		UserOptionsLookup $userOptionsLookup,
+		string $dataRightsUrl,
+		string $dataRightsText
 	) {
 		parent::__construct( $article, $context );
 		$this->inputValidator = $inputValidator;
 		$this->userOptionsLookup = $userOptionsLookup;
 		$this->submitMsgKey = $editSubmitButtonLabelPublish ? 'publishchanges' : 'savechanges';
+		$this->copyrightView = new SpecialPageCopyrightView(
+			new CopyrightMessageBuilder(),
+			$dataRightsUrl,
+			$dataRightsText
+		);
 	}
 
 	public function show(): void {
@@ -140,6 +150,21 @@ class SchemaEditAction extends FormAction {
 			$form->addHiddenField( self::FIELD_IGNORE_EMPTY_SUMMARY, true );
 		}
 
+		$form->addFields( [ [
+			'type' => 'info',
+			'default' => $this->getCopyrightHTML(),
+			'raw' => true,
+		] ] );
+		if ( $this->getUser()->isAnon() ) {
+			$form->addFields( [ [
+				'type' => 'info',
+				'default' => $this->msg(
+					'entityschema-anonymouseditwarning'
+				)->parse(),
+				'raw' => true,
+			] ] );
+		}
+
 		$form->addButton( [
 			'name' => 'wpSave',
 			'value' => $this->msg( $this->submitMsgKey )->text(),
@@ -149,6 +174,14 @@ class SchemaEditAction extends FormAction {
 			'type' => 'submit',
 		] );
 		$form->setValidationErrorMessage( [ [ 'entityschema-error-one-more-message-available' ] ] );
+	}
+
+	/**
+	 * @return string HTML
+	 */
+	private function getCopyrightHTML() {
+		return $this->copyrightView
+			->getHtml( $this->getLanguage(), 'entityschema-newschema-submit' );
 	}
 
 	protected function getFormFields(): array {

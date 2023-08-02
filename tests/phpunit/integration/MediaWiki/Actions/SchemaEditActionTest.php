@@ -37,7 +37,9 @@ class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			false,
-			$this->getServiceContainer()->getUserOptionsLookup()
+			$this->getServiceContainer()->getUserOptionsLookup(),
+			'https://example.com/license',
+			'license text'
 		);
 
 		$this->expectException( ReadOnlyError::class );
@@ -57,7 +59,9 @@ class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			false,
-			$this->getServiceContainer()->getUserOptionsLookup()
+			$this->getServiceContainer()->getUserOptionsLookup(),
+			'https://example.com/license',
+			'license text'
 		);
 
 		$this->expectException( PermissionsError::class );
