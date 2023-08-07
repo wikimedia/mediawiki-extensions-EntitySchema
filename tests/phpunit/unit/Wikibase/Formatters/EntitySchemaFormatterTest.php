@@ -84,7 +84,7 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 				$stubPageIdentity,
 				'en'
 			)
-		->willReturn( null );
+			->willReturn( null );
 		$fakeLinkHtml = '<a>E123</a>';
 		$linkRenderer = $this->createMock( LinkRenderer::class );
 		$linkRenderer->expects( $this->once() )
