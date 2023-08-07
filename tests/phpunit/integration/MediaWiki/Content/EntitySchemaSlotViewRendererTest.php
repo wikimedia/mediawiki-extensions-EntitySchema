@@ -9,6 +9,7 @@ use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
 use EntitySchema\Services\SchemaConverter\NameBadge;
 use ExtensionRegistry;
 use HashConfig;
+use LinkCache;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReferenceValue;
 use MediaWikiIntegrationTestCase;
@@ -22,6 +23,10 @@ use SpecialPage;
  * @license GPL-2.0-or-later
  */
 class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
+	protected function setUp(): void {
+		parent::setUp();
+		$this->setService( 'LinkCache', $this->createMock( LinkCache::class ) );
+	}
 
 	/**
 	 * @dataProvider provideSchemaDataAndHtmlFragments

@@ -14,6 +14,7 @@ use WatchedItem;
  * @license GPL-2.0-or-later
  *
  * @covers \EntitySchema\DataAccess\WatchlistUpdater
+ * @group Database
  */
 final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 
@@ -42,7 +43,7 @@ final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 		string $pageid,
 		bool $expectedToBeWatched
 	) {
-		$testUser = self::getTestUser()->getUser();
+		$testUser = $this->getTestUser()->getUser();
 		$this->getServiceContainer()->getUserOptionsManager()->setOption( $testUser, $optionKey, $optionValue );
 		$watchlistUpdater = new WatchlistUpdater( $testUser, NS_ENTITYSCHEMA_JSON );
 
@@ -115,7 +116,7 @@ final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 		string $pageid,
 		bool $expectedToBeWatched
 	) {
-		$testUser = self::getTestUser()->getUser();
+		$testUser = $this->getTestUser()->getUser();
 		$services = $this->getServiceContainer();
 		$userOptionsManager = $services->getUserOptionsManager();
 		foreach ( $optionsToBeSet as $optionToBeSet ) {

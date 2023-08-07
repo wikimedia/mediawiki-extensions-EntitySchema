@@ -13,6 +13,7 @@ use Title;
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler
  *
  * @license GPL-2.0-or-later
+ * @group Database
  */
 class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 

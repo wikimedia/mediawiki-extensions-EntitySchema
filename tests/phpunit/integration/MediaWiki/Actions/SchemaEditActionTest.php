@@ -7,6 +7,9 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 use Article;
 use EntitySchema\MediaWiki\Actions\SchemaEditAction;
 use EntitySchema\Presentation\InputValidator;
+use MediaWiki\Block\BlockManager;
+use MediaWiki\Permissions\PermissionManager;
+use MediaWiki\Permissions\RestrictionStore;
 use MediaWikiIntegrationTestCase;
 use PermissionsError;
 use ReadOnlyError;
@@ -22,6 +25,7 @@ use Title;
 class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 
 	public function testReadOnly() {
+		$this->setService( 'PermissionManager', $this->createMock( PermissionManager::class ) );
 		$readOnlyMode = $this->getMockBuilder( ReadOnlyMode::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -47,12 +51,18 @@ class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testNoRights() {
+		$restrictionStore = $this->createMock( RestrictionStore::class );
+		$restrictionStore->method( 'getCascadeProtectionSources' )->willReturn( [ [], [] ] );
+		$this->setService( 'RestrictionStore', $restrictionStore );
+		$this->setService( 'BlockManager', $this->createMock( BlockManager::class ) );
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions',
 			[ '*' => [ 'edit' => false ] ] );
 		$context = RequestContext::getMain();
+		$title = Title::makeTitle( NS_MAIN, 'E1' );
+		$title->resetArticleID( 0 );
 		$action = new SchemaEditAction(
 			Article::newFromTitle(
-				Title::newFromDBkey( 'E1' ),
+				$title,
 				$context
 			),
 			$context,

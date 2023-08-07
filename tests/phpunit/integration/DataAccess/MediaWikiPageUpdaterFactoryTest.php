@@ -11,12 +11,13 @@ use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \EntitySchema\DataAccess\MediaWikiPageUpdaterFactory
+ * @group Database
  * @license GPL-2.0-or-later
  */
 class MediaWikiPageUpdaterFactoryTest extends MediaWikiIntegrationTestCase {
 
 	public function testGetPageUpdater() {
-		$user = self::getTestUser()->getUser();
+		$user = $this->getTestUser()->getUser();
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$pageUpdater = TestingAccessWrapper::newFromObject(
@@ -28,7 +29,7 @@ class MediaWikiPageUpdaterFactoryTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testAutopatrolledFlagIsSetForSysop() {
-		$user = self::getTestUser( 'sysop' )->getUser();
+		$user = $this->getTestUser( 'sysop' )->getUser();
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$pageUpdater = TestingAccessWrapper::newFromObject(
@@ -38,7 +39,7 @@ class MediaWikiPageUpdaterFactoryTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testAutopatrolledFlagNotSetForNormalUser() {
-		$user = self::getTestUser()->getUser();
+		$user = $this->getTestUser()->getUser();
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$pageUpdater = TestingAccessWrapper::newFromObject(

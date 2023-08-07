@@ -16,6 +16,7 @@ use WikiPage;
 /**
  * @license GPL-2.0-or-later
  * @coversNothing
+ * @group Database
  */
 class LabelLookupTest extends MediaWikiIntegrationTestCase {
 
@@ -68,7 +69,7 @@ class LabelLookupTest extends MediaWikiIntegrationTestCase {
 
 	private function saveSchemaPageContent( WikiPage $page, array $content ): RevisionRecord {
 		$content['serializationVersion'] = '3.0';
-		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
+		$updater = $page->newPageUpdater( $this->getTestUser()->getUser() );
 		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
 		$firstRevRecord = $updater->saveRevision(
 			CommentStoreComment::newUnsavedComment(

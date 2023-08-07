@@ -20,6 +20,7 @@ use RequestContext;
  * @covers \EntitySchema\MediaWiki\Hooks\PageHistoryLineEndingHandler
  *
  * @license GPL-2.0-or-later
+ * @group Database
  */
 class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 
