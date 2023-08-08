@@ -6,7 +6,14 @@
 		]
 	},
 	"entityschema-newschema-description": "Опис:",
+	"entityschema-newschema-submit": "Направи",
+	"entityschema-diff-label": "Називи",
+	"entityschema-diff-description": "Описи",
+	"entityschema-diff-aliases": "Синоними",
+	"entityschema-diff-schema": "Шема",
 	"entityschema-undo-cannot-apply-patch": "Измену није могуће поништити зато што је у међувремену промењена.",
+	"entityschema-special-language-inputlabel": "Код језика",
+	"entityschema-special-id-submit": "Постави назив, опис и псеудониме",
 	"entityschema-special-label": "Ознака:",
 	"entityschema-special-description": "Опис:",
 	"entityschema-special-aliases": "Псеудоними (раздвојени усправном цртом):"
