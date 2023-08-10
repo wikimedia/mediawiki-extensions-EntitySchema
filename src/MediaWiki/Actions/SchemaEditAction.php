@@ -181,7 +181,7 @@ class SchemaEditAction extends FormAction {
 	 */
 	private function getCopyrightHTML() {
 		return $this->copyrightView
-			->getHtml( $this->getLanguage(), 'entityschema-newschema-submit' );
+			->getHtml( $this->getLanguage(), $this->submitMsgKey );
 	}
 
 	protected function getFormFields(): array {
