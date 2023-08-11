@@ -81,6 +81,12 @@
 		},
 		"BeforeDisplayNoArticleText": {
 			"class": "\\EntitySchema\\MediaWiki\\Hooks\\BeforeDisplayNoArticleTextHookHandler"
+		},
+		"FormatAutocomments": {
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\FormatAutocommentsHookHandler",
+			"services": [
+				"EntitySchema.AutocommentFormatter"
+			]
 		}
 	},
 	"Hooks": {
@@ -90,7 +96,7 @@
 		"BeforeDisplayNoArticleText": "BeforeDisplayNoArticleText",
 		"PageHistoryLineEnding": "PageHistoryLineEnding",
 		"HtmlPageLinkRendererEnd": "HtmlPageLinkRendererEnd",
-		"FormatAutocomments": "\\EntitySchema\\MediaWiki\\EntitySchemaHooks::onFormatAutocomments",
+		"FormatAutocomments": "FormatAutocomments",
 		"ContentModelCanBeUsedOn": "ContentModelCanBeUsedOn",
 		"ImportHandleRevisionXMLTag": "ImportHandleRevisionXMLTag",
 		"TitleGetRestrictionTypes": "TitleGetRestrictionTypes",
