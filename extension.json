@@ -87,11 +87,14 @@
 			"services": [
 				"EntitySchema.AutocommentFormatter"
 			]
+		},
+		"LoadExtensionSchemaUpdates": {
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\LoadExtensionSchemaUpdatesHookHandler"
 		}
 	},
 	"Hooks": {
 		"SkinTemplateNavigation::Universal": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onSkinTemplateNavigationUniversal",
-		"LoadExtensionSchemaUpdates": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onCreateDBSchema",
+		"LoadExtensionSchemaUpdates": "LoadExtensionSchemaUpdates",
 		"ExtensionTypes": "ExtensionTypes",
 		"BeforeDisplayNoArticleText": "BeforeDisplayNoArticleText",
 		"PageHistoryLineEnding": "PageHistoryLineEnding",
