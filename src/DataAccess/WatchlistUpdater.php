@@ -6,7 +6,7 @@ namespace EntitySchema\DataAccess;
 
 use EntitySchema\Domain\Model\SchemaId;
 use MediaWiki\MediaWikiServices;
-use Title;
+use MediaWiki\Title\Title;
 use User;
 
 /**
