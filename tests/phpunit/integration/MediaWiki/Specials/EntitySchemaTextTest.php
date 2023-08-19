@@ -9,10 +9,10 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Specials\EntitySchemaText;
 use HttpError;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Request\WebResponse;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use SpecialPageTestBase;
-use WebResponse;
 use WikiPage;
 
 /**
