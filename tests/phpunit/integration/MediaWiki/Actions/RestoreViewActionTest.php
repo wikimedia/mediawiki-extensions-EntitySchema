@@ -11,10 +11,10 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use RequestContext;
 use TextSlotDiffRenderer;
-use Title;
 use WikiPage;
 
 /**

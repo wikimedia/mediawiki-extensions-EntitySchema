@@ -24,9 +24,9 @@ use LogicException;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use ParserOutput;
 use RequestContext;
-use Title;
 use Wikibase\Repo\WikibaseRepo;
 
 /**

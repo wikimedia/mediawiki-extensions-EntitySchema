@@ -10,8 +10,8 @@ use EntitySchema\MediaWiki\Specials\EntitySchemaText;
 use HttpError;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\Title;
 use SpecialPageTestBase;
-use Title;
 use WebResponse;
 use WikiPage;
 

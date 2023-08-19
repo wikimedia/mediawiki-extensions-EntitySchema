@@ -6,13 +6,13 @@ namespace EntitySchema\Presentation;
 
 use Html;
 use Linker;
+use MediaWiki\Title\Title;
 use MessageLocalizer;
 use OOUI\ButtonInputWidget;
 use OOUI\ButtonWidget;
 use OOUI\FieldLayout;
 use OOUI\HtmlSnippet;
 use OOUI\TextInputWidget;
-use Title;
 use User;
 
 /**

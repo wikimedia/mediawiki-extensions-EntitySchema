@@ -10,12 +10,12 @@ use EntitySchema\Presentation\InputValidator;
 use MediaWiki\Block\BlockManager;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Permissions\RestrictionStore;
+use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use PermissionsError;
 use ReadOnlyError;
 use ReadOnlyMode;
 use RequestContext;
-use Title;
 
 /**
  * @covers \EntitySchema\MediaWiki\Actions\SchemaEditAction

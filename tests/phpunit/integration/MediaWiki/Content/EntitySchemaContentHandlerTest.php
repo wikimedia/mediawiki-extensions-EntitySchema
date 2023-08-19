@@ -5,9 +5,9 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use ParserOptions;
-use Title;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler

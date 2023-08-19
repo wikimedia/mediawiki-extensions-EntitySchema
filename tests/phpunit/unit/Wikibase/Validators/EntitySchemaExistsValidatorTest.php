@@ -6,9 +6,9 @@ namespace EntitySchema\Tests\Unit\Wikibase\Validators;
 
 use DataValues\StringValue;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
+use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiUnitTestCase;
-use Title;
 
 /**
  * @covers \EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator

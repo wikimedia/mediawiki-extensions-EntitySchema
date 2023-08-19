@@ -10,10 +10,10 @@ use EntitySchema\Domain\Model\SchemaId;
 use InvalidArgumentException;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use Message;
 use MessageLocalizer;
 use RequestContext;
-use Title;
 
 /**
  * @license GPL-2.0-or-later

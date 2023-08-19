@@ -9,10 +9,10 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
 use HashConfig;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use Message;
 use MessageLocalizer;
-use Title;
 use WikiPage;
 
 /**

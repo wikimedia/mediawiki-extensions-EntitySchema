@@ -12,10 +12,10 @@ use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use PermissionsError;
 use RequestContext;
-use Title;
 use WikiPage;
 
 /**

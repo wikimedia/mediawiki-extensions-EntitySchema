@@ -7,9 +7,9 @@ namespace EntitySchema\Tests\Integration\MediaWiki;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\MediaWiki\Hooks\FormatAutocommentsHookHandler;
 use EntitySchema\Presentation\AutocommentFormatter;
+use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use SpecialPage;
-use Title;
 
 /**
  * @covers \EntitySchema\MediaWiki\Hooks\FormatAutocommentsHookHandler

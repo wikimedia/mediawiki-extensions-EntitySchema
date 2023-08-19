@@ -10,8 +10,8 @@ use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
-use Title;
 use WikiPage;
 
 /**

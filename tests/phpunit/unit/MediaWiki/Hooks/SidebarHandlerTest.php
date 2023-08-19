@@ -5,10 +5,10 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 
 use EntitySchema\MediaWiki\Hooks\SidebarHookHandler;
+use MediaWiki\Title\Title;
 use MediaWikiUnitTestCase;
 use Message;
 use Skin;
-use Title;
 use Wikibase\DataAccess\EntitySource;
 
 /**

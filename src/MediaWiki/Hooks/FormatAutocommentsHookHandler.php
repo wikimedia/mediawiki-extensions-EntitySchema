@@ -6,7 +6,7 @@ namespace EntitySchema\MediaWiki\Hooks;
 
 use EntitySchema\Presentation\AutocommentFormatter;
 use MediaWiki\Hook\FormatAutocommentsHook;
-use Title;
+use MediaWiki\Title\Title;
 
 /**
  * @license GPL-2.0-or-later
