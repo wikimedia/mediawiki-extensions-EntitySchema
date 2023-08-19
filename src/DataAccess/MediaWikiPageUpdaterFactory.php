@@ -6,8 +6,8 @@ namespace EntitySchema\DataAccess;
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Storage\PageUpdater;
+use MediaWiki\Title\Title;
 use RecentChange;
-use Title;
 use User;
 
 /**
