@@ -177,9 +177,9 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 			$baseRevision->getContent( SlotRecord::MAIN )->getText()
 		);
 
-		$label = SchemaCleaner::trimWhitespaceAndControlChars( $label );
-		$description = SchemaCleaner::trimWhitespaceAndControlChars( $description );
-		$aliases = SchemaCleaner::cleanupArrayOfStrings( $aliases );
+		$label = EntitySchemaCleaner::trimWhitespaceAndControlChars( $label );
+		$description = EntitySchemaCleaner::trimWhitespaceAndControlChars( $description );
+		$aliases = EntitySchemaCleaner::cleanupArrayOfStrings( $aliases );
 		$language = $this->languageFactory->getLanguage( $langCode );
 
 		$typeOfChange = [];

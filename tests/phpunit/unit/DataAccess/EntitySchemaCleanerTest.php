@@ -4,13 +4,13 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\DataAccess;
 
-use EntitySchema\DataAccess\SchemaCleaner;
+use EntitySchema\DataAccess\EntitySchemaCleaner;
 
 /**
  * @license GPL-2.0-or-later
- * @covers \EntitySchema\DataAccess\SchemaCleaner
+ * @covers \EntitySchema\DataAccess\EntitySchemaCleaner
  */
-class SchemaCleanerTest extends \MediaWikiUnitTestCase {
+class EntitySchemaCleanerTest extends \MediaWikiUnitTestCase {
 
 	public static function provideTestData(): iterable {
 		yield 'well formed data' => [
@@ -74,7 +74,7 @@ class SchemaCleanerTest extends \MediaWikiUnitTestCase {
 		string $expectedSchemaText
 	) {
 
-		SchemaCleaner::cleanupParameters(
+		EntitySchemaCleaner::cleanupParameters(
 			$labels,
 			$descriptions,
 			$aliasGroups,

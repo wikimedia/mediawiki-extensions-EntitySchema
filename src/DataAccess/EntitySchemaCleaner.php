@@ -7,7 +7,7 @@ namespace EntitySchema\DataAccess;
 /**
  * @license GPL-2.0-or-later
  */
-class SchemaCleaner {
+class EntitySchemaCleaner {
 
 	/**
 	 * @param string[] $labels

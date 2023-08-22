@@ -37,7 +37,7 @@ class SchemaEncoder {
 			$aliases,
 			$schemaText
 		);
-		SchemaCleaner::cleanupParameters(
+		EntitySchemaCleaner::cleanupParameters(
 			$labels,
 			$descriptions,
 			$aliases,

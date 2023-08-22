@@ -76,7 +76,7 @@ class SchemaUpdateGuard {
 	}
 
 	private function cleanupData( FullArraySchemaData $data ): void {
-		SchemaCleaner::cleanupParameters(
+		EntitySchemaCleaner::cleanupParameters(
 			$data->data['labels'],
 			$data->data['descriptions'],
 			$data->data['aliases'],
