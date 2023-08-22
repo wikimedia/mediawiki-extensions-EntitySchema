@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\DataAccess;
 
 use CommentStoreComment;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
@@ -54,7 +54,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	/**
 	 * Update a Schema with new content. This will remove existing schema content.
 	 *
-	 * @param SchemaId $id
+	 * @param EntitySchemaId $id
 	 * @param string[] $labels
 	 * @param string[] $descriptions
 	 * @param string[][] $aliasGroups
@@ -66,7 +66,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 */
 	public function overwriteWholeSchema(
-		SchemaId $id,
+		EntitySchemaId $id,
 		array $labels,
 		array $descriptions,
 		array $aliasGroups,
@@ -105,7 +105,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	}
 
 	public function updateSchemaNameBadge(
-		SchemaId $id,
+		EntitySchemaId $id,
 		string $langCode,
 		string $label,
 		string $description,
@@ -216,7 +216,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	}
 
 	/**
-	 * @param SchemaId $id
+	 * @param EntitySchemaId $id
 	 * @param string $schemaText
 	 * @param int $baseRevId
 	 * @param string|null $userSummary
@@ -226,7 +226,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 */
 	public function updateSchemaText(
-		SchemaId $id,
+		EntitySchemaId $id,
 		string $schemaText,
 		int $baseRevId,
 		?string $userSummary = null

@@ -8,7 +8,7 @@ use CommentStoreComment;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use MediaWiki\MediaWikiServices;
 use PermissionsError;
@@ -109,7 +109,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 
 		try {
 			$schemaUpdater->overwriteWholeSchema(
-				new SchemaId( $this->getTitle()->getTitleValue()->getText() ),
+				new EntitySchemaId( $this->getTitle()->getTitleValue()->getText() ),
 				$patchedSchema->data['labels'],
 				$patchedSchema->data['descriptions'],
 				$patchedSchema->data['aliases'],

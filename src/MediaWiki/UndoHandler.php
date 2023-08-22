@@ -7,7 +7,7 @@ namespace EntitySchema\MediaWiki;
 use Diff\DiffOp\Diff\Diff;
 use Diff\Patcher\PatcherException;
 use DomainException;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Diff\SchemaDiffer;
 use EntitySchema\Services\Diff\SchemaPatcher;
@@ -26,7 +26,7 @@ final class UndoHandler {
 		EntitySchemaContent $undoFromContent,
 		EntitySchemaContent $undoToContent,
 		EntitySchemaContent $baseContent = null
-	): SchemaId {
+	): EntitySchemaId {
 		$converter = new SchemaConverter();
 		$firstID = $converter->getSchemaID( $undoFromContent->getText() );
 		if ( $firstID !== $converter->getSchemaID( $undoToContent->getText() )
@@ -40,7 +40,7 @@ final class UndoHandler {
 			throw new DomainException( 'ID must be the same for all contents' );
 		}
 
-		return new SchemaId( $firstID );
+		return new EntitySchemaId( $firstID );
 	}
 
 	public function getDiffFromContents(

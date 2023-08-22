@@ -6,7 +6,7 @@ namespace EntitySchema\Presentation;
 
 use Config;
 use ConfigException;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use InvalidArgumentException;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\MediaWikiServices;
@@ -49,11 +49,11 @@ class InputValidator {
 	 */
 	public function validateIDExists( string $id ) {
 		try {
-			$schemaId = new SchemaId( $id );
+			$entitySchemaId = new EntitySchemaId( $id );
 		} catch ( InvalidArgumentException $e ) {
 			return $this->msgLocalizer->msg( 'entityschema-error-invalid-id' );
 		}
-		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId->getId() );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $entitySchemaId->getId() );
 		if ( !$title->exists() ) {
 			return $this->msgLocalizer->msg( 'entityschema-error-schemadeleted' );
 		}

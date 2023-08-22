@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\DataAccess\WatchlistUpdater;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use MediaWiki\MediaWikiServices;
 use MediaWikiIntegrationTestCase;
 use WatchedItem;
@@ -47,7 +47,7 @@ final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 		$this->getServiceContainer()->getUserOptionsManager()->setOption( $testUser, $optionKey, $optionValue );
 		$watchlistUpdater = new WatchlistUpdater( $testUser, NS_ENTITYSCHEMA_JSON );
 
-		$watchlistUpdater->optionallyWatchEditedSchema( new SchemaId( $pageid ) );
+		$watchlistUpdater->optionallyWatchEditedSchema( new EntitySchemaId( $pageid ) );
 
 		$watchedItemStore = MediaWikiServices::getInstance()->getWatchedItemStore();
 		$actualItems = $watchedItemStore->getWatchedItemsForUser( $testUser );
@@ -124,7 +124,7 @@ final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 		}
 		$watchlistUpdater = new WatchlistUpdater( $testUser, NS_ENTITYSCHEMA_JSON );
 
-		$watchlistUpdater->optionallyWatchNewSchema( new SchemaId( $pageid ) );
+		$watchlistUpdater->optionallyWatchNewSchema( new EntitySchemaId( $pageid ) );
 
 		$watchedItemStore = $services->getWatchedItemStore();
 		$actualItems = $watchedItemStore->getWatchedItemsForUser( $testUser );

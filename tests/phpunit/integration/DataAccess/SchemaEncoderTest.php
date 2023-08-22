@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\DataAccess\SchemaEncoder;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use InvalidArgumentException;
 use MediaWikiIntegrationTestCase;
 
@@ -28,7 +28,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 		array $expected
 	) {
 		$actual = SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( $id ),
+			new EntitySchemaId( $id ),
 			$labels,
 			$descriptions,
 			$aliasGroups,
@@ -110,7 +110,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 		$this->expectExceptionMessage( $expectedMessage );
 
 		SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			$labels,
 			$descriptions,
 			$aliasGroups,
@@ -188,7 +188,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 		$this->expectExceptionMessage( 'is longer than' );
 
 		SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			[],
 			[],
 			[],
@@ -203,7 +203,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 		$this->expectExceptionMessage( 'is longer than' );
 
 		SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			[ 'en' => 'label too long' ],
 			[],
 			[],
@@ -218,7 +218,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 		$this->expectExceptionMessage( 'is longer than' );
 
 		SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			[],
 			[ 'en' => 'description too long' ],
 			[],
@@ -233,7 +233,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 		$this->expectExceptionMessage( 'is longer than' );
 
 		SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			[],
 			[],
 			[ 'en' => [ 'alias', 'too', 'long' ] ],
@@ -243,7 +243,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 
 	public function testParamsAreCleaned() {
 		$actualJSON = SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			[
 				'en' => '         	testLabel﻿   ',
 				'de' => '    ',
@@ -270,7 +270,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 
 	public function testIgnoresKeyOrder() {
 		$json1 = SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			[
 				'en' => 'English label',
 				'de' => 'deutsche Beschriftung',
@@ -286,7 +286,7 @@ class SchemaEncoderTest extends MediaWikiIntegrationTestCase {
 			'schema text'
 		);
 		$json2 = SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			[
 				'de' => 'deutsche Beschriftung',
 				'en' => 'English label',

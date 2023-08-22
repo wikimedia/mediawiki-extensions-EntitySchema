@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Specials;
 
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use HttpError;
@@ -27,13 +27,13 @@ class EntitySchemaText extends SpecialPage {
 
 	public function execute( $subPage ): void {
 		parent::execute( $subPage );
-		$schemaId = $this->getIdFromSubpage( $subPage );
-		if ( !$schemaId ) {
+		$entitySchemaId = $this->getIdFromSubpage( $subPage );
+		if ( !$entitySchemaId ) {
 			$this->getOutput()->addWikiMsg( 'entityschema-schematext-text' );
 			$this->getOutput()->returnToMain();
 			return;
 		}
-		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId->getId() );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $entitySchemaId->getId() );
 
 		if ( !$title->exists() ) {
 			throw new HttpError( 404, $this->getOutput()->msg(
@@ -44,7 +44,7 @@ class EntitySchemaText extends SpecialPage {
 		$this->sendContentSchemaText(
 			// @phan-suppress-next-line PhanTypeMismatchArgumentSuperType
 			MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title )->getContent(),
-			$schemaId
+			$entitySchemaId
 		);
 	}
 
@@ -56,7 +56,7 @@ class EntitySchemaText extends SpecialPage {
 		return 'wikibase';
 	}
 
-	private function sendContentSchemaText( EntitySchemaContent $schemaContent, SchemaId $id ): void {
+	private function sendContentSchemaText( EntitySchemaContent $schemaContent, EntitySchemaId $id ): void {
 		$converter = new SchemaConverter();
 		$schemaText = $converter->getSchemaText( $schemaContent->getText() );
 		$out = $this->getOutput();
@@ -71,16 +71,16 @@ class EntitySchemaText extends SpecialPage {
 		echo $schemaText;
 	}
 
-	private function getIdFromSubpage( ?string $subPage ): ?SchemaId {
+	private function getIdFromSubpage( ?string $subPage ): ?EntitySchemaId {
 		if ( !$subPage ) {
 			return null;
 		}
 		try {
-			$schemaId = new SchemaId( $subPage );
+			$entitySchemaId = new EntitySchemaId( $subPage );
 		} catch ( InvalidArgumentException $e ) {
 			return null;
 		}
-		return $schemaId;
+		return $entitySchemaId;
 	}
 
 }

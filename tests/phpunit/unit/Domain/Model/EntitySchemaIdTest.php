@@ -4,22 +4,22 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\Domain\Model;
 
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use InvalidArgumentException;
 use MediaWikiUnitTestCase;
 
 /**
- * @covers EntitySchema\Domain\Model\SchemaId
+ * @covers EntitySchema\Domain\Model\EntitySchemaId
  *
  * @license GPL-2.0-or-later
  */
-class SchemaIdTest extends MediaWikiUnitTestCase {
+class EntitySchemaIdTest extends MediaWikiUnitTestCase {
 
 	public function testConstructorAndGetter(): void {
 		$expected = 'E1';
 
-		$schemaId = new SchemaId( $expected );
-		$actual = $schemaId->getId();
+		$entitySchemaId = new EntitySchemaId( $expected );
+		$actual = $entitySchemaId->getId();
 
 		$this->assertSame( $expected, $actual );
 	}
@@ -40,7 +40,7 @@ class SchemaIdTest extends MediaWikiUnitTestCase {
 	 */
 	public function testConstructorRejectsInvalidId( string $id ): void {
 		$this->expectException( InvalidArgumentException::class );
-		new SchemaId( $id );
+		new EntitySchemaId( $id );
 	}
 
 }

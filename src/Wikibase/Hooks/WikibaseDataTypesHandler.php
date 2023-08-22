@@ -6,7 +6,7 @@ namespace EntitySchema\Wikibase\Hooks;
 
 use Config;
 use EntitySchema\DataAccess\LabelLookup;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
@@ -69,7 +69,7 @@ class WikibaseDataTypesHandler {
 			'validator-factory-callback' => function (): array {
 				$validators = $this->validatorBuilders->buildStringValidators( 11 );
 				$validators[] = new DataValueValidator( new RegexValidator(
-					SchemaId::PATTERN,
+					EntitySchemaId::PATTERN,
 					false,
 					'illegal-entity-schema-title'
 				) );

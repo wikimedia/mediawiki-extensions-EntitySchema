@@ -6,7 +6,7 @@ namespace EntitySchema\Tests\Integration\API;
 
 use CommentStoreComment;
 use EntitySchema\DataAccess\SchemaEncoder;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
@@ -88,7 +88,7 @@ class UndoAPITest extends MediaWikiIntegrationTestCase {
 		);
 
 		$expectedRepresentation = SchemaEncoder::getPersistentRepresentation(
-			new SchemaId( $id ),
+			new EntitySchemaId( $id ),
 			[ 'en' => 'en label top version' ],
 			[],
 			[],

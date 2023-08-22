@@ -9,7 +9,7 @@ use InvalidArgumentException;
 /**
  * @license GPL-2.0-or-later
  */
-class SchemaId {
+class EntitySchemaId {
 
 	private string $id;
 

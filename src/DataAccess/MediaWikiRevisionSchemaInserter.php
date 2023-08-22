@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\DataAccess;
 
 use CommentStoreComment;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
@@ -43,7 +43,7 @@ class MediaWikiRevisionSchemaInserter implements SchemaInserter {
 	 * @param string[] $aliases
 	 * @param string $schemaText
 	 *
-	 * @return SchemaId id of the inserted Schema
+	 * @return EntitySchemaId id of the inserted Schema
 	 */
 	public function insertSchema(
 		string $language,
@@ -51,8 +51,8 @@ class MediaWikiRevisionSchemaInserter implements SchemaInserter {
 		string $description = '',
 		array $aliases = [],
 		string $schemaText = ''
-	): SchemaId {
-		$id = new SchemaId( 'E' . $this->idGenerator->getNewId() );
+	): EntitySchemaId {
+		$id = new EntitySchemaId( 'E' . $this->idGenerator->getNewId() );
 		$persistentRepresentation = SchemaEncoder::getPersistentRepresentation(
 			$id,
 			[ $language => $label ],

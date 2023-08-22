@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\DataAccess;
 
 use CommentStoreComment;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -17,7 +17,7 @@ interface SchemaUpdater {
 	/**
 	 * Update a Schema with new content. This will remove existing schema content.
 	 *
-	 * @param SchemaId $id
+	 * @param EntitySchemaId $id
 	 * @param string[] $labels
 	 * @param string[] $descriptions
 	 * @param string[][] $aliasGroups
@@ -29,7 +29,7 @@ interface SchemaUpdater {
 	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 */
 	public function overwriteWholeSchema(
-		SchemaId $id,
+		EntitySchemaId $id,
 		array $labels,
 		array $descriptions,
 		array $aliasGroups,
@@ -39,7 +39,7 @@ interface SchemaUpdater {
 	): void;
 
 	/**
-	 * @param SchemaId $id
+	 * @param EntitySchemaId $id
 	 * @param string   $langCode
 	 * @param string   $label
 	 * @param string   $description
@@ -47,7 +47,7 @@ interface SchemaUpdater {
 	 * @param int      $baseRevId
 	 */
 	public function updateSchemaNameBadge(
-		SchemaId $id,
+		EntitySchemaId $id,
 		string $langCode,
 		string $label,
 		string $description,
@@ -56,7 +56,7 @@ interface SchemaUpdater {
 	): void;
 
 	/**
-	 * @param SchemaId $id
+	 * @param EntitySchemaId $id
 	 * @param string $schemaText
 	 * @param int $baseRevId id of the base revision for detecting edit conflicts.
 	 * @param string|null $userSummary
@@ -66,7 +66,7 @@ interface SchemaUpdater {
 	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 */
 	public function updateSchemaText(
-		SchemaId $id,
+		EntitySchemaId $id,
 		string $schemaText,
 		int $baseRevId,
 		?string $userSummary = null

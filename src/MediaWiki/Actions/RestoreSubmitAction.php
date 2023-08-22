@@ -8,7 +8,7 @@ use CommentStoreComment;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
@@ -111,7 +111,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 
 		try {
 			$schemaUpdater->overwriteWholeSchema(
-				new SchemaId( $this->getTitle()->getTitleValue()->getText() ),
+				new EntitySchemaId( $this->getTitle()->getTitleValue()->getText() ),
 				$persistenceSchemaData->labels,
 				$persistenceSchemaData->descriptions,
 				$persistenceSchemaData->aliases,

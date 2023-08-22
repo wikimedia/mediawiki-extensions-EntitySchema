@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use User;
@@ -22,7 +22,7 @@ class WatchlistUpdater {
 		$this->namespace = $namespaceID;
 	}
 
-	public function optionallyWatchEditedSchema( SchemaId $schemaID ): void {
+	public function optionallyWatchEditedSchema( EntitySchemaId $entitySchemaId ): void {
 		$services = MediaWikiServices::getInstance();
 		$userOptionsLookup = $services->getUserOptionsLookup();
 		$watchlistManager = $services->getWatchlistManager();
@@ -30,12 +30,12 @@ class WatchlistUpdater {
 			$watchlistManager->setWatch(
 				true,
 				$this->user,
-				Title::makeTitle( $this->namespace, $schemaID->getId() )
+				Title::makeTitle( $this->namespace, $entitySchemaId->getId() )
 			);
 		}
 	}
 
-	public function optionallyWatchNewSchema( SchemaId $schemaID ): void {
+	public function optionallyWatchNewSchema( EntitySchemaId $entitySchemaId ): void {
 		$services = MediaWikiServices::getInstance();
 		$userOptionsLookup = $services->getUserOptionsLookup();
 		$watchlistManager = $services->getWatchlistManager();
@@ -44,7 +44,7 @@ class WatchlistUpdater {
 			$watchlistManager->setWatch(
 				true,
 				$this->user,
-				Title::makeTitle( $this->namespace, $schemaID->getId() )
+				Title::makeTitle( $this->namespace, $entitySchemaId->getId() )
 			);
 		}
 	}

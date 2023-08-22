@@ -10,7 +10,7 @@ use EntitySchema\DataAccess\EditConflict;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\SchemaConverter\NameBadge;
 use InvalidArgumentException;
@@ -138,7 +138,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 
 		$this->expectException( RuntimeException::class );
 		$schmeaUpdater->overwriteWholeSchema(
-			new SchemaId( 'E123456999999999' ),
+			new EntitySchemaId( 'E123456999999999' ),
 			[],
 			[],
 			[],
@@ -188,7 +188,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( $exceptionMessage );
 		$schmeaUpdater->overwriteWholeSchema(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			[ $testLanguage => $testLabel ],
 			[ $testLanguage => $testDescription ],
 			[ $testLanguage => $testAliases ],
@@ -233,7 +233,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$schmeaUpdater->overwriteWholeSchema(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			[ 'en' => 'englishLabel' ],
 			[ 'en' => 'englishDescription' ],
 			[ 'en' => $aliases ],
@@ -249,7 +249,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		$this->expectException( RuntimeException::class );
 		$this->expectExceptionMessage( 'The revision could not be saved' );
 		$schmeaUpdater->overwriteWholeSchema(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			[],
 			[],
 			[],
@@ -293,7 +293,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 
 		$this->expectException( InvalidArgumentException::class );
 		$schmeaUpdater->updateSchemaText(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			str_repeat( '#', MediaWikiServices::getInstance()->getMainConfig()
 				->get( 'EntitySchemaSchemaTextMaxSizeBytes' ) + 100 ),
 			1
@@ -326,7 +326,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 
 		$this->expectException( DomainException::class );
 		$schmeaUpdater->updateSchemaText(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			'',
 			$this->parentRevision->getId()
 		);
@@ -356,7 +356,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 
 		$this->expectException( EditConflict::class );
 		$schmeaUpdater->updateSchemaText(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			'',
 			$this->baseRevision->getId()
 		);
@@ -399,7 +399,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 		);
 
 		$schmeaUpdater->updateSchemaText(
-			new SchemaId( $id ),
+			new EntitySchemaId( $id ),
 			$newSchemaText,
 			$this->parentRevision->getId()
 		);
@@ -457,7 +457,7 @@ class MediaWikiRevisionSchemaUpdaterTest extends TestCase {
 			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$schemaUpdater->updateSchemaText(
-			new SchemaId( $id ),
+			new EntitySchemaId( $id ),
 			$newSchemaText,
 			$this->baseRevision->getId()
 		);
@@ -548,7 +548,7 @@ SHEXC;
 			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$schemaUpdater->updateSchemaText(
-			new SchemaId( $id ),
+			new EntitySchemaId( $id ),
 			$userSchemaText,
 			$this->baseRevision->getId()
 		);
@@ -560,7 +560,7 @@ SHEXC;
 		$this->expectException( RuntimeException::class );
 		$this->expectExceptionMessage( 'The revision could not be saved' );
 		$schmeaUpdater->updateSchemaText(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			'qwerty',
 			1
 		);
@@ -576,7 +576,7 @@ SHEXC;
 			]
 		);
 
-		$id = new SchemaId( 'E1' );
+		$id = new EntitySchemaId( 'E1' );
 		$existingContent = new EntitySchemaContent( json_encode( [
 			'id' => $id,
 			'serializationVersion' => '3.0',
@@ -629,7 +629,7 @@ SHEXC;
 		);
 
 		$schemaUpdater->updateSchemaText(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			'schema text',
 			$this->parentRevision->getId()
 		);
@@ -671,7 +671,7 @@ SHEXC;
 		);
 
 		$schmeaUpdater->updateSchemaNameBadge(
-			new SchemaId( $id ),
+			new EntitySchemaId( $id ),
 			$language,
 			$labels['en'],
 			$descriptions['en'],
@@ -734,7 +734,7 @@ SHEXC;
 		);
 
 		$schmeaUpdater->updateSchemaNameBadge(
-			new SchemaId( $id ),
+			new EntitySchemaId( $id ),
 			$language,
 			$englishLabel,
 			$englishDescription,
@@ -796,7 +796,7 @@ SHEXC;
 		);
 
 		$writer->updateSchemaNameBadge(
-			new SchemaId( $id ),
+			new EntitySchemaId( $id ),
 			$language,
 			$new->label,
 			$new->description,
@@ -918,7 +918,7 @@ SHEXC;
 
 		$this->expectException( EditConflict::class );
 		$schmeaUpdater->updateSchemaNameBadge(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			'en',
 			'test label',
 			'test description',
@@ -975,7 +975,7 @@ SHEXC;
 		);
 
 		$updater->updateSchemaNameBadge(
-			new SchemaId( $id ),
+			new EntitySchemaId( $id ),
 			$language,
 			$labels['en'],
 			$descriptions['en'],
@@ -1036,7 +1036,7 @@ SHEXC;
 			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$schemaUpdater->updateSchemaNameBadge(
-			new SchemaId( $id ),
+			new EntitySchemaId( $id ),
 			'en',
 			$newLabels['en'],
 			$descriptions['en'],
@@ -1098,7 +1098,7 @@ SHEXC;
 			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$schemaUpdater->updateSchemaNameBadge(
-			new SchemaId( $id ),
+			new EntitySchemaId( $id ),
 			'en',
 			$userLabels['en'],
 			$descriptions['en'],
@@ -1159,7 +1159,7 @@ SHEXC;
 			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 		$schemaUpdater->updateSchemaNameBadge(
-			new SchemaId( $id ),
+			new EntitySchemaId( $id ),
 			'en',
 			$newLabels['en'],
 			$oldDescriptions['en'],
@@ -1174,7 +1174,7 @@ SHEXC;
 		$this->expectException( RuntimeException::class );
 		$this->expectExceptionMessage( 'The revision could not be saved' );
 		$schmeaUpdater->updateSchemaNameBadge(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			'en',
 			'test label',
 			'test description',
@@ -1205,7 +1205,7 @@ SHEXC;
 		);
 
 		$schemaUpdater->updateSchemaNameBadge(
-			new SchemaId( 'E1' ),
+			new EntitySchemaId( 'E1' ),
 			'en',
 			'label',
 			'',

@@ -9,7 +9,7 @@ use EntitySchema\DataAccess\EditConflict;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
@@ -118,7 +118,7 @@ class SchemaEditAction extends FormAction {
 				[ 'missingsummary', $this->msg( $this->submitMsgKey )->text() ] );
 		}
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $user );
-		$id = new SchemaId( $this->getTitle()->getText() );
+		$id = new EntitySchemaId( $this->getTitle()->getText() );
 		$watchListUpdater = new WatchlistUpdater( $user, NS_ENTITYSCHEMA_JSON );
 		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
 			$updaterFactory,

@@ -8,7 +8,7 @@ use EntitySchema\DataAccess\EditConflict;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\SchemaConverter\NameBadge;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
@@ -74,7 +74,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		if ( $this->isSelectionDataValid( $id, $language ) ) {
 			$baseRevId = $request->getInt( self::FIELD_BASE_REV );
 			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable isSelectionDataValid() guarantees $id !== null
-			$this->displayEditForm( new SchemaId( $id ), $language, $baseRevId );
+			$this->displayEditForm( new EntitySchemaId( $id ), $language, $baseRevId );
 			return;
 		}
 
@@ -85,7 +85,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $this->getContext()->getUser() );
 		$watchListUpdater = new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON );
 		try {
-			$id = new SchemaId( $data[self::FIELD_ID] );
+			$id = new EntitySchemaId( $data[self::FIELD_ID] );
 		} catch ( InvalidArgumentException $e ) {
 			return Status::newFatal( 'entityschema-error-schemaupdate-failed' );
 		}
@@ -151,7 +151,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$form->displayForm( $submitStatus ?: Status::newGood() );
 	}
 
-	private function displayEditForm( SchemaId $id, string $langCode, int $baseRevId ): void {
+	private function displayEditForm( EntitySchemaId $id, string $langCode, int $baseRevId ): void {
 		$output = $this->getOutput();
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id->getId() );
 		$schemaNameBadge = $this->getSchemaNameBadge( $title, $langCode, $baseRevId );
@@ -257,7 +257,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	}
 
 	private function getEditFormFields(
-		SchemaId $id,
+		EntitySchemaId $id,
 		string $badgeLangCode,
 		NameBadge $nameBadge,
 		int $baseRevId
@@ -371,21 +371,25 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	 *
 	 * @return string HTML
 	 */
-	private function buildLanguageAndSchemaNotice( string $langName, string $label, SchemaId $schemaId ): string {
-		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId->getId() );
+	private function buildLanguageAndSchemaNotice(
+		string $langName,
+		string $label,
+		EntitySchemaId $entitySchemaId
+	): string {
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $entitySchemaId->getId() );
 		return $this->msg( 'entityschema-special-setlabeldescriptionaliases-info' )
 			->params( $langName )
-			->params( $this->getSchemaDisplayLabel( $label, $schemaId ) )
+			->params( $this->getSchemaDisplayLabel( $label, $entitySchemaId ) )
 			->params( $title->getPrefixedText() )
 			->parse();
 	}
 
-	private function getSchemaDisplayLabel( string $label, SchemaId $schemaId ): string {
+	private function getSchemaDisplayLabel( string $label, EntitySchemaId $entitySchemaId ): string {
 		if ( !$label ) {
-			return $schemaId->getId();
+			return $entitySchemaId->getId();
 		}
 
-		return $label . ' ' . $this->msg( 'parentheses' )->params( $schemaId->getId() )->escaped();
+		return $label . ' ' . $this->msg( 'parentheses' )->params( $entitySchemaId->getId() )->escaped();
 	}
 
 	private function getWarnings(): array {

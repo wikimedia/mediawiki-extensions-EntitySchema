@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
-use EntitySchema\Domain\Model\SchemaId;
+use EntitySchema\Domain\Model\EntitySchemaId;
 use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;
 
@@ -14,7 +14,7 @@ use MediaWiki\MediaWikiServices;
 class SchemaEncoder {
 
 	/**
-	 * @param SchemaId $id
+	 * @param EntitySchemaId $id
 	 * @param array    $labels       labels  with langCode as key, e.g. [ 'en' => 'Cat' ]
 	 * @param array    $descriptions descriptions with langCode as key, e.g. [ 'en' => 'A cat' ]
 	 * @param array    $aliases      aliases with langCode as key, e.g. [ 'en' => [ 'tiger' ], ]
@@ -25,7 +25,7 @@ class SchemaEncoder {
 	 * @return string
 	 */
 	public static function getPersistentRepresentation(
-		SchemaId $id,
+		EntitySchemaId $id,
 		array $labels,
 		array $descriptions,
 		array $aliases,
