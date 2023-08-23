@@ -6,7 +6,7 @@ namespace EntitySchema\MediaWiki\Specials;
 
 use EntitySchema\DataAccess\EditConflict;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Presentation\InputValidator;
@@ -92,7 +92,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id->getId() );
 		$this->checkBlocked( $title );
 		$aliases = array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) );
-		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$updaterFactory,
 			$watchListUpdater,
 			MediaWikiServices::getInstance()->getRevisionLookup(),

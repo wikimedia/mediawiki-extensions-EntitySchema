@@ -7,7 +7,7 @@ namespace EntitySchema\MediaWiki\Actions;
 use Article;
 use EntitySchema\DataAccess\EditConflict;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
@@ -120,7 +120,7 @@ class SchemaEditAction extends FormAction {
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$id = new EntitySchemaId( $this->getTitle()->getText() );
 		$watchListUpdater = new WatchlistUpdater( $user, NS_ENTITYSCHEMA_JSON );
-		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$updaterFactory,
 			$watchListUpdater,
 			MediaWikiServices::getInstance()->getRevisionLookup(),

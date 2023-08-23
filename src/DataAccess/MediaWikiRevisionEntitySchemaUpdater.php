@@ -19,7 +19,7 @@ use RuntimeException;
 /**
  * @license GPL-2.0-or-later
  */
-class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
+class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 
 	public const AUTOCOMMENT_UPDATED_SCHEMATEXT = 'entityschema-summary-update-schema-text';
 	public const AUTOCOMMENT_UPDATED_NAMEBADGE = 'entityschema-summary-update-schema-namebadge';

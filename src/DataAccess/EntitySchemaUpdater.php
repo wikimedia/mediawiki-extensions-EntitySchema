@@ -12,7 +12,7 @@ use RuntimeException;
 /**
  * @license GPL-2.0-or-later
  */
-interface SchemaUpdater {
+interface EntitySchemaUpdater {
 
 	/**
 	 * Update a Schema with new content. This will remove existing schema content.
