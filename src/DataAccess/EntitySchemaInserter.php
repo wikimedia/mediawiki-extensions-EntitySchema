@@ -9,7 +9,7 @@ use EntitySchema\Domain\Model\EntitySchemaId;
 /**
  * @license GPL-2.0-or-later
  */
-interface SchemaInserter {
+interface EntitySchemaInserter {
 
 	/**
 	 * @param string $language

@@ -13,7 +13,7 @@ require_once $basePath . '/extensions/EntitySchema/src/Domain/Storage/IdGenerato
 require_once 'FixedIdGenerator.php';
 
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use Maintenance;
 use MediaWiki\MediaWikiServices;
@@ -170,7 +170,7 @@ class CreatePreexistingSchemas extends Maintenance {
 
 		$fixedIdGenerator = new FixedIdGenerator( (int)trim( $idString, 'E' ) );
 
-		$schemaInserter = new MediaWikiRevisionSchemaInserter(
+		$schemaInserter = new MediaWikiRevisionEntitySchemaInserter(
 			$pageUpdaterFactory,
 			new WatchlistUpdater( $user, NS_ENTITYSCHEMA_JSON ),
 			$fixedIdGenerator,

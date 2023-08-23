@@ -24,7 +24,7 @@ use RuntimeException;
 
 /**
  * @covers \EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater
- * @covers \EntitySchema\DataAccess\SchemaUpdateGuard
+ * @covers \EntitySchema\DataAccess\EntitySchemaUpdateGuard
  * @license GPL-2.0-or-later
  */
 class MediaWikiRevisionSchemaUpdaterTest extends TestCase {

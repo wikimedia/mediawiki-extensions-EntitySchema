@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\Presentation;
 
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\Presentation\AutocommentFormatter;
 use MediaWikiIntegrationTestCase;
@@ -26,7 +26,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
 		yield 'valid new schema comment' => [
 			false,
-			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
+			MediaWikiRevisionEntitySchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			false,
 			'<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-newschema-nolabel)'
@@ -35,7 +35,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
 		yield 'valid new schema comment with pre' => [
 			true,
-			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
+			MediaWikiRevisionEntitySchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			false,
 			'(autocomment-prefix)<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-newschema-nolabel)'
@@ -44,7 +44,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
 		yield 'valid new schema comment with post' => [
 			false,
-			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
+			MediaWikiRevisionEntitySchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			true,
 			'<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-newschema-nolabel)(colon-separator)'

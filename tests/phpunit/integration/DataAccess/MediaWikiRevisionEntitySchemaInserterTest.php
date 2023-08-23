@@ -6,7 +6,7 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use CommentStoreComment;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
@@ -19,9 +19,9 @@ use RuntimeException;
 /**
  * @license GPL-2.0-or-later
  *
- * @covers \EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter
+ * @covers \EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter
  */
-class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
+class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTestCase {
 
 	public function testInsertSchema() {
 		$language = 'en';
@@ -57,7 +57,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 		$idGenerator = $this->createMock( IdGenerator::class );
 		$idGenerator->method( 'getNewId' )->willReturn( 123 );
 
-		$inserter = new MediaWikiRevisionSchemaInserter(
+		$inserter = new MediaWikiRevisionEntitySchemaInserter(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchNewSchema' ),
 			$idGenerator,
@@ -74,7 +74,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 
 	public function testInsertSchema_commentWithCleanedUpParameters() {
 		$expectedComment = CommentStoreComment::newUnsavedComment(
-			'/* ' . MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA . ' */test label',
+			'/* ' . MediaWikiRevisionEntitySchemaInserter::AUTOCOMMENT_NEWSCHEMA . ' */test label',
 			[
 				'key' => 'entityschema-summary-newschema-nolabel',
 				'language' => 'en',
@@ -89,7 +89,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 		$idGenerator = $this->createMock( IdGenerator::class );
 		$idGenerator->method( 'getNewId' )->willReturn( 123 );
 
-		$inserter = new MediaWikiRevisionSchemaInserter(
+		$inserter = new MediaWikiRevisionEntitySchemaInserter(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchNewSchema' ),
 			$idGenerator,
@@ -106,7 +106,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testInsertSchema_saveFails() {
-		$inserter = $this->newMediaWikiRevisionSchemaInserterFailingToSave();
+		$inserter = $this->newInserterFailingToSave();
 
 		$this->expectException( RuntimeException::class );
 		$this->expectExceptionMessage( 'The revision could not be saved' );
@@ -156,7 +156,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 		return $pageUpdaterFactory;
 	}
 
-	private function newMediaWikiRevisionSchemaInserterFailingToSave(): MediaWikiRevisionSchemaInserter {
+	private function newInserterFailingToSave(): MediaWikiRevisionEntitySchemaInserter {
 
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'wasSuccessful' )->willReturn( false );
@@ -164,7 +164,7 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 		$idGenerator = $this->createMock( IdGenerator::class );
 		$idGenerator->method( 'getNewId' )->willReturn( 123 );
 
-		return new MediaWikiRevisionSchemaInserter(
+		return new MediaWikiRevisionEntitySchemaInserter(
 			$this->getPageUpdaterFactory( $pageUpdater ),
 			$this->getMockWatchlistUpdater(),
 			$idGenerator,

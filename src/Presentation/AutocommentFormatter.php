@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Presentation;
 
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use MediaWiki\MediaWikiServices;
 use RequestContext;
@@ -50,7 +50,7 @@ class AutocommentFormatter {
 		$context = RequestContext::getMain();
 
 		switch ( $commentParts[0] ) {
-			case MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA:
+			case MediaWikiRevisionEntitySchemaInserter::AUTOCOMMENT_NEWSCHEMA:
 				$comment = wfMessage( 'entityschema-summary-newschema-nolabel' );
 				break;
 			case MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_SCHEMATEXT:

@@ -16,7 +16,7 @@ use MediaWiki\Revision\SlotRecord;
 /**
  * @license GPL-2.0-or-later
  */
-class SchemaUpdateGuard {
+class EntitySchemaUpdateGuard {
 
 	private SchemaConverter $schemaConverter;
 	private SchemaDiffer $schemaDiffer;

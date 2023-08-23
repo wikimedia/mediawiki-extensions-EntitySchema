@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\MediaWiki;
 
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\MediaWiki\Hooks\FormatAutocommentsHookHandler;
 use EntitySchema\Presentation\AutocommentFormatter;
 use MediaWiki\Title\Title;
@@ -25,7 +25,7 @@ class FormatAutocommentsHookHandlerTest extends MediaWikiIntegrationTestCase {
 		$ret = $hookHandler->onFormatAutocomments(
 			$comment,
 			false,
-			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
+			MediaWikiRevisionEntitySchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			false,
 			null,
 			false,
@@ -43,7 +43,7 @@ class FormatAutocommentsHookHandlerTest extends MediaWikiIntegrationTestCase {
 		$ret = $hookHandler->onFormatAutocomments(
 			$comment,
 			false,
-			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
+			MediaWikiRevisionEntitySchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			false,
 			SpecialPage::getTitleFor( 'Version' ),
 			false,
@@ -80,7 +80,7 @@ class FormatAutocommentsHookHandlerTest extends MediaWikiIntegrationTestCase {
 		$ret = $hookHandler->onFormatAutocomments(
 			$comment,
 			false,
-			MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA,
+			MediaWikiRevisionEntitySchemaInserter::AUTOCOMMENT_NEWSCHEMA,
 			true, # usually followed by the label
 			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ),
 			false,

@@ -6,7 +6,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Hooks;
 
 use Article;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
+use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
@@ -31,7 +31,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 			[ 'truncateForVisual' => '' ] );
 		$languageFactory = $this->createConfiguredMock( LanguageFactory::class,
 			[ 'getLanguage' => $language ] );
-		$schemaInserter = new MediaWikiRevisionSchemaInserter(
+		$schemaInserter = new MediaWikiRevisionEntitySchemaInserter(
 			$updaterFactory,
 			$watchListUpdater,
 			$this->createConfiguredMock( IdGenerator::class, [ 'getNewId' => 1 ] ),

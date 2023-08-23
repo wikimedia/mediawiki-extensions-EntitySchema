@@ -119,7 +119,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 
 		$baseRevision = $this->revisionLookup->getRevisionById( $baseRevId );
 
-		$updateGuard = new SchemaUpdateGuard();
+		$updateGuard = new EntitySchemaUpdateGuard();
 		$schemaData = $updateGuard->guardSchemaUpdate(
 			$baseRevision,
 			$parentRevision,
@@ -237,7 +237,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 
 		$baseRevision = $this->revisionLookup->getRevisionById( $baseRevId );
 
-		$updateGuard = new SchemaUpdateGuard();
+		$updateGuard = new EntitySchemaUpdateGuard();
 		$schemaData = $updateGuard->guardSchemaUpdate(
 			$baseRevision,
 			$parentRevision,
