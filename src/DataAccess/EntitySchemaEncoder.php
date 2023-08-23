@@ -11,7 +11,7 @@ use MediaWiki\MediaWikiServices;
 /**
  * @license GPL-2.0-or-later
  */
-class SchemaEncoder {
+class EntitySchemaEncoder {
 
 	/**
 	 * @param EntitySchemaId $id

@@ -53,7 +53,7 @@ class MediaWikiRevisionSchemaInserter implements SchemaInserter {
 		string $schemaText = ''
 	): EntitySchemaId {
 		$id = new EntitySchemaId( 'E' . $this->idGenerator->getNewId() );
-		$persistentRepresentation = SchemaEncoder::getPersistentRepresentation(
+		$persistentRepresentation = EntitySchemaEncoder::getPersistentRepresentation(
 			$id,
 			[ $language => $label ],
 			[ $language => $description ],

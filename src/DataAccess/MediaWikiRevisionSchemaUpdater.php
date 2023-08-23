@@ -83,7 +83,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$updater->setContent(
 			SlotRecord::MAIN,
 			new EntitySchemaContent(
-				SchemaEncoder::getPersistentRepresentation(
+				EntitySchemaEncoder::getPersistentRepresentation(
 					$id,
 					$labels,
 					$descriptions,
@@ -145,7 +145,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 		$updater->setContent(
 			SlotRecord::MAIN,
 			new EntitySchemaContent(
-				SchemaEncoder::getPersistentRepresentation(
+				EntitySchemaEncoder::getPersistentRepresentation(
 					$id,
 					$schemaData->labels,
 					$schemaData->descriptions,
@@ -250,7 +250,7 @@ class MediaWikiRevisionSchemaUpdater implements SchemaUpdater {
 			return;
 		}
 
-		$persistentRepresentation = SchemaEncoder::getPersistentRepresentation(
+		$persistentRepresentation = EntitySchemaEncoder::getPersistentRepresentation(
 			$id,
 			$schemaData->labels,
 			$schemaData->descriptions,

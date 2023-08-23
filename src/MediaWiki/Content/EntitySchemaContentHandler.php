@@ -7,7 +7,7 @@ namespace EntitySchema\MediaWiki\Content;
 use Action;
 use Article;
 use Content;
-use EntitySchema\DataAccess\SchemaEncoder;
+use EntitySchema\DataAccess\EntitySchemaEncoder;
 use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
 use EntitySchema\MediaWiki\Actions\RestoreViewAction;
 use EntitySchema\MediaWiki\Actions\SchemaEditAction;
@@ -227,7 +227,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		}
 		$patchedSchema = $patchStatus->getValue()->data;
 
-		return new EntitySchemaContent( SchemaEncoder::getPersistentRepresentation(
+		return new EntitySchemaContent( EntitySchemaEncoder::getPersistentRepresentation(
 			$schemaId,
 			$patchedSchema['labels'],
 			$patchedSchema['descriptions'],
