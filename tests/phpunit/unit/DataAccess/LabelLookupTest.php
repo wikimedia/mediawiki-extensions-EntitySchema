@@ -9,6 +9,8 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use MediaWiki\Page\PageIdentity;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWikiUnitTestCase;
+use Wikibase\Lib\LanguageFallbackChainFactory;
+use Wikibase\Lib\TermLanguageFallbackChain;
 use WikiPage;
 
 /**
@@ -26,7 +28,8 @@ class LabelLookupTest extends MediaWikiUnitTestCase {
 			WikiPageFactory::class,
 			[ 'newFromTitle' => $stubWikiPage ]
 		);
-		$labelLookup = new LabelLookup( $stubWikiPageFactory );
+		$stubLanguageFallbackChainFactory = $this->createStub( LanguageFallbackChainFactory::class );
+		$labelLookup = new LabelLookup( $stubWikiPageFactory, $stubLanguageFallbackChainFactory );
 
 		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'en' );
 
@@ -37,17 +40,25 @@ class LabelLookupTest extends MediaWikiUnitTestCase {
 		$stubWikiPage = $this->createConfiguredMock(
 			WikiPage::class,
 			[ 'getContent' => $this->getNewEntitySchemaContent( [
-				'en' => 'Human',
+				'de' => 'Mensch',
 			] ) ]
 		);
 		$stubWikiPageFactory = $this->createConfiguredMock(
 			WikiPageFactory::class,
 			[ 'newFromTitle' => $stubWikiPage ]
 		);
+		$stubLanguageFallbackChain = $this->createConfiguredMock(
+			TermLanguageFallbackChain::class,
+			[ 'extractPreferredValue' => null ],
+		);
+		$stubLanguageFallbackChainFactory = $this->createConfiguredMock(
+			LanguageFallbackChainFactory::class,
+			[ 'newFromLanguageCode' => $stubLanguageFallbackChain ]
+		);
 
-		$labelLookup = new LabelLookup( $stubWikiPageFactory );
+		$labelLookup = new LabelLookup( $stubWikiPageFactory, $stubLanguageFallbackChainFactory );
 
-		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'de' );
+		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'en' );
 
 		$this->assertNull( $actualResult );
 	}
@@ -63,13 +74,57 @@ class LabelLookupTest extends MediaWikiUnitTestCase {
 			WikiPageFactory::class,
 			[ 'newFromTitle' => $stubWikiPage ]
 		);
+		$stubLanguageFallbackChain = $this->createConfiguredMock(
+			TermLanguageFallbackChain::class,
+			[ 'extractPreferredValue' => [
+				'value' => 'Mensch',
+				'language' => 'de',
+				'source' => 'de',
+			] ],
+		);
+		$stubLanguageFallbackChainFactory = $this->createConfiguredMock(
+			LanguageFallbackChainFactory::class,
+			[ 'newFromLanguageCode' => $stubLanguageFallbackChain ]
+		);
 
-		$labelLookup = new LabelLookup( $stubWikiPageFactory );
+		$labelLookup = new LabelLookup( $stubWikiPageFactory, $stubLanguageFallbackChainFactory );
 
 		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'de' );
 
 		$this->assertSame( 'de', $actualResult->getLanguageCode() );
 		$this->assertSame( 'Mensch', $actualResult->getText() );
+	}
+
+	public function testLabelInFallbackLanguageAvailable(): void {
+		$stubWikiPage = $this->createConfiguredMock(
+			WikiPage::class,
+			[ 'getContent' => $this->getNewEntitySchemaContent( [
+				'en' => 'human',
+			] ) ]
+		);
+		$stubWikiPageFactory = $this->createConfiguredMock(
+			WikiPageFactory::class,
+			[ 'newFromTitle' => $stubWikiPage ]
+		);
+		$stubLanguageFallbackChain = $this->createConfiguredMock(
+			TermLanguageFallbackChain::class,
+			[ 'extractPreferredValue' => [
+				'value' => 'human',
+				'language' => 'en',
+				'source' => 'en',
+			] ],
+		);
+		$stubLanguageFallbackChainFactory = $this->createConfiguredMock(
+			LanguageFallbackChainFactory::class,
+			[ 'newFromLanguageCode' => $stubLanguageFallbackChain ]
+		);
+
+		$labelLookup = new LabelLookup( $stubWikiPageFactory, $stubLanguageFallbackChainFactory );
+
+		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'de-at' );
+
+		$this->assertSame( 'en', $actualResult->getLanguageCode() );
+		$this->assertSame( 'human', $actualResult->getText() );
 	}
 
 	private function getNewEntitySchemaContent( array $labels ): EntitySchemaContent {

@@ -42,8 +42,8 @@ class LabelLookupTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( 'en', $actualLabelTerm->getLanguageCode() );
 	}
 
-	public function testGetLabel_NoLabelInLanguage() {
-		$id = 'E4567';
+	public function testGetLabel_LabelExistsInFallbackLanguage() {
+		$id = 'E456';
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
 		$page = $this->getServiceContainer()->getWikiPageFactory()->newFromTitle( $title );
 		$englishLabel = 'en label';
@@ -53,6 +53,22 @@ class LabelLookupTest extends MediaWikiIntegrationTestCase {
 		$labelLookup = EntitySchemaServices::getLabelLookup( $this->getServiceContainer() );
 
 		$actualLabelTerm = $labelLookup->getLabelForTitle( $title, 'de' );
+
+		$this->assertSame( $englishLabel, $actualLabelTerm->getText() );
+		$this->assertSame( 'en', $actualLabelTerm->getLanguageCode() );
+	}
+
+	public function testGetLabel_NoLabelInLanguage() {
+		$id = 'E4567';
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
+		$page = $this->getServiceContainer()->getWikiPageFactory()->newFromTitle( $title );
+		$germanLabel = 'de label';
+		$this->saveSchemaPageContent( $page, [
+			'labels' => [ 'de' => $germanLabel ],
+		] );
+		$labelLookup = EntitySchemaServices::getLabelLookup( $this->getServiceContainer() );
+
+		$actualLabelTerm = $labelLookup->getLabelForTitle( $title, 'en' );
 
 		$this->assertNull( $actualLabelTerm );
 	}

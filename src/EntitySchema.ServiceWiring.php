@@ -7,6 +7,7 @@ use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\Presentation\AutocommentFormatter;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\MediaWikiServices;
+use Wikibase\Repo\WikibaseRepo;
 
 /** @phpcs-require-sorted-array */
 return [
@@ -29,6 +30,7 @@ return [
 	'EntitySchema.LabelLookup' => static function ( MediaWikiServices $services ): LabelLookup {
 		return new LabelLookup(
 			$services->getWikiPageFactory(),
+			WikibaseRepo::getLanguageFallbackChainFactory( $services )
 		);
 	},
 ];

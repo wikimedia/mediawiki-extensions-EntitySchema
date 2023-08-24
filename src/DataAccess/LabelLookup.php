@@ -8,18 +8,35 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use MediaWiki\Page\PageIdentity;
 use MediaWiki\Page\WikiPageFactory;
+use Wikibase\Lib\LanguageFallbackChainFactory;
 
 /**
+ * Lookup for EntitySchema labels, with language fallbacks applied.
+ *
  * @license GPL-2.0-or-later
  */
 class LabelLookup {
 
 	private WikiPageFactory $wikiPageFactory;
 
-	public function __construct( WikiPageFactory $wikiPageFactory ) {
+	private LanguageFallbackChainFactory $languageFallbackChainFactory;
+
+	public function __construct(
+		WikiPageFactory $wikiPageFactory,
+		LanguageFallbackChainFactory $languageFallbackChainFactory
+	) {
 		$this->wikiPageFactory = $wikiPageFactory;
+		$this->languageFallbackChainFactory = $languageFallbackChainFactory;
 	}
 
+	/**
+	 * Look up the label of the EntitySchema with the given title, if any.
+	 * Language fallbacks are applied based on the given language code.
+	 *
+	 * @param PageIdentity $title
+	 * @param string $langCode
+	 * @return EntitySchemaTerm|null The label, or null if no label or EntitySchema was found.
+	 */
 	public function getLabelForTitle( PageIdentity $title, string $langCode ): ?EntitySchemaTerm {
 		$wikiPage = $this->wikiPageFactory->newFromTitle( $title );
 		$content = $wikiPage->getContent();
@@ -30,14 +47,21 @@ class LabelLookup {
 		$schema = $content->getText();
 
 		$converter = new EntitySchemaConverter();
-		$schemaData = $converter->getFullViewSchemaData( $schema, [ $langCode ] );
+		$schemaData = $converter->getFullViewSchemaData( $schema, [] );
 
-		// TODO: Language fallback should be implemented here. See T330491
-
-		if ( $schemaData->nameBadges[ $langCode ]->label !== '' ) {
-			return new EntitySchemaTerm( $langCode, $schemaData->nameBadges[ $langCode ]->label );
+		$chain = $this->languageFallbackChainFactory->newFromLanguageCode( $langCode );
+		$preferredLabel = $chain->extractPreferredValue( array_map(
+			fn ( $nameBadge ) => $nameBadge->label,
+			$schemaData->nameBadges
+		) );
+		if ( $preferredLabel !== null ) {
+			return new EntitySchemaTerm(
+				$preferredLabel['language'],
+				$preferredLabel['value']
+				// note: $preferredLabel['source'] gets thrown away
+			);
+		} else {
+			return null;
 		}
-
-		return null;
 	}
 }
