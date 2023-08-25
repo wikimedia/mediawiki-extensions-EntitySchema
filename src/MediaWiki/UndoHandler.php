@@ -9,7 +9,7 @@ use Diff\Patcher\PatcherException;
 use DomainException;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\Services\Diff\SchemaDiffer;
+use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use EntitySchema\Services\Diff\SchemaPatcher;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use Status;
@@ -47,7 +47,7 @@ final class UndoHandler {
 		EntitySchemaContent $undoToContent
 	): Status {
 
-		$differ = new SchemaDiffer();
+		$differ = new EntitySchemaDiffer();
 		$converter = new SchemaConverter();
 		$diff = $differ->diffSchemas(
 			$converter->getFullArraySchemaData( $undoFromContent->getText() ),

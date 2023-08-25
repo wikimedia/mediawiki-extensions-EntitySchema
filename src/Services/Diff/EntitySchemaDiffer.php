@@ -25,7 +25,7 @@ use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
  *
  * @license GPL-2.0-or-later
  */
-class SchemaDiffer {
+class EntitySchemaDiffer {
 
 	private MapDiffer $recursiveMapDiffer;
 

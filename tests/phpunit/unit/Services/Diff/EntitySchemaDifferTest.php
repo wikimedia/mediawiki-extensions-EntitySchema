@@ -8,16 +8,16 @@ use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
-use EntitySchema\Services\Diff\SchemaDiffer;
+use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use MediaWikiUnitTestCase;
 
 /**
- * @covers EntitySchema\Services\Diff\SchemaDiffer
+ * @covers EntitySchema\Services\Diff\EntitySchemaDiffer
  *
  * @license GPL-2.0-or-later
  */
-class SchemaDifferTest extends MediaWikiUnitTestCase {
+class EntitySchemaDifferTest extends MediaWikiUnitTestCase {
 
 	public static function provideSchemaDiffs(): iterable {
 		yield 'blank' => [
@@ -135,7 +135,7 @@ class SchemaDifferTest extends MediaWikiUnitTestCase {
 	public function testDiffSchemas( array $from, array $to, Diff $expected ) {
 		$from = new FullArraySchemaData( $from );
 		$to = new FullArraySchemaData( $to );
-		$schemaDiffer = new SchemaDiffer();
+		$schemaDiffer = new EntitySchemaDiffer();
 
 		$actual = $schemaDiffer->diffSchemas( $from, $to );
 

@@ -10,7 +10,7 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use EntitySchema\Presentation\ConfirmationFormRenderer;
 use EntitySchema\Presentation\DiffRenderer;
-use EntitySchema\Services\Diff\SchemaDiffer;
+use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use IContextSource;
 use MediaWiki\MediaWikiServices;
@@ -94,7 +94,7 @@ final class RestoreViewAction extends AbstractRestoreAction {
 			->getRevisionById( $this->getTitle()->getLatestRevID() )
 			->getContent( SlotRecord::MAIN );
 
-		$differ = new SchemaDiffer();
+		$differ = new EntitySchemaDiffer();
 		$converter = new SchemaConverter();
 		$diff = $differ->diffSchemas(
 		// @phan-suppress-next-line PhanUndeclaredMethod
