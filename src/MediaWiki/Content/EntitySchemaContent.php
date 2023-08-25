@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Content;
 
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use JsonContent;
 
 /**
@@ -21,7 +21,7 @@ class EntitySchemaContent extends JsonContent {
 	}
 
 	public function getTextForSearchIndex(): string {
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 		$schemaData = $converter->getFullViewSchemaData( $this->getText(), [] );
 		$textForSearchIndex = '';
 

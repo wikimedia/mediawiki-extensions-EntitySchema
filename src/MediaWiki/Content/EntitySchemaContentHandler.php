@@ -16,7 +16,7 @@ use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
 use EntitySchema\MediaWiki\Actions\UndoViewAction;
 use EntitySchema\MediaWiki\UndoHandler;
 use EntitySchema\Presentation\InputValidator;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use IContextSource;
 use JsonContentHandler;
 use Language;
@@ -266,7 +266,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			$languageCode = $parserOptions->getUserLang();
 			$renderer = new EntitySchemaSlotViewRenderer( $languageCode );
 			$renderer->fillParserOutput(
-				( new SchemaConverter() )
+				( new EntitySchemaConverter() )
 					->getFullViewSchemaData( $content->getText(), [ $languageCode ] ),
 				$cpoParams->getPage(),
 				$parserOutput

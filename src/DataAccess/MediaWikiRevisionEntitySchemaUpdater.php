@@ -7,8 +7,8 @@ namespace EntitySchema\DataAccess;
 use CommentStoreComment;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use InvalidArgumentException;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Revision\RevisionLookup;
@@ -171,7 +171,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		array $aliases
 	): CommentStoreComment {
 
-		$schemaConverter = new SchemaConverter();
+		$schemaConverter = new EntitySchemaConverter();
 		$schemaData = $schemaConverter->getPersistenceSchemaData(
 			// @phan-suppress-next-line PhanUndeclaredMethod
 			$baseRevision->getContent( SlotRecord::MAIN )->getText()

@@ -12,7 +12,7 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use FormAction;
 use HTMLForm;
 use IContextSource;
@@ -195,7 +195,7 @@ class EntitySchemaEditAction extends FormAction {
 		/** @var EntitySchemaContent $content */
 		$content = $currentRevRecord->getContent( SlotRecord::MAIN );
 		// @phan-suppress-next-line PhanUndeclaredMethod
-		$schemaText = ( new SchemaConverter() )->getSchemaText( $content->getText() );
+		$schemaText = ( new EntitySchemaConverter() )->getSchemaText( $content->getText() );
 		$baseRev = $this->getContext()->getRequest()->getInt(
 			'wp' . self::FIELD_BASE_REV,
 			$currentRevRecord->getId()

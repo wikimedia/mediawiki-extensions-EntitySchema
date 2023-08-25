@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\DataAccess;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use MediaWiki\Page\PageIdentity;
 use MediaWiki\Page\WikiPageFactory;
 
@@ -29,7 +29,7 @@ class LabelLookup {
 
 		$schema = $content->getText();
 
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 		$schemaData = $converter->getFullViewSchemaData( $schema, [ $langCode ] );
 
 		// TODO: Language fallback should be implemented here. See T330491

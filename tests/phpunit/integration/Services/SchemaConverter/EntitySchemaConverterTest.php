@@ -4,18 +4,18 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\Services\SchemaConverter;
 
+use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
 use EntitySchema\Services\SchemaConverter\NameBadge;
 use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use MediaWikiIntegrationTestCase;
 
 /**
  * @license GPL-2.0-or-later
  *
- * @covers \EntitySchema\Services\SchemaConverter\SchemaConverter
+ * @covers \EntitySchema\Services\SchemaConverter\EntitySchemaConverter
  */
-class SchemaConverterTest extends MediaWikiIntegrationTestCase {
+class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 
 	public static function validFullViewDataProvider(): iterable {
 		yield 'schema in interface language only' => [
@@ -217,7 +217,7 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 		array $preferredLanguages,
 		FullViewSchemaData $expectedSchemaData
 	) {
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 
 		$actualSchema = $converter->getFullViewSchemaData( $schemaJSON, $preferredLanguages );
 
@@ -255,7 +255,7 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 	 * @dataProvider validMonoLingualNameBadgeDataProvider
 	 */
 	public function testMonolingualNameBadgeData( string $schemaJSON, NameBadge $expectedNameBadgeData ) {
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 		$actualNameBadge = $converter->getMonolingualNameBadgeData( $schemaJSON, 'en' );
 		$this->assertInstanceOf( NameBadge::class, $actualNameBadge );
 		$this->assertEquals( $expectedNameBadgeData, $actualNameBadge );
@@ -428,7 +428,7 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 		array $expectedSchemaData
 	) {
 		$schemaJSON = json_encode( $schema );
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 
 		$actualSchemaData = $converter->getFullArraySchemaData( $schemaJSON )->data;
 
@@ -539,7 +539,7 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 		PersistenceSchemaData $expectedSchemaData
 	) {
 		$schemaJSON = json_encode( $schema );
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 
 		$actualSchemaData = $converter->getPersistenceSchemaData( $schemaJSON );
 
@@ -580,7 +580,7 @@ class SchemaConverterTest extends MediaWikiIntegrationTestCase {
 		string $expectedID
 	) {
 		$schemaJSON = json_encode( $schema );
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 
 		$actualSchemaId = $converter->getSchemaID( $schemaJSON );
 

@@ -12,7 +12,7 @@ use LogicException;
  *
  * @license GPL-2.0-or-later
  */
-class SchemaConverter {
+class EntitySchemaConverter {
 
 	/**
 	 * @param string $schemaJSON

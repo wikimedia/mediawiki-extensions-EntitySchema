@@ -7,9 +7,9 @@ namespace EntitySchema\DataAccess;
 use Diff\Patcher\PatcherException;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use EntitySchema\Services\Diff\EntitySchemaPatcher;
+use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 
@@ -18,12 +18,12 @@ use MediaWiki\Revision\SlotRecord;
  */
 class EntitySchemaUpdateGuard {
 
-	private SchemaConverter $schemaConverter;
+	private EntitySchemaConverter $schemaConverter;
 	private EntitySchemaDiffer $schemaDiffer;
 	private EntitySchemaPatcher $schemaPatcher;
 
 	public function __construct() {
-		$this->schemaConverter = new SchemaConverter();
+		$this->schemaConverter = new EntitySchemaConverter();
 		$this->schemaDiffer = new EntitySchemaDiffer();
 		$this->schemaPatcher = new EntitySchemaPatcher();
 	}

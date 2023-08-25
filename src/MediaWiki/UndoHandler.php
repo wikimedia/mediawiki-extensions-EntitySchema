@@ -11,7 +11,7 @@ use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use EntitySchema\Services\Diff\EntitySchemaPatcher;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use Status;
 
 /**
@@ -27,7 +27,7 @@ final class UndoHandler {
 		EntitySchemaContent $undoToContent,
 		EntitySchemaContent $baseContent = null
 	): EntitySchemaId {
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 		$firstID = $converter->getSchemaID( $undoFromContent->getText() );
 		if ( $firstID !== $converter->getSchemaID( $undoToContent->getText() ) ) {
 			throw new DomainException( 'ID must be the same for all contents' );
@@ -48,7 +48,7 @@ final class UndoHandler {
 	): Status {
 
 		$differ = new EntitySchemaDiffer();
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 		$diff = $differ->diffSchemas(
 			$converter->getFullArraySchemaData( $undoFromContent->getText() ),
 			$converter->getFullArraySchemaData( $undoToContent->getText() )
@@ -60,7 +60,7 @@ final class UndoHandler {
 	public function tryPatching( Diff $diff, EntitySchemaContent $baseContent ): Status {
 
 		$patcher = new EntitySchemaPatcher();
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 
 		try {
 			$patchedSchema = $patcher->patchSchema(

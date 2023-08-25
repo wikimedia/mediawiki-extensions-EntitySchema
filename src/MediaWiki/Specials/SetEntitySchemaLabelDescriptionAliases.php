@@ -10,8 +10,8 @@ use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Presentation\InputValidator;
+use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use EntitySchema\Services\SchemaConverter\NameBadge;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use Html;
 use HTMLForm;
 use InvalidArgumentException;
@@ -221,7 +221,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		}
 		// @phan-suppress-next-line PhanUndeclaredMethod
 		$schema = $revision->getContent( SlotRecord::MAIN )->getText();
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 		return $converter->getMonolingualNameBadgeData( $schema, $langCode );
 	}
 

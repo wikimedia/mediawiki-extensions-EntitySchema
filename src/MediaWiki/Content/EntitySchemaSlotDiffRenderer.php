@@ -12,7 +12,7 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use Html;
 use IContextSource;
 use MessageLocalizer;
@@ -24,7 +24,7 @@ use TextSlotDiffRenderer;
  */
 class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 
-	private SchemaConverter $schemaConverter;
+	private EntitySchemaConverter $schemaConverter;
 
 	private EntitySchemaDiffer $schemaDiffer;
 
@@ -37,7 +37,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 		TextSlotDiffRenderer $textSlotDiffRenderer
 	) {
 		$this->schemaDiffer = new EntitySchemaDiffer();
-		$this->schemaConverter = new SchemaConverter();
+		$this->schemaConverter = new EntitySchemaConverter();
 		$this->textSlotDiffRenderer = $textSlotDiffRenderer;
 		$this->msgLocalizer = $context;
 	}

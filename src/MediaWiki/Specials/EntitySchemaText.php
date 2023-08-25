@@ -6,7 +6,7 @@ namespace EntitySchema\MediaWiki\Specials;
 
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
+use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use HttpError;
 use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;
@@ -57,7 +57,7 @@ class EntitySchemaText extends SpecialPage {
 	}
 
 	private function sendContentSchemaText( EntitySchemaContent $schemaContent, EntitySchemaId $id ): void {
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 		$schemaText = $converter->getSchemaText( $schemaContent->getText() );
 		$out = $this->getOutput();
 		$out->disable();

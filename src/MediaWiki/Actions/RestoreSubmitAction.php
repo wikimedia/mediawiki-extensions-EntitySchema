@@ -10,8 +10,8 @@ use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
-use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
@@ -79,7 +79,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		/** @var EntitySchemaContent $contentToRestore */
 		$contentToRestore = $revToRestore->getContent( SlotRecord::MAIN );
 
-		$converter = new SchemaConverter();
+		$converter = new EntitySchemaConverter();
 
 		$summary = $this->createSummaryMessageForRestore(
 			$this->getContext()->getRequest()->getText( 'wpSummary' ),
