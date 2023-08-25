@@ -6,7 +6,7 @@ namespace EntitySchema\MediaWiki\Actions;
 
 use CommentStoreComment;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
@@ -102,7 +102,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		CommentStoreComment $summary
 	): Status {
 
-		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
 			new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON ),
 			MediaWikiServices::getInstance()->getRevisionLookup(),
@@ -132,13 +132,13 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 	): CommentStoreComment {
 		$revId = $revToBeRestored->getId();
 		$userName = $revToBeRestored->getUser()->getName();
-		$autoComment = MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE
+		$autoComment = MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_RESTORE
 			. ':' . $revId
 			. ':' . $userName;
 		return CommentStoreComment::newUnsavedComment(
 			'/* ' . $autoComment . ' */' . $userSummary,
 			[
-				'key' => MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE,
+				'key' => MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_RESTORE,
 				'revId' => $revId,
 				'userName' => $userName,
 				'summary' => $userSummary,

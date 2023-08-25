@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\Presentation;
 
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\Presentation\AutocommentFormatter;
 use MediaWikiIntegrationTestCase;
 
@@ -53,7 +53,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
 		yield 'valid schema text updated comment' => [
 			false,
-			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UPDATED_SCHEMATEXT,
+			MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_UPDATED_SCHEMATEXT,
 			false,
 			'<span dir="auto"><span class="autocomment">'
 			. '(entityschema-summary-update-schema-text)'
@@ -62,7 +62,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
 		yield 'valid undo comment with username' => [
 			false,
-			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO
+			MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_UNDO
 			. ':1:username',
 			false,
 			'<span dir="auto"><span class="autocomment">'
@@ -72,7 +72,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
 		yield 'valid undo comment with ipv4' => [
 			false,
-			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO
+			MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_UNDO
 			. ':1:198.51.100.10',
 			false,
 			'<span dir="auto"><span class="autocomment">'
@@ -82,7 +82,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
 		yield 'valid undo comment with ipv6' => [
 			false,
-			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO
+			MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_UNDO
 			. ':1:2001:db8::1',
 			false,
 			'<span dir="auto"><span class="autocomment">'
@@ -92,7 +92,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
 		yield 'valid restore comment with username' => [
 			false,
-			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE
+			MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_RESTORE
 			. ':1:username',
 			false,
 			'<span dir="auto"><span class="autocomment">'
@@ -102,7 +102,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
 		yield 'valid restore comment with ipv4' => [
 			false,
-			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE
+			MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_RESTORE
 			. ':1:198.51.100.10',
 			false,
 			'<span dir="auto"><span class="autocomment">'
@@ -112,7 +112,7 @@ class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {
 
 		yield 'valid restore comment with ipv6' => [
 			false,
-			MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_RESTORE
+			MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_RESTORE
 			. ':1:2001:db8::1',
 			false,
 			'<span dir="auto"><span class="autocomment">'

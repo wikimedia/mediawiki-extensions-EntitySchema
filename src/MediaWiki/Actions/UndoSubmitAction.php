@@ -6,7 +6,7 @@ namespace EntitySchema\MediaWiki\Actions;
 
 use CommentStoreComment;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
@@ -95,7 +95,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 	}
 
 	private function storePatchedSchema( FullArraySchemaData $patchedSchema, int $baseRevId ): Status {
-		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
 			new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON ),
 			MediaWikiServices::getInstance()->getRevisionLookup(),
@@ -129,13 +129,13 @@ class UndoSubmitAction extends AbstractUndoAction {
 			->getRevisionStore()
 			->getRevisionById( $undoRevId );
 		$userName = $revToBeUndone->getUser()->getName();
-		$autoComment = MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO
+		$autoComment = MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_UNDO
 			. ':' . $undoRevId
 			. ':' . $userName;
 		return CommentStoreComment::newUnsavedComment(
 			'/* ' . $autoComment . ' */' . $userSummary,
 			[
-				'key' => MediaWikiRevisionSchemaUpdater::AUTOCOMMENT_UNDO,
+				'key' => MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_UNDO,
 				'summary' => $userSummary,
 				'undoRevId' => $undoRevId,
 				'userName' => $userName,

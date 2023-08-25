@@ -7,7 +7,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Hooks;
 use Article;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
-use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
+use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use Language;
@@ -40,7 +40,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 		$schemaId = $schemaInserter->insertSchema( 'en' );
 
 		$revisionLookup = $this->getServiceContainer()->getRevisionLookup();
-		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
+		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$updaterFactory,
 			$watchListUpdater,
 			$revisionLookup,
