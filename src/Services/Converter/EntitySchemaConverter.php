@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace EntitySchema\Services\SchemaConverter;
+namespace EntitySchema\Services\Converter;
 
 use DomainException;
 use LogicException;

@@ -6,8 +6,8 @@ namespace EntitySchema\MediaWiki\Content;
 
 use Config;
 use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;
-use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
-use EntitySchema\Services\SchemaConverter\NameBadge;
+use EntitySchema\Services\Converter\FullViewSchemaData;
+use EntitySchema\Services\Converter\NameBadge;
 use ExtensionRegistry;
 use Html;
 use LanguageCode;

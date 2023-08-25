@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace EntitySchema\Services\SchemaConverter;
+namespace EntitySchema\Services\Converter;
 
 /**
  * The full data of a schema, represented as a recursive array.

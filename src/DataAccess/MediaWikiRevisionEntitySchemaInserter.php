@@ -8,7 +8,7 @@ use CommentStoreComment;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
+use EntitySchema\Services\Converter\EntitySchemaConverter;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Revision\SlotRecord;
 use RuntimeException;

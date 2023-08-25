@@ -12,7 +12,7 @@ use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\Services\SchemaConverter\NameBadge;
+use EntitySchema\Services\Converter\NameBadge;
 use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionLookup;

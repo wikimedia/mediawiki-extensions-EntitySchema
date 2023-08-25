@@ -9,9 +9,9 @@ use Diff\Patcher\PatcherException;
 use DomainException;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use EntitySchema\Services\Diff\EntitySchemaPatcher;
-use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
 use Status;
 
 /**

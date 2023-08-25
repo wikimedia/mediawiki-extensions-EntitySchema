@@ -6,7 +6,7 @@ namespace EntitySchema\Services\Diff;
 
 use Diff\Differ\MapDiffer;
 use Diff\DiffOp\Diff\Diff;
-use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
+use EntitySchema\Services\Converter\FullArraySchemaData;
 
 /**
  * Computes the difference between two schemas.

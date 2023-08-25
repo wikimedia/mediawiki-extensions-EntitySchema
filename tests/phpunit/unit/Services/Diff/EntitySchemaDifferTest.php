@@ -8,8 +8,8 @@ use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
+use EntitySchema\Services\Converter\FullArraySchemaData;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
-use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use MediaWikiUnitTestCase;
 
 /**

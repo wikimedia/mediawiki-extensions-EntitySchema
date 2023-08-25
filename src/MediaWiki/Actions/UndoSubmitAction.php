@@ -9,7 +9,7 @@ use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
-use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
+use EntitySchema\Services\Converter\FullArraySchemaData;
 use MediaWiki\MediaWikiServices;
 use PermissionsError;
 use ReadOnlyError;

@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Content;
 
-use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
+use EntitySchema\Services\Converter\EntitySchemaConverter;
 use JsonContent;
 
 /**

@@ -2,18 +2,18 @@
 
 declare( strict_types = 1 );
 
-namespace EntitySchema\Tests\Integration\Services\SchemaConverter;
+namespace EntitySchema\Tests\Integration\Services\Converter;
 
-use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
-use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
-use EntitySchema\Services\SchemaConverter\NameBadge;
-use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
+use EntitySchema\Services\Converter\EntitySchemaConverter;
+use EntitySchema\Services\Converter\FullViewSchemaData;
+use EntitySchema\Services\Converter\NameBadge;
+use EntitySchema\Services\Converter\PersistenceSchemaData;
 use MediaWikiIntegrationTestCase;
 
 /**
  * @license GPL-2.0-or-later
  *
- * @covers \EntitySchema\Services\SchemaConverter\EntitySchemaConverter
+ * @covers \EntitySchema\Services\Converter\EntitySchemaConverter
  */
 class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 

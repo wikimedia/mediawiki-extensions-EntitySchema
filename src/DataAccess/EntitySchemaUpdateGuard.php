@@ -5,11 +5,11 @@ declare( strict_types = 1 );
 namespace EntitySchema\DataAccess;
 
 use Diff\Patcher\PatcherException;
+use EntitySchema\Services\Converter\EntitySchemaConverter;
+use EntitySchema\Services\Converter\FullArraySchemaData;
+use EntitySchema\Services\Converter\PersistenceSchemaData;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use EntitySchema\Services\Diff\EntitySchemaPatcher;
-use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
-use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
-use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 

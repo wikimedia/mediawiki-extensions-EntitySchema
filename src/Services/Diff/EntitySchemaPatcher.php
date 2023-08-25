@@ -11,7 +11,7 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Diff\Patcher\PatcherException;
-use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
+use EntitySchema\Services\Converter\FullArraySchemaData;
 
 /**
  * @license GPL-2.0-or-later

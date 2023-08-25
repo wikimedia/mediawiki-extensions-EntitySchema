@@ -12,7 +12,7 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
-use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
+use EntitySchema\Services\Converter\EntitySchemaConverter;
 use FormAction;
 use HTMLForm;
 use IContextSource;

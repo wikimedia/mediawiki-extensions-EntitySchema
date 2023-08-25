@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace EntitySchema\Services\SchemaConverter;
+namespace EntitySchema\Services\Converter;
 
 /**
  * @license GPL-2.0-or-later

@@ -6,7 +6,7 @@ namespace EntitySchema\MediaWiki\Specials;
 
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\Services\SchemaConverter\EntitySchemaConverter;
+use EntitySchema\Services\Converter\EntitySchemaConverter;
 use HttpError;
 use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;

@@ -5,8 +5,8 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer;
-use EntitySchema\Services\SchemaConverter\FullViewSchemaData;
-use EntitySchema\Services\SchemaConverter\NameBadge;
+use EntitySchema\Services\Converter\FullViewSchemaData;
+use EntitySchema\Services\Converter\NameBadge;
 use ExtensionRegistry;
 use HashConfig;
 use LinkCache;

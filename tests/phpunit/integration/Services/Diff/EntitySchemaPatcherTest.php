@@ -9,8 +9,8 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Diff\Patcher\PatcherException;
+use EntitySchema\Services\Converter\FullArraySchemaData;
 use EntitySchema\Services\Diff\EntitySchemaPatcher;
-use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use PHPUnit\Framework\TestCase;
 
 /**
