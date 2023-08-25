@@ -8,10 +8,10 @@ use Action;
 use Article;
 use Content;
 use EntitySchema\DataAccess\EntitySchemaEncoder;
+use EntitySchema\MediaWiki\Actions\EntitySchemaEditAction;
+use EntitySchema\MediaWiki\Actions\EntitySchemaSubmitAction;
 use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
 use EntitySchema\MediaWiki\Actions\RestoreViewAction;
-use EntitySchema\MediaWiki\Actions\SchemaEditAction;
-use EntitySchema\MediaWiki\Actions\SchemaSubmitAction;
 use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
 use EntitySchema\MediaWiki\Actions\UndoViewAction;
 use EntitySchema\MediaWiki\UndoHandler;
@@ -131,7 +131,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		// TODo: check redirect?
 		// !$article->isRedirect()
 		$repoSettings = WikibaseRepo::getSettings();
-		return new SchemaEditAction(
+		return new EntitySchemaEditAction(
 			$article,
 			$context,
 			new InputValidator(
@@ -168,7 +168,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			return new RestoreSubmitAction( $article, $context );
 		}
 
-		return SchemaSubmitAction::class;
+		return EntitySchemaSubmitAction::class;
 	}
 
 	public function supportsDirectApiEditing(): bool {

@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
 use Article;
-use EntitySchema\MediaWiki\Actions\SchemaEditAction;
+use EntitySchema\MediaWiki\Actions\EntitySchemaEditAction;
 use EntitySchema\Presentation\InputValidator;
 use MediaWiki\Block\BlockManager;
 use MediaWiki\Permissions\PermissionManager;
@@ -18,11 +18,11 @@ use ReadOnlyMode;
 use RequestContext;
 
 /**
- * @covers \EntitySchema\MediaWiki\Actions\SchemaEditAction
+ * @covers \EntitySchema\MediaWiki\Actions\EntitySchemaEditAction
  *
  * @license GPL-2.0-or-later
  */
-class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
+class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 
 	public function testReadOnly() {
 		$this->setService( 'PermissionManager', $this->createMock( PermissionManager::class ) );
@@ -32,7 +32,7 @@ class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 		$readOnlyMode->method( 'isReadOnly' )->willReturn( true );
 		$this->setService( 'ReadOnlyMode', $readOnlyMode );
 		$context = RequestContext::getMain();
-		$action = new SchemaEditAction(
+		$action = new EntitySchemaEditAction(
 			Article::newFromTitle(
 				Title::newFromDBkey( 'E1' ),
 				$context
@@ -60,7 +60,7 @@ class SchemaEditActionTest extends MediaWikiIntegrationTestCase {
 		$context = RequestContext::getMain();
 		$title = Title::makeTitle( NS_MAIN, 'E1' );
 		$title->resetArticleID( 0 );
-		$action = new SchemaEditAction(
+		$action = new EntitySchemaEditAction(
 			Article::newFromTitle(
 				$title,
 				$context

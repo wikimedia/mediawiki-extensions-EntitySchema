@@ -9,7 +9,7 @@ namespace EntitySchema\MediaWiki\Actions;
  *
  * @license GPL-2.0-or-later
  */
-class SchemaSubmitAction extends SchemaEditAction {
+class EntitySchemaSubmitAction extends EntitySchemaEditAction {
 
 	public function getName(): string {
 		return 'submit';

@@ -29,7 +29,7 @@ use Wikibase\Repo\Specials\SpecialPageCopyrightView;
  *
  * @license GPL-2.0-or-later
  */
-class SchemaEditAction extends FormAction {
+class EntitySchemaEditAction extends FormAction {
 
 	public const FIELD_SCHEMA_TEXT = 'schema-text';
 	public const FIELD_BASE_REV = 'base-rev';
