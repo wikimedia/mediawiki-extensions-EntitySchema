@@ -6,7 +6,7 @@ namespace EntitySchema\MediaWiki\Content;
 
 use Config;
 use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;
-use EntitySchema\Services\Converter\FullViewSchemaData;
+use EntitySchema\Services\Converter\FullViewEntitySchemaData;
 use EntitySchema\Services\Converter\NameBadge;
 use ExtensionRegistry;
 use Html;
@@ -62,7 +62,7 @@ class EntitySchemaSlotViewRenderer {
 	}
 
 	public function fillParserOutput(
-		FullViewSchemaData $schemaData,
+		FullViewEntitySchemaData $schemaData,
 		PageReference $page,
 		ParserOutput $parserOutput
 	): void {

@@ -9,7 +9,7 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Diff\Patcher\PatcherException;
-use EntitySchema\Services\Converter\FullArraySchemaData;
+use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use EntitySchema\Services\Diff\EntitySchemaPatcher;
 use PHPUnit\Framework\TestCase;
 
@@ -122,7 +122,7 @@ class EntitySchemaPatcherTest extends TestCase {
 	public function testPatchSchema( array $currentSchema, Diff $patch, array $expected ) {
 		$schemaPatcher = new EntitySchemaPatcher();
 
-		$actualPatched = $schemaPatcher->patchSchema( new FullArraySchemaData( $currentSchema ), $patch );
+		$actualPatched = $schemaPatcher->patchSchema( new FullArrayEntitySchemaData( $currentSchema ), $patch );
 
 		$this->assertEquals( $expected, $actualPatched->data );
 	}
@@ -183,7 +183,7 @@ class EntitySchemaPatcherTest extends TestCase {
 
 		$this->expectException( PatcherException::class );
 
-		$schemaPatcher->patchSchema( new FullArraySchemaData( $currentSchema ), $patch );
+		$schemaPatcher->patchSchema( new FullArrayEntitySchemaData( $currentSchema ), $patch );
 	}
 
 }

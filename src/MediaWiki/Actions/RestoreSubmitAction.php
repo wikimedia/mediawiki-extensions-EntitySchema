@@ -11,7 +11,7 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
-use EntitySchema\Services\Converter\PersistenceSchemaData;
+use EntitySchema\Services\Converter\PersistenceEntitySchemaData;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
@@ -97,7 +97,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 	}
 
 	private function storeRestoredSchema(
-		PersistenceSchemaData $persistenceSchemaData,
+		PersistenceEntitySchemaData $persistenceSchemaData,
 		int $baseRevId,
 		CommentStoreComment $summary
 	): Status {

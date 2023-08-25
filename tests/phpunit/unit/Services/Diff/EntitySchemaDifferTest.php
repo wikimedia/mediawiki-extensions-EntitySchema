@@ -8,7 +8,7 @@ use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
-use EntitySchema\Services\Converter\FullArraySchemaData;
+use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use MediaWikiUnitTestCase;
 
@@ -133,8 +133,8 @@ class EntitySchemaDifferTest extends MediaWikiUnitTestCase {
 	 * @dataProvider provideSchemaDiffs
 	 */
 	public function testDiffSchemas( array $from, array $to, Diff $expected ) {
-		$from = new FullArraySchemaData( $from );
-		$to = new FullArraySchemaData( $to );
+		$from = new FullArrayEntitySchemaData( $from );
+		$to = new FullArrayEntitySchemaData( $to );
 		$schemaDiffer = new EntitySchemaDiffer();
 
 		$actual = $schemaDiffer->diffSchemas( $from, $to );

@@ -19,17 +19,17 @@ class EntitySchemaConverter {
 	 * @param string[] $preferredLanguages Name badges for these language codes will always be present,
 	 * even if there is no data for them, and they will also be ordered before other languages.
 	 *
-	 * @return FullViewSchemaData
+	 * @return FullViewEntitySchemaData
 	 *
 	 * @throws LogicException
 	 */
 	public function getFullViewSchemaData(
 		string $schemaJSON,
 		array $preferredLanguages
-	): FullViewSchemaData {
+	): FullViewEntitySchemaData {
 		$schema = json_decode( $schemaJSON, true );
 
-		return new FullViewSchemaData(
+		return new FullViewEntitySchemaData(
 			$this->getNameBadgesFromSchema( $schema, $preferredLanguages ),
 			$this->getSchemaTextFromSchema( $schema )
 		);
@@ -45,7 +45,7 @@ class EntitySchemaConverter {
 		);
 	}
 
-	public function getFullArraySchemaData( string $schemaJSON ): FullArraySchemaData {
+	public function getFullArraySchemaData( string $schemaJSON ): FullArrayEntitySchemaData {
 		$schema = json_decode( $schemaJSON, true );
 
 		$data = [
@@ -70,12 +70,12 @@ class EntitySchemaConverter {
 			}
 		}
 
-		return new FullArraySchemaData( $data );
+		return new FullArrayEntitySchemaData( $data );
 	}
 
-	public function getPersistenceSchemaData( string $schemaJSON ): PersistenceSchemaData {
+	public function getPersistenceSchemaData( string $schemaJSON ): PersistenceEntitySchemaData {
 		$schema = json_decode( $schemaJSON, true );
-		$persistenceSchemaData = new PersistenceSchemaData();
+		$persistenceSchemaData = new PersistenceEntitySchemaData();
 		$persistenceSchemaData->schemaText = $this->getSchemaTextFromSchema( $schema );
 
 		foreach ( $this->getSchemaLanguages( $schema ) as $languageCode ) {

@@ -5,9 +5,9 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\Services\Converter;
 
 use EntitySchema\Services\Converter\EntitySchemaConverter;
-use EntitySchema\Services\Converter\FullViewSchemaData;
+use EntitySchema\Services\Converter\FullViewEntitySchemaData;
 use EntitySchema\Services\Converter\NameBadge;
-use EntitySchema\Services\Converter\PersistenceSchemaData;
+use EntitySchema\Services\Converter\PersistenceEntitySchemaData;
 use MediaWikiIntegrationTestCase;
 
 /**
@@ -35,7 +35,7 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 				]
 			),
 			[ 'en' ],
-			new FullViewSchemaData(
+			new FullViewEntitySchemaData(
 				[
 					'en' => new NameBadge(
 						'english testlabel',
@@ -70,7 +70,7 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 				]
 			),
 			[ 'en', 'de' ],
-			new FullViewSchemaData(
+			new FullViewEntitySchemaData(
 				[
 					'en' => new NameBadge(
 						'english testlabel',
@@ -109,7 +109,7 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 				]
 			),
 			[ 'en', 'ru' ],
-			new FullViewSchemaData(
+			new FullViewEntitySchemaData(
 				[
 					'en' => new NameBadge(
 						'',
@@ -148,7 +148,7 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 				]
 			),
 			[ 'en' ],
-			new FullViewSchemaData(
+			new FullViewEntitySchemaData(
 				[
 					'en' => new NameBadge(
 						'english testlabel',
@@ -192,7 +192,7 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 				]
 			),
 			[ 'en' ],
-			new FullViewSchemaData(
+			new FullViewEntitySchemaData(
 				[
 					'en' => new NameBadge(
 						'english testlabel',
@@ -210,18 +210,18 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 	 *
 	 * @param string $schemaJSON
 	 * @param string[] $preferredLanguages
-	 * @param FullViewSchemaData $expectedSchemaData
+	 * @param FullViewEntitySchemaData $expectedSchemaData
 	 */
 	public function testFullViewSchemaData(
 		string $schemaJSON,
 		array $preferredLanguages,
-		FullViewSchemaData $expectedSchemaData
+		FullViewEntitySchemaData $expectedSchemaData
 	) {
 		$converter = new EntitySchemaConverter();
 
 		$actualSchema = $converter->getFullViewSchemaData( $schemaJSON, $preferredLanguages );
 
-		$this->assertInstanceOf( FullViewSchemaData::class, $actualSchema );
+		$this->assertInstanceOf( FullViewEntitySchemaData::class, $actualSchema );
 		$this->assertEquals( $expectedSchemaData, $actualSchema );
 	}
 
@@ -436,7 +436,7 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public static function providePersistenceSchemaData(): iterable {
-		$expectedSchemaData = new PersistenceSchemaData();
+		$expectedSchemaData = new PersistenceEntitySchemaData();
 		$expectedSchemaData->labels = [ 'en' => 'english test label' ];
 		$expectedSchemaData->descriptions = [ 'en' => 'english test description' ];
 		$expectedSchemaData->aliases = [ 'en' => [ 'english test alias' ] ];
@@ -458,7 +458,7 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 			$expectedSchemaData,
 		];
 
-		$expectedSchemaData = new PersistenceSchemaData();
+		$expectedSchemaData = new PersistenceEntitySchemaData();
 		$expectedSchemaData->labels = [
 			'de' => 'deutsche Testbezeichnung',
 			'en' => 'english test label',
@@ -536,7 +536,7 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 	 */
 	public function testPersistenceSchemaData(
 		array $schema,
-		PersistenceSchemaData $expectedSchemaData
+		PersistenceEntitySchemaData $expectedSchemaData
 	) {
 		$schemaJSON = json_encode( $schema );
 		$converter = new EntitySchemaConverter();

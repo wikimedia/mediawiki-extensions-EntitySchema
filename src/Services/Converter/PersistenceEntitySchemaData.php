@@ -7,7 +7,7 @@ namespace EntitySchema\Services\Converter;
 /**
  * @license GPL-2.0-or-later
  */
-class PersistenceSchemaData {
+class PersistenceEntitySchemaData {
 	/** @var string[] */
 	public array $labels = [];
 	/** @var string[] */

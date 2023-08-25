@@ -6,7 +6,7 @@ namespace EntitySchema\Services\Diff;
 
 use Diff\Differ\MapDiffer;
 use Diff\DiffOp\Diff\Diff;
-use EntitySchema\Services\Converter\FullArraySchemaData;
+use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 
 /**
  * Computes the difference between two schemas.
@@ -33,7 +33,7 @@ class EntitySchemaDiffer {
 		$this->recursiveMapDiffer = new MapDiffer( true );
 	}
 
-	public function diffSchemas( FullArraySchemaData $from, FullArraySchemaData $to ): Diff {
+	public function diffSchemas( FullArrayEntitySchemaData $from, FullArrayEntitySchemaData $to ): Diff {
 		$from = $from->data;
 		$to = $to->data;
 

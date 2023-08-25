@@ -8,7 +8,7 @@ use CommentStoreComment;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
-use EntitySchema\Services\Converter\FullArraySchemaData;
+use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use InvalidArgumentException;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Revision\RevisionLookup;
@@ -123,7 +123,12 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		$schemaData = $updateGuard->guardSchemaUpdate(
 			$baseRevision,
 			$parentRevision,
-			static function ( FullArraySchemaData $schemaData ) use ( $langCode, $label, $description, $aliases ) {
+			static function ( FullArrayEntitySchemaData $schemaData ) use (
+				$langCode,
+				$label,
+				$description,
+				$aliases
+			) {
 				$schemaData->data['labels'][$langCode] = $label;
 				$schemaData->data['descriptions'][$langCode] = $description;
 				$schemaData->data['aliases'][$langCode] = $aliases;
@@ -241,7 +246,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		$schemaData = $updateGuard->guardSchemaUpdate(
 			$baseRevision,
 			$parentRevision,
-			static function ( FullArraySchemaData $schemaData ) use ( $schemaText ) {
+			static function ( FullArrayEntitySchemaData $schemaData ) use ( $schemaText ) {
 				$schemaData->data['schemaText'] = $schemaText;
 			}
 		);

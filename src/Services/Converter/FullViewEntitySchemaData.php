@@ -7,7 +7,7 @@ namespace EntitySchema\Services\Converter;
 /**
  * @license GPL-2.0-or-later
  */
-class FullViewSchemaData {
+class FullViewEntitySchemaData {
 
 	/** @var NameBadge[] */
 	public array $nameBadges;

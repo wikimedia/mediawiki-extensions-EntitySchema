@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Services\Converter;
 
 /**
- * The full data of a schema, represented as a recursive array.
+ * The full data of an EntitySchema, represented as a recursive array.
  *
  * 'labels' is an associative array from language code to label in that language;
  * 'descriptions' is an associative array from language code to description in that language;
@@ -17,7 +17,7 @@ namespace EntitySchema\Services\Converter;
  *
  * @license GPL-2.0-or-later
  */
-class FullArraySchemaData {
+class FullArrayEntitySchemaData {
 
 	public array $data;
 

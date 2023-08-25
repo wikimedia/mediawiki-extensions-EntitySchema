@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer;
-use EntitySchema\Services\Converter\FullViewSchemaData;
+use EntitySchema\Services\Converter\FullViewEntitySchemaData;
 use EntitySchema\Services\Converter\NameBadge;
 use ExtensionRegistry;
 use HashConfig;
@@ -31,7 +31,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideSchemaDataAndHtmlFragments
 	 */
-	public function testFillParserOutput( FullViewSchemaData $schemaData, array $fragments ) {
+	public function testFillParserOutput( FullViewEntitySchemaData $schemaData, array $fragments ) {
 		$renderer = new EntitySchemaSlotViewRenderer( 'en', null, null, null, false );
 
 		$parserOutput = new ParserOutput();
@@ -51,21 +51,21 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		$emptySchemaText = '';
 
 		yield 'description, user language' => [
-			new FullViewSchemaData( [
+			new FullViewEntitySchemaData( [
 				'en' => new NameBadge( '', 'test', [] ),
 			], $emptySchemaText ),
 			[ '<td class="entityschema-description" lang="en" dir="auto">test</td>' ],
 		];
 
 		yield 'description, other language' => [
-			new FullViewSchemaData( [
+			new FullViewEntitySchemaData( [
 				'simple' => new NameBadge( '', 'test', [] ),
 			], $emptySchemaText ),
 			[ '<td class="entityschema-description" lang="en-simple" dir="auto">test</td>' ],
 		];
 
 		yield 'description, no HTML injection' => [
-			new FullViewSchemaData( [
+			new FullViewEntitySchemaData( [
 				'en' => new NameBadge( '', '<script>alert("description XSS")</script>', [] ),
 			], $emptySchemaText ),
 			// exact details of escaping beyond this (> vs &gt;) don’t matter
@@ -75,20 +75,20 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		$emptyNameBadges = [ 'en' => new NameBadge( '', '', [] ) ];
 
 		yield 'schema text' => [
-			new FullViewSchemaData( $emptyNameBadges, '_:empty {}' ),
+			new FullViewEntitySchemaData( $emptyNameBadges, '_:empty {}' ),
 			[
 				'<pre id="entityschema-schema-text" class="entityschema-schema-text" dir="ltr">_:empty {}</pre>',
 			],
 		];
 
 		yield 'schema text, no HTML injection' => [
-			new FullViewSchemaData( $emptyNameBadges, '<script>alert("schema XSS")</script>' ),
+			new FullViewEntitySchemaData( $emptyNameBadges, '<script>alert("schema XSS")</script>' ),
 			// exact details of escaping beyond this (> vs &gt;) don’t matter
 			[ '<pre id="entityschema-schema-text" class="entityschema-schema-text" dir="ltr">&lt;script' ],
 		];
 
 		yield 'multilingual descriptions' => [
-			new FullViewSchemaData( [
+			new FullViewEntitySchemaData( [
 				'en' => new NameBadge( '', 'english description', [] ),
 				'de' => new NameBadge( '', 'deutsche Beschreibung', [] ),
 			], $emptySchemaText ),
@@ -99,7 +99,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		];
 
 		yield 'description edit link' => [
-			new FullViewSchemaData( [
+			new FullViewEntitySchemaData( [
 				'en' => new NameBadge( '', 'english description', [] ),
 			], $emptySchemaText ),
 			[
@@ -112,14 +112,14 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		];
 
 		yield 'edit schema link' => [
-			new FullViewSchemaData( [
+			new FullViewEntitySchemaData( [
 				'en' => new NameBadge( '', 'english description', [] ),
 			], 'some schema text' ),
 			[ '>edit</', 'action=edit' ],
 		];
 
 		yield 'add schema link' => [
-			new FullViewSchemaData( [
+			new FullViewEntitySchemaData( [
 				'en' => new NameBadge( '', 'english description', [] ),
 			], $emptySchemaText ),
 			[ '>add Schema text</', 'action=edit' ],
@@ -127,7 +127,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testFillParserOutput_differentLanguage() {
-		$schemaData = new FullViewSchemaData( [
+		$schemaData = new FullViewEntitySchemaData( [
 			'en' => new NameBadge( 'label', 'description', [ 'alias' ] ),
 		], '' );
 		$renderer = new EntitySchemaSlotViewRenderer(
@@ -160,7 +160,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 	 * @dataProvider provideLabelsAndHeadings
 	 */
 	public function testFillParserOutput_heading( string $label, string $expected ) {
-		$schemaData = new FullViewSchemaData( [
+		$schemaData = new FullViewEntitySchemaData( [
 			'en' => new NameBadge( $label, 'description', [ 'alias' ] ),
 		], '' );
 		$renderer = new EntitySchemaSlotViewRenderer( 'en', null, null, null, false );
@@ -194,7 +194,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testFillParserOutput_checkEntitiesAgainstSchemaLink() {
-		$schemaData = new FullViewSchemaData(
+		$schemaData = new FullViewEntitySchemaData(
 			[ 'en' => new NameBadge( '', '', [] ) ],
 			'schema text'
 		);
@@ -233,7 +233,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			$this->markTestSkipped( 'SyntaxHighlight not available' );
 		}
 
-		$schemaData = new FullViewSchemaData(
+		$schemaData = new FullViewEntitySchemaData(
 			[ 'en' => new NameBadge( '', '', [] ) ],
 			'schema text'
 		);

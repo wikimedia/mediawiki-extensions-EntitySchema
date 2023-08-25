@@ -6,8 +6,8 @@ namespace EntitySchema\DataAccess;
 
 use Diff\Patcher\PatcherException;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
-use EntitySchema\Services\Converter\FullArraySchemaData;
-use EntitySchema\Services\Converter\PersistenceSchemaData;
+use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
+use EntitySchema\Services\Converter\PersistenceEntitySchemaData;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use EntitySchema\Services\Diff\EntitySchemaPatcher;
 use MediaWiki\Revision\RevisionRecord;
@@ -33,7 +33,7 @@ class EntitySchemaUpdateGuard {
 	 * @param RevisionRecord $parentRevision The parent revision returned by the PageUpdater.
 	 * @param callable $schemaUpdate Function accepting a FullArraySchemaData object,
 	 * updating it with the user’s data.
-	 * @return PersistenceSchemaData|null The data that should be stored,
+	 * @return PersistenceEntitySchemaData|null The data that should be stored,
 	 * or null if there is nothing to do.
 	 * @throws EditConflict
 	 */
@@ -41,7 +41,7 @@ class EntitySchemaUpdateGuard {
 		RevisionRecord $baseRevision,
 		RevisionRecord $parentRevision,
 		callable $schemaUpdate
-	): ?PersistenceSchemaData {
+	): ?PersistenceEntitySchemaData {
 		$baseData = $this->schemaConverter->getFullArraySchemaData(
 			// @phan-suppress-next-line PhanUndeclaredMethod
 			$baseRevision->getContent( SlotRecord::MAIN )->getText()
@@ -75,7 +75,7 @@ class EntitySchemaUpdateGuard {
 		return $this->array2persistence( $patchedData );
 	}
 
-	private function cleanupData( FullArraySchemaData $data ): void {
+	private function cleanupData( FullArrayEntitySchemaData $data ): void {
 		EntitySchemaCleaner::cleanupParameters(
 			$data->data['labels'],
 			$data->data['descriptions'],
@@ -85,8 +85,8 @@ class EntitySchemaUpdateGuard {
 	}
 
 	// TODO this is very silly
-	private function array2persistence( FullArraySchemaData $arrayData ): PersistenceSchemaData {
-		$persistenceData = new PersistenceSchemaData();
+	private function array2persistence( FullArrayEntitySchemaData $arrayData ): PersistenceEntitySchemaData {
+		$persistenceData = new PersistenceEntitySchemaData();
 		$persistenceData->labels = $arrayData->data['labels'];
 		$persistenceData->descriptions = $arrayData->data['descriptions'];
 		$persistenceData->aliases = $arrayData->data['aliases'];

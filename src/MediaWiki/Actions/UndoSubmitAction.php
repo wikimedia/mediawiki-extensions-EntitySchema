@@ -9,7 +9,7 @@ use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
-use EntitySchema\Services\Converter\FullArraySchemaData;
+use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use MediaWiki\MediaWikiServices;
 use PermissionsError;
 use ReadOnlyError;
@@ -94,7 +94,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 		return $this->storePatchedSchema( $patchedSchema, $baseRevId );
 	}
 
-	private function storePatchedSchema( FullArraySchemaData $patchedSchema, int $baseRevId ): Status {
+	private function storePatchedSchema( FullArrayEntitySchemaData $patchedSchema, int $baseRevId ): Status {
 		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			new MediaWikiPageUpdaterFactory( $this->getUser() ),
 			new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON ),

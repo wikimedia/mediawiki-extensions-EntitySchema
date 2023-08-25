@@ -11,7 +11,7 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Diff\Patcher\PatcherException;
-use EntitySchema\Services\Converter\FullArraySchemaData;
+use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 
 /**
  * @license GPL-2.0-or-later
@@ -19,14 +19,14 @@ use EntitySchema\Services\Converter\FullArraySchemaData;
 class EntitySchemaPatcher {
 
 	/**
-	 * @param FullArraySchemaData $baseSchema
+	 * @param FullArrayEntitySchemaData $baseSchema
 	 * @param Diff $patch
 	 *
-	 * @return FullArraySchemaData
+	 * @return FullArrayEntitySchemaData
 	 *
 	 * @throws PatcherException throws exception if patch cannot be applied
 	 */
-	public function patchSchema( FullArraySchemaData $baseSchema, Diff $patch ): FullArraySchemaData {
+	public function patchSchema( FullArrayEntitySchemaData $baseSchema, Diff $patch ): FullArrayEntitySchemaData {
 		$patchedSchema = $this->patchFingerprint( $baseSchema->data, $patch );
 
 		$patchedSchema['schemaText'] = $this->patchString(
@@ -34,7 +34,7 @@ class EntitySchemaPatcher {
 			$patch['schemaText'] ?? null
 		);
 
-		return new FullArraySchemaData( $patchedSchema );
+		return new FullArrayEntitySchemaData( $patchedSchema );
 	}
 
 	private function patchFingerprint( array $baseSchema, Diff $patch ): array {
