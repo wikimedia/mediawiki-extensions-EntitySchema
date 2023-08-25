@@ -10,7 +10,7 @@ use DomainException;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
-use EntitySchema\Services\Diff\SchemaPatcher;
+use EntitySchema\Services\Diff\EntitySchemaPatcher;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
 use Status;
 
@@ -59,7 +59,7 @@ final class UndoHandler {
 
 	public function tryPatching( Diff $diff, EntitySchemaContent $baseContent ): Status {
 
-		$patcher = new SchemaPatcher();
+		$patcher = new EntitySchemaPatcher();
 		$converter = new SchemaConverter();
 
 		try {

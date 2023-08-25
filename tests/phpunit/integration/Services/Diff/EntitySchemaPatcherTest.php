@@ -9,17 +9,17 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Diff\Patcher\PatcherException;
-use EntitySchema\Services\Diff\SchemaPatcher;
+use EntitySchema\Services\Diff\EntitySchemaPatcher;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @license GPL-2.0-or-later
  *
- * @covers \EntitySchema\Services\Diff\SchemaPatcher
+ * @covers \EntitySchema\Services\Diff\EntitySchemaPatcher
  * @covers \EntitySchema\Services\Diff\AliasGroupListPatcher
  */
-class SchemaPatcherTest extends TestCase {
+class EntitySchemaPatcherTest extends TestCase {
 
 	public static function provideValidSchemaPatches(): iterable {
 
@@ -120,7 +120,7 @@ class SchemaPatcherTest extends TestCase {
 	 * @dataProvider provideValidSchemaPatches
 	 */
 	public function testPatchSchema( array $currentSchema, Diff $patch, array $expected ) {
-		$schemaPatcher = new SchemaPatcher();
+		$schemaPatcher = new EntitySchemaPatcher();
 
 		$actualPatched = $schemaPatcher->patchSchema( new FullArraySchemaData( $currentSchema ), $patch );
 
@@ -179,7 +179,7 @@ class SchemaPatcherTest extends TestCase {
 	 * @dataProvider provideInvalidSchemaPatches
 	 */
 	public function testPatchSchemaFailure( array $currentSchema, Diff $patch ) {
-		$schemaPatcher = new SchemaPatcher();
+		$schemaPatcher = new EntitySchemaPatcher();
 
 		$this->expectException( PatcherException::class );
 

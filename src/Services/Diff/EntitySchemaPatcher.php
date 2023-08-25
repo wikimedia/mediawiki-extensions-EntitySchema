@@ -16,7 +16,7 @@ use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 /**
  * @license GPL-2.0-or-later
  */
-class SchemaPatcher {
+class EntitySchemaPatcher {
 
 	/**
 	 * @param FullArraySchemaData $baseSchema

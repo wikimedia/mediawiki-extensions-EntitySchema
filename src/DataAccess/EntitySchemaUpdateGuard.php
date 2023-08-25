@@ -6,7 +6,7 @@ namespace EntitySchema\DataAccess;
 
 use Diff\Patcher\PatcherException;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
-use EntitySchema\Services\Diff\SchemaPatcher;
+use EntitySchema\Services\Diff\EntitySchemaPatcher;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use EntitySchema\Services\SchemaConverter\PersistenceSchemaData;
 use EntitySchema\Services\SchemaConverter\SchemaConverter;
@@ -20,12 +20,12 @@ class EntitySchemaUpdateGuard {
 
 	private SchemaConverter $schemaConverter;
 	private EntitySchemaDiffer $schemaDiffer;
-	private SchemaPatcher $schemaPatcher;
+	private EntitySchemaPatcher $schemaPatcher;
 
 	public function __construct() {
 		$this->schemaConverter = new SchemaConverter();
 		$this->schemaDiffer = new EntitySchemaDiffer();
-		$this->schemaPatcher = new SchemaPatcher();
+		$this->schemaPatcher = new EntitySchemaPatcher();
 	}
 
 	/**
