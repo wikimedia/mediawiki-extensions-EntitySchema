@@ -6,6 +6,7 @@ namespace EntitySchema\MediaWiki\Hooks;
 
 use EntitySchema\DataAccess\LabelLookup;
 use HtmlArmor;
+use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Linker\Hook\HtmlPageLinkRendererEndHook;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\Title;
@@ -16,19 +17,26 @@ use RequestContext;
  */
 class HtmlPageLinkRendererEndHookHandler implements HtmlPageLinkRendererEndHook {
 
+	private LanguageFactory $languageFactory;
 	private LabelLookup $labelLookup;
 	private RequestContext $context;
 
 	public function __construct(
+		LanguageFactory $languageFactory,
 		LabelLookup $labelLookup,
 		RequestContext $context
 	) {
+		$this->languageFactory = $languageFactory;
 		$this->labelLookup = $labelLookup;
 		$this->context = $context;
 	}
 
-	public static function factory( LabelLookup $labelLookup ): self {
+	public static function factory(
+		LanguageFactory $languageFactory,
+		LabelLookup $labelLookup
+	): self {
 		return new self(
+			$languageFactory,
 			$labelLookup,
 			RequestContext::getMain()
 		);
@@ -113,14 +121,29 @@ class HtmlPageLinkRendererEndHookHandler implements HtmlPageLinkRendererEndHook 
 			return true;
 		}
 
-		$wrappedEntitySchemaId = $this->context->msg(
-			'wikibase-itemlink-id-wrapper',
-			$target->getText()
-		)->inContentLanguage()->escaped();
-		$text = $this->context->msg( 'wikibase-itemlink' )->rawParams(
-			$label->getText(),
-			$wrappedEntitySchemaId
-		)->inContentLanguage()->escaped();
+		$labelLang = $this->languageFactory->getLanguage( $label->getLanguageCode() );
+
+		// $idHtml, $labelHtml and $text is closely based on Wikibase DefaultEntityLinkFormatter::getHtml()
+
+		$idHtml = '<span class="wb-itemlink-id">'
+			. $this->context->msg(
+				'wikibase-itemlink-id-wrapper',
+				$target->getText()
+			)->inContentLanguage()->escaped()
+			. '</span>';
+
+		$labelHtml = '<span class="wb-itemlink-label"'
+			. ' lang="' . htmlspecialchars( $labelLang->getHtmlCode() ) . '"'
+			. ' dir="' . htmlspecialchars( $labelLang->getDir() ) . '">'
+			. HtmlArmor::getHtml( $label->getText() )
+			. '</span>';
+
+		$text = new HtmlArmor( '<span class="wb-itemlink">'
+			. $this->context->msg( 'wikibase-itemlink' )->rawParams(
+				$labelHtml,
+				$idHtml
+			)->inContentLanguage()->escaped()
+			. '</span>' );
 
 		return true;
 	}

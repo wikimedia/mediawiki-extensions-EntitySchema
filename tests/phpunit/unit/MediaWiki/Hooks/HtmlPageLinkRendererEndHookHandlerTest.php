@@ -6,7 +6,9 @@ namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 use EntitySchema\DataAccess\EntitySchemaTerm;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Hooks\HtmlPageLinkRendererEndHookHandler;
+use HtmlArmor;
 use Language;
+use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Tests\Unit\FakeQqxMessageLocalizer;
 use MediaWiki\Title\Title;
@@ -59,7 +61,12 @@ class HtmlPageLinkRendererEndHookHandlerTest extends MediaWikiUnitTestCase {
 			false,
 			false,
 			$originalText,
-			'(wikibase-itemlink: label from lookup, (wikibase-itemlink-id-wrapper: E1))',
+			new HtmlArmor(
+				'<span class="wb-itemlink">(wikibase-itemlink: '
+					. '<span class="wb-itemlink-label" lang="en" dir="ltr">label from lookup</span>, '
+					. '<span class="wb-itemlink-id">(wikibase-itemlink-id-wrapper: E1)</span>'
+					. ')</span>'
+			),
 		];
 
 		yield 'renders for a link in a comment' => [
@@ -69,7 +76,12 @@ class HtmlPageLinkRendererEndHookHandlerTest extends MediaWikiUnitTestCase {
 			null,
 			true,
 			$originalText,
-			'(wikibase-itemlink: label from lookup, (wikibase-itemlink-id-wrapper: E1))',
+			new HtmlArmor(
+				'<span class="wb-itemlink">(wikibase-itemlink: '
+				. '<span class="wb-itemlink-label" lang="en" dir="ltr">label from lookup</span>, '
+				. '<span class="wb-itemlink-id">(wikibase-itemlink-id-wrapper: E1)</span>'
+				. ')</span>'
+			),
 		];
 
 		yield 'not in schema namespace' => [
@@ -113,8 +125,17 @@ class HtmlPageLinkRendererEndHookHandlerTest extends MediaWikiUnitTestCase {
 		?bool $specialPageIsBadTitle,
 		bool $isForLinkInComment,
 		string $initialText,
-		string $expectedText
+		/* string|HtmlArmor */ $expectedText
 	): void {
+		$stubLanguageFactory = $this->createStub( LanguageFactory::class );
+		$stubLanguageFactory->method( 'getLanguage' )
+			->willReturnCallback( function ( string $languageCode ) {
+				return $this->createConfiguredMock( Language::class, [
+					'getHtmlCode' => $languageCode,
+					'getDir' => 'ltr',
+				] );
+			} );
+
 		$stubLabelLookup = $this->createStub( LabelLookup::class );
 		$stubLabelLookup->method( 'getLabelForTitle' )
 			->willReturn( $labelReturnedByLookup ? new EntitySchemaTerm( 'en', $labelReturnedByLookup ) : null );
@@ -129,6 +150,7 @@ class HtmlPageLinkRendererEndHookHandlerTest extends MediaWikiUnitTestCase {
 		$target->method( 'getText' )->willReturn( 'E1' );
 
 		$hookHandler = new HtmlPageLinkRendererEndHookHandler(
+			$stubLanguageFactory,
 			$stubLabelLookup,
 			$requestContext
 		);
@@ -145,7 +167,7 @@ class HtmlPageLinkRendererEndHookHandlerTest extends MediaWikiUnitTestCase {
 			$htmlReference
 		);
 
-		$this->assertSame( $expectedText, $textReference );
+		$this->assertEquals( $expectedText, $textReference );
 		$this->assertTrue( $returnValue );
 		$this->assertSame( [], $extraAttribsReference );
 		$this->assertNull( $htmlReference );

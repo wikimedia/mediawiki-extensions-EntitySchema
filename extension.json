@@ -40,6 +40,7 @@
 			"class": "\\EntitySchema\\MediaWiki\\Hooks\\HtmlPageLinkRendererEndHookHandler",
 			"factory": "\\EntitySchema\\MediaWiki\\Hooks\\HtmlPageLinkRendererEndHookHandler::factory",
 			"services": [
+				"LanguageFactory",
 				"EntitySchema.LabelLookup"
 			]
 		},
