@@ -3,7 +3,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 
-use EntitySchema\DataAccess\EntitySchemaTerm;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Hooks\HtmlPageLinkRendererEndHookHandler;
 use HtmlArmor;
@@ -14,6 +13,7 @@ use MediaWiki\Tests\Unit\FakeQqxMessageLocalizer;
 use MediaWiki\Title\Title;
 use MediaWikiUnitTestCase;
 use RequestContext;
+use Wikibase\DataModel\Term\TermFallback;
 
 /**
  * @covers \EntitySchema\MediaWiki\Hooks\HtmlPageLinkRendererEndHookHandler
@@ -138,7 +138,9 @@ class HtmlPageLinkRendererEndHookHandlerTest extends MediaWikiUnitTestCase {
 
 		$stubLabelLookup = $this->createStub( LabelLookup::class );
 		$stubLabelLookup->method( 'getLabelForTitle' )
-			->willReturn( $labelReturnedByLookup ? new EntitySchemaTerm( 'en', $labelReturnedByLookup ) : null );
+			->willReturn( $labelReturnedByLookup
+				? new TermFallback( 'en', $labelReturnedByLookup, 'en', null )
+				: null );
 
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$stubLinkRenderer->method( 'isForComment' )->willReturn( $isForLinkInComment );

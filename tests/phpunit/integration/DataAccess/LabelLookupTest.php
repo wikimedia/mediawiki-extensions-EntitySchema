@@ -39,6 +39,7 @@ class LabelLookupTest extends MediaWikiIntegrationTestCase {
 		$actualLabelTerm = $labelLookup->getLabelForTitle( $title, 'en' );
 
 		$this->assertSame( $englishLabel, $actualLabelTerm->getText() );
+		$this->assertSame( 'en', $actualLabelTerm->getActualLanguageCode() );
 		$this->assertSame( 'en', $actualLabelTerm->getLanguageCode() );
 	}
 
@@ -55,7 +56,8 @@ class LabelLookupTest extends MediaWikiIntegrationTestCase {
 		$actualLabelTerm = $labelLookup->getLabelForTitle( $title, 'de' );
 
 		$this->assertSame( $englishLabel, $actualLabelTerm->getText() );
-		$this->assertSame( 'en', $actualLabelTerm->getLanguageCode() );
+		$this->assertSame( 'en', $actualLabelTerm->getActualLanguageCode() );
+		$this->assertSame( 'de', $actualLabelTerm->getLanguageCode() );
 	}
 
 	public function testGetLabel_NoLabelInLanguage() {

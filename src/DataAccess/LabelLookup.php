@@ -8,6 +8,7 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use MediaWiki\Page\PageIdentity;
 use MediaWiki\Page\WikiPageFactory;
+use Wikibase\DataModel\Term\TermFallback;
 use Wikibase\Lib\LanguageFallbackChainFactory;
 
 /**
@@ -35,9 +36,9 @@ class LabelLookup {
 	 *
 	 * @param PageIdentity $title
 	 * @param string $langCode
-	 * @return EntitySchemaTerm|null The label, or null if no label or EntitySchema was found.
+	 * @return TermFallback|null The label, or null if no label or EntitySchema was found.
 	 */
-	public function getLabelForTitle( PageIdentity $title, string $langCode ): ?EntitySchemaTerm {
+	public function getLabelForTitle( PageIdentity $title, string $langCode ): ?TermFallback {
 		$wikiPage = $this->wikiPageFactory->newFromTitle( $title );
 		$content = $wikiPage->getContent();
 		if ( !( $content instanceof EntitySchemaContent ) ) {
@@ -55,10 +56,11 @@ class LabelLookup {
 			$schemaData->nameBadges
 		) );
 		if ( $preferredLabel !== null ) {
-			return new EntitySchemaTerm(
+			return new TermFallback(
+				$langCode,
+				$preferredLabel['value'],
 				$preferredLabel['language'],
-				$preferredLabel['value']
-				// note: $preferredLabel['source'] gets thrown away
+				$preferredLabel['source']
 			);
 		} else {
 			return null;

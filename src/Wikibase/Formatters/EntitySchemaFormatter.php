@@ -12,7 +12,6 @@ use MediaWiki\Title\TitleFactory;
 use TitleValue;
 use ValueFormatters\FormatterOptions;
 use ValueFormatters\ValueFormatter;
-use Wikibase\DataModel\Term\TermFallback;
 use Wikibase\Lib\Formatters\SnakFormat;
 use Wikibase\Lib\Formatters\SnakFormatter;
 use Wikibase\Lib\LanguageFallbackIndicator;
@@ -91,18 +90,13 @@ class EntitySchemaFormatter implements ValueFormatter {
 				$labelTerm->getText(),
 				'',
 				[
-					'lang' => $labelTerm->getLanguageCode(),
+					'lang' => $labelTerm->getActualLanguageCode(),
 				]
 			);
 			$languageFallbackIndicator = new LanguageFallbackIndicator(
 				$this->languageNameLookupFactory->getForLanguageCode( $requestedLanguageCode )
 			);
-			$fallbackHtml = $languageFallbackIndicator->getHtml( new TermFallback(
-				$requestedLanguageCode,
-				$labelTerm->getText(),
-				$labelTerm->getLanguageCode(),
-				null
-			) );
+			$fallbackHtml = $languageFallbackIndicator->getHtml( $labelTerm );
 
 			return $linkHtml . $fallbackHtml;
 		}

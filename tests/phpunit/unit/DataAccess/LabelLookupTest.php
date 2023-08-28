@@ -92,6 +92,7 @@ class LabelLookupTest extends MediaWikiUnitTestCase {
 		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'de' );
 
 		$this->assertSame( 'de', $actualResult->getLanguageCode() );
+		$this->assertSame( 'de', $actualResult->getActualLanguageCode() );
 		$this->assertSame( 'Mensch', $actualResult->getText() );
 	}
 
@@ -123,7 +124,8 @@ class LabelLookupTest extends MediaWikiUnitTestCase {
 
 		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'de-at' );
 
-		$this->assertSame( 'en', $actualResult->getLanguageCode() );
+		$this->assertSame( 'de-at', $actualResult->getLanguageCode() );
+		$this->assertSame( 'en', $actualResult->getActualLanguageCode() );
 		$this->assertSame( 'human', $actualResult->getText() );
 	}
 

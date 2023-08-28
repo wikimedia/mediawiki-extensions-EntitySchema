@@ -5,7 +5,6 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Unit\Wikibase\Formatters;
 
 use DataValues\StringValue;
-use EntitySchema\DataAccess\EntitySchemaTerm;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use MediaWiki\Linker\LinkRenderer;
@@ -15,6 +14,7 @@ use MediaWiki\Title\TitleFactory;
 use MediaWikiUnitTestCase;
 use ValueFormatters\FormatterOptions;
 use ValueFormatters\ValueFormatter;
+use Wikibase\DataModel\Term\TermFallback;
 use Wikibase\Lib\Formatters\SnakFormatter;
 use Wikibase\Lib\LanguageNameLookupFactory;
 
@@ -141,7 +141,7 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 				$stubPageIdentity,
 				'en'
 			)
-			->willReturn( new EntitySchemaTerm( $langCode, $englishLabel ) );
+			->willReturn( new TermFallback( $langCode, $englishLabel, $langCode, null ) );
 		$fakeLinkHtml = '<a>English Label</a>';
 		$linkRenderer = $this->createMock( LinkRenderer::class );
 		$linkRenderer->expects( $this->once() )
@@ -189,7 +189,7 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 				$stubPageIdentity,
 				$requestLangCode
 			)
-			->willReturn( new EntitySchemaTerm( $langCode, $englishLabel ) );
+			->willReturn( new TermFallback( $requestLangCode, $englishLabel, $langCode, null ) );
 		$fakeLinkHtml = '<a>English Label</a>';
 		$linkRenderer = $this->createMock( LinkRenderer::class );
 		$linkRenderer->expects( $this->once() )
