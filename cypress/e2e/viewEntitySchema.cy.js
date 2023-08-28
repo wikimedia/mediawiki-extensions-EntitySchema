@@ -1,8 +1,8 @@
 import { SpecialNewEntitySchemaPage } from '../support/pageObjects/SpecialNewEntitySchemaPage';
-import { ViewSchemaPage } from '../support/pageObjects/ViewSchemaPage';
+import { ViewEntitySchemaPage } from '../support/pageObjects/ViewEntitySchemaPage';
 
 const specialNewEntitySchemaPage = new SpecialNewEntitySchemaPage();
-const viewSchemaPage = new ViewSchemaPage();
+const viewSchemaPage = new ViewEntitySchemaPage();
 
 describe( 'Schema Viewing Page', () => {
 	it( 'doesn\'t touch the whitespace inside the schema text', () => {

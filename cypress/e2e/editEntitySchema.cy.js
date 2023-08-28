@@ -1,11 +1,11 @@
 import { SpecialNewEntitySchemaPage } from '../support/pageObjects/SpecialNewEntitySchemaPage';
-import { ViewSchemaPage } from '../support/pageObjects/ViewSchemaPage';
-import { EditSchemaPage } from '../support/pageObjects/EditSchemaPage';
+import { ViewEntitySchemaPage } from '../support/pageObjects/ViewEntitySchemaPage';
+import { EditEntitySchemaPage } from '../support/pageObjects/EditEntitySchemaPage';
 import { LoginPage } from '../support/pageObjects/LoginPage';
 
 const specialNewEntitySchemaPage = new SpecialNewEntitySchemaPage();
-const viewSchemaPage = new ViewSchemaPage();
-const editSchemaPage = new EditSchemaPage();
+const viewSchemaPage = new ViewEntitySchemaPage();
+const editSchemaPage = new EditEntitySchemaPage();
 const loginPage = new LoginPage();
 
 describe( 'Schema Edit Page', () => {

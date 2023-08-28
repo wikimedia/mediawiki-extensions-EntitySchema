@@ -1,4 +1,4 @@
-export class ViewSchemaPage {
+export class ViewEntitySchemaPage {
 
 	open( entitySchemaId ) {
 		cy.visit( 'index.php?title=EntitySchema:' + entitySchemaId );

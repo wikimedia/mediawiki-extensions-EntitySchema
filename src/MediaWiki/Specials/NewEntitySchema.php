@@ -217,7 +217,7 @@ class NewEntitySchema extends SpecialPage {
 	private function addJavaScript(): void {
 		$output = $this->getOutput();
 		$output->addModules( [
-			'ext.EntitySchema.special.newSchema',
+			'ext.EntitySchema.special.newEntitySchema',
 		] );
 		$output->addJsConfigVars( [
 			'wgEntitySchemaSchemaTextMaxSizeBytes' =>

@@ -164,14 +164,14 @@
 	"ResourceModules": {
 		"ext.EntitySchema.view": {
 			"styles": [
-				"viewSchema.less"
+				"viewEntitySchema.less"
 			],
 			"localBasePath": "resources",
 			"remoteExtPath": "EntitySchema/resources"
 		},
-		"ext.EntitySchema.special.setSchemaLabelDescriptionAliases.edit": {
+		"ext.EntitySchema.special.setEntitySchemaLabelDescriptionAliases.edit": {
 			"scripts": [
-				"special.setSchemaLabelDescriptionAliases.edit.js"
+				"special.setEntitySchemaLabelDescriptionAliases.edit.js"
 			],
 			"dependencies": [
 				"oojs-ui-widgets",
@@ -180,9 +180,9 @@
 			"localBasePath": "resources",
 			"remoteExtPath": "EntitySchema/resources"
 		},
-		"ext.EntitySchema.special.newSchema": {
+		"ext.EntitySchema.special.newEntitySchema": {
 			"scripts": [
-				"special.newSchema.js"
+				"special.newEntitySchema.js"
 			],
 			"dependencies": [
 				"oojs-ui-widgets",
