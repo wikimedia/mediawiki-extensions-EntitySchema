@@ -1,0 +1,87 @@
+name: EntitySchema daily CI
+on:
+  schedule:
+    - cron: '42 5 * * *'
+
+env:
+  MEDIAWIKI_USER: admin
+  MEDIAWIKI_PASSWORD: shie3Ekutaiy5Giebuwi
+  MW_SERVER: http://127.0.0.1:8080
+  MW_SCRIPT_PATH: /mediawiki
+  LOG_DIR: ${{ github.workspace }}/logs
+  MW_LOG_DIR: ${{ github.workspace }}/logs
+  MW_BRANCH: master
+  DBTYPE: mysql
+  PHP_VERSION: 7.4
+  LANG: en
+  COMPOSER_HOME: ${{ github.workspace }}/.composer
+
+jobs:
+  daily-ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Set up MySQL
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        mysql version: '5.7'
+        mysql database: 'test_db_wiki'
+        mysql root password: 'root'
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ env.PHP_VERSION }}
+        extensions: pdo_sqlite, mysqlnd
+    - name: Cache Composer cache
+      uses: actions/cache@v3
+      with:
+        path: ${{ env.COMPOSER_HOME }}/cache
+        key: composer-cache-php${{ env.PHP_VERSION }}
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: "16"
+    - name: Install Dependencies
+      run: npm ci
+    - name: install.sh
+      run: |
+        bash ./build/ci-scripts/install.sh
+    - name: Apply WB settings
+      run: |
+        bash ./build/ci-scripts/mw-apply-wb-settings.sh
+    - name: Update DB
+      run: |
+        bash ./build/ci-scripts/update-db.sh
+    - name: Run Tests
+      run: |
+        bash ./build/ci-scripts/runTests.sh
+    - name: Send mail
+      if: ${{ failure() }}
+      uses: dawidd6/action-send-mail@v3.7.1
+      with:
+        server_address: smtp.gmail.com
+        server_port: 465
+        username: ${{secrets.MAIL_USERNAME}}
+        password: ${{secrets.MAIL_PASSWORD}}
+        subject: Daily Github Action job failed for EntitySchema
+        html_body: |
+          Job daily-ci failed!
+          The failed job can be found in <a href="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}">here</a>
+          <h3>Specifications of the failed job:</h3>
+          <ul>
+          <li>php version: ${{ env.PHP_VERSION }}</li>
+          <li>Database type: ${{ env.DBTYPE }}</li>
+          <li>MediaWiki language: ${{ env.LANG }}</li>
+          <li>Wikibase type: both</li>
+          <li>MediaWiki core branch: ${{ env.MW_BRANCH }}</li>
+          </ul>
+          CI specifications can be found in <a href="https://github.com/${{ github.repository }}/actions/workflows/dailyCI.yml">here</a>
+        to: wikidata-ci-status@wikimedia.de
+        from: EntitySchema Github Action CI
+    - name: Archive logs
+      if: '!cancelled()'
+      uses: actions/upload-artifact@v3
+      with:
+        name: daily-CI-logs
+        path: ${{ env.LOG_DIR }}
