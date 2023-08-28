@@ -14,6 +14,7 @@ use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
 use ValueFormatters\FormatterOptions;
 use Wikibase\DataAccess\DatabaseEntitySource;
+use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikibase\Repo\Rdf\ValueSnakRdfBuilder;
 use Wikibase\Repo\ValidatorBuilders;
@@ -29,6 +30,7 @@ class WikibaseDataTypesHandler {
 	public Config $settings;
 	private EntitySchemaExistsValidator $entitySchemaExistsValidator;
 	private ValidatorBuilders $validatorBuilders;
+	private LanguageNameLookupFactory $languageNameLookupFactory;
 	private DatabaseEntitySource $localEntitySource;
 	private TitleFactory $titleFactory;
 	private LabelLookup $labelLookup;
@@ -38,6 +40,7 @@ class WikibaseDataTypesHandler {
 		Config $settings,
 		TitleFactory $titleFactory,
 		ValidatorBuilders $validatorBuilders,
+		LanguageNameLookupFactory $languageNameLookupFactory,
 		DatabaseEntitySource $localEntitySource,
 		EntitySchemaExistsValidator $entitySchemaExistsValidator,
 		LabelLookup $labelLookup
@@ -46,6 +49,7 @@ class WikibaseDataTypesHandler {
 		$this->settings = $settings;
 		$this->entitySchemaExistsValidator = $entitySchemaExistsValidator;
 		$this->validatorBuilders = $validatorBuilders;
+		$this->languageNameLookupFactory = $languageNameLookupFactory;
 		$this->localEntitySource = $localEntitySource;
 		$this->titleFactory = $titleFactory;
 		$this->labelLookup = $labelLookup;
@@ -63,7 +67,8 @@ class WikibaseDataTypesHandler {
 					$options,
 					$this->linkRenderer,
 					$this->labelLookup,
-					$this->titleFactory
+					$this->titleFactory,
+					$this->languageNameLookupFactory
 				);
 			},
 			'validator-factory-callback' => function (): array {

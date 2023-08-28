@@ -17,6 +17,7 @@ use MediaWikiUnitTestCase;
 use ValueFormatters\FormatterOptions;
 use ValueValidators\Result;
 use Wikibase\DataAccess\DatabaseEntitySource;
+use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikibase\Repo\ValidatorBuilders;
 use Wikibase\Repo\Validators\CompositeValidator;
@@ -42,6 +43,7 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 			$settings,
 			$this->createStub( TitleFactory::class ),
 			$stubValidatorBuilders,
+			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
 			$this->createStub( LabelLookup::class )
@@ -80,6 +82,7 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 			$settings,
 			$this->createStub( TitleFactory::class ),
 			$stubValidatorBuilders,
+			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
 			$this->createStub( LabelLookup::class )
@@ -120,6 +123,7 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 			$settings,
 			$this->createStub( TitleFactory::class ),
 			$validatorBuilders,
+			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
 			$this->createStub( LabelLookup::class )

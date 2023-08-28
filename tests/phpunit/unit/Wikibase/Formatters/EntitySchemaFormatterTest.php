@@ -16,6 +16,7 @@ use MediaWikiUnitTestCase;
 use ValueFormatters\FormatterOptions;
 use ValueFormatters\ValueFormatter;
 use Wikibase\Lib\Formatters\SnakFormatter;
+use Wikibase\Lib\LanguageNameLookupFactory;
 
 /**
  * @covers \EntitySchema\Wikibase\Formatters\EntitySchemaFormatter
@@ -53,7 +54,17 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 		$mockTitleFactory = $this->createMock( TitleFactory::class );
 		$mockTitleFactory->expects( $this->never() )
 			->method( $this->anything() );
-		$sut = new EntitySchemaFormatter( $format, $options, $linkRenderer, $mockLabelLookup, $mockTitleFactory );
+		$languageNameLookupFactory = $this->createMock( LanguageNameLookupFactory::class );
+		$languageNameLookupFactory->expects( $this->never() )
+			->method( $this->anything() );
+		$sut = new EntitySchemaFormatter(
+			$format,
+			$options,
+			$linkRenderer,
+			$mockLabelLookup,
+			$mockTitleFactory,
+			$languageNameLookupFactory
+		);
 
 		$this->assertSame( 'E123', $sut->format( new StringValue( 'E123' ) ) );
 	}
@@ -77,6 +88,7 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 			->method( 'newFromText' )
 			->with( $schemaId, NS_ENTITYSCHEMA_JSON )
 			->willReturn( $stubPageIdentity );
+		$stubLanguageNameLookupFactory = $this->createStub( LanguageNameLookupFactory::class );
 		$mockLabelLookup = $this->createMock( LabelLookup::class );
 		$mockLabelLookup->expects( $this->once() )
 			->method( 'getLabelForTitle' )
@@ -95,7 +107,14 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 			)
 			->willReturn( $fakeLinkHtml );
 
-		$sut = new EntitySchemaFormatter( $format, $options, $linkRenderer, $mockLabelLookup, $mockTitleFactory );
+		$sut = new EntitySchemaFormatter(
+			$format,
+			$options,
+			$linkRenderer,
+			$mockLabelLookup,
+			$mockTitleFactory,
+			$stubLanguageNameLookupFactory
+		);
 
 		$this->assertSame( $fakeLinkHtml, $sut->format( new StringValue( $schemaId ) ) );
 	}
@@ -114,6 +133,7 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 			->method( 'newFromText' )
 			->with( $schemaId, NS_ENTITYSCHEMA_JSON )
 			->willReturn( $stubPageIdentity );
+		$stubLanguageNameLookupFactory = $this->createStub( LanguageNameLookupFactory::class );
 		$mockLabelLookup = $this->createMock( LabelLookup::class );
 		$mockLabelLookup->expects( $this->once() )
 			->method( 'getLabelForTitle' )
@@ -134,9 +154,66 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 			)
 			->willReturn( $fakeLinkHtml );
 
-		$sut = new EntitySchemaFormatter( $format, $options, $linkRenderer, $mockLabelLookup, $mockTitleFactory );
+		$sut = new EntitySchemaFormatter(
+			$format,
+			$options,
+			$linkRenderer,
+			$mockLabelLookup,
+			$mockTitleFactory,
+			$stubLanguageNameLookupFactory
+		);
 
 		$this->assertSame( $fakeLinkHtml, $sut->format( new StringValue( $schemaId ) ) );
+	}
+
+	/**
+	 * @dataProvider provideHtmlCases
+	 */
+	public function testHtmlWithFallbackLabel( string $format ): void {
+		$schemaId = 'E1234';
+		$englishLabel = 'English Label';
+		$langCode = 'en';
+		$requestLangCode = 'de';
+		$options = new FormatterOptions( [ ValueFormatter::OPT_LANG => $requestLangCode ] );
+		$stubPageIdentity = $this->createStub( Title::class );
+		$mockTitleFactory = $this->createMock( TitleFactory::class );
+		$mockTitleFactory->expects( $this->once() )
+			->method( 'newFromText' )
+			->with( $schemaId, NS_ENTITYSCHEMA_JSON )
+			->willReturn( $stubPageIdentity );
+		$stubLanguageNameLookupFactory = $this->createStub( LanguageNameLookupFactory::class );
+		$mockLabelLookup = $this->createMock( LabelLookup::class );
+		$mockLabelLookup->expects( $this->once() )
+			->method( 'getLabelForTitle' )
+			->with(
+				$stubPageIdentity,
+				$requestLangCode
+			)
+			->willReturn( new EntitySchemaTerm( $langCode, $englishLabel ) );
+		$fakeLinkHtml = '<a>English Label</a>';
+		$linkRenderer = $this->createMock( LinkRenderer::class );
+		$linkRenderer->expects( $this->once() )
+			->method( 'makePreloadedLink' )
+			->with(
+				$this->callback( $this->getCallbackToAssertLinkTarget( $schemaId ) ),
+				$englishLabel,
+				'',
+				[ 'lang' => $langCode ]
+			)
+			->willReturn( $fakeLinkHtml );
+
+		$sut = new EntitySchemaFormatter(
+			$format,
+			$options,
+			$linkRenderer,
+			$mockLabelLookup,
+			$mockTitleFactory,
+			$stubLanguageNameLookupFactory
+		);
+
+		// expect that LanguageFallbackIndicator adds some element after the main HTML,
+		// without asserting its exact contents
+		$this->assertStringStartsWith( $fakeLinkHtml . '<', $sut->format( new StringValue( $schemaId ) ) );
 	}
 
 	private function getCallbackToAssertLinkTarget( string $expectedText ): callable {

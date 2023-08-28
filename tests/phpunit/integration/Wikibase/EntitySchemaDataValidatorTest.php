@@ -15,6 +15,7 @@ use MediaWikiIntegrationTestCase;
 use ValueValidators\Result;
 use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -44,6 +45,7 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 			$settings,
 			$this->createStub( TitleFactory::class ),
 			$validatorBuilders,
+			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$existsValidator,
 			$this->createStub( LabelLookup::class )
@@ -74,6 +76,7 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 			$settings,
 			$this->createStub( TitleFactory::class ),
 			$validatorBuilders,
+			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$existsValidator,
 			$this->createStub( LabelLookup::class )

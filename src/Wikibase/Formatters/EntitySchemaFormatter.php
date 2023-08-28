@@ -12,8 +12,11 @@ use MediaWiki\Title\TitleFactory;
 use TitleValue;
 use ValueFormatters\FormatterOptions;
 use ValueFormatters\ValueFormatter;
+use Wikibase\DataModel\Term\TermFallback;
 use Wikibase\Lib\Formatters\SnakFormat;
 use Wikibase\Lib\Formatters\SnakFormatter;
+use Wikibase\Lib\LanguageFallbackIndicator;
+use Wikibase\Lib\LanguageNameLookupFactory;
 
 /**
  * @license GPL-2.0-or-later
@@ -27,19 +30,22 @@ class EntitySchemaFormatter implements ValueFormatter {
 
 	private FormatterOptions $options;
 	private TitleFactory $titleFactory;
+	private LanguageNameLookupFactory $languageNameLookupFactory;
 
 	public function __construct(
 		string $format,
 		FormatterOptions $options,
 		LinkRenderer $linkRenderer,
 		LabelLookup $labelLookup,
-		TitleFactory $titleFactory
+		TitleFactory $titleFactory,
+		LanguageNameLookupFactory $languageNameLookupFactory
 	) {
 		$this->format = $format;
 		$this->linkRenderer = $linkRenderer;
 		$this->labelLookup = $labelLookup;
 		$this->options = $options;
 		$this->titleFactory = $titleFactory;
+		$this->languageNameLookupFactory = $languageNameLookupFactory;
 	}
 
 	/**
@@ -88,8 +94,17 @@ class EntitySchemaFormatter implements ValueFormatter {
 					'lang' => $labelTerm->getLanguageCode(),
 				]
 			);
+			$languageFallbackIndicator = new LanguageFallbackIndicator(
+				$this->languageNameLookupFactory->getForLanguageCode( $requestedLanguageCode )
+			);
+			$fallbackHtml = $languageFallbackIndicator->getHtml( new TermFallback(
+				$requestedLanguageCode,
+				$labelTerm->getText(),
+				$labelTerm->getLanguageCode(),
+				null
+			) );
 
-			return $linkHtml;
+			return $linkHtml . $fallbackHtml;
 		}
 
 		return $this->linkRenderer->makePreloadedLink(

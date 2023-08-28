@@ -51,6 +51,7 @@
 				"MainConfig",
 				"TitleFactory",
 				"WikibaseRepo.DefaultValidatorBuilders",
+				"WikibaseRepo.LanguageNameLookupFactory",
 				"WikibaseRepo.LocalEntitySource",
 				"EntitySchema.EntitySchemaExistsValidator",
 				"EntitySchema.LabelLookup"
