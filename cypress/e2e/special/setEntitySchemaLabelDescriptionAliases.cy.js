@@ -1,9 +1,9 @@
 import { SpecialNewEntitySchemaPage } from '../../support/pageObjects/SpecialNewEntitySchemaPage';
-import { ViewSchemaPage } from '../../support/pageObjects/ViewSchemaPage';
+import { ViewEntitySchemaPage } from '../../support/pageObjects/ViewEntitySchemaPage';
 import { SpecialSetLabelDescriptionAliasesPage } from '../../support/pageObjects/SpecialSetLabelDescriptionAliasesPage';
 
 const specialNewEntitySchemaPage = new SpecialNewEntitySchemaPage();
-const viewSchemaPage = new ViewSchemaPage();
+const viewSchemaPage = new ViewEntitySchemaPage();
 const specialSetLabelDescriptionAliasesPage = new SpecialSetLabelDescriptionAliasesPage();
 
 describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', function () {

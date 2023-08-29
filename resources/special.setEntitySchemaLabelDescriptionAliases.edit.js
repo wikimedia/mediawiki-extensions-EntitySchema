@@ -1,5 +1,5 @@
 /*!
- * JavaScript for the edit form on Special:SetSchemaLabelDescriptionAliases
+ * JavaScript for the edit form on Special:SetEntitySchemaLabelDescriptionAliases
  */
 ( function () {
 	'use strict';
@@ -13,11 +13,9 @@
 
 	$( function () {
 		const schemaNameBadgeMaxSizeChars = mw.config.get( 'wgEntitySchemaNameBadgeMaxSizeChars' ),
-			schemaSchemaTextMaxSizeBytes = mw.config.get( 'wgEntitySchemaSchemaTextMaxSizeBytes' ),
-			labelInput = OO.ui.infuse( $( '#entityschema-newschema-label' ) ),
-			descriptionInput = OO.ui.infuse( $( '#entityschema-newschema-description' ) ),
-			aliasInput = OO.ui.infuse( $( '#entityschema-newschema-aliases' ) ),
-			schemaTextInput = OO.ui.infuse( $( '#entityschema-newschema-schema-text' ) );
+			labelInput = OO.ui.infuse( $( '#entityschema-title-label' ) ),
+			descriptionInput = OO.ui.infuse( $( '#entityschema-heading-description' ) ),
+			aliasInput = OO.ui.infuse( $( '#entityschema-heading-aliases' ) );
 
 		mw.widgets.visibleCodePointLimit( labelInput, schemaNameBadgeMaxSizeChars );
 		mw.widgets.visibleCodePointLimit( descriptionInput, schemaNameBadgeMaxSizeChars );
@@ -26,6 +24,5 @@
 			schemaNameBadgeMaxSizeChars,
 			aliasesLengthString,
 		);
-		mw.widgets.visibleByteLimit( schemaTextInput, schemaSchemaTextMaxSizeBytes );
 	} );
 }() );

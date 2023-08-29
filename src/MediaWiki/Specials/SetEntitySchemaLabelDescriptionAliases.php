@@ -179,7 +179,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		}
 
 		$output->addModules( [
-			'ext.EntitySchema.special.setSchemaLabelDescriptionAliases.edit',
+			'ext.EntitySchema.special.setEntitySchemaLabelDescriptionAliases.edit',
 		] );
 		$output->addJsConfigVars(
 			'wgEntitySchemaNameBadgeMaxSizeChars',
