@@ -5,11 +5,14 @@
 			"Hedda",
 			"MuratTheTurkish",
 			"Rapsar",
-			"SaldırganSincap"
+			"SaldırganSincap",
+			"Joseph"
 		]
 	},
 	"entityschema-desc": "Wikibase oluşumları için şemaları saklayın ve tartışın",
 	"special-newschema": "Yeni bir EntitySchema oluştur",
+	"nstab-entityschema": "VarlıkTasarısı",
+	"tooltip-ca-nstab-entityschema": "VarlıkTasarısı tanımı",
 	"entityschema-newschema-label": "Etiket:",
 	"entityschema-newschema-description": "Açıklama:",
 	"entityschema-newschema-aliases": "Ayrılan diğer adlar:",
