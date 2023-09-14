@@ -1,0 +1,39 @@
+{
+	"@metadata": {
+		"authors": [
+			"Njardarlogar"
+		]
+	},
+	"nstab-entityschema": "Einingsskjema",
+	"tooltip-ca-nstab-entityschema": "Einingsskjemadefinisjon",
+	"entityschema-newschema-label": "Merkelapp:",
+	"entityschema-newschema-description": "Skildring:",
+	"entityschema-newschema-aliases": "Andre namn, fråskilde av vertikalstrekar:",
+	"entityschema-summary-generated": "Samandrag (kjem i tillegg til eit automatisk laga samandrag):",
+	"entityschema-label-empty": "Ingen merkelapp er definert",
+	"entityschema-namebadge-header-language-code": "språkkode",
+	"entityschema-namebadge-header-label": "merkelapp",
+	"entityschema-namebadge-header-description": "skildring",
+	"entityschema-namebadge-header-aliases": "tilleggsnamn",
+	"entityschema-namebadge-header-edit": "endre",
+	"entityschema-diff-label": "Merkelappar",
+	"entityschema-diff-description": "Skildringar",
+	"entityschema-diff-aliases": "Tilleggsnamn",
+	"entityschema-diff-schema": "Skjema",
+	"entityschema-edit": "endre",
+	"entityschema-add-schema-text": "legg til skjematekst",
+	"entityschema-check-entities": "jamfør einingar med dette skjemaet",
+	"entityschema-summary-newschema-nolabel": "Oppretta eit nytt skjema",
+	"entityschema-summary-update": "Oppdaterte skjema",
+	"entityschema-summary-update-schema-text": "Oppdaterte skjematekst",
+	"entityschema-summary-update-schema-text-user": "Oppdaterte skjematekst: $1",
+	"entityschema-summary-update-schema-namebadge": "Oppdaterte merkelapp, skildring eller tilleggsnamn på $1",
+	"entityschema-summary-update-schema-label": "Oppdaterte skjemamerkelapp på $1",
+	"entityschema-summary-update-schema-description": "Oppdaterte skjemaskildring på $1",
+	"entityschema-summary-update-schema-aliases": "Oppdaterte skjematilleggsnamn på $1",
+	"entityschema-special-language-inputlabel": "Språkkode",
+	"entityschema-special-id-submit": "Set merkelapp, skildring og andre namn",
+	"entityschema-special-label": "Merkelapp:",
+	"entityschema-special-description": "Skildring:",
+	"entityschema-special-aliases": "Andre namn, fråskilde av vertikalstrekar:"
+}
