@@ -92,10 +92,13 @@
 		},
 		"LoadExtensionSchemaUpdates": {
 			"class": "\\EntitySchema\\MediaWiki\\Hooks\\LoadExtensionSchemaUpdatesHookHandler"
+		},
+		"EntitySchemaHooks": {
+			"class": "EntitySchema\\MediaWiki\\EntitySchemaHooks"
 		}
 	},
 	"Hooks": {
-		"SkinTemplateNavigation::Universal": "EntitySchema\\MediaWiki\\EntitySchemaHooks::onSkinTemplateNavigationUniversal",
+		"SkinTemplateNavigation::Universal": "EntitySchemaHooks",
 		"LoadExtensionSchemaUpdates": "LoadExtensionSchemaUpdates",
 		"ExtensionTypes": "ExtensionTypes",
 		"BeforeDisplayNoArticleText": "BeforeDisplayNoArticleText",
