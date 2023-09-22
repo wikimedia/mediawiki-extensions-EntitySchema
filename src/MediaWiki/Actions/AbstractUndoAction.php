@@ -80,8 +80,11 @@ abstract class AbstractUndoAction extends ViewAction {
 	 * @param Status $status The status to report.
 	 */
 	protected function showUndoErrorPage( Status $status ): void {
-		$this->getOutput()->prepareErrorPage(
-			$this->msg( 'entityschema-undo-heading-failed' ),
+		$this->getOutput()->prepareErrorPage();
+		$this->getOutput()->setPageTitleMsg(
+			$this->msg( 'entityschema-undo-heading-failed' )
+		);
+		$this->getOutput()->setHTMLTitle(
 			$this->msg( 'errorpagetitle' )
 		);
 

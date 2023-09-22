@@ -69,8 +69,11 @@ abstract class AbstractRestoreAction extends EditAction {
 	 * @param Status $status The status to report.
 	 */
 	protected function showRestoreErrorPage( Status $status ): void {
-		$this->getOutput()->prepareErrorPage(
-			$this->msg( 'entityschema-restore-heading-failed' ),
+		$this->getOutput()->prepareErrorPage();
+		$this->getOutput()->setPageTitleMsg(
+			$this->msg( 'entityschema-restore-heading-failed' )
+		);
+		$this->getOutput()->setHTMLTitle(
 			$this->msg( 'errorpagetitle' )
 		);
 
