@@ -11,6 +11,7 @@ use HttpError;
 use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use Message;
 use SpecialPage;
 
 /**
@@ -48,8 +49,8 @@ class EntitySchemaText extends SpecialPage {
 		);
 	}
 
-	public function getDescription(): string {
-		return $this->msg( 'special-schematext' )->text();
+	public function getDescription(): Message {
+		return $this->msg( 'special-schematext' );
 	}
 
 	protected function getGroupName(): string {

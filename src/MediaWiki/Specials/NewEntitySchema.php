@@ -13,6 +13,7 @@ use Html;
 use HTMLForm;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use Message;
 use OutputPage;
 use PermissionsError;
 use SpecialPage;
@@ -111,8 +112,8 @@ class NewEntitySchema extends SpecialPage {
 		return Status::newGood( $title->getFullURL() );
 	}
 
-	public function getDescription(): string {
-		return $this->msg( 'special-newschema' )->text();
+	public function getDescription(): Message {
+		return $this->msg( 'special-newschema' );
 	}
 
 	protected function getGroupName(): string {

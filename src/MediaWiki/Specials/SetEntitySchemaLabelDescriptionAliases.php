@@ -19,6 +19,7 @@ use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
+use Message;
 use OutputPage;
 use PermissionsError;
 use RuntimeException;
@@ -117,8 +118,8 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		return Status::newGood( $title->getFullURL() );
 	}
 
-	public function getDescription(): string {
-		return $this->msg( 'entityschema-special-setlabeldescriptionaliases' )->text();
+	public function getDescription(): Message {
+		return $this->msg( 'entityschema-special-setlabeldescriptionaliases' );
 	}
 
 	private function getIdFromSubpageOrRequest( string $subpage, WebRequest $request ): ?string {
