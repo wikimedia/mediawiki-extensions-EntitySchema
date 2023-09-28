@@ -3,9 +3,7 @@
 namespace EntitySchema\MediaWiki\Specials;
 
 use EntitySchema\DataAccess\EditConflict;
-use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
-use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\SchemaConverter\NameBadge;
@@ -70,9 +68,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$this->displaySchemaLanguageSelectionForm( $id, $language );
 	}
 
-	public function submitEditFormCallback( $data ) {
-		$updaterFactory = new MediaWikiPageUpdaterFactory( $this->getContext()->getUser() );
-		$watchListUpdater = new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON );
+	public function submitEditFormCallback( array $data ): Status {
 		try {
 			$id = new SchemaId( $data[self::FIELD_ID] );
 		} catch ( InvalidArgumentException $e ) {
@@ -81,12 +77,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id->getId() );
 		$this->checkBlocked( $title );
 		$aliases = array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) );
-		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
-			$updaterFactory,
-			$watchListUpdater,
-			MediaWikiServices::getInstance()->getRevisionLookup(),
-			MediaWikiServices::getInstance()->getLanguageFactory()
-		);
+		$schemaUpdater = MediaWikiRevisionSchemaUpdater::newFromContext( $this->getContext() );
 
 		try {
 			$schemaUpdater->updateSchemaNameBadge(
