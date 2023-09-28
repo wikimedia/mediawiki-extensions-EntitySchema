@@ -11,6 +11,7 @@ use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use Language;
+use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Request\FauxRequest;
 use MediaWikiIntegrationTestCase;
@@ -25,17 +26,26 @@ use RequestContext;
 class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testOneRestoreLink(): void {
+		$context = new RequestContext();
+		$context->setRequest( new FauxRequest() );
+
 		$updaterFactory = new MediaWikiPageUpdaterFactory( $this->getTestUser()->getUser() );
 		$watchListUpdater = $this->createMock( WatchlistUpdater::class );
 		$language = $this->createConfiguredMock( Language::class,
 			[ 'truncateForVisual' => '' ] );
 		$languageFactory = $this->createConfiguredMock( LanguageFactory::class,
 			[ 'getLanguage' => $language ] );
+		$hookContainer = $this->createConfiguredMock( HookContainer::class,
+			[ 'run' => true ] );
+		$titleFactory = $this->getServiceContainer()->getTitleFactory();
 		$schemaInserter = new MediaWikiRevisionEntitySchemaInserter(
 			$updaterFactory,
 			$watchListUpdater,
 			$this->createConfiguredMock( IdGenerator::class, [ 'getNewId' => 1 ] ),
-			$languageFactory
+			$context,
+			$languageFactory,
+			$hookContainer,
+			$titleFactory
 		);
 		$schemaId = $schemaInserter->insertSchema( 'en' );
 
@@ -43,18 +53,19 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$updaterFactory,
 			$watchListUpdater,
+			$context,
 			$revisionLookup,
-			$languageFactory
+			$languageFactory,
+			$hookContainer,
+			$titleFactory
 		);
 		$schemaTitle = $this->getServiceContainer()
 			->getTitleFactory()
 			->makeTitleSafe( NS_ENTITYSCHEMA_JSON, $schemaId->getId() );
+		$context->setTitle( $schemaTitle );
 		$baseRevId = $revisionLookup->getKnownCurrentRevision( $schemaTitle )->getId();
 		$schemaUpdater->updateSchemaText( $schemaId, 'a', $baseRevId );
 
-		$context = new RequestContext();
-		$context->setRequest( new FauxRequest() );
-		$context->setTitle( $schemaTitle );
 		$action = $this->getServiceContainer()
 			->getActionFactory()
 			->getAction(

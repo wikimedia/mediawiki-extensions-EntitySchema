@@ -5,14 +5,11 @@ declare( strict_types = 1 );
 namespace EntitySchema\MediaWiki\Actions;
 
 use CommentStoreComment;
-use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
-use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Converter\PersistenceEntitySchemaData;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use RuntimeException;
@@ -102,12 +99,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		CommentStoreComment $summary
 	): Status {
 
-		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
-			new MediaWikiPageUpdaterFactory( $this->getUser() ),
-			new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON ),
-			MediaWikiServices::getInstance()->getRevisionLookup(),
-			MediaWikiServices::getInstance()->getLanguageFactory()
-		);
+		$schemaUpdater = MediaWikiRevisionEntitySchemaUpdater::newFromContext( $this->getContext() );
 
 		try {
 			$schemaUpdater->overwriteWholeSchema(

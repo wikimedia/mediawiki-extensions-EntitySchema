@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use CommentStoreComment;
+use Content;
 use DomainException;
 use EntitySchema\DataAccess\EditConflict;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
@@ -13,21 +14,30 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\NameBadge;
+use IContextSource;
 use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\PageIdentityValue;
+use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Storage\PageUpdater;
-use PHPUnit\Framework\TestCase;
+use MediaWikiIntegrationTestCase;
+use RequestContext;
 use RuntimeException;
+use Status;
+use User;
 
 /**
  * @covers \EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater
  * @covers \EntitySchema\DataAccess\EntitySchemaUpdateGuard
+ *
+ * @group Database
+ *
  * @license GPL-2.0-or-later
  */
-class MediaWikiRevisionEntitySchemaUpdaterTest extends TestCase {
+class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestCase {
 
 	private ?RevisionRecord $baseRevision;
 	private ?RevisionRecord $parentRevision;
@@ -118,8 +128,64 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends TestCase {
 		return new MediaWikiRevisionEntitySchemaUpdater(
 			$this->getPageUpdaterFactory( $pageUpdater ),
 			$this->getMockWatchlistUpdater(),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
+		);
+	}
+
+	private function newUpdaterWithEditFilter(): MediaWikiRevisionEntitySchemaUpdater {
+		$existingContent = new EntitySchemaContent( '{}' );
+		$this->parentRevision = $this->createMockRevisionRecord( $existingContent );
+
+		$originalRequest = new FauxRequest();
+		$originalUser = $this->getTestUser()->getUser();
+		$originalContext = new RequestContext();
+		$originalContext->setRequest( $originalRequest );
+		$originalContext->setUser( $originalUser );
+		$pageIdentity = new PageIdentityValue( 1, NS_ENTITYSCHEMA_JSON, 'E123', false );
+		$this->setTemporaryHook(
+			'EditFilterMergedContent',
+			function (
+				IContextSource $context,
+				Content $content,
+				Status $status,
+				string $summary,
+				User $user,
+				bool $minoredit
+			) use ( $originalRequest, $originalUser, $pageIdentity ) {
+				$this->assertSame( $originalRequest, $context->getRequest() );
+				$this->assertSame( $originalUser, $user );
+				$this->assertTrue( $context->getTitle()->isSamePageAs( $pageIdentity ) );
+				$this->assertInstanceOf( EntitySchemaContent::class, $content );
+				$this->assertStringStartsWith( '/* entityschema-summary-', $summary );
+				$this->assertFalse( $minoredit );
+
+				$status->fatal( __CLASS__ );
+				return false;
+			}
+		);
+
+		$pageUpdater = $this->createMock( PageUpdater::class );
+		$pageUpdater->method( 'grabParentRevision' )
+			->willReturn( $this->parentRevision );
+		$pageUpdater->method( 'getPage' )
+			->willReturn( $pageIdentity );
+		$pageUpdater->expects( $this->never() )
+			->method( 'saveRevision' );
+
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
+
+		return new MediaWikiRevisionEntitySchemaUpdater(
+			$this->getPageUpdaterFactory( $pageUpdater ),
+			$this->getMockWatchlistUpdater(),
+			$originalContext,
+			$mockRevLookup,
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 	}
 
@@ -132,8 +198,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$this->expectException( RuntimeException::class );
@@ -182,8 +251,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( $exceptionMessage );
@@ -229,8 +301,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 		$schmeaUpdater->overwriteWholeSchema(
 			new EntitySchemaId( 'E1' ),
@@ -256,6 +331,23 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends TestCase {
 			'lalalala',
 			1,
 			CommentStoreComment::newUnsavedComment( '' )
+		);
+	}
+
+	public function testOverwriteWholeSchema_editFilterFails() {
+		$schmeaUpdater = $this->newUpdaterWithEditFilter();
+
+		$this->expectException( RuntimeException::class );
+		$schmeaUpdater->overwriteWholeSchema(
+			new EntitySchemaId( 'E1' ),
+			[],
+			[],
+			[],
+			'lalalala',
+			1,
+			CommentStoreComment::newUnsavedComment(
+				'/* ' . MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_RESTORE . ' */'
+			)
 		);
 	}
 
@@ -287,8 +379,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$this->expectException( InvalidArgumentException::class );
@@ -320,8 +415,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$this->expectException( DomainException::class );
@@ -350,8 +448,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$this->expectException( EditConflict::class );
@@ -394,8 +495,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends TestCase {
 		$schmeaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$schmeaUpdater->updateSchemaText(
@@ -453,8 +557,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends TestCase {
 		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 		$schemaUpdater->updateSchemaText(
 			new EntitySchemaId( $id ),
@@ -544,8 +651,11 @@ SHEXC;
 		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 		$schemaUpdater->updateSchemaText(
 			new EntitySchemaId( $id ),
@@ -559,6 +669,17 @@ SHEXC;
 
 		$this->expectException( RuntimeException::class );
 		$this->expectExceptionMessage( 'The revision could not be saved' );
+		$schmeaUpdater->updateSchemaText(
+			new EntitySchemaId( 'E1' ),
+			'qwerty',
+			1
+		);
+	}
+
+	public function testUpdateSchemaText_editFilterFails() {
+		$schmeaUpdater = $this->newUpdaterWithEditFilter();
+
+		$this->expectException( RuntimeException::class );
 		$schmeaUpdater->updateSchemaText(
 			new EntitySchemaId( 'E1' ),
 			'qwerty',
@@ -595,8 +716,11 @@ SHEXC;
 		$schmeaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$schmeaUpdater->updateSchemaText(
@@ -624,8 +748,11 @@ SHEXC;
 		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$schemaUpdater->updateSchemaText(
@@ -666,8 +793,11 @@ SHEXC;
 		$schmeaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$schmeaUpdater->updateSchemaNameBadge(
@@ -729,8 +859,11 @@ SHEXC;
 		$schmeaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$schmeaUpdater->updateSchemaNameBadge(
@@ -791,8 +924,11 @@ SHEXC;
 		$writer = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$writer->updateSchemaNameBadge(
@@ -912,8 +1048,11 @@ SHEXC;
 		$schmeaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$this->expectException( EditConflict::class );
@@ -970,8 +1109,11 @@ SHEXC;
 		$updater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$updater->updateSchemaNameBadge(
@@ -1032,8 +1174,11 @@ SHEXC;
 		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 		$schemaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
@@ -1094,8 +1239,11 @@ SHEXC;
 		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 		$schemaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
@@ -1155,8 +1303,11 @@ SHEXC;
 		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchEditedSchema' ),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 		$schemaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
@@ -1173,6 +1324,20 @@ SHEXC;
 
 		$this->expectException( RuntimeException::class );
 		$this->expectExceptionMessage( 'The revision could not be saved' );
+		$schmeaUpdater->updateSchemaNameBadge(
+			new EntitySchemaId( 'E1' ),
+			'en',
+			'test label',
+			'test description',
+			[ 'test alias' ],
+			1
+		);
+	}
+
+	public function testUpdateSchemaNameBadge_editFilterFails() {
+		$schmeaUpdater = $this->newUpdaterWithEditFilter();
+
+		$this->expectException( RuntimeException::class );
 		$schmeaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( 'E1' ),
 			'en',
@@ -1200,8 +1365,11 @@ SHEXC;
 		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater(),
+			new RequestContext(),
 			$mockRevLookup,
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			$this->getServiceContainer()->getLanguageFactory(),
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$schemaUpdater->updateSchemaNameBadge(
