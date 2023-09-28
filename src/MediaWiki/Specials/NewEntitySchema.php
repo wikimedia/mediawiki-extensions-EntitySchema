@@ -84,10 +84,14 @@ class NewEntitySchema extends SpecialPage {
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $this->getUser() );
 
+		$services = MediaWikiServices::getInstance();
 		$schemaInserter = new MediaWikiRevisionSchemaInserter(
 			$pageUpdaterFactory,
 			new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON ),
-			$idGenerator
+			$idGenerator,
+			$this->getContext(),
+			$services->getHookContainer(),
+			$services->getTitleFactory()
 		);
 		$newId = $schemaInserter->insertSchema(
 			$data[self::FIELD_LANGUAGE],

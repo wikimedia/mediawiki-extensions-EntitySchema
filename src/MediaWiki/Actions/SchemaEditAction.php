@@ -3,9 +3,7 @@
 namespace EntitySchema\MediaWiki\Actions;
 
 use EntitySchema\DataAccess\EditConflict;
-use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
-use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
@@ -108,14 +106,8 @@ class SchemaEditAction extends FormAction {
 			return $output->wrapWikiMsg( "<div id='mw-missingsummary'>\n$1\n</div>",
 				[ 'missingsummary', $this->msg( $this->submitMsgKey )->text() ] );
 		}
-		$updaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$id = new SchemaId( $this->getTitle()->getText() );
-		$watchListUpdater = new WatchlistUpdater( $user, NS_ENTITYSCHEMA_JSON );
-		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
-			$updaterFactory,
-			$watchListUpdater,
-			MediaWikiServices::getInstance()->getRevisionLookup()
-		);
+		$schemaUpdater = MediaWikiRevisionSchemaUpdater::newFromContext( $this->getContext() );
 
 		try {
 			$schemaUpdater->updateSchemaText(

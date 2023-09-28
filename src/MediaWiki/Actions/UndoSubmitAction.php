@@ -3,9 +3,7 @@
 namespace EntitySchema\MediaWiki\Actions;
 
 use CommentStoreComment;
-use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaUpdater;
-use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\SchemaId;
 use EntitySchema\Services\SchemaConverter\FullArraySchemaData;
 use MediaWiki\MediaWikiServices;
@@ -91,12 +89,8 @@ class UndoSubmitAction extends AbstractUndoAction {
 		return $this->storePatchedSchema( ...$patchStatus->getValue() );
 	}
 
-	private function storePatchedSchema( FullArraySchemaData $patchedSchema, $baseRevId ): Status {
-		$schemaUpdater = new MediaWikiRevisionSchemaUpdater(
-			new MediaWikiPageUpdaterFactory( $this->getUser() ),
-			new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON ),
-			MediaWikiServices::getInstance()->getRevisionLookup()
-		);
+	private function storePatchedSchema( FullArraySchemaData $patchedSchema, int $baseRevId ): Status {
+		$schemaUpdater = MediaWikiRevisionSchemaUpdater::newFromContext( $this->getContext() );
 
 		$summary = $this->createSummaryCommentForUndoRev(
 			$this->getContext()->getRequest()->getText( 'wpSummary' ),

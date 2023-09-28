@@ -3,17 +3,27 @@
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use CommentStoreComment;
+use Content;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use FauxRequest;
+use IContextSource;
+use MediaWiki\HookContainer\HookContainer;
+use MediaWiki\Page\PageIdentityValue;
 use MediaWiki\Storage\PageUpdater;
 use MediaWikiIntegrationTestCase;
+use RequestContext;
 use RuntimeException;
+use Status;
+use User;
 
 /**
  * @license GPL-2.0-or-later
+ *
+ * @group Database
  *
  * @covers \EntitySchema\DataAccess\MediaWikiRevisionSchemaInserter
  */
@@ -56,7 +66,10 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 		$inserter = new MediaWikiRevisionSchemaInserter(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchNewSchema' ),
-			$idGenerator
+			$idGenerator,
+			new RequestContext(),
+			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] ),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$inserter->insertSchema( $language,
@@ -87,7 +100,10 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 		$inserter = new MediaWikiRevisionSchemaInserter(
 			$pageUpdaterFactory,
 			$this->getMockWatchlistUpdater( 'optionallyWatchNewSchema' ),
-			$idGenerator
+			$idGenerator,
+			new RequestContext(),
+			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] ),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 
 		$inserter->insertSchema(
@@ -111,6 +127,55 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 			[ 'abc' ],
 			'test schema text'
 		);
+	}
+
+	public function testInsertSchema_rejectedByEditFilter() {
+		$originalRequest = new FauxRequest();
+		$originalUser = $this->getTestUser()->getUser();
+		$originalContext = new RequestContext();
+		$originalContext->setRequest( $originalRequest );
+		$originalContext->setUser( $originalUser );
+		$pageIdentity = new PageIdentityValue( 1, NS_ENTITYSCHEMA_JSON, 'E123', false );
+		$this->setTemporaryHook(
+			'EditFilterMergedContent',
+			function (
+				IContextSource $context,
+				Content $content,
+				Status $status,
+				string $summary,
+				User $user,
+				bool $minoredit
+			) use ( $originalRequest, $originalUser, $pageIdentity ) {
+				$this->assertSame( $originalRequest, $context->getRequest() );
+				$this->assertSame( $originalUser, $user );
+				$this->assertTrue( $context->getTitle()->isSamePageAs( $pageIdentity ) );
+				$this->assertInstanceOf( EntitySchemaContent::class, $content );
+				$this->assertSame(
+					'/* ' . MediaWikiRevisionSchemaInserter::AUTOCOMMENT_NEWSCHEMA . ' */test label',
+					$summary
+				);
+				$this->assertFalse( $minoredit );
+
+				$status->fatal( __CLASS__ );
+				return false;
+			}
+		);
+		$pageUpdater = $this->createMock( PageUpdater::class );
+		$pageUpdater->method( 'getPage' )
+			->willReturn( $pageIdentity );
+		$pageUpdater->expects( $this->never() )
+			->method( 'saveRevision' );
+		$inserter = new MediaWikiRevisionSchemaInserter(
+			$this->getPageUpdaterFactory( $pageUpdater ),
+			$this->getMockWatchlistUpdater(),
+			$this->createConfiguredMock( IdGenerator::class, [ 'getNewId' => 123 ] ),
+			$originalContext,
+			$this->getServiceContainer()->getHookContainer(),
+			$this->getServiceContainer()->getTitleFactory()
+		);
+
+		$this->expectException( RuntimeException::class );
+		$inserter->insertSchema( 'en', 'test label' );
 	}
 
 	private function getPageUpdaterFactoryExpectingContent(
@@ -161,7 +226,10 @@ class MediaWikiRevisionSchemaInserterTest extends MediaWikiIntegrationTestCase {
 		return new MediaWikiRevisionSchemaInserter(
 			$this->getPageUpdaterFactory( $pageUpdater ),
 			$this->getMockWatchlistUpdater(),
-			$idGenerator
+			$idGenerator,
+			new RequestContext(),
+			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] ),
+			$this->getServiceContainer()->getTitleFactory()
 		);
 	}
 
