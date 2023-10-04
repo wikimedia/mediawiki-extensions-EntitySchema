@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Умар"
+		]
+	},
+	"entityschema-newschema-description": "Цуьнах лаьцна:",
+	"entityschema-newschema-submit": "Кхолла",
+	"entityschema-namebadge-header-description": "цуьнах лаьцна",
+	"entityschema-namebadge-header-edit": "нисйе",
+	"entityschema-diff-description": "Цуьнах лаьцна",
+	"entityschema-diff-schema": "Схема",
+	"entityschema-edit": "нисйе",
+	"entityschema-restoreold": "меттахӀоттайе"
+}
