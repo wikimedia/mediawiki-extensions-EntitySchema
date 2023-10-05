@@ -72,7 +72,7 @@ class ConfirmationFormRenderer {
 			'wpEditToken' => $user->getEditToken(),
 			'wpBaseRev' => $title->getLatestRevID(),
 		];
-		if ( !empty( $undidRevision ) ) {
+		if ( $undidRevision ) {
 			$hidden['wpUndidRevision'] = $undidRevision;
 		}
 		foreach ( $hidden as $name => $value ) {
