@@ -216,9 +216,9 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 				->expects( $this->once() )
 				->method( 'makeKnownLink' )
 				->with(
-					$this->equalTo( $title ),
-					$this->equalTo( '(entityschema-restoreold)' ),
-					$this->equalTo( [] ),
+					$title,
+					'(entityschema-restoreold)',
+					[],
 					$this->equalTo(
 						[
 							'action' => 'edit',

@@ -107,7 +107,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 
 	public function testNewSchemaIsNotCreatedWithInvalidData() {
 		$this->setUserLang( 'qqx' );
-		list( $html, ) = $this->executeSpecialPage(
+		[ $html ] = $this->executeSpecialPage(
 			null,
 			new FauxRequest(
 				[

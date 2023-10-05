@@ -70,7 +70,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			->method( 'setContent' )
 			->with(
 				SlotRecord::MAIN,
-				$this->equalTo( $expectedContent )
+				$expectedContent
 			);
 
 		return $this->getPageUpdaterFactory( $pageUpdater );
@@ -1298,7 +1298,7 @@ SHEXC;
 				'type' => 'ShExC',
 			] ) )
 		);
-		$mockRevLookup = $this->createMockRevisionLookup( [ $this->baseRevision,$this->parentRevision ] );
+		$mockRevLookup = $this->createMockRevisionLookup( [ $this->baseRevision, $this->parentRevision ] );
 
 		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$pageUpdaterFactory,

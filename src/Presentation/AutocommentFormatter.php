@@ -89,13 +89,13 @@ class AutocommentFormatter {
 					->params( $languageName );
 				break;
 			case MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_RESTORE:
-				list( $revId, $username ) = explode( ':', $commentParts[1], 2 );
+				[ $revId, $username ] = explode( ':', $commentParts[1], 2 );
 				$user = User::newFromName( $username ) ?: $username;
 				$comment = wfMessage( 'entityschema-summary-restore-autocomment' )
 					->params( $revId, $user );
 				break;
 			case MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_UNDO:
-				list( $revId, $username ) = explode( ':', $commentParts[1], 2 );
+				[ $revId, $username ] = explode( ':', $commentParts[1], 2 );
 				$user = User::newFromName( $username ) ?: $username;
 				$comment = wfMessage( 'entityschema-summary-undo-autocomment' )
 					->params( $revId, $user );

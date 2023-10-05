@@ -48,7 +48,7 @@ ShExC;
 		);
 
 		/** @var WebResponse $actualWebResponse */
-		list( $specialPageResult, $actualWebResponse ) = $this->executeSpecialPage(
+		[ $specialPageResult, $actualWebResponse ] = $this->executeSpecialPage(
 			$id,
 			new FauxRequest(
 				[],

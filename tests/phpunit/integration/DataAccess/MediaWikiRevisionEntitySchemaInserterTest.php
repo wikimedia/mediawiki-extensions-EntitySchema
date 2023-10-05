@@ -193,7 +193,7 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			->method( 'setContent' )
 			->with(
 				SlotRecord::MAIN,
-				$this->equalTo( $expectedContent )
+				$expectedContent
 			);
 
 		return $this->getPageUpdaterFactory( $pageUpdater );
