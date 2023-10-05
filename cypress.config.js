@@ -18,6 +18,7 @@ module.exports = defineConfig( {
 	},
 
 	screenshotsFolder: envLogDir || 'cypress/screenshots',
+	video: true,
 	videosFolder: envLogDir || 'cypress/videos',
 	downloadsFolder: envLogDir || 'cypress/downloads',
 } );
