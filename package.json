@@ -18,10 +18,10 @@
 		"eslint-config-wikimedia": "^0.25.1",
 		"eslint-plugin-chai-friendly": "^0.7.2",
 		"eslint-plugin-cypress": "^2.15.1",
-		"grunt-banana-checker": "0.11.0",
-		"lint-staged": "^13.2.3",
+		"grunt-banana-checker": "^0.11.1",
+		"lint-staged": "^14.0.1",
 		"npm-run-all": "^4.1.5",
-		"stylelint-config-wikimedia": "0.15.0"
+		"stylelint-config-wikimedia": "^0.16.1"
 	},
 	"eslintIgnore": [
 		"vendor/**"
