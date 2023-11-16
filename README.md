@@ -140,6 +140,11 @@ All dependencies should generally be updated to the latest version.
 If you discover that a dependency should not be updated for some reason, please amend this section with the dependency and the reason.
 If a dependency can only be updated with substantial manual work, you can create a new task for it and skip it in the context of the current chore.
 
+The following dependencies should be ignored:
+- lint-staged:
+  [v15.0.0](https://github.com/lint-staged/lint-staged/releases/tag/v15.0.0) drops compatibility with Node 16,
+  which we still use in CI. Node 18 upgrade pending in [T331180](https://phabricator.wikimedia.org/T331180).
+
 ## Troubleshooting
 
 ### I get `tempnam(): file created in the system's temporary directory` when running the phpunit tests?
