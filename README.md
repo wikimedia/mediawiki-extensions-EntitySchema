@@ -128,6 +128,7 @@ npm run cypress:open
 
 Many of the dependencies of EntitySchema are kept up-to-date by [LibraryUpgrader](https://www.mediawiki.org/wiki/Libraryupgrader).
 However, sometimes LibraryUpgrader runs into trouble and therefore we want to make sure to check the state of our dependencies regularly.
+And more fundamentally, LibraryUpgrader is currently not running at all, see [T345930](https://phabricator.wikimedia.org/T345930).
 
 In general, we want to keep both the Node.js npm dependencies, as well as the PHP composer dependencies up-to-date.
 For the npm dependencies, first make sure your local dependencies are up-to-date by executing `npm ci`.
