@@ -213,7 +213,7 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 
 		// expect that LanguageFallbackIndicator adds some element after the main HTML,
 		// without asserting its exact contents
-		$this->assertStringStartsWith( $fakeLinkHtml . '<', $sut->format( new StringValue( $schemaId ) ) );
+		$this->assertStringStartsWith( $fakeLinkHtml . "\u{00A0}<", $sut->format( new StringValue( $schemaId ) ) );
 	}
 
 	private function getCallbackToAssertLinkTarget( string $expectedText ): callable {

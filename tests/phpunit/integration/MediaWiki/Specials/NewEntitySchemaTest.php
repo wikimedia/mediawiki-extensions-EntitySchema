@@ -100,7 +100,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 		$textOfNewestPage = $this->getLastCreatedPageText();
 		$this->assertStringNotContainsString(
 			$testLabel,
-			$textOfNewestPage,
+			$textOfNewestPage ?? '',
 			'Blocked User was able to create new Schema!'
 		);
 	}
@@ -137,25 +137,32 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	}
 
 	/**
-	 * Gets the last created page.
+	 * Gets the last created page (if any).
 	 */
-	private function getLastCreatedTitle(): LinkTarget {
+	private function getLastCreatedTitle(): ?LinkTarget {
 		$row = $this->db->newSelectQueryBuilder()
 			->select( [ 'page_namespace',  'page_title' ] )
 			->from( 'page' )
 			->orderBy( [ 'page_id' ], SelectQueryBuilder::SORT_DESC )
 			->caller( __METHOD__ )
 			->fetchRow();
+		if ( $row === false ) {
+			return null;
+		}
 		return new TitleValue( (int)$row->page_namespace, $row->page_title );
 	}
 
 	/**
-	 * Gets the text of the last created page.
+	 * Gets the text of the last created page (if any).
 	 */
 	protected function getLastCreatedPageText(): ?string {
+		$lastTitle = $this->getLastCreatedTitle();
+		if ( $lastTitle === null ) {
+			return null;
+		}
 		$content = $this->getServiceContainer()
 			->getRevisionLookup()
-			->getRevisionByTitle( $this->getLastCreatedTitle() )
+			->getRevisionByTitle( $lastTitle )
 			->getContent( SlotRecord::MAIN );
 		return ( $content instanceof TextContent ) ? $content->getText() : null;
 	}
