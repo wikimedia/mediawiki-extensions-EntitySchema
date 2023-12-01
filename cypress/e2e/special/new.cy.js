@@ -1,6 +1,6 @@
-import { SpecialNewEntitySchemaPage } from '../../support/pageObjects/SpecialNewEntitySchemaPage';
-import { ViewEntitySchemaPage } from '../../support/pageObjects/ViewEntitySchemaPage';
-import { LoginPage } from '../../support/pageObjects/LoginPage';
+import { SpecialNewEntitySchemaPage } from '../../support/pageObjects/SpecialNewEntitySchemaPage.js';
+import { ViewEntitySchemaPage } from '../../support/pageObjects/ViewEntitySchemaPage.js';
+import { LoginPage } from '../../support/pageObjects/LoginPage.js';
 
 const specialNewEntitySchemaPage = new SpecialNewEntitySchemaPage();
 const viewSchemaPage = new ViewEntitySchemaPage();

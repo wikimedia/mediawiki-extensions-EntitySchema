@@ -7,7 +7,9 @@
 	function aliasesLengthString( aliases ) {
 		return aliases
 			.split( '|' )
-			.map( function ( alias ) { return alias.trim(); } )
+			.map( function ( alias ) {
+				return alias.trim();
+			} )
 			.join( '' );
 	}
 

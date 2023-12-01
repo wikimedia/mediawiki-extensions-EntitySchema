@@ -1,7 +1,7 @@
-import { SpecialNewEntitySchemaPage } from '../support/pageObjects/SpecialNewEntitySchemaPage';
-import { ViewEntitySchemaPage } from '../support/pageObjects/ViewEntitySchemaPage';
-import { EditEntitySchemaPage } from '../support/pageObjects/EditEntitySchemaPage';
-import { LoginPage } from '../support/pageObjects/LoginPage';
+import { SpecialNewEntitySchemaPage } from '../support/pageObjects/SpecialNewEntitySchemaPage.js';
+import { ViewEntitySchemaPage } from '../support/pageObjects/ViewEntitySchemaPage.js';
+import { EditEntitySchemaPage } from '../support/pageObjects/EditEntitySchemaPage.js';
+import { LoginPage } from '../support/pageObjects/LoginPage.js';
 
 const specialNewEntitySchemaPage = new SpecialNewEntitySchemaPage();
 const viewSchemaPage = new ViewEntitySchemaPage();

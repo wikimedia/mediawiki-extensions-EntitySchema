@@ -12,17 +12,17 @@ export class ViewEntitySchemaPage {
 	}
 
 	assertLabel( expectedLabel, langCode = 'en' ) {
-		cy.get( `.entityschema-label[lang=${langCode}]` ).should( 'have.text', expectedLabel );
+		cy.get( `.entityschema-label[lang=${ langCode }]` ).should( 'have.text', expectedLabel );
 		return this;
 	}
 
 	assertDescription( expectedDescription, langCode = 'en' ) {
-		cy.get( `.entityschema-description[lang=${langCode}]` ).should( 'have.text', expectedDescription );
+		cy.get( `.entityschema-description[lang=${ langCode }]` ).should( 'have.text', expectedDescription );
 		return this;
 	}
 
 	assertAliases( expectedAliases, langCode = 'en' ) {
-		cy.get( `.entityschema-aliases[lang=${langCode}]` ).should( 'have.text', expectedAliases );
+		cy.get( `.entityschema-aliases[lang=${ langCode }]` ).should( 'have.text', expectedAliases );
 		return this;
 	}
 
