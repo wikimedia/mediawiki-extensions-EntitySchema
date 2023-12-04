@@ -1,5 +1,5 @@
-import { SpecialNewEntitySchemaPage } from '../support/pageObjects/SpecialNewEntitySchemaPage';
-import { ViewEntitySchemaPage } from '../support/pageObjects/ViewEntitySchemaPage';
+import { SpecialNewEntitySchemaPage } from '../support/pageObjects/SpecialNewEntitySchemaPage.js';
+import { ViewEntitySchemaPage } from '../support/pageObjects/ViewEntitySchemaPage.js';
 
 const specialNewEntitySchemaPage = new SpecialNewEntitySchemaPage();
 const viewSchemaPage = new ViewEntitySchemaPage();
