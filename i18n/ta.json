@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Fahimrazick",
 			"Nisha"
 		]
 	},
 	"entityschema-error-inconsistent-id": "வழங்கப்பட்ட திருத்தங்கள் எல்லாம் கொடுக்கப்பட்ட தலைப்புக்கு சொந்தமானது அல்ல.",
 	"entityschema-error-invalid-id": "இந்த ஐடி செல்லுபடியாகாது.",
-	"entityschema-error-unsupported-langcode": "இந்த மொழி குறியீடு ஆதரிக்கப்படவில்லை."
+	"entityschema-error-unsupported-langcode": "இம்மொழிக் குறியீட்டுக்கு ஆதரவில்லை."
 }
