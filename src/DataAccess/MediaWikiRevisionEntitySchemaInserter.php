@@ -4,20 +4,20 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
-use CommentStoreComment;
 use DerivativeContext;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use IContextSource;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Status\Status;
 use MediaWiki\Storage\PageUpdater;
+use MediaWiki\Title\TitleFactory;
 use RuntimeException;
-use Status;
-use TitleFactory;
 
 /**
  * @license GPL-2.0-or-later

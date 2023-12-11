@@ -10,9 +10,9 @@ use EntitySchema\Services\Converter\EntitySchemaConverter;
 use HttpError;
 use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use Message;
-use SpecialPage;
 
 /**
  * @license GPL-2.0-or-later

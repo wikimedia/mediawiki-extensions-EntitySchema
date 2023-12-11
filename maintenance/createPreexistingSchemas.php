@@ -17,9 +17,9 @@ use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use Maintenance;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\User\User;
 use RequestContext;
 use RuntimeException;
-use User;
 
 /**
  * Maintenance script for creating preexisting EntitySchemas.

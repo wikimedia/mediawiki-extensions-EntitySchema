@@ -4,16 +4,16 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Presentation;
 
-use Html;
-use Linker;
+use MediaWiki\Html\Html;
+use MediaWiki\Linker\Linker;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use MessageLocalizer;
 use OOUI\ButtonInputWidget;
 use OOUI\ButtonWidget;
 use OOUI\FieldLayout;
 use OOUI\HtmlSnippet;
 use OOUI\TextInputWidget;
-use User;
 
 /**
  * @license GPL-2.0-or-later

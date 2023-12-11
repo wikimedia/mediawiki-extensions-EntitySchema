@@ -4,23 +4,23 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Content;
 
-use Config;
 use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;
 use EntitySchema\Services\Converter\FullViewEntitySchemaData;
 use EntitySchema\Services\Converter\NameBadge;
 use ExtensionRegistry;
-use Html;
 use LanguageCode;
-use Linker;
+use MediaWiki\Config\Config;
+use MediaWiki\Html\Html;
+use MediaWiki\Linker\Linker;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReference;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\SyntaxHighlight\SyntaxHighlight;
+use MediaWiki\Title\TitleFormatter;
 use Message;
 use MessageLocalizer;
 use ParserOutput;
-use SpecialPage;
-use TitleFormatter;
 
 /**
  * @license GPL-2.0-or-later

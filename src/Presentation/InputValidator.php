@@ -4,10 +4,10 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Presentation;
 
-use Config;
-use ConfigException;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use InvalidArgumentException;
+use MediaWiki\Config\Config;
+use MediaWiki\Config\ConfigException;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;

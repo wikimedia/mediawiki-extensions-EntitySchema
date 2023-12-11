@@ -4,10 +4,10 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\Presentation;
 
-use CommentStoreComment;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
-use HashConfig;
+use MediaWiki\CommentStore\CommentStoreComment;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;

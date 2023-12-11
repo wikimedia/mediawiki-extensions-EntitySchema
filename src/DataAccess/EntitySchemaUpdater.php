@@ -4,9 +4,9 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
-use CommentStoreComment;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use InvalidArgumentException;
+use MediaWiki\CommentStore\CommentStoreComment;
 use RuntimeException;
 
 /**

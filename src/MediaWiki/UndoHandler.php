@@ -12,7 +12,7 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use EntitySchema\Services\Diff\EntitySchemaPatcher;
-use Status;
+use MediaWiki\Status\Status;
 
 /**
  * @license GPL-2.0-or-later

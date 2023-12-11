@@ -7,7 +7,7 @@ namespace EntitySchema\DataAccess;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use User;
+use MediaWiki\User\User;
 
 /**
  * @license GPL-2.0-or-later

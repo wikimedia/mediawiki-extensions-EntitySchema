@@ -5,10 +5,10 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
 use Article;
-use CommentStoreComment;
 use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use MediaWiki\Block\DatabaseBlock;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;

@@ -9,7 +9,7 @@ use EntitySchema\DataAccess\LabelLookup;
 use InvalidArgumentException;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
-use TitleValue;
+use MediaWiki\Title\TitleValue;
 use ValueFormatters\FormatterOptions;
 use ValueFormatters\ValueFormatter;
 use Wikibase\Lib\Formatters\SnakFormat;

@@ -4,15 +4,15 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
-use CommentStoreComment;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Status\Status;
 use PermissionsError;
 use ReadOnlyError;
 use RuntimeException;
-use Status;
 use UserBlockedError;
 
 /**

@@ -16,7 +16,7 @@ use IContextSource;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
-use Status;
+use MediaWiki\Status\Status;
 
 /**
  * @license GPL-2.0-or-later

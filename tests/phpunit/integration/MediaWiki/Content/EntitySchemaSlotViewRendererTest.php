@@ -8,14 +8,14 @@ use EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer;
 use EntitySchema\Services\Converter\FullViewEntitySchemaData;
 use EntitySchema\Services\Converter\NameBadge;
 use ExtensionRegistry;
-use HashConfig;
 use LinkCache;
+use MediaWiki\Config\HashConfig;
+use MediaWiki\Config\MultiConfig;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReferenceValue;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWikiIntegrationTestCase;
-use MultiConfig;
 use ParserOutput;
-use SpecialPage;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer

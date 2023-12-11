@@ -4,16 +4,16 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
-use CommentStoreComment;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Converter\PersistenceEntitySchemaData;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Status\Status;
 use RuntimeException;
-use Status;
 
 /**
  * @license GPL-2.0-or-later

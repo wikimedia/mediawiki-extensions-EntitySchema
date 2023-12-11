@@ -14,8 +14,8 @@ use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use PermissionsError;
 use ReadOnlyError;
-use ReadOnlyMode;
 use RequestContext;
+use Wikimedia\Rdbms\ReadOnlyMode;
 
 /**
  * @covers \EntitySchema\MediaWiki\Actions\EntitySchemaEditAction

@@ -16,9 +16,9 @@ use HTMLForm;
 use IContextSource;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Status\Status;
 use MediaWiki\User\Options\UserOptionsLookup;
 use RuntimeException;
-use Status;
 use Wikibase\Repo\CopyrightMessageBuilder;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 

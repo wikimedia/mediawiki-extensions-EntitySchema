@@ -6,10 +6,10 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
 use Action;
 use Article;
-use CommentStoreComment;
 use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use MediaWiki\Block\DatabaseBlock;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;

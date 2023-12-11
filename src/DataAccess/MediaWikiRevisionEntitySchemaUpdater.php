@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
-use CommentStoreComment;
 use DerivativeContext;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
@@ -12,16 +11,17 @@ use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use IContextSource;
 use InvalidArgumentException;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Status\Status;
 use MediaWiki\Storage\PageUpdater;
+use MediaWiki\Title\TitleFactory;
 use RuntimeException;
-use Status;
-use TitleFactory;
 
 /**
  * @license GPL-2.0-or-later

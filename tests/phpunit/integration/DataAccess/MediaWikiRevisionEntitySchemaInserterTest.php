@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\DataAccess;
 
-use CommentStoreComment;
 use Content;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
@@ -12,16 +11,17 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use IContextSource;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Page\PageIdentityValue;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Status\Status;
 use MediaWiki\Storage\PageUpdater;
+use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
 use RequestContext;
 use RuntimeException;
-use Status;
-use User;
 
 /**
  * @license GPL-2.0-or-later

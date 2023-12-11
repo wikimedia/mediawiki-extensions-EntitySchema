@@ -10,7 +10,7 @@ use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
-use HashConfig;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiUnitTestCase;

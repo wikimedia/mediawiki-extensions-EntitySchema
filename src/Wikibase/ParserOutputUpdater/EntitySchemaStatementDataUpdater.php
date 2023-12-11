@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Wikibase\ParserOutputUpdater;
 
+use MediaWiki\Title\TitleValue;
 use ParserOutput;
-use TitleValue;
 use Wikibase\DataModel\Services\Lookup\PropertyDataTypeLookup;
 use Wikibase\DataModel\Services\Lookup\PropertyDataTypeLookupException;
 use Wikibase\DataModel\Snak\PropertyValueSnak;

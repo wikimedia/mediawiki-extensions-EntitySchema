@@ -4,10 +4,10 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
-use CommentStoreComment;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Specials\SetEntitySchemaLabelDescriptionAliases;
 use EntitySchema\Tests\Mocks\HTMLFormSpy;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;

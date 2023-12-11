@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Unit\ServiceWiring;
 
 use EntitySchema\DataAccess\SqlIdGenerator;
-use HashConfig;
+use MediaWiki\Config\HashConfig;
 
 /**
  * @covers \EntitySchema

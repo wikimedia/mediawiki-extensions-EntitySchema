@@ -6,16 +6,16 @@ namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Hooks\PageHistoryLineEndingHandler;
-use HistoryPager;
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\Pager\HistoryPager;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Tests\Unit\FakeQqxMessageLocalizer;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use MediaWikiUnitTestCase;
 use stdClass;
-use User;
 
 /**
  * @license GPL-2.0-or-later

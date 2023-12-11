@@ -7,8 +7,8 @@ namespace EntitySchema\Presentation;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\User\User;
 use RequestContext;
-use User;
 
 /**
  * @license GPL-2.0-or-later

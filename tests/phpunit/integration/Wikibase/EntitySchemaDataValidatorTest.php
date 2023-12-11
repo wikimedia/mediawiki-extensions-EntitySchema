@@ -8,7 +8,7 @@ use DataValues\StringValue;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
-use HashConfig;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;

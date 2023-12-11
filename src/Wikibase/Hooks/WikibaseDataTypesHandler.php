@@ -4,12 +4,12 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Wikibase\Hooks;
 
-use Config;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
+use MediaWiki\Config\Config;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
 use ValueFormatters\FormatterOptions;

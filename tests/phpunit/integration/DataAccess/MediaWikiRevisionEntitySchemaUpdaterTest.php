@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\DataAccess;
 
-use CommentStoreComment;
 use Content;
 use DomainException;
 use EntitySchema\DataAccess\EditConflict;
@@ -16,18 +15,19 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\NameBadge;
 use IContextSource;
 use InvalidArgumentException;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageIdentityValue;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Status\Status;
 use MediaWiki\Storage\PageUpdater;
+use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
 use RequestContext;
 use RuntimeException;
-use Status;
-use User;
 
 /**
  * @covers \EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater

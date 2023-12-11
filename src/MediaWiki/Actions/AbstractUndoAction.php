@@ -9,10 +9,10 @@ use DomainException;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\UndoHandler;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Request\WebRequest;
 use MediaWiki\Revision\SlotRecord;
-use Status;
+use MediaWiki\Status\Status;
 use ViewAction;
-use WebRequest;
 
 /**
  * @license GPL-2.0-or-later

@@ -8,9 +8,9 @@ use Article;
 use EntitySchema\MediaWiki\Hooks\BeforeDisplayNoArticleTextHookHandler;
 use IContextSource;
 use Language;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
 use MediaWikiUnitTestCase;
-use OutputPage;
 
 /**
  * @license GPL-2.0-or-later

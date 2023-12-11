@@ -5,14 +5,14 @@ declare( strict_types = 1 );
 namespace EntitySchema\MediaWiki\Actions;
 
 use EditAction;
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Request\WebRequest;
 use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Status\Status;
 use PermissionsError;
 use ReadOnlyError;
-use Status;
 use UserBlockedError;
-use WebRequest;
 
 /**
  * @license GPL-2.0-or-later

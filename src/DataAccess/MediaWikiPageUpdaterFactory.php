@@ -7,8 +7,8 @@ namespace EntitySchema\DataAccess;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Storage\PageUpdater;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use RecentChange;
-use User;
 
 /**
  * @license GPL-2.0-or-later

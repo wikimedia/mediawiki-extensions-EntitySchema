@@ -4,10 +4,10 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\API;
 
-use CommentStoreComment;
 use EntitySchema\DataAccess\EntitySchemaEncoder;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;

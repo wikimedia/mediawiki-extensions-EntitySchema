@@ -10,13 +10,13 @@ use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\TitleValue;
 use PermissionsError;
 use ReadOnlyError;
-use ReadOnlyMode;
 use SpecialPageTestBase;
 use TextContent;
-use TitleValue;
 use Wikibase\Lib\SettingsArray;
+use Wikimedia\Rdbms\ReadOnlyMode;
 use Wikimedia\Rdbms\SelectQueryBuilder;
 
 /**
