@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Masiziva"
+		]
+	},
+	"entityschema-newschema-description": "Mutsananguro:",
+	"entityschema-description-edit-placeholder": "isa mutsananguro mu $1",
+	"entityschema-namebadge-header-description": "mutsananguro",
+	"entityschema-diff-description": "Mitsananguro",
+	"entityschema-special-description": "Mutsananguro:"
+}
