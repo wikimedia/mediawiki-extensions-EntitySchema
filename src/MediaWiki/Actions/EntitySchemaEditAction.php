@@ -18,6 +18,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
 use MediaWiki\User\Options\UserOptionsLookup;
+use MediaWiki\User\TempUser\TempUserConfig;
 use RuntimeException;
 use Wikibase\Repo\CopyrightMessageBuilder;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
@@ -38,6 +39,7 @@ class EntitySchemaEditAction extends FormAction {
 	private string $submitMsgKey;
 	private UserOptionsLookup $userOptionsLookup;
 	private SpecialPageCopyrightView $copyrightView;
+	private TempUserConfig $tempUserConfig;
 
 	public function __construct(
 		Article $article,
@@ -46,7 +48,8 @@ class EntitySchemaEditAction extends FormAction {
 		bool $editSubmitButtonLabelPublish,
 		UserOptionsLookup $userOptionsLookup,
 		string $dataRightsUrl,
-		string $dataRightsText
+		string $dataRightsText,
+		TempUserConfig $tempUserConfig
 	) {
 		parent::__construct( $article, $context );
 		$this->inputValidator = $inputValidator;
@@ -57,6 +60,7 @@ class EntitySchemaEditAction extends FormAction {
 			$dataRightsUrl,
 			$dataRightsText
 		);
+		$this->tempUserConfig = $tempUserConfig;
 	}
 
 	public function show(): void {
@@ -146,7 +150,7 @@ class EntitySchemaEditAction extends FormAction {
 			'default' => $this->getCopyrightHTML(),
 			'raw' => true,
 		] ] );
-		if ( $this->getUser()->isAnon() ) {
+		if ( $this->getUser()->isAnon() && !$this->tempUserConfig->isEnabled() ) {
 			$form->addFields( [ [
 				'type' => 'info',
 				'default' => $this->msg(

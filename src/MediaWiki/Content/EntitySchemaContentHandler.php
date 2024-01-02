@@ -142,7 +142,8 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			$wgEditSubmitButtonLabelPublish,
 			MediaWikiServices::getInstance()->getUserOptionsLookup(),
 			$repoSettings->getSetting( 'dataRightsUrl' ),
-			$repoSettings->getSetting( 'dataRightsText' )
+			$repoSettings->getSetting( 'dataRightsText' ),
+			MediaWikiServices::getInstance()->getTempUserConfig()
 		);
 	}
 
