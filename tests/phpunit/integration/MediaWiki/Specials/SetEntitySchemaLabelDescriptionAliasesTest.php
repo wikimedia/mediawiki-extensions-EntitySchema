@@ -9,9 +9,11 @@ use EntitySchema\MediaWiki\Specials\SetEntitySchemaLabelDescriptionAliases;
 use EntitySchema\Tests\Mocks\HTMLFormSpy;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
+use MediaWiki\User\TempUser\TempUserConfig;
 use SpecialPageTestBase;
 use Wikibase\Lib\SettingsArray;
 use Wikimedia\TestingAccessWrapper;
@@ -27,6 +29,7 @@ use WikiPage;
 class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
 	private ?string $mockHTMLFormProvider = null;
+	private bool $tempUserEnabled = false;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -47,11 +50,23 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		] );
 		if ( $this->mockHTMLFormProvider !== null ) {
 			return new SetEntitySchemaLabelDescriptionAliases(
+				$this->getMockTempUserConfig(),
 				$fakeSettings,
 				$this->mockHTMLFormProvider
 			);
 		}
-		return new SetEntitySchemaLabelDescriptionAliases( $fakeSettings );
+		return new SetEntitySchemaLabelDescriptionAliases(
+			$this->getMockTempUserConfig(),
+			$fakeSettings
+		);
+	}
+
+	protected function getMockTempUserConfig(): TempUserConfig {
+		$tempUserConfig = $this->createMock( TempUserConfig::class );
+		$tempUserConfig->expects( $this->atMost( 1 ) )
+			->method( 'isEnabled' )
+			->willReturn( $this->tempUserEnabled );
+		return $tempUserConfig;
 	}
 
 	public function testSubmitEditFormCallbackCorrectId() {
@@ -273,6 +288,32 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		);
 
 		$this->mockHTMLFormProvider::assertFormFieldData( $expectedFieldData );
+	}
+
+	private function renderWarnings(): string {
+		$string = '';
+		$output = $this->createMock( OutputPage::class );
+		$output->expects( $this->atMost( 1 ) )
+			->method( 'addHTML' )
+			->willReturnCallback( static function ( $text ) use ( &$string ) {
+				$string .= $text;
+			} );
+		$this->setUserLang( 'qqx' );
+		TestingAccessWrapper::newFromObject( $this->newSpecialPage() )
+			->displayWarnings( $output );
+		return $string;
+	}
+
+	public function testDisplayWarningForEditsByAnonymousUsers() {
+		$this->tempUserEnabled = false;
+		$string = $this->renderWarnings();
+		$this->assertStringContainsString( 'entityschema-anonymouseditwarning', $string );
+	}
+
+	public function testDoNotDisplayWarningForEditsByAnonymousUsersWithTempUserEnabled() {
+		$this->tempUserEnabled = true;
+		$string = $this->renderWarnings();
+		$this->assertStringNotContainsString( 'entityschema-anonymouseditwarning', $string );
 	}
 
 	/**
