@@ -219,6 +219,7 @@
 		"NewEntitySchema": {
 			"class": "EntitySchema\\MediaWiki\\Specials\\NewEntitySchema",
 			"services": [
+				"TempUserConfig",
 				"WikibaseRepo.Settings",
 				"EntitySchema.IdGenerator"
 			]
