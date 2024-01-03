@@ -11,6 +11,19 @@ const loginPage = new LoginPage();
 describe( 'Schema Edit Page', () => {
 	const initialSchemaTextExample = '<empty> {}';
 
+	before( function () {
+		/**
+		 * We have an issue (Bug T354179) that is causing the first request in the test suite to
+		 * reliably fail with a PHP memory allocation error. Making a throw-away request at the
+		 * start of the suite prevents this failure from blocking the whole suite.
+		 */
+		cy.request( {
+			method: 'GET',
+			url: '/',
+			failOnStatusCode: false,
+		} );
+	} );
+
 	beforeEach( function () {
 		specialNewEntitySchemaPage
 			.open()
