@@ -16,6 +16,7 @@ use MediaWiki\Output\OutputPage;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
+use MediaWiki\User\TempUser\TempUserConfig;
 use Message;
 use PermissionsError;
 use Wikibase\Lib\SettingsArray;
@@ -43,7 +44,13 @@ class NewEntitySchema extends SpecialPage {
 
 	private SpecialPageCopyrightView $copyrightView;
 
-	public function __construct( SettingsArray $repoSettings, IdGenerator $idGenerator ) {
+	private TempUserConfig $tempUserConfig;
+
+	public function __construct(
+		TempUserConfig $tempUserConfig,
+		SettingsArray $repoSettings,
+		IdGenerator $idGenerator
+	) {
 		parent::__construct(
 			'NewEntitySchema',
 			'createpage'
@@ -54,6 +61,7 @@ class NewEntitySchema extends SpecialPage {
 			$repoSettings->getSetting( 'dataRightsUrl' ),
 			$repoSettings->getSetting( 'dataRightsText' )
 		);
+		$this->tempUserConfig = $tempUserConfig;
 	}
 
 	public function execute( $subPage ): void {
@@ -208,7 +216,7 @@ class NewEntitySchema extends SpecialPage {
 	}
 
 	private function getWarnings(): array {
-		if ( $this->getUser()->isAnon() ) {
+		if ( $this->getUser()->isAnon() && !$this->tempUserConfig->isEnabled() ) {
 			return [
 				$this->msg(
 					'entityschema-anonymouseditwarning'

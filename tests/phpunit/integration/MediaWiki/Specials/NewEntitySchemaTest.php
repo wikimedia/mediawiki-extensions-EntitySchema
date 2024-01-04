@@ -11,6 +11,7 @@ use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\TitleValue;
+use MediaWiki\User\TempUser\TempUserConfig;
 use PermissionsError;
 use ReadOnlyError;
 use SpecialPageTestBase;
@@ -29,6 +30,7 @@ use Wikimedia\Rdbms\SelectQueryBuilder;
 class NewEntitySchemaTest extends SpecialPageTestBase {
 
 	private DatabaseBlock $block;
+	private bool $tempUserEnabled = false;
 
 	public function testReadOnly() {
 		$readOnlyMode = $this->getMockBuilder( ReadOnlyMode::class )
@@ -128,6 +130,44 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 		);
 	}
 
+	public function testShowWarningForAnonymousUsers() {
+		$this->tempUserEnabled = false;
+		$this->setUserLang( 'qqx' );
+		[ $html ] = $this->executeSpecialPage(
+			null,
+			new FauxRequest(
+				[
+
+				], true
+			)
+		);
+
+		$this->assertStringContainsString(
+			'(entityschema-anonymouseditwarning)',
+			$html,
+			'anonymous edit warning is missing'
+		);
+	}
+
+	public function testDoNotShowWarningForAnonymousUsersWhenTempUserEnabled() {
+		$this->tempUserEnabled = true;
+		$this->setUserLang( 'qqx' );
+		[ $html ] = $this->executeSpecialPage(
+			null,
+			new FauxRequest(
+				[
+
+				], true
+			)
+		);
+
+		$this->assertStringNotContainsString(
+			'(entityschema-anonymouseditwarning)',
+			$html,
+			'anonymous edit warning is present'
+		);
+	}
+
 	protected function tearDown(): void {
 		if ( isset( $this->block ) ) {
 			$this->block->delete();
@@ -170,7 +210,11 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	protected function newSpecialPage(): NewEntitySchema {
 		$idGenerator = EntitySchemaServices::getIdGenerator( $this->getServiceContainer() );
 		$repoSettings = $this->createMock( SettingsArray::class );
-		return new NewEntitySchema( $repoSettings, $idGenerator );
+		$tempUserConfig = $this->createMock( TempUserConfig::class );
+		$tempUserConfig->expects( $this->atMost( 1 ) )
+			->method( 'isEnabled' )
+			->willReturn( $this->tempUserEnabled );
+		return new NewEntitySchema( $tempUserConfig, $repoSettings, $idGenerator );
 	}
 
 }
