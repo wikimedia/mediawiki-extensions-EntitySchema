@@ -11,7 +11,7 @@ php -S 127.0.0.1:8080 -t $(pwd) > $LOG_DIR/php-server-logs.txt 2>&1 &
 
 cd mediawiki
 
-composer phpunit:entrypoint -- extensions/EntitySchema/tests/phpunit/
+composer phpunit -- extensions/EntitySchema/tests/phpunit/
 
 cd extensions/EntitySchema
 

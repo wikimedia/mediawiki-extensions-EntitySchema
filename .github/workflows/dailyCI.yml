@@ -1,7 +1,6 @@
 name: EntitySchema daily CI
 on:
-  schedule:
-    - cron: '42 5 * * *'
+  push
 
 env:
   MEDIAWIKI_USER: admin
