@@ -15,7 +15,7 @@ git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/skins/Vector --
 
 cd ../extensions
 
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Scribunto.git --depth 1
+git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Scribunto.git --depth 1
 git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/cldr --depth 1
 git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/SyntaxHighlight_GeSHi --depth 1
 git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Wikibase --depth 1
