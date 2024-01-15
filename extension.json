@@ -228,6 +228,7 @@
 		"SetEntitySchemaLabelDescriptionAliases": {
 			"class": "EntitySchema\\MediaWiki\\Specials\\SetEntitySchemaLabelDescriptionAliases",
 			"services": [
+				"TempUserConfig",
 				"WikibaseRepo.Settings"
 			]
 		}

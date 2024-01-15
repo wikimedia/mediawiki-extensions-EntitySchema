@@ -21,6 +21,7 @@ use MediaWiki\Revision\SlotRecord;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
+use MediaWiki\User\TempUser\TempUserConfig;
 use Message;
 use PermissionsError;
 use RuntimeException;
@@ -48,7 +49,13 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 
 	private SpecialPageCopyrightView $copyrightView;
 
-	public function __construct( SettingsArray $repoSettings, string $htmlFormProvider = HTMLForm::class ) {
+	private TempUserConfig $tempUserConfig;
+
+	public function __construct(
+		TempUserConfig $tempUserConfig,
+		SettingsArray $repoSettings,
+		string $htmlFormProvider = HTMLForm::class
+	) {
 		parent::__construct(
 			'SetEntitySchemaLabelDescriptionAliases',
 			'edit'
@@ -60,6 +67,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 			$repoSettings->getSetting( 'dataRightsUrl' ),
 			$repoSettings->getSetting( 'dataRightsText' )
 		);
+		$this->tempUserConfig = $tempUserConfig;
 	}
 
 	public function execute( $subPage ): void {
@@ -385,7 +393,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	}
 
 	private function getWarnings(): array {
-		if ( $this->getUser()->isAnon() ) {
+		if ( $this->getUser()->isAnon() && !$this->tempUserConfig->isEnabled() ) {
 			return [
 				$this->msg(
 					'entityschema-anonymouseditwarning'
