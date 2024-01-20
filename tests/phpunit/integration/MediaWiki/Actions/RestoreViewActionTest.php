@@ -28,13 +28,6 @@ use WikiPage;
  */
 final class RestoreViewActionTest extends MediaWikiIntegrationTestCase {
 
-	public function setUp(): void {
-		parent::setUp();
-		$this->tablesUsed[] = 'page';
-		$this->tablesUsed[] = 'revision';
-		$this->tablesUsed[] = 'recentchanges';
-	}
-
 	public function testRestoreView() {
 		// arrange
 		$page = $this->getServiceContainer()->getWikiPageFactory()

@@ -30,13 +30,6 @@ use WikiPage;
  */
 class UndoViewActionTest extends MediaWikiIntegrationTestCase {
 
-	public function setUp(): void {
-		parent::setUp();
-		$this->tablesUsed[] = 'page';
-		$this->tablesUsed[] = 'revision';
-		$this->tablesUsed[] = 'recentchanges';
-	}
-
 	public function test_UndoView() {
 		// arrange
 		$schemaId = 'E123';

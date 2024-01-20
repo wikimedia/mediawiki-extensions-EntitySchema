@@ -29,13 +29,6 @@ use WikiPage;
  */
 class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 
-	public function setUp(): void {
-		parent::setUp();
-		$this->tablesUsed[] = 'page';
-		$this->tablesUsed[] = 'revision';
-		$this->tablesUsed[] = 'recentchanges';
-	}
-
 	private DatabaseBlock $block;
 
 	protected function tearDown(): void {

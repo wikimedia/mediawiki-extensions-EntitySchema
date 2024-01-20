@@ -22,13 +22,6 @@ use WikiPage;
  */
 class UndoAPITest extends MediaWikiIntegrationTestCase {
 
-	public function setUp(): void {
-		parent::setUp();
-		$this->tablesUsed[] = 'page';
-		$this->tablesUsed[] = 'revision';
-		$this->tablesUsed[] = 'recentchanges';
-	}
-
 	public function testGetUndoContentUndoLatest() {
 		$handler = $this->getServiceContainer()->getContentHandlerFactory()
 			->getContentHandler( EntitySchemaContent::CONTENT_MODEL_ID );

@@ -22,11 +22,6 @@ use Wikimedia\Rdbms\SelectQueryBuilder;
  */
 class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 
-	protected function setUp(): void {
-		parent::setUp();
-		$this->tablesUsed[] = 'entityschema_id_counter';
-	}
-
 	public function testGetNewId() {
 		$generator = new SqlIdGenerator(
 			MediaWikiServices::getInstance()->getDBLoadBalancer(),

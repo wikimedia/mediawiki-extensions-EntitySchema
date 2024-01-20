@@ -24,13 +24,6 @@ use WikiPage;
  */
 class InputValidatorTest extends MediaWikiIntegrationTestCase {
 
-	protected function setUp(): void {
-		parent::setUp();
-		$this->tablesUsed[] = 'page';
-		$this->tablesUsed[] = 'revision';
-		$this->tablesUsed[] = 'recentchanges';
-	}
-
 	public function testValidateId(): void {
 		$this->createTestSchema();
 

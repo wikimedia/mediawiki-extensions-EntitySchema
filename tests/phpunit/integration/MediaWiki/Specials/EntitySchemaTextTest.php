@@ -24,13 +24,6 @@ use WikiPage;
  */
 class EntitySchemaTextTest extends SpecialPageTestBase {
 
-	public function setUp(): void {
-		parent::setUp();
-		$this->tablesUsed[] = 'page';
-		$this->tablesUsed[] = 'revision';
-		$this->tablesUsed[] = 'recentchanges';
-	}
-
 	public function testExistingSchema() {
 		$testSchema = <<<ShExC
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>

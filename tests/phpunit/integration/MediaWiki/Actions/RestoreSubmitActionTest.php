@@ -30,13 +30,6 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 
 	private DatabaseBlock $block;
 
-	public function setUp(): void {
-		parent::setUp();
-		$this->tablesUsed[] = 'page';
-		$this->tablesUsed[] = 'revision';
-		$this->tablesUsed[] = 'recentchanges';
-	}
-
 	protected function tearDown(): void {
 		if ( isset( $this->block ) ) {
 			$this->block->delete();

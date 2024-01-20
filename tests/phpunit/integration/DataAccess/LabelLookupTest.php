@@ -20,12 +20,6 @@ use WikiPage;
  */
 class LabelLookupTest extends MediaWikiIntegrationTestCase {
 
-	public function setUp(): void {
-		parent::setUp();
-		$this->tablesUsed[] = 'page';
-		$this->tablesUsed[] = 'revision';
-	}
-
 	public function testGetLabel_LabelExistsInLanguage() {
 		$id = 'E456';
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
