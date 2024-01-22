@@ -2,10 +2,30 @@
 	"@metadata": {
 		"authors": [
 			"Mjälten",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Abbe98",
+			"Sabelöga"
 		]
 	},
+	"entityschema-desc": "Lagra eller diskutera scheman för Wikibase-entiteter",
+	"special-newschema": "Skapa ett nytt Entitetsschema",
+	"entityschema-newschema-label": "Etikett:",
+	"entityschema-newschema-description": "Beskrivning:",
+	"entityschema-newschema-aliases": "Alias, separerade med vertikalstreck:",
+	"entityschema-newschema-submit": "Skapa",
+	"entityschema-anonymouseditwarning": "Varning: Du är inte inloggad. Din IP-adress kommer att sparas i schemats historik.",
+	"entityschema-label-edit-placeholder": "ange en etikett på $1",
+	"entityschema-description-edit-placeholder": "ange en beskrivning på $1",
+	"entityschema-aliases-edit-placeholder": "ange några alias på $1",
+	"entityschema-id-edit-placeholder": "Schema-ID",
+	"entityschema-editpage-schema-inputlabel": "ShEx:",
+	"entityschema-error-schemadeleted": "Schemat du försökte redigera finns inte. Kanske har det raderats?",
+	"entityschema-error-schemaupdate-failed": "Schemat kunde inte uppdateras",
+	"entityschema-error-schematext-conflict": "Schemat ändrades under tiden. Gå tillbaka till Schemats sida och försök redigera det igen.",
+	"entityschema-error-namebadge-conflict": "Schemat ändrades under tiden. Gå tillbaka till Schemats sida och försök redigera etiketter, beskrivningar och alias på det här språket igen.",
+	"entityschema-error-saving-failed": "Kunde inte spara Schemat med följande meddelande: $1",
 	"entityschema-error-invalid-id": "Detta ID är ogiligt.",
+	"entityschema-error-unsupported-langcode": "Denna språkkod stöds inte.",
 	"entityschema-namebadge-header-language-code": "språkkod",
 	"entityschema-namebadge-header-label": "etikett",
 	"entityschema-namebadge-header-description": "beskrivning",
@@ -21,8 +41,14 @@
 	"entityschema-undo-old-revision": "Sidversion att ångra",
 	"entityschema-restore-heading-failed": "Återställning misslyckades",
 	"entityschema-restoreold": "återställ",
-	"entityschema-special-id-inputlabel": "ID",
+	"special-schematext": "Entitetsschema-text",
+	"entityschema-schematext-missing": "Schema som saknas eller har raderats: $1.",
+	"entityschema-special-setlabeldescriptionaliases": "Ange etikett, beskrivning och alias för Entitetsschema",
+	"entityschema-special-id-inputlabel": "Entitetsschema-ID",
 	"entityschema-special-language-inputlabel": "Språkkod",
+	"entityschema-special-id-submit": "Ange etikett, beskrivning och alias",
+	"entityschema-special-setlabeldescriptionaliases-info": "Du anger etikett, beskrivning och alias på '''$1''' för schema [[$3|$2]].",
 	"entityschema-special-label": "Etikett:",
-	"entityschema-special-description": "Beskrivning:"
+	"entityschema-special-description": "Beskrivning:",
+	"entityschema-special-aliases": "Alias, separerade med vertikalstreck:"
 }
