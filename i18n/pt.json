@@ -84,5 +84,6 @@
 	"entityschema-special-aliases": "Nomes alternativos, separados por barras verticais (|):",
 	"wikibase-listdatatypes-entity-schema-head": "Esquema de entidade",
 	"wikibase-listdatatypes-entity-schema-body": "Hiperligação para esquemas de entidade armazenados no espaço nominal configurado na mesma wiki. O valor não pode ter o prefixo de espaço nominal \"EntitySchema:\".",
-	"wikibase-validator-illegal-entity-schema-title": "O valor deve começar por <code>E</code> e o resto devem ser só algarismos."
+	"wikibase-validator-illegal-entity-schema-title": "O valor deve começar por <code>E</code> e o resto devem ser só algarismos.",
+	"wikibase-validator-no-such-entity-schema": "O esquema de entidade $1 não existe."
 }
