@@ -4,8 +4,11 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 
+use DataValues\DataValue;
 use DataValues\StringValue;
 use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\Domain\Model\EntitySchemaId;
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
@@ -96,7 +99,7 @@ class WikibaseDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 	 * @dataProvider provideValuesWithValidity
 	 */
 	public function testOnWikibaseRepoDataTypesValidator(
-		string $value,
+		DataValue $value,
 		Result $existenceResult,
 		bool $isValid
 	): void {
@@ -124,7 +127,7 @@ class WikibaseDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 			$dataTypeDefinitions['PT:entity-schema']['validator-factory-callback']()
 		);
 
-		$result = $validator->validate( new StringValue( $value ) );
+		$result = $validator->validate( $value );
 
 		$this->assertSame( $isValid, $result->isValid() );
 		if ( !$isValid && $value === '' ) {
@@ -135,9 +138,21 @@ class WikibaseDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public static function provideValuesWithValidity(): iterable {
-		yield 'valid, existing' => [ 'E1', Result::newSuccess(), true ];
-		yield 'invalid, no pattern match' => [ ' ', Result::newError( [] ), false ];
-		yield 'invalid, does not exist' => [ 'E1', Result::newError( [] ), false ];
+		yield 'valid, existing' => [
+			new EntitySchemaValue( new EntitySchemaId( 'E1' ) ),
+			Result::newSuccess(),
+			true,
+		];
+		yield 'invalid, no pattern match' => [
+			new StringValue( 'E2' ),
+			Result::newError( [] ),
+			false,
+		];
+		yield 'invalid, does not exist' => [
+			new EntitySchemaValue( new EntitySchemaId( 'E1' ) ),
+			Result::newError( [] ),
+			false,
+		];
 	}
 
 }

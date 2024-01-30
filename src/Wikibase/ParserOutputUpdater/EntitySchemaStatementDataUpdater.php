@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Wikibase\ParserOutputUpdater;
 
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use MediaWiki\Title\TitleValue;
 use ParserOutput;
 use Wikibase\DataModel\Services\Lookup\PropertyDataTypeLookup;
@@ -42,10 +43,11 @@ class EntitySchemaStatementDataUpdater implements StatementDataUpdater {
 				$dataTypeId = null;
 			}
 
-			if ( $dataTypeId !== 'entity-schema' ) {
+			$dataValue = $snak->getDataValue();
+			if ( $dataTypeId !== 'entity-schema' || !( $dataValue instanceof EntitySchemaValue ) ) {
 				continue;
 			}
-			$this->entitySchemaIdSerializations[$snak->getDataValue()->getValue()] = true;
+			$this->entitySchemaIdSerializations[$dataValue->getSchemaId()] = true;
 		}
 	}
 

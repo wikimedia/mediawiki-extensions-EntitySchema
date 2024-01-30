@@ -4,7 +4,8 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\Wikibase\Rdf;
 
-use DataValues\StringValue;
+use EntitySchema\Domain\Model\EntitySchemaId;
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -53,7 +54,10 @@ class EntitySchemaRdfBuilderTest extends MediaWikiUnitTestCase {
 			'propertyValueLName',
 			'ignored',
 			'ignored',
-			new PropertyValueSnak( new NumericPropertyId( 'P12' ), new StringValue( 'E1234' ) ),
+			new PropertyValueSnak(
+				new NumericPropertyId( 'P12' ),
+				new EntitySchemaValue( new EntitySchemaId( 'E1234' ) )
+			),
 			'ignored'
 		);
 

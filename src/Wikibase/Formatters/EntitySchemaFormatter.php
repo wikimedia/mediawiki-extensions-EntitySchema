@@ -6,6 +6,8 @@ namespace EntitySchema\Wikibase\Formatters;
 
 use DataValues\StringValue;
 use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\Domain\Model\EntitySchemaId;
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use InvalidArgumentException;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
@@ -51,17 +53,23 @@ class EntitySchemaFormatter implements ValueFormatter {
 	 * @inheritDoc
 	 */
 	public function format( $value ) {
-		if ( !( $value instanceof StringValue ) ) {
-			throw new InvalidArgumentException( '$value must be a StringValue' );
+		if ( $value instanceof StringValue ) {
+			$value = new EntitySchemaValue( new EntitySchemaId( $value->getValue() ) );
+		}
+		if ( !( $value instanceof EntitySchemaValue ) ) {
+			throw new InvalidArgumentException( '$value must be a EntitySchemaValue' );
 		}
 
-		$entitySchemaId = $value->getValue();
+		$entitySchemaId = $value->getSchemaId();
 		$snakFormat = new SnakFormat();
 
 		switch ( $snakFormat->getBaseFormat( $this->format ) ) {
 			case SnakFormatter::FORMAT_HTML:
 				return $this->makeHtmlLink( $entitySchemaId );
 			// TODO: case SnakFormatter::FORMAT_WIKI:
+			case SnakFormatter::FORMAT_PLAIN:
+				// hacky hack to get schema values as links with labels on history, recent changes, etc
+				return "[[EntitySchema:$entitySchemaId]]";
 			default:
 				return $entitySchemaId;
 		}

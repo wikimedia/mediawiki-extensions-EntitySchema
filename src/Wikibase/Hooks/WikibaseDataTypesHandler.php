@@ -5,7 +5,8 @@ declare( strict_types = 1 );
 namespace EntitySchema\Wikibase\Hooks;
 
 use EntitySchema\DataAccess\LabelLookup;
-use EntitySchema\Domain\Model\EntitySchemaId;
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
+use EntitySchema\Wikibase\DataValues\EntitySchemaValueParser;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
@@ -17,9 +18,7 @@ use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikibase\Repo\Rdf\ValueSnakRdfBuilder;
-use Wikibase\Repo\Validators\DataValueValidator;
-use Wikibase\Repo\Validators\RegexValidator;
-use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Repo\Validators\TypeValidator;
 
 /**
  * @license GPL-2.0-or-later
@@ -57,7 +56,8 @@ class WikibaseDataTypesHandler {
 			return;
 		}
 		$dataTypeDefinitions['PT:entity-schema'] = [
-			'value-type' => 'string',
+			'value-type' => 'wikibase-entityid',
+			'expert-module' => 'jquery.valueview.experts.StringValue', // wrong value format but at least does something
 			'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
 				return new EntitySchemaFormatter(
 					$format,
@@ -69,14 +69,10 @@ class WikibaseDataTypesHandler {
 				);
 			},
 			'validator-factory-callback' => function (): array {
-				$validators = WikibaseRepo::getDefaultValidatorBuilders()->buildStringValidators( 11 );
-				$validators[] = new DataValueValidator( new RegexValidator(
-					EntitySchemaId::PATTERN,
-					false,
-					'illegal-entity-schema-title'
-				) );
-				$validators[] = $this->entitySchemaExistsValidator;
-				return $validators;
+				return [
+					new TypeValidator( EntitySchemaValue::class ),
+					$this->entitySchemaExistsValidator,
+				];
 			},
 			'rdf-builder-factory-callback' => function (
 				$flags,
@@ -87,6 +83,7 @@ class WikibaseDataTypesHandler {
 					$this->localEntitySource->getConceptBaseUri()
 				);
 			},
+			'parser-factory-callback' => fn () => new EntitySchemaValueParser(),
 		];
 	}
 }

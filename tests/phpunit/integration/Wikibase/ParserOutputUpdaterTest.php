@@ -4,7 +4,8 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\Wikibase;
 
-use DataValues\StringValue;
+use EntitySchema\Domain\Model\EntitySchemaId;
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use MediaWiki\MediaWikiServices;
 use MediaWikiIntegrationTestCase;
 use Wikibase\DataModel\Entity\Property;
@@ -40,7 +41,7 @@ class ParserOutputUpdaterTest extends MediaWikiIntegrationTestCase {
 		);
 
 		$statement = NewStatement::forProperty( $property->getId() )
-			->withValue( new StringValue( 'E123' ) )
+			->withValue( new EntitySchemaValue( new EntitySchemaId( 'E123' ) ) )
 			->build();
 		$item = NewItem::withStatement( $statement )->build();
 

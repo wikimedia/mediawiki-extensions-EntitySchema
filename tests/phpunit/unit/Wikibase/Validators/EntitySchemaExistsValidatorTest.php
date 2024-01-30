@@ -4,8 +4,10 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\Wikibase\Validators;
 
-use DataValues\StringValue;
+use EntitySchema\Domain\Model\EntitySchemaId;
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
+use InvalidArgumentException;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiUnitTestCase;
@@ -36,7 +38,7 @@ class EntitySchemaExistsValidatorTest extends MediaWikiUnitTestCase {
 			);
 
 		$validator = new EntitySchemaExistsValidator( $titleFactory );
-		$result = $validator->validate( new StringValue( $id ) );
+		$result = $validator->validate( new EntitySchemaValue( new EntitySchemaId( $id ) ) );
 
 		$this->assertTrue( $result->isValid() );
 	}
@@ -51,7 +53,7 @@ class EntitySchemaExistsValidatorTest extends MediaWikiUnitTestCase {
 			);
 
 		$validator = new EntitySchemaExistsValidator( $titleFactory );
-		$result = $validator->validate( new StringValue( $id ) );
+		$result = $validator->validate( new EntitySchemaValue( new EntitySchemaId( $id ) ) );
 
 		$this->assertFalse( $result->isValid() );
 		$error = $result->getErrors()[0];
@@ -67,12 +69,8 @@ class EntitySchemaExistsValidatorTest extends MediaWikiUnitTestCase {
 			->willReturn( null );
 
 		$validator = new EntitySchemaExistsValidator( $titleFactory );
-		$result = $validator->validate( new StringValue( $id ) );
-
-		$this->assertFalse( $result->isValid() );
-		$error = $result->getErrors()[0];
-		$this->assertSame( 'no-such-entity-schema', $error->getCode() );
-		$this->assertSame( [ $id ], $error->getParameters() );
+		$this->expectException( InvalidArgumentException::class );
+		$validator->validate( new EntitySchemaValue( new EntitySchemaId( $id ) ) );
 	}
 
 }
