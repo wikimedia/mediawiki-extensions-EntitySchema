@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace phpunit\unit\MediaWiki\Hooks;
+namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 
 use Article;
 use EntitySchema\MediaWiki\Hooks\BeforeDisplayNoArticleTextHookHandler;
