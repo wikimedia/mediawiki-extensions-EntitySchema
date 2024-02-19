@@ -17,6 +17,8 @@
 	"entityschema-diff-aliases": "Синоними",
 	"entityschema-diff-schema": "Шема",
 	"entityschema-edit": "уреди",
+	"entityschema-summary-update-schema-namebadge": "Промењен назив, опис и псеудоними на $1",
+	"entityschema-summary-undo-autocomment": "Поништена измена $1 [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|разговор]])",
 	"entityschema-undo-heading-failed": "Поништавање није успело",
 	"entityschema-undo-cannot-apply-patch": "Измену није могуће поништити зато што је у међувремену промењена.",
 	"entityschema-restoreold": "врати",
