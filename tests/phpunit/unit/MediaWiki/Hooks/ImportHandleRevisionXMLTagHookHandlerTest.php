@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace phpunit\unit\MediaWiki\Hooks;
+namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Hooks\ImportHandleRevisionXMLTagHookHandler;
