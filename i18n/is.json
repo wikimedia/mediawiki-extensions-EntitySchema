@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Snævar"
+			"Snævar",
+			"Stefán Örvar Sigmundsson"
 		]
 	},
+	"entityschema-newschema-submit": "Búa til",
 	"wikibase-validator-illegal-entity-schema-title": "Gildi verður að byrja á <code>E</code> og restin á að vera eingöngu tölustafir."
 }
