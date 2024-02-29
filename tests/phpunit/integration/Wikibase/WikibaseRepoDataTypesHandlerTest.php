@@ -10,7 +10,7 @@ use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
-use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
+use EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHandler;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\Config\HashConfig;
@@ -26,10 +26,10 @@ use Wikibase\Repo\Validators\CompositeValidator;
 use Wikimedia\Purtle\RdfWriter;
 
 /**
- * @covers \EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler
+ * @covers \EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHandler
  * @license GPL-2.0-or-later
  */
-class WikibaseDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
+class WikibaseRepoDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testOnWikibaseRepoDataTypes(): void {
 		$settings = new HashConfig( [
@@ -39,7 +39,7 @@ class WikibaseDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 
-		$sut = new WikibaseDataTypesHandler(
+		$sut = new WikibaseRepoDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
 			$this->createStub( TitleFactory::class ),
@@ -76,7 +76,7 @@ class WikibaseDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 
-		$sut = new WikibaseDataTypesHandler(
+		$sut = new WikibaseRepoDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
 			$this->createStub( TitleFactory::class ),
@@ -112,7 +112,7 @@ class WikibaseDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 			->willReturn( $existenceResult );
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 
-		$handler = new WikibaseDataTypesHandler(
+		$handler = new WikibaseRepoDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
 			$this->createStub( TitleFactory::class ),

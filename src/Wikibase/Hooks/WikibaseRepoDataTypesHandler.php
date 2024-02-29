@@ -23,7 +23,7 @@ use Wikibase\Repo\Validators\TypeValidator;
 /**
  * @license GPL-2.0-or-later
  */
-class WikibaseDataTypesHandler {
+class WikibaseRepoDataTypesHandler {
 
 	private LinkRenderer $linkRenderer;
 	public Config $settings;

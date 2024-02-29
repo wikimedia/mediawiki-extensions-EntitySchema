@@ -44,8 +44,14 @@
 				"EntitySchema.LabelLookup"
 			]
 		},
+		"WikibaseClientDataTypes": {
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseClientDataTypesHandler",
+			"services": [
+				"MainConfig"
+			]
+		},
 		"WikibaseRepoDataTypes": {
-			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseDataTypesHandler",
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoDataTypesHandler",
 			"services": [
 				"LinkRenderer",
 				"MainConfig",
@@ -109,7 +115,8 @@
 		"TitleGetRestrictionTypes": "TitleGetRestrictionTypes",
 		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes",
 		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepoOnParserOutputUpdaterConstruction",
-		"SidebarBeforeOutput": "AddConceptLinkToSidebar"
+		"SidebarBeforeOutput": "AddConceptLinkToSidebar",
+		"WikibaseClientDataTypes": "WikibaseClientDataTypes"
 	},
 	"ContentHandlers": {
 		"EntitySchema": {

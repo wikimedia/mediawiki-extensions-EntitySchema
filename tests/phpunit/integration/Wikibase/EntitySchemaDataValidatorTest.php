@@ -8,7 +8,7 @@ use DataValues\StringValue;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
-use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
+use EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHandler;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Linker\LinkRenderer;
@@ -24,9 +24,9 @@ use Wikibase\Repo\Validators\CompositeValidator;
 /**
  * Integration test for the validator factory callback of the EntitySchema data type.
  * Most of the test cases here involve Wikibase’s own string validators;
- * there is also some basic testing in the {@link WikibaseDataTypesHandlerTest} unit test.
+ * there is also some basic testing in the {@link WikibaseRepoDataTypesHandlerTest} unit test.
  *
- * @covers \EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler
+ * @covers \EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHandler
  *
  * @license GPL-2.0-or-later
  */
@@ -44,7 +44,7 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 			$existsValidator->expects( $this->never() )->method( 'validate' );
 		}
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
-		$handler = new WikibaseDataTypesHandler(
+		$handler = new WikibaseRepoDataTypesHandler(
 			$stubLinkRenderer,
 			$settings,
 			$this->createStub( TitleFactory::class ),
