@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set up MySQL
       uses: mirromutth/mysql-action@v1.1
       with:
@@ -34,12 +34,12 @@ jobs:
         php-version: ${{ env.PHP_VERSION }}
         extensions: pdo_sqlite, mysqlnd
     - name: Cache Composer cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ${{ env.COMPOSER_HOME }}/cache
         key: composer-cache-php${{ env.PHP_VERSION }}
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: "16"
     - name: Install Dependencies
@@ -81,7 +81,7 @@ jobs:
         from: EntitySchema Github Action CI
     - name: Archive logs
       if: '!cancelled()'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: daily-CI-logs
         path: ${{ env.LOG_DIR }}
