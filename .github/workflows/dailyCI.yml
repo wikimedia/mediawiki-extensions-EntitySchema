@@ -1,7 +1,6 @@
 name: EntitySchema daily CI
 on:
-  schedule:
-    - cron: '42 5 * * *'
+  push:
 
 env:
   MEDIAWIKI_USER: admin
@@ -57,8 +56,7 @@ jobs:
       run: |
         bash ./build/ci-scripts/runTests.sh
     - name: Send mail
-      if: ${{ failure() }}
-      uses: dawidd6/action-send-mail@v3.7.1
+      uses: dawidd6/action-send-mail@v3.11.0
       with:
         server_address: smtp.gmail.com
         server_port: 465
@@ -77,7 +75,7 @@ jobs:
           <li>MediaWiki core branch: ${{ env.MW_BRANCH }}</li>
           </ul>
           CI specifications can be found in <a href="https://github.com/${{ github.repository }}/actions/workflows/dailyCI.yml">here</a>
-        to: wikidata-ci-status@wikimedia.de
+        to: lucas.werkmeister@wikimedia.de
         from: EntitySchema Github Action CI
     - name: Archive logs
       if: '!cancelled()'
