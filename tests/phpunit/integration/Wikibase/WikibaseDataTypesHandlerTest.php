@@ -13,13 +13,12 @@ use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
-use MediaWikiUnitTestCase;
+use MediaWikiIntegrationTestCase;
 use ValueFormatters\FormatterOptions;
 use ValueValidators\Result;
 use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Repo\Rdf\RdfVocabulary;
-use Wikibase\Repo\ValidatorBuilders;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikimedia\Purtle\RdfWriter;
 
@@ -27,14 +26,13 @@ use Wikimedia\Purtle\RdfWriter;
  * @covers \EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler
  * @license GPL-2.0-or-later
  */
-class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
+class WikibaseDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testOnWikibaseRepoDataTypes(): void {
 		$settings = new HashConfig( [
 			'EntitySchemaEnableDatatype' => true,
 		] );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
-		$stubValidatorBuilders = $this->createStub( ValidatorBuilders::class );
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 
@@ -42,7 +40,6 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 			$stubLinkRenderer,
 			$settings,
 			$this->createStub( TitleFactory::class ),
-			$stubValidatorBuilders,
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
@@ -73,7 +70,6 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 			'EntitySchemaEnableDatatype' => false,
 		] );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
-		$stubValidatorBuilders = $this->createStub( ValidatorBuilders::class );
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 
@@ -81,7 +77,6 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 			$stubLinkRenderer,
 			$settings,
 			$this->createStub( TitleFactory::class ),
-			$stubValidatorBuilders,
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
@@ -96,8 +91,7 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * Basic test for validating an EntitySchema ID value.
-	 * Further test cases, especially invalid ones, require integration with Wikibase
-	 * (instead of stubbing ValidatorBuilders) and are tested in {@link EntitySchemaDataValidatorTest}.
+	 * Further test cases, especially invalid ones, are tested in {@link EntitySchemaDataValidatorTest}.
 	 *
 	 * @dataProvider provideValuesWithValidity
 	 */
@@ -110,9 +104,6 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 			'EntitySchemaEnableDatatype' => true,
 		] );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
-		$validatorBuilders = $this->createConfiguredMock( ValidatorBuilders::class, [
-			'buildStringValidators' => [],
-		] );
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$stubExistsValidator->method( 'validate' )
 			->willReturn( $existenceResult );
@@ -122,7 +113,6 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 			$stubLinkRenderer,
 			$settings,
 			$this->createStub( TitleFactory::class ),
-			$validatorBuilders,
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
@@ -146,7 +136,7 @@ class WikibaseDataTypesHandlerTest extends MediaWikiUnitTestCase {
 
 	public static function provideValuesWithValidity(): iterable {
 		yield 'valid, existing' => [ 'E1', Result::newSuccess(), true ];
-		yield 'invalid, no pattern match' => [ '', Result::newError( [] ), false ];
+		yield 'invalid, no pattern match' => [ ' ', Result::newError( [] ), false ];
 		yield 'invalid, does not exist' => [ 'E1', Result::newError( [] ), false ];
 	}
 
