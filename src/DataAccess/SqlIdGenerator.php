@@ -78,17 +78,19 @@ class SqlIdGenerator implements IdGenerator {
 		} else {
 			$id = 1;
 
-			$success = $database->insert(
-				$this->tableName,
-				[
+			$database->newInsertQueryBuilder()
+				->insertInto( $this->tableName )
+				->row( [
 					'id_value' => $id,
-				],
-				__METHOD__
-			);
+				] )
+				->caller( __METHOD__ )
+				->execute();
+			$success = true; // T339346
 
 			// Retry once, since a race condition on initial insert can cause one to fail.
 			// Race condition is possible due to occurrence of phantom reads is possible
 			// at non serializable transaction isolation level.
+			// @phan-suppress-next-line PhanImpossibleCondition T339346
 			if ( !$success && $retry ) {
 				$id = $this->generateNewId( $database, false );
 				$success = true;

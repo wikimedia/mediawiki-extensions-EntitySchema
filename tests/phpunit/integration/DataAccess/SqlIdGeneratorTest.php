@@ -11,6 +11,7 @@ use RuntimeException;
 use Wikimedia\Rdbms\DBReadOnlyError;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\ILoadBalancer;
+use Wikimedia\Rdbms\InsertQueryBuilder;
 use Wikimedia\Rdbms\SelectQueryBuilder;
 
 /**
@@ -63,6 +64,10 @@ class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 		$database->method( 'newSelectQueryBuilder' )
 			->willReturn(
 				new SelectQueryBuilder( $database )
+			);
+		$database->method( 'newInsertQueryBuilder' )
+			->willReturn(
+				new InsertQueryBuilder( $database )
 			);
 		$loadBalancer = $this->createMock( ILoadBalancer::class );
 		$loadBalancer->method( 'getConnection' )
