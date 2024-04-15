@@ -17,9 +17,9 @@ use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikibase\Repo\Rdf\ValueSnakRdfBuilder;
-use Wikibase\Repo\ValidatorBuilders;
 use Wikibase\Repo\Validators\DataValueValidator;
 use Wikibase\Repo\Validators\RegexValidator;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @license GPL-2.0-or-later
@@ -29,7 +29,6 @@ class WikibaseDataTypesHandler {
 	private LinkRenderer $linkRenderer;
 	public Config $settings;
 	private EntitySchemaExistsValidator $entitySchemaExistsValidator;
-	private ValidatorBuilders $validatorBuilders;
 	private LanguageNameLookupFactory $languageNameLookupFactory;
 	private DatabaseEntitySource $localEntitySource;
 	private TitleFactory $titleFactory;
@@ -39,7 +38,6 @@ class WikibaseDataTypesHandler {
 		LinkRenderer $linkRenderer,
 		Config $settings,
 		TitleFactory $titleFactory,
-		ValidatorBuilders $validatorBuilders,
 		LanguageNameLookupFactory $languageNameLookupFactory,
 		DatabaseEntitySource $localEntitySource,
 		EntitySchemaExistsValidator $entitySchemaExistsValidator,
@@ -48,7 +46,6 @@ class WikibaseDataTypesHandler {
 		$this->linkRenderer = $linkRenderer;
 		$this->settings = $settings;
 		$this->entitySchemaExistsValidator = $entitySchemaExistsValidator;
-		$this->validatorBuilders = $validatorBuilders;
 		$this->languageNameLookupFactory = $languageNameLookupFactory;
 		$this->localEntitySource = $localEntitySource;
 		$this->titleFactory = $titleFactory;
@@ -72,7 +69,7 @@ class WikibaseDataTypesHandler {
 				);
 			},
 			'validator-factory-callback' => function (): array {
-				$validators = $this->validatorBuilders->buildStringValidators( 11 );
+				$validators = WikibaseRepo::getDefaultValidatorBuilders()->buildStringValidators( 11 );
 				$validators[] = new DataValueValidator( new RegexValidator(
 					EntitySchemaId::PATTERN,
 					false,

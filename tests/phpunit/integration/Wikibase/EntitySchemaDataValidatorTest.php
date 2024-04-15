@@ -17,13 +17,11 @@ use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Repo\Validators\CompositeValidator;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * Integration test for the validator factory callback of the EntitySchema data type.
  * Most of the test cases here involve Wikibase’s own string validators;
- * there is also some basic testing in the {@link WikibaseDataTypesHandlerTest} unit test,
- * which doesn’t require integration with Wikibase.
+ * there is also some basic testing in the {@link WikibaseDataTypesHandlerTest} unit test.
  *
  * @covers \EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler
  *
@@ -36,7 +34,6 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 			'EntitySchemaEnableDatatype' => true,
 		] );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
-		$validatorBuilders = WikibaseRepo::getDefaultValidatorBuilders( $this->getServiceContainer() );
 		$existsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$existsValidator->method( 'validate' )->willReturn( Result::newSuccess() );
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
@@ -44,7 +41,6 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 			$stubLinkRenderer,
 			$settings,
 			$this->createStub( TitleFactory::class ),
-			$validatorBuilders,
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$existsValidator,
@@ -67,7 +63,6 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 			'EntitySchemaEnableDatatype' => true,
 		] );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
-		$validatorBuilders = WikibaseRepo::getDefaultValidatorBuilders( $this->getServiceContainer() );
 		$existsValidator = $this->createMock( EntitySchemaExistsValidator::class );
 		$existsValidator->expects( $this->never() )->method( 'validate' );
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
@@ -75,7 +70,6 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 			$stubLinkRenderer,
 			$settings,
 			$this->createStub( TitleFactory::class ),
-			$validatorBuilders,
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$existsValidator,
