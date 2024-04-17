@@ -44,8 +44,6 @@ class SqlIdGenerator implements IdGenerator {
 		$database = $this->loadBalancer->getConnection( DB_PRIMARY );
 
 		$id = $this->generateNewId( $database );
-		$this->loadBalancer->reuseConnection( $database );
-
 		return $id;
 	}
 
