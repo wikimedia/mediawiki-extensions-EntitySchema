@@ -16,9 +16,15 @@ use ValueParsers\ParseException;
  */
 class EntitySchemaValueParserTest extends TestCase {
 
-	public function testParseStringFails() {
+	public function testParseInvalidString() {
 		$this->expectException( ParseException::class );
 		( new EntitySchemaValueParser() )->parse( 'test' );
+	}
+
+	public function testParseStringSucceeds() {
+		$result = ( new EntitySchemaValueParser() )->parse( 'E12' );
+		$this->assertInstanceOf( EntitySchemaValue::class, $result );
+		$this->assertSame( 'E12', $result->getValue()->getSchemaId() );
 	}
 
 	public function testParseInvalidArrayFails() {

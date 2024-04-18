@@ -6,6 +6,9 @@ module.exports = {
 		'wikimedia/jquery',
 		'wikimedia/mediawiki',
 	],
+	globals: {
+		wikibase: 'readonly',
+	},
 	rules: {
 		'no-jquery/no-global-selector': 'off',
 	},

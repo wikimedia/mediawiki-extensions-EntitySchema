@@ -108,6 +108,25 @@
 			"class": "EntitySchema\\MediaWiki\\EntitySchemaHooks"
 		}
 	},
+	"QUnitTestModule": {
+		"localBasePath": "",
+		"remoteExtPath": "EntitySchema",
+		"packageFiles": [
+			"tests/qunit/index.js",
+			"tests/qunit/experts/EntitySchema.tests.js"
+		],
+		"dependencies": [
+			"mediawiki.widgets",
+			"oojs-ui-core",
+			"oojs-ui-widgets",
+			"oojs-ui",
+			"vue",
+			"vuex",
+			"wikibase.datamodel",
+			"ext.EntitySchema.experts.EntitySchema",
+			"test.WikibaseRepository"
+		]
+	},
 	"Hooks": {
 		"SkinTemplateNavigation::Universal": "EntitySchemaHooks",
 		"LoadExtensionSchemaUpdates": "LoadExtensionSchemaUpdates",
@@ -223,6 +242,17 @@
 		"ext.EntitySchema.action.view.trackclicks": {
 			"scripts": [
 				"action.view.trackclicks.js"
+			],
+			"localBasePath": "resources",
+			"remoteExtPath": "EntitySchema/resources"
+		},
+		"ext.EntitySchema.experts.EntitySchema": {
+			"scripts": [
+				"experts.EntitySchema.js"
+			],
+			"dependencies": [
+				"jquery.valueview.Expert",
+				"wikibase.experts.Entity"
 			],
 			"localBasePath": "resources",
 			"remoteExtPath": "EntitySchema/resources"

@@ -13,6 +13,28 @@ class EntitySchemaValueParser implements ValueParser {
 
 	/** @inheritDoc */
 	public function parse( $value ) {
+		/** We handle both String and Array inputs here for calls from `wbparsevalue`
+		 * and `wbformatvalue`. This reflects the fact that this class is serving two
+		 * distinct purposes with the same function.
+		 * TODO: Split this into independent classes / functions
+		 * @see T365794
+		 */
+		if ( is_string( $value ) ) {
+			/* For calls from `wbparsevalue` (for example, when the EntitySchema expert
+			 * processes a value selected by the user from the property search results
+			 * dropdown), we need to handle values passed to us as strings. */
+			try {
+				return new EntitySchemaValue( new EntitySchemaId( $value ) );
+			} catch ( \InvalidArgumentException $e ) {
+				throw new ParseException(
+					'Unexpected id format: ' . $e->getMessage(),
+					$value,
+					'entity-schema'
+				);
+			}
+		}
+		/* For calls from `wbformatvalue` and during the saving of statements, we expect
+		 * to receive an array-structured value here */
 		if ( !is_array( $value ) ) {
 			throw new ParseException(
 				'The value supplied must be an array',

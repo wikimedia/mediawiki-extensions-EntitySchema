@@ -57,7 +57,7 @@ class WikibaseRepoDataTypesHandler {
 		}
 		$dataTypeDefinitions['PT:entity-schema'] = [
 			'value-type' => 'wikibase-entityid',
-			'expert-module' => 'jquery.valueview.experts.StringValue', // wrong value format but at least does something
+			'expert-module' => 'ext.EntitySchema.experts.EntitySchema',
 			'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
 				return new EntitySchemaFormatter(
 					$format,
