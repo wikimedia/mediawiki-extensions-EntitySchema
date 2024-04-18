@@ -4,7 +4,8 @@
 			"A2093064",
 			"Kly",
 			"Winston Sung",
-			"Xiplus"
+			"Xiplus",
+			"S8321414"
 		]
 	},
 	"datatypes-type-entity-schema": "實體架構",
@@ -37,7 +38,7 @@
 	"entityschema-error-possibly-multiple-messages-available": "您的輸入發生一些問題，請檢查以下錯誤訊息。",
 	"entityschema-error-schematext-too-long": "您所輸入的架構文字太長。最大長度為 {{PLURAL:$1|1|$1}} 個位元組。您的文字長度是 {{PLURAL:$2|1|$2}} 個位元組。",
 	"entityschema-error-input-too-long": "您所輸入的架構文字太長。最大長度為 {{PLURAL:$1|1|$1}} 個字元。您的文字長度是 {{PLURAL:$2|1|$2}} 個字元。",
-	"entityschema-noschema": "目前沒有架構。前往 [[Special:NewSchema]] 來建立一個新的。",
+	"entityschema-noschema": "目前沒有架構。前往 [[Special:NewEntitySchema]] 來建立一個新的。",
 	"entityschema-summary-generated": "摘要（會附加到自動產生的摘要）：",
 	"entityschema-label-empty": "沒有定義標籤",
 	"entityschema-namebadge-header-language-code": "語言代碼",
