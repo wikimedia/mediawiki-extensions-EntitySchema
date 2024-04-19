@@ -3,6 +3,8 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki;
 
+use EntitySchema\DataAccess\DescriptionLookup;
+use EntitySchema\DataAccess\FullViewSchemaDataLookup;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\Presentation\AutocommentFormatter;
@@ -19,11 +21,23 @@ class EntitySchemaServices {
 			->get( 'EntitySchema.AutocommentFormatter' );
 	}
 
+	public static function getDescriptionLookup( ContainerInterface $services = null ): DescriptionLookup {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'EntitySchema.DescriptionLookup' );
+	}
+
 	public static function getEntitySchemaExistsValidator(
 		ContainerInterface $services = null
 	): EntitySchemaExistsValidator {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'EntitySchema.EntitySchemaExistsValidator' );
+	}
+
+	public static function getFullViewSchemaDataLookup(
+		ContainerInterface $services = null
+	): FullViewSchemaDataLookup {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'EntitySchema.FullViewSchemaDataLookup' );
 	}
 
 	public static function getIdGenerator( ContainerInterface $services = null ): IdGenerator {

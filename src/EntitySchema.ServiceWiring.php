@@ -1,9 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
+use EntitySchema\DataAccess\DescriptionLookup;
+use EntitySchema\DataAccess\FullViewSchemaDataLookup;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\DataAccess\SqlIdGenerator;
 use EntitySchema\Domain\Storage\IdGenerator;
+use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Presentation\AutocommentFormatter;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\MediaWikiServices;
@@ -14,10 +17,27 @@ return [
 	'EntitySchema.AutocommentFormatter' => static function ( MediaWikiServices $services ): AutocommentFormatter {
 		return new AutocommentFormatter();
 	},
+
+	'EntitySchema.DescriptionLookup' => static function ( MediaWikiServices $services ): DescriptionLookup {
+		return new DescriptionLookup(
+			EntitySchemaServices::getFullViewSchemaDataLookup( $services ),
+			WikibaseRepo::getLanguageFallbackChainFactory( $services )
+		);
+	},
+
 	'EntitySchema.EntitySchemaExistsValidator' => static function (
 		MediaWikiServices $services
 	): EntitySchemaExistsValidator {
 		return new EntitySchemaExistsValidator( $services->getTitleFactory() );
+	},
+
+	'EntitySchema.FullViewSchemaDataLookup' => static function (
+		MediaWikiServices $services
+	): FullViewSchemaDataLookup {
+		return new FullViewSchemaDataLookup(
+			$services->getTitleFactory(),
+			$services->getWikiPageFactory()
+		);
 	},
 
 	'EntitySchema.IdGenerator' => static function ( MediaWikiServices $services ): IdGenerator {
@@ -29,7 +49,7 @@ return [
 	},
 	'EntitySchema.LabelLookup' => static function ( MediaWikiServices $services ): LabelLookup {
 		return new LabelLookup(
-			$services->getWikiPageFactory(),
+			EntitySchemaServices::getFullViewSchemaDataLookup( $services ),
 			WikibaseRepo::getLanguageFallbackChainFactory( $services )
 		);
 	},

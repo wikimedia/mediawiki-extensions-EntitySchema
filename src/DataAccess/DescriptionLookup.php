@@ -9,11 +9,11 @@ use Wikibase\DataModel\Term\TermFallback;
 use Wikibase\Lib\LanguageFallbackChainFactory;
 
 /**
- * Lookup for EntitySchema labels, with language fallbacks applied.
+ * Lookup for EntitySchema descriptions, with language fallbacks applied.
  *
  * @license GPL-2.0-or-later
  */
-class LabelLookup {
+class DescriptionLookup {
 
 	private FullViewSchemaDataLookup $fullViewSchemaDataLookup;
 
@@ -28,30 +28,30 @@ class LabelLookup {
 	}
 
 	/**
-	 * Look up the label of the EntitySchema with the given title, if any.
+	 * Look up the description of the EntitySchema with the given title, if any.
 	 * Language fallbacks are applied based on the given language code.
 	 *
 	 * @param PageIdentity $title
 	 * @param string $langCode
-	 * @return TermFallback|null The label, or null if no label or EntitySchema was found.
+	 * @return TermFallback|null The description, or null if no description or EntitySchema was found.
 	 */
-	public function getLabelForTitle( PageIdentity $title, string $langCode ): ?TermFallback {
+	public function getDescriptionForTitle( PageIdentity $title, string $langCode ): ?TermFallback {
 		$schemaData = $this->fullViewSchemaDataLookup->getFullViewSchemaDataForTitle( $title );
 		if ( $schemaData === null ) {
 			return null;
 		}
 
 		$chain = $this->languageFallbackChainFactory->newFromLanguageCode( $langCode );
-		$preferredLabel = $chain->extractPreferredValue( array_map(
-			fn ( $nameBadge ) => $nameBadge->label,
+		$preferredDescription = $chain->extractPreferredValue( array_map(
+			fn ( $nameBadge ) => $nameBadge->description,
 			$schemaData->nameBadges
 		) );
-		if ( $preferredLabel !== null ) {
+		if ( $preferredDescription !== null ) {
 			return new TermFallback(
 				$langCode,
-				$preferredLabel['value'],
-				$preferredLabel['language'],
-				$preferredLabel['source']
+				$preferredDescription['value'],
+				$preferredDescription['language'],
+				$preferredDescription['source']
 			);
 		} else {
 			return null;

@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\DataAccess;
 
+use EntitySchema\DataAccess\DescriptionLookup;
 use EntitySchema\DataAccess\FullViewSchemaDataLookup;
-use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Services\Converter\FullViewEntitySchemaData;
 use EntitySchema\Services\Converter\NameBadge;
 use MediaWiki\Page\PageIdentity;
@@ -14,10 +14,10 @@ use Wikibase\Lib\LanguageFallbackChainFactory;
 use Wikibase\Lib\TermLanguageFallbackChain;
 
 /**
- * @covers \EntitySchema\DataAccess\LabelLookup
+ * @covers \EntitySchema\DataAccess\DescriptionLookup
  * @license GPL-2.0-or-later
  */
-class LabelLookupTest extends MediaWikiUnitTestCase {
+class DescriptionLookupTest extends MediaWikiUnitTestCase {
 
 	public function testTitleDoesNotExist(): void {
 		$stubDataLookup = $this->createConfiguredMock(
@@ -25,18 +25,18 @@ class LabelLookupTest extends MediaWikiUnitTestCase {
 			[ 'getFullViewSchemaDataForTitle' => null ]
 		);
 		$stubLanguageFallbackChainFactory = $this->createStub( LanguageFallbackChainFactory::class );
-		$labelLookup = new LabelLookup( $stubDataLookup, $stubLanguageFallbackChainFactory );
+		$descriptionLookup = new DescriptionLookup( $stubDataLookup, $stubLanguageFallbackChainFactory );
 
-		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'en' );
+		$actualResult = $descriptionLookup->getDescriptionForTitle( $this->createMock( PageIdentity::class ), 'en' );
 
 		$this->assertNull( $actualResult );
 	}
 
-	public function testNoLabelInLanguage(): void {
+	public function testNoDescriptionInLanguage(): void {
 		$stubDataLookup = $this->createConfiguredMock(
 			FullViewSchemaDataLookup::class,
 			[ 'getFullViewSchemaDataForTitle' => new FullViewEntitySchemaData( [
-				'de' => new NameBadge( 'Mensch', '', [] ),
+				'de' => new NameBadge( '', 'Schema für Menschen', [] ),
 			], '' ) ]
 		);
 		$stubLanguageFallbackChain = $this->createConfiguredMock(
@@ -48,24 +48,24 @@ class LabelLookupTest extends MediaWikiUnitTestCase {
 			[ 'newFromLanguageCode' => $stubLanguageFallbackChain ]
 		);
 
-		$labelLookup = new LabelLookup( $stubDataLookup, $stubLanguageFallbackChainFactory );
+		$descriptionLookup = new DescriptionLookup( $stubDataLookup, $stubLanguageFallbackChainFactory );
 
-		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'en' );
+		$actualResult = $descriptionLookup->getDescriptionForTitle( $this->createMock( PageIdentity::class ), 'en' );
 
 		$this->assertNull( $actualResult );
 	}
 
-	public function testLabelInLanguageAvailable(): void {
+	public function testDescriptionInLanguageAvailable(): void {
 		$stubDataLookup = $this->createConfiguredMock(
 			FullViewSchemaDataLookup::class,
 			[ 'getFullViewSchemaDataForTitle' => new FullViewEntitySchemaData( [
-				'de' => new NameBadge( 'Mensch', '', [] ),
+				'de' => new NameBadge( '', 'Schema für Menschen', [] ),
 			], '' ) ]
 		);
 		$stubLanguageFallbackChain = $this->createConfiguredMock(
 			TermLanguageFallbackChain::class,
 			[ 'extractPreferredValue' => [
-				'value' => 'Mensch',
+				'value' => 'Schema für Menschen',
 				'language' => 'de',
 				'source' => 'de',
 			] ],
@@ -75,26 +75,26 @@ class LabelLookupTest extends MediaWikiUnitTestCase {
 			[ 'newFromLanguageCode' => $stubLanguageFallbackChain ]
 		);
 
-		$labelLookup = new LabelLookup( $stubDataLookup, $stubLanguageFallbackChainFactory );
+		$descriptionLookup = new DescriptionLookup( $stubDataLookup, $stubLanguageFallbackChainFactory );
 
-		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'de' );
+		$actualResult = $descriptionLookup->getDescriptionForTitle( $this->createMock( PageIdentity::class ), 'de' );
 
 		$this->assertSame( 'de', $actualResult->getLanguageCode() );
 		$this->assertSame( 'de', $actualResult->getActualLanguageCode() );
-		$this->assertSame( 'Mensch', $actualResult->getText() );
+		$this->assertSame( 'Schema für Menschen', $actualResult->getText() );
 	}
 
-	public function testLabelInFallbackLanguageAvailable(): void {
+	public function testDescriptionInFallbackLanguageAvailable(): void {
 		$stubDataLookup = $this->createConfiguredMock(
 			FullViewSchemaDataLookup::class,
 			[ 'getFullViewSchemaDataForTitle' => new FullViewEntitySchemaData( [
-				'en' => new NameBadge( 'human', '', [] ),
+				'en' => new NameBadge( '', 'schema for humans', [] ),
 			], '' ) ]
 		);
 		$stubLanguageFallbackChain = $this->createConfiguredMock(
 			TermLanguageFallbackChain::class,
 			[ 'extractPreferredValue' => [
-				'value' => 'human',
+				'value' => 'schema for humans',
 				'language' => 'en',
 				'source' => 'en',
 			] ],
@@ -104,12 +104,12 @@ class LabelLookupTest extends MediaWikiUnitTestCase {
 			[ 'newFromLanguageCode' => $stubLanguageFallbackChain ]
 		);
 
-		$labelLookup = new LabelLookup( $stubDataLookup, $stubLanguageFallbackChainFactory );
+		$descriptionLookup = new DescriptionLookup( $stubDataLookup, $stubLanguageFallbackChainFactory );
 
-		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'de-at' );
+		$actualResult = $descriptionLookup->getDescriptionForTitle( $this->createMock( PageIdentity::class ), 'de-at' );
 
 		$this->assertSame( 'de-at', $actualResult->getLanguageCode() );
 		$this->assertSame( 'en', $actualResult->getActualLanguageCode() );
-		$this->assertSame( 'human', $actualResult->getText() );
+		$this->assertSame( 'schema for humans', $actualResult->getText() );
 	}
 }
