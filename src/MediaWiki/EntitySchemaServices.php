@@ -8,6 +8,7 @@ use EntitySchema\DataAccess\FullViewSchemaDataLookup;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\Presentation\AutocommentFormatter;
+use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\MediaWikiServices;
 use Psr\Container\ContainerInterface;
@@ -31,6 +32,13 @@ class EntitySchemaServices {
 	): EntitySchemaExistsValidator {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'EntitySchema.EntitySchemaExistsValidator' );
+	}
+
+	public static function getEntitySchemaSearchHelperFactory(
+		ContainerInterface $services = null
+	): EntitySchemaSearchHelperFactory {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'EntitySchema.EntitySchemaSearchHelperFactory' );
 	}
 
 	public static function getFullViewSchemaDataLookup(

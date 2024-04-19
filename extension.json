@@ -62,6 +62,12 @@
 				"EntitySchema.LabelLookup"
 			]
 		},
+		"WikibaseRepoEntitySearchHelperCallbacks": {
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoEntitySearchHelperCallbacksHandler",
+			"services": [
+				"EntitySchema.EntitySchemaSearchHelperFactory"
+			]
+		},
 		"WikibaseRepoOnParserOutputUpdaterConstruction": {
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\ParserOutputUpdaterConstructionHandler",
 			"services": [
@@ -113,6 +119,7 @@
 		"ContentModelCanBeUsedOn": "ContentModelCanBeUsedOn",
 		"ImportHandleRevisionXMLTag": "ImportHandleRevisionXMLTag",
 		"TitleGetRestrictionTypes": "TitleGetRestrictionTypes",
+		"WikibaseRepoEntitySearchHelperCallbacks": "WikibaseRepoEntitySearchHelperCallbacks",
 		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes",
 		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepoOnParserOutputUpdaterConstruction",
 		"SidebarBeforeOutput": "AddConceptLinkToSidebar",

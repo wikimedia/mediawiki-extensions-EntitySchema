@@ -8,6 +8,7 @@ use EntitySchema\DataAccess\SqlIdGenerator;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Presentation\AutocommentFormatter;
+use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\MediaWikiServices;
 use Wikibase\Repo\WikibaseRepo;
@@ -31,6 +32,18 @@ return [
 		return new EntitySchemaExistsValidator( $services->getTitleFactory() );
 	},
 
+	'EntitySchema.EntitySchemaSearchHelperFactory' => static function (
+		MediaWikiServices $services
+	): EntitySchemaSearchHelperFactory {
+		return new EntitySchemaSearchHelperFactory(
+			$services->getTitleFactory(),
+			$services->getWikiPageFactory(),
+			WikibaseRepo::getLocalEntitySource( $services )->getConceptBaseUri(),
+			EntitySchemaServices::getDescriptionLookup( $services ),
+			EntitySchemaServices::getLabelLookup( $services )
+		);
+	},
+
 	'EntitySchema.FullViewSchemaDataLookup' => static function (
 		MediaWikiServices $services
 	): FullViewSchemaDataLookup {
@@ -47,6 +60,7 @@ return [
 			$services->getMainConfig()->get( 'EntitySchemaSkippedIDs' )
 		);
 	},
+
 	'EntitySchema.LabelLookup' => static function ( MediaWikiServices $services ): LabelLookup {
 		return new LabelLookup(
 			EntitySchemaServices::getFullViewSchemaDataLookup( $services ),
