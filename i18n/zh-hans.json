@@ -9,12 +9,15 @@
 			"Shizhao",
 			"Xiplus",
 			"Yfdyh000",
-			"Zazzzz"
+			"Zazzzz",
+			"沈澄心"
 		]
 	},
 	"datatypes-type-entity-schema": "实体架构",
 	"entityschema-desc": "存储和讨论Wikibase实体的架构",
 	"special-newschema": "创建一个新的实体架构",
+	"nstab-entityschema": "EntitySchema",
+	"tooltip-ca-nstab-entityschema": "EntitySchema定义",
 	"entityschema-newschema-label": "标签：",
 	"entityschema-newschema-description": "描述：",
 	"entityschema-newschema-aliases": "别名，以竖线分隔：",
@@ -89,5 +92,6 @@
 	"entityschema-special-aliases": "别名，以竖线分隔：",
 	"wikibase-listdatatypes-entity-schema-head": "实体架构",
 	"wikibase-listdatatypes-entity-schema-body": "链接到存储在同一wiki上配置的命名空间中的实体架构。该值必须没有“EntitySchema:”命名空间前缀",
-	"wikibase-validator-illegal-entity-schema-title": "值必须以<code>E</code>作为开头，剩余部分则为数字。"
+	"wikibase-validator-illegal-entity-schema-title": "值必须以<code>E</code>作为开头，剩余部分则为数字。",
+	"wikibase-validator-no-such-entity-schema": "实体架构$1不存在。"
 }
