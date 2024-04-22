@@ -5,6 +5,7 @@ namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Hooks\HtmlPageLinkRendererEndHookHandler;
+use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
 use HtmlArmor;
 use Language;
 use MediaWiki\Languages\LanguageFactory;
@@ -21,15 +22,7 @@ use Wikibase\DataModel\Term\TermFallback;
  * @license GPL-2.0-or-later
  */
 class HtmlPageLinkRendererEndHookHandlerTest extends MediaWikiUnitTestCase {
-
-	public static function setUpBeforeClass(): void {
-		parent::setUpBeforeClass();
-
-		if ( !defined( 'NS_ENTITYSCHEMA_JSON' ) ) {
-			// defined through extension.json, which is not loaded in unit tests
-			define( 'NS_ENTITYSCHEMA_JSON', 640 );
-		}
-	}
+	use EntitySchemaUnitTestCaseTrait;
 
 	public static function scenarioProvider(): iterable {
 		$originalText = 'E1';

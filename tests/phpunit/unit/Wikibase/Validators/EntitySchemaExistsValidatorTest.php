@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Unit\Wikibase\Validators;
 
 use EntitySchema\Domain\Model\EntitySchemaId;
+use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use InvalidArgumentException;
@@ -18,15 +19,7 @@ use MediaWikiUnitTestCase;
  * @license GPL-2.0-or-later
  */
 class EntitySchemaExistsValidatorTest extends MediaWikiUnitTestCase {
-
-	public static function setUpBeforeClass(): void {
-		parent::setUpBeforeClass();
-
-		if ( !defined( 'NS_ENTITYSCHEMA_JSON' ) ) {
-			// defined through extension.json, which is not loaded in unit tests
-			define( 'NS_ENTITYSCHEMA_JSON', 640 );
-		}
-	}
+	use EntitySchemaUnitTestCaseTrait;
 
 	public function testValidateExisting(): void {
 		$id = 'E123';

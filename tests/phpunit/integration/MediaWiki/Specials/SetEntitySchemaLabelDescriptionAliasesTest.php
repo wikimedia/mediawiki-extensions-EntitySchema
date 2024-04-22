@@ -4,20 +4,16 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Specials\SetEntitySchemaLabelDescriptionAliases;
+use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use EntitySchema\Tests\Mocks\HTMLFormSpy;
-use MediaWiki\CommentStore\CommentStoreComment;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
-use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWiki\User\TempUser\TempUserConfig;
 use SpecialPageTestBase;
 use Wikibase\Lib\SettingsArray;
 use Wikimedia\TestingAccessWrapper;
-use WikiPage;
 
 /**
  * @covers \EntitySchema\MediaWiki\Specials\SetEntitySchemaLabelDescriptionAliases
@@ -27,6 +23,7 @@ use WikiPage;
  * @license GPL-2.0-or-later
  */
 class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
+	use EntitySchemaIntegrationTestCaseTrait;
 
 	private ?string $mockHTMLFormProvider = null;
 	private bool $tempUserEnabled = false;
@@ -326,30 +323,6 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			]
 		);
 		return $this->getCurrentSchemaContent( 'E123' );
-	}
-
-	private function getCurrentSchemaContent( string $pageName ): array {
-		$revId = $this->getCurrentSchemaRevisionId( $pageName );
-		$rev = MediaWikiServices::getInstance()
-			->getRevisionStore()
-			->getRevisionById( $revId );
-
-		return json_decode( $rev->getContent( SlotRecord::MAIN )->getText(), true );
-	}
-
-	private function getCurrentSchemaRevisionId( string $pageName ): int {
-		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $pageName );
-		return $title->getLatestRevID();
-	}
-
-	private function saveSchemaPageContent( WikiPage $page, array $content ): void {
-		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
-		$firstRevRecord = $updater->saveRevision(
-			CommentStoreComment::newUnsavedComment(
-				'test summary 1'
-			)
-		);
 	}
 
 }

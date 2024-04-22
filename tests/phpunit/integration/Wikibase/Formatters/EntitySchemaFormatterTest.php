@@ -47,15 +47,6 @@ class EntitySchemaFormatterTest extends MediaWikiIntegrationTestCase {
 		$this->mockTitleFactory = $this->createMock( TitleFactory::class );
 	}
 
-	public static function setUpBeforeClass(): void {
-		parent::setUpBeforeClass();
-
-		if ( !defined( 'NS_ENTITYSCHEMA_JSON' ) ) {
-			// defined through extension.json, which is not loaded in unit tests
-			define( 'NS_ENTITYSCHEMA_JSON', 640 );
-		}
-	}
-
 	public static function provideTextFormats(): iterable {
 		return [
 			[ SnakFormatter::FORMAT_PLAIN, 'E984', 'English Label' ],

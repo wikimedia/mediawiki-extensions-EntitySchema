@@ -6,13 +6,10 @@ namespace EntitySchema\Tests\Integration\Wikibase\Search;
 
 use EntitySchema\DataAccess\DescriptionLookup;
 use EntitySchema\DataAccess\LabelLookup;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\EntitySchemaServices;
+use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelper;
-use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Page\WikiPageFactory;
-use MediaWiki\Revision\RevisionRecord;
-use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
@@ -26,6 +23,7 @@ use WikiPage;
  * @license GPL-2.0-or-later
  */
 class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
+	use EntitySchemaIntegrationTestCaseTrait;
 
 	public function testGetRankedSearchResults(): void {
 		$id = 'E1';
@@ -167,17 +165,6 @@ class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
 	private function assertTerm( string $expectedLanguage, string $expectedText, Term $term ): void {
 		$this->assertSame( $expectedLanguage, $term->getLanguageCode() );
 		$this->assertSame( $expectedText, $term->getText() );
-	}
-
-	private function saveSchemaPageContent( WikiPage $page, array $content ): RevisionRecord {
-		$content['serializationVersion'] = '3.0';
-		$updater = $page->newPageUpdater( $this->getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
-		$firstRevRecord = $updater->saveRevision(
-			CommentStoreComment::newUnsavedComment( static::class )
-		);
-
-		return $firstRevRecord;
 	}
 
 }

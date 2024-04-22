@@ -6,6 +6,7 @@ namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Hooks\ContentModelCanBeUsedOnHookHandler;
+use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
 use MediaWiki\Title\Title;
 use MediaWikiUnitTestCase;
 
@@ -15,14 +16,7 @@ use MediaWikiUnitTestCase;
  * @covers \EntitySchema\MediaWiki\Hooks\ContentModelCanBeUsedOnHookHandler
  */
 class ContentModelCanBeUsedOnHookHandlerTest extends MediaWikiUnitTestCase {
-	public static function setUpBeforeClass(): void {
-		parent::setUpBeforeClass();
-
-		if ( !defined( 'NS_ENTITYSCHEMA_JSON' ) ) {
-			// defined through extension.json, which is not loaded in unit tests
-			define( 'NS_ENTITYSCHEMA_JSON', 640 );
-		}
-	}
+	use EntitySchemaUnitTestCaseTrait;
 
 	public function testAllowsEntitySchemaContentModel(): void {
 		$hookHandler = new ContentModelCanBeUsedOnHookHandler();

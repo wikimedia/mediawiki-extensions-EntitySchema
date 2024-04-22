@@ -4,14 +4,10 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\DataAccess;
 
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\EntitySchemaServices;
-use MediaWiki\CommentStore\CommentStoreComment;
-use MediaWiki\Revision\RevisionRecord;
-use MediaWiki\Revision\SlotRecord;
+use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
-use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
@@ -19,6 +15,7 @@ use WikiPage;
  * @group Database
  */
 class LabelLookupTest extends MediaWikiIntegrationTestCase {
+	use EntitySchemaIntegrationTestCaseTrait;
 
 	public function testGetLabel_LabelExistsInLanguage() {
 		$id = 'E456';
@@ -77,19 +74,6 @@ class LabelLookupTest extends MediaWikiIntegrationTestCase {
 		$actualLabelTerm = $labelLookup->getLabelForTitle( $title, 'en' );
 
 		$this->assertNull( $actualLabelTerm );
-	}
-
-	private function saveSchemaPageContent( WikiPage $page, array $content ): RevisionRecord {
-		$content['serializationVersion'] = '3.0';
-		$updater = $page->newPageUpdater( $this->getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
-		$firstRevRecord = $updater->saveRevision(
-			CommentStoreComment::newUnsavedComment(
-				'test summary'
-			)
-		);
-
-		return $firstRevRecord;
 	}
 
 }

@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 
 use EntitySchema\MediaWiki\Hooks\SidebarHookHandler;
+use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
 use MediaWiki\Title\Title;
 use MediaWikiUnitTestCase;
 use Message;
@@ -16,15 +17,7 @@ use Wikibase\DataAccess\EntitySource;
  * @license GPL-2.0-or-later
  */
 class SidebarHandlerTest extends MediaWikiUnitTestCase {
-
-	public static function setUpBeforeClass(): void {
-		parent::setUpBeforeClass();
-
-		if ( !defined( 'NS_ENTITYSCHEMA_JSON' ) ) {
-			// defined through extension.json, which is not loaded in unit tests
-			define( 'NS_ENTITYSCHEMA_JSON', 640 );
-		}
-	}
+	use EntitySchemaUnitTestCaseTrait;
 
 	public function testBuildConceptUriLinkReturnsLink() {
 

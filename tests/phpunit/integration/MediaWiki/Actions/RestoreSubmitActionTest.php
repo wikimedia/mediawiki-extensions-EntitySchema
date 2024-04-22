@@ -7,17 +7,13 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 use Action;
 use Article;
 use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWiki\Block\DatabaseBlock;
-use MediaWiki\CommentStore\CommentStoreComment;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
-use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use PermissionsError;
 use RequestContext;
-use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
@@ -27,6 +23,7 @@ use WikiPage;
  * @covers \EntitySchema\MediaWiki\Actions\RestoreSubmitAction
  */
 final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
+	use EntitySchemaIntegrationTestCaseTrait;
 
 	private DatabaseBlock $block;
 
@@ -42,8 +39,8 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 		$page = $this->getServiceContainer()->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
-		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] )->getId();
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] )->getId();
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
@@ -69,8 +66,8 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 		$page = $this->getServiceContainer()->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
-		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] )->getId();
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] )->getId();
 		$this->saveSchemaPageContent( $page, [ 'schemaText' => 'ghi' ] );
 
 		$context = RequestContext::getMain();
@@ -111,7 +108,7 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 		$page = $this->getServiceContainer()->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] )->getId();
 		$this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
 
 		$context = RequestContext::getMain();
@@ -131,28 +128,6 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 		$this->expectException( PermissionsError::class );
 
 		$restoreSubmitAction->show();
-	}
-
-	private function getCurrentSchemaContent( string $pageName ): array {
-		/** @var EntitySchemaContent $content */
-		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $pageName );
-		$rev = MediaWikiServices::getInstance()
-			->getRevisionStore()
-			->getRevisionById( $title->getLatestRevID() );
-		return json_decode( $rev->getContent( SlotRecord::MAIN )->getText(), true );
-	}
-
-	private function saveSchemaPageContent( WikiPage $page, array $content ): int {
-		$content['serializationVersion'] = '3.0';
-		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
-		$firstRevRecord = $updater->saveRevision(
-			CommentStoreComment::newUnsavedComment(
-				'test summary 1'
-			)
-		);
-
-		return $firstRevRecord->getId();
 	}
 
 	public function testActionName() {

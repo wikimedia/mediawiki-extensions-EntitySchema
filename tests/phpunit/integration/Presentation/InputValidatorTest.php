@@ -4,16 +4,13 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\Presentation;
 
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
-use MediaWiki\CommentStore\CommentStoreComment;
+use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWiki\Config\HashConfig;
-use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use Message;
 use MessageLocalizer;
-use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
@@ -23,6 +20,7 @@ use WikiPage;
  * @covers \EntitySchema\Presentation\InputValidator
  */
 class InputValidatorTest extends MediaWikiIntegrationTestCase {
+	use EntitySchemaIntegrationTestCaseTrait;
 
 	public function testValidateId(): void {
 		$this->createTestSchema();
@@ -116,16 +114,6 @@ class InputValidatorTest extends MediaWikiIntegrationTestCase {
 				'schemaText' => 'abc',
 				'serializationVersion' => '3.0',
 			]
-		);
-	}
-
-	private function saveSchemaPageContent( WikiPage $page, array $content ): void {
-		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
-		$updater->saveRevision(
-			CommentStoreComment::newUnsavedComment(
-				'test summary 1'
-			)
 		);
 	}
 

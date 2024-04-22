@@ -6,16 +6,13 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
 use Article;
 use EntitySchema\MediaWiki\Actions\UndoViewAction;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
-use MediaWiki\CommentStore\CommentStoreComment;
+use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWiki\Request\FauxRequest;
-use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use RequestContext;
 use TextSlotDiffRenderer;
-use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
@@ -29,6 +26,7 @@ use WikiPage;
  * @covers \EntitySchema\Presentation\ConfirmationFormRenderer
  */
 class UndoViewActionTest extends MediaWikiIntegrationTestCase {
+	use EntitySchemaIntegrationTestCaseTrait;
 
 	public function test_UndoView() {
 		// arrange
@@ -36,8 +34,8 @@ class UndoViewActionTest extends MediaWikiIntegrationTestCase {
 		$page = $this->getServiceContainer()->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId ) );
 
-		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc', 'id' => $schemaId ] );
-		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def', 'id' => $schemaId ] );
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc', 'id' => $schemaId ] )->getId();
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def', 'id' => $schemaId ] )->getId();
 
 		$context = RequestContext::getMain();
 		$context->setWikiPage( $page );
@@ -81,19 +79,6 @@ class UndoViewActionTest extends MediaWikiIntegrationTestCase {
 			'<del class="diffchange diffchange-inline">def</del>',
 			$actualHTML
 		);
-	}
-
-	private function saveSchemaPageContent( WikiPage $page, array $content ): int {
-		$content['serializationVersion'] = '3.0';
-		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
-		$firstRevRecord = $updater->saveRevision(
-			CommentStoreComment::newUnsavedComment(
-				'test summary 1'
-			)
-		);
-
-		return $firstRevRecord->getId();
 	}
 
 }

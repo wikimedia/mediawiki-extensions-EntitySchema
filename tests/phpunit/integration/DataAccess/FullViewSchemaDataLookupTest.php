@@ -6,14 +6,10 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\DataAccess\FullViewSchemaDataLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\FullViewEntitySchemaData;
 use EntitySchema\Services\Converter\NameBadge;
-use MediaWiki\CommentStore\CommentStoreComment;
-use MediaWiki\Revision\RevisionRecord;
-use MediaWiki\Revision\SlotRecord;
+use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWikiIntegrationTestCase;
-use WikiPage;
 
 /**
  * @covers EntitySchema\DataAccess\FullViewSchemaDataLookup
@@ -21,6 +17,7 @@ use WikiPage;
  * @group Database
  */
 class FullViewSchemaDataLookupTest extends MediaWikiIntegrationTestCase {
+	use EntitySchemaIntegrationTestCaseTrait;
 
 	public function testGetFullViewSchemaData(): void {
 		$services = $this->getServiceContainer();
@@ -64,19 +61,6 @@ class FullViewSchemaDataLookupTest extends MediaWikiIntegrationTestCase {
 	public static function provideWithTitleFlags(): iterable {
 		yield 'called with Title' => [ true ];
 		yield 'called with WikiPage' => [ false ];
-	}
-
-	private function saveSchemaPageContent( WikiPage $page, array $content ): RevisionRecord {
-		$content['serializationVersion'] = '3.0';
-		$updater = $page->newPageUpdater( $this->getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
-		$firstRevRecord = $updater->saveRevision(
-			CommentStoreComment::newUnsavedComment(
-				'test summary'
-			)
-		);
-
-		return $firstRevRecord;
 	}
 
 }

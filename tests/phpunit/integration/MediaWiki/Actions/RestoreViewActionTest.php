@@ -6,16 +6,13 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
 use Article;
 use EntitySchema\MediaWiki\Actions\RestoreViewAction;
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
-use MediaWiki\CommentStore\CommentStoreComment;
+use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWiki\Request\FauxRequest;
-use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use RequestContext;
 use TextSlotDiffRenderer;
-use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
@@ -27,6 +24,7 @@ use WikiPage;
  * @covers \EntitySchema\Presentation\ConfirmationFormRenderer
  */
 final class RestoreViewActionTest extends MediaWikiIntegrationTestCase {
+	use EntitySchemaIntegrationTestCaseTrait;
 
 	public function testRestoreView() {
 		// arrange
@@ -36,7 +34,7 @@ final class RestoreViewActionTest extends MediaWikiIntegrationTestCase {
 		$firstID = $this->saveSchemaPageContent(
 			$page,
 			[ 'schemaText' => 'abc' ]
-		);
+		)->getId();
 		$this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] );
 
 		$context = RequestContext::getMain();
@@ -79,19 +77,6 @@ final class RestoreViewActionTest extends MediaWikiIntegrationTestCase {
 			'<del class="diffchange diffchange-inline">def</del>',
 			$actualHTML
 		);
-	}
-
-	private function saveSchemaPageContent( WikiPage $page, array $content ): int {
-		$content['serializationVersion'] = '3.0';
-		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
-		$firstRevRecord = $updater->saveRevision(
-			CommentStoreComment::newUnsavedComment(
-				'test summary 1'
-			)
-		);
-
-		return $firstRevRecord->getId();
 	}
 
 }

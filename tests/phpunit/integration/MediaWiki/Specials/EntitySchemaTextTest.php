@@ -4,16 +4,13 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
-use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Specials\EntitySchemaText;
+use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use HttpError;
-use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Request\WebResponse;
-use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use SpecialPageTestBase;
-use WikiPage;
 
 /**
  * @covers \EntitySchema\MediaWiki\Specials\EntitySchemaText
@@ -23,6 +20,7 @@ use WikiPage;
  * @license GPL-2.0-or-later
  */
 class EntitySchemaTextTest extends SpecialPageTestBase {
+	use EntitySchemaIntegrationTestCaseTrait;
 
 	public function testExistingSchema() {
 		$testSchema = <<<ShExC
@@ -75,19 +73,6 @@ ShExC;
 
 	protected function newSpecialPage(): EntitySchemaText {
 		return new EntitySchemaText();
-	}
-
-	private function saveSchemaPageContent( WikiPage $page, array $content ): int {
-		$content['serializationVersion'] = '3.0';
-		$updater = $page->newPageUpdater( self::getTestUser()->getUser() );
-		$updater->setContent( SlotRecord::MAIN, new EntitySchemaContent( json_encode( $content ) ) );
-		$firstRevRecord = $updater->saveRevision(
-			CommentStoreComment::newUnsavedComment(
-				'test summary 1'
-			)
-		);
-
-		return $firstRevRecord->getId();
 	}
 
 }
