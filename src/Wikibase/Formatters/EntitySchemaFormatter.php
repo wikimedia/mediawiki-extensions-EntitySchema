@@ -66,13 +66,48 @@ class EntitySchemaFormatter implements ValueFormatter {
 		switch ( $snakFormat->getBaseFormat( $this->format ) ) {
 			case SnakFormatter::FORMAT_HTML:
 				return $this->makeHtmlLink( $entitySchemaId );
-			// TODO: case SnakFormatter::FORMAT_WIKI:
+			case SnakFormatter::FORMAT_WIKI:
+				return $this->makeWikiLink( $entitySchemaId );
 			case SnakFormatter::FORMAT_PLAIN:
-				// hacky hack to get schema values as links with labels on history, recent changes, etc
-				return "[[EntitySchema:$entitySchemaId]]";
+				return $this->makePlainText( $entitySchemaId );
 			default:
 				return $entitySchemaId;
 		}
+	}
+
+	private function makePlainText( string $entitySchemaId ): string {
+		$schemaPageIdentity = $this->titleFactory->newFromText( $entitySchemaId, NS_ENTITYSCHEMA_JSON );
+		if ( $schemaPageIdentity === null ) {
+			return $entitySchemaId;
+		}
+		$requestedLanguageCode = $this->options->getOption( ValueFormatter::OPT_LANG );
+		$labelTerm = $this->labelLookup->getLabelForTitle(
+			$schemaPageIdentity,
+			$requestedLanguageCode
+		);
+
+		if ( $labelTerm ) {
+			return $labelTerm->getText();
+		}
+		return $schemaPageIdentity->getText();
+	}
+
+	private function makeWikiLink( string $entitySchemaId ): string {
+		$schemaPageIdentity = $this->titleFactory->newFromText( $entitySchemaId, NS_ENTITYSCHEMA_JSON );
+		if ( $schemaPageIdentity === null ) {
+			return "[[EntitySchema:$entitySchemaId]]";
+		}
+		$requestedLanguageCode = $this->options->getOption( ValueFormatter::OPT_LANG );
+		$labelTerm = $this->labelLookup->getLabelForTitle(
+			$schemaPageIdentity,
+			$requestedLanguageCode
+		);
+
+		$linkTitle = 'EntitySchema:' . $entitySchemaId;
+		if ( $labelTerm ) {
+			return '[[' . $linkTitle . '|' . wfEscapeWikiText( $labelTerm->getText() ) . ']]';
+		}
+		return '[[' . $linkTitle . ']]';
 	}
 
 	private function makeHtmlLink( string $entitySchemaId ): string {
