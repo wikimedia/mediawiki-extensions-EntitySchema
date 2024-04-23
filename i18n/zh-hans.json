@@ -7,11 +7,16 @@
 			"Ps2049",
 			"Shizhao",
 			"Yfdyh000",
-			"Zazzzz"
+			"Zazzzz",
+			"Njzjz",
+			"Xiplus",
+			"沈澄心"
 		]
 	},
 	"entityschema-desc": "存储和讨论Wikibase实体的架构",
 	"special-newschema": "创建一个新的实体架构",
+	"nstab-entityschema": "EntitySchema",
+	"tooltip-ca-nstab-entityschema": "EntitySchema定义",
 	"entityschema-newschema-label": "标签：",
 	"entityschema-newschema-description": "描述：",
 	"entityschema-newschema-aliases": "别名，以竖线分隔：",
