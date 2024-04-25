@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Wikibase\Rdf;
 
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikibase\Repo\Rdf\ValueSnakRdfBuilder;
@@ -49,14 +50,19 @@ class EntitySchemaRdfBuilder implements ValueSnakRdfBuilder {
 		PropertyValueSnak $snak
 	) {
 		$entitySchemaPrefix = $this->getEntitySchemaPrefix();
+		$dataValue = $snak->getDataValue();
+		$title = $dataValue->getValue();
+		if ( $dataValue instanceof EntitySchemaValue ) {
+			$title = $dataValue->getSchemaId();
+		}
 		if ( $entitySchemaPrefix ) {
 			$writer->say( $propertyValueNamespace, $propertyValueLName )->is(
 				$entitySchemaPrefix,
-				$snak->getDataValue()->getValue()
+				$title
 			);
 		} else {
 			$writer->say( $propertyValueNamespace, $propertyValueLName )->is(
-				trim( $this->wikibaseConceptBaseUri . $snak->getDataValue()->getValue() )
+				trim( $this->wikibaseConceptBaseUri . $title )
 			);
 		}
 	}

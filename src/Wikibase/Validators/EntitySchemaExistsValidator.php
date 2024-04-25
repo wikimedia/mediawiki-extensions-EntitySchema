@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Wikibase\Validators;
 
-use DataValues\StringValue;
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use InvalidArgumentException;
 use MediaWiki\Title\TitleFactory;
 use ValueValidators\Error;
@@ -24,10 +24,10 @@ class EntitySchemaExistsValidator implements ValueValidator {
 
 	/** @inheritDoc */
 	public function validate( $value ): Result {
-		if ( !( $value instanceof StringValue ) ) {
-			throw new InvalidArgumentException( 'Expected a StringValue object' );
+		if ( !( $value instanceof EntitySchemaValue ) ) {
+			throw new InvalidArgumentException( 'Expected a EntitySchemaValue object' );
 		}
-		$id = $value->getValue();
+		$id = $value->getSchemaId();
 
 		$title = $this->titleFactory->makeTitleSafe( NS_ENTITYSCHEMA_JSON, $id );
 		if ( $title !== null && $title->exists() ) {

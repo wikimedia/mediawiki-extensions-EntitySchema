@@ -6,6 +6,8 @@ namespace EntitySchema\Tests\Integration\Wikibase;
 
 use DataValues\StringValue;
 use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\Domain\Model\EntitySchemaId;
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Hooks\WikibaseDataTypesHandler;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\Config\HashConfig;
@@ -13,6 +15,7 @@ use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
 use ValueValidators\Result;
+use ValueValidators\ValueValidator;
 use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lib\LanguageNameLookupFactory;
@@ -29,13 +32,17 @@ use Wikibase\Repo\Validators\CompositeValidator;
  */
 class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 
-	public function testOnWikibaseRepoDataTypesValidatorValid(): void {
+	private function createValidator( bool $validatesSuccessfully = true ): ValueValidator {
 		$settings = new HashConfig( [
 			'EntitySchemaEnableDatatype' => true,
 		] );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$existsValidator = $this->createStub( EntitySchemaExistsValidator::class );
-		$existsValidator->method( 'validate' )->willReturn( Result::newSuccess() );
+		if ( $validatesSuccessfully ) {
+			$existsValidator->method( 'validate' )->willReturn( Result::newSuccess() );
+		} else {
+			$existsValidator->expects( $this->never() )->method( 'validate' );
+		}
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 		$handler = new WikibaseDataTypesHandler(
 			$stubLinkRenderer,
@@ -48,38 +55,22 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 		);
 		$dataTypeDefinitions = [];
 		$handler->onWikibaseRepoDataTypes( $dataTypeDefinitions );
-		$validator = new CompositeValidator(
+		return new CompositeValidator(
 			$dataTypeDefinitions['PT:entity-schema']['validator-factory-callback']()
 		);
+	}
 
-		$result = $validator->validate( new StringValue( 'E1' ) );
+	public function testOnWikibaseRepoDataTypesValidatorValid(): void {
+		$validator = $this->createValidator();
+
+		$result = $validator->validate( new EntitySchemaValue( new EntitySchemaId( 'E1' ) ) );
 
 		$this->assertTrue( $result->isValid() );
 	}
 
 	/** @dataProvider provideInvalidValue */
 	public function testOnWikibaseRepoDataTypesValidatorInvalid( $invalidValue ): void {
-		$settings = new HashConfig( [
-			'EntitySchemaEnableDatatype' => true,
-		] );
-		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
-		$existsValidator = $this->createMock( EntitySchemaExistsValidator::class );
-		$existsValidator->expects( $this->never() )->method( 'validate' );
-		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
-		$handler = new WikibaseDataTypesHandler(
-			$stubLinkRenderer,
-			$settings,
-			$this->createStub( TitleFactory::class ),
-			$this->createStub( LanguageNameLookupFactory::class ),
-			$stubDatabaseEntitySource,
-			$existsValidator,
-			$this->createStub( LabelLookup::class )
-		);
-		$dataTypeDefinitions = [];
-		$handler->onWikibaseRepoDataTypes( $dataTypeDefinitions );
-		$validator = new CompositeValidator(
-			$dataTypeDefinitions['PT:entity-schema']['validator-factory-callback']()
-		);
+		$validator = $this->createValidator( false );
 
 		$result = $validator->validate( $invalidValue );
 
@@ -90,13 +81,7 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 		yield 'non-DataValue' => [ 'E1' ];
 		yield 'non-StringValue' => [ new ItemId( 'Q1' ) ];
 		yield 'empty StringValue' => [ new StringValue( '' ) ];
-		yield 'non-E-ID' => [ new StringValue( 'Q1' ) ];
-		yield 'lowercase E' => [ new StringValue( 'e1' ) ];
-		yield 'missing number' => [ new StringValue( 'E' ) ];
-		yield 'number zero' => [ new StringValue( 'E0' ) ];
-		yield 'negative number' => [ new StringValue( 'E-1' ) ];
-		yield 'decimal number' => [ new StringValue( 'E1.0' ) ];
-		yield 'number too long' => [ new StringValue( 'E12345678901234567890' ) ];
+		yield 'valid ID but presented as string' => [ new StringValue( 'E1' ) ];
 	}
 
 }

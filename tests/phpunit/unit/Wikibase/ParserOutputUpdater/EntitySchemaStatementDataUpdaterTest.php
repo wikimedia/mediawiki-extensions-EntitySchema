@@ -5,6 +5,8 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Unit\Wikibase\ParserOutputUpdater;
 
 use DataValues\StringValue;
+use EntitySchema\Domain\Model\EntitySchemaId;
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\ParserOutputUpdater\EntitySchemaStatementDataUpdater;
 use MediaWiki\Linker\LinkTarget;
 use MediaWikiUnitTestCase;
@@ -34,9 +36,11 @@ class EntitySchemaStatementDataUpdaterTest extends MediaWikiUnitTestCase {
 			$propertyIdString,
 			$stringValue
 		);
+		$entitySchemaValue = new EntitySchemaValue( new EntitySchemaId( 'E123' ) );
+		$entitySchemaValue2 = new EntitySchemaValue( new EntitySchemaId( 'E321' ) );
 		$entitySchemaSnak = new PropertyValueSnak(
 			$propertyIdEntitySchema,
-			new StringValue( 'E123' )
+			$entitySchemaValue
 		);
 		$referenceString = new Reference( [ $stringSnak ] );
 		$referenceEntitySchema = new Reference( [ $entitySchemaSnak ] );
@@ -81,7 +85,7 @@ class EntitySchemaStatementDataUpdaterTest extends MediaWikiUnitTestCase {
 				[ 'E123' ],
 				[
 					NewStatement::forProperty( $propertyIdEntitySchema )
-						->withValue( $stringValue )
+						->withValue( $entitySchemaValue )
 						->build(),
 				],
 			],
@@ -96,7 +100,7 @@ class EntitySchemaStatementDataUpdaterTest extends MediaWikiUnitTestCase {
 				[
 					NewStatement::forProperty( $propertyIdString )
 						->withValue( $stringValue )
-						->withQualifier( $propertyIdEntitySchema, $stringValue2 )
+						->withQualifier( $propertyIdEntitySchema, $entitySchemaValue2 )
 						->build(),
 				],
 			],
@@ -104,8 +108,8 @@ class EntitySchemaStatementDataUpdaterTest extends MediaWikiUnitTestCase {
 				[ 'E123' ],
 				[
 					NewStatement::forProperty( $propertyIdEntitySchema )
-						->withValue( $stringValue )
-						->withQualifier( $propertyIdEntitySchema, $stringValue )
+						->withValue( $entitySchemaValue )
+						->withQualifier( $propertyIdEntitySchema, $entitySchemaValue )
 						->build(),
 				],
 			],
@@ -121,8 +125,8 @@ class EntitySchemaStatementDataUpdaterTest extends MediaWikiUnitTestCase {
 				[ 'E123', 'E321' ],
 				[
 					NewStatement::forProperty( $propertyIdEntitySchema )
-						->withValue( $stringValue )
-						->withQualifier( $propertyIdEntitySchema, $stringValue2 )
+						->withValue( $entitySchemaValue )
+						->withQualifier( $propertyIdEntitySchema, $entitySchemaValue2 )
 						->build(),
 				],
 			],
@@ -134,8 +138,8 @@ class EntitySchemaStatementDataUpdaterTest extends MediaWikiUnitTestCase {
 						->withValue( $stringValue )
 						->build(),
 					NewStatement::forProperty( $propertyIdEntitySchema )
-						->withValue( $stringValue )
-						->withQualifier( $propertyIdEntitySchema, $stringValue2 )
+						->withValue( $entitySchemaValue )
+						->withQualifier( $propertyIdEntitySchema, $entitySchemaValue2 )
 						->build(),
 				],
 			],

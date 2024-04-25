@@ -189,7 +189,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 		);
 	}
 
-	public function testOverwriteWholeSchema_throwsForNonExistantPage() {
+	public function testOverwriteWholeSchema_throwsForNonExistentPage() {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 
@@ -207,7 +207,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 
 		$this->expectException( RuntimeException::class );
 		$schmeaUpdater->overwriteWholeSchema(
-			new EntitySchemaId( 'E123456999999999' ),
+			new EntitySchemaId( 'E1234569999' ),
 			[],
 			[],
 			[],

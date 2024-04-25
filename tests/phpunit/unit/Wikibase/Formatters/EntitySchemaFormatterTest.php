@@ -4,8 +4,9 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\Wikibase\Formatters;
 
-use DataValues\StringValue;
 use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\Domain\Model\EntitySchemaId;
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Linker\LinkTarget;
@@ -33,17 +34,17 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 		}
 	}
 
-	public static function provideUnhandledFormats(): iterable {
+	public static function provideTextFormats(): iterable {
 		return [
-			[ SnakFormatter::FORMAT_PLAIN ],
-			[ SnakFormatter::FORMAT_WIKI ],
+			[ SnakFormatter::FORMAT_PLAIN, '[[EntitySchema:E123]]' ],
+			[ SnakFormatter::FORMAT_WIKI, 'E123' ],
 		];
 	}
 
 	/**
-	 * @dataProvider provideUnhandledFormats
+	 * @dataProvider provideTextFormats
 	 */
-	public function testUnhandledFormats( string $format ): void {
+	public function testUnhandledFormats( string $format, string $expectedResult ): void {
 		$linkRenderer = $this->createMock( LinkRenderer::class );
 		$linkRenderer->expects( $this->never() )
 			->method( $this->anything() );
@@ -66,7 +67,10 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 			$languageNameLookupFactory
 		);
 
-		$this->assertSame( 'E123', $sut->format( new StringValue( 'E123' ) ) );
+		$this->assertSame(
+			$expectedResult,
+			$sut->format( new EntitySchemaValue( new EntitySchemaId( 'E123' ) ) )
+		);
 	}
 
 	public static function provideHtmlCases(): iterable {
@@ -116,7 +120,7 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 			$stubLanguageNameLookupFactory
 		);
 
-		$this->assertSame( $fakeLinkHtml, $sut->format( new StringValue( $schemaId ) ) );
+		$this->assertSame( $fakeLinkHtml, $sut->format( new EntitySchemaValue( new EntitySchemaId( $schemaId ) ) ) );
 	}
 
 	/**
@@ -163,7 +167,7 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 			$stubLanguageNameLookupFactory
 		);
 
-		$this->assertSame( $fakeLinkHtml, $sut->format( new StringValue( $schemaId ) ) );
+		$this->assertSame( $fakeLinkHtml, $sut->format( new EntitySchemaValue( new EntitySchemaId( $schemaId ) ) ) );
 	}
 
 	/**
@@ -213,7 +217,9 @@ class EntitySchemaFormatterTest extends MediaWikiUnitTestCase {
 
 		// expect that LanguageFallbackIndicator adds some element after the main HTML,
 		// without asserting its exact contents
-		$this->assertStringStartsWith( $fakeLinkHtml . "\u{00A0}<", $sut->format( new StringValue( $schemaId ) ) );
+		$this->assertStringStartsWith(
+			$fakeLinkHtml . "\u{00A0}<",
+			$sut->format( new EntitySchemaValue( new EntitySchemaId( $schemaId ) ) ) );
 	}
 
 	private function getCallbackToAssertLinkTarget( string $expectedText ): callable {

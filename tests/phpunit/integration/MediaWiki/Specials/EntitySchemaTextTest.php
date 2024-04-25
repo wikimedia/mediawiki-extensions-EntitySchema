@@ -62,7 +62,7 @@ ShExC;
 	}
 
 	public function testNonExistingSchema() {
-		$id = 'E999999999999';
+		$id = 'E9999999999';
 		$this->expectException( HttpError::class );
 		$this->executeSpecialPage(
 			$id,
