@@ -15,7 +15,7 @@ use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
- * @coversNothing
+ * @covers \EntitySchema\DataAccess\LabelLookup
  * @group Database
  */
 class LabelLookupTest extends MediaWikiIntegrationTestCase {

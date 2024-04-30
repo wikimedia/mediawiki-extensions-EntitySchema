@@ -15,7 +15,7 @@ use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
- * @coversNothing
+ * @covers \EntitySchema\DataAccess\DescriptionLookup
  * @group Database
  */
 class DescriptionLookupTest extends MediaWikiIntegrationTestCase {
