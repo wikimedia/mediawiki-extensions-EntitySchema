@@ -9,11 +9,11 @@ use DataValues\StringValue;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
+use EntitySchema\Wikibase\FeatureConfiguration;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHandler;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
-use MediaWiki\Config\HashConfig;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
@@ -32,20 +32,20 @@ use Wikimedia\Purtle\RdfWriter;
 class WikibaseRepoDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testOnWikibaseRepoDataTypes(): void {
-		$settings = new HashConfig( [
-			'EntitySchemaEnableDatatype' => true,
-		] );
+		$features = $this->createMock( FeatureConfiguration::class );
+		$features->method( 'entitySchemaDataTypeEnabled' )
+			->willReturn( true );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 
 		$sut = new WikibaseRepoDataTypesHandler(
 			$stubLinkRenderer,
-			$settings,
 			$this->createStub( TitleFactory::class ),
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
+			$features,
 			$this->createStub( LabelLookup::class )
 		);
 
@@ -69,20 +69,20 @@ class WikibaseRepoDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testOnWikibaseRepoDataTypesDoesNothingWhenDisabled(): void {
-		$settings = new HashConfig( [
-			'EntitySchemaEnableDatatype' => false,
-		] );
+		$features = $this->createMock( FeatureConfiguration::class );
+		$features->method( 'entitySchemaDataTypeEnabled' )
+			->willReturn( false );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 
 		$sut = new WikibaseRepoDataTypesHandler(
 			$stubLinkRenderer,
-			$settings,
 			$this->createStub( TitleFactory::class ),
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
+			$features,
 			$this->createStub( LabelLookup::class )
 		);
 
@@ -103,9 +103,9 @@ class WikibaseRepoDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 		Result $existenceResult,
 		bool $isValid
 	): void {
-		$settings = new HashConfig( [
-			'EntitySchemaEnableDatatype' => true,
-		] );
+		$features = $this->createMock( FeatureConfiguration::class );
+		$features->method( 'entitySchemaDataTypeEnabled' )
+			->willReturn( true );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$stubExistsValidator->method( 'validate' )
@@ -114,11 +114,11 @@ class WikibaseRepoDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 
 		$handler = new WikibaseRepoDataTypesHandler(
 			$stubLinkRenderer,
-			$settings,
 			$this->createStub( TitleFactory::class ),
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
+			$features,
 			$this->createStub( LabelLookup::class )
 		);
 		$dataTypeDefinitions = [];

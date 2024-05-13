@@ -47,18 +47,18 @@
 		"WikibaseClientDataTypes": {
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseClientDataTypesHandler",
 			"services": [
-				"MainConfig"
+				"EntitySchema.FeatureConfiguration"
 			]
 		},
 		"WikibaseRepoDataTypes": {
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoDataTypesHandler",
 			"services": [
 				"LinkRenderer",
-				"MainConfig",
 				"TitleFactory",
 				"WikibaseRepo.LanguageNameLookupFactory",
 				"WikibaseRepo.LocalEntitySource",
 				"EntitySchema.EntitySchemaExistsValidator",
+				"EntitySchema.FeatureConfiguration",
 				"EntitySchema.LabelLookup"
 			]
 		},

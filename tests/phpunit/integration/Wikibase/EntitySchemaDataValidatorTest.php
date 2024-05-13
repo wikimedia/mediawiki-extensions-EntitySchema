@@ -8,9 +8,9 @@ use DataValues\StringValue;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
+use EntitySchema\Wikibase\FeatureConfiguration;
 use EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHandler;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
-use MediaWiki\Config\HashConfig;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
@@ -33,9 +33,9 @@ use Wikibase\Repo\Validators\CompositeValidator;
 class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 
 	private function createValidator( bool $validatesSuccessfully = true ): ValueValidator {
-		$settings = new HashConfig( [
-			'EntitySchemaEnableDatatype' => true,
-		] );
+		$features = $this->createMock( FeatureConfiguration::class );
+		$features->method( 'entitySchemaDataTypeEnabled' )
+			->willReturn( true );
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$existsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		if ( $validatesSuccessfully ) {
@@ -46,11 +46,11 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 		$handler = new WikibaseRepoDataTypesHandler(
 			$stubLinkRenderer,
-			$settings,
 			$this->createStub( TitleFactory::class ),
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$existsValidator,
+			$features,
 			$this->createStub( LabelLookup::class )
 		);
 		$dataTypeDefinitions = [];

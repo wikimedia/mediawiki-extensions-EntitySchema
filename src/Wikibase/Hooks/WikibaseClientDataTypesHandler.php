@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Wikibase\Hooks;
 
 use EntitySchema\Wikibase\DataValues\EntitySchemaValueParser;
-use MediaWiki\Config\Config;
+use EntitySchema\Wikibase\FeatureConfiguration;
 use ValueFormatters\ValueFormatter;
 
 /**
@@ -13,16 +13,16 @@ use ValueFormatters\ValueFormatter;
  */
 class WikibaseClientDataTypesHandler {
 
-	private Config $settings;
+	private FeatureConfiguration $features;
 
 	public function __construct(
-		Config $settings
+		FeatureConfiguration $features
 	) {
-		$this->settings = $settings;
+		$this->features = $features;
 	}
 
 	public function onWikibaseClientDataTypes( array &$dataTypeDefinitions ) {
-		if ( !$this->settings->get( 'EntitySchemaEnableDatatype' ) ) {
+		if ( !$this->features->entitySchemaDataTypeEnabled() ) {
 			return;
 		}
 		$dataTypeDefinitions = array_merge(
