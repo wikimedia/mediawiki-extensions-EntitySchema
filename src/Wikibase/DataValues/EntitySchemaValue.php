@@ -11,6 +11,8 @@ use Wikibase\DataModel\Entity\EntityIdValue;
  */
 class EntitySchemaValue extends DataValueObject {
 
+	public const TYPE = 'entity-schema';
+
 	private EntitySchemaId $id;
 
 	public function __construct( EntitySchemaId $id ) {
@@ -59,9 +61,10 @@ class EntitySchemaValue extends DataValueObject {
 
 	/** @inheritDoc */
 	public function getArrayValue(): array {
+		// similar to EntityIdValue::getArrayValue() but without deprecated numeric-id
 		return [
 			'id' => $this->id->getId(),
-			'type' => 'entityschema',
+			'entity-type' => self::TYPE,
 		];
 	}
 
