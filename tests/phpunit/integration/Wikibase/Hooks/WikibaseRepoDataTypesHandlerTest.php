@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
+namespace EntitySchema\Tests\Integration\Wikibase\Hooks;
 
 use DataValues\DataValue;
 use DataValues\StringValue;
