@@ -49,11 +49,11 @@ class SidebarHookHandler implements SidebarBeforeOutputHook {
 	public function buildConceptUriLink( Skin $skin ): ?array {
 		$title = $skin->getTitle();
 
-		$baseConceptUri = $this->localEntitySource->getConceptBaseUri();
-
 		if ( $title === null || !$title->inNamespace( NS_ENTITYSCHEMA_JSON ) ) {
 			return null;
 		}
+
+		$baseConceptUri = $this->localEntitySource->getConceptBaseUri();
 
 		return [
 			'id' => 't-wb-concept-uri',
