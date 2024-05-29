@@ -8,6 +8,7 @@ use Article;
 use EntitySchema\MediaWiki\Actions\EntitySchemaEditAction;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
+use ExtensionRegistry;
 use MediaWiki\Block\BlockManager;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Permissions\RestrictionStore;
@@ -30,6 +31,14 @@ use Wikimedia\Rdbms\ReadOnlyMode;
 class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 
 	private bool $tempUserEnabled = false;
+
+	protected function setUp(): void {
+		parent::setUp();
+
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
+			$this->markTestSkipped( 'WikibaseRepo not enabled' );
+		}
+	}
 
 	public function testReadOnly() {
 		$this->setService( 'PermissionManager', $this->createMock( PermissionManager::class ) );
