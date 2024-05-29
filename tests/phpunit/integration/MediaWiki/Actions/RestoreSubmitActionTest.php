@@ -8,6 +8,7 @@ use Action;
 use Article;
 use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
+use ExtensionRegistry;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
@@ -26,6 +27,14 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 	use EntitySchemaIntegrationTestCaseTrait;
 
 	private DatabaseBlock $block;
+
+	protected function setUp(): void {
+		parent::setUp();
+
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
+			$this->markTestSkipped( 'WikibaseRepo not enabled' );
+		}
+	}
 
 	protected function tearDown(): void {
 		if ( isset( $this->block ) ) {

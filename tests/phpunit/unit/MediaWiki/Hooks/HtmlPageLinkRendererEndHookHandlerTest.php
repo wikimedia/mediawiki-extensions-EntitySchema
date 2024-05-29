@@ -145,6 +145,7 @@ class HtmlPageLinkRendererEndHookHandlerTest extends MediaWikiUnitTestCase {
 		$target->method( 'getText' )->willReturn( 'E1' );
 
 		$hookHandler = new HtmlPageLinkRendererEndHookHandler(
+			true,
 			$stubLanguageFactory,
 			$stubLabelLookup,
 			$requestContext

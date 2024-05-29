@@ -9,6 +9,7 @@ use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelper;
+use ExtensionRegistry;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
@@ -24,6 +25,14 @@ use WikiPage;
  */
 class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
 	use EntitySchemaIntegrationTestCaseTrait;
+
+	protected function setUp(): void {
+		parent::setUp();
+
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
+			$this->markTestSkipped( 'WikibaseRepo not enabled' );
+		}
+	}
 
 	public function testGetRankedSearchResults(): void {
 		$id = 'E1';

@@ -34,7 +34,7 @@ class SidebarHandlerTest extends MediaWikiUnitTestCase {
 		$localEntitySource = $this->createMock( EntitySource::class );
 		$localEntitySource->method( 'getConceptBaseUri' )->willReturn( $conceptBaseUri );
 
-		$handler = new SidebarHookHandler( $localEntitySource );
+		$handler = new SidebarHookHandler( true, $localEntitySource );
 		$resultArray = $handler->buildConceptUriLink( $skin );
 
 		$this->assertEquals( 'www.test.com/E1', $resultArray['href'] );
@@ -46,7 +46,7 @@ class SidebarHandlerTest extends MediaWikiUnitTestCase {
 		$skin->method( 'getTitle' )->willReturn( null );
 
 		$localEntitySource = $this->createMock( EntitySource::class );
-		$handler = new SidebarHookHandler( $localEntitySource );
+		$handler = new SidebarHookHandler( true, $localEntitySource );
 		$resultArray = $handler->buildConceptUriLink( $skin );
 
 		$this->assertNull( $resultArray );
@@ -62,7 +62,7 @@ class SidebarHandlerTest extends MediaWikiUnitTestCase {
 		$skin->method( 'getTitle' )->willReturn( $title );
 
 		$localEntitySource = $this->createMock( EntitySource::class );
-		$handler = new SidebarHookHandler( $localEntitySource );
+		$handler = new SidebarHookHandler( true, $localEntitySource );
 		$resultArray = $handler->buildConceptUriLink( $skin );
 		$this->assertNull( $resultArray );
 	}

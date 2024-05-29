@@ -23,8 +23,12 @@ use ParserOutput;
  * @license GPL-2.0-or-later
  */
 class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
+
 	protected function setUp(): void {
 		parent::setUp();
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
+			$this->markTestSkipped( 'WikibaseRepo not enabled' );
+		}
 		$this->setService( 'LinkCache', $this->createMock( LinkCache::class ) );
 	}
 

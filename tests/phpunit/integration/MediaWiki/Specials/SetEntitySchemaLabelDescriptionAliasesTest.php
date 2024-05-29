@@ -7,6 +7,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 use EntitySchema\MediaWiki\Specials\SetEntitySchemaLabelDescriptionAliases;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use EntitySchema\Tests\Mocks\HTMLFormSpy;
+use ExtensionRegistry;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
@@ -27,6 +28,14 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
 	private ?string $mockHTMLFormProvider = null;
 	private bool $tempUserEnabled = false;
+
+	protected function setUp(): void {
+		parent::setUp();
+
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
+			$this->markTestSkipped( 'WikibaseRepo not enabled' );
+		}
+	}
 
 	protected function tearDown(): void {
 		$this->mockHTMLFormProvider = null;

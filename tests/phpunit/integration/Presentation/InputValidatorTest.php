@@ -6,6 +6,7 @@ namespace EntitySchema\Tests\Integration\Presentation;
 
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
+use ExtensionRegistry;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
@@ -21,6 +22,14 @@ use MessageLocalizer;
  */
 class InputValidatorTest extends MediaWikiIntegrationTestCase {
 	use EntitySchemaIntegrationTestCaseTrait;
+
+	protected function setUp(): void {
+		parent::setUp();
+
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
+			$this->markTestSkipped( 'WikibaseRepo not enabled' );
+		}
+	}
 
 	public function testValidateId(): void {
 		$this->createTestSchema();

@@ -6,6 +6,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\MediaWiki\Specials\NewEntitySchema;
+use ExtensionRegistry;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Request\FauxRequest;
@@ -31,6 +32,14 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 
 	private DatabaseBlock $block;
 	private bool $tempUserEnabled = false;
+
+	protected function setUp(): void {
+		parent::setUp();
+
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
+			$this->markTestSkipped( 'WikibaseRepo not enabled' );
+		}
+	}
 
 	public function testReadOnly() {
 		$readOnlyMode = $this->getMockBuilder( ReadOnlyMode::class )

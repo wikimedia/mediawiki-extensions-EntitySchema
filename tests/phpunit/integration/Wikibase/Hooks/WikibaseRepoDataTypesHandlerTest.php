@@ -14,6 +14,7 @@ use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHandler;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
+use ExtensionRegistry;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
@@ -31,6 +32,13 @@ use Wikimedia\Purtle\RdfWriter;
  */
 class WikibaseRepoDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 
+	protected function setUp(): void {
+		parent::setUp();
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
+			$this->markTestSkipped( 'WikibaseRepo not enabled' );
+		}
+	}
+
 	public function testOnWikibaseRepoDataTypes(): void {
 		$features = $this->createMock( FeatureConfiguration::class );
 		$features->method( 'entitySchemaDataTypeEnabled' )
@@ -42,6 +50,7 @@ class WikibaseRepoDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 		$sut = new WikibaseRepoDataTypesHandler(
 			$stubLinkRenderer,
 			$this->createStub( TitleFactory::class ),
+			true,
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
@@ -79,6 +88,7 @@ class WikibaseRepoDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 		$sut = new WikibaseRepoDataTypesHandler(
 			$stubLinkRenderer,
 			$this->createStub( TitleFactory::class ),
+			true,
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
@@ -115,6 +125,7 @@ class WikibaseRepoDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 		$handler = new WikibaseRepoDataTypesHandler(
 			$stubLinkRenderer,
 			$this->createStub( TitleFactory::class ),
+			true,
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,

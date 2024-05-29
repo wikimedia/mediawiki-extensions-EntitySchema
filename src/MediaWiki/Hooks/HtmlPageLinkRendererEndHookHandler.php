@@ -11,31 +11,40 @@ use MediaWiki\Linker\Hook\HtmlPageLinkRendererEndHook;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\Title;
 use RequestContext;
+use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
  */
 class HtmlPageLinkRendererEndHookHandler implements HtmlPageLinkRendererEndHook {
 
+	private bool $entitySchemaIsRepo;
 	private LanguageFactory $languageFactory;
-	private LabelLookup $labelLookup;
+	private ?LabelLookup $labelLookup;
 	private RequestContext $context;
 
 	public function __construct(
+		bool $entitySchemaIsRepo,
 		LanguageFactory $languageFactory,
-		LabelLookup $labelLookup,
+		?LabelLookup $labelLookup,
 		RequestContext $context
 	) {
+		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
 		$this->languageFactory = $languageFactory;
 		$this->labelLookup = $labelLookup;
 		$this->context = $context;
+		if ( $entitySchemaIsRepo ) {
+			Assert::parameterType( LabelLookup::class, $labelLookup, '$labelLookup' );
+		}
 	}
 
 	public static function factory(
 		LanguageFactory $languageFactory,
-		LabelLookup $labelLookup
+		bool $entitySchemaIsRepo,
+		?LabelLookup $labelLookup
 	): self {
 		return new self(
+			$entitySchemaIsRepo,
 			$languageFactory,
 			$labelLookup,
 			RequestContext::getMain()
@@ -53,6 +62,9 @@ class HtmlPageLinkRendererEndHookHandler implements HtmlPageLinkRendererEndHook 
 		&$extraAttribs,
 		&$ret
 	): bool {
+		if ( !$this->entitySchemaIsRepo ) {
+			return true;
+		}
 		if ( !$this->context->hasTitle() ) {
 			// Short-circuit this hook if no title is
 			// set in the main context (T131176)
