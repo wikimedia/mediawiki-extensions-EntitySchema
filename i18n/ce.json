@@ -1,15 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
+			"Исмаил Садуев",
 			"Умар"
 		]
 	},
 	"entityschema-newschema-description": "Цуьнах лаьцна:",
 	"entityschema-newschema-submit": "Кхолла",
 	"entityschema-namebadge-header-description": "цуьнах лаьцна",
-	"entityschema-namebadge-header-edit": "нисйе",
+	"entityschema-namebadge-header-edit": "нисйан",
 	"entityschema-diff-description": "Цуьнах лаьцна",
 	"entityschema-diff-schema": "Схема",
-	"entityschema-edit": "нисйе",
+	"entityschema-edit": "нисйан",
 	"entityschema-restoreold": "меттахӀоттайе"
 }
