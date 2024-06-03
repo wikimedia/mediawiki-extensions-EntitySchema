@@ -7,11 +7,15 @@
 			"Ps2049",
 			"Shizhao",
 			"Yfdyh000",
-			"Zazzzz"
+			"Zazzzz",
+			"LittlePaw365",
+			"Njzjz",
+			"Xiplus",
+			"沈澄心"
 		]
 	},
 	"entityschema-desc": "存储和讨论Wikibase实体的架构",
-	"special-newschema": "创建一个新的实体架构",
+	"special-newschema": "创建新实体模式",
 	"entityschema-newschema-label": "标签：",
 	"entityschema-newschema-description": "描述：",
 	"entityschema-newschema-aliases": "别名，以竖线分隔：",
@@ -38,7 +42,7 @@
 	"entityschema-error-possibly-multiple-messages-available": "您的某些输入存在问题。请检查下面的错误消息。",
 	"entityschema-error-schematext-too-long": "您输入的架构文本太长。最大长度为{{PLURAL:$1|一个字节|$1个字节}}。您的文本长度为{{PLURAL:$2|一个字节|$2个字节}}。",
 	"entityschema-error-input-too-long": "您输入的文本太长。最大长度为{{PLURAL:$1|一个字符|$1个字符}}。您的文本长度为{{PLURAL:$2|一个字符|$2个字符}}。",
-	"entityschema-noschema": "这里没有架构。转到[[Special:NewEntitySchema]]创建一个新的。",
+	"entityschema-noschema": "这里没有模式。请前往[[Special:NewEntitySchema]]创建新模式。",
 	"entityschema-summary-generated": "摘要（将附加于自动生成的摘要中）：",
 	"entityschema-label-empty": "没有定义标签",
 	"entityschema-namebadge-header-language-code": "语言代码",
