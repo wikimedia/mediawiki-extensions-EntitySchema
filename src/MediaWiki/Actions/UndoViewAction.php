@@ -34,7 +34,7 @@ class UndoViewAction extends AbstractUndoAction {
 	public function show(): void {
 		$this->getOutput()->enableOOUI();
 
-		$this->getOutput()->setPageTitle(
+		$this->getOutput()->setPageTitleMsg(
 			$this->msg(
 				'entityschema-undo-heading',
 				$this->getTitle()->getTitleValue()->getText()

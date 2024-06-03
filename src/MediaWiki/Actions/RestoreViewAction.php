@@ -55,7 +55,7 @@ final class RestoreViewAction extends AbstractRestoreAction {
 
 	private function showRestorePreview( Diff $diff, int $restoredRevID ): void {
 		$this->getOutput()->enableOOUI();
-		$this->getOutput()->setPageTitle(
+		$this->getOutput()->setPageTitleMsg(
 			$this->msg(
 				'entityschema-restore-heading',
 				$this->getTitle()->getTitleValue()->getText()
