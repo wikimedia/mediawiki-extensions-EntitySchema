@@ -18,6 +18,7 @@ echo '$wgDebugLogFile = "'$LOG_DIR'/mw-debug.log";' >> LocalSettings.php
 echo '$wgEnableWikibaseRepo = true;' >> LocalSettings.php
 echo '$wgEnableWikibaseClient = true;' >> LocalSettings.php
 echo '$wgWBClientSettings["siteGlobalID"] = "enwiki";' >> LocalSettings.php
+echo '$wgEntitySchemaEnableDatatype = true;' >> LocalSettings.php
 
 # enable Extensions and Skins
 echo 'wfLoadSkin( "Vector" );' >> LocalSettings.php
