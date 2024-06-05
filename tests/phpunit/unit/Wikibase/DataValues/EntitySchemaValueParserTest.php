@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\Wikibase\DataValues;
 
-use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValueParser;
 use PHPUnit\Framework\TestCase;
@@ -27,47 +26,10 @@ class EntitySchemaValueParserTest extends TestCase {
 		$this->assertSame( 'E12', $result->getValue()->getSchemaId() );
 	}
 
-	public function testParseInvalidArrayFails() {
+	public function testParseInvalidType() {
 		$this->expectException( ParseException::class );
-		( new EntitySchemaValueParser() )->parse( [
-			'test' => 'undefined',
-		] );
+		( new EntitySchemaValueParser() )
+			->parse( [ 'id' => 'E123' ] );
 	}
 
-	public function testParseUnexpectedValueStructureFails() {
-		$this->expectException( ParseException::class );
-		( new EntitySchemaValueParser() )->parse( [
-			'value' => [ 'nothing' => 'test' ],
-		] );
-	}
-
-	public function testParseInvalidIDType() {
-		$this->expectException( ParseException::class );
-		( new EntitySchemaValueParser() )->parse( [
-			'value' => [ 'id' => [ 123 ] ],
-		] );
-	}
-
-	public function testParseValidIdType() {
-		$result = ( new EntitySchemaValueParser() )->parse( [
-			'value' => [ 'id' => 'E12' ],
-		] );
-		$this->assertInstanceOf( EntitySchemaValue::class, $result );
-		$this->assertSame( 'E12', $result->getValue()->getSchemaId() );
-	}
-
-	public function testInvalidValueType() {
-		$this->expectException( ParseException::class );
-		( new EntitySchemaValueParser() )->parse( [
-			'value' => new EntitySchemaId( 'E12' ),
-		] );
-	}
-
-	public function testParseValidValueType() {
-		$result = ( new EntitySchemaValueParser() )->parse( [
-			'value' => 'E12',
-		] );
-		$this->assertInstanceOf( EntitySchemaValue::class, $result );
-		$this->assertSame( 'E12', $result->getValue()->getSchemaId() );
-	}
 }

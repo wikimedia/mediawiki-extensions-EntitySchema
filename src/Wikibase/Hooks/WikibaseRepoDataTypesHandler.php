@@ -84,6 +84,7 @@ class WikibaseRepoDataTypesHandler {
 				);
 			},
 			'parser-factory-callback' => fn () => new EntitySchemaValueParser(),
+			'deserializer-builder' => EntitySchemaValue::class,
 		];
 	}
 }
