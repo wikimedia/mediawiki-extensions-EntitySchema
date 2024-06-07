@@ -149,6 +149,9 @@
 		},
 		"EntitySchemaHooks": {
 			"class": "EntitySchema\\MediaWiki\\EntitySchemaHooks"
+		},
+		"NamespaceRegistrationHandler": {
+			"class": "EntitySchema\\MediaWiki\\Hooks\\NamespaceRegistrationHandler"
 		}
 	},
 	"QUnitTestModule": {
@@ -181,6 +184,8 @@
 		"ContentModelCanBeUsedOn": "ContentModelCanBeUsedOn",
 		"ImportHandleRevisionXMLTag": "ImportHandleRevisionXMLTag",
 		"TitleGetRestrictionTypes": "TitleGetRestrictionTypes",
+		"CanonicalNamespaces": "NamespaceRegistrationHandler",
+		"NamespaceIsMovable": "NamespaceRegistrationHandler",
 		"WikibaseRepoEntitySearchHelperCallbacks": "WikibaseRepoEntitySearchHelperCallbacks",
 		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes",
 		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepoOnParserOutputUpdaterConstruction",
@@ -191,25 +196,6 @@
 		"ContentHandlerForModelID": "ContentHandlerForModelID",
 		"ResourceLoaderRegisterModules": "ResourceLoaderRegisterModules"
 	},
-	"namespaces": [
-		{
-			"id": 640,
-			"constant": "NS_ENTITYSCHEMA_JSON",
-			"name": "EntitySchema",
-			"subpages": false,
-			"content": true,
-			"defaultcontentmodel": "EntitySchema",
-			"movable": false
-		},
-		{
-			"id": 641,
-			"constant": "NS_ENTITYSCHEMA_JSON_TALK",
-			"name": "EntitySchema_talk",
-			"subpages": true,
-			"content": false,
-			"defaultcontentmodel": "wikitext"
-		}
-	],
 	"config": {
 		"EntitySchemaIsRepo": {
 			"value": true,
@@ -242,6 +228,9 @@
 			"public": false
 		}
 	},
+	"ExtensionFunctions": [
+		"EntitySchema\\MediaWiki\\Hooks\\NamespaceRegistrationHandler::setConstants"
+	],
 	"manifest_version": 2,
 	"ServiceWiringFiles": [
 		"src/EntitySchema.ServiceWiring.php"
