@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Wikibase\Hooks;
 
-use EntitySchema\Wikibase\DataValues\EntitySchemaValueParser;
+use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\FeatureConfiguration;
 use ValueFormatters\ValueFormatter;
 
@@ -30,7 +30,7 @@ class WikibaseClientDataTypesHandler {
 			[
 				'PT:entity-schema' => [
 					'value-type' => 'wikibase-entityid',
-					'parser-factory-callback' => fn () => new EntitySchemaValueParser(),
+					'deserializer-builder' => EntitySchemaValue::class,
 					'formatter-factory-callback' => fn () => new class implements ValueFormatter {
 						/** @inheritDoc */
 						public function format( $value ) {

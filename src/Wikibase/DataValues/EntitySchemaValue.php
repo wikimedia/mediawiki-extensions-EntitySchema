@@ -3,7 +3,9 @@
 namespace EntitySchema\Wikibase\DataValues;
 
 use DataValues\DataValueObject;
+use DataValues\IllegalValueException;
 use EntitySchema\Domain\Model\EntitySchemaId;
+use InvalidArgumentException;
 use Wikibase\DataModel\Entity\EntityIdValue;
 
 /**
@@ -57,6 +59,31 @@ class EntitySchemaValue extends DataValueObject {
 	/** @inheritDoc */
 	public function getValue() {
 		return $this;
+	}
+
+	/**
+	 * Constructs a new instance from the provided data. Required for @see DataValueDeserializer.
+	 * This is expected to round-trip with @see getArrayValue.
+	 *
+	 * @param array $value
+	 * @return self
+	 */
+	public static function newFromArray( $value ): self {
+		if ( !is_array( $value ) ) {
+			throw new IllegalValueException( 'The value supplied must be an array' );
+		}
+		if ( !array_key_exists( 'id', $value ) ) {
+			throw new IllegalValueException( 'The value must contain an "id" key' );
+		}
+		if ( !is_string( $value['id'] ) ) {
+			throw new IllegalValueException( 'The "id" element must be a string' );
+		}
+
+		try {
+			return new self( new EntitySchemaId( $value['id'] ) );
+		} catch ( InvalidArgumentException $e ) {
+			throw new IllegalValueException( $e->getMessage(), 0, $e );
+		}
 	}
 
 	/** @inheritDoc */
