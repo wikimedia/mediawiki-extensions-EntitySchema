@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use ExtensionRegistry;
 use MediaWikiIntegrationTestCase;
 use RecentChange;
 use Wikimedia\TestingAccessWrapper;
@@ -15,6 +16,14 @@ use Wikimedia\TestingAccessWrapper;
  * @license GPL-2.0-or-later
  */
 class MediaWikiPageUpdaterFactoryTest extends MediaWikiIntegrationTestCase {
+
+	protected function setUp(): void {
+		parent::setUp();
+
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
+			$this->markTestSkipped( 'WikibaseRepo not enabled' );
+		}
+	}
 
 	public function testGetPageUpdater() {
 		$user = $this->getTestUser()->getUser();

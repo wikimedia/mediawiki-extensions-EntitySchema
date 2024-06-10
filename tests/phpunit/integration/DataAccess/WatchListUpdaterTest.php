@@ -6,6 +6,7 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
+use ExtensionRegistry;
 use MediaWiki\MediaWikiServices;
 use MediaWikiIntegrationTestCase;
 use WatchedItem;
@@ -17,6 +18,14 @@ use WatchedItem;
  * @group Database
  */
 final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
+
+	protected function setUp(): void {
+		parent::setUp();
+
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
+			$this->markTestSkipped( 'WikibaseRepo not enabled' );
+		}
+	}
 
 	public static function editPageDataProvider(): iterable {
 		yield [
