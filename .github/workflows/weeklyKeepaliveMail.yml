@@ -1,0 +1,21 @@
+name: Keepalive e-mail
+on:
+  schedule:
+    - cron: '42 7 * * 1'
+
+jobs:
+  send-ping:
+    - name: Send mail
+      uses: dawidd6/action-send-mail@v3.11.0
+      with:
+        server_address: smtp.gmail.com
+        server_port: 465
+        username: ${{secrets.MAIL_USERNAME}}
+        password: ${{secrets.MAIL_PASSWORD}}
+        subject: Weekly healthcheck mail for EntitySchema CI jobs
+        html_body: |
+          EntitySchema Secondary CI e-mail jobs healthy
+          We were able to successfully send a mail with the stored credentials
+          CI specifications can be found in <a href="https://github.com/${{ github.repository }}/actions/workflows/weeklyKeepaliveMail.yml">here</a>
+        to: wikidata-ci-bitbucket@wikimedia.de
+        from: EntitySchema Github Action CI
