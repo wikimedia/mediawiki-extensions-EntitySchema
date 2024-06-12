@@ -16,6 +16,10 @@ class NamespaceRegistrationHandler implements CanonicalNamespacesHook, Namespace
 
 	private array $immovableNamespaces = [];
 
+	/**
+	 * Note: This *must* run as an early initialization callback,
+	 * not as an extension function (see T367334).
+	 */
 	public static function setConstants() {
 		if ( !defined( 'NS_ENTITYSCHEMA_JSON' ) ) {
 			define( 'NS_ENTITYSCHEMA_JSON', 640 );
