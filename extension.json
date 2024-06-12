@@ -228,9 +228,7 @@
 			"public": false
 		}
 	},
-	"ExtensionFunctions": [
-		"EntitySchema\\MediaWiki\\Hooks\\NamespaceRegistrationHandler::setConstants"
-	],
+	"callback": "EntitySchema\\MediaWiki\\Hooks\\NamespaceRegistrationHandler::setConstants",
 	"manifest_version": 2,
 	"ServiceWiringFiles": [
 		"src/EntitySchema.ServiceWiring.php"
