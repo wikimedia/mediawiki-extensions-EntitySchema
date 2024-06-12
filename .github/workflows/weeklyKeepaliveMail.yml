@@ -5,6 +5,8 @@ on:
 
 jobs:
   send-ping:
+    runs-on: ubuntu-latest
+    steps:
     - name: Send mail
       uses: dawidd6/action-send-mail@v3.11.0
       with:
