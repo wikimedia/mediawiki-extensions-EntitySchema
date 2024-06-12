@@ -10,30 +10,21 @@ use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
-use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
  */
 class PageHistoryLineEndingHandler implements PageHistoryLineEndingHook {
 
-	private bool $entitySchemaIsRepo;
-	private ?LinkRenderer $linkRenderer;
-	private ?PermissionManager $permissionManager;
-	private ?RevisionStore $revisionStore;
+	private LinkRenderer $linkRenderer;
+	private PermissionManager $permissionManager;
+	private RevisionStore $revisionStore;
 
 	public function __construct(
-		bool $entitySchemaIsRepo,
-		?LinkRenderer $linkRenderer,
-		?PermissionManager $permissionManager,
-		?RevisionStore $revisionStore
+		LinkRenderer $linkRenderer,
+		PermissionManager $permissionManager,
+		RevisionStore $revisionStore
 	) {
-		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
-		if ( $entitySchemaIsRepo ) {
-			Assert::parameterType( LinkRenderer::class, $linkRenderer, '$linkRenderer' );
-			Assert::parameterType( PermissionManager::class, $permissionManager, '$permissionManager' );
-			Assert::parameterType( RevisionStore::class, $revisionStore, '$revisionStore' );
-		}
 		$this->linkRenderer = $linkRenderer;
 		$this->permissionManager = $permissionManager;
 		$this->revisionStore = $revisionStore;
@@ -43,9 +34,6 @@ class PageHistoryLineEndingHandler implements PageHistoryLineEndingHook {
 	 * @inheritDoc
 	 */
 	public function onPageHistoryLineEnding( $historyAction, &$row, &$html, &$classes, &$attribs ): void {
-		if ( !$this->entitySchemaIsRepo ) {
-			return;
-		}
 		$title = $historyAction->getTitle();
 
 		if ( $title->getContentModel() !== EntitySchemaContent::CONTENT_MODEL_ID ) {

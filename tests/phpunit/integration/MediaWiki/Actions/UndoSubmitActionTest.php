@@ -7,7 +7,6 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 use Article;
 use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
-use ExtensionRegistry;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
@@ -28,14 +27,6 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 	use EntitySchemaIntegrationTestCaseTrait;
 
 	private DatabaseBlock $block;
-
-	protected function setUp(): void {
-		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
-	}
 
 	protected function tearDown(): void {
 		if ( isset( $this->block ) ) {

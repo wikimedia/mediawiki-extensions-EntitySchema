@@ -29,7 +29,6 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 		$revisionId = 5;
 		$user = $this->createStub( User::class );
 		$sut = new PageHistoryLineEndingHandler(
-			true,
 			$this->getMockLinkRenderer( $title, $revisionId ),
 			$this->getMockPermissionManager( true, $user, $title ),
 			$this->getMockRevisionStore(
@@ -49,7 +48,6 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 
 	public function testDoesNothingForDifferentContentModel(): void {
 		$sut = new PageHistoryLineEndingHandler(
-			true,
 			$this->getMockLinkRenderer( null ),
 			$this->getMockPermissionManager( null ),
 			$this->getMockRevisionStore( null )
@@ -70,7 +68,6 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 	public function testDoesNothingForLatestRevision(): void {
 		$revisionId = 8;
 		$sut = new PageHistoryLineEndingHandler(
-			true,
 			$this->getMockLinkRenderer( null ),
 			$this->getMockPermissionManager( null ),
 			$this->getMockRevisionStore(
@@ -92,7 +89,6 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 
 	public function testDoesNothingForDeletedRevision(): void {
 		$sut = new PageHistoryLineEndingHandler(
-			true,
 			$this->getMockLinkRenderer( null ),
 			$this->getMockPermissionManager( null ),
 			$this->getMockRevisionStore(
@@ -116,7 +112,6 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 		$user = $this->createStub( User::class );
 		$title = $this->getEntitySchemaTitle();
 		$sut = new PageHistoryLineEndingHandler(
-			true,
 			$this->getMockLinkRenderer( null ),
 			$this->getMockPermissionManager( false, $user, $title ),
 			$this->getMockRevisionStore(

@@ -7,7 +7,6 @@ namespace EntitySchema\Tests\Integration\API;
 use EntitySchema\DataAccess\EntitySchemaEncoder;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use ExtensionRegistry;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
@@ -22,14 +21,6 @@ use WikiPage;
  * @license GPL-2.0-or-later
  */
 class UndoAPITest extends MediaWikiIntegrationTestCase {
-
-	protected function setUp(): void {
-		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
-	}
 
 	public function testGetUndoContentUndoLatest() {
 		$handler = $this->getServiceContainer()->getContentHandlerFactory()

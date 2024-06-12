@@ -6,7 +6,6 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
-use ExtensionRegistry;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 
@@ -17,14 +16,6 @@ use MediaWikiIntegrationTestCase;
  */
 class LabelLookupTest extends MediaWikiIntegrationTestCase {
 	use EntitySchemaIntegrationTestCaseTrait;
-
-	protected function setUp(): void {
-		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
-	}
 
 	public function testGetLabel_LabelExistsInLanguage() {
 		$id = 'E456';

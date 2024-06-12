@@ -8,7 +8,6 @@ use Article;
 use EntitySchema\MediaWiki\Actions\RestoreViewAction;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
-use ExtensionRegistry;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
@@ -26,14 +25,6 @@ use TextSlotDiffRenderer;
  */
 final class RestoreViewActionTest extends MediaWikiIntegrationTestCase {
 	use EntitySchemaIntegrationTestCaseTrait;
-
-	protected function setUp(): void {
-		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
-	}
 
 	public function testRestoreView() {
 		// arrange

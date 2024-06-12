@@ -9,7 +9,6 @@ use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Wikibase\Hooks\WikibaseRepoEntitySearchHelperCallbacksHandler;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelper;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
-use ExtensionRegistry;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
@@ -23,10 +22,6 @@ use WebRequest;
 class WikibaseRepoEntitySearchHelperCallbacksHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testOnWikibaseRepoEntitySearchHelperCallbacks(): void {
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
-
 		$callback1 = fn () => null;
 		$callbacks = [
 			'unrelated' => $callback1,
@@ -39,7 +34,7 @@ class WikibaseRepoEntitySearchHelperCallbacksHandlerTest extends MediaWikiIntegr
 			$this->createMock( LabelLookup::class )
 		);
 
-		( new WikibaseRepoEntitySearchHelperCallbacksHandler( true, $factory ) )
+		( new WikibaseRepoEntitySearchHelperCallbacksHandler( $factory ) )
 			->onWikibaseRepoEntitySearchHelperCallbacks( $callbacks );
 
 		$this->assertSame( $callback1, $callbacks['unrelated'] );

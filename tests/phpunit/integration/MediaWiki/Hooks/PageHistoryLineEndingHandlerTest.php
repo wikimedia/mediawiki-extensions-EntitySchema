@@ -10,7 +10,6 @@ use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
-use ExtensionRegistry;
 use Language;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageFactory;
@@ -27,10 +26,6 @@ use RequestContext;
 class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testOneRestoreLink(): void {
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
-
 		$context = new RequestContext();
 		$context->setRequest( new FauxRequest() );
 

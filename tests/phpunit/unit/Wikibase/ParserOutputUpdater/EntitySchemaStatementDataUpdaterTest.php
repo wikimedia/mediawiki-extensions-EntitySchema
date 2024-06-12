@@ -18,21 +18,12 @@ use Wikibase\DataModel\Services\Lookup\PropertyDataTypeLookup;
 use Wikibase\DataModel\Services\Lookup\PropertyDataTypeLookupException;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Tests\NewStatement;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \EntitySchema\Wikibase\ParserOutputUpdater\EntitySchemaStatementDataUpdater
  * @license GPL-2.0-or-later
  */
 class EntitySchemaStatementDataUpdaterTest extends MediaWikiUnitTestCase {
-
-	protected function setUp(): void {
-		parent::setUp();
-
-		if ( !class_exists( WikibaseRepo::class ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
-	}
 
 	public static function provideProcessStatement(): iterable {
 		$propertyIdString = new NumericPropertyId( 'P42' );

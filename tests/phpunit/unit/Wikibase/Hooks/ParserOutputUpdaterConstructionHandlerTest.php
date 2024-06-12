@@ -16,17 +16,8 @@ use Wikibase\Repo\ParserOutput\CompositeStatementDataUpdater;
  */
 class ParserOutputUpdaterConstructionHandlerTest extends MediaWikiUnitTestCase {
 
-	protected function setUp(): void {
-		parent::setUp();
-
-		if ( !class_exists( CompositeStatementDataUpdater::class ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
-	}
-
 	public function testOnWikibaseRepoOnParserOutputUpdaterConstruction() {
 		$handler = new ParserOutputUpdaterConstructionHandler(
-			true,
 			$this->createMock( PropertyDataTypeLookup::class )
 		);
 

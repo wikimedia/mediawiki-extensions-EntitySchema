@@ -7,7 +7,6 @@ namespace EntitySchema\Tests\Integration\API;
 use ApiTestCase;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use ExtensionRegistry;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
@@ -34,11 +33,6 @@ class FormatSnakValueTest extends ApiTestCase {
 
 	public function setUp(): void {
 		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
-
 		$this->overrideConfigValue( 'EntitySchemaEnableDatatype', true );
 	}
 

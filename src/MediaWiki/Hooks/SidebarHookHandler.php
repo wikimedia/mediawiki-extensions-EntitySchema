@@ -7,24 +7,18 @@ namespace EntitySchema\MediaWiki\Hooks;
 use MediaWiki\Hook\SidebarBeforeOutputHook;
 use Skin;
 use Wikibase\DataAccess\EntitySource;
-use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
  */
 class SidebarHookHandler implements SidebarBeforeOutputHook {
 
-	private bool $entitySchemaIsRepo;
-	private ?EntitySource $localEntitySource;
+	/** @var EntitySource */
+	private EntitySource $localEntitySource;
 
 	public function __construct(
-		bool $entitySchemaIsRepo,
-		?EntitySource $localEntitySource
+		EntitySource $localEntitySource
 	) {
-		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
-		if ( $entitySchemaIsRepo ) {
-			Assert::parameterType( EntitySource::class, $localEntitySource, '$localEntitySource' );
-		}
 		$this->localEntitySource = $localEntitySource;
 	}
 
@@ -36,9 +30,6 @@ class SidebarHookHandler implements SidebarBeforeOutputHook {
 	 * @return void
 	 */
 	public function onSidebarBeforeOutput( $skin, &$sidebar ): void {
-		if ( !$this->entitySchemaIsRepo ) {
-			return;
-		}
 
 		$conceptUriLink = $this->buildConceptUriLink( $skin );
 

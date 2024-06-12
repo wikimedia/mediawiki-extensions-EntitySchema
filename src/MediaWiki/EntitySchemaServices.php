@@ -65,9 +65,4 @@ class EntitySchemaServices {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'EntitySchema.LabelLookup' );
 	}
-
-	public static function getEntitySchemaIsRepo( ContainerInterface $services = null ): bool {
-		return ( $services ?: MediaWikiServices::getInstance() )
-			->get( 'EntitySchema.EntitySchemaIsRepo' );
-	}
 }

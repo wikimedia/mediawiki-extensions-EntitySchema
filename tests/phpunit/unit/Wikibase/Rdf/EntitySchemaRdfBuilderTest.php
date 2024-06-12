@@ -11,7 +11,6 @@ use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\Repo\Rdf\RdfVocabulary;
-use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Purtle\RdfWriterFactory;
 
 /**
@@ -19,14 +18,6 @@ use Wikimedia\Purtle\RdfWriterFactory;
  * @license GPL-2.0-or-later
  */
 class EntitySchemaRdfBuilderTest extends MediaWikiUnitTestCase {
-
-	protected function setUp(): void {
-		parent::setUp();
-
-		if ( !class_exists( WikibaseRepo::class ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
-	}
 
 	/**
 	 * @dataProvider addValueProvider

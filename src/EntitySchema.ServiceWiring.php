@@ -20,10 +20,7 @@ return [
 		return new AutocommentFormatter();
 	},
 
-	'EntitySchema.DescriptionLookup' => static function ( MediaWikiServices $services ): ?DescriptionLookup {
-		if ( !$services->getMainConfig()->get( 'EntitySchemaIsRepo' ) ) {
-			return null;
-		}
+	'EntitySchema.DescriptionLookup' => static function ( MediaWikiServices $services ): DescriptionLookup {
 		return new DescriptionLookup(
 			EntitySchemaServices::getFullViewSchemaDataLookup( $services ),
 			WikibaseRepo::getLanguageFallbackChainFactory( $services )
@@ -32,23 +29,13 @@ return [
 
 	'EntitySchema.EntitySchemaExistsValidator' => static function (
 		MediaWikiServices $services
-	): ?EntitySchemaExistsValidator {
-		if ( !$services->getMainConfig()->get( 'EntitySchemaIsRepo' ) ) {
-			return null;
-		}
+	): EntitySchemaExistsValidator {
 		return new EntitySchemaExistsValidator( $services->getTitleFactory() );
-	},
-
-	'EntitySchema.EntitySchemaIsRepo' => static function ( MediaWikiServices $services ): bool {
-		return $services->getMainConfig()->get( 'EntitySchemaIsRepo' );
 	},
 
 	'EntitySchema.EntitySchemaSearchHelperFactory' => static function (
 		MediaWikiServices $services
-	): ?EntitySchemaSearchHelperFactory {
-		if ( !$services->getMainConfig()->get( 'EntitySchemaIsRepo' ) ) {
-			return null;
-		}
+	): EntitySchemaSearchHelperFactory {
 		return new EntitySchemaSearchHelperFactory(
 			$services->getTitleFactory(),
 			$services->getWikiPageFactory(),
@@ -75,10 +62,7 @@ return [
 		);
 	},
 
-	'EntitySchema.IdGenerator' => static function ( MediaWikiServices $services ): ?IdGenerator {
-		if ( !$services->getMainConfig()->get( 'EntitySchemaIsRepo' ) ) {
-			return null;
-		}
+	'EntitySchema.IdGenerator' => static function ( MediaWikiServices $services ): IdGenerator {
 		return new SqlIdGenerator(
 			$services->getDBLoadBalancer(),
 			'entityschema_id_counter',
@@ -86,14 +70,10 @@ return [
 		);
 	},
 
-	'EntitySchema.LabelLookup' => static function ( MediaWikiServices $services ): ?LabelLookup {
-		if ( !$services->getMainConfig()->get( 'EntitySchemaIsRepo' ) ) {
-			return null;
-		}
+	'EntitySchema.LabelLookup' => static function ( MediaWikiServices $services ): LabelLookup {
 		return new LabelLookup(
 			EntitySchemaServices::getFullViewSchemaDataLookup( $services ),
 			WikibaseRepo::getLanguageFallbackChainFactory( $services )
 		);
 	},
-
 ];

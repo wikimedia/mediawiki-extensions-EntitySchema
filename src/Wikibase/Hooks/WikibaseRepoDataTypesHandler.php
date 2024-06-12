@@ -19,61 +19,39 @@ use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikibase\Repo\Rdf\ValueSnakRdfBuilder;
 use Wikibase\Repo\Validators\TypeValidator;
-use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
  */
 class WikibaseRepoDataTypesHandler {
 
-	private bool $entitySchemaIsRepo;
 	private LinkRenderer $linkRenderer;
-	private ?FeatureConfiguration $features;
-	private ?EntitySchemaExistsValidator $entitySchemaExistsValidator;
-	private ?LanguageNameLookupFactory $languageNameLookupFactory;
-	private ?DatabaseEntitySource $localEntitySource;
+	public FeatureConfiguration $features;
+	private EntitySchemaExistsValidator $entitySchemaExistsValidator;
+	private LanguageNameLookupFactory $languageNameLookupFactory;
+	private DatabaseEntitySource $localEntitySource;
 	private TitleFactory $titleFactory;
-	private ?LabelLookup $labelLookup;
+	private LabelLookup $labelLookup;
 
 	public function __construct(
 		LinkRenderer $linkRenderer,
 		TitleFactory $titleFactory,
-		bool $entitySchemaIsRepo,
-		?LanguageNameLookupFactory $languageNameLookupFactory,
-		?DatabaseEntitySource $localEntitySource,
-		?EntitySchemaExistsValidator $entitySchemaExistsValidator,
-		?FeatureConfiguration $features,
-		?LabelLookup $labelLookup
+		LanguageNameLookupFactory $languageNameLookupFactory,
+		DatabaseEntitySource $localEntitySource,
+		EntitySchemaExistsValidator $entitySchemaExistsValidator,
+		FeatureConfiguration $features,
+		LabelLookup $labelLookup
 	) {
 		$this->linkRenderer = $linkRenderer;
 		$this->features = $features;
-		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
 		$this->entitySchemaExistsValidator = $entitySchemaExistsValidator;
 		$this->languageNameLookupFactory = $languageNameLookupFactory;
 		$this->localEntitySource = $localEntitySource;
 		$this->titleFactory = $titleFactory;
 		$this->labelLookup = $labelLookup;
-		if ( $entitySchemaIsRepo ) {
-			Assert::parameterType(
-				LanguageNameLookupFactory::class,
-				$languageNameLookupFactory,
-				'$languageNameLookupFactory'
-			);
-			Assert::parameterType( DatabaseEntitySource::class, $localEntitySource, '$localEntitySource' );
-			Assert::parameterType(
-				EntitySchemaExistsValidator::class,
-				$entitySchemaExistsValidator,
-				'$entitySchemaExistsValidator'
-			);
-			Assert::parameterType( FeatureConfiguration::class, $features, '$features' );
-			Assert::parameterType( LabelLookup::class, $labelLookup, '$labelLookup' );
-		}
 	}
 
 	public function onWikibaseRepoDataTypes( array &$dataTypeDefinitions ): void {
-		if ( !$this->entitySchemaIsRepo ) {
-			return;
-		}
 		if ( !$this->features->entitySchemaDataTypeEnabled() ) {
 			return;
 		}
@@ -85,10 +63,8 @@ class WikibaseRepoDataTypesHandler {
 					$format,
 					$options,
 					$this->linkRenderer,
-					// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
 					$this->labelLookup,
 					$this->titleFactory,
-					// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
 					$this->languageNameLookupFactory
 				);
 			},
