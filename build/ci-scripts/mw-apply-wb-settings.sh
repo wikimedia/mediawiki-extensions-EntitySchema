@@ -9,7 +9,8 @@ echo 'require_once "$IP/includes/DevelopmentSettings.php";' >> LocalSettings.php
 echo 'error_reporting(E_ALL| E_STRICT);' >> LocalSettings.php
 echo 'ini_set("display_errors", 1);' >> LocalSettings.php
 echo '$wgUsePathInfo = false;' >> LocalSettings.php
-echo '$wgWikimediaJenkinsCI = true;' >> LocalSettings.php
+# For re-using the Wikimedia CI settings, pretend we're running in quibble
+echo 'if ( !defined( "MW_QUIBBLE_CI" ) ) define( "MW_QUIBBLE_CI", true );' >> LocalSettings.php
 echo '$wgShowExceptionDetails = true;' >> LocalSettings.php
 echo '$wgDevelopmentWarnings = true;' >> LocalSettings.php
 echo '$wgLanguageCode = "'$LANG'";' >> LocalSettings.php
