@@ -4,13 +4,13 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\API;
 
-use ApiTestCase;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use ExtensionRegistry;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Tests\Api\ApiTestCase;
 use MediaWiki\Title\Title;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\Lib\Formatters\SnakFormatter;

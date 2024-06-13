@@ -14,13 +14,13 @@ use MediaWiki\Html\Html;
 use MediaWiki\Linker\Linker;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Message\Message;
 use MediaWiki\Page\PageReference;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\SyntaxHighlight\SyntaxHighlight;
 use MediaWiki\Title\TitleFormatter;
-use Message;
 use MessageLocalizer;
-use ParserOutput;
 
 /**
  * @license GPL-2.0-or-later

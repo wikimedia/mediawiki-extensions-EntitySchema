@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Mocks;
 
-use HTMLForm;
+use MediaWiki\HTMLForm\HTMLForm;
 use PHPUnit\Framework\Assert;
 
 /**

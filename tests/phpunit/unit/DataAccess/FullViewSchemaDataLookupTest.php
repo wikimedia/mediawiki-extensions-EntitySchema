@@ -9,8 +9,8 @@ use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
 use JsonContent;
 use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Title\TitleFactory;
 use MediaWikiUnitTestCase;
-use TitleFactory;
 use WikiPage;
 
 /**

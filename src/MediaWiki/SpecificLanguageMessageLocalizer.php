@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki;
 
-use Message;
+use MediaWiki\Message\Message;
 use MessageLocalizer;
 
 /**

@@ -12,11 +12,11 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use ExtensionRegistry;
 use Language;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Request\FauxRequest;
 use MediaWikiIntegrationTestCase;
-use RequestContext;
 
 /**
  * @covers \EntitySchema\MediaWiki\Hooks\PageHistoryLineEndingHandler

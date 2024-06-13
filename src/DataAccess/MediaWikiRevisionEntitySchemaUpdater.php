@@ -4,14 +4,14 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
-use DerivativeContext;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
-use IContextSource;
 use InvalidArgumentException;
 use MediaWiki\CommentStore\CommentStoreComment;
+use MediaWiki\Context\DerivativeContext;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\MediaWikiServices;

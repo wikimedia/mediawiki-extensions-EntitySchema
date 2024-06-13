@@ -10,6 +10,7 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
 use ExtensionRegistry;
 use MediaWiki\Block\BlockManager;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
@@ -20,7 +21,6 @@ use MediaWikiIntegrationTestCase;
 use MessageCache;
 use PermissionsError;
 use ReadOnlyError;
-use RequestContext;
 use Wikimedia\Rdbms\ReadOnlyMode;
 
 /**

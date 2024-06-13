@@ -9,11 +9,11 @@ use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use ExtensionRegistry;
 use MediaWiki\Block\DatabaseBlock;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use PermissionsError;
-use RequestContext;
 
 /**
  * @license GPL-2.0-or-later

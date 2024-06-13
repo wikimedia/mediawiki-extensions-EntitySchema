@@ -13,9 +13,10 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\NameBadge;
-use IContextSource;
 use InvalidArgumentException;
 use MediaWiki\CommentStore\CommentStoreComment;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageIdentityValue;
 use MediaWiki\Request\FauxRequest;
@@ -26,7 +27,6 @@ use MediaWiki\Status\Status;
 use MediaWiki\Storage\PageUpdater;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
-use RequestContext;
 use RuntimeException;
 
 /**

@@ -16,9 +16,9 @@ use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use Maintenance;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\User;
-use RequestContext;
 use RuntimeException;
 
 /**

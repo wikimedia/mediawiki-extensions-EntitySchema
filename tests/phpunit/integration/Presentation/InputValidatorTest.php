@@ -8,9 +8,9 @@ use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use ExtensionRegistry;
 use MediaWiki\Config\HashConfig;
+use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
-use Message;
 use MessageLocalizer;
 
 /**

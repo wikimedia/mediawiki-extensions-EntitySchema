@@ -13,7 +13,7 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Html\Html;
 use MessageLocalizer;
 use SlotDiffRenderer;

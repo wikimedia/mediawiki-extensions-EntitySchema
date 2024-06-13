@@ -17,16 +17,16 @@ use EntitySchema\MediaWiki\Actions\UndoViewAction;
 use EntitySchema\MediaWiki\UndoHandler;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
-use IContextSource;
 use JsonContentHandler;
 use Language;
 use LogicException;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Content\Renderer\ContentParseParams;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
-use ParserOutput;
-use RequestContext;
 use Wikibase\Repo\WikibaseRepo;
 
 /**

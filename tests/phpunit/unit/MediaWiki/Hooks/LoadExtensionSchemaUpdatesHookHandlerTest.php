@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 
-use DatabaseUpdater;
 use EntitySchema\MediaWiki\Hooks\LoadExtensionSchemaUpdatesHookHandler;
+use MediaWiki\Installer\DatabaseUpdater;
 use MediaWikiUnitTestCase;
 use Wikimedia\Rdbms\IDatabase;
 

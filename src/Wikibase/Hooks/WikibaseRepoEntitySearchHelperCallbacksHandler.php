@@ -6,8 +6,8 @@ namespace EntitySchema\Wikibase\Hooks;
 
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelper;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Request\WebRequest;
-use RequestContext;
 use Wikimedia\Assert\Assert;
 
 /**

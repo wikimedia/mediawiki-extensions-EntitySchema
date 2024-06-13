@@ -6,11 +6,11 @@ namespace EntitySchema\MediaWiki\Hooks;
 
 use EntitySchema\DataAccess\LabelLookup;
 use HtmlArmor;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Linker\Hook\HtmlPageLinkRendererEndHook;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\Title;
-use RequestContext;
 use Wikimedia\Assert\Assert;
 
 /**

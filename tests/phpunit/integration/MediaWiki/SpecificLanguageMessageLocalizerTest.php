@@ -5,8 +5,8 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\MediaWiki;
 
 use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;
+use MediaWiki\Message\Message;
 use MediaWikiIntegrationTestCase;
-use Message;
 
 /**
  * @covers \EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer

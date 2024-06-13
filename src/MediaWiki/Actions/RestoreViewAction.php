@@ -12,7 +12,7 @@ use EntitySchema\Presentation\ConfirmationFormRenderer;
 use EntitySchema\Presentation\DiffRenderer;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;

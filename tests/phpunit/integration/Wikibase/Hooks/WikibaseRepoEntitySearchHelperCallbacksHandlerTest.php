@@ -11,9 +11,9 @@ use EntitySchema\Wikibase\Search\EntitySchemaSearchHelper;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
 use ExtensionRegistry;
 use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Request\WebRequest;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
-use WebRequest;
 
 /**
  * @covers \EntitySchema\Wikibase\Hooks\WikibaseRepoEntitySearchHelperCallbacksHandler

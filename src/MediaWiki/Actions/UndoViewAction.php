@@ -9,7 +9,7 @@ use Diff\DiffOp\Diff\Diff;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use EntitySchema\Presentation\ConfirmationFormRenderer;
 use EntitySchema\Presentation\DiffRenderer;
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 
 /**
  * @license GPL-2.0-or-later

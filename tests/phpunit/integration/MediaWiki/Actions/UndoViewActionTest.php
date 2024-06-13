@@ -9,10 +9,10 @@ use EntitySchema\MediaWiki\Actions\UndoViewAction;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use ExtensionRegistry;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
-use RequestContext;
 use TextSlotDiffRenderer;
 
 /**

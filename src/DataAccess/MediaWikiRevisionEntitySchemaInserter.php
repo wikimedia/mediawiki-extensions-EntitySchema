@@ -4,13 +4,13 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
-use DerivativeContext;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
-use IContextSource;
 use MediaWiki\CommentStore\CommentStoreComment;
+use MediaWiki\Context\DerivativeContext;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Revision\SlotRecord;

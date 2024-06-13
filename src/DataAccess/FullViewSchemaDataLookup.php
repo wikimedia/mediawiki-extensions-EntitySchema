@@ -10,7 +10,7 @@ use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Converter\FullViewEntitySchemaData;
 use MediaWiki\Page\PageIdentity;
 use MediaWiki\Page\WikiPageFactory;
-use TitleFactory;
+use MediaWiki\Title\TitleFactory;
 
 /**
  * Lookup for loading the full-view data of an EntitySchema.

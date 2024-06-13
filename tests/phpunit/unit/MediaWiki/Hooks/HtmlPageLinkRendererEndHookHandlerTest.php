@@ -8,12 +8,12 @@ use EntitySchema\MediaWiki\Hooks\HtmlPageLinkRendererEndHookHandler;
 use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
 use HtmlArmor;
 use Language;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Tests\Unit\FakeQqxMessageLocalizer;
 use MediaWiki\Title\Title;
 use MediaWikiUnitTestCase;
-use RequestContext;
 use Wikibase\DataModel\Term\TermFallback;
 
 /**

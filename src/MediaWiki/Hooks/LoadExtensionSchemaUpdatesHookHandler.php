@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Hooks;
 
-use DatabaseUpdater;
+use MediaWiki\Installer\DatabaseUpdater;
 use MediaWiki\Installer\Hook\LoadExtensionSchemaUpdatesHook;
 
 /**
