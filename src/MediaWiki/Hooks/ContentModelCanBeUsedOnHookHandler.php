@@ -12,10 +12,20 @@ use MediaWiki\Content\Hook\ContentModelCanBeUsedOnHook;
  */
 class ContentModelCanBeUsedOnHookHandler implements ContentModelCanBeUsedOnHook {
 
+	private bool $entitySchemaIsRepo;
+
+	public function __construct( bool $entitySchemaIsRepo ) {
+		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
+	}
+
 	/**
 	 * @inheritDoc
 	 */
 	public function onContentModelCanBeUsedOn( $contentModel, $title, &$ok ): ?bool {
+		if ( !$this->entitySchemaIsRepo ) {
+			return null;
+		}
+
 		if (
 			$title->getNamespace() === NS_ENTITYSCHEMA_JSON &&
 			$contentModel !== EntitySchemaContent::CONTENT_MODEL_ID

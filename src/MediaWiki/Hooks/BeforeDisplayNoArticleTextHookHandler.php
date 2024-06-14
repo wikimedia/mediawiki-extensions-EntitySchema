@@ -15,10 +15,20 @@ use MediaWiki\Page\Hook\BeforeDisplayNoArticleTextHook;
  */
 class BeforeDisplayNoArticleTextHookHandler implements BeforeDisplayNoArticleTextHook {
 
+	private bool $entitySchemaIsRepo;
+
+	public function __construct( bool $entitySchemaIsRepo ) {
+		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
+	}
+
 	/**
 	 * @inheritDoc
 	 */
 	public function onBeforeDisplayNoArticleText( $article ) {
+		if ( !$this->entitySchemaIsRepo ) {
+			return true;
+		}
+
 		if ( $article->getTitle()->getNamespace() !== NS_ENTITYSCHEMA_JSON ) {
 			return true;
 		}
