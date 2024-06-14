@@ -13,16 +13,25 @@ use MediaWiki\Title\Title;
  */
 class FormatAutocommentsHookHandler implements FormatAutocommentsHook {
 	private AutocommentFormatter $autocommentFormatter;
+	private bool $entitySchemaIsRepo;
 
-	public function __construct( AutocommentFormatter $autocommentFormatter ) {
+	public function __construct(
+		AutocommentFormatter $autocommentFormatter,
+		bool $entitySchemaIsRepo
+	) {
 		$this->autocommentFormatter = $autocommentFormatter;
+		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function onFormatAutocomments( &$comment, $pre, $auto, $post, $title, $local, $wikiId ) {
-	// phpcs:ignore MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgTitle
+		if ( !$this->entitySchemaIsRepo ) {
+			return null;
+		}
+
+		// phpcs:ignore MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgTitle
 		global $wgTitle;
 		if ( !( $title instanceof Title ) ) {
 			$title = $wgTitle;

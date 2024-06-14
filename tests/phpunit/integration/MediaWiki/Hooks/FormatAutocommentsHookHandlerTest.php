@@ -21,7 +21,7 @@ class FormatAutocommentsHookHandlerTest extends MediaWikiIntegrationTestCase {
 		$comment = null;
 		$this->setMwGlobals( 'wgTitle', null );
 		$autocommentFormatter = new AutocommentFormatter();
-		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter );
+		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter, true );
 		$ret = $hookHandler->onFormatAutocomments(
 			$comment,
 			false,
@@ -39,7 +39,7 @@ class FormatAutocommentsHookHandlerTest extends MediaWikiIntegrationTestCase {
 	public function testTitleInOtherNamespace() {
 		$comment = null;
 		$autocommentFormatter = new AutocommentFormatter();
-		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter );
+		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter, true );
 		$ret = $hookHandler->onFormatAutocomments(
 			$comment,
 			false,
@@ -54,10 +54,28 @@ class FormatAutocommentsHookHandlerTest extends MediaWikiIntegrationTestCase {
 		$this->assertNull( $comment );
 	}
 
+	public function testRepoDisabled() {
+		$comment = null;
+		$autocommentFormatter = new AutocommentFormatter();
+		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter, false );
+		$ret = $hookHandler->onFormatAutocomments(
+			$comment,
+			false,
+			MediaWikiRevisionEntitySchemaInserter::AUTOCOMMENT_NEWSCHEMA,
+			false,
+			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ),
+			false,
+			null
+		);
+
+		$this->assertNull( $ret );
+		$this->assertNull( $comment );
+	}
+
 	public function testWithUnknownAutocomment() {
 		$comment = null;
 		$autocommentFormatter = new AutocommentFormatter();
-		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter );
+		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter, true );
 		$ret = $hookHandler->onFormatAutocomments(
 			$comment,
 			false,
@@ -76,7 +94,7 @@ class FormatAutocommentsHookHandlerTest extends MediaWikiIntegrationTestCase {
 		$comment = null;
 		$this->setUserLang( 'qqx' );
 		$autocommentFormatter = new AutocommentFormatter();
-		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter );
+		$hookHandler = new FormatAutocommentsHookHandler( $autocommentFormatter, true );
 		$ret = $hookHandler->onFormatAutocomments(
 			$comment,
 			false,

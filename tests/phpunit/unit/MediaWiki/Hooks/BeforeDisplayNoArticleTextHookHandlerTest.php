@@ -22,15 +22,23 @@ class BeforeDisplayNoArticleTextHookHandlerTest extends MediaWikiUnitTestCase {
 	use EntitySchemaUnitTestCaseTrait;
 
 	public function testDoesNothingForOtherNamespaces(): void {
-		$hookHandler = new BeforeDisplayNoArticleTextHookHandler();
+		$hookHandler = new BeforeDisplayNoArticleTextHookHandler( true );
 		$title = Title::makeTitle( NS_MEDIAWIKI, 'M1' );
 		$mockArticle = $this->getMockArticle( $title, $this->never() );
 		$result = $hookHandler->onBeforeDisplayNoArticleText( $mockArticle );
 		$this->assertTrue( $result );
 	}
 
+	public function testDoesNothingIfRepoDisabled(): void {
+		$hookHandler = new BeforeDisplayNoArticleTextHookHandler( false );
+		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'M1' );
+		$mockArticle = $this->getMockArticle( $title, $this->never() );
+		$result = $hookHandler->onBeforeDisplayNoArticleText( $mockArticle );
+		$this->assertTrue( $result );
+	}
+
 	public function testReplacesStandardMessageForNoArticle(): void {
-		$hookHandler = new BeforeDisplayNoArticleTextHookHandler();
+		$hookHandler = new BeforeDisplayNoArticleTextHookHandler( true );
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'M1' );
 		$mockArticle = $this->getMockArticle( $title, $this->once() );
 		$result = $hookHandler->onBeforeDisplayNoArticleText( $mockArticle );

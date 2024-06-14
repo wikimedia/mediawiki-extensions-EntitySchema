@@ -19,7 +19,7 @@ class ContentModelCanBeUsedOnHookHandlerTest extends MediaWikiUnitTestCase {
 	use EntitySchemaUnitTestCaseTrait;
 
 	public function testAllowsEntitySchemaContentModel(): void {
-		$hookHandler = new ContentModelCanBeUsedOnHookHandler();
+		$hookHandler = new ContentModelCanBeUsedOnHookHandler( true );
 		$ok = true;
 		$result = $hookHandler->onContentModelCanBeUsedOn( EntitySchemaContent::CONTENT_MODEL_ID,
 			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ), $ok );
@@ -28,7 +28,7 @@ class ContentModelCanBeUsedOnHookHandlerTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testBlocksContentModelsOtherThanEntitySchema(): void {
-		$hookHandler = new ContentModelCanBeUsedOnHookHandler();
+		$hookHandler = new ContentModelCanBeUsedOnHookHandler( true );
 		$ok = true;
 		$result = $hookHandler->onContentModelCanBeUsedOn( CONTENT_MODEL_WIKITEXT,
 			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ), $ok );
@@ -37,10 +37,19 @@ class ContentModelCanBeUsedOnHookHandlerTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testDoesNothingForDifferentNamespaces(): void {
-		$hookHandler = new ContentModelCanBeUsedOnHookHandler();
+		$hookHandler = new ContentModelCanBeUsedOnHookHandler( true );
 		$ok = true;
 		$result = $hookHandler->onContentModelCanBeUsedOn( CONTENT_MODEL_WIKITEXT,
 			Title::makeTitle( NS_MEDIAWIKI, 'M1' ), $ok );
+		$this->assertNull( $result );
+		$this->assertTrue( $ok );
+	}
+
+	public function testDoesNothingIfRepoDisabled(): void {
+		$hookHandler = new ContentModelCanBeUsedOnHookHandler( false );
+		$ok = true;
+		$result = $hookHandler->onContentModelCanBeUsedOn( CONTENT_MODEL_WIKITEXT,
+			Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ), $ok );
 		$this->assertNull( $result );
 		$this->assertTrue( $ok );
 	}

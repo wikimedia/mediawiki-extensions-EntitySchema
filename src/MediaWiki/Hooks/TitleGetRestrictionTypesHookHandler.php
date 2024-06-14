@@ -12,6 +12,12 @@ use MediaWiki\Title\Title;
  */
 class TitleGetRestrictionTypesHookHandler implements TitleGetRestrictionTypesHook {
 
+	private bool $entitySchemaIsRepo;
+
+	public function __construct( bool $entitySchemaIsRepo ) {
+		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
+	}
+
 	/**
 	 * Handler for the TitleGetRestrictionTypes hook.
 	 *
@@ -24,6 +30,10 @@ class TitleGetRestrictionTypesHookHandler implements TitleGetRestrictionTypesHoo
 	 * @param string[] &$types The types of protection available
 	 */
 	public function onTitleGetRestrictionTypes( $title, &$types ): void {
+		if ( !$this->entitySchemaIsRepo ) {
+			return;
+		}
+
 		if ( $title->getNamespace() === NS_ENTITYSCHEMA_JSON ) {
 			// Remove create and move protection for Schema namespaces
 			$types = array_diff( $types, [ 'create', 'move' ] );
