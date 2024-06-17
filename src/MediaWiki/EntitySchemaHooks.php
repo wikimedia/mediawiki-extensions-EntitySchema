@@ -15,7 +15,17 @@ use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
  */
 final class EntitySchemaHooks implements SkinTemplateNavigation__UniversalHook {
 
+	private bool $entitySchemaIsRepo;
+
+	public function __construct( bool $entitySchemaIsRepo ) {
+		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
+	}
+
 	public function onSkinTemplateNavigation__Universal( $skinTemplate, &$links ): void {
+		if ( !$this->entitySchemaIsRepo ) {
+			return;
+		}
+
 		$title = $skinTemplate->getRelevantTitle();
 		if ( !$title->inNamespace( NS_ENTITYSCHEMA_JSON ) ) {
 			return;

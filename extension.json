@@ -99,24 +99,34 @@
 			]
 		},
 		"TitleGetRestrictionTypes": {
-			"class": "\\EntitySchema\\MediaWiki\\Hooks\\TitleGetRestrictionTypesHookHandler"
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\TitleGetRestrictionTypesHookHandler",
+			"services": [
+				"EntitySchema.EntitySchemaIsRepo"
+			]
 		},
 		"ImportHandleRevisionXMLTag": {
 			"class": "\\EntitySchema\\MediaWiki\\Hooks\\ImportHandleRevisionXMLTagHookHandler"
 		},
 		"ContentModelCanBeUsedOn": {
-			"class": "\\EntitySchema\\MediaWiki\\Hooks\\ContentModelCanBeUsedOnHookHandler"
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\ContentModelCanBeUsedOnHookHandler",
+			"services": [
+				"EntitySchema.EntitySchemaIsRepo"
+			]
 		},
 		"ExtensionTypes": {
 			"class": "\\EntitySchema\\MediaWiki\\Hooks\\ExtensionTypesHookHandler"
 		},
 		"BeforeDisplayNoArticleText": {
-			"class": "\\EntitySchema\\MediaWiki\\Hooks\\BeforeDisplayNoArticleTextHookHandler"
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\BeforeDisplayNoArticleTextHookHandler",
+			"services": [
+				"EntitySchema.EntitySchemaIsRepo"
+			]
 		},
 		"FormatAutocomments": {
 			"class": "\\EntitySchema\\MediaWiki\\Hooks\\FormatAutocommentsHookHandler",
 			"services": [
-				"EntitySchema.AutocommentFormatter"
+				"EntitySchema.AutocommentFormatter",
+				"EntitySchema.EntitySchemaIsRepo"
 			]
 		},
 		"LoadExtensionSchemaUpdates": {
@@ -148,7 +158,10 @@
 			]
 		},
 		"EntitySchemaHooks": {
-			"class": "EntitySchema\\MediaWiki\\EntitySchemaHooks"
+			"class": "EntitySchema\\MediaWiki\\EntitySchemaHooks",
+			"services": [
+				"EntitySchema.EntitySchemaIsRepo"
+			]
 		},
 		"NamespaceRegistrationHandler": {
 			"class": "EntitySchema\\MediaWiki\\Hooks\\NamespaceRegistrationHandler"
