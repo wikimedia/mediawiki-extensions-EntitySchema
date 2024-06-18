@@ -4,7 +4,8 @@
 			"Gomoko",
 			"Thibaut120094",
 			"Verdy p",
-			"Wladek92"
+			"Wladek92",
+			"SleaY"
 		]
 	},
 	"entityschema-desc": "Stocker et discuter des schémas pour les entités de Wikibase",
@@ -71,7 +72,7 @@
 	"entityschema-restore-bad-revisions": "La modification n’a pas pu être restaurée parce qu’elle n’existe pas ou qu’elle a été supprimée.",
 	"entityschema-restore-changed": "Le schéma a été modifié entre-temps. Veuillez vérifier à nouveau.",
 	"entityschema-restore-heading-failed": "Échec du rétablissement",
-	"entityschema-restore-empty": "La révision que vous essayez de rétablir est identique à la révision actuelle. Rien à faire.",
+	"entityschema-restore-empty": "La version que vous essayez de rétablir est identique à la version actuelle. Rien à faire.",
 	"entityschema-restoreold": "rétablir",
 	"special-schematext": "Texte d’entité de schéma",
 	"entityschema-schematext-text": "Cette page fournit une interface pour le texte brut d’un schéma. Veuillez fournir l’identifiant du schéma dans l’URL, en utilisant la syntaxe d’une sous-page.",
