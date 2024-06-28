@@ -46,28 +46,4 @@ class NamespaceRegistrationHandlerTest extends MediaWikiIntegrationTestCase {
 
 		$this->assertSame( [ NS_MAIN => '' ], $namespaces );
 	}
-
-	public function testOnNamespaceIsMovable() {
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
-
-		$namespaces = [];
-		$this->overrideConfigValue( 'EntitySchemaIsRepo', true );
-
-		$handler = new NamespaceRegistrationHandler();
-		$handler->onCanonicalNamespaces( $namespaces );
-
-		$result = true;
-		$handler->onNamespaceIsMovable( 0, $result );
-		$this->assertTrue( $result );
-
-		$result = true;
-		$handler->onNamespaceIsMovable( 640, $result );
-		$this->assertFalse( $result );
-
-		$result = true;
-		$handler->onNamespaceIsMovable( 641, $result );
-		$this->assertTrue( $result );
-	}
 }
