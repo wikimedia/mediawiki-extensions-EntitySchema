@@ -109,6 +109,9 @@ class WikibaseRepoDataTypesHandler {
 			},
 			'parser-factory-callback' => fn () => new EntitySchemaValueParser(),
 			'deserializer-builder' => EntitySchemaValue::class,
+			'search-index-data-formatter-callback' => static function ( EntitySchemaValue $value ): string {
+				return $value->getSchemaId();
+			},
 		];
 	}
 }
