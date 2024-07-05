@@ -227,7 +227,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	 * Gets the last created page (if any).
 	 */
 	private function getLastCreatedTitle(): ?LinkTarget {
-		$row = $this->db->newSelectQueryBuilder()
+		$row = $this->getDb()->newSelectQueryBuilder()
 			->select( [ 'page_namespace', 'page_title' ] )
 			->from( 'page' )
 			->orderBy( [ 'page_id' ], SelectQueryBuilder::SORT_DESC )
