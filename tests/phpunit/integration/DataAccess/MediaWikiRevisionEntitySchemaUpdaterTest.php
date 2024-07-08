@@ -33,6 +33,7 @@ use RuntimeException;
  * @covers \EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater
  * @covers \EntitySchema\DataAccess\EntitySchemaUpdateGuard
  *
+ * @group EntitySchemaClient
  * @group Database
  *
  * @license GPL-2.0-or-later

@@ -22,6 +22,7 @@ use Wikibase\Lib\LanguageNameLookupFactory;
 
 /**
  * @covers \EntitySchema\Wikibase\Formatters\EntitySchemaFormatter
+ * @group EntitySchemaClient
  * @license GPL-2.0-or-later
  */
 class EntitySchemaFormatterTest extends MediaWikiIntegrationTestCase {

@@ -10,6 +10,8 @@ use MediaWikiIntegrationTestCase;
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContent
  *
+ * @group EntitySchemaClient
+ *
  * @license GPL-2.0-or-later
  */
 class EntitySchemaContentTest extends MediaWikiIntegrationTestCase {

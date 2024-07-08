@@ -11,6 +11,8 @@ use MediaWikiIntegrationTestCase;
 /**
  * @covers \EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer
  *
+ * @group EntitySchemaClient
+ *
  * @license GPL-2.0-or-later
  */
 class SpecificLanguageMessageLocalizerTest extends MediaWikiIntegrationTestCase {

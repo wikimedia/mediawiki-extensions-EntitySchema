@@ -15,6 +15,7 @@ use Wikimedia\Rdbms\IDatabase;
  * @covers \EntitySchema\MediaWiki\Hooks\LoadExtensionSchemaUpdatesHookHandler
  *
  * @group Database
+ * @group EntitySchemaClient
  */
 class LoadExtensionSchemaUpdatesHookHandlerTest extends MediaWikiIntegrationTestCase {
 

@@ -12,6 +12,8 @@ use MediaWikiIntegrationTestCase;
 /**
  * @covers \EntitySchema\DataAccess\EntitySchemaEncoder
  *
+ * @group EntitySchemaClient
+ *
  * @license GPL-2.0-or-later
  */
 class EntitySchemaEncoderTest extends MediaWikiIntegrationTestCase {

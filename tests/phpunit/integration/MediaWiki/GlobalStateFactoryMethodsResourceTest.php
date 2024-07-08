@@ -11,6 +11,7 @@ use MediaWiki\Tests\ExtensionJsonTestBase;
  * don't access the database or do http requests (which would be a performance issue).
  *
  * @group EntitySchema
+ * @group EntitySchemaClient
  *
  * @license GPL-2.0-or-later
  * @coversNothing
