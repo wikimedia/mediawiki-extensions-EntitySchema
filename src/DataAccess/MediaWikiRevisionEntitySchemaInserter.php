@@ -59,6 +59,8 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 	 * @param string $schemaText
 	 *
 	 * @return EntitySchemaId id of the inserted Schema
+	 *
+	 * @throws HookRunnerFailureException
 	 */
 	public function insertSchema(
 		string $language,
@@ -109,6 +111,9 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 		return $language->truncateForVisual( $schemaText, 5000 );
 	}
 
+	/**
+	 * @throws HookRunnerFailureException
+	 */
 	private function saveRevision(
 		PageUpdater $updater,
 		EntitySchemaContent $content,
@@ -121,7 +126,7 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 			'EditFilterMergedContent',
 			[ $context, $content, &$status, $summary->text, $this->context->getUser(), false ]
 		) ) {
-			throw new RuntimeException( $status->getWikiText() );
+			throw new HookRunnerFailureException( $status );
 		}
 
 		$updater->setContent( SlotRecord::MAIN, $content );

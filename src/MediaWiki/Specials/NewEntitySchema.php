@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Specials;
 
+use EntitySchema\DataAccess\HookRunnerFailureException;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\WatchlistUpdater;
@@ -111,17 +112,21 @@ class NewEntitySchema extends SpecialPage {
 			$services->getHookContainer(),
 			$services->getTitleFactory()
 		);
-		$newId = $schemaInserter->insertSchema(
-			$data[self::FIELD_LANGUAGE],
-			$data[self::FIELD_LABEL],
-			$data[self::FIELD_DESCRIPTION],
-			array_filter( array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) ) ),
-			$data[self::FIELD_SCHEMA_TEXT]
-		);
+		try {
+			$newId = $schemaInserter->insertSchema(
+				$data[self::FIELD_LANGUAGE],
+				$data[self::FIELD_LABEL],
+				$data[self::FIELD_DESCRIPTION],
+				array_filter( array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) ) ),
+				$data[self::FIELD_SCHEMA_TEXT]
+			);
 
-		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $newId->getId() );
+			$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $newId->getId() );
 
-		return Status::newGood( $title->getFullURL() );
+			return Status::newGood( $title->getFullURL() );
+		} catch ( HookRunnerFailureException $failure ) {
+			return $failure->getStatus();
+		}
 	}
 
 	public function getDescription(): Message {
