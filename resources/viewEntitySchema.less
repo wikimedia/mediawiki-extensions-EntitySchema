@@ -36,9 +36,19 @@
 	}
 }
 
+.entityschema-section {
+	display: grid;
+	grid-template-columns: auto max-content;
+}
+
+[ dir='rtl' ] .entityschema-section {
+	grid-template-columns: max-content auto;
+}
+
 .entityschema-schema-text-links {
-	/* @noflip */
-	float: right;
+	grid-column: 2;
+	grid-row: 1;
+	margin-top: 1em;
 	padding: 1em;
 
 	> :not( :first-child )::before {
@@ -46,6 +56,19 @@
 		content: '|';
 		margin-right: 0.5em;
 	}
+}
+
+[ dir='rtl' ] .entityschema-schema-text-links {
+	grid-column: 1;
+}
+
+.entityschema-text {
+	grid-column: 1;
+	grid-row: 1;
+}
+
+[ dir='rtl' ] .entityschema-text {
+	grid-column: 2;
 }
 
 .entityschema-edit-button {
