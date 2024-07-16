@@ -37,6 +37,8 @@ class EntitySchemaSlotViewRenderer {
 
 	private bool $useSyntaxHighlight;
 
+	private string $dir;
+
 	/**
 	 * @param string $languageCode The language in which to render the view.
 	 */
@@ -55,6 +57,8 @@ class EntitySchemaSlotViewRenderer {
 			$useSyntaxHighlight = ExtensionRegistry::getInstance()->isLoaded( 'SyntaxHighlight' );
 		}
 		$this->useSyntaxHighlight = $useSyntaxHighlight;
+		$this->dir = MediaWikiServices::getInstance()->getLanguageFactory()
+			->getLanguage( $languageCode )->getDir();
 	}
 
 	private function msg( string $key ): Message {
@@ -189,6 +193,7 @@ class EntitySchemaSlotViewRenderer {
 		return Html::rawElement( 'div', [
 			'id' => 'entityschema-schema-view-section',
 			'class' => 'entityschema-section',
+			'dir' => 'ltr',
 		],
 			$schemaSectionContent
 		);
@@ -198,7 +203,6 @@ class EntitySchemaSlotViewRenderer {
 		$attribs = [
 			'id' => 'entityschema-schema-text',
 			'class' => 'entityschema-schema-text',
-			'dir' => 'ltr',
 		];
 
 		if ( $this->useSyntaxHighlight ) {
@@ -225,6 +229,7 @@ class EntitySchemaSlotViewRenderer {
 			'div',
 			[
 				'class' => 'entityschema-schema-text-links',
+				'dir' => $this->dir,
 			],
 			$this->renderSchemaCheckLink( $page ) .
 			$this->renderSchemaEditLink( $page )

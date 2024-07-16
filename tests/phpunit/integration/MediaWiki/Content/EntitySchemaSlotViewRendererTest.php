@@ -81,14 +81,14 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		yield 'schema text' => [
 			new FullViewEntitySchemaData( $emptyNameBadges, '_:empty {}' ),
 			[
-				'<pre id="entityschema-schema-text" class="entityschema-schema-text" dir="ltr">_:empty {}</pre>',
+				'<pre id="entityschema-schema-text" class="entityschema-schema-text">_:empty {}</pre>',
 			],
 		];
 
 		yield 'schema text, no HTML injection' => [
 			new FullViewEntitySchemaData( $emptyNameBadges, '<script>alert("schema XSS")</script>' ),
 			// exact details of escaping beyond this (> vs &gt;) don’t matter
-			[ '<pre id="entityschema-schema-text" class="entityschema-schema-text" dir="ltr">&lt;script' ],
+			[ '<pre id="entityschema-schema-text" class="entityschema-schema-text">&lt;script' ],
 		];
 
 		yield 'multilingual descriptions' => [
