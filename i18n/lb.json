@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Robby",
-			"Soued031"
+			"Soued031",
+			"Volvox"
 		]
 	},
 	"entityschema-newschema-label": "Etikett:",
@@ -11,9 +12,11 @@
 	"entityschema-label-edit-placeholder": "eng Etikett op $1 aginn",
 	"entityschema-description-edit-placeholder": "eng Beschreiwung op $1 aginn",
 	"entityschema-aliases-edit-placeholder": "gitt e puer Aliasen op $1 an",
+	"entityschema-id-edit-placeholder": "Scheema-ID",
+	"entityschema-error-schemaupdate-failed": "D'Scheema konnt net aktualiséiert ginn",
 	"entityschema-error-invalid-id": "Dës ID ass net valabel.",
-	"entityschema-error-unsupported-langcode": "Dëse Sproochcode gëtt net ënnerstëtzt",
-	"entityschema-error-one-more-message-available": "Et gëtt Problemer mat deem wat Dir aginn hutt. Kuckt wgl. de Feelermessage hei drënner.",
+	"entityschema-error-unsupported-langcode": "Dëse Sproochcode gëtt net ënnerstëtzt.",
+	"entityschema-error-one-more-message-available": "Et gëtt Problemer mat deem, wat Dir aginn hutt. Kuckt wgl. de Feelermessage hei drënner.",
 	"entityschema-label-empty": "Keng Etikett definéiert",
 	"entityschema-namebadge-header-language-code": "Sproochcode",
 	"entityschema-namebadge-header-label": "Etikett",
@@ -26,6 +29,13 @@
 	"entityschema-diff-schema": "Schema",
 	"entityschema-edit": "änneren",
 	"entityschema-add-schema-text": "Text vum Schema derbäisetzen",
+	"entityschema-summary-newschema-nolabel": "En neit Scheema ugeluecht",
+	"entityschema-summary-update": "Scheema aktualiséiert",
+	"entityschema-summary-update-schema-text-user": "Scheematext aktualiséiert: $1",
+	"entityschema-summary-update-schema-namebadge": "Etikett, Beschreiwung oder Aliasen op $1 aktualiséiert",
+	"entityschema-summary-update-schema-label": "Scheema-Etikett op $1 aktualiséiert",
+	"entityschema-summary-update-schema-description": "Scheema-Beschreiwung op $1 aktualiséiert",
+	"entityschema-summary-update-schema-aliases": "Scheema-Aliasen op $1 aktualiséiert",
 	"entityschema-restoreold": "restauréieren",
 	"entityschema-special-id-inputlabel": "Nummer (ID)",
 	"entityschema-special-language-inputlabel": "Sproochcode",
