@@ -5,12 +5,30 @@
 			"Исмаил Садуев"
 		]
 	},
+	"special-newschema": "ХӀуманийн керла схема кхолла",
+	"entityschema-newschema-label": "Билгало:",
 	"entityschema-newschema-description": "Цуьнах лаьцна:",
 	"entityschema-newschema-submit": "Кхолла",
+	"entityschema-editpage-schema-inputlabel": "ShEx:",
+	"entityschema-summary-generated": "Йоца аннотаци (автокечбина хааман тӀетухура йу):",
+	"entityschema-label-empty": "ЦӀе йац",
+	"entityschema-namebadge-header-language-code": "меттан код.",
 	"entityschema-namebadge-header-description": "цуьнах лаьцна",
 	"entityschema-namebadge-header-edit": "нисйан",
 	"entityschema-diff-description": "Цуьнах лаьцна",
 	"entityschema-diff-schema": "Схема",
 	"entityschema-edit": "нисйан",
-	"entityschema-restoreold": "меттахӀоттайе"
+	"entityschema-summary-undo-autocomment": "Нисдар йухадаккхар $1, дина долу [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|дийцар]])",
+	"entityschema-undo-heading-failed": "Йухайаккха цайелира",
+	"entityschema-undo-bad-revisions": "Нисдар йухадаккха цало, иза доцу делла йа дӀайаьккхина дела.",
+	"entityschema-undo-cannot-apply-patch": "Хийцам йухабаккха йиш йац, хӀунда аьлча иза хӀинцале а хийцина йу.",
+	"entityschema-restore-heading": "МеттахӀоттайе шера верси «$1»",
+	"entityschema-restoreold": "меттахӀоттайе",
+	"special-schematext": "ХӀуманийн схемин текст",
+	"entityschema-special-setlabeldescriptionaliases": "Куьг йаздар, хаам, хӀуманийн схемин псевдонимаш хӀиттор",
+	"entityschema-special-language-inputlabel": "Меттан код",
+	"entityschema-special-id-submit": "ХӀоттайе билгало, хаам а, синонимаш а",
+	"entityschema-special-label": "Билгало:",
+	"entityschema-special-description": "Цуьнах лаьцна",
+	"entityschema-special-aliases": "Псевдонимаш, дӀасакъаьстина верт. сизал:"
 }
