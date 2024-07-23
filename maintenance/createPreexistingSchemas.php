@@ -19,7 +19,6 @@ use Maintenance;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\User;
-use RuntimeException;
 
 /**
  * Maintenance script for creating preexisting EntitySchemas.
@@ -182,15 +181,14 @@ class CreatePreexistingSchemas extends Maintenance {
 			$services->getTitleFactory()
 		);
 
-		try {
-			$schemaInserter->insertSchema(
-				'en',
-				$dataMap[self::LABEL] ?? '',
-				$dataMap[self::DESC] ?? '',
-				[],
-				''
-			);
-		} catch ( RuntimeException $e ) {
+		$status = $schemaInserter->insertSchema(
+			'en',
+			$dataMap[self::LABEL] ?? '',
+			$dataMap[self::DESC] ?? '',
+			[],
+			''
+		);
+		if ( !$status->isOK() ) {
 			$this->output(
 				'Failed to save ' . $dataMap[self::LABEL] . " with ID $idString. Moving on... \n"
 			);
