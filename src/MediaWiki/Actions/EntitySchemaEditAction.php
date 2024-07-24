@@ -5,7 +5,6 @@ declare( strict_types = 1 );
 namespace EntitySchema\MediaWiki\Actions;
 
 use Article;
-use EntitySchema\DataAccess\EditConflict;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
@@ -122,20 +121,14 @@ class EntitySchemaEditAction extends FormAction {
 		$id = new EntitySchemaId( $this->getTitle()->getText() );
 		$schemaUpdater = MediaWikiRevisionEntitySchemaUpdater::newFromContext( $this->getContext() );
 
-		try {
-			$schemaUpdater->updateSchemaText(
-				$id,
-				$data[self::FIELD_SCHEMA_TEXT],
-				(int)$data[self::FIELD_BASE_REV],
-				trim( $data[self::FIELD_EDIT_SUMMARY] )
-			);
-		} catch ( EditConflict $e ) {
-			return Status::newFatal( 'entityschema-error-schematext-conflict' );
-		} catch ( RuntimeException $e ) {
-			return Status::newFatal( 'entityschema-error-schemaupdate-failed' );
-		}
-
-		return Status::newGood();
+		$status = $schemaUpdater->updateSchemaText(
+			$id,
+			$data[self::FIELD_SCHEMA_TEXT],
+			(int)$data[self::FIELD_BASE_REV],
+			trim( $data[self::FIELD_EDIT_SUMMARY] )
+		);
+		$status->replaceMessage( 'edit-conflict', 'entityschema-error-schematext-conflict' );
+		return $status;
 	}
 
 	protected function alterForm( HTMLForm $form ): void {

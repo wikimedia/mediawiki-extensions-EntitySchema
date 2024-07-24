@@ -13,7 +13,6 @@ use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
-use RuntimeException;
 
 /**
  * @license GPL-2.0-or-later
@@ -101,21 +100,15 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 
 		$schemaUpdater = MediaWikiRevisionEntitySchemaUpdater::newFromContext( $this->getContext() );
 
-		try {
-			$schemaUpdater->overwriteWholeSchema(
-				new EntitySchemaId( $this->getTitle()->getTitleValue()->getText() ),
-				$persistenceSchemaData->labels,
-				$persistenceSchemaData->descriptions,
-				$persistenceSchemaData->aliases,
-				$persistenceSchemaData->schemaText,
-				$baseRevId,
-				$summary
-			);
-		} catch ( RuntimeException $e ) {
-			return Status::newFatal( 'entityschema-error-saving-failed', $e->getMessage() );
-		}
-
-		return Status::newGood();
+		return $schemaUpdater->overwriteWholeSchema(
+			new EntitySchemaId( $this->getTitle()->getTitleValue()->getText() ),
+			$persistenceSchemaData->labels,
+			$persistenceSchemaData->descriptions,
+			$persistenceSchemaData->aliases,
+			$persistenceSchemaData->schemaText,
+			$baseRevId,
+			$summary
+		);
 	}
 
 	private function createSummaryMessageForRestore(

@@ -30,7 +30,6 @@
 	"entityschema-error-schemaupdate-failed": "Error message when saving the Schema after edit wasn't successful",
 	"entityschema-error-schematext-conflict": "Error message if there was an edit conflict for the Schema text from which we cannot recover.",
 	"entityschema-error-namebadge-conflict": "Error message if there was an edit conflict for the Schema labels, descriptions and aliases from which we cannot recover.",
-	"entityschema-error-saving-failed": "Error message when saving a schema has failed.\n\nParameters:\n* $1 - the message of the exception",
 	"entityschema-error-not-post": "Error message when a HTTP POST request is expected but something else was received.",
 	"entityschema-error-inconsistent-id": "Error message if revisions belonging to different pages were provided",
 	"entityschema-error-wrong-page-revisions": "Error message when a given revision (e.g. for restoring) does not belong to the current page.",

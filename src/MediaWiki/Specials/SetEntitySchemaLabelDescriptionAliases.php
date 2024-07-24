@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Specials;
 
-use EntitySchema\DataAccess\EditConflict;
+use EntitySchema\DataAccess\EntitySchemaStatus;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Presentation\InputValidator;
@@ -24,7 +24,6 @@ use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use MediaWiki\User\TempUser\TempUserConfig;
 use PermissionsError;
-use RuntimeException;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Repo\CopyrightMessageBuilder;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
@@ -99,22 +98,16 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$aliases = array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) );
 		$schemaUpdater = MediaWikiRevisionEntitySchemaUpdater::newFromContext( $this->getContext() );
 
-		try {
-			$schemaUpdater->updateSchemaNameBadge(
-				$id,
-				$data[self::FIELD_LANGUAGE],
-				$data[self::FIELD_LABEL],
-				$data[self::FIELD_DESCRIPTION],
-				$aliases,
-				(int)$data[self::FIELD_BASE_REV]
-			);
-		} catch ( EditConflict $e ) {
-			return Status::newFatal( 'entityschema-error-namebadge-conflict' );
-		} catch ( RuntimeException $e ) {
-			return Status::newFatal( 'entityschema-error-schemaupdate-failed' );
-		}
-
-		return Status::newGood( $title->getFullURL() );
+		$status = $schemaUpdater->updateSchemaNameBadge(
+			$id,
+			$data[self::FIELD_LANGUAGE],
+			$data[self::FIELD_LABEL],
+			$data[self::FIELD_DESCRIPTION],
+			$aliases,
+			(int)$data[self::FIELD_BASE_REV]
+		);
+		$status->replaceMessage( 'edit-conflict', 'entityschema-error-namebadge-conflict' );
+		return $status;
 	}
 
 	public function getDescription(): Message {
@@ -171,9 +164,10 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 
 			$submitStatus = $form->tryAuthorizedSubmit();
 			if ( $submitStatus && $submitStatus->isGood() ) {
-				$output->redirect(
-					$submitStatus->getValue()
-				);
+				// wrap it, in case HTMLForm turned it into a generic Status
+				$submitStatus = EntitySchemaStatus::wrap( $submitStatus );
+				$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $submitStatus->getEntitySchemaId()->getId() );
+				$this->getOutput()->redirect( $title->getFullURL() );
 				return;
 			}
 		}

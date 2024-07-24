@@ -24,7 +24,6 @@
 	"entityschema-error-schemaupdate-failed": "The Schema could not be updated",
 	"entityschema-error-schematext-conflict": "This Schema was changed in the meantime. Please return to the Schema page and try to edit it again.",
 	"entityschema-error-namebadge-conflict": "This Schema was changed in the meantime. Please return to the Schema page and try to edit the labels, descriptions and aliases in this language again.",
-	"entityschema-error-saving-failed": "Saving the Schema failed with the following message: $1",
 	"entityschema-error-not-post": "This action must be done with a post request.",
 	"entityschema-error-inconsistent-id": "The provided revisions do not all belong to the given title.",
 	"entityschema-error-wrong-page-revisions": "The provided revision does not belong to the current page.",

@@ -12,7 +12,6 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Status\Status;
 use PermissionsError;
 use ReadOnlyError;
-use RuntimeException;
 use UserBlockedError;
 
 /**
@@ -100,21 +99,15 @@ class UndoSubmitAction extends AbstractUndoAction {
 			$this->getContext()->getRequest()->getInt( 'undo' )
 			);
 
-		try {
-			$schemaUpdater->overwriteWholeSchema(
-				new EntitySchemaId( $this->getTitle()->getTitleValue()->getText() ),
-				$patchedSchema->data['labels'],
-				$patchedSchema->data['descriptions'],
-				$patchedSchema->data['aliases'],
-				$patchedSchema->data['schemaText'],
-				$baseRevId,
-				$summary
-			);
-		} catch ( RuntimeException $e ) {
-			return Status::newFatal( 'entityschema-error-saving-failed', $e->getMessage() );
-		}
-
-		return Status::newGood();
+		return $schemaUpdater->overwriteWholeSchema(
+			new EntitySchemaId( $this->getTitle()->getTitleValue()->getText() ),
+			$patchedSchema->data['labels'],
+			$patchedSchema->data['descriptions'],
+			$patchedSchema->data['aliases'],
+			$patchedSchema->data['schemaText'],
+			$baseRevId,
+			$summary
+		);
 	}
 
 	private function createSummaryCommentForUndoRev( string $userSummary, int $undoRevId ): CommentStoreComment {

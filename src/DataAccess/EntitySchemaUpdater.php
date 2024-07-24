@@ -5,9 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\DataAccess;
 
 use EntitySchema\Domain\Model\EntitySchemaId;
-use InvalidArgumentException;
 use MediaWiki\CommentStore\CommentStoreComment;
-use RuntimeException;
 
 /**
  * @license GPL-2.0-or-later
@@ -24,9 +22,6 @@ interface EntitySchemaUpdater {
 	 * @param string $schemaText
 	 * @param int $baseRevId
 	 * @param CommentStoreComment $summary
-	 *
-	 * @throws InvalidArgumentException if bad parameters are passed
-	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 */
 	public function overwriteWholeSchema(
 		EntitySchemaId $id,
@@ -36,7 +31,7 @@ interface EntitySchemaUpdater {
 		string $schemaText,
 		int $baseRevId,
 		CommentStoreComment $summary
-	): void;
+	): EntitySchemaStatus;
 
 	/**
 	 * @param EntitySchemaId $id
@@ -53,23 +48,19 @@ interface EntitySchemaUpdater {
 		string $description,
 		array $aliases,
 		int $baseRevId
-	): void;
+	): EntitySchemaStatus;
 
 	/**
 	 * @param EntitySchemaId $id
 	 * @param string $schemaText
 	 * @param int $baseRevId id of the base revision for detecting edit conflicts.
 	 * @param string|null $userSummary
-	 *
-	 * @throws InvalidArgumentException if bad parameters are passed
-	 * @throws EditConflict if another revision has been saved after $baseRevId
-	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 */
 	public function updateSchemaText(
 		EntitySchemaId $id,
 		string $schemaText,
 		int $baseRevId,
 		?string $userSummary = null
-	): void;
+	): EntitySchemaStatus;
 
 }

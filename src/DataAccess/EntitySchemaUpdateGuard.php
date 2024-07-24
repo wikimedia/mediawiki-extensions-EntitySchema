@@ -35,7 +35,7 @@ class EntitySchemaUpdateGuard {
 	 * updating it with the user’s data.
 	 * @return PersistenceEntitySchemaData|null The data that should be stored,
 	 * or null if there is nothing to do.
-	 * @throws EditConflict
+	 * @throws PatcherException If there is an edit conflict and the update cannot be done.
 	 */
 	public function guardSchemaUpdate(
 		RevisionRecord $baseRevision,
@@ -66,11 +66,9 @@ class EntitySchemaUpdateGuard {
 			// @phan-suppress-next-line PhanUndeclaredMethod
 			$parentRevision->getContent( SlotRecord::MAIN )->getText()
 		);
-		try {
-			$patchedData = $this->schemaPatcher->patchSchema( $parentData, $diff );
-		} catch ( PatcherException $e ) {
-			throw new EditConflict( $e->getMessage(), $e->getCode(), $e );
-		}
+
+		// may throw PatcherException
+		$patchedData = $this->schemaPatcher->patchSchema( $parentData, $diff );
 
 		return $this->array2persistence( $patchedData );
 	}
