@@ -5,6 +5,7 @@ use EntitySchema\DataAccess\DescriptionLookup;
 use EntitySchema\DataAccess\FullViewSchemaDataLookup;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\DataAccess\SqlIdGenerator;
+use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Presentation\AutocommentFormatter;
@@ -93,6 +94,15 @@ return [
 		return new LabelLookup(
 			EntitySchemaServices::getFullViewSchemaDataLookup( $services ),
 			WikibaseRepo::getLanguageFallbackChainFactory( $services )
+		);
+	},
+
+	'EntitySchema.WatchlistUpdater' => static function (
+		MediaWikiServices $services
+	): WatchlistUpdater {
+		return new WatchlistUpdater(
+			$services->getUserOptionsLookup(),
+			$services->getWatchlistManager()
 		);
 	},
 

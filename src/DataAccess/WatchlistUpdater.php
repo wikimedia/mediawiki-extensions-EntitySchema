@@ -5,46 +5,44 @@ declare( strict_types = 1 );
 namespace EntitySchema\DataAccess;
 
 use EntitySchema\Domain\Model\EntitySchemaId;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
+use MediaWiki\Watchlist\WatchlistManager;
 
 /**
  * @license GPL-2.0-or-later
  */
 class WatchlistUpdater {
 
-	private User $user;
-	private int $namespace;
+	private UserOptionsLookup $userOptionsLookup;
+	private WatchlistManager $watchlistManager;
 
-	public function __construct( User $user, int $namespaceID ) {
-		$this->user = $user;
-		$this->namespace = $namespaceID;
+	public function __construct(
+		UserOptionsLookup $userOptionsLookup,
+		WatchlistManager $watchlistManager
+	) {
+		$this->userOptionsLookup = $userOptionsLookup;
+		$this->watchlistManager = $watchlistManager;
 	}
 
-	public function optionallyWatchEditedSchema( EntitySchemaId $entitySchemaId ): void {
-		$services = MediaWikiServices::getInstance();
-		$userOptionsLookup = $services->getUserOptionsLookup();
-		$watchlistManager = $services->getWatchlistManager();
-		if ( $userOptionsLookup->getOption( $this->user, 'watchdefault' ) ) {
-			$watchlistManager->setWatch(
+	public function optionallyWatchEditedSchema( User $user, EntitySchemaId $entitySchemaId ): void {
+		if ( $this->userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
+			$this->watchlistManager->setWatch(
 				true,
-				$this->user,
-				Title::makeTitle( $this->namespace, $entitySchemaId->getId() )
+				$user,
+				Title::makeTitle( NS_ENTITYSCHEMA_JSON, $entitySchemaId->getId() )
 			);
 		}
 	}
 
-	public function optionallyWatchNewSchema( EntitySchemaId $entitySchemaId ): void {
-		$services = MediaWikiServices::getInstance();
-		$userOptionsLookup = $services->getUserOptionsLookup();
-		$watchlistManager = $services->getWatchlistManager();
-		if ( $userOptionsLookup->getOption( $this->user, 'watchcreations' )
-			|| $userOptionsLookup->getOption( $this->user, 'watchdefault' ) ) {
-			$watchlistManager->setWatch(
+	public function optionallyWatchNewSchema( User $user, EntitySchemaId $entitySchemaId ): void {
+		if ( $this->userOptionsLookup->getOption( $user, 'watchcreations' )
+			|| $this->userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
+			$this->watchlistManager->setWatch(
 				true,
-				$this->user,
-				Title::makeTitle( $this->namespace, $entitySchemaId->getId() )
+				$user,
+				Title::makeTitle( NS_ENTITYSCHEMA_JSON, $entitySchemaId->getId() )
 			);
 		}
 	}
