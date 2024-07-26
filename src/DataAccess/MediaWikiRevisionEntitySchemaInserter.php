@@ -9,13 +9,11 @@ use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use MediaWiki\CommentStore\CommentStoreComment;
-use MediaWiki\Context\DerivativeContext;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Storage\PageUpdater;
-use MediaWiki\Title\TitleFactory;
 
 /**
  * @license GPL-2.0-or-later
@@ -29,7 +27,6 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 	private IContextSource $context;
 	private LanguageFactory $languageFactory;
 	private HookContainer $hookContainer;
-	private TitleFactory $titleFactory;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
@@ -37,8 +34,7 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 		IdGenerator $idGenerator,
 		IContextSource $context,
 		LanguageFactory $languageFactory,
-		HookContainer $hookContainer,
-		TitleFactory $titleFactory
+		HookContainer $hookContainer
 	) {
 		$this->idGenerator = $idGenerator;
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
@@ -46,7 +42,6 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 		$this->context = $context;
 		$this->languageFactory = $languageFactory;
 		$this->hookContainer = $hookContainer;
-		$this->titleFactory = $titleFactory;
 	}
 
 	/**
@@ -97,8 +92,13 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 		if ( !$updaterStatus->isOK() ) {
 			return EntitySchemaStatus::wrap( $updaterStatus );
 		}
+		$status = EntitySchemaStatus::newEdit(
+			$id,
+			$updaterStatus->getSavedTempUser(),
+			$updaterStatus->getContext()
+		);
 		$content = new EntitySchemaContent( $persistentRepresentation );
-		$status = $this->saveRevision( $id, $updaterStatus->getPageUpdater(), $content, $summary );
+		$this->saveRevision( $status, $updaterStatus->getPageUpdater(), $content, $summary );
 		if ( !$status->isOK() ) {
 			return $status;
 		}
@@ -114,19 +114,17 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 	}
 
 	private function saveRevision(
-		EntitySchemaId $id,
+		EntitySchemaStatus $status,
 		PageUpdater $updater,
 		EntitySchemaContent $content,
 		CommentStoreComment $summary
-	): EntitySchemaStatus {
-		$context = new DerivativeContext( $this->context );
-		$context->setTitle( $this->titleFactory->newFromPageIdentity( $updater->getPage() ) );
-		$status = EntitySchemaStatus::newEdit( $id );
+	): void {
+		$context = $status->getContext();
 		if ( !$this->hookContainer->run(
 			'EditFilterMergedContent',
-			[ $context, $content, $status, $summary->text, $this->context->getUser(), false ]
+			[ $context, $content, $status, $summary->text, $context->getUser(), false ]
 		) ) {
-			return $status;
+			return;
 		}
 
 		$updater->setContent( SlotRecord::MAIN, $content );
@@ -135,7 +133,6 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 			EDIT_NEW | EDIT_INTERNAL
 		);
 		$status->merge( $updater->getStatus() );
-		return $status;
 	}
 
 }

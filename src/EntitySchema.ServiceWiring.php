@@ -103,6 +103,7 @@ return [
 	): MediaWikiPageUpdaterFactory {
 		return new MediaWikiPageUpdaterFactory(
 			$services->getPermissionManager(),
+			$services->getTempUserCreator(),
 			$services->getTitleFactory(),
 			$services->getWikiPageFactory()
 		);

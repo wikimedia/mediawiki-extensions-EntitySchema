@@ -4,9 +4,11 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
+use EntitySchema\DataAccess\EntitySchemaStatus;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\EntitySchemaRedirectTrait;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Converter\PersistenceEntitySchemaData;
 use MediaWiki\CommentStore\CommentStoreComment;
@@ -18,6 +20,8 @@ use MediaWiki\Status\Status;
  * @license GPL-2.0-or-later
  */
 final class RestoreSubmitAction extends AbstractRestoreAction {
+
+	use EntitySchemaRedirectTrait;
 
 	public function getName(): string {
 		return 'submit';
@@ -46,11 +50,10 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		$restoreStatus = $this->restore( $revStatus->getValue() );
 		if ( !$restoreStatus->isOK() ) {
 			$this->showRestoreErrorPage( $restoreStatus );
+			return;
 		}
 
-		$this->getOutput()->redirect(
-			$this->getTitle()->getFullURL()
-		);
+		$this->redirectToEntitySchema( $restoreStatus );
 	}
 
 	private function checkMethod(): Status {
@@ -71,7 +74,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		return Status::newGood();
 	}
 
-	private function restore( RevisionRecord $revToRestore ): Status {
+	private function restore( RevisionRecord $revToRestore ): EntitySchemaStatus {
 		/** @var EntitySchemaContent $contentToRestore */
 		$contentToRestore = $revToRestore->getContent( SlotRecord::MAIN );
 
@@ -96,7 +99,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 		PersistenceEntitySchemaData $persistenceSchemaData,
 		int $baseRevId,
 		CommentStoreComment $summary
-	): Status {
+	): EntitySchemaStatus {
 
 		$schemaUpdater = MediaWikiRevisionEntitySchemaUpdater::newFromContext( $this->getContext() );
 

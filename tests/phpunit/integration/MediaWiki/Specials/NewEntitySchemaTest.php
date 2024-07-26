@@ -7,6 +7,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 use Content;
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\MediaWiki\Specials\NewEntitySchema;
+use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use ExtensionRegistry;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Context\IContextSource;
@@ -34,6 +35,7 @@ use Wikimedia\Rdbms\SelectQueryBuilder;
  */
 class NewEntitySchemaTest extends SpecialPageTestBase {
 
+	use EntitySchemaIntegrationTestCaseTrait;
 	use TempUserTestTrait;
 
 	private DatabaseBlock $block;
@@ -213,6 +215,31 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 			$html,
 			'anonymous edit warning is present'
 		);
+	}
+
+	public function testCreateTempUser(): void {
+		$this->enableAutoCreateTempUser();
+		$this->addTempUserHook();
+
+		[ , $webResponse ] = $this->executeSpecialPage(
+			null,
+			new FauxRequest(
+				[
+					NewEntitySchema::FIELD_LABEL => 'label',
+					NewEntitySchema::FIELD_LANGUAGE => 'en',
+				],
+				true
+			)
+		);
+
+		$services = $this->getServiceContainer();
+		$lastTitle = $this->getLastCreatedTitle();
+		$revision = $services->getRevisionLookup()
+			->getRevisionByTitle( $lastTitle );
+		$user = $revision->getUser();
+		$this->assertTrue( $services->getUserIdentityUtils()->isTemp( $user ) );
+		$redirectUrl = $webResponse->getHeader( 'location' );
+		$this->assertRedirectToEntitySchema( $lastTitle, $redirectUrl );
 	}
 
 	protected function tearDown(): void {

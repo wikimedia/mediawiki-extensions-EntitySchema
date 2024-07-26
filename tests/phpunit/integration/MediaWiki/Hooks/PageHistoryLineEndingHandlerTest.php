@@ -43,15 +43,13 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 			[ 'getLanguage' => $language ] );
 		$hookContainer = $this->createConfiguredMock( HookContainer::class,
 			[ 'run' => true ] );
-		$titleFactory = $this->getServiceContainer()->getTitleFactory();
 		$schemaInserter = new MediaWikiRevisionEntitySchemaInserter(
 			$updaterFactory,
 			$watchListUpdater,
 			$this->createConfiguredMock( IdGenerator::class, [ 'getNewId' => 1 ] ),
 			$context,
 			$languageFactory,
-			$hookContainer,
-			$titleFactory
+			$hookContainer
 		);
 		$status = $schemaInserter->insertSchema( 'en' );
 		$this->assertStatusGood( $status );
@@ -64,8 +62,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 			$context,
 			$revisionLookup,
 			$languageFactory,
-			$hookContainer,
-			$titleFactory
+			$hookContainer
 		);
 		$schemaTitle = $services
 			->getTitleFactory()

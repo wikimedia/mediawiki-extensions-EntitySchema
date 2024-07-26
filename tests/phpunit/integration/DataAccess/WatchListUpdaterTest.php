@@ -7,6 +7,8 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use ExtensionRegistry;
+use MediaWiki\User\Options\UserOptionsLookup;
+use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
 use WatchedItem;
 
@@ -148,6 +150,18 @@ final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 		} else {
 			$this->assertNotContains( $pageid, $actualItems );
 		}
+	}
+
+	public function testDoesNothingForUnnamedUser(): void {
+		$user = $this->createMock( User::class );
+		$user->method( 'isNamed' )->willReturn( false );
+		$this->setService( 'UserOptionsLookup',
+			$this->createNoOpMock( UserOptionsLookup::class ) );
+		$watchlistUpdater = EntitySchemaServices::getWatchlistUpdater();
+		$id = new EntitySchemaId( 'E1' );
+
+		$watchlistUpdater->optionallyWatchNewSchema( $user, $id );
+		$watchlistUpdater->optionallyWatchEditedSchema( $user, $id );
 	}
 
 }

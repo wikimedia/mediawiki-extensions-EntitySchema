@@ -11,7 +11,6 @@ use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use MediaWiki\CommentStore\CommentStoreComment;
-use MediaWiki\Context\DerivativeContext;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageFactory;
@@ -20,7 +19,6 @@ use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Storage\PageUpdater;
-use MediaWiki\Title\TitleFactory;
 
 /**
  * @license GPL-2.0-or-later
@@ -41,7 +39,6 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 	private RevisionLookup $revisionLookup;
 	private LanguageFactory $languageFactory;
 	private HookContainer $hookContainer;
-	private TitleFactory $titleFactory;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
@@ -49,8 +46,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		IContextSource $context,
 		RevisionLookup $revisionLookup,
 		LanguageFactory $languageFactory,
-		HookContainer $hookContainer,
-		TitleFactory $titleFactory
+		HookContainer $hookContainer
 	) {
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
 		$this->watchListUpdater = $watchListUpdater;
@@ -58,7 +54,6 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		$this->revisionLookup = $revisionLookup;
 		$this->languageFactory = $languageFactory;
 		$this->hookContainer = $hookContainer;
-		$this->titleFactory = $titleFactory;
 	}
 
 	// TODO this should probably be a service in the service container
@@ -70,8 +65,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 			$context,
 			$services->getRevisionLookup(),
 			$services->getLanguageFactory(),
-			$services->getHookContainer(),
-			$services->getTitleFactory()
+			$services->getHookContainer()
 		);
 	}
 
@@ -104,12 +98,19 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		if ( !$updaterStatus->isOK() ) {
 			return EntitySchemaStatus::wrap( $updaterStatus );
 		}
+		$status = EntitySchemaStatus::newEdit(
+			$id,
+			$updaterStatus->getSavedTempUser(),
+			$updaterStatus->getContext()
+		);
 		$updater = $updaterStatus->getPageUpdater();
 		if ( $updater->grabParentRevision() === null ) {
-			return EntitySchemaStatus::newFatal( 'entityschema-error-schemaupdate-failed' );
+			$status->fatal( 'entityschema-error-schemaupdate-failed' );
+			return $status;
 		}
 		if ( $updater->hasEditConflict( $baseRevId ) ) {
-			return EntitySchemaStatus::newFatal( 'edit-conflict' );
+			$status->fatal( 'edit-conflict' );
+			return $status;
 		}
 
 		$content = new EntitySchemaContent(
@@ -121,7 +122,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 				$schemaText
 			)
 		);
-		$status = $this->saveRevision( $id, $updater, $content, $summary );
+		$this->saveRevision( $status, $updater, $content, $summary );
 		if ( !$status->isOK() ) {
 			return $status;
 		}
@@ -143,10 +144,16 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		if ( !$updaterStatus->isOK() ) {
 			return EntitySchemaStatus::wrap( $updaterStatus );
 		}
+		$status = EntitySchemaStatus::newEdit(
+			$id,
+			$updaterStatus->getSavedTempUser(),
+			$updaterStatus->getContext()
+		);
 		$updater = $updaterStatus->getPageUpdater();
 		$parentRevision = $updater->grabParentRevision();
 		if ( $parentRevision === null ) {
-			return EntitySchemaStatus::newFatal( 'entityschema-error-schemaupdate-failed' );
+			$status->fatal( 'entityschema-error-schemaupdate-failed' );
+			return $status;
 		}
 
 		$baseRevision = $this->revisionLookup->getRevisionById( $baseRevId );
@@ -172,7 +179,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		}
 
 		if ( $schemaData === null ) {
-			return EntitySchemaStatus::newEdit( $id );
+			return $status;
 		}
 
 		$autoComment = $this->getUpdateNameBadgeAutocomment(
@@ -192,7 +199,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 				$schemaData->schemaText
 			)
 		);
-		$status = $this->saveRevision( $id, $updater, $content, $autoComment );
+		$this->saveRevision( $status, $updater, $content, $autoComment );
 		if ( !$status->isOK() ) {
 			return $status;
 		}
@@ -270,10 +277,16 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		if ( !$updaterStatus->isOK() ) {
 			return EntitySchemaStatus::wrap( $updaterStatus );
 		}
+		$status = EntitySchemaStatus::newEdit(
+			$id,
+			$updaterStatus->getSavedTempUser(),
+			$updaterStatus->getContext()
+		);
 		$updater = $updaterStatus->getPageUpdater();
 		$parentRevision = $updater->grabParentRevision();
 		if ( $parentRevision === null ) {
-			return EntitySchemaStatus::newFatal( 'entityschema-error-schemaupdate-failed' );
+			$status->fatal( 'entityschema-error-schemaupdate-failed' );
+			return $status;
 		}
 
 		$baseRevision = $this->revisionLookup->getRevisionById( $baseRevId );
@@ -288,11 +301,12 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 				}
 			);
 		} catch ( PatcherException $e ) {
-			return EntitySchemaStatus::newFatal( 'edit-conflict' );
+			$status->fatal( 'edit-conflict' );
+			return $status;
 		}
 
 		if ( $schemaData === null ) {
-			return EntitySchemaStatus::newEdit( $id );
+			return $status;
 		}
 
 		$commentText = '/* ' . self::AUTOCOMMENT_UPDATED_SCHEMATEXT . ' */' . $userSummary;
@@ -317,7 +331,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		);
 
 		$content = new EntitySchemaContent( $persistentRepresentation );
-		$status = $this->saveRevision( $id, $updater, $content, $summary );
+		$this->saveRevision( $status, $updater, $content, $summary );
 		if ( !$status->isOK() ) {
 			return $status;
 		}
@@ -328,19 +342,17 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 	}
 
 	private function saveRevision(
-		EntitySchemaId $id,
+		EntitySchemaStatus $status,
 		PageUpdater $updater,
 		EntitySchemaContent $content,
 		CommentStoreComment $summary
-	): EntitySchemaStatus {
-		$context = new DerivativeContext( $this->context );
-		$context->setTitle( $this->titleFactory->newFromPageIdentity( $updater->getPage() ) );
-		$status = EntitySchemaStatus::newEdit( $id );
+	): void {
+		$context = $status->getContext();
 		if ( !$this->hookContainer->run(
 			'EditFilterMergedContent',
-			[ $context, $content, $status, $summary->text, $this->context->getUser(), false ]
+			[ $context, $content, $status, $summary->text, $context->getUser(), false ]
 		) ) {
-			return $status;
+			return;
 		}
 
 		$updater->setContent( SlotRecord::MAIN, $content );
@@ -349,7 +361,6 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 			EDIT_UPDATE | EDIT_INTERNAL
 		);
 		$status->merge( $updater->getStatus() );
-		return $status;
 	}
 
 }

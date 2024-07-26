@@ -177,8 +177,7 @@ class CreatePreexistingSchemas extends Maintenance {
 			$fixedIdGenerator,
 			$context,
 			$services->getLanguageFactory(),
-			$services->getHookContainer(),
-			$services->getTitleFactory()
+			$services->getHookContainer()
 		);
 
 		$status = $schemaInserter->insertSchema(

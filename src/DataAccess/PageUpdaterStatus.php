@@ -4,23 +4,39 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
-use MediaWiki\Status\Status;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Storage\PageUpdater;
+use MediaWiki\User\UserIdentity;
+use Wikibase\Repo\TempUserStatus;
 use Wikimedia\Assert\Assert;
 
 /**
- * A Status representing the result of a {@link MediaWikiPageUpdaterFactory}.
+ * A Status representing the result of a {@link MediaWikiPageUpdaterFactory}:
+ * the PageUpdater, and possibly any temporary account that was created.
  *
  * @license GPL-2.0-or-later
  */
-class PageUpdaterStatus extends Status {
+class PageUpdaterStatus extends TempUserStatus {
 
 	public static function newUpdater(
-		PageUpdater $pageUpdater
+		PageUpdater $pageUpdater,
+		?UserIdentity $savedTempUser,
+		IContextSource $context
 	): self {
-		return self::newGood( [
+		return self::newTempUserStatus( [
 			'pageUpdater' => $pageUpdater,
-		] );
+		], $savedTempUser, $context );
+	}
+
+	/** @return static */
+	public static function wrap( $sv ) {
+		// This implementation only exists to change the declared return type,
+		// from Status to static (i.e. EditEntityStatus);
+		// it would become redundant if Ic1a8eccc53 is merged.
+		// (Note that the parent *implementation* already returns static,
+		// it just isn’t declared as such yet.)
+		// @phan-suppress-next-line PhanTypeMismatchReturnSuperType
+		return parent::wrap( $sv );
 	}
 
 	/**

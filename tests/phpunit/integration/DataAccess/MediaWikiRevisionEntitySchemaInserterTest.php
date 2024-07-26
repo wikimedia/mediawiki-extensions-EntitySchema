@@ -7,22 +7,25 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 use Content;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
-use EntitySchema\DataAccess\PageUpdaterStatus;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\EntitySchemaServices;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Page\PageIdentityValue;
+use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
 use MediaWiki\Storage\PageUpdater;
 use MediaWiki\Storage\PageUpdateStatus;
+use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
+use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
@@ -33,6 +36,8 @@ use MediaWikiIntegrationTestCase;
  * @covers \EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter
  */
 class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTestCase {
+
+	use TempUserTestTrait;
 
 	public function testInsertSchema() {
 		$language = 'en';
@@ -74,8 +79,7 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			$idGenerator,
 			new RequestContext(),
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] ),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
 		);
 
 		$this->assertStatusGood( $inserter->insertSchema( $language,
@@ -109,8 +113,7 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			$idGenerator,
 			new RequestContext(),
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] ),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
 		);
 
 		$this->assertStatusGood( $inserter->insertSchema(
@@ -178,13 +181,33 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			$this->createConfiguredMock( IdGenerator::class, [ 'getNewId' => 123 ] ),
 			$originalContext,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$status = $inserter->insertSchema( 'en', 'test label' );
 
 		$this->assertStatusError( __CLASS__, $status );
+	}
+
+	public function testInsertSchema_createTempUser(): void {
+		$this->enableAutoCreateTempUser();
+		$services = $this->getServiceContainer();
+		$inserter = new MediaWikiRevisionEntitySchemaInserter(
+			EntitySchemaServices::getMediaWikiPageUpdaterFactory( $services ),
+			EntitySchemaServices::getWatchlistUpdater( $services ),
+			$this->createConfiguredMock( IdGenerator::class, [ 'getNewId' => 123 ] ),
+			new RequestContext(),
+			$services->getLanguageFactory(),
+			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
+		);
+
+		$status = $inserter->insertSchema( 'en' );
+		$this->assertStatusGood( $status );
+		$savedTempUser = $status->getSavedTempUser();
+		$newContext = $status->getContext();
+
+		$this->assertTrue( $services->getUserIdentityUtils()->isTemp( $savedTempUser ) );
+		$this->assertSame( $savedTempUser, $newContext->getUser() );
 	}
 
 	private function getPageUpdaterFactoryExpectingContent(
@@ -217,14 +240,14 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 	}
 
 	private function getPageUpdaterFactory( PageUpdater $pageUpdater = null ): MediaWikiPageUpdaterFactory {
-		$pageUpdaterStatus = PageUpdaterStatus::newUpdater(
-			$pageUpdater ?? $this->createMock( PageUpdater::class ),
-			null,
-			new RequestContext()
-		);
-		return $this->createConfiguredMock( MediaWikiPageUpdaterFactory::class, [
-			'getPageUpdater' => $pageUpdaterStatus,
+		$wikiPage = $this->createConfiguredMock( WikiPage::class, [
+			'newPageUpdater' => $pageUpdater ?? $this->createMock( PageUpdater::class ),
 		] );
+		$wikiPageFactory = $this->createConfiguredMock( WikiPageFactory::class, [
+			'newFromTitle' => $wikiPage,
+		] );
+		$this->setService( 'WikiPageFactory', $wikiPageFactory );
+		return EntitySchemaServices::getMediaWikiPageUpdaterFactory( $this->getServiceContainer() );
 	}
 
 	private function newInserterFailingToSave(): MediaWikiRevisionEntitySchemaInserter {
@@ -240,8 +263,7 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			$idGenerator,
 			new RequestContext(),
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] ),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
 		);
 	}
 

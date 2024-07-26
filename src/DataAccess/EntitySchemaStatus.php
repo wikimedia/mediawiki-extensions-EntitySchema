@@ -5,7 +5,9 @@ declare( strict_types = 1 );
 namespace EntitySchema\DataAccess;
 
 use EntitySchema\Domain\Model\EntitySchemaId;
-use MediaWiki\Status\Status;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\User\UserIdentity;
+use Wikibase\Repo\TempUserStatus;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -16,14 +18,16 @@ use Wikimedia\Assert\Assert;
  *
  * @license GPL-2.0-or-later
  */
-class EntitySchemaStatus extends Status {
+class EntitySchemaStatus extends TempUserStatus {
 
 	public static function newEdit(
-		EntitySchemaId $id
+		EntitySchemaId $id,
+		?UserIdentity $savedTempUser,
+		IContextSource $context
 	): self {
-		return self::newGood( [
+		return self::newTempUserStatus( [
 			'id' => $id,
-		] );
+		], $savedTempUser, $context );
 	}
 
 	/** @return static */

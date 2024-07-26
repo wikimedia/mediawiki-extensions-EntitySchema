@@ -308,6 +308,37 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$this->assertStringNotContainsString( 'entityschema-anonymouseditwarning', $string );
 	}
 
+	public function testCreateTempUser(): void {
+		$this->enableAutoCreateTempUser();
+		$this->addTempUserHook();
+		$this->createTestSchema();
+
+		[ , $webResponse ] = $this->executeSpecialPage(
+			null,
+			new FauxRequest(
+				[
+					'ID' => 'E123',
+					'languagecode' => 'en',
+					'label' => 'Schema label',
+					'description' => '',
+					'aliases' => 'foo | bar | baz',
+					'schema-shexc' => 'abc',
+					'base-rev' => $this->getCurrentSchemaRevisionId( 'E123' ),
+				],
+				true
+			),
+			'en'
+		);
+
+		$services = $this->getServiceContainer();
+		$revision = $services->getRevisionLookup()
+			->getRevisionById( $this->getCurrentSchemaRevisionId( 'E123' ) );
+		$user = $revision->getUser();
+		$this->assertTrue( $services->getUserIdentityUtils()->isTemp( $user ) );
+		$redirectUrl = $webResponse->getHeader( 'location' );
+		$this->assertRedirectToEntitySchema( $revision->getPage(), $redirectUrl );
+	}
+
 	/**
 	 * @return array $actualSchema an array of Schema text + namebadge
 	 */

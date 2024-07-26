@@ -11,6 +11,7 @@ use ExtensionRegistry;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use PermissionsError;
@@ -26,6 +27,7 @@ use PermissionsError;
  */
 class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 	use EntitySchemaIntegrationTestCaseTrait;
+	use TempUserTestTrait;
 
 	private DatabaseBlock $block;
 
@@ -164,6 +166,45 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 		$this->expectException( PermissionsError::class );
 
 		$undoSubmitAction->show();
+	}
+
+	public function testUndoSubmitCreateTempUser(): void {
+		$this->enableAutoCreateTempUser();
+		$this->addTempUserHook();
+		$schemaId = 'E123';
+		$services = $this->getServiceContainer();
+		$title = $services->getTitleFactory()
+			->makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId );
+		$page = $services->getWikiPageFactory()
+			->newFromTitle( $title );
+
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc', 'id' => $schemaId ] )->getId();
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def', 'id' => $schemaId ] )->getId();
+
+		$context = RequestContext::getMain();
+		$context->setWikiPage( $page );
+		$context->setRequest( new FauxRequest( [
+				'action' => 'submit',
+				'undoafter' => $firstID,
+				'undo' => $secondId,
+				'title' => 'Schema:' . $schemaId,
+			], true )
+		);
+		$context->setUser( $services->getUserFactory()->newAnonymous() );
+
+		$undoSubmitAction = new UndoSubmitAction(
+			Article::newFromWikiPage( $page, $context ),
+			$context
+		);
+
+		$undoSubmitAction->show();
+
+		$revision = $services->getRevisionLookup()
+			->getRevisionByTitle( $title );
+		$user = $revision->getUser();
+		$this->assertTrue( $services->getUserIdentityUtils()->isTemp( $user ) );
+		$redirect = $undoSubmitAction->getOutput()->getRedirect();
+		$this->assertRedirectToEntitySchema( $title, $redirect );
 	}
 
 }

@@ -8,16 +8,18 @@ use Content;
 use DomainException;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
-use EntitySchema\DataAccess\PageUpdaterStatus;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Services\Converter\NameBadge;
 use InvalidArgumentException;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Page\PageIdentityValue;
+use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
@@ -25,8 +27,10 @@ use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
 use MediaWiki\Storage\PageUpdater;
 use MediaWiki\Storage\PageUpdateStatus;
+use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
+use WikiPage;
 
 /**
  * @covers \EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater
@@ -39,6 +43,8 @@ use MediaWikiIntegrationTestCase;
  */
 class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestCase {
 
+	use TempUserTestTrait;
+
 	private ?RevisionRecord $baseRevision;
 	private ?RevisionRecord $parentRevision;
 
@@ -48,14 +54,15 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 	}
 
 	/**
-	 * @param EntitySchemaContent $expectedContent The content to expect in a setContent() call.
+	 * @param EntitySchemaContent|null $expectedContent The content to expect in a setContent() call
+	 * (null means not to expect particular content).
 	 * @param EntitySchemaContent|null $existingContent Used to override $this->parentRevision
 	 * if not null. grabParentRevision() is only mocked if a page revision is available.
 	 *
 	 * @return MediaWikiPageUpdaterFactory
 	 */
 	private function getPageUpdaterFactoryProvidingAndExpectingContent(
-		EntitySchemaContent $expectedContent,
+		EntitySchemaContent $expectedContent = null,
 		EntitySchemaContent $existingContent = null
 	): MediaWikiPageUpdaterFactory {
 		$pageUpdater = $this->createMock( PageUpdater::class );
@@ -66,12 +73,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		}
 		$pageUpdater->method( 'getStatus' )->willReturn( PageUpdateStatus::newGood() );
-		$pageUpdater->expects( $this->once() )
-			->method( 'setContent' )
-			->with(
-				SlotRecord::MAIN,
-				$expectedContent
-			);
+		$setContentInvocation = $pageUpdater->expects( $this->once() )
+			->method( 'setContent' );
+		if ( $expectedContent !== null ) {
+			$setContentInvocation->with( SlotRecord::MAIN, $expectedContent );
+		}
 
 		return $this->getPageUpdaterFactory( $pageUpdater );
 	}
@@ -94,14 +100,14 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 	}
 
 	private function getPageUpdaterFactory( PageUpdater $pageUpdater = null ): MediaWikiPageUpdaterFactory {
-		$pageUpdaterStatus = PageUpdaterStatus::newUpdater(
-			$pageUpdater ?? $this->createMock( PageUpdater::class ),
-			null,
-			new RequestContext()
-		);
-		return $this->createConfiguredMock( MediaWikiPageUpdaterFactory::class, [
-			'getPageUpdater' => $pageUpdaterStatus,
+		$wikiPage = $this->createConfiguredMock( WikiPage::class, [
+			'newPageUpdater' => $pageUpdater ?? $this->createMock( PageUpdater::class ),
 		] );
+		$wikiPageFactory = $this->createConfiguredMock( WikiPageFactory::class, [
+			'newFromTitle' => $wikiPage,
+		] );
+		$this->setService( 'WikiPageFactory', $wikiPageFactory );
+		return EntitySchemaServices::getMediaWikiPageUpdaterFactory( $this->getServiceContainer() );
 	}
 
 	private function createMockRevisionLookup( array $revisionRecords = [] ): RevisionLookup {
@@ -133,12 +139,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 	}
 
-	private function newUpdaterWithEditFilter(): MediaWikiRevisionEntitySchemaUpdater {
+	private function newUpdaterWithEditFilter( string $schemaId ): MediaWikiRevisionEntitySchemaUpdater {
 		$existingContent = new EntitySchemaContent( '{}' );
 		$this->parentRevision = $this->createMockRevisionRecord( $existingContent );
 
@@ -147,7 +152,6 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 		$originalContext = new RequestContext();
 		$originalContext->setRequest( $originalRequest );
 		$originalContext->setUser( $originalUser );
-		$pageIdentity = new PageIdentityValue( 1, NS_ENTITYSCHEMA_JSON, 'E123', false );
 		$this->setTemporaryHook(
 			'EditFilterMergedContent',
 			function (
@@ -157,10 +161,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 				string $summary,
 				User $user,
 				bool $minoredit
-			) use ( $originalRequest, $originalUser, $pageIdentity ) {
+			) use ( $originalRequest, $originalUser, $schemaId ) {
 				$this->assertSame( $originalRequest, $context->getRequest() );
 				$this->assertSame( $originalUser, $user );
-				$this->assertTrue( $context->getTitle()->isSamePageAs( $pageIdentity ) );
+				$expectedPageIdentity = new PageIdentityValue( 1, NS_ENTITYSCHEMA_JSON, $schemaId, false );
+				$this->assertTrue( $context->getTitle()->isSamePageAs( $expectedPageIdentity ) );
 				$this->assertInstanceOf( EntitySchemaContent::class, $content );
 				$this->assertStringStartsWith( '/* entityschema-summary-', $summary );
 				$this->assertFalse( $minoredit );
@@ -173,8 +178,6 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdater->method( 'grabParentRevision' )
 			->willReturn( $this->parentRevision );
-		$pageUpdater->method( 'getPage' )
-			->willReturn( $pageIdentity );
 		$pageUpdater->expects( $this->never() )
 			->method( 'saveRevision' );
 
@@ -186,8 +189,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			$originalContext,
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 	}
 
@@ -203,8 +205,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$status = $schmeaUpdater->overwriteWholeSchema(
@@ -257,8 +258,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( $exceptionMessage );
@@ -307,8 +307,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 		$this->assertStatusGood( $schmeaUpdater->overwriteWholeSchema(
 			new EntitySchemaId( 'E1' ),
@@ -338,7 +337,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 	}
 
 	public function testOverwriteWholeSchema_editFilterFails() {
-		$schmeaUpdater = $this->newUpdaterWithEditFilter();
+		$schmeaUpdater = $this->newUpdaterWithEditFilter( 'E1' );
 
 		$status = $schmeaUpdater->overwriteWholeSchema(
 			new EntitySchemaId( 'E1' ),
@@ -353,6 +352,39 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 		);
 
 		$this->assertStatusError( __CLASS__, $status );
+	}
+
+	public function testOverwriteWholeSchema_createTempUser(): void {
+		$this->enableAutoCreateTempUser();
+		$services = $this->getServiceContainer();
+		$expectedContent = null;
+		$existingContent = new EntitySchemaContent( '' );
+		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
+			$expectedContent, $existingContent );
+		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
+			$pageUpdaterFactory,
+			EntitySchemaServices::getWatchlistUpdater( $services ),
+			new RequestContext(),
+			$this->createMockRevisionLookup( [ $this->parentRevision ] ),
+			$services->getLanguageFactory(),
+			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
+		);
+
+		$status = $schemaUpdater->overwriteWholeSchema(
+			new EntitySchemaId( 'E1' ),
+			[],
+			[],
+			[],
+			'',
+			$this->parentRevision->getId(),
+			CommentStoreComment::newUnsavedComment( '' )
+		);
+		$this->assertStatusGood( $status );
+		$savedTempUser = $status->getSavedTempUser();
+		$newContext = $status->getContext();
+
+		$this->assertTrue( $services->getUserIdentityUtils()->isTemp( $savedTempUser ) );
+		$this->assertSame( $savedTempUser, $newContext->getUser() );
 	}
 
 	/**
@@ -386,8 +418,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$this->expectException( InvalidArgumentException::class );
@@ -422,8 +453,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$this->expectException( DomainException::class );
@@ -455,8 +485,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$status = $schmeaUpdater->updateSchemaText(
@@ -503,8 +532,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$this->assertStatusGood( $schmeaUpdater->updateSchemaText(
@@ -565,8 +593,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 		$this->assertStatusGood( $schemaUpdater->updateSchemaText(
 			new EntitySchemaId( $id ),
@@ -659,8 +686,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 		$this->assertStatusGood( $schemaUpdater->updateSchemaText(
 			new EntitySchemaId( $id ),
@@ -682,7 +708,7 @@ SHEXC;
 	}
 
 	public function testUpdateSchemaText_editFilterFails() {
-		$schmeaUpdater = $this->newUpdaterWithEditFilter();
+		$schmeaUpdater = $this->newUpdaterWithEditFilter( 'E1' );
 
 		$status = $schmeaUpdater->updateSchemaText(
 			new EntitySchemaId( 'E1' ),
@@ -725,8 +751,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$this->assertStatusGood( $schmeaUpdater->updateSchemaText(
@@ -757,8 +782,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$this->assertStatusGood( $schemaUpdater->updateSchemaText(
@@ -766,6 +790,35 @@ SHEXC;
 			'schema text',
 			$this->parentRevision->getId()
 		) );
+	}
+
+	public function testUpdateSchemaText_createTempUser(): void {
+		$this->enableAutoCreateTempUser();
+		$services = $this->getServiceContainer();
+		$expectedContent = null;
+		$existingContent = new EntitySchemaContent( '{}' );
+		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
+			$expectedContent, $existingContent );
+		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
+			$pageUpdaterFactory,
+			EntitySchemaServices::getWatchlistUpdater( $services ),
+			new RequestContext(),
+			$this->createMockRevisionLookup( [ $this->parentRevision ] ),
+			$services->getLanguageFactory(),
+			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
+		);
+
+		$status = $schemaUpdater->updateSchemaText(
+			new EntitySchemaId( 'E1' ),
+			'schema text',
+			$this->parentRevision->getId()
+		);
+		$this->assertStatusGood( $status );
+		$savedTempUser = $status->getSavedTempUser();
+		$newContext = $status->getContext();
+
+		$this->assertTrue( $services->getUserIdentityUtils()->isTemp( $savedTempUser ) );
+		$this->assertSame( $savedTempUser, $newContext->getUser() );
 	}
 
 	public function testUpdateSchemaNameBadgeSuccess() {
@@ -802,8 +855,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$this->assertStatusGood( $schmeaUpdater->updateSchemaNameBadge(
@@ -868,8 +920,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$this->assertStatusGood( $schmeaUpdater->updateSchemaNameBadge(
@@ -933,8 +984,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$writer->updateSchemaNameBadge(
@@ -1057,8 +1107,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$status = $schmeaUpdater->updateSchemaNameBadge(
@@ -1119,8 +1168,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$this->assertStatusGood( $updater->updateSchemaNameBadge(
@@ -1184,8 +1232,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 		$this->assertStatusGood( $schemaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
@@ -1249,8 +1296,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 		$this->assertStatusGood( $schemaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
@@ -1313,8 +1359,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 		$this->assertStatusGood( $schemaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
@@ -1342,7 +1387,7 @@ SHEXC;
 	}
 
 	public function testUpdateSchemaNameBadge_editFilterFails() {
-		$schmeaUpdater = $this->newUpdaterWithEditFilter();
+		$schmeaUpdater = $this->newUpdaterWithEditFilter( 'E1' );
 
 		$status = $schmeaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( 'E1' ),
@@ -1376,8 +1421,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer(),
-			$this->getServiceContainer()->getTitleFactory()
+			$this->getServiceContainer()->getHookContainer()
 		);
 
 		$schemaUpdater->updateSchemaNameBadge(
@@ -1388,6 +1432,38 @@ SHEXC;
 			[],
 			$this->parentRevision->getId()
 		);
+	}
+
+	public function testUpdateSchemaNameBadge_createTempUser(): void {
+		$this->enableAutoCreateTempUser();
+		$services = $this->getServiceContainer();
+		$expectedContent = null;
+		$existingContent = new EntitySchemaContent( '{}' );
+		$pageUpdaterFactory = $this->getPageUpdaterFactoryProvidingAndExpectingContent(
+			$expectedContent, $existingContent );
+		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
+			$pageUpdaterFactory,
+			EntitySchemaServices::getWatchlistUpdater( $services ),
+			new RequestContext(),
+			$this->createMockRevisionLookup( [ $this->parentRevision ] ),
+			$services->getLanguageFactory(),
+			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
+		);
+
+		$status = $schemaUpdater->updateSchemaNameBadge(
+			new EntitySchemaId( 'E1' ),
+			'en',
+			'label',
+			'description',
+			[ 'alias' ],
+			$this->parentRevision->getId()
+		);
+		$this->assertStatusGood( $status );
+		$savedTempUser = $status->getSavedTempUser();
+		$newContext = $status->getContext();
+
+		$this->assertTrue( $services->getUserIdentityUtils()->isTemp( $savedTempUser ) );
+		$this->assertSame( $savedTempUser, $newContext->getUser() );
 	}
 
 	private function createMockRevisionRecord(

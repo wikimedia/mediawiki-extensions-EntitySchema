@@ -7,6 +7,7 @@ namespace EntitySchema\MediaWiki\Specials;
 use EntitySchema\DataAccess\EntitySchemaStatus;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
+use EntitySchema\MediaWiki\EntitySchemaRedirectTrait;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Converter\NameBadge;
@@ -34,6 +35,8 @@ use Wikibase\Repo\Specials\SpecialPageCopyrightView;
  * @license GPL-2.0-or-later
  */
 class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
+
+	use EntitySchemaRedirectTrait;
 
 	public const FIELD_ID = 'ID';
 	public const FIELD_LANGUAGE = 'languagecode';
@@ -166,8 +169,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 			if ( $submitStatus && $submitStatus->isGood() ) {
 				// wrap it, in case HTMLForm turned it into a generic Status
 				$submitStatus = EntitySchemaStatus::wrap( $submitStatus );
-				$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $submitStatus->getEntitySchemaId()->getId() );
-				$this->getOutput()->redirect( $title->getFullURL() );
+				$this->redirectToEntitySchema( $submitStatus );
 				return;
 			}
 		}

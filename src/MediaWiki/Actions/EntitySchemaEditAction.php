@@ -5,9 +5,11 @@ declare( strict_types = 1 );
 namespace EntitySchema\MediaWiki\Actions;
 
 use Article;
+use EntitySchema\DataAccess\EntitySchemaStatus;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\EntitySchemaRedirectTrait;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use FormAction;
@@ -21,6 +23,7 @@ use MediaWiki\User\TempUser\TempUserConfig;
 use RuntimeException;
 use Wikibase\Repo\CopyrightMessageBuilder;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
+use Wikimedia\Assert\Assert;
 
 /**
  * Edit a EntitySchema via the mediawiki editing action
@@ -28,6 +31,8 @@ use Wikibase\Repo\Specials\SpecialPageCopyrightView;
  * @license GPL-2.0-or-later
  */
 class EntitySchemaEditAction extends FormAction {
+
+	use EntitySchemaRedirectTrait;
 
 	public const FIELD_SCHEMA_TEXT = 'schema-text';
 	public const FIELD_BASE_REV = 'base-rev';
@@ -39,6 +44,12 @@ class EntitySchemaEditAction extends FormAction {
 	private UserOptionsLookup $userOptionsLookup;
 	private SpecialPageCopyrightView $copyrightView;
 	private TempUserConfig $tempUserConfig;
+
+	/**
+	 * Used to stash the status between {@link self::onSubmit()} and {@link self::onSuccess()}
+	 * (FormAction does not pass the status into onSuccess).
+	 */
+	private ?EntitySchemaStatus $status = null;
 
 	public function __construct(
 		Article $article,
@@ -121,14 +132,14 @@ class EntitySchemaEditAction extends FormAction {
 		$id = new EntitySchemaId( $this->getTitle()->getText() );
 		$schemaUpdater = MediaWikiRevisionEntitySchemaUpdater::newFromContext( $this->getContext() );
 
-		$status = $schemaUpdater->updateSchemaText(
+		$this->status = $schemaUpdater->updateSchemaText(
 			$id,
 			$data[self::FIELD_SCHEMA_TEXT],
 			(int)$data[self::FIELD_BASE_REV],
 			trim( $data[self::FIELD_EDIT_SUMMARY] )
 		);
-		$status->replaceMessage( 'edit-conflict', 'entityschema-error-schematext-conflict' );
-		return $status;
+		$this->status->replaceMessage( 'edit-conflict', 'entityschema-error-schematext-conflict' );
+		return $this->status;
 	}
 
 	protected function alterForm( HTMLForm $form ): void {
@@ -218,8 +229,10 @@ class EntitySchemaEditAction extends FormAction {
 	 * protect, etc).
 	 */
 	public function onSuccess(): void {
-		$redirectParams = $this->getRequest()->getVal( 'redirectparams', '' );
-		$this->getOutput()->redirect( $this->getTitle()->getFullURL( $redirectParams ) );
+		Assert::precondition( $this->status !== null,
+			'$this->status must have been set by onSubmit()' );
+		$this->redirectToEntitySchema( $this->status,
+			$this->getRequest()->getVal( 'redirectparams', '' ) );
 	}
 
 	/**

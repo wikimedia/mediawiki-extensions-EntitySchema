@@ -27,6 +27,9 @@ class WatchlistUpdater {
 	}
 
 	public function optionallyWatchEditedSchema( User $user, EntitySchemaId $entitySchemaId ): void {
+		if ( !$user->isNamed() ) {
+			return;
+		}
 		if ( $this->userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
 			$this->watchlistManager->setWatch(
 				true,
@@ -37,6 +40,9 @@ class WatchlistUpdater {
 	}
 
 	public function optionallyWatchNewSchema( User $user, EntitySchemaId $entitySchemaId ): void {
+		if ( !$user->isNamed() ) {
+			return;
+		}
 		if ( $this->userOptionsLookup->getOption( $user, 'watchcreations' )
 			|| $this->userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
 			$this->watchlistManager->setWatch(

@@ -12,6 +12,7 @@ use ExtensionRegistry;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use PermissionsError;
@@ -25,6 +26,7 @@ use PermissionsError;
  */
 final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 	use EntitySchemaIntegrationTestCaseTrait;
+	use TempUserTestTrait;
 
 	private DatabaseBlock $block;
 
@@ -137,6 +139,42 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 		$this->expectException( PermissionsError::class );
 
 		$restoreSubmitAction->show();
+	}
+
+	public function testRestoreSubmitCreateTempUser() {
+		$this->enableAutoCreateTempUser();
+		$this->addTempUserHook();
+		$services = $this->getServiceContainer();
+		$title = $services->getTitleFactory()
+			->makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' );
+		$page = $services->getWikiPageFactory()
+			->newFromTitle( $title );
+
+		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc' ] )->getId();
+		$secondId = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'def' ] )->getId();
+
+		$context = RequestContext::getMain();
+		$context->setWikiPage( $page );
+		$context->setRequest( new FauxRequest( [
+				'action' => 'submit',
+				'restore' => $firstID,
+				'wpBaseRev' => $secondId,
+			], true )
+		);
+
+		$restoreSubmitAction = new RestoreSubmitAction(
+			Article::newFromWikiPage( $page, $context ),
+			$context
+		);
+
+		$restoreSubmitAction->show();
+
+		$revision = $services->getRevisionLookup()
+			->getRevisionByTitle( $title );
+		$user = $revision->getUser();
+		$this->assertTrue( $services->getUserIdentityUtils()->isTemp( $user ) );
+		$redirect = $restoreSubmitAction->getOutput()->getRedirect();
+		$this->assertRedirectToEntitySchema( $title, $redirect );
 	}
 
 	public function testActionName() {

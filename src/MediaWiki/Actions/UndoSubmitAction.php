@@ -4,8 +4,10 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
+use EntitySchema\DataAccess\EntitySchemaStatus;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
+use EntitySchema\MediaWiki\EntitySchemaRedirectTrait;
 use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\MediaWikiServices;
@@ -18,6 +20,8 @@ use UserBlockedError;
  * @license GPL-2.0-or-later
  */
 class UndoSubmitAction extends AbstractUndoAction {
+
+	use EntitySchemaRedirectTrait;
 
 	public function getName(): string {
 		return 'submit';
@@ -37,11 +41,10 @@ class UndoSubmitAction extends AbstractUndoAction {
 		$undoStatus = $this->undo();
 		if ( !$undoStatus->isOK() ) {
 			$this->showUndoErrorPage( $undoStatus );
+			return;
 		}
 
-		$this->getOutput()->redirect(
-			$this->getTitle()->getFullURL()
-		);
+		$this->redirectToEntitySchema( $undoStatus );
 	}
 
 	/**
@@ -74,24 +77,27 @@ class UndoSubmitAction extends AbstractUndoAction {
 		return Status::newGood();
 	}
 
-	private function undo(): Status {
+	private function undo(): EntitySchemaStatus {
 		$req = $this->getContext()->getRequest();
 
 		$diffStatus = $this->getDiffFromRequest( $req );
 		if ( !$diffStatus->isOK() ) {
-			return $diffStatus;
+			return EntitySchemaStatus::wrap( $diffStatus );
 		}
 
 		$patchStatus = $this->tryPatching( $diffStatus->getValue() );
 		if ( !$patchStatus->isOK() ) {
-			return $patchStatus;
+			return EntitySchemaStatus::wrap( $patchStatus );
 		}
 
 		[ $patchedSchema, $baseRevId ] = $patchStatus->getValue();
 		return $this->storePatchedSchema( $patchedSchema, $baseRevId );
 	}
 
-	private function storePatchedSchema( FullArrayEntitySchemaData $patchedSchema, int $baseRevId ): Status {
+	private function storePatchedSchema(
+		FullArrayEntitySchemaData $patchedSchema,
+		int $baseRevId
+	): EntitySchemaStatus {
 		$schemaUpdater = MediaWikiRevisionEntitySchemaUpdater::newFromContext( $this->getContext() );
 
 		$summary = $this->createSummaryCommentForUndoRev(

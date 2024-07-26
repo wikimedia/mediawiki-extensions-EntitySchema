@@ -8,6 +8,7 @@ use EntitySchema\DataAccess\EntitySchemaStatus;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\Domain\Storage\IdGenerator;
+use EntitySchema\MediaWiki\EntitySchemaRedirectTrait;
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Presentation\InputValidator;
 use MediaWiki\Html\Html;
@@ -17,7 +18,6 @@ use MediaWiki\Message\Message;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
-use MediaWiki\Title\Title;
 use MediaWiki\User\TempUser\TempUserConfig;
 use PermissionsError;
 use Wikibase\Lib\SettingsArray;
@@ -30,6 +30,8 @@ use Wikibase\Repo\Specials\SpecialPageCopyrightView;
  * @license GPL-2.0-or-later
  */
 class NewEntitySchema extends SpecialPage {
+
+	use EntitySchemaRedirectTrait;
 
 	public const FIELD_DESCRIPTION = 'description';
 
@@ -91,8 +93,7 @@ class NewEntitySchema extends SpecialPage {
 		if ( $submitStatus && $submitStatus->isGood() ) {
 			// wrap it, in case HTMLForm turned it into a generic Status
 			$submitStatus = EntitySchemaStatus::wrap( $submitStatus );
-			$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $submitStatus->getEntitySchemaId()->getId() );
-			$this->getOutput()->redirect( $title->getFullURL() );
+			$this->redirectToEntitySchema( $submitStatus );
 			return;
 		}
 
@@ -112,8 +113,7 @@ class NewEntitySchema extends SpecialPage {
 			$this->idGenerator,
 			$this->getContext(),
 			$services->getLanguageFactory(),
-			$services->getHookContainer(),
-			$services->getTitleFactory()
+			$services->getHookContainer()
 		);
 		return $schemaInserter->insertSchema(
 			$data[self::FIELD_LANGUAGE],
