@@ -261,7 +261,12 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 		$tempUserConfig->expects( $this->atMost( 1 ) )
 			->method( 'isEnabled' )
 			->willReturn( $this->tempUserEnabled );
-		return new NewEntitySchema( $tempUserConfig, $repoSettings, $idGenerator );
+		return new NewEntitySchema(
+			$tempUserConfig,
+			$repoSettings,
+			$idGenerator,
+			EntitySchemaServices::getMediaWikiPageUpdaterFactory()
+		);
 	}
 
 }

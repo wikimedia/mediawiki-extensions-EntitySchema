@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 use EntitySchema\DataAccess\DescriptionLookup;
 use EntitySchema\DataAccess\FullViewSchemaDataLookup;
 use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\SqlIdGenerator;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
@@ -94,6 +95,16 @@ return [
 		return new LabelLookup(
 			EntitySchemaServices::getFullViewSchemaDataLookup( $services ),
 			WikibaseRepo::getLanguageFallbackChainFactory( $services )
+		);
+	},
+
+	'EntitySchema.MediaWikiPageUpdaterFactory' => static function (
+		MediaWikiServices $services
+	): MediaWikiPageUpdaterFactory {
+		return new MediaWikiPageUpdaterFactory(
+			$services->getPermissionManager(),
+			$services->getTitleFactory(),
+			$services->getWikiPageFactory()
 		);
 	},
 

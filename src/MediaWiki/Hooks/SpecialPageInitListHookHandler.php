@@ -33,6 +33,7 @@ class SpecialPageInitListHookHandler implements SpecialPage_initListHook {
 				'TempUserConfig',
 				'WikibaseRepo.Settings',
 				'EntitySchema.IdGenerator',
+				'EntitySchema.MediaWikiPageUpdaterFactory',
 			],
 		];
 		$list['EntitySchemaText'] = [

@@ -65,7 +65,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 	public static function newFromContext( IContextSource $context ): self {
 		$services = MediaWikiServices::getInstance();
 		return new self(
-			new MediaWikiPageUpdaterFactory( $context->getUser() ),
+			EntitySchemaServices::getMediaWikiPageUpdaterFactory( $services ),
 			EntitySchemaServices::getWatchlistUpdater( $services ),
 			$context,
 			$services->getRevisionLookup(),
@@ -100,7 +100,11 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		int $baseRevId,
 		CommentStoreComment $summary
 	): EntitySchemaStatus {
-		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
+		$updaterStatus = $this->pageUpdaterFactory->getPageUpdater( $id->getId(), $this->context );
+		if ( !$updaterStatus->isOK() ) {
+			return EntitySchemaStatus::wrap( $updaterStatus );
+		}
+		$updater = $updaterStatus->getPageUpdater();
 		if ( $updater->grabParentRevision() === null ) {
 			return EntitySchemaStatus::newFatal( 'entityschema-error-schemaupdate-failed' );
 		}
@@ -135,8 +139,11 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		array $aliases,
 		int $baseRevId
 	): EntitySchemaStatus {
-
-		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
+		$updaterStatus = $this->pageUpdaterFactory->getPageUpdater( $id->getId(), $this->context );
+		if ( !$updaterStatus->isOK() ) {
+			return EntitySchemaStatus::wrap( $updaterStatus );
+		}
+		$updater = $updaterStatus->getPageUpdater();
 		$parentRevision = $updater->grabParentRevision();
 		if ( $parentRevision === null ) {
 			return EntitySchemaStatus::newFatal( 'entityschema-error-schemaupdate-failed' );
@@ -259,7 +266,11 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		int $baseRevId,
 		?string $userSummary = null
 	): EntitySchemaStatus {
-		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
+		$updaterStatus = $this->pageUpdaterFactory->getPageUpdater( $id->getId(), $this->context );
+		if ( !$updaterStatus->isOK() ) {
+			return EntitySchemaStatus::wrap( $updaterStatus );
+		}
+		$updater = $updaterStatus->getPageUpdater();
 		$parentRevision = $updater->grabParentRevision();
 		if ( $parentRevision === null ) {
 			return EntitySchemaStatus::newFatal( 'entityschema-error-schemaupdate-failed' );

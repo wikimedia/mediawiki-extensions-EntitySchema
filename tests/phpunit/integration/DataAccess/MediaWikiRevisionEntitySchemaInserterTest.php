@@ -7,6 +7,7 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 use Content;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
+use EntitySchema\DataAccess\PageUpdaterStatus;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
@@ -215,11 +216,14 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 	}
 
 	private function getPageUpdaterFactory( PageUpdater $pageUpdater = null ): MediaWikiPageUpdaterFactory {
-		$pageUpdaterFactory = $this->createMock( MediaWikiPageUpdaterFactory::class );
-		if ( $pageUpdater !== null ) {
-			$pageUpdaterFactory->method( 'getPageUpdater' )->willReturn( $pageUpdater );
-		}
-		return $pageUpdaterFactory;
+		$pageUpdaterStatus = PageUpdaterStatus::newUpdater(
+			$pageUpdater ?? $this->createMock( PageUpdater::class ),
+			null,
+			new RequestContext()
+		);
+		return $this->createConfiguredMock( MediaWikiPageUpdaterFactory::class, [
+			'getPageUpdater' => $pageUpdaterStatus,
+		] );
 	}
 
 	private function newInserterFailingToSave(): MediaWikiRevisionEntitySchemaInserter {

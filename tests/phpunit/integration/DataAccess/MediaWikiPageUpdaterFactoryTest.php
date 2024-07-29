@@ -4,8 +4,9 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\DataAccess;
 
-use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\MediaWiki\EntitySchemaServices;
 use ExtensionRegistry;
+use MediaWiki\Context\RequestContext;
 use MediaWikiIntegrationTestCase;
 use RecentChange;
 use Wikimedia\TestingAccessWrapper;
@@ -27,11 +28,12 @@ class MediaWikiPageUpdaterFactoryTest extends MediaWikiIntegrationTestCase {
 
 	public function testGetPageUpdater() {
 		$user = $this->getTestUser()->getUser();
+		$context = new RequestContext();
+		$context->setUser( $user );
 
-		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $user );
-		$pageUpdater = TestingAccessWrapper::newFromObject(
-			$pageUpdaterFactory->getPageUpdater( 'TestTitle' )
-		);
+		$pageUpdaterFactory = EntitySchemaServices::getMediaWikiPageUpdaterFactory();
+		$pageUpdaterStatus = $pageUpdaterFactory->getPageUpdater( 'TestTitle', $context );
+		$pageUpdater = TestingAccessWrapper::newFromObject( $pageUpdaterStatus->getPageUpdater() );
 		$this->assertEquals( $user, $pageUpdater->author );
 		$title = $pageUpdater->wikiPage->getTitle();
 		$this->assertEquals( 'TestTitle', $title->getText() );
@@ -39,21 +41,23 @@ class MediaWikiPageUpdaterFactoryTest extends MediaWikiIntegrationTestCase {
 
 	public function testAutopatrolledFlagIsSetForSysop() {
 		$user = $this->getTestUser( 'sysop' )->getUser();
+		$context = new RequestContext();
+		$context->setUser( $user );
 
-		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $user );
-		$pageUpdater = TestingAccessWrapper::newFromObject(
-			$pageUpdaterFactory->getPageUpdater( 'TestTitle' )
-		);
+		$pageUpdaterFactory = EntitySchemaServices::getMediaWikiPageUpdaterFactory();
+		$pageUpdaterStatus = $pageUpdaterFactory->getPageUpdater( 'TestTitle', $context );
+		$pageUpdater = TestingAccessWrapper::newFromObject( $pageUpdaterStatus->getPageUpdater() );
 		$this->assertEquals( RecentChange::PRC_AUTOPATROLLED, $pageUpdater->rcPatrolStatus );
 	}
 
 	public function testAutopatrolledFlagNotSetForNormalUser() {
 		$user = $this->getTestUser()->getUser();
+		$context = new RequestContext();
+		$context->setUser( $user );
 
-		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $user );
-		$pageUpdater = TestingAccessWrapper::newFromObject(
-			$pageUpdaterFactory->getPageUpdater( 'TestTitle' )
-		);
+		$pageUpdaterFactory = EntitySchemaServices::getMediaWikiPageUpdaterFactory();
+		$pageUpdaterStatus = $pageUpdaterFactory->getPageUpdater( 'TestTitle', $context );
+		$pageUpdater = TestingAccessWrapper::newFromObject( $pageUpdaterStatus->getPageUpdater() );
 		$this->assertEquals( RecentChange::PRC_UNPATROLLED, $pageUpdater->rcPatrolStatus );
 	}
 

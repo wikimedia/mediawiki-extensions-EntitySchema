@@ -4,9 +4,12 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Storage\PageUpdater;
 use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use MediaWiki\User\User;
 use RecentChange;
 
@@ -15,29 +18,39 @@ use RecentChange;
  */
 class MediaWikiPageUpdaterFactory {
 
-	private User $user;
+	private PermissionManager $permissionManager;
+	private TitleFactory $titleFactory;
+	private WikiPageFactory $wikiPageFactory;
 
-	public function __construct( User $user ) {
-		$this->user = $user;
+	public function __construct(
+		PermissionManager $permissionManager,
+		TitleFactory $titleFactory,
+		WikiPageFactory $wikiPageFactory
+	) {
+		$this->permissionManager = $permissionManager;
+		$this->titleFactory = $titleFactory;
+		$this->wikiPageFactory = $wikiPageFactory;
 	}
 
-	public function getPageUpdater( string $pageTitleString ): PageUpdater {
-		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $pageTitleString );
-		$wikipage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
-		$pageUpdater = $wikipage->newPageUpdater( $this->user );
-		$this->setPatrolStatus( $pageUpdater, $title );
+	public function getPageUpdater( string $pageTitleString, IContextSource $context ): PageUpdaterStatus {
+		$title = $this->titleFactory->makeTitle( NS_ENTITYSCHEMA_JSON, $pageTitleString );
+		$wikiPage = $this->wikiPageFactory->newFromTitle( $title );
 
-		return $pageUpdater;
+		$user = $context->getUser();
+
+		$pageUpdater = $wikiPage->newPageUpdater( $user );
+		$this->setPatrolStatus( $user, $pageUpdater, $title );
+
+		return PageUpdaterStatus::newUpdater( $pageUpdater );
 	}
 
-	private function setPatrolStatus( PageUpdater $pageUpdater, Title $title ): void {
+	private function setPatrolStatus( User $user, PageUpdater $pageUpdater, Title $title ): void {
 		global $wgUseNPPatrol, $wgUseRCPatrol;
 		$needsPatrol = $wgUseRCPatrol || ( $wgUseNPPatrol && !$title->exists() );
-		$permissionsManager = MediaWikiServices::getInstance()->getPermissionManager();
 
 		if (
 			$needsPatrol
-			&& $permissionsManager->userCan( 'autopatrol', $this->user, $title )
+			&& $this->permissionManager->userCan( 'autopatrol', $user, $title )
 		) {
 			$pageUpdater->setRcPatrolStatus( RecentChange::PRC_AUTOPATROLLED );
 		}
