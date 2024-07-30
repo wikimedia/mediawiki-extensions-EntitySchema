@@ -15,8 +15,8 @@ use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
+use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\Title\Title;
-use MediaWiki\User\TempUser\TempUserConfig;
 use MediaWikiIntegrationTestCase;
 use MessageCache;
 use PermissionsError;
@@ -30,7 +30,7 @@ use Wikimedia\Rdbms\ReadOnlyMode;
  */
 class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 
-	private bool $tempUserEnabled = false;
+	use TempUserTestTrait;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -48,6 +48,7 @@ class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 		$readOnlyMode->method( 'isReadOnly' )->willReturn( true );
 		$this->setService( 'ReadOnlyMode', $readOnlyMode );
 		$context = RequestContext::getMain();
+		$services = $this->getServiceContainer();
 		$action = new EntitySchemaEditAction(
 			Article::newFromTitle(
 				Title::newFromDBkey( 'E1' ),
@@ -57,10 +58,10 @@ class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			false,
-			$this->getServiceContainer()->getUserOptionsLookup(),
+			$services->getUserOptionsLookup(),
 			'https://example.com/license',
 			'license text',
-			$this->getMockTempUserConfig()
+			$services->getTempUserConfig()
 		);
 
 		$this->expectException( ReadOnlyError::class );
@@ -77,6 +78,7 @@ class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 		$context = RequestContext::getMain();
 		$title = Title::makeTitle( NS_MAIN, 'E1' );
 		$title->resetArticleID( 0 );
+		$services = $this->getServiceContainer();
 		$action = new EntitySchemaEditAction(
 			Article::newFromTitle(
 				$title,
@@ -86,22 +88,14 @@ class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			false,
-			$this->getServiceContainer()->getUserOptionsLookup(),
+			$services->getUserOptionsLookup(),
 			'https://example.com/license',
 			'license text',
-			$this->getMockTempUserConfig()
+			$services->getTempUserConfig()
 		);
 
 		$this->expectException( PermissionsError::class );
 		$action->show();
-	}
-
-	private function getMockTempUserConfig(): TempUserConfig {
-		$tempUserConfig = $this->createMock( TempUserConfig::class );
-		$tempUserConfig->expects( $this->atMost( 1 ) )
-			->method( 'isEnabled' )
-			->willReturn( $this->tempUserEnabled );
-		return $tempUserConfig;
 	}
 
 	private function setupRenderingMocks(): void {
@@ -149,23 +143,24 @@ class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 		$context = RequestContext::getMain();
 		$title = Title::newFromDBkey( 'E1' );
 		$context->setTitle( $title );
+		$services = $this->getServiceContainer();
 		$action = new EntitySchemaEditAction(
 			Article::newFromTitle( $title, $context	),
 			$context,
 			$this->getMockBuilder( InputValidator::class )
 				->disableOriginalConstructor()->getMock(),
 			false,
-			$this->getServiceContainer()->getUserOptionsLookup(),
+			$services->getUserOptionsLookup(),
 			'https://example.com/license',
 			'license text',
-			$this->getMockTempUserConfig()
+			$services->getTempUserConfig()
 		);
 		$action->show();
 		return $action->getOutput()->getHTML();
 	}
 
 	public function testShowWarningForAnonymousUsers() {
-		$this->tempUserEnabled = false;
+		$this->disableAutoCreateTempUser();
 		$html = $this->renderEditAction();
 		$this->assertStringContainsString(
 			'entityschema-anonymouseditwarning',
@@ -175,7 +170,7 @@ class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testShowNoIpLoggingWarningForAnonymousUsersWithTempUser() {
-		$this->tempUserEnabled = true;
+		$this->enableAutoCreateTempUser();
 		$html = $this->renderEditAction();
 		$this->assertStringNotContainsString(
 			'entityschema-anonymouseditwarning',
