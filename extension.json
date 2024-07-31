@@ -261,7 +261,6 @@
 			"public": false
 		}
 	},
-	"callback": "EntitySchema\\MediaWiki\\Hooks\\NoTempAccountsHandler::disableTempAccountsInCI",
 	"manifest_version": 2,
 	"ServiceWiringFiles": [
 		"src/EntitySchema.ServiceWiring.php"
