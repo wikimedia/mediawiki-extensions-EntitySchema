@@ -182,7 +182,7 @@ class EntitySchemaEncoderTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testSchemaTooLongException() {
-		$this->setMwGlobals( 'wgEntitySchemaSchemaTextMaxSizeBytes', 5 );
+		$this->overrideConfigValue( 'EntitySchemaSchemaTextMaxSizeBytes', 5 );
 
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( 'is longer than' );
@@ -197,7 +197,7 @@ class EntitySchemaEncoderTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testLabelTooLongException() {
-		$this->setMwGlobals( 'wgEntitySchemaNameBadgeMaxSizeChars', 5 );
+		$this->overrideConfigValue( 'EntitySchemaNameBadgeMaxSizeChars', 5 );
 
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( 'is longer than' );
@@ -212,7 +212,7 @@ class EntitySchemaEncoderTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testDescriptionTooLongException() {
-		$this->setMwGlobals( 'wgEntitySchemaNameBadgeMaxSizeChars', 5 );
+		$this->overrideConfigValue( 'EntitySchemaNameBadgeMaxSizeChars', 5 );
 
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( 'is longer than' );
@@ -227,7 +227,7 @@ class EntitySchemaEncoderTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testAliasesTooLongException() {
-		$this->setMwGlobals( 'wgEntitySchemaNameBadgeMaxSizeChars', 5 );
+		$this->overrideConfigValue( 'EntitySchemaNameBadgeMaxSizeChars', 5 );
 
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( 'is longer than' );
