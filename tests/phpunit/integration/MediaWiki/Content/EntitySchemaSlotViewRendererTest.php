@@ -11,7 +11,6 @@ use ExtensionRegistry;
 use MediaWiki\Cache\LinkCache;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Config\MultiConfig;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReferenceValue;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\SpecialPage\SpecialPage;
@@ -207,7 +206,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			null,
 			new MultiConfig( [
 				new HashConfig( [ 'EntitySchemaShExSimpleUrl' => 'http://my.test?foo=bar#fragment' ] ),
-				MediaWikiServices::getInstance()->getMainConfig(),
+				$this->getServiceContainer()->getMainConfig(),
 			] ),
 			null,
 			false

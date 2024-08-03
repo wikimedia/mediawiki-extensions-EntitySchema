@@ -6,7 +6,6 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\DataAccess\SqlIdGenerator;
 use ExtensionRegistry;
-use MediaWiki\MediaWikiServices;
 use MediaWikiIntegrationTestCase;
 use RuntimeException;
 use Wikimedia\Rdbms\DBReadOnlyError;
@@ -34,7 +33,7 @@ class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 
 	public function testGetNewId() {
 		$generator = new SqlIdGenerator(
-			MediaWikiServices::getInstance()->getDBLoadBalancer(),
+			$this->getServiceContainer()->getDBLoadBalancer(),
 			'entityschema_id_counter'
 		);
 
@@ -47,7 +46,7 @@ class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testIdsSkipped() {
-		$loadbalancer = MediaWikiServices::getInstance()->getDBLoadBalancer();
+		$loadbalancer = $this->getServiceContainer()->getDBLoadBalancer();
 		$db = $loadbalancer->getConnection( DB_PRIMARY );
 		$currentId = $db->newSelectQueryBuilder()->select( [ 'id_value' ] )
 			->from( 'entityschema_id_counter' )
@@ -57,7 +56,7 @@ class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 		$currentId = $currentId->id_value ?? 0;
 
 		$testGenerator = new SqlIdGenerator(
-			MediaWikiServices::getInstance()->getDBLoadBalancer(),
+			$this->getServiceContainer()->getDBLoadBalancer(),
 			'entityschema_id_counter',
 			[ $currentId + 1, $currentId + 2 ]
 		);

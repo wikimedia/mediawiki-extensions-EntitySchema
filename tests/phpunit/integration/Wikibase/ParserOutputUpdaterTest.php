@@ -6,7 +6,6 @@ namespace EntitySchema\Tests\Integration\Wikibase;
 
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
-use MediaWiki\MediaWikiServices;
 use MediaWikiIntegrationTestCase;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Tests\NewItem;
@@ -61,7 +60,7 @@ class ParserOutputUpdaterTest extends MediaWikiIntegrationTestCase {
 
 	private function getEntityParserOutputGenerator(): EntityParserOutputGenerator {
 		return WikibaseRepo::getEntityParserOutputGeneratorFactory()->getEntityParserOutputGenerator(
-			MediaWikiServices::getInstance()->getContentLanguage()
+			$this->getServiceContainer()->getContentLanguage()
 		);
 	}
 

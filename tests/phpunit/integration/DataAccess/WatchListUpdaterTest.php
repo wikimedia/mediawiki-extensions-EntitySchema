@@ -7,7 +7,6 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use ExtensionRegistry;
-use MediaWiki\MediaWikiServices;
 use MediaWikiIntegrationTestCase;
 use WatchedItem;
 
@@ -58,7 +57,7 @@ final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 
 		$watchlistUpdater->optionallyWatchEditedSchema( new EntitySchemaId( $pageid ) );
 
-		$watchedItemStore = MediaWikiServices::getInstance()->getWatchedItemStore();
+		$watchedItemStore = $this->getServiceContainer()->getWatchedItemStore();
 		$actualItems = $watchedItemStore->getWatchedItemsForUser( $testUser );
 
 		$actualItems = array_unique(

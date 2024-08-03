@@ -17,7 +17,6 @@ use InvalidArgumentException;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageIdentityValue;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\RevisionLookup;
@@ -389,7 +388,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 		$this->expectException( InvalidArgumentException::class );
 		$schmeaUpdater->updateSchemaText(
 			new EntitySchemaId( 'E1' ),
-			str_repeat( '#', MediaWikiServices::getInstance()->getMainConfig()
+			str_repeat( '#', $this->getServiceContainer()->getMainConfig()
 				->get( 'EntitySchemaSchemaTextMaxSizeBytes' ) + 100 ),
 			1
 		);
