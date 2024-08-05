@@ -7,13 +7,11 @@
 	function aliasesLengthString( aliases ) {
 		return aliases
 			.split( '|' )
-			.map( function ( alias ) {
-				return alias.trim();
-			} )
+			.map( ( alias ) => alias.trim() )
 			.join( '' );
 	}
 
-	$( function () {
+	$( () => {
 		const schemaNameBadgeMaxSizeChars = mw.config.get( 'wgEntitySchemaNameBadgeMaxSizeChars' ),
 			schemaSchemaTextMaxSizeBytes = mw.config.get( 'wgEntitySchemaSchemaTextMaxSizeBytes' ),
 			labelInput = OO.ui.infuse( $( '#entityschema-newschema-label' ) ),

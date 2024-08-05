@@ -11,7 +11,7 @@ const loginPage = new LoginPage();
 describe( 'Schema Edit Page', () => {
 	const initialSchemaTextExample = '<empty> {}';
 
-	beforeEach( function () {
+	beforeEach( () => {
 		specialNewEntitySchemaPage
 			.open()
 			.enterLabel( 'browser test: EntitySchema edit page' )
@@ -20,7 +20,7 @@ describe( 'Schema Edit Page', () => {
 		viewSchemaPage.getId().as( 'entitySchemaId' );
 	} );
 
-	describe( 'given that a user is allowed', function () {
+	describe( 'given that a user is allowed', () => {
 
 		it( 'returns to schema view page on submit', function () {
 			const humanShape = '<HumanShape> {\n wd:Q5 wdt:P31 wd:Q5\n }';
@@ -44,6 +44,7 @@ describe( 'Schema Edit Page', () => {
 			// act like the same form is submitted in a different window or tab
 			cy.get( '#mw-content-text form' ).then( ( $form ) => {
 				const url = $form[ 0 ].action;
+				// eslint-disable-next-line n/no-unsupported-features/node-builtins
 				const formData = new FormData( $form[ 0 ] );
 				formData.set( 'wpschema-text', 'shex that is actually saved first' );
 				cy.request( {
@@ -78,7 +79,7 @@ describe( 'Schema Edit Page', () => {
 		} );
 	} );
 
-	describe( 'given the user is blocked', function () {
+	describe( 'given the user is blocked', () => {
 
 		it( 'cannot be edited', function () {
 			cy.task( 'MwApi:CreateUser', { usernamePrefix: 'Alice' } )

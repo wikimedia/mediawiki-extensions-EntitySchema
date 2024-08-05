@@ -1,9 +1,7 @@
 export class ViewPropertyPage {
 
 	getId() {
-		return cy.window().then( ( window ) => {
-			return window.mw.config.get( 'wgTitle' );
-		} );
+		return cy.window().then( ( window ) => window.mw.config.get( 'wgTitle' ) );
 	}
 
 	openAddStatementForm() {
