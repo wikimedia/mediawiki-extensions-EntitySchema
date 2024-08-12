@@ -13,7 +13,7 @@ use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use MediaWikiUnitTestCase;
 
 /**
- * @covers EntitySchema\Services\Diff\EntitySchemaDiffer
+ * @covers \EntitySchema\Services\Diff\EntitySchemaDiffer
  *
  * @license GPL-2.0-or-later
  */

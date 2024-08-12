@@ -109,7 +109,7 @@ class UndoHandlerTest extends MediaWikiIntegrationTestCase {
 
 		$actualDiffStatus = $undoHandler->getDiffFromContents( $contentToBeUndone, $goodContent );
 
-		$this->assertTrue( $actualDiffStatus->isGood() );
+		$this->assertStatusGood( $actualDiffStatus );
 		$expectedDiff = new Diff(
 			[
 				'labels' => new Diff(
@@ -150,7 +150,7 @@ class UndoHandlerTest extends MediaWikiIntegrationTestCase {
 
 		$actualPatchStatus = $undoHandler->tryPatching( $diff, $baseContent );
 
-		$this->assertTrue( $actualPatchStatus->isGood() );
+		$this->assertStatusGood( $actualPatchStatus );
 		$expectedSchema = [
 			'labels' => [
 				'en' => 'abc',
