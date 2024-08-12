@@ -12,6 +12,8 @@ use MediaWikiIntegrationTestCase;
 /**
  * @license GPL-2.0-or-later
  *
+ * @group EntitySchemaClient
+ *
  * @covers \EntitySchema\Presentation\AutocommentFormatter
  */
 class AutocommentFormatterTest extends MediaWikiIntegrationTestCase {

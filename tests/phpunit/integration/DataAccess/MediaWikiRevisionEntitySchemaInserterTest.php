@@ -26,6 +26,7 @@ use RuntimeException;
 /**
  * @license GPL-2.0-or-later
  *
+ * @group EntitySchemaClient
  * @group Database
  *
  * @covers \EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter

@@ -13,6 +13,8 @@ use TextSlotDiffRenderer;
 /**
  * @license GPL-2.0-or-later
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer
+ *
+ * @group EntitySchemaClient
  */
 class EntitySchemaSlotDiffRendererTest extends MediaWikiIntegrationTestCase {
 

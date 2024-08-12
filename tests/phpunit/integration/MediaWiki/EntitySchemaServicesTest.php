@@ -9,6 +9,8 @@ use MediaWiki\Tests\ExtensionServicesTestBase;
 /**
  * @covers \EntitySchema\MediaWiki\EntitySchemaServices
  *
+ * @group EntitySchemaClient
+ *
  * @license GPL-2.0-or-later
  */
 class EntitySchemaServicesTest extends ExtensionServicesTestBase {

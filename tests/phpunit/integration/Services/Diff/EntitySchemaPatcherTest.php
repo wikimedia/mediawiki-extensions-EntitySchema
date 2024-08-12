@@ -16,6 +16,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * @license GPL-2.0-or-later
  *
+ * @group EntitySchemaClient
+ *
  * @covers \EntitySchema\Services\Diff\EntitySchemaPatcher
  * @covers \EntitySchema\Services\Diff\AliasGroupListPatcher
  */

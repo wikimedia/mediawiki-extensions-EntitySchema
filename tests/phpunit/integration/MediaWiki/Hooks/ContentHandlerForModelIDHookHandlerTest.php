@@ -11,6 +11,7 @@ use MediaWikiIntegrationTestCase;
 
 /**
  * @covers \EntitySchema\MediaWiki\Hooks\ContentHandlerForModelIDHookHandler
+ * @group EntitySchemaClient
  * @license GPL-2.0-or-later
  */
 class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCase {

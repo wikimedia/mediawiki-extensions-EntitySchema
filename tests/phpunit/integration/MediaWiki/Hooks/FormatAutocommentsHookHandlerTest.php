@@ -14,6 +14,8 @@ use MediaWikiIntegrationTestCase;
 /**
  * @covers \EntitySchema\MediaWiki\Hooks\FormatAutocommentsHookHandler
  *
+ * @group EntitySchemaClient
+ *
  * @license GPL-2.0-or-later
  */
 class FormatAutocommentsHookHandlerTest extends MediaWikiIntegrationTestCase {
