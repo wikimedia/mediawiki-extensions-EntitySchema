@@ -72,8 +72,7 @@ class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 		$restrictionStore->method( 'getCascadeProtectionSources' )->willReturn( [ [], [] ] );
 		$this->setService( 'RestrictionStore', $restrictionStore );
 		$this->setService( 'BlockManager', $this->createMock( BlockManager::class ) );
-		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions',
-			[ '*' => [ 'edit' => false ] ] );
+		$this->setGroupPermissions( [ '*' => [ 'edit' => false ] ] );
 		$context = RequestContext::getMain();
 		$title = Title::makeTitle( NS_MAIN, 'E1' );
 		$title->resetArticleID( 0 );

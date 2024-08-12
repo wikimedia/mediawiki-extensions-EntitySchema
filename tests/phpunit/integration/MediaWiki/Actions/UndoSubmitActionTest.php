@@ -139,8 +139,7 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testUndoSubmitNoPermissions() {
-		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions',
-			[ '*' => [ 'edit' => false ] ] );
+		$this->setGroupPermissions( [ '*' => [ 'edit' => false ] ] );
 
 		$page = $this->getServiceContainer()->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
