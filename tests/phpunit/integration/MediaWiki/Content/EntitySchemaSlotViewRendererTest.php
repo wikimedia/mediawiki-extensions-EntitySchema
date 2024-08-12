@@ -232,9 +232,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testFillParserOutput_SyntaxHighlight() {
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'SyntaxHighlight' ) ) {
-			$this->markTestSkipped( 'SyntaxHighlight not available' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'SyntaxHighlight' );
 
 		$schemaData = new FullViewEntitySchemaData(
 			[ 'en' => new NameBadge( '', '', [] ) ],

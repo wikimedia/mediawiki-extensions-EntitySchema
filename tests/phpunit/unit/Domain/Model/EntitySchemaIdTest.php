@@ -9,7 +9,7 @@ use InvalidArgumentException;
 use MediaWikiUnitTestCase;
 
 /**
- * @covers EntitySchema\Domain\Model\EntitySchemaId
+ * @covers \EntitySchema\Domain\Model\EntitySchemaId
  *
  * @license GPL-2.0-or-later
  */
