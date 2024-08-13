@@ -4,11 +4,11 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
+use Diff\Patcher\PatcherException;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
-use InvalidArgumentException;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Context\DerivativeContext;
 use MediaWiki\Context\IContextSource;
@@ -18,10 +18,8 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
-use MediaWiki\Status\Status;
 use MediaWiki\Storage\PageUpdater;
 use MediaWiki\Title\TitleFactory;
-use RuntimeException;
 
 /**
  * @license GPL-2.0-or-later
@@ -91,9 +89,6 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 	 * @param string $schemaText
 	 * @param int $baseRevId
 	 * @param CommentStoreComment $summary
-	 *
-	 * @throws InvalidArgumentException if bad parameters are passed
-	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 */
 	public function overwriteWholeSchema(
 		EntitySchemaId $id,
@@ -103,11 +98,13 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		string $schemaText,
 		int $baseRevId,
 		CommentStoreComment $summary
-	): void {
+	): EntitySchemaStatus {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
-		$this->checkSchemaExists( $updater->grabParentRevision() );
+		if ( $updater->grabParentRevision() === null ) {
+			return EntitySchemaStatus::newFatal( 'entityschema-error-schemaupdate-failed' );
+		}
 		if ( $updater->hasEditConflict( $baseRevId ) ) {
-			throw new EditConflict();
+			return EntitySchemaStatus::newFatal( 'edit-conflict' );
 		}
 
 		$content = new EntitySchemaContent(
@@ -119,9 +116,14 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 				$schemaText
 			)
 		);
-		$this->saveRevision( $updater, $content, $summary );
+		$status = $this->saveRevision( $id, $updater, $content, $summary );
+		if ( !$status->isOK() ) {
+			return $status;
+		}
 
 		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
+
+		return $status;
 	}
 
 	public function updateSchemaNameBadge(
@@ -131,32 +133,38 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		string $description,
 		array $aliases,
 		int $baseRevId
-	): void {
+	): EntitySchemaStatus {
 
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
-		$this->checkSchemaExists( $parentRevision );
+		if ( $parentRevision === null ) {
+			return EntitySchemaStatus::newFatal( 'entityschema-error-schemaupdate-failed' );
+		}
 
 		$baseRevision = $this->revisionLookup->getRevisionById( $baseRevId );
 
 		$updateGuard = new EntitySchemaUpdateGuard();
-		$schemaData = $updateGuard->guardSchemaUpdate(
-			$baseRevision,
-			$parentRevision,
-			static function ( FullArrayEntitySchemaData $schemaData ) use (
-				$langCode,
-				$label,
-				$description,
-				$aliases
-			) {
-				$schemaData->data['labels'][$langCode] = $label;
-				$schemaData->data['descriptions'][$langCode] = $description;
-				$schemaData->data['aliases'][$langCode] = $aliases;
-			}
-		);
+		try {
+			$schemaData = $updateGuard->guardSchemaUpdate(
+				$baseRevision,
+				$parentRevision,
+				static function ( FullArrayEntitySchemaData $schemaData ) use (
+					$langCode,
+					$label,
+					$description,
+					$aliases
+				) {
+					$schemaData->data['labels'][$langCode] = $label;
+					$schemaData->data['descriptions'][$langCode] = $description;
+					$schemaData->data['aliases'][$langCode] = $aliases;
+				}
+			);
+		} catch ( PatcherException $e ) {
+			return EntitySchemaStatus::newFatal( 'edit-conflict' );
+		}
 
 		if ( $schemaData === null ) {
-			return;
+			return EntitySchemaStatus::newEdit( $id );
 		}
 
 		$autoComment = $this->getUpdateNameBadgeAutocomment(
@@ -176,9 +184,14 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 				$schemaData->schemaText
 			)
 		);
-		$this->saveRevision( $updater, $content, $autoComment );
+		$status = $this->saveRevision( $id, $updater, $content, $autoComment );
+		if ( !$status->isOK() ) {
+			return $status;
+		}
 
 		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
+
+		return $status;
 	}
 
 	private function getUpdateNameBadgeAutocomment(
@@ -238,34 +251,36 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 	 * @param string $schemaText
 	 * @param int $baseRevId
 	 * @param string|null $userSummary
-	 *
-	 * @throws InvalidArgumentException if bad parameters are passed
-	 * @throws EditConflict if another revision has been saved after $baseRevId
-	 * @throws RuntimeException if Schema to update does not exist or saving fails
 	 */
 	public function updateSchemaText(
 		EntitySchemaId $id,
 		string $schemaText,
 		int $baseRevId,
 		?string $userSummary = null
-	): void {
+	): EntitySchemaStatus {
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$parentRevision = $updater->grabParentRevision();
-		$this->checkSchemaExists( $parentRevision );
+		if ( $parentRevision === null ) {
+			return EntitySchemaStatus::newFatal( 'entityschema-error-schemaupdate-failed' );
+		}
 
 		$baseRevision = $this->revisionLookup->getRevisionById( $baseRevId );
 
 		$updateGuard = new EntitySchemaUpdateGuard();
-		$schemaData = $updateGuard->guardSchemaUpdate(
-			$baseRevision,
-			$parentRevision,
-			static function ( FullArrayEntitySchemaData $schemaData ) use ( $schemaText ) {
-				$schemaData->data['schemaText'] = $schemaText;
-			}
-		);
+		try {
+			$schemaData = $updateGuard->guardSchemaUpdate(
+				$baseRevision,
+				$parentRevision,
+				static function ( FullArrayEntitySchemaData $schemaData ) use ( $schemaText ) {
+					$schemaData->data['schemaText'] = $schemaText;
+				}
+			);
+		} catch ( PatcherException $e ) {
+			return EntitySchemaStatus::newFatal( 'edit-conflict' );
+		}
 
 		if ( $schemaData === null ) {
-			return;
+			return EntitySchemaStatus::newEdit( $id );
 		}
 
 		$commentText = '/* ' . self::AUTOCOMMENT_UPDATED_SCHEMATEXT . ' */' . $userSummary;
@@ -290,35 +305,30 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		);
 
 		$content = new EntitySchemaContent( $persistentRepresentation );
-		$this->saveRevision( $updater, $content, $summary );
+		$status = $this->saveRevision( $id, $updater, $content, $summary );
+		if ( !$status->isOK() ) {
+			return $status;
+		}
 
 		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
-	}
 
-	/**
-	 * @param RevisionRecord|null $parentRevision if null, an exception will be thrown
-	 *
-	 * @throws RuntimeException
-	 */
-	private function checkSchemaExists( RevisionRecord $parentRevision = null ): void {
-		if ( $parentRevision === null ) {
-			throw new RuntimeException( 'Schema to update does not exist' );
-		}
+		return $status;
 	}
 
 	private function saveRevision(
+		EntitySchemaId $id,
 		PageUpdater $updater,
 		EntitySchemaContent $content,
 		CommentStoreComment $summary
-	): void {
+	): EntitySchemaStatus {
 		$context = new DerivativeContext( $this->context );
 		$context->setTitle( $this->titleFactory->newFromPageIdentity( $updater->getPage() ) );
-		$status = Status::newGood();
+		$status = EntitySchemaStatus::newEdit( $id );
 		if ( !$this->hookContainer->run(
 			'EditFilterMergedContent',
-			[ $context, $content, &$status, $summary->text, $this->context->getUser(), false ]
+			[ $context, $content, $status, $summary->text, $this->context->getUser(), false ]
 		) ) {
-			throw new RuntimeException( $status->getWikiText() );
+			return $status;
 		}
 
 		$updater->setContent( SlotRecord::MAIN, $content );
@@ -326,9 +336,8 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 			$summary,
 			EDIT_UPDATE | EDIT_INTERNAL
 		);
-		if ( !$updater->wasSuccessful() ) {
-			throw new RuntimeException( 'The revision could not be saved' );
-		}
+		$status->merge( $updater->getStatus() );
+		return $status;
 	}
 
 }

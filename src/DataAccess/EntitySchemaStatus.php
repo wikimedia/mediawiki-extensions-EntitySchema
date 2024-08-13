@@ -11,6 +11,9 @@ use Wikimedia\Assert\Assert;
 /**
  * A Status representing the result of an EntitySchema edit.
  *
+ * Note that even an OK status does not necessarily mean that a new edit was made
+ * (it might have been a null edit).
+ *
  * @license GPL-2.0-or-later
  */
 class EntitySchemaStatus extends Status {

@@ -6,7 +6,6 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use Content;
 use DomainException;
-use EntitySchema\DataAccess\EditConflict;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
@@ -24,9 +23,9 @@ use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
 use MediaWiki\Storage\PageUpdater;
+use MediaWiki\Storage\PageUpdateStatus;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
-use RuntimeException;
 
 /**
  * @covers \EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater
@@ -65,7 +64,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 		if ( $this->parentRevision !== null ) {
 			$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		}
-		$pageUpdater->method( 'wasSuccessful' )->willReturn( true );
+		$pageUpdater->method( 'getStatus' )->willReturn( PageUpdateStatus::newGood() );
 		$pageUpdater->expects( $this->once() )
 			->method( 'setContent' )
 			->with(
@@ -85,11 +84,10 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			$this->parentRevision = $this->createMockRevisionRecord( $existingContent );
 			$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 		}
-		$pageUpdater->method( 'wasSuccessful' )->willReturn( true );
+		$pageUpdater->method( 'getStatus' )->willReturn( PageUpdateStatus::newGood() );
 		$pageUpdater->expects( $this->once() )
 			->method( 'saveRevision' )
 			->with( $expectedComment );
-		$pageUpdater->method( 'wasSuccessful' )->willReturn( true );
 
 		return $this->getPageUpdaterFactory( $pageUpdater );
 	}
@@ -120,7 +118,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 		$this->parentRevision = $this->createMockRevisionRecord( $existingContent );
 
 		$pageUpdater = $this->createMock( PageUpdater::class );
-		$pageUpdater->method( 'wasSuccessful' )->willReturn( false );
+		$pageUpdater->method( 'getStatus' )->willReturn( PageUpdateStatus::newFatal( __CLASS__ ) );
 		$pageUpdater->method( 'grabParentRevision' )->willReturn( $this->parentRevision );
 
 		$mockRevLookup = $this->createMockRevisionLookup( [ $this->parentRevision ] );
@@ -189,7 +187,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 		);
 	}
 
-	public function testOverwriteWholeSchema_throwsForNonExistentPage() {
+	public function testOverwriteWholeSchema_failsForNonExistentPage() {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		$pageUpdaterFactory = $this->getPageUpdaterFactory( $pageUpdater );
 
@@ -205,8 +203,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			$this->getServiceContainer()->getTitleFactory()
 		);
 
-		$this->expectException( RuntimeException::class );
-		$schmeaUpdater->overwriteWholeSchema(
+		$status = $schmeaUpdater->overwriteWholeSchema(
 			new EntitySchemaId( 'E1234569999' ),
 			[],
 			[],
@@ -215,6 +212,8 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			1,
 			CommentStoreComment::newUnsavedComment( '' )
 		);
+
+		$this->assertStatusError( 'entityschema-error-schemaupdate-failed', $status );
 	}
 
 	public static function provideBadParameters(): iterable {
@@ -259,7 +258,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 		);
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( $exceptionMessage );
-		$schmeaUpdater->overwriteWholeSchema(
+		$this->assertStatusGood( $schmeaUpdater->overwriteWholeSchema(
 			new EntitySchemaId( 'E1' ),
 			[ $testLanguage => $testLabel ],
 			[ $testLanguage => $testDescription ],
@@ -267,7 +266,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			$testSchemaText,
 			$this->parentRevision->getId(),
 			CommentStoreComment::newUnsavedComment( '' )
-		);
+		) );
 	}
 
 	public function testOverwriteWholeSchema_WritesExpectedContentForOverwritingMonoLingualSchema() {
@@ -307,7 +306,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			$this->getServiceContainer()->getHookContainer(),
 			$this->getServiceContainer()->getTitleFactory()
 		);
-		$schmeaUpdater->overwriteWholeSchema(
+		$this->assertStatusGood( $schmeaUpdater->overwriteWholeSchema(
 			new EntitySchemaId( 'E1' ),
 			[ 'en' => 'englishLabel' ],
 			[ 'en' => 'englishDescription' ],
@@ -315,15 +314,13 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			$schemaText,
 			$this->parentRevision->getId(),
 			CommentStoreComment::newUnsavedComment( '' )
-		);
+		) );
 	}
 
 	public function testOverwriteWholeSchema_saveFails() {
 		$schmeaUpdater = $this->newUpdaterFailingToSave();
 
-		$this->expectException( RuntimeException::class );
-		$this->expectExceptionMessage( 'The revision could not be saved' );
-		$schmeaUpdater->overwriteWholeSchema(
+		$status = $schmeaUpdater->overwriteWholeSchema(
 			new EntitySchemaId( 'E1' ),
 			[],
 			[],
@@ -332,13 +329,14 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			1,
 			CommentStoreComment::newUnsavedComment( '' )
 		);
+
+		$this->assertStatusError( __CLASS__, $status );
 	}
 
 	public function testOverwriteWholeSchema_editFilterFails() {
 		$schmeaUpdater = $this->newUpdaterWithEditFilter();
 
-		$this->expectException( RuntimeException::class );
-		$schmeaUpdater->overwriteWholeSchema(
+		$status = $schmeaUpdater->overwriteWholeSchema(
 			new EntitySchemaId( 'E1' ),
 			[],
 			[],
@@ -349,6 +347,8 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 				'/* ' . MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_RESTORE . ' */'
 			)
 		);
+
+		$this->assertStatusError( __CLASS__, $status );
 	}
 
 	/**
@@ -430,7 +430,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 		);
 	}
 
-	public function testUpdateSchemaText_throwsForEditConflict() {
+	public function testUpdateSchemaText_failsForEditConflict() {
 		$this->parentRevision = $this->createMockRevisionRecord( new EntitySchemaContent(
 			'{
 		"serializationVersion": "3.0",
@@ -455,12 +455,13 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			$this->getServiceContainer()->getTitleFactory()
 		);
 
-		$this->expectException( EditConflict::class );
-		$schmeaUpdater->updateSchemaText(
+		$status = $schmeaUpdater->updateSchemaText(
 			new EntitySchemaId( 'E1' ),
 			'',
 			$this->baseRevision->getId()
 		);
+
+		$this->assertStatusError( 'edit-conflict', $status );
 	}
 
 	public function testUpdateSchemaText_WritesExpectedContentForOverwritingSchemaText() {
@@ -502,11 +503,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			$this->getServiceContainer()->getTitleFactory()
 		);
 
-		$schmeaUpdater->updateSchemaText(
+		$this->assertStatusGood( $schmeaUpdater->updateSchemaText(
 			new EntitySchemaId( $id ),
 			$newSchemaText,
 			$this->parentRevision->getId()
-		);
+		) );
 	}
 
 	public function testUpdateSchemaText_mergesChangesInNameBadge() {
@@ -563,11 +564,11 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			$this->getServiceContainer()->getHookContainer(),
 			$this->getServiceContainer()->getTitleFactory()
 		);
-		$schemaUpdater->updateSchemaText(
+		$this->assertStatusGood( $schemaUpdater->updateSchemaText(
 			new EntitySchemaId( $id ),
 			$newSchemaText,
 			$this->baseRevision->getId()
-		);
+		) );
 	}
 
 	public function testUpdateSchemaText_mergesChangesInSchemaText() {
@@ -657,34 +658,35 @@ SHEXC;
 			$this->getServiceContainer()->getHookContainer(),
 			$this->getServiceContainer()->getTitleFactory()
 		);
-		$schemaUpdater->updateSchemaText(
+		$this->assertStatusGood( $schemaUpdater->updateSchemaText(
 			new EntitySchemaId( $id ),
 			$userSchemaText,
 			$this->baseRevision->getId()
-		);
+		) );
 	}
 
 	public function testUpdateSchemaText_saveFails() {
 		$schmeaUpdater = $this->newUpdaterFailingToSave();
 
-		$this->expectException( RuntimeException::class );
-		$this->expectExceptionMessage( 'The revision could not be saved' );
-		$schmeaUpdater->updateSchemaText(
+		$status = $schmeaUpdater->updateSchemaText(
 			new EntitySchemaId( 'E1' ),
 			'qwerty',
 			1
 		);
+
+		$this->assertStatusError( __CLASS__, $status );
 	}
 
 	public function testUpdateSchemaText_editFilterFails() {
 		$schmeaUpdater = $this->newUpdaterWithEditFilter();
 
-		$this->expectException( RuntimeException::class );
-		$schmeaUpdater->updateSchemaText(
+		$status = $schmeaUpdater->updateSchemaText(
 			new EntitySchemaId( 'E1' ),
 			'qwerty',
 			1
 		);
+
+		$this->assertStatusError( __CLASS__, $status );
 	}
 
 	public function testUpdateSchemaText_comment() {
@@ -723,12 +725,12 @@ SHEXC;
 			$this->getServiceContainer()->getTitleFactory()
 		);
 
-		$schmeaUpdater->updateSchemaText(
+		$this->assertStatusGood( $schmeaUpdater->updateSchemaText(
 			$id,
 			'new schema text',
 			$this->parentRevision->getId(),
 			'user given'
-		);
+		) );
 	}
 
 	public function testUpdateSchemaText_onlySerializationVersionChanges() {
@@ -755,11 +757,11 @@ SHEXC;
 			$this->getServiceContainer()->getTitleFactory()
 		);
 
-		$schemaUpdater->updateSchemaText(
+		$this->assertStatusGood( $schemaUpdater->updateSchemaText(
 			new EntitySchemaId( 'E1' ),
 			'schema text',
 			$this->parentRevision->getId()
-		);
+		) );
 	}
 
 	public function testUpdateSchemaNameBadgeSuccess() {
@@ -800,14 +802,14 @@ SHEXC;
 			$this->getServiceContainer()->getTitleFactory()
 		);
 
-		$schmeaUpdater->updateSchemaNameBadge(
+		$this->assertStatusGood( $schmeaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
 			$language,
 			$labels['en'],
 			$descriptions['en'],
 			$aliases['en'],
 			$this->parentRevision->getId()
-		);
+		) );
 	}
 
 	public function testUpdateMultiLingualSchemaNameBadgeSuccess() {
@@ -866,14 +868,14 @@ SHEXC;
 			$this->getServiceContainer()->getTitleFactory()
 		);
 
-		$schmeaUpdater->updateSchemaNameBadge(
+		$this->assertStatusGood( $schmeaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
 			$language,
 			$englishLabel,
 			$englishDescription,
 			$englishAliases,
 			$this->parentRevision->getId()
-		);
+		) );
 	}
 
 	/**
@@ -1022,7 +1024,7 @@ SHEXC;
 		];
 	}
 
-	public function testUpdateSchemaNameBadge_throwsForEditConflict() {
+	public function testUpdateSchemaNameBadge_failsForEditConflict() {
 		$this->parentRevision = $this->createMockRevisionRecord( new EntitySchemaContent(
 			json_encode(
 				[
@@ -1055,8 +1057,7 @@ SHEXC;
 			$this->getServiceContainer()->getTitleFactory()
 		);
 
-		$this->expectException( EditConflict::class );
-		$schmeaUpdater->updateSchemaNameBadge(
+		$status = $schmeaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( 'E1' ),
 			'en',
 			'test label',
@@ -1064,6 +1065,8 @@ SHEXC;
 			[ 'test alias' ],
 			$this->baseRevision->getId()
 		);
+
+		$this->assertStatusError( 'edit-conflict', $status );
 	}
 
 	public function testUpdateSchemaNameBadgeSuccessNonConflictingEdit() {
@@ -1116,14 +1119,14 @@ SHEXC;
 			$this->getServiceContainer()->getTitleFactory()
 		);
 
-		$updater->updateSchemaNameBadge(
+		$this->assertStatusGood( $updater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
 			$language,
 			$labels['en'],
 			$descriptions['en'],
 			$aliases['en'],
 			$this->baseRevision->getId()
-		);
+		) );
 	}
 
 	public function testUpdateNameBadge_mergesChangesInSchemaText() {
@@ -1180,14 +1183,14 @@ SHEXC;
 			$this->getServiceContainer()->getHookContainer(),
 			$this->getServiceContainer()->getTitleFactory()
 		);
-		$schemaUpdater->updateSchemaNameBadge(
+		$this->assertStatusGood( $schemaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
 			'en',
 			$newLabels['en'],
 			$descriptions['en'],
 			$aliases['en'],
 			$this->baseRevision->getId()
-		);
+		) );
 	}
 
 	public function testUpdateNameBadge_mergesChangesInOtherLanguage() {
@@ -1245,14 +1248,14 @@ SHEXC;
 			$this->getServiceContainer()->getHookContainer(),
 			$this->getServiceContainer()->getTitleFactory()
 		);
-		$schemaUpdater->updateSchemaNameBadge(
+		$this->assertStatusGood( $schemaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
 			'en',
 			$userLabels['en'],
 			$descriptions['en'],
 			$aliases['en'],
 			$this->baseRevision->getId()
-		);
+		) );
 	}
 
 	public function testUpdateNameBadge_mergesChangesInSameLanguage() {
@@ -1309,22 +1312,20 @@ SHEXC;
 			$this->getServiceContainer()->getHookContainer(),
 			$this->getServiceContainer()->getTitleFactory()
 		);
-		$schemaUpdater->updateSchemaNameBadge(
+		$this->assertStatusGood( $schemaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
 			'en',
 			$newLabels['en'],
 			$oldDescriptions['en'],
 			$aliases['en'],
 			$this->baseRevision->getId()
-		);
+		) );
 	}
 
 	public function testUpdateSchemaNameBadge_saveFails() {
 		$schmeaUpdater = $this->newUpdaterFailingToSave();
 
-		$this->expectException( RuntimeException::class );
-		$this->expectExceptionMessage( 'The revision could not be saved' );
-		$schmeaUpdater->updateSchemaNameBadge(
+		$status = $schmeaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( 'E1' ),
 			'en',
 			'test label',
@@ -1332,13 +1333,14 @@ SHEXC;
 			[ 'test alias' ],
 			1
 		);
+
+		$this->assertStatusError( __CLASS__, $status );
 	}
 
 	public function testUpdateSchemaNameBadge_editFilterFails() {
 		$schmeaUpdater = $this->newUpdaterWithEditFilter();
 
-		$this->expectException( RuntimeException::class );
-		$schmeaUpdater->updateSchemaNameBadge(
+		$status = $schmeaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( 'E1' ),
 			'en',
 			'test label',
@@ -1346,6 +1348,8 @@ SHEXC;
 			[ 'test alias' ],
 			1
 		);
+
+		$this->assertStatusError( __CLASS__, $status );
 	}
 
 	public function testUpdateSchemaNameBadge_onlySerializationVersionChanges() {
