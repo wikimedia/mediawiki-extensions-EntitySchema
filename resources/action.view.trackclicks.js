@@ -1,7 +1,7 @@
 ( function () {
 	'use strict';
-	$( function () {
-		$( '.entityschema-check-schema' ).on( 'click', function () {
+	$( () => {
+		$( '.entityschema-check-schema' ).on( 'click', () => {
 			mw.track( 'counter.MediaWiki.EntitySchema.external.checkSchema' );
 		} );
 	} );

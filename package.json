@@ -15,7 +15,7 @@
 	"devDependencies": {
 		"api-testing": "^1.6.0",
 		"cypress": "^13.7.1",
-		"eslint-config-wikimedia": "^0.27.0",
+		"eslint-config-wikimedia": "^0.28.2",
 		"eslint-plugin-chai-friendly": "^0.7.4",
 		"eslint-plugin-cypress": "^2.15.1",
 		"grunt-banana-checker": "^0.11.1",

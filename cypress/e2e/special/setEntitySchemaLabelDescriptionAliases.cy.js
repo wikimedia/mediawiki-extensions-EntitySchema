@@ -6,8 +6,8 @@ const specialNewEntitySchemaPage = new SpecialNewEntitySchemaPage();
 const viewSchemaPage = new ViewEntitySchemaPage();
 const specialSetLabelDescriptionAliasesPage = new SpecialSetLabelDescriptionAliasesPage();
 
-describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', function () {
-	beforeEach( 'create new schema page and open', function () {
+describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', () => {
+	beforeEach( 'create new schema page and open', () => {
 		specialNewEntitySchemaPage
 			.open()
 			.enterLabel( 'browser test: Special:SetEntitySchemaLabelDescriptionAliases' )
@@ -27,6 +27,7 @@ describe( 'SetEntitySchemaLabelDescriptionAliasesPage:Page', function () {
 		// act like the same form is submitted in a different window or tab
 		cy.get( '#mw-content-text form' ).then( ( $form ) => {
 			const url = $form[ 0 ].action;
+			// eslint-disable-next-line n/no-unsupported-features/node-builtins
 			const formData = new FormData( $form[ 0 ] );
 			formData.set( 'label', 'label that was submitted first' );
 			cy.request( {

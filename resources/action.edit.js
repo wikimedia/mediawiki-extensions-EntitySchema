@@ -4,7 +4,7 @@
 ( function () {
 	'use strict';
 
-	$( function () {
+	$( () => {
 		const schemaSchemaTextMaxSizeBytes = mw.config.get( 'wgEntitySchemaSchemaTextMaxSizeBytes' ),
 			schemaTextInput = OO.ui.infuse( $( '#mw-input-wpschema-text' ) );
 
