@@ -7,8 +7,8 @@ namespace EntitySchema\MediaWiki\Specials;
 use EntitySchema\DataAccess\EntitySchemaStatus;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
-use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
+use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Presentation\InputValidator;
 use MediaWiki\Html\Html;
 use MediaWiki\HTMLForm\HTMLForm;
@@ -106,7 +106,7 @@ class NewEntitySchema extends SpecialPage {
 		$services = MediaWikiServices::getInstance();
 		$schemaInserter = new MediaWikiRevisionEntitySchemaInserter(
 			$pageUpdaterFactory,
-			new WatchlistUpdater( $this->getUser(), NS_ENTITYSCHEMA_JSON ),
+			EntitySchemaServices::getWatchlistUpdater( $services ),
 			$this->idGenerator,
 			$this->getContext(),
 			$services->getLanguageFactory(),

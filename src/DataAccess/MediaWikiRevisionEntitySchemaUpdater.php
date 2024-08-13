@@ -7,6 +7,7 @@ namespace EntitySchema\DataAccess;
 use Diff\Patcher\PatcherException;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use MediaWiki\CommentStore\CommentStoreComment;
@@ -65,7 +66,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		$services = MediaWikiServices::getInstance();
 		return new self(
 			new MediaWikiPageUpdaterFactory( $context->getUser() ),
-			new WatchlistUpdater( $context->getUser(), NS_ENTITYSCHEMA_JSON ),
+			EntitySchemaServices::getWatchlistUpdater( $services ),
 			$context,
 			$services->getRevisionLookup(),
 			$services->getLanguageFactory(),
@@ -121,7 +122,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 			return $status;
 		}
 
-		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
+		$this->watchListUpdater->optionallyWatchEditedSchema( $this->context->getUser(), $id );
 
 		return $status;
 	}
@@ -189,7 +190,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 			return $status;
 		}
 
-		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
+		$this->watchListUpdater->optionallyWatchEditedSchema( $this->context->getUser(), $id );
 
 		return $status;
 	}
@@ -310,7 +311,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 			return $status;
 		}
 
-		$this->watchListUpdater->optionallyWatchEditedSchema( $id );
+		$this->watchListUpdater->optionallyWatchEditedSchema( $this->context->getUser(), $id );
 
 		return $status;
 	}

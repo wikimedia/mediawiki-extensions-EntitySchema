@@ -14,8 +14,9 @@ require_once 'FixedIdGenerator.php';
 
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
-use EntitySchema\DataAccess\WatchlistUpdater;
+use EntitySchema\MediaWiki\EntitySchemaServices;
 use Maintenance;
+use MediaWiki\Context\DerivativeContext;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\User\User;
 
@@ -166,15 +167,17 @@ class CreatePreexistingSchemas extends Maintenance {
 		);
 
 		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $user );
+		$context = new DerivativeContext( RequestContext::getMain() );
+		$context->setUser( $user );
 
 		$fixedIdGenerator = new FixedIdGenerator( (int)trim( $idString, 'E' ) );
 
 		$services = $this->getServiceContainer();
 		$schemaInserter = new MediaWikiRevisionEntitySchemaInserter(
 			$pageUpdaterFactory,
-			new WatchlistUpdater( $user, NS_ENTITYSCHEMA_JSON ),
+			EntitySchemaServices::getWatchlistUpdater( $services ),
 			$fixedIdGenerator,
-			RequestContext::getMain(),
+			$context,
 			$services->getLanguageFactory(),
 			$services->getHookContainer(),
 			$services->getTitleFactory()

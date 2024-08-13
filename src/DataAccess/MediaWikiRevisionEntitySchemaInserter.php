@@ -100,7 +100,7 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 			return $status;
 		}
 
-		$this->watchListUpdater->optionallyWatchNewSchema( $id );
+		$this->watchListUpdater->optionallyWatchNewSchema( $this->context->getUser(), $id );
 
 		return $status;
 	}
