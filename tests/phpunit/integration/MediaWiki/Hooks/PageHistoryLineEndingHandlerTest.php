@@ -5,11 +5,11 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\MediaWiki\Hooks;
 
 use Article;
-use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
+use EntitySchema\MediaWiki\EntitySchemaServices;
 use ExtensionRegistry;
 use Language;
 use MediaWiki\Context\RequestContext;
@@ -34,7 +34,8 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 		$context = new RequestContext();
 		$context->setRequest( new FauxRequest() );
 
-		$updaterFactory = new MediaWikiPageUpdaterFactory( $this->getTestUser()->getUser() );
+		$services = $this->getServiceContainer();
+		$updaterFactory = EntitySchemaServices::getMediaWikiPageUpdaterFactory( $services );
 		$watchListUpdater = $this->createMock( WatchlistUpdater::class );
 		$language = $this->createConfiguredMock( Language::class,
 			[ 'truncateForVisual' => '' ] );
@@ -56,7 +57,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 		$this->assertStatusGood( $status );
 		$schemaId = $status->getEntitySchemaId();
 
-		$revisionLookup = $this->getServiceContainer()->getRevisionLookup();
+		$revisionLookup = $services->getRevisionLookup();
 		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(
 			$updaterFactory,
 			$watchListUpdater,
@@ -66,14 +67,14 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 			$hookContainer,
 			$titleFactory
 		);
-		$schemaTitle = $this->getServiceContainer()
+		$schemaTitle = $services
 			->getTitleFactory()
 			->makeTitleSafe( NS_ENTITYSCHEMA_JSON, $schemaId->getId() );
 		$context->setTitle( $schemaTitle );
 		$baseRevId = $revisionLookup->getKnownCurrentRevision( $schemaTitle )->getId();
 		$schemaUpdater->updateSchemaText( $schemaId, 'a', $baseRevId );
 
-		$action = $this->getServiceContainer()
+		$action = $services
 			->getActionFactory()
 			->getAction(
 				'history',

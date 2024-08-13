@@ -12,7 +12,6 @@ require_once $basePath . '/maintenance/Maintenance.php';
 require_once $basePath . '/extensions/EntitySchema/src/Domain/Storage/IdGenerator.php';
 require_once 'FixedIdGenerator.php';
 
-use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use Maintenance;
@@ -166,7 +165,6 @@ class CreatePreexistingSchemas extends Maintenance {
 			'Importing Schema with label ' . $dataMap[self::LABEL] . " as EntitySchema $idString... \n"
 		);
 
-		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $user );
 		$context = new DerivativeContext( RequestContext::getMain() );
 		$context->setUser( $user );
 
@@ -174,7 +172,7 @@ class CreatePreexistingSchemas extends Maintenance {
 
 		$services = $this->getServiceContainer();
 		$schemaInserter = new MediaWikiRevisionEntitySchemaInserter(
-			$pageUpdaterFactory,
+			EntitySchemaServices::getMediaWikiPageUpdaterFactory( $services ),
 			EntitySchemaServices::getWatchlistUpdater( $services ),
 			$fixedIdGenerator,
 			$context,

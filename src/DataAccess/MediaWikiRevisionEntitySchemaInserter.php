@@ -93,9 +93,12 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 			]
 		);
 
-		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
+		$updaterStatus = $this->pageUpdaterFactory->getPageUpdater( $id->getId(), $this->context );
+		if ( !$updaterStatus->isOK() ) {
+			return EntitySchemaStatus::wrap( $updaterStatus );
+		}
 		$content = new EntitySchemaContent( $persistentRepresentation );
-		$status = $this->saveRevision( $id, $updater, $content, $summary );
+		$status = $this->saveRevision( $id, $updaterStatus->getPageUpdater(), $content, $summary );
 		if ( !$status->isOK() ) {
 			return $status;
 		}

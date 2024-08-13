@@ -6,6 +6,7 @@ namespace EntitySchema\MediaWiki;
 use EntitySchema\DataAccess\DescriptionLookup;
 use EntitySchema\DataAccess\FullViewSchemaDataLookup;
 use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\Presentation\AutocommentFormatter;
@@ -70,6 +71,13 @@ class EntitySchemaServices {
 	public static function getEntitySchemaIsRepo( ContainerInterface $services = null ): bool {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'EntitySchema.EntitySchemaIsRepo' );
+	}
+
+	public static function getMediaWikiPageUpdaterFactory(
+		ContainerInterface $services = null
+	): MediaWikiPageUpdaterFactory {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'EntitySchema.MediaWikiPageUpdaterFactory' );
 	}
 
 	public static function getWatchlistUpdater(

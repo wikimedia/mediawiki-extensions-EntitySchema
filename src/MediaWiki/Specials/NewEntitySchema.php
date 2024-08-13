@@ -47,10 +47,13 @@ class NewEntitySchema extends SpecialPage {
 
 	private TempUserConfig $tempUserConfig;
 
+	private MediaWikiPageUpdaterFactory $pageUpdaterFactory;
+
 	public function __construct(
 		TempUserConfig $tempUserConfig,
 		SettingsArray $repoSettings,
-		IdGenerator $idGenerator
+		IdGenerator $idGenerator,
+		MediaWikiPageUpdaterFactory $pageUpdaterFactory
 	) {
 		parent::__construct(
 			'NewEntitySchema',
@@ -63,6 +66,7 @@ class NewEntitySchema extends SpecialPage {
 			$repoSettings->getSetting( 'dataRightsText' )
 		);
 		$this->tempUserConfig = $tempUserConfig;
+		$this->pageUpdaterFactory = $pageUpdaterFactory;
 	}
 
 	public function execute( $subPage ): void {
@@ -101,11 +105,9 @@ class NewEntitySchema extends SpecialPage {
 	public function submitCallback( array $data, HTMLForm $form ): Status {
 		// TODO: no form data validation??
 
-		$pageUpdaterFactory = new MediaWikiPageUpdaterFactory( $this->getUser() );
-
 		$services = MediaWikiServices::getInstance();
 		$schemaInserter = new MediaWikiRevisionEntitySchemaInserter(
-			$pageUpdaterFactory,
+			$this->pageUpdaterFactory,
 			EntitySchemaServices::getWatchlistUpdater( $services ),
 			$this->idGenerator,
 			$this->getContext(),
