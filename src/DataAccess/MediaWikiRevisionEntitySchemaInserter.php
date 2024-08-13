@@ -14,10 +14,8 @@ use MediaWiki\Context\IContextSource;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Revision\SlotRecord;
-use MediaWiki\Status\Status;
 use MediaWiki\Storage\PageUpdater;
 use MediaWiki\Title\TitleFactory;
-use RuntimeException;
 
 /**
  * @license GPL-2.0-or-later
@@ -58,9 +56,7 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 	 * @param string[] $aliases
 	 * @param string $schemaText
 	 *
-	 * @return EntitySchemaId id of the inserted Schema
-	 *
-	 * @throws HookRunnerFailureException
+	 * @return EntitySchemaStatus
 	 */
 	public function insertSchema(
 		string $language,
@@ -68,7 +64,7 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 		string $description = '',
 		array $aliases = [],
 		string $schemaText = ''
-	): EntitySchemaId {
+	): EntitySchemaStatus {
 		$id = new EntitySchemaId( 'E' . $this->idGenerator->getNewId() );
 		$persistentRepresentation = EntitySchemaEncoder::getPersistentRepresentation(
 			$id,
@@ -99,11 +95,14 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 
 		$updater = $this->pageUpdaterFactory->getPageUpdater( $id->getId() );
 		$content = new EntitySchemaContent( $persistentRepresentation );
-		$this->saveRevision( $updater, $content, $summary );
+		$status = $this->saveRevision( $id, $updater, $content, $summary );
+		if ( !$status->isOK() ) {
+			return $status;
+		}
 
 		$this->watchListUpdater->optionallyWatchNewSchema( $id );
 
-		return $id;
+		return $status;
 	}
 
 	private function truncateSchemaTextForCommentData( string $schemaText ): string {
@@ -111,22 +110,20 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 		return $language->truncateForVisual( $schemaText, 5000 );
 	}
 
-	/**
-	 * @throws HookRunnerFailureException
-	 */
 	private function saveRevision(
+		EntitySchemaId $id,
 		PageUpdater $updater,
 		EntitySchemaContent $content,
 		CommentStoreComment $summary
-	): void {
+	): EntitySchemaStatus {
 		$context = new DerivativeContext( $this->context );
 		$context->setTitle( $this->titleFactory->newFromPageIdentity( $updater->getPage() ) );
-		$status = Status::newGood();
+		$status = EntitySchemaStatus::newEdit( $id );
 		if ( !$this->hookContainer->run(
 			'EditFilterMergedContent',
-			[ $context, $content, &$status, $summary->text, $this->context->getUser(), false ]
+			[ $context, $content, $status, $summary->text, $this->context->getUser(), false ]
 		) ) {
-			throw new HookRunnerFailureException( $status );
+			return $status;
 		}
 
 		$updater->setContent( SlotRecord::MAIN, $content );
@@ -134,9 +131,8 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 			$summary,
 			EDIT_NEW | EDIT_INTERNAL
 		);
-		if ( !$updater->wasSuccessful() ) {
-			throw new RuntimeException( 'The revision could not be saved' );
-		}
+		$status->merge( $updater->getStatus() );
+		return $status;
 	}
 
 }

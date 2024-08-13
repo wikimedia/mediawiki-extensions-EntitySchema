@@ -52,7 +52,9 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 			$hookContainer,
 			$titleFactory
 		);
-		$schemaId = $schemaInserter->insertSchema( 'en' );
+		$status = $schemaInserter->insertSchema( 'en' );
+		$this->assertStatusGood( $status );
+		$schemaId = $status->getEntitySchemaId();
 
 		$revisionLookup = $this->getServiceContainer()->getRevisionLookup();
 		$schemaUpdater = new MediaWikiRevisionEntitySchemaUpdater(

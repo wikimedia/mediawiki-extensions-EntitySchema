@@ -4,8 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
-use EntitySchema\Domain\Model\EntitySchemaId;
-
 /**
  * @license GPL-2.0-or-later
  */
@@ -18,7 +16,7 @@ interface EntitySchemaInserter {
 	 * @param string[] $aliases
 	 * @param string $schemaText
 	 *
-	 * @return EntitySchemaId id of inserted Schema
+	 * @return EntitySchemaStatus
 	 */
 	public function insertSchema(
 		string $language,
@@ -26,6 +24,6 @@ interface EntitySchemaInserter {
 		string $description,
 		array $aliases,
 		string $schemaText
-	): EntitySchemaId;
+	): EntitySchemaStatus;
 
 }

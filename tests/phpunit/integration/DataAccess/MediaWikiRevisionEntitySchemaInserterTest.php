@@ -19,9 +19,9 @@ use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
 use MediaWiki\Storage\PageUpdater;
+use MediaWiki\Storage\PageUpdateStatus;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
-use RuntimeException;
 
 /**
  * @license GPL-2.0-or-later
@@ -77,12 +77,12 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			$this->getServiceContainer()->getTitleFactory()
 		);
 
-		$inserter->insertSchema( $language,
+		$this->assertStatusGood( $inserter->insertSchema( $language,
 			$label,
 			$description,
 			$aliases,
 			$schemaText
-		);
+		) );
 	}
 
 	public function testInsertSchema_commentWithCleanedUpParameters() {
@@ -112,27 +112,27 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			$this->getServiceContainer()->getTitleFactory()
 		);
 
-		$inserter->insertSchema(
+		$this->assertStatusGood( $inserter->insertSchema(
 			'en',
 			'   test label  ',
 			'  test description ',
 			[ 'test alias', ' test alias ', '  ' ],
 			'  test schema text '
-		);
+		) );
 	}
 
 	public function testInsertSchema_saveFails() {
 		$inserter = $this->newInserterFailingToSave();
 
-		$this->expectException( RuntimeException::class );
-		$this->expectExceptionMessage( 'The revision could not be saved' );
-		$inserter->insertSchema(
+		$status = $inserter->insertSchema(
 			'en',
 			'',
 			'test description',
 			[ 'abc' ],
 			'test schema text'
 		);
+
+		$this->assertStatusError( __CLASS__, $status );
 	}
 
 	public function testInsertSchema_rejectedByEditFilter() {
@@ -181,8 +181,9 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			$this->getServiceContainer()->getTitleFactory()
 		);
 
-		$this->expectException( RuntimeException::class );
-		$inserter->insertSchema( 'en', 'test label' );
+		$status = $inserter->insertSchema( 'en', 'test label' );
+
+		$this->assertStatusError( __CLASS__, $status );
 	}
 
 	private function getPageUpdaterFactoryExpectingContent(
@@ -223,9 +224,8 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 	}
 
 	private function newInserterFailingToSave(): MediaWikiRevisionEntitySchemaInserter {
-
 		$pageUpdater = $this->createMock( PageUpdater::class );
-		$pageUpdater->method( 'wasSuccessful' )->willReturn( false );
+		$pageUpdater->method( 'getStatus' )->willReturn( PageUpdateStatus::newFatal( __CLASS__ ) );
 
 		$idGenerator = $this->createMock( IdGenerator::class );
 		$idGenerator->method( 'getNewId' )->willReturn( 123 );

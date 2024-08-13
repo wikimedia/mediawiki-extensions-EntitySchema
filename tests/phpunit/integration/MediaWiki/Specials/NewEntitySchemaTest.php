@@ -124,12 +124,12 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 		$this->setTemporaryHook( 'EditFilterMergedContent', static function (
 			IContextSource $context,
 			Content $content,
-			Status &$status,
+			Status $status,
 			$summary,
 			User $user,
 			$minorEdit
 		)  {
-			$status = Status::newFatal( 'Something went wrong' );
+			$status->fatal( 'Something went wrong' );
 			return false;
 		} );
 

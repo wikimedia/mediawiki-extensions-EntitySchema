@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Specials;
 
-use EntitySchema\DataAccess\HookRunnerFailureException;
+use EntitySchema\DataAccess\EntitySchemaStatus;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\WatchlistUpdater;
@@ -85,9 +85,10 @@ class NewEntitySchema extends SpecialPage {
 		$submitStatus = $form->tryAuthorizedSubmit();
 
 		if ( $submitStatus && $submitStatus->isGood() ) {
-			$this->getOutput()->redirect(
-				$submitStatus->getValue()
-			);
+			// wrap it, in case HTMLForm turned it into a generic Status
+			$submitStatus = EntitySchemaStatus::wrap( $submitStatus );
+			$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $submitStatus->getEntitySchemaId()->getId() );
+			$this->getOutput()->redirect( $title->getFullURL() );
 			return;
 		}
 
@@ -112,21 +113,13 @@ class NewEntitySchema extends SpecialPage {
 			$services->getHookContainer(),
 			$services->getTitleFactory()
 		);
-		try {
-			$newId = $schemaInserter->insertSchema(
-				$data[self::FIELD_LANGUAGE],
-				$data[self::FIELD_LABEL],
-				$data[self::FIELD_DESCRIPTION],
-				array_filter( array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) ) ),
-				$data[self::FIELD_SCHEMA_TEXT]
-			);
-
-			$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $newId->getId() );
-
-			return Status::newGood( $title->getFullURL() );
-		} catch ( HookRunnerFailureException $failure ) {
-			return $failure->getStatus();
-		}
+		return $schemaInserter->insertSchema(
+			$data[self::FIELD_LANGUAGE],
+			$data[self::FIELD_LABEL],
+			$data[self::FIELD_DESCRIPTION],
+			array_filter( array_map( 'trim', explode( '|', $data[self::FIELD_ALIASES] ) ) ),
+			$data[self::FIELD_SCHEMA_TEXT]
+		);
 	}
 
 	public function getDescription(): Message {
