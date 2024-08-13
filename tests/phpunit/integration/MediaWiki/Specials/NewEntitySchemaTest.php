@@ -14,8 +14,8 @@ use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
+use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\Title\TitleValue;
-use MediaWiki\User\TempUser\TempUserConfig;
 use MediaWiki\User\User;
 use PermissionsError;
 use ReadOnlyError;
@@ -34,8 +34,9 @@ use Wikimedia\Rdbms\SelectQueryBuilder;
  */
 class NewEntitySchemaTest extends SpecialPageTestBase {
 
+	use TempUserTestTrait;
+
 	private DatabaseBlock $block;
-	private bool $tempUserEnabled = false;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -177,7 +178,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	}
 
 	public function testShowWarningForAnonymousUsers() {
-		$this->tempUserEnabled = false;
+		$this->disableAutoCreateTempUser();
 		$this->setUserLang( 'qqx' );
 		[ $html ] = $this->executeSpecialPage(
 			null,
@@ -196,7 +197,7 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	}
 
 	public function testDoNotShowWarningForAnonymousUsersWhenTempUserEnabled() {
-		$this->tempUserEnabled = true;
+		$this->enableAutoCreateTempUser();
 		$this->setUserLang( 'qqx' );
 		[ $html ] = $this->executeSpecialPage(
 			null,
@@ -254,17 +255,12 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	}
 
 	protected function newSpecialPage(): NewEntitySchema {
-		$idGenerator = EntitySchemaServices::getIdGenerator( $this->getServiceContainer() );
-		$repoSettings = $this->createMock( SettingsArray::class );
-		$tempUserConfig = $this->createMock( TempUserConfig::class );
-		$tempUserConfig->expects( $this->atMost( 1 ) )
-			->method( 'isEnabled' )
-			->willReturn( $this->tempUserEnabled );
+		$services = $this->getServiceContainer();
 		return new NewEntitySchema(
-			$tempUserConfig,
-			$repoSettings,
-			$idGenerator,
-			EntitySchemaServices::getMediaWikiPageUpdaterFactory()
+			$services->getTempUserConfig(),
+			$this->createMock( SettingsArray::class ),
+			EntitySchemaServices::getIdGenerator( $services ),
+			EntitySchemaServices::getMediaWikiPageUpdaterFactory( $services )
 		);
 	}
 

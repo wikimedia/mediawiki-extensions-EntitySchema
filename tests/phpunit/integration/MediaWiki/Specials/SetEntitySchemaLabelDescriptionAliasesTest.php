@@ -10,8 +10,8 @@ use EntitySchema\Tests\Mocks\HTMLFormSpy;
 use ExtensionRegistry;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\Title\Title;
-use MediaWiki\User\TempUser\TempUserConfig;
 use SpecialPageTestBase;
 use Wikibase\Lib\SettingsArray;
 use Wikimedia\TestingAccessWrapper;
@@ -25,9 +25,9 @@ use Wikimedia\TestingAccessWrapper;
  */
 class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 	use EntitySchemaIntegrationTestCaseTrait;
+	use TempUserTestTrait;
 
 	private ?string $mockHTMLFormProvider = null;
-	private bool $tempUserEnabled = false;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -47,25 +47,18 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 			'dataRightsUrl' => 'https://example.com',
 			'dataRightsText' => 'CC0',
 		] );
+		$tempUserConfig = $this->getServiceContainer()->getTempUserConfig();
 		if ( $this->mockHTMLFormProvider !== null ) {
 			return new SetEntitySchemaLabelDescriptionAliases(
-				$this->getMockTempUserConfig(),
+				$tempUserConfig,
 				$fakeSettings,
 				$this->mockHTMLFormProvider
 			);
 		}
 		return new SetEntitySchemaLabelDescriptionAliases(
-			$this->getMockTempUserConfig(),
+			$tempUserConfig,
 			$fakeSettings
 		);
-	}
-
-	protected function getMockTempUserConfig(): TempUserConfig {
-		$tempUserConfig = $this->createMock( TempUserConfig::class );
-		$tempUserConfig->expects( $this->atMost( 1 ) )
-			->method( 'isEnabled' )
-			->willReturn( $this->tempUserEnabled );
-		return $tempUserConfig;
 	}
 
 	public function testSubmitEditFormCallbackCorrectId() {
@@ -304,13 +297,13 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 	}
 
 	public function testDisplayWarningForEditsByAnonymousUsers() {
-		$this->tempUserEnabled = false;
+		$this->disableAutoCreateTempUser();
 		$string = $this->renderWarnings();
 		$this->assertStringContainsString( 'entityschema-anonymouseditwarning', $string );
 	}
 
 	public function testDoNotDisplayWarningForEditsByAnonymousUsersWithTempUserEnabled() {
-		$this->tempUserEnabled = true;
+		$this->enableAutoCreateTempUser();
 		$string = $this->renderWarnings();
 		$this->assertStringNotContainsString( 'entityschema-anonymouseditwarning', $string );
 	}
