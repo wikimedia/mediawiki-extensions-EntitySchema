@@ -20,7 +20,6 @@
 	"entityschema-aliases-edit-placeholder": "въведете псевдоними на $1",
 	"entityschema-editpage-schema-inputlabel": "ShEx:",
 	"entityschema-error-schemaupdate-failed": "Схемата не може да бъде актуализирана",
-	"entityschema-error-saving-failed": "Записът на Схемата се провали със следното съобщение: $1",
 	"entityschema-error-not-post": "Това действие трябва да се извърши с POST-заявка.",
 	"entityschema-error-inconsistent-id": "Не всички указани версии принадлежат на даденото заглавие.",
 	"entityschema-error-wrong-page-revisions": "Посочената версия не принадлежи на текущата страница.",

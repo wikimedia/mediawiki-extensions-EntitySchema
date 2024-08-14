@@ -27,7 +27,6 @@
 	"entityschema-error-schemaupdate-failed": "Kan het schema niet bijwerken",
 	"entityschema-error-schematext-conflict": "Dit schema is intussen gewijzigd. Ga terug naar de schemapagina en probeer het opnieuw te bewerken.",
 	"entityschema-error-namebadge-conflict": "Dit schema is intussen gewijzigd. Ga terug naar de schemapagina en probeer de labels, beschrijvingen en aliassen opnieuw in deze taal te bewerken.",
-	"entityschema-error-saving-failed": "Het opslaan van het schema is mislukt met het volgende bericht: $1",
 	"entityschema-error-not-post": "Deze handeling moet worden verricht met een POST-aanvraag.",
 	"entityschema-error-inconsistent-id": "De opgegeven versies behoren niet allemaal tot de opgegeven titel.",
 	"entityschema-error-wrong-page-revisions": "De opgegeven versie hoort niet bij de huidige pagina.",

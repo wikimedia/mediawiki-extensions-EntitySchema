@@ -25,7 +25,6 @@
 	"entityschema-error-schemaupdate-failed": "Não foi possível atualizar o esquema",
 	"entityschema-error-schematext-conflict": "Este esquema foi atualizado entretanto. Volte à página do esquema e tente editá-la novamente, por favor.",
 	"entityschema-error-namebadge-conflict": "Este esquema foi atualizado entretanto. Volte à página do esquema, por favor, e tente editar as etiquetas, descrições e nomes alternativos nesta língua novamente.",
-	"entityschema-error-saving-failed": "A gravação do esquema falhou com a seguinte mensagem: $1",
 	"entityschema-error-not-post": "Esta operação deve ser feita com um pedido ''post''.",
 	"entityschema-error-inconsistent-id": "As revisões fornecidas não pertencem todas ao título dado.",
 	"entityschema-error-wrong-page-revisions": "A revisão fornecida não pertence à página atual.",

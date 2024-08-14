@@ -29,7 +29,6 @@
 	"entityschema-error-schemaupdate-failed": "Схема не може бути оновлена",
 	"entityschema-error-schematext-conflict": "Ця Schema змінилася. Будь ласка, поверніться на сторінку Schema і спробуйте відредагувати її ще раз.",
 	"entityschema-error-namebadge-conflict": "Ця Schema змінилася. Будь ласка, поверніться на сторінку Schema і спробуйте відредагувати назви, описи й альтернативні назви цією мовою знову.",
-	"entityschema-error-saving-failed": "Не вдалося зберегти схему, з таким повідомленням: $1",
 	"entityschema-error-not-post": "Цю дію потрібно виконати за допомогою POST-запиту.",
 	"entityschema-error-inconsistent-id": "Жодна із вказаних версій не належить даній назві.",
 	"entityschema-error-wrong-page-revisions": "Вказана версія не належить поточній сторінці.",

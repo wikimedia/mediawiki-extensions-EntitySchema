@@ -28,7 +28,6 @@
 	"entityschema-error-schemaupdate-failed": "Le schéma n’a pas pu être mis à jour.",
 	"entityschema-error-schematext-conflict": "Ce schéma a été modifié entre-temps. Veuillez retourner sur la page du schéma pour essayer de le modifier à nouveau.",
 	"entityschema-error-namebadge-conflict": "Ce schéma a été modifié entre-temps. Veuillez revenir sur la page du schéma et essayez à nouveau de modifier les étiquettes, les descriptions et les alias dans cette langue.",
-	"entityschema-error-saving-failed": "Échec d’enregistrement du schéma avec le message suivant : $1",
 	"entityschema-error-not-post": "Cette action doit être effectuée avec d’une requête de type POST.",
 	"entityschema-error-inconsistent-id": "Les révisions fournies n’appartiennent pas toutes au titre donné.",
 	"entityschema-error-wrong-page-revisions": "La version fournie ne correspond pas à la page actuelle.",

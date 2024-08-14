@@ -25,7 +25,6 @@
 	"entityschema-error-schemaupdate-failed": "Не можев да ја подновам шемата",
 	"entityschema-error-schematext-conflict": "Оваа шема во меѓувреме се измени. Вратете се на нејзината страница и уредете ја повторно.",
 	"entityschema-error-namebadge-conflict": "Оваа шема во меѓувреме се измени. Вратете се на нејзината страница и повторно уредете ги натписите, описите и истозначниците на овој јазик.",
-	"entityschema-error-saving-failed": "Не успеав да ја зачувам шемата, со следнава порака: $1",
 	"entityschema-error-not-post": "Ова дејство мора да се изврши со барање од POST.",
 	"entityschema-error-inconsistent-id": "Не сите укажани преработки му припаѓаат на дадениот наслов.",
 	"entityschema-error-wrong-page-revisions": "Укажаната преработка не ѝ припаѓа на тековната страница.",

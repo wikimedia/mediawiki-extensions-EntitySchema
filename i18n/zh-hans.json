@@ -34,7 +34,6 @@
 	"entityschema-error-schemaupdate-failed": "架构无法更新",
 	"entityschema-error-schematext-conflict": "此架构在此期间已更改。请返回架构页面并尝试再次编辑它。",
 	"entityschema-error-namebadge-conflict": "此架构在此期间已更改。请返回架构页面并尝试再次编辑此语言的标签、描述和别名。",
-	"entityschema-error-saving-failed": "保存架构失败并显示以下消息：$1",
 	"entityschema-error-not-post": "此操作必须通过post请求完成。",
 	"entityschema-error-inconsistent-id": "提供的修订版本并不都属于给定的标题。",
 	"entityschema-error-wrong-page-revisions": "提供的修订版本不属于当前页面。",

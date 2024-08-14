@@ -29,7 +29,6 @@
 	"entityschema-error-schemaupdate-failed": "Şema güncellenemedi",
 	"entityschema-error-schematext-conflict": "Bu Şema bu arada değiştirildi. Lütfen Şema sayfasına dönün ve tekrar düzenlemeyi deneyin.",
 	"entityschema-error-namebadge-conflict": "Bu Şema bu arada değiştirildi. Lütfen Şema sayfasına dönün ve bu dildeki etiketleri, açıklamaları ve takma adları tekrar düzenlemeyi deneyin.",
-	"entityschema-error-saving-failed": "Şemayı kaydetme şu iletiyle başarısız oldu: $1",
 	"entityschema-error-not-post": "Bu işlem bir gönderi talebi ile yapılmalıdır.",
 	"entityschema-error-inconsistent-id": "Sağlanan revizyonların tümü verilen başlığa ait değildir.",
 	"entityschema-error-wrong-page-revisions": "Sağlanan revizyon geçerli sayfaya ait değil.",

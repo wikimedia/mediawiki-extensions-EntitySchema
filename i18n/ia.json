@@ -24,7 +24,6 @@
 	"entityschema-error-schemaupdate-failed": "Le Schema non ha potite esser actualisate",
 	"entityschema-error-schematext-conflict": "Iste Schema ha essite cambiate interim. Per favor, retorna al pagina del Schema e essaya de modificar lo de novo.",
 	"entityschema-error-namebadge-conflict": "Iste Schema ha essite cambiate intertanto. Per favor retorna al pagina del Schema e tenta modificar de novo le etiquettas, descriptiones e alias in iste lingua.",
-	"entityschema-error-saving-failed": "Le salveguarda del Schema ha fallite con le sequente message: $1",
 	"entityschema-error-not-post": "Iste action debe esser facite con un requesta POST.",
 	"entityschema-error-inconsistent-id": "Non tote le versiones fornite pertine al titulo specificate.",
 	"entityschema-error-wrong-page-revisions": "Le version fornite non pertine al pagina actual.",

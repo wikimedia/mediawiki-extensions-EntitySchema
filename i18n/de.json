@@ -26,7 +26,6 @@
 	"entityschema-error-schemaupdate-failed": "Das Schema konnte nicht aktualisiert werden",
 	"entityschema-error-schematext-conflict": "Das Schema hat sich in der Zwischenzeit geändert. Gehe bitte zur Schemaseite zurück und versuche, es erneut zu bearbeiten.",
 	"entityschema-error-namebadge-conflict": "Dieses Schema wurde in der Zwischenzeit geändert. Gehe bitte zur Schemaseite zurück und versuche, die Bezeichnungen, Beschreibungen und Aliasse in dieser Sprache erneut zu bearbeiten.",
-	"entityschema-error-saving-failed": "Das Speichern des Schemas ist mit der folgenden Meldung fehlgeschlagen: $1",
 	"entityschema-error-not-post": "Diese Aktion muss mit einer POST-Anfrage durchgeführt werden.",
 	"entityschema-error-inconsistent-id": "Nicht alle angegebenen Versionen gehören zum angegebenen Titel.",
 	"entityschema-error-wrong-page-revisions": "Die angegebene Version gehört nicht zur aktuellen Seite.",

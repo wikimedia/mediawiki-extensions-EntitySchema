@@ -25,7 +25,6 @@
 	"entityschema-error-schemaupdate-failed": "Sheme ni bilo mogoče posodobiti.",
 	"entityschema-error-schematext-conflict": "Ta shema je bila medtem spremenjena. Vrnite se na stran Shema in jo poskusite znova urediti.",
 	"entityschema-error-namebadge-conflict": "Ta shema je bila medtem spremenjena. Vrnite se na stran s shemo in poskusite znova urediti oznake, opise in sopomnke v tem jeziku.",
-	"entityschema-error-saving-failed": "Shranjevanje sheme je spodletelo z naslednjim sporočilom: $1",
 	"entityschema-error-not-post": "To dejanje je treba izvesti z zahtevkom za objavo.",
 	"entityschema-error-inconsistent-id": "Vse predložene redakcije ne pripadajo podanemu naslovu.",
 	"entityschema-error-wrong-page-revisions": "Predložene redakcije ne pripadajo trenutni strani.",

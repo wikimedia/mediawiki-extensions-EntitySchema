@@ -26,7 +26,6 @@
 	"entityschema-error-schemaupdate-failed": "السكيما لم يمكن تحديثها",
 	"entityschema-error-schematext-conflict": "تم تغيير هذا المخطط في غضون ذلك؛ تُرجَى العودة إلى صفحة المخطط ومحاولة تحريرها مرة أخرى.",
 	"entityschema-error-namebadge-conflict": "تم تغيير هذا المخطط في غضون ذلك؛ الرجاء العودة إلى صفحة المخطط ومحاولة تعديل التسميات والأوصاف والأسماء المستعارة بهذه اللغة مرة أخرى.",
-	"entityschema-error-saving-failed": "فشل حفظ المخطط مع الرسالة التالية: $1",
 	"entityschema-error-not-post": "يجب أن يتم هذا الإجراء مع طلب مشاركة.",
 	"entityschema-error-inconsistent-id": "المراجعات المقدمة لا تنتمي جميعها إلى العنوان المحدد.",
 	"entityschema-error-wrong-page-revisions": "النسخة المقدمة لا تنتمي إلى الصفحة الحالية.",

@@ -26,7 +26,6 @@
 	"entityschema-error-schemaupdate-failed": "Skjemaet kunne ikke oppdateres.",
 	"entityschema-error-schematext-conflict": "Dette skjemaet har blitt endret i mellomtiden. Gå tilbake til skjemasiden og prøv å redigere det på nytt.",
 	"entityschema-error-namebadge-conflict": "Dette skjemaet ble endret i mellomtiden. Gå tilbake til skjemasiden og prøv å redigere etikettene, beskrivelsene og aliasene på dette språket på nytt.",
-	"entityschema-error-saving-failed": "Lagring av skjemaet mislyktes med følgende beskjed: $1",
 	"entityschema-error-not-post": "Denne handlingen må gjøres med en post-forespørsel.",
 	"entityschema-error-inconsistent-id": "Ikke alle de angitte sideversjonene tilhører den gitte tittelen.",
 	"entityschema-error-wrong-page-revisions": "Den gitte sideversjonen tilhører ikke den gjeldende siden.",

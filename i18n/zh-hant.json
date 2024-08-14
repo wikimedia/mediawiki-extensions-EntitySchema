@@ -28,7 +28,6 @@
 	"entityschema-error-schemaupdate-failed": "架構無法更新",
 	"entityschema-error-schematext-conflict": "此架構在同期間裡有被更改，請返回架構頁面並再次重試編輯。",
 	"entityschema-error-namebadge-conflict": "此架構在同期間裡有被更改，請返回架構頁面並再次重試編輯該語言的標籤、描述、與別名。",
-	"entityschema-error-saving-failed": "儲存架構失敗，以下為相關訊息：$1",
 	"entityschema-error-not-post": "此操作必須已發佈請求來完成。",
 	"entityschema-error-inconsistent-id": "提供的修訂不屬於指定的標題。",
 	"entityschema-error-wrong-page-revisions": "提供的修訂不屬於目前頁面。",

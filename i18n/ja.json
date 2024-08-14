@@ -26,7 +26,6 @@
 	"entityschema-error-schemaupdate-failed": "スキーマを変更できませんでした",
 	"entityschema-error-schematext-conflict": "編集中にこのスキーマは変更されました。スキーマのページに戻り、再度編集してください。",
 	"entityschema-error-namebadge-conflict": "編集中にこのスキーマは変更されました。スキーマのページに戻り、この言語のラベル、説明、および別名を再度編集してください。",
-	"entityschema-error-saving-failed": "スキーマの保存が以下の理由で失敗しました: $1",
 	"entityschema-error-not-post": "この操作はPOSTリクエストで実行する必要があります。",
 	"entityschema-error-inconsistent-id": "指定された版のすべてが指定されたページ名に属していません。",
 	"entityschema-error-wrong-page-revisions": "指定された版は現在のページに属していません。",
