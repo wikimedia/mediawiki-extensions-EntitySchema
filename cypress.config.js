@@ -6,11 +6,12 @@ const envLogDir = process.env.LOG_DIR ? process.env.LOG_DIR + '/EntitySchema' : 
 
 module.exports = defineConfig( {
 	e2e: {
-		supportFile: false,
+		supportFile: 'cypress/support/e2e.js',
 		baseUrl: process.env.MW_SERVER + process.env.MW_SCRIPT_PATH,
 		mediawikiAdminUsername: process.env.MEDIAWIKI_USER,
 		mediawikiAdminPassword: process.env.MEDIAWIKI_PASSWORD,
 		setupNodeEvents( on, config ) {
+			require( 'cypress-terminal-report/src/installLogsPrinter' )( on );
 			on( 'task', {
 				...mwApiCommands( config ),
 			} );
