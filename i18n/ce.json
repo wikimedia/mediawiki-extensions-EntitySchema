@@ -13,6 +13,7 @@
 	"entityschema-label-edit-placeholder": "йазйе билгало ($1)",
 	"entityschema-description-edit-placeholder": "йазде цунах лаьцна ($1)",
 	"entityschema-aliases-edit-placeholder": "йазйе интернационалан цӀе ($1)",
+	"entityschema-id-edit-placeholder": "Схемин ID",
 	"entityschema-editpage-schema-inputlabel": "ShEx:",
 	"entityschema-summary-generated": "Йоца аннотаци (автокечбина хааман тӀетухура йу):",
 	"entityschema-label-empty": "ЦӀе йац",
