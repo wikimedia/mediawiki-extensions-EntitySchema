@@ -13,7 +13,7 @@
 	"entityschema-newschema-description": "Цуьнах лаьцна:",
 	"entityschema-newschema-aliases": "Псевдонимаш, дӀасакъаьстина верт. сизал:",
 	"entityschema-newschema-submit": "Кхолла",
-	"entityschema-label-edit-placeholder": "йазйе билгало ($1)",
+	"entityschema-label-edit-placeholder": "йазйе билгало $1 маттахь",
 	"entityschema-description-edit-placeholder": "йазде цунах лаьцна ($1)",
 	"entityschema-aliases-edit-placeholder": "йазйе интернационалан цӀе ($1)",
 	"entityschema-id-edit-placeholder": "Схемин ID",
@@ -39,7 +39,7 @@
 	"special-schematext": "ХӀуманийн схемин текст",
 	"entityschema-special-setlabeldescriptionaliases": "Куьг йаздар, хаам, хӀуманийн схемин псевдонимаш хӀиттор",
 	"entityschema-special-language-inputlabel": "Меттан код",
-	"entityschema-special-id-submit": "ХӀоттайе билгало, хаам а, синонимаш а",
+	"entityschema-special-id-submit": "ХӀоттайе цӀе, хаам а, синонимаш а",
 	"entityschema-special-label": "Билгало:",
 	"entityschema-special-description": "Цуьнах лаьцна",
 	"entityschema-special-aliases": "Псевдонимаш, дӀасакъаьстина верт. сизал:"
