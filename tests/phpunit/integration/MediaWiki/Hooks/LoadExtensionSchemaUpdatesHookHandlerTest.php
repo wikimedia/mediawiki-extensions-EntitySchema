@@ -6,6 +6,7 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Hooks;
 
 use EntitySchema\MediaWiki\Hooks\LoadExtensionSchemaUpdatesHookHandler;
 use MediaWiki\Installer\DatabaseUpdater;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWikiIntegrationTestCase;
 use Wikimedia\Rdbms\IDatabase;
 
@@ -15,10 +16,18 @@ use Wikimedia\Rdbms\IDatabase;
  * @covers \EntitySchema\MediaWiki\Hooks\LoadExtensionSchemaUpdatesHookHandler
  *
  * @group Database
+ * @group EntitySchemaClient
  */
 class LoadExtensionSchemaUpdatesHookHandlerTest extends MediaWikiIntegrationTestCase {
 
-	public function testOnLoadExtensionSchemaUpdates() {
+	protected function markTestSkippedIfExtensionLoaded( string $extensionName ): void {
+		if ( ExtensionRegistry::getInstance()->isLoaded( $extensionName ) ) {
+			$this->markTestSkipped( "This test requires extension $extensionName to not be loaded" );
+		}
+	}
+
+	public function testOnLoadExtensionSchemaUpdates_repoInstalledAndEnabled() {
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 		$this->overrideConfigValue( 'EntitySchemaIsRepo', true );
 		$db = $this->createMock( IDatabase::class );
 		$hookHandler = new LoadExtensionSchemaUpdatesHookHandler();
@@ -26,6 +35,15 @@ class LoadExtensionSchemaUpdatesHookHandlerTest extends MediaWikiIntegrationTest
 
 		$updater->expects( $this->any() )->method( 'getDB' )->willReturn( $db );
 		$updater->expects( $this->once() )->method( 'addExtensionTable' );
+		$hookHandler->onLoadExtensionSchemaUpdates( $updater );
+	}
+
+	public function testOnLoadExtensionSchemaUpdates_repoNotInstalled() {
+		$this->markTestSkippedIfExtensionLoaded( 'WikibaseRepository' );
+		$this->overrideConfigValue( 'EntitySchemaIsRepo', true ); // has no effect if WikibaseRepository not loaded
+		$hookHandler = new LoadExtensionSchemaUpdatesHookHandler();
+		$updater = $this->createNoOpMock( DatabaseUpdater::class );
+
 		$hookHandler->onLoadExtensionSchemaUpdates( $updater );
 	}
 
