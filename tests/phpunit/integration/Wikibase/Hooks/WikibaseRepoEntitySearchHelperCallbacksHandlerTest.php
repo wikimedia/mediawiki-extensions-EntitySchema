@@ -7,13 +7,16 @@ namespace EntitySchema\Tests\Integration\Wikibase\Hooks;
 use EntitySchema\DataAccess\DescriptionLookup;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Wikibase\Hooks\WikibaseRepoEntitySearchHelperCallbacksHandler;
-use EntitySchema\Wikibase\Search\EntitySchemaSearchHelper;
+use EntitySchema\Wikibase\Search\EntitySchemaIdSearchHelper;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
+use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Page\WikiPageFactory;
-use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
+use Wikibase\Lib\LanguageFallbackChainFactory;
+use Wikibase\Repo\Api\CombinedEntitySearchHelper;
+use Wikibase\Search\Elastic\WikibaseSearchConfig;
 
 /**
  * @covers \EntitySchema\Wikibase\Hooks\WikibaseRepoEntitySearchHelperCallbacksHandler
@@ -22,18 +25,25 @@ use MediaWikiIntegrationTestCase;
  */
 class WikibaseRepoEntitySearchHelperCallbacksHandlerTest extends MediaWikiIntegrationTestCase {
 
-	public function testOnWikibaseRepoEntitySearchHelperCallbacks(): void {
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+	public function testOnWikibaseRepoEntitySearchHelperCallbacks_wbcsEnabled(): void {
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseCirrusSearch' );
 
+		$configFactory = $this->createConfiguredMock( ConfigFactory::class, [
+			'getConfigNames' => [ 'OtherExtension', 'WikibaseCirrusSearch' ],
+			'makeConfig' => $this->createConfiguredMock( WikibaseSearchConfig::class, [
+				'enabled' => true,
+			] ),
+		] );
 		$callback1 = fn () => null;
 		$callbacks = [
 			'unrelated' => $callback1,
 		];
 		$factory = new EntitySchemaSearchHelperFactory(
+			$configFactory,
 			$this->createMock( TitleFactory::class ),
 			$this->createMock( WikiPageFactory::class ),
+			$this->createMock( LanguageFallbackChainFactory::class ),
 			'https://wiki.example/',
 			$this->createMock( DescriptionLookup::class ),
 			$this->createMock( LabelLookup::class )
@@ -43,10 +53,69 @@ class WikibaseRepoEntitySearchHelperCallbacksHandlerTest extends MediaWikiIntegr
 			->onWikibaseRepoEntitySearchHelperCallbacks( $callbacks );
 
 		$this->assertSame( $callback1, $callbacks['unrelated'] );
-		$this->assertArrayHasKey( EntitySchemaSearchHelper::ENTITY_TYPE, $callbacks );
-		$callback2 = $callbacks[EntitySchemaSearchHelper::ENTITY_TYPE];
+		$this->assertArrayHasKey( EntitySchemaSearchHelperFactory::ENTITY_TYPE, $callbacks );
+		$callback2 = $callbacks[EntitySchemaSearchHelperFactory::ENTITY_TYPE];
 		$request = $this->createMock( WebRequest::class );
-		$this->assertInstanceOf( EntitySchemaSearchHelper::class, $callback2( $request ) );
+		$helper = $callback2( $request );
+		$this->assertInstanceOf( CombinedEntitySearchHelper::class, $helper );
+	}
+
+	public function testOnWikibaseRepoEntitySearchHelperCallbacks_wbcsDisabled(): void {
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseCirrusSearch' );
+
+		$configFactory = $this->createConfiguredMock( ConfigFactory::class, [
+			'getConfigNames' => [ 'OtherExtension', 'WikibaseCirrusSearch' ],
+			'makeConfig' => $this->createConfiguredMock( WikibaseSearchConfig::class, [
+				'enabled' => false,
+			] ),
+		] );
+		$callbacks = [];
+		$factory = new EntitySchemaSearchHelperFactory(
+			$configFactory,
+			$this->createMock( TitleFactory::class ),
+			$this->createMock( WikiPageFactory::class ),
+			$this->createMock( LanguageFallbackChainFactory::class ),
+			'https://wiki.example/',
+			$this->createMock( DescriptionLookup::class ),
+			$this->createMock( LabelLookup::class )
+		);
+
+		( new WikibaseRepoEntitySearchHelperCallbacksHandler( true, $factory ) )
+			->onWikibaseRepoEntitySearchHelperCallbacks( $callbacks );
+
+		$this->assertArrayHasKey( EntitySchemaSearchHelperFactory::ENTITY_TYPE, $callbacks );
+		$callback = $callbacks[EntitySchemaSearchHelperFactory::ENTITY_TYPE];
+		$request = $this->createMock( WebRequest::class );
+		$helper = $callback( $request );
+		$this->assertInstanceOf( EntitySchemaIdSearchHelper::class, $helper );
+	}
+
+	public function testOnWikibaseRepoEntitySearchHelperCallbacks_wbcsNotLoaded(): void {
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
+
+		$configFactory = $this->createConfiguredMock( ConfigFactory::class, [
+			'getConfigNames' => [ 'OtherExtension' /* not 'WikibaseCirrusSearch' */ ],
+		] );
+		$callbacks = [];
+		$factory = new EntitySchemaSearchHelperFactory(
+			$configFactory,
+			$this->createMock( TitleFactory::class ),
+			$this->createMock( WikiPageFactory::class ),
+			$this->createMock( LanguageFallbackChainFactory::class ),
+			'https://wiki.example/',
+			$this->createMock( DescriptionLookup::class ),
+			$this->createMock( LabelLookup::class )
+		);
+
+		( new WikibaseRepoEntitySearchHelperCallbacksHandler( true, $factory ) )
+			->onWikibaseRepoEntitySearchHelperCallbacks( $callbacks );
+
+		$this->assertArrayHasKey( EntitySchemaSearchHelperFactory::ENTITY_TYPE, $callbacks );
+		$callback = $callbacks[EntitySchemaSearchHelperFactory::ENTITY_TYPE];
+		$request = $this->createMock( WebRequest::class );
+		$helper = $callback( $request );
+		$this->assertInstanceOf( EntitySchemaIdSearchHelper::class, $helper );
 	}
 
 }
