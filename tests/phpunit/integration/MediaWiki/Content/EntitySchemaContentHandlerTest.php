@@ -4,11 +4,17 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
+use CirrusSearch\CirrusSearch;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
+use SearchEngine;
+use Wikibase\Search\Elastic\Fields\AllLabelsField;
+use Wikibase\Search\Elastic\Fields\LabelsField;
+use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler
@@ -94,5 +100,45 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 			'http://a.test/doc/shex-simple.html?data=Endpoint: http://a.test/sparql',
 			'http://a.test/doc/shex-simple.html?data=Endpoint: http://a.test/sparql&amp;schemaURL=',
 		];
+	}
+
+	public function testGetFieldsForSearchIndex_noFieldDefinitions(): void {
+		$contentHandler = new EntitySchemaContentHandler( 'EntitySchema', null );
+
+		$fields = $contentHandler->getFieldsForSearchIndex(
+			$this->createMock( SearchEngine::class ) );
+
+		$this->assertSame( [], $fields );
+	}
+
+	public function testGetFieldsForSearchIndex_WikibaseCirrusSearch(): void {
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseCirrusSearch' );
+		$fieldDefinitions = new LabelsProviderFieldDefinitions(
+			[ 'en' ],
+			$this->getServiceContainer()->getConfigFactory(),
+		);
+		$contentHandler = new EntitySchemaContentHandler( 'EntitySchema', $fieldDefinitions );
+
+		$fields = $contentHandler->getFieldsForSearchIndex(
+			$this->createMock( CirrusSearch::class ) );
+
+		// the exact fields are mostly internal to WikibaseCirrusSearch,
+		// but we need these two fields to exist
+		$this->assertArrayHasKey( LabelsField::NAME, $fields );
+		$this->assertArrayHasKey( AllLabelsField::NAME, $fields );
+	}
+
+	public function testGetFieldsForSearchIndex_otherSearchEngine(): void {
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseCirrusSearch' );
+		$fieldDefinitions = new LabelsProviderFieldDefinitions(
+			[ 'en' ],
+			$this->getServiceContainer()->getConfigFactory(),
+		);
+		$contentHandler = new EntitySchemaContentHandler( 'EntitySchema', $fieldDefinitions );
+
+		$fields = $contentHandler->getFieldsForSearchIndex(
+			$this->createMock( SearchEngine::class ) );
+
+		$this->assertSame( [], $fields );
 	}
 }

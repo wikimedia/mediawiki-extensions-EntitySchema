@@ -147,6 +147,8 @@
 		"ContentHandlerForModelID": {
 			"class": "EntitySchema\\MediaWiki\\Hooks\\ContentHandlerForModelIDHookHandler",
 			"services": [
+				"ConfigFactory",
+				"LanguageNameUtils",
 				"EntitySchema.EntitySchemaIsRepo"
 			]
 		},

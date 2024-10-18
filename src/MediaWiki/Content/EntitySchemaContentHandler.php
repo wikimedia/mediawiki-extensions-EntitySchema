@@ -6,6 +6,7 @@ namespace EntitySchema\MediaWiki\Content;
 
 use Action;
 use Article;
+use CirrusSearch\CirrusSearch;
 use EntitySchema\DataAccess\EntitySchemaEncoder;
 use EntitySchema\MediaWiki\Actions\EntitySchemaEditAction;
 use EntitySchema\MediaWiki\Actions\EntitySchemaSubmitAction;
@@ -26,7 +27,10 @@ use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
+use SearchEngine;
+use SearchIndexField;
 use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
 
 /**
  * Content handler for the EntitySchema content
@@ -35,11 +39,19 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class EntitySchemaContentHandler extends JsonContentHandler {
 
+	/**
+	 * @var LabelsProviderFieldDefinitions|null The search field definitions,
+	 * or null if WikibaseCirrusSearch is not loaded and no search fields are available.
+	 */
+	private ?LabelsProviderFieldDefinitions $fieldDefinitions;
+
 	public function __construct(
-		string $modelId
+		string $modelId,
+		?LabelsProviderFieldDefinitions $fieldDefinitions
 	) {
 		// $modelId is typically EntitySchemaContent::CONTENT_MODEL_ID
 		parent::__construct( $modelId );
+		$this->fieldDefinitions = $fieldDefinitions;
 	}
 
 	protected function getContentClass(): string {
@@ -269,6 +281,31 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			);
 		} else {
 			$parserOutput->setText( '' );
+		}
+	}
+
+	/**
+	 * @param SearchEngine $engine
+	 * @return SearchIndexField[] List of fields this content handler can provide.
+	 */
+	public function getFieldsForSearchIndex( SearchEngine $engine ): array {
+		if ( $this->fieldDefinitions === null ) {
+			if ( $engine instanceof CirrusSearch ) {
+				wfLogWarning(
+					'Trying to use CirrusSearch but WikibaseCirrusSearch is not loaded. ' .
+					'EntitySchema search is not available; consider loading WikibaseCirrusSearch.'
+				);
+			}
+			return [];
+		} else {
+			$fields = [];
+			foreach ( $this->fieldDefinitions->getFields() as $name => $field ) {
+				$mappingField = $field->getMappingField( $engine, $name );
+				if ( $mappingField !== null ) {
+					$fields[$name] = $mappingField;
+				}
+			}
+			return $fields;
 		}
 	}
 

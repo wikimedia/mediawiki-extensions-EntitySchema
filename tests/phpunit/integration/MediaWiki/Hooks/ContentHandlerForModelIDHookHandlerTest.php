@@ -7,6 +7,7 @@ namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use EntitySchema\MediaWiki\Hooks\ContentHandlerForModelIDHookHandler;
 use MediaWikiIntegrationTestCase;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \EntitySchema\MediaWiki\Hooks\ContentHandlerForModelIDHookHandler
@@ -16,7 +17,10 @@ use MediaWikiIntegrationTestCase;
 class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testOnGetContentModels() {
+		$services = $this->getServiceContainer();
 		$handler = new ContentHandlerForModelIDHookHandler(
+			$services->getConfigFactory(),
+			$services->getLanguageNameUtils(),
 			true
 		);
 
@@ -30,13 +34,32 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 	}
 
 	public function testOnGetContentModels_client() {
+		$services = $this->getServiceContainer();
 		$handler = new ContentHandlerForModelIDHookHandler(
+			$services->getConfigFactory(),
+			$services->getLanguageNameUtils(),
 			false
 		);
 
 		$contentHandler = null;
 		$handler->onContentHandlerForModelID( 'EntitySchema', $contentHandler );
 		$this->assertNull( $contentHandler );
+	}
+
+	public function testOnGetContentModels_fieldDefinitions(): void {
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseCirrusSearch' );
+		$services = $this->getServiceContainer();
+		$handler = new ContentHandlerForModelIDHookHandler(
+			$services->getConfigFactory(),
+			$services->getLanguageNameUtils(),
+			true
+		);
+
+		$contentHandler = null;
+		$handler->onContentHandlerForModelID( 'EntitySchema', $contentHandler );
+		$contentHandlerWrapper = TestingAccessWrapper::newFromObject( $contentHandler );
+
+		$this->assertNotNull( $contentHandlerWrapper->fieldDefinitions );
 	}
 
 }
