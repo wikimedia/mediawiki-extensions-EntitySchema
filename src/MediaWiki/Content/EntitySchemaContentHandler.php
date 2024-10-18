@@ -18,7 +18,6 @@ use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use LogicException;
 use MediaWiki\Content\Content;
-use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Content\JsonContentHandler;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Context\IContextSource;
@@ -36,15 +35,11 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class EntitySchemaContentHandler extends JsonContentHandler {
 
-	private IContentHandlerFactory $contentHandlerFactory;
-
 	public function __construct(
-		string $modelId,
-		IContentHandlerFactory $contentHandlerFactory
+		string $modelId
 	) {
 		// $modelId is typically EntitySchemaContent::CONTENT_MODEL_ID
 		parent::__construct( $modelId );
-		$this->contentHandlerFactory = $contentHandlerFactory;
 	}
 
 	protected function getContentClass(): string {

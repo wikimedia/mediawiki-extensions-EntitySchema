@@ -6,22 +6,18 @@ namespace EntitySchema\MediaWiki\Hooks;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\Content\Hook\ContentHandlerForModelIDHook;
-use MediaWiki\Content\IContentHandlerFactory;
 
 /**
  * @license GPL-2.0-or-later
  */
 class ContentHandlerForModelIDHookHandler implements ContentHandlerForModelIDHook {
 
-	private IContentHandlerFactory $contentHandlerFactory;
 	private bool $entitySchemaIsRepo;
 
 	public function __construct(
-		IContentHandlerFactory $contentHandlerFactory,
 		bool $entitySchemaIsRepo
 	) {
 		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
-		$this->contentHandlerFactory = $contentHandlerFactory;
 	}
 
 	/**
@@ -34,7 +30,7 @@ class ContentHandlerForModelIDHookHandler implements ContentHandlerForModelIDHoo
 		if ( $modelName !== 'EntitySchema' ) {
 			return;
 		}
-		$handler = new EntitySchemaContentHandler( $modelName, $this->contentHandlerFactory );
+		$handler = new EntitySchemaContentHandler( $modelName );
 	}
 
 }

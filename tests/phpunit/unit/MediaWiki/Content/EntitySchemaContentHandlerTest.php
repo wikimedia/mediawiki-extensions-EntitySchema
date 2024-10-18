@@ -6,7 +6,6 @@ namespace EntitySchema\Tests\Unit\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
-use MediaWiki\Content\IContentHandlerFactory;
 use MediaWikiUnitTestCase;
 
 /**
@@ -18,8 +17,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiUnitTestCase {
 
 	public function testSupportsDirectApiEditing() {
 		$contentHandler = new EntitySchemaContentHandler(
-			EntitySchemaContent::CONTENT_MODEL_ID,
-			$this->createMock( IContentHandlerFactory::class )
+			EntitySchemaContent::CONTENT_MODEL_ID
 		);
 
 		$this->assertFalse( $contentHandler->supportsDirectApiEditing() );
@@ -27,8 +25,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiUnitTestCase {
 
 	public function testIsParserCacheSupported() {
 		$contentHandler = new EntitySchemaContentHandler(
-			EntitySchemaContent::CONTENT_MODEL_ID,
-			$this->createMock( IContentHandlerFactory::class )
+			EntitySchemaContent::CONTENT_MODEL_ID
 		);
 
 		$this->assertTrue( $contentHandler->isParserCacheSupported() );

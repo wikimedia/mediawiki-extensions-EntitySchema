@@ -6,7 +6,6 @@ namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use EntitySchema\MediaWiki\Hooks\ContentHandlerForModelIDHookHandler;
-use MediaWiki\Content\IContentHandlerFactory;
 use MediaWikiIntegrationTestCase;
 
 /**
@@ -18,7 +17,6 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 
 	public function testOnGetContentModels() {
 		$handler = new ContentHandlerForModelIDHookHandler(
-			$this->createMock( IContentHandlerFactory::class ),
 			true
 		);
 
@@ -33,7 +31,6 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 
 	public function testOnGetContentModels_client() {
 		$handler = new ContentHandlerForModelIDHookHandler(
-			$this->createMock( IContentHandlerFactory::class ),
 			false
 		);
 
