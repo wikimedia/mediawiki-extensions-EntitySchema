@@ -26,11 +26,14 @@ use MediaWiki\Context\RequestContext;
 use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use SearchEngine;
 use SearchIndexField;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
+use WikiPage;
 
 /**
  * Content handler for the EntitySchema content
@@ -307,6 +310,29 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			}
 			return $fields;
 		}
+	}
+
+	public function getDataForSearchIndex(
+		WikiPage $page,
+		ParserOutput $output,
+		SearchEngine $engine,
+		?RevisionRecord $revision = null
+	): array {
+		$fieldsData = parent::getDataForSearchIndex( $page, $output, $engine, $revision );
+		if ( $this->fieldDefinitions === null ) {
+			return $fieldsData;
+		}
+		$content = $revision !== null ? $revision->getContent( SlotRecord::MAIN ) : $page->getContent();
+		if ( $content instanceof EntitySchemaContent ) {
+			$adapter = ( new EntitySchemaConverter() )
+				->getSearchEntitySchemaAdapter( $content->getText() );
+			foreach ( $this->fieldDefinitions->getFields() as $name => $field ) {
+				if ( $field !== null ) {
+					$fieldsData[$name] = $field->getLabelsIndexedData( $adapter );
+				}
+			}
+		}
+		return $fieldsData;
 	}
 
 }

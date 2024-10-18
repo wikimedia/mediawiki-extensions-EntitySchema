@@ -8,13 +8,18 @@ use CirrusSearch\CirrusSearch;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\Parser\ParserOptions;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Registration\ExtensionRegistry;
+use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use SearchEngine;
+use Wikibase\DataModel\Term\LabelsProvider;
 use Wikibase\Search\Elastic\Fields\AllLabelsField;
 use Wikibase\Search\Elastic\Fields\LabelsField;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
+use Wikibase\Search\Elastic\Fields\WikibaseLabelsIndexField;
+use WikiPage;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler
@@ -140,5 +145,65 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 			$this->createMock( SearchEngine::class ) );
 
 		$this->assertSame( [], $fields );
+	}
+
+	public static function provideWikiPageAndRevisionFactory(): iterable {
+		yield 'no revision given, use WikiPage content' => [
+			static function ( self $self, EntitySchemaContent $content ) {
+				$wikiPage = $self->createConfiguredMock( WikiPage::class, [
+					'getContent' => $content,
+				] );
+				$revision = null;
+				return [ $wikiPage, $revision ];
+			},
+		];
+
+		yield 'revision given, don’t use WikiPage content' => [
+			static function ( self $self, EntitySchemaContent $content ) {
+				// parent::getDataForSearchIndex() requires that both objects return the same page ID
+				$pageId = 1;
+				$wikiPage = $self->createConfiguredMock( WikiPage::class, [
+					'getId' => $pageId,
+				] );
+				$revision = $self->createConfiguredMock( RevisionRecord::class, [
+					'getPageId' => $pageId,
+					'getContent' => $content,
+				] );
+				return [ $wikiPage, $revision ];
+			},
+		];
+	}
+
+	/** @dataProvider provideWikiPageAndRevisionFactory */
+	public function testGetDataForSearchIndex( callable $wikiPageAndRevisionFactory ): void {
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseCirrusSearch' );
+		$content = new EntitySchemaContent( json_encode( [
+			'labels' => [ 'en' => 'label' ],
+			'descriptions' => [ 'en' => 'description' ],
+			'aliases' => [ 'en' => [ 'alias' ] ],
+			'schemaText' => 'schema text',
+			'serializationVersion' => '3.0',
+		] ) );
+		[ $wikiPage, $revision ] = $wikiPageAndRevisionFactory( $this, $content );
+		$field = $this->createMock( WikibaseLabelsIndexField::class );
+		$field->expects( $this->once() )
+			->method( 'getLabelsIndexedData' )
+			->willReturnCallback( fn ( LabelsProvider $l ) => $l->getLabels()->toTextArray() );
+		$fieldDefinitions = $this->createMock( LabelsProviderFieldDefinitions::class );
+		$fieldDefinitions->expects( $this->once() )
+			->method( 'getFields' )
+			->willReturn( [ 'field' => $field, 'no field' => null ] );
+		$contentHandler = new EntitySchemaContentHandler( 'EntitySchema', $fieldDefinitions );
+
+		$fieldsData = $contentHandler->getDataForSearchIndex(
+			$wikiPage,
+			$this->createMock( ParserOutput::class ),
+			$this->createMock( SearchEngine::class ),
+			$revision
+		);
+
+		$this->assertArrayHasKey( 'field', $fieldsData );
+		$this->assertSame( [ 'en' => 'label' ], $fieldsData['field'] );
+		$this->assertArrayNotHasKey( 'no field', $fieldsData );
 	}
 }
