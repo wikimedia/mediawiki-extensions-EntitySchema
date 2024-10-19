@@ -5,10 +5,10 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use ExtensionRegistry;
+use MediaWiki\Parser\ParserOptions;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
-use ParserOptions;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler

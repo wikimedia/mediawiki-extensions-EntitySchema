@@ -6,8 +6,8 @@ namespace EntitySchema\Tests\Integration\API;
 
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use ExtensionRegistry;
 use MediaWiki\CommentStore\CommentStoreComment;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Tests\Api\ApiTestCase;

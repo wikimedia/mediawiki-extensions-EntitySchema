@@ -6,11 +6,11 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\EntitySchemaServices;
-use ExtensionRegistry;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
+use MediaWiki\Watchlist\WatchedItem;
 use MediaWikiIntegrationTestCase;
-use WatchedItem;
 
 /**
  * @license GPL-2.0-or-later

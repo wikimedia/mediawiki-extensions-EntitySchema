@@ -4,9 +4,9 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Hooks;
 
-use ExtensionRegistry;
 use MediaWiki\Installer\DatabaseUpdater;
 use MediaWiki\Installer\Hook\LoadExtensionSchemaUpdatesHook;
+use MediaWiki\Registration\ExtensionRegistry;
 
 /**
  * @license GPL-2.0-or-later

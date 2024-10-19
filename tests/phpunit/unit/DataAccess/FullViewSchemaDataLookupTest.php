@@ -7,7 +7,7 @@ namespace EntitySchema\Tests\Unit\DataAccess;
 use EntitySchema\DataAccess\FullViewSchemaDataLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
-use JsonContent;
+use MediaWiki\Content\JsonContent;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiUnitTestCase;

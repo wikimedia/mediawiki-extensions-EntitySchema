@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Content;
 
-use Content;
 use Diff\DiffOp\AtomicDiffOp;
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOp;
@@ -13,6 +12,7 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
+use MediaWiki\Content\Content;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Html\Html;
 use MessageLocalizer;

@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\DataAccess;
 
-use DerivativeContext;
+use MediaWiki\Context\DerivativeContext;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\PermissionManager;

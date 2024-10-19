@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\MediaWiki\Content;
 
 use EntitySchema\Services\Converter\EntitySchemaConverter;
-use JsonContent;
+use MediaWiki\Content\JsonContent;
 
 /**
  * Represents the content of a EntitySchema page

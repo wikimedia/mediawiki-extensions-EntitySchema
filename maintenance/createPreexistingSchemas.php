@@ -14,9 +14,9 @@ require_once 'FixedIdGenerator.php';
 
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\MediaWiki\EntitySchemaServices;
-use Maintenance;
 use MediaWiki\Context\DerivativeContext;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Maintenance\Maintenance;
 use MediaWiki\User\User;
 
 /**

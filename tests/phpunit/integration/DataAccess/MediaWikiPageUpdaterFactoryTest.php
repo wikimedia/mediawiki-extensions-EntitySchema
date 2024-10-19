@@ -5,8 +5,8 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\MediaWiki\EntitySchemaServices;
-use ExtensionRegistry;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\User\TempUser\CreateStatus;
 use MediaWiki\User\TempUser\TempUserCreator;

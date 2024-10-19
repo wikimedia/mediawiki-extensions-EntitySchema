@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\MediaWiki\Hooks;
 
 use EntitySchema\MediaWiki\Hooks\NamespaceRegistrationHandler;
-use ExtensionRegistry;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWikiIntegrationTestCase;
 
 /**

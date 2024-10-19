@@ -4,14 +4,15 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 
-use Content;
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\MediaWiki\Specials\NewEntitySchema;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
-use ExtensionRegistry;
 use MediaWiki\Block\DatabaseBlock;
+use MediaWiki\Content\Content;
+use MediaWiki\Content\TextContent;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
@@ -21,7 +22,6 @@ use MediaWiki\User\User;
 use PermissionsError;
 use ReadOnlyError;
 use SpecialPageTestBase;
-use TextContent;
 use Wikibase\Lib\SettingsArray;
 use Wikimedia\Rdbms\ReadOnlyMode;
 use Wikimedia\Rdbms\SelectQueryBuilder;
