@@ -44,10 +44,10 @@ class EntitySchemaSlotViewRenderer {
 	 */
 	public function __construct(
 		string $languageCode,
-		LinkRenderer $linkRenderer = null,
-		Config $config = null,
-		TitleFormatter $titleFormatter = null,
-		bool $useSyntaxHighlight = null
+		?LinkRenderer $linkRenderer = null,
+		?Config $config = null,
+		?TitleFormatter $titleFormatter = null,
+		?bool $useSyntaxHighlight = null
 	) {
 		$this->messageLocalizer = new SpecificLanguageMessageLocalizer( $languageCode );
 		$this->linkRenderer = $linkRenderer ?: MediaWikiServices::getInstance()->getLinkRenderer();

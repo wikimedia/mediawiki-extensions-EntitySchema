@@ -61,8 +61,8 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 	 * @return MediaWikiPageUpdaterFactory
 	 */
 	private function getPageUpdaterFactoryProvidingAndExpectingContent(
-		EntitySchemaContent $expectedContent = null,
-		EntitySchemaContent $existingContent = null
+		?EntitySchemaContent $expectedContent = null,
+		?EntitySchemaContent $existingContent = null
 	): MediaWikiPageUpdaterFactory {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		if ( $existingContent !== null ) {
@@ -83,7 +83,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 
 	private function getPageUpdaterFactoryExpectingComment(
 		CommentStoreComment $expectedComment,
-		EntitySchemaContent $existingContent = null
+		?EntitySchemaContent $existingContent = null
 	): MediaWikiPageUpdaterFactory {
 		$pageUpdater = $this->createMock( PageUpdater::class );
 		if ( $existingContent !== null ) {
@@ -98,7 +98,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 		return $this->getPageUpdaterFactory( $pageUpdater );
 	}
 
-	private function getPageUpdaterFactory( PageUpdater $pageUpdater = null ): MediaWikiPageUpdaterFactory {
+	private function getPageUpdaterFactory( ?PageUpdater $pageUpdater = null ): MediaWikiPageUpdaterFactory {
 		$wikiPage = $this->createConfiguredMock( WikiPage::class, [
 			'newPageUpdater' => $pageUpdater ?? $this->createMock( PageUpdater::class ),
 		] );
@@ -396,7 +396,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 	 *
 	 * @return WatchlistUpdater
 	 */
-	private function getMockWatchlistUpdater( string $methodToExpect = null ): WatchlistUpdater {
+	private function getMockWatchlistUpdater( ?string $methodToExpect = null ): WatchlistUpdater {
 		$mockWatchlistUpdater = $this->getMockBuilder( WatchlistUpdater::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -1488,7 +1488,7 @@ SHEXC;
 	}
 
 	private function createMockRevisionRecord(
-		EntitySchemaContent $content = null,
+		?EntitySchemaContent $content = null,
 		int $id = 1
 	): RevisionRecord {
 		$revisionRecord = $this->createMock( RevisionRecord::class );

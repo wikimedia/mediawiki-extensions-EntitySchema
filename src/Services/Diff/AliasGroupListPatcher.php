@@ -21,7 +21,7 @@ class AliasGroupListPatcher {
 	/**
 	 * @throws PatcherException
 	 */
-	public function patchAliasGroupList( array $groups, Diff $patch = null ): array {
+	public function patchAliasGroupList( array $groups, ?Diff $patch = null ): array {
 		if ( $patch === null ) {
 			return $groups;
 		}

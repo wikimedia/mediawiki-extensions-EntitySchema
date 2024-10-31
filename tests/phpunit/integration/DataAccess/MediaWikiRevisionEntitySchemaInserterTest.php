@@ -238,7 +238,7 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 		return $this->getPageUpdaterFactory( $pageUpdater );
 	}
 
-	private function getPageUpdaterFactory( PageUpdater $pageUpdater = null ): MediaWikiPageUpdaterFactory {
+	private function getPageUpdaterFactory( ?PageUpdater $pageUpdater = null ): MediaWikiPageUpdaterFactory {
 		$wikiPage = $this->createConfiguredMock( WikiPage::class, [
 			'newPageUpdater' => $pageUpdater ?? $this->createMock( PageUpdater::class ),
 		] );

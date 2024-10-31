@@ -58,7 +58,7 @@ class EntitySchemaPatcher {
 		return $patchedSchema;
 	}
 
-	private function patchTermlist( array $terms, Diff $patch = null ): array {
+	private function patchTermlist( array $terms, ?Diff $patch = null ): array {
 		if ( $patch === null ) {
 			return $terms;
 		}
@@ -108,7 +108,7 @@ class EntitySchemaPatcher {
 	 *
 	 * @return string
 	 */
-	private function patchString( string $base, DiffOp $diffOp = null ): string {
+	private function patchString( string $base, ?DiffOp $diffOp = null ): string {
 		switch ( true ) {
 			case $diffOp instanceof DiffOpAdd:
 				$from = '';
