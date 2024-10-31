@@ -67,7 +67,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 	 *
 	 * @return Language The page's language
 	 */
-	public function getPageViewLanguage( Title $title, Content $content = null ): Language {
+	public function getPageViewLanguage( Title $title, ?Content $content = null ): Language {
 		$context = RequestContext::getMain();
 		return $context->getLanguage();
 	}

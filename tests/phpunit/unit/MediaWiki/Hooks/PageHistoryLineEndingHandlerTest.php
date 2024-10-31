@@ -150,8 +150,8 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 
 	private function getMockPermissionManager(
 		?bool $canEdit,
-		User $expectedUser = null,
-		Title $expectedTitle = null
+		?User $expectedUser = null,
+		?Title $expectedTitle = null
 	): PermissionManager {
 		$permissionManager = $this->createMock( PermissionManager::class );
 		if ( $canEdit === null ) {
@@ -185,7 +185,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 		return $stubTitle;
 	}
 
-	private function getMockRevisionRecord( int $revId, bool $isDeleted = null ): RevisionRecord {
+	private function getMockRevisionRecord( int $revId, ?bool $isDeleted = null ): RevisionRecord {
 		$revisionRecord = $this->createMock( RevisionRecord::class );
 		$revisionRecord->method( 'getId' )->willReturn( $revId );
 		if ( $isDeleted === null ) {
@@ -200,7 +200,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 		return $revisionRecord;
 	}
 
-	private function getHistoryActionMock( Title $title, User $user = null ) {
+	private function getHistoryActionMock( Title $title, ?User $user = null ) {
 		$historyActionStub = $this->createStub( HistoryPager::class );
 		$historyActionStub->method( 'getTitle' )->willReturn( $title );
 		if ( $user ) {
@@ -212,7 +212,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 		return $historyActionStub;
 	}
 
-	private function getMockLinkRenderer( ?Title $title, int $revisionId = null ): LinkRenderer {
+	private function getMockLinkRenderer( ?Title $title, ?int $revisionId = null ): LinkRenderer {
 		$linkRendererMock = $this->createMock( LinkRenderer::class );
 		if ( $title === null ) {
 			$linkRendererMock->expects( $this->never() )->method( 'makeKnownLink' );

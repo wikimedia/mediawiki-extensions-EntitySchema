@@ -25,7 +25,7 @@ final class UndoHandler {
 	public function validateContentIds(
 		EntitySchemaContent $undoFromContent,
 		EntitySchemaContent $undoToContent,
-		EntitySchemaContent $baseContent = null
+		?EntitySchemaContent $baseContent = null
 	): EntitySchemaId {
 		$converter = new EntitySchemaConverter();
 		$firstID = $converter->getSchemaID( $undoFromContent->getText() );

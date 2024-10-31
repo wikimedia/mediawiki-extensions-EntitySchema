@@ -93,7 +93,7 @@ class InputValidatorTest extends MediaWikiIntegrationTestCase {
 		$this->assertNotTrue( $inputValidator->validateStringInputLength( 'abcdef' ) );
 	}
 
-	private function getInputValidator( int $configLengthToReturn = null ): InputValidator {
+	private function getInputValidator( ?int $configLengthToReturn = null ): InputValidator {
 		$config = new HashConfig( [
 			'EntitySchemaNameBadgeMaxSizeChars' => $configLengthToReturn,
 			'EntitySchemaSchemaTextMaxSizeBytes' => $configLengthToReturn,
