@@ -13,6 +13,7 @@ use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWiki\Block\BlockManager;
 use MediaWiki\Context\DerivativeContext;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Registration\ExtensionRegistry;
@@ -130,9 +131,12 @@ class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 				static fn ( $message, $interface = false, $language = null, $page = null ) => $message
 			);
 		$messageCache->expects( $this->any() )
-			->method( 'parse' )
+			->method( 'parseWithPostprocessing' )
 			->willReturnCallback(
-				static fn ( $text, $page = null, $linestart = true, $interface = false, $language = null ) => $text
+				fn ( $text, $page = null, $interface = false, $language = null, $options = [] ) =>
+					$this->createConfiguredMock( ParserOutput::class, [
+						'getContentHolderText' => $text,
+					] )
 			);
 		$this->setService( 'MessageCache', $messageCache );
 		$this->setService( 'RevisionStore', $revisionStore );
