@@ -133,7 +133,7 @@ class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 		$messageCache->expects( $this->any() )
 			->method( 'parseWithPostprocessing' )
 			->willReturnCallback(
-				fn ( $text, $page = null, $interface = false, $language = null, $options = [] ) =>
+				fn ( $text, ...$args ) =>
 					$this->createConfiguredMock( ParserOutput::class, [
 						'getContentHolderText' => $text,
 					] )
