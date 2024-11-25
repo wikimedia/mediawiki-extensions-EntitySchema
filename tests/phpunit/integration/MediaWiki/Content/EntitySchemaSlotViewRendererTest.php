@@ -43,7 +43,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			PageReferenceValue::localReference( NS_ENTITYSCHEMA_JSON, 'E16354758' ),
 			$parserOutput
 		);
-		$html = $parserOutput->getText();
+		$html = $parserOutput->getRawText();
 
 		foreach ( $fragments as $fragment ) {
 			$this->assertStringContainsString( $fragment, $html );
@@ -148,7 +148,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			PageReferenceValue::localReference( NS_ENTITYSCHEMA_JSON, 'E1' ),
 			$parserOutput
 		);
-		$html = $parserOutput->getText();
+		$html = $parserOutput->getRawText();
 
 		// the "not contains" assertions below may be broken by unrelated changes in the future,
 		// especially the "Edit" one (could be part of some Special:EditSomething URL, for example);
@@ -218,7 +218,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			PageReferenceValue::localReference( NS_ENTITYSCHEMA_JSON, 'E12345' ),
 			$parserOutput
 		);
-		$html = $parserOutput->getText();
+		$html = $parserOutput->getRawText();
 
 		$this->assertStringContainsString(
 			' href="http://my.test?foo=bar&amp;schemaURL=',
@@ -246,7 +246,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			PageReferenceValue::localReference( NS_ENTITYSCHEMA_JSON, 'E12345' ),
 			$parserOutput
 		);
-		$html = $parserOutput->getText();
+		$html = $parserOutput->getRawText();
 
 		$this->assertStringContainsString( 'mw-highlight', $html );
 		$this->assertStringContainsString( 'mw-highlight-lang-shex', $html );
