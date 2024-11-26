@@ -32,6 +32,7 @@ use MediaWiki\Title\Title;
 use SearchEngine;
 use SearchIndexField;
 use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Search\Elastic\Fields\DescriptionsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
 use WikiPage;
 
@@ -43,18 +44,26 @@ use WikiPage;
 class EntitySchemaContentHandler extends JsonContentHandler {
 
 	/**
-	 * @var LabelsProviderFieldDefinitions|null The search field definitions,
+	 * @var LabelsProviderFieldDefinitions|null The search field definitions for labels,
 	 * or null if WikibaseCirrusSearch is not loaded and no search fields are available.
 	 */
-	private ?LabelsProviderFieldDefinitions $fieldDefinitions;
+	private ?LabelsProviderFieldDefinitions $labelsFieldDefinitions;
+
+	/**
+	 * @var DescriptionsProviderFieldDefinitions|null The search field definitions for descriptions,
+	 * or null if WikibaseCirrusSearch is not loaded and no search fields are available.
+	 */
+	private ?DescriptionsProviderFieldDefinitions $descriptionsFieldDefinitions;
 
 	public function __construct(
 		string $modelId,
-		?LabelsProviderFieldDefinitions $fieldDefinitions
+		?LabelsProviderFieldDefinitions $labelsFieldDefinitions,
+		?DescriptionsProviderFieldDefinitions $descriptionsFieldDefinitions
 	) {
 		// $modelId is typically EntitySchemaContent::CONTENT_MODEL_ID
 		parent::__construct( $modelId );
-		$this->fieldDefinitions = $fieldDefinitions;
+		$this->labelsFieldDefinitions = $labelsFieldDefinitions;
+		$this->descriptionsFieldDefinitions = $descriptionsFieldDefinitions;
 	}
 
 	protected function getContentClass(): string {
@@ -292,7 +301,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 	 * @return SearchIndexField[] List of fields this content handler can provide.
 	 */
 	public function getFieldsForSearchIndex( SearchEngine $engine ): array {
-		if ( $this->fieldDefinitions === null ) {
+		if ( $this->labelsFieldDefinitions === null || $this->descriptionsFieldDefinitions === null ) {
 			if ( $engine instanceof CirrusSearch ) {
 				wfLogWarning(
 					'Trying to use CirrusSearch but WikibaseCirrusSearch is not loaded. ' .
@@ -302,7 +311,13 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			return [];
 		} else {
 			$fields = [];
-			foreach ( $this->fieldDefinitions->getFields() as $name => $field ) {
+			foreach ( $this->labelsFieldDefinitions->getFields() as $name => $field ) {
+				$mappingField = $field->getMappingField( $engine, $name );
+				if ( $mappingField !== null ) {
+					$fields[$name] = $mappingField;
+				}
+			}
+			foreach ( $this->descriptionsFieldDefinitions->getFields() as $name => $field ) {
 				$mappingField = $field->getMappingField( $engine, $name );
 				if ( $mappingField !== null ) {
 					$fields[$name] = $mappingField;
@@ -319,16 +334,21 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		?RevisionRecord $revision = null
 	): array {
 		$fieldsData = parent::getDataForSearchIndex( $page, $output, $engine, $revision );
-		if ( $this->fieldDefinitions === null ) {
+		if ( $this->labelsFieldDefinitions === null || $this->descriptionsFieldDefinitions === null ) {
 			return $fieldsData;
 		}
 		$content = $revision !== null ? $revision->getContent( SlotRecord::MAIN ) : $page->getContent();
 		if ( $content instanceof EntitySchemaContent ) {
 			$adapter = ( new EntitySchemaConverter() )
 				->getSearchEntitySchemaAdapter( $content->getText() );
-			foreach ( $this->fieldDefinitions->getFields() as $name => $field ) {
+			foreach ( $this->labelsFieldDefinitions->getFields() as $name => $field ) {
 				if ( $field !== null ) {
 					$fieldsData[$name] = $field->getLabelsIndexedData( $adapter );
+				}
+			}
+			foreach ( $this->descriptionsFieldDefinitions->getFields() as $name => $field ) {
+				if ( $field !== null ) {
+					$fieldsData[$name] = $field->getDescriptionsIndexedData( $adapter );
 				}
 			}
 		}

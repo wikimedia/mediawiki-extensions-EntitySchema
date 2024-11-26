@@ -9,6 +9,7 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\Content\Hook\ContentHandlerForModelIDHook;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\Registration\ExtensionRegistry;
+use Wikibase\Search\Elastic\Fields\DescriptionsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
 
 /**
@@ -40,15 +41,18 @@ class ContentHandlerForModelIDHookHandler implements ContentHandlerForModelIDHoo
 		if ( $modelName !== 'EntitySchema' ) {
 			return;
 		}
-		$fieldDefinitions = null;
+		$labelsFieldDefinitions = null;
+		$descriptionsFieldDefinitions = null;
 		$extensionRegistry = ExtensionRegistry::getInstance(); // TODO inject (T257586)
 		if ( $extensionRegistry->isLoaded( 'WikibaseCirrusSearch' ) ) {
 			$languages = array_keys( $this->languageNameUtils->getLanguageNames(
 				'en', LanguageNameUtils::DEFINED ) );
-			$fieldDefinitions = new LabelsProviderFieldDefinitions(
+			$labelsFieldDefinitions = new LabelsProviderFieldDefinitions(
+				$languages, $this->configFactory );
+			$descriptionsFieldDefinitions = new DescriptionsProviderFieldDefinitions(
 				$languages, $this->configFactory );
 		}
-		$handler = new EntitySchemaContentHandler( $modelName, $fieldDefinitions );
+		$handler = new EntitySchemaContentHandler( $modelName, $labelsFieldDefinitions, $descriptionsFieldDefinitions );
 	}
 
 }

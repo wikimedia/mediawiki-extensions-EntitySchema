@@ -145,14 +145,18 @@ class EntitySchemaConverter {
 	public function getSearchEntitySchemaAdapter( string $schemaJSON ): SearchEntitySchemaAdapter {
 		$viewData = $this->getFullViewSchemaData( $schemaJSON, [] );
 		$labels = new TermList();
+		$descriptions = new TermList();
 		$aliases = new AliasGroupList();
 		foreach ( $viewData->nameBadges as $lang => $nameBadge ) {
 			if ( $nameBadge->label !== '' ) {
 				$labels->setTextForLanguage( $lang, $nameBadge->label );
 			}
+			if ( $nameBadge->description !== '' ) {
+				$descriptions->setTextForLanguage( $lang, $nameBadge->description );
+			}
 			$aliases->setAliasesForLanguage( $lang, $nameBadge->aliases );
 		}
-		return new SearchEntitySchemaAdapter( $labels, $aliases );
+		return new SearchEntitySchemaAdapter( $labels, $descriptions, $aliases );
 	}
 
 	/**

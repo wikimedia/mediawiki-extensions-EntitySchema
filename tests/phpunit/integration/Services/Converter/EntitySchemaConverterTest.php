@@ -635,6 +635,16 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 		$this->assertFalse( $labels->hasTermForLanguage( 'ar' ) );
 		$this->assertFalse( $labels->hasTermForLanguage( 'fa' ) );
 
+		$descriptions = $adapter->getDescriptions();
+		$this->assertSame( [
+			'en' => 'en: label, description, aliases',
+			'de' => 'de: label, description, no aliases',
+			'pt' => 'pt: no label, description, aliases',
+			'ar' => 'ar: no label, description, no aliases',
+		], $descriptions->toTextArray() );
+		$this->assertFalse( $descriptions->hasTermForLanguage( 'he' ) );
+		$this->assertFalse( $descriptions->hasTermForLanguage( 'fa' ) );
+
 		$aliases = $adapter->getAliasGroups();
 		$this->assertSame( [
 			'en' => [ 'en', 'label', 'description', 'aliases' ],

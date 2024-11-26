@@ -59,7 +59,8 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 		$handler->onContentHandlerForModelID( 'EntitySchema', $contentHandler );
 		$contentHandlerWrapper = TestingAccessWrapper::newFromObject( $contentHandler );
 
-		$this->assertNotNull( $contentHandlerWrapper->fieldDefinitions );
+		$this->assertNotNull( $contentHandlerWrapper->labelsFieldDefinitions );
+		$this->assertNotNull( $contentHandlerWrapper->descriptionsFieldDefinitions );
 	}
 
 }

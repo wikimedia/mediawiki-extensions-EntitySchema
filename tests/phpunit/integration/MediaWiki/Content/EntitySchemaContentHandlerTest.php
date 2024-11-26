@@ -14,10 +14,14 @@ use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use SearchEngine;
+use Wikibase\DataModel\Term\DescriptionsProvider;
 use Wikibase\DataModel\Term\LabelsProvider;
 use Wikibase\Search\Elastic\Fields\AllLabelsField;
+use Wikibase\Search\Elastic\Fields\DescriptionsField;
+use Wikibase\Search\Elastic\Fields\DescriptionsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\LabelsField;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
+use Wikibase\Search\Elastic\Fields\WikibaseDescriptionsIndexField;
 use Wikibase\Search\Elastic\Fields\WikibaseLabelsIndexField;
 use WikiPage;
 
@@ -108,7 +112,11 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testGetFieldsForSearchIndex_noFieldDefinitions(): void {
-		$contentHandler = new EntitySchemaContentHandler( 'EntitySchema', null );
+		$contentHandler = new EntitySchemaContentHandler(
+			'EntitySchema',
+			null,
+			null
+		);
 
 		$fields = $contentHandler->getFieldsForSearchIndex(
 			$this->createMock( SearchEngine::class ) );
@@ -118,28 +126,46 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testGetFieldsForSearchIndex_WikibaseCirrusSearch(): void {
 		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseCirrusSearch' );
-		$fieldDefinitions = new LabelsProviderFieldDefinitions(
-			[ 'en' ],
-			$this->getServiceContainer()->getConfigFactory(),
+		$configFactory = $this->getServiceContainer()->getConfigFactory();
+		$labelsFieldDefinitions = new LabelsProviderFieldDefinitions(
+			[ 'en' ], $configFactory,
 		);
-		$contentHandler = new EntitySchemaContentHandler( 'EntitySchema', $fieldDefinitions );
+		$descriptionsFieldDefinitions = new DescriptionsProviderFieldDefinitions(
+			[ 'en' ],
+			$configFactory
+		);
+		$contentHandler = new EntitySchemaContentHandler(
+			'EntitySchema',
+			$labelsFieldDefinitions,
+			$descriptionsFieldDefinitions
+		);
 
 		$fields = $contentHandler->getFieldsForSearchIndex(
 			$this->createMock( CirrusSearch::class ) );
 
 		// the exact fields are mostly internal to WikibaseCirrusSearch,
-		// but we need these two fields to exist
+		// but we need these three fields to exist
 		$this->assertArrayHasKey( LabelsField::NAME, $fields );
 		$this->assertArrayHasKey( AllLabelsField::NAME, $fields );
+		$this->assertArrayHasKey( DescriptionsField::NAME, $fields );
 	}
 
 	public function testGetFieldsForSearchIndex_otherSearchEngine(): void {
 		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseCirrusSearch' );
-		$fieldDefinitions = new LabelsProviderFieldDefinitions(
+		$configFactory = $this->getServiceContainer()->getConfigFactory();
+		$labelsFieldDefinitions = new LabelsProviderFieldDefinitions(
 			[ 'en' ],
-			$this->getServiceContainer()->getConfigFactory(),
+			$configFactory,
 		);
-		$contentHandler = new EntitySchemaContentHandler( 'EntitySchema', $fieldDefinitions );
+		$descriptionsFieldDefinitions = new DescriptionsProviderFieldDefinitions(
+			[ 'en' ],
+			$configFactory
+		);
+		$contentHandler = new EntitySchemaContentHandler(
+			'EntitySchema',
+			$labelsFieldDefinitions,
+			$descriptionsFieldDefinitions
+		);
 
 		$fields = $contentHandler->getFieldsForSearchIndex(
 			$this->createMock( SearchEngine::class ) );
@@ -185,15 +211,27 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 			'serializationVersion' => '3.0',
 		] ) );
 		[ $wikiPage, $revision ] = $wikiPageAndRevisionFactory( $this, $content );
-		$field = $this->createMock( WikibaseLabelsIndexField::class );
-		$field->expects( $this->once() )
+		$labelsField = $this->createMock( WikibaseLabelsIndexField::class );
+		$labelsField->expects( $this->once() )
 			->method( 'getLabelsIndexedData' )
 			->willReturnCallback( fn ( LabelsProvider $l ) => $l->getLabels()->toTextArray() );
-		$fieldDefinitions = $this->createMock( LabelsProviderFieldDefinitions::class );
-		$fieldDefinitions->expects( $this->once() )
+		$labelsFieldDefinitions = $this->createMock( LabelsProviderFieldDefinitions::class );
+		$labelsFieldDefinitions->expects( $this->once() )
 			->method( 'getFields' )
-			->willReturn( [ 'field' => $field, 'no field' => null ] );
-		$contentHandler = new EntitySchemaContentHandler( 'EntitySchema', $fieldDefinitions );
+			->willReturn( [ 'labelsField' => $labelsField, 'no field' => null ] );
+		$descriptionsField = $this->createMock( WikibaseDescriptionsIndexField::class );
+		$descriptionsField->expects( $this->once() )
+			->method( 'getDescriptionsIndexedData' )
+			->willReturnCallback( fn ( DescriptionsProvider $d ) => $d->getDescriptions()->toTextArray() );
+		$descriptionsFieldDefinitions = $this->createMock( DescriptionsProviderFieldDefinitions::class );
+		$descriptionsFieldDefinitions->expects( $this->once() )
+			->method( 'getFields' )
+			->willReturn( [ 'descriptionsField' => $descriptionsField, 'no field' => null ] );
+		$contentHandler = new EntitySchemaContentHandler(
+			'EntitySchema',
+			$labelsFieldDefinitions,
+			$descriptionsFieldDefinitions
+		);
 
 		$fieldsData = $contentHandler->getDataForSearchIndex(
 			$wikiPage,
@@ -202,8 +240,10 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 			$revision
 		);
 
-		$this->assertArrayHasKey( 'field', $fieldsData );
-		$this->assertSame( [ 'en' => 'label' ], $fieldsData['field'] );
+		$this->assertArrayHasKey( 'labelsField', $fieldsData );
+		$this->assertSame( [ 'en' => 'label' ], $fieldsData['labelsField'] );
+		$this->assertArrayHasKey( 'descriptionsField', $fieldsData );
+		$this->assertSame( [ 'en' => 'description' ], $fieldsData['descriptionsField'] );
 		$this->assertArrayNotHasKey( 'no field', $fieldsData );
 	}
 }

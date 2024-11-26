@@ -18,6 +18,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiUnitTestCase {
 	public function testSupportsDirectApiEditing() {
 		$contentHandler = new EntitySchemaContentHandler(
 			EntitySchemaContent::CONTENT_MODEL_ID,
+			null,
 			null
 		);
 
@@ -27,6 +28,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiUnitTestCase {
 	public function testIsParserCacheSupported() {
 		$contentHandler = new EntitySchemaContentHandler(
 			EntitySchemaContent::CONTENT_MODEL_ID,
+			null,
 			null
 		);
 
