@@ -6,6 +6,8 @@ namespace EntitySchema\Services\Converter;
 
 use DomainException;
 use LogicException;
+use Wikibase\DataModel\Term\AliasGroupList;
+use Wikibase\DataModel\Term\TermList;
 
 /**
  * Convert schema data for different uses from the persistence format
@@ -138,6 +140,19 @@ class EntitySchemaConverter {
 					'Unknown schema serialization version ' . $schema['serializationVersion']
 				);
 		}
+	}
+
+	public function getSearchEntitySchemaAdapter( string $schemaJSON ): SearchEntitySchemaAdapter {
+		$viewData = $this->getFullViewSchemaData( $schemaJSON, [] );
+		$labels = new TermList();
+		$aliases = new AliasGroupList();
+		foreach ( $viewData->nameBadges as $lang => $nameBadge ) {
+			if ( $nameBadge->label !== '' ) {
+				$labels->setTextForLanguage( $lang, $nameBadge->label );
+			}
+			$aliases->setAliasesForLanguage( $lang, $nameBadge->aliases );
+		}
+		return new SearchEntitySchemaAdapter( $labels, $aliases );
 	}
 
 	/**

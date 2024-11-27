@@ -16,6 +16,7 @@ use MediaWikiIntegrationTestCase;
  * @group EntitySchemaClient
  *
  * @covers \EntitySchema\Services\Converter\EntitySchemaConverter
+ * @covers \EntitySchema\Services\Converter\SearchEntitySchemaAdapter
  */
 class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 
@@ -587,6 +588,62 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 		$actualSchemaId = $converter->getSchemaID( $schemaJSON );
 
 		$this->assertSame( $expectedID, $actualSchemaId );
+	}
+
+	public function testGetSearchEntitySchemaAdapter(): void {
+		$schema = [
+			'id' => 'E123',
+			'serializationVersion' => '3.0',
+			'labels' => [
+				'en' => 'en: label, description, aliases',
+				'de' => 'de: label, description, no aliases',
+				'he' => 'he: label, no description, aliases',
+				// pt: no label, description, aliases
+				// ar: no label, description, no aliases
+				// fa: no label, no description, aliases
+			],
+			'descriptions' => [
+				'en' => 'en: label, description, aliases',
+				'de' => 'de: label, description, no aliases',
+				// he: label, no description, aliases
+				'pt' => 'pt: no label, description, aliases',
+				'ar' => 'ar: no label, description, no aliases',
+				// fa: no label, no description, aliases
+			],
+			'aliases' => [
+				'en' => [ 'en', 'label', 'description', 'aliases' ],
+				// de: label, description, no aliases
+				'he' => [ 'he', 'label', 'no description', 'aliases' ],
+				'pt' => [ 'pt', 'label', 'description', 'no aliases' ],
+				// ar: no label, description, no aliases
+				'fa' => [ 'fa', 'no label', 'no description', 'aliases' ],
+			],
+			'schemaText' => '',
+		];
+		$schemaJson = json_encode( $schema );
+		$converter = new EntitySchemaConverter();
+
+		$adapter = $converter->getSearchEntitySchemaAdapter( $schemaJson );
+
+		$labels = $adapter->getLabels();
+		$this->assertSame( [
+			'en' => 'en: label, description, aliases',
+			'de' => 'de: label, description, no aliases',
+			'he' => 'he: label, no description, aliases',
+		], $labels->toTextArray() );
+		$this->assertFalse( $labels->hasTermForLanguage( 'pt' ) );
+		$this->assertFalse( $labels->hasTermForLanguage( 'ar' ) );
+		$this->assertFalse( $labels->hasTermForLanguage( 'fa' ) );
+
+		$aliases = $adapter->getAliasGroups();
+		$this->assertSame( [
+			'en' => [ 'en', 'label', 'description', 'aliases' ],
+			'he' => [ 'he', 'label', 'no description', 'aliases' ],
+			'pt' => [ 'pt', 'label', 'description', 'no aliases' ],
+			'fa' => [ 'fa', 'no label', 'no description', 'aliases' ],
+		], $aliases->toTextArray() );
+		$this->assertFalse( $aliases->hasGroupForLanguage( 'de' ) );
+		$this->assertFalse( $aliases->hasGroupForLanguage( 'ar' ) );
 	}
 
 }
