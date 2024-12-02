@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Hooks;
 
-use ConfigFactory;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
+use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Content\Hook\ContentHandlerForModelIDHook;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\Registration\ExtensionRegistry;
