@@ -10,7 +10,7 @@ use ValueFormatters\ValueFormatter;
 /**
  * @license GPL-2.0-or-later
  */
-class WikibaseClientDataTypesHandler {
+class WikibaseClientDataTypesHookHandler {
 
 	public function onWikibaseClientDataTypes( array &$dataTypeDefinitions ) {
 		$dataTypeDefinitions = array_merge(

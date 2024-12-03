@@ -10,7 +10,7 @@ use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
-use EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHandler;
+use EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHookHandler;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\Linker\LinkRenderer;
@@ -26,10 +26,10 @@ use Wikibase\Repo\Validators\CompositeValidator;
 use Wikimedia\Purtle\RdfWriter;
 
 /**
- * @covers \EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHandler
+ * @covers \EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHookHandler
  * @license GPL-2.0-or-later
  */
-class WikibaseRepoDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
+class WikibaseRepoDataTypesHookHandlerTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -43,7 +43,7 @@ class WikibaseRepoDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 
-		$sut = new WikibaseRepoDataTypesHandler(
+		$sut = new WikibaseRepoDataTypesHookHandler(
 			$stubLinkRenderer,
 			$this->createStub( TitleFactory::class ),
 			true,
@@ -89,7 +89,7 @@ class WikibaseRepoDataTypesHandlerTest extends MediaWikiIntegrationTestCase {
 			->willReturn( $existenceResult );
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 
-		$handler = new WikibaseRepoDataTypesHandler(
+		$handler = new WikibaseRepoDataTypesHookHandler(
 			$stubLinkRenderer,
 			$this->createStub( TitleFactory::class ),
 			true,

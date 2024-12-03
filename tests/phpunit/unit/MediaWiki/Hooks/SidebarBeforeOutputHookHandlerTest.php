@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 
-use EntitySchema\MediaWiki\Hooks\SidebarHookHandler;
+use EntitySchema\MediaWiki\Hooks\SidebarBeforeOutputHookHandler;
 use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
 use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
@@ -13,10 +13,10 @@ use Skin;
 use Wikibase\DataAccess\EntitySource;
 
 /**
- * @covers \EntitySchema\MediaWiki\Hooks\SidebarHookHandler
+ * @covers \EntitySchema\MediaWiki\Hooks\SidebarBeforeOutputHookHandler
  * @license GPL-2.0-or-later
  */
-class SidebarHandlerTest extends MediaWikiUnitTestCase {
+class SidebarBeforeOutputHookHandlerTest extends MediaWikiUnitTestCase {
 	use EntitySchemaUnitTestCaseTrait;
 
 	public function testBuildConceptUriLinkReturnsLink() {
@@ -34,7 +34,7 @@ class SidebarHandlerTest extends MediaWikiUnitTestCase {
 		$localEntitySource = $this->createMock( EntitySource::class );
 		$localEntitySource->method( 'getConceptBaseUri' )->willReturn( $conceptBaseUri );
 
-		$handler = new SidebarHookHandler( true, $localEntitySource );
+		$handler = new SidebarBeforeOutputHookHandler( true, $localEntitySource );
 		$resultArray = $handler->buildConceptUriLink( $skin );
 
 		$this->assertEquals( 'www.test.com/E1', $resultArray['href'] );
@@ -46,7 +46,7 @@ class SidebarHandlerTest extends MediaWikiUnitTestCase {
 		$skin->method( 'getTitle' )->willReturn( null );
 
 		$localEntitySource = $this->createMock( EntitySource::class );
-		$handler = new SidebarHookHandler( true, $localEntitySource );
+		$handler = new SidebarBeforeOutputHookHandler( true, $localEntitySource );
 		$resultArray = $handler->buildConceptUriLink( $skin );
 
 		$this->assertNull( $resultArray );
@@ -62,7 +62,7 @@ class SidebarHandlerTest extends MediaWikiUnitTestCase {
 		$skin->method( 'getTitle' )->willReturn( $title );
 
 		$localEntitySource = $this->createMock( EntitySource::class );
-		$handler = new SidebarHookHandler( true, $localEntitySource );
+		$handler = new SidebarBeforeOutputHookHandler( true, $localEntitySource );
 		$resultArray = $handler->buildConceptUriLink( $skin );
 		$this->assertNull( $resultArray );
 	}

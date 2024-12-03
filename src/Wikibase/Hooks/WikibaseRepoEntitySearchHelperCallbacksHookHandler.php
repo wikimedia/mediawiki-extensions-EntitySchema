@@ -12,7 +12,7 @@ use Wikimedia\Assert\Assert;
 /**
  * @license GPL-2.0-or-later
  */
-class WikibaseRepoEntitySearchHelperCallbacksHandler {
+class WikibaseRepoEntitySearchHelperCallbacksHookHandler {
 
 	private bool $entitySchemaIsRepo;
 	private ?EntitySchemaSearchHelperFactory $factory;

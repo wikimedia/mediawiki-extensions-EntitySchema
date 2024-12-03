@@ -15,7 +15,7 @@ use Wikimedia\Assert\Assert;
 /**
  * @license GPL-2.0-or-later
  */
-class PageHistoryLineEndingHandler implements PageHistoryLineEndingHook {
+class PageHistoryLineEndingHookHandler implements PageHistoryLineEndingHook {
 
 	private bool $entitySchemaIsRepo;
 	private ?LinkRenderer $linkRenderer;

@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use EntitySchema\MediaWiki\Hooks\PageHistoryLineEndingHandler;
+use EntitySchema\MediaWiki\Hooks\PageHistoryLineEndingHookHandler;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Pager\HistoryPager;
 use MediaWiki\Permissions\PermissionManager;
@@ -20,15 +20,15 @@ use stdClass;
 /**
  * @license GPL-2.0-or-later
  *
- * @covers \EntitySchema\MediaWiki\Hooks\PageHistoryLineEndingHandler
+ * @covers \EntitySchema\MediaWiki\Hooks\PageHistoryLineEndingHookHandler
  */
-class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
+class PageHistoryLineEndingHookHandlerTest extends MediaWikiUnitTestCase {
 
 	public function testAddsLinkToRevisionHTML(): void {
 		$title = $this->getEntitySchemaTitle();
 		$revisionId = 5;
 		$user = $this->createStub( User::class );
-		$sut = new PageHistoryLineEndingHandler(
+		$sut = new PageHistoryLineEndingHookHandler(
 			true,
 			$this->getMockLinkRenderer( $title, $revisionId ),
 			$this->getMockPermissionManager( true, $user, $title ),
@@ -48,7 +48,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testDoesNothingForDifferentContentModel(): void {
-		$sut = new PageHistoryLineEndingHandler(
+		$sut = new PageHistoryLineEndingHookHandler(
 			true,
 			$this->getMockLinkRenderer( null ),
 			$this->getMockPermissionManager( null ),
@@ -69,7 +69,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 
 	public function testDoesNothingForLatestRevision(): void {
 		$revisionId = 8;
-		$sut = new PageHistoryLineEndingHandler(
+		$sut = new PageHistoryLineEndingHookHandler(
 			true,
 			$this->getMockLinkRenderer( null ),
 			$this->getMockPermissionManager( null ),
@@ -91,7 +91,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testDoesNothingForDeletedRevision(): void {
-		$sut = new PageHistoryLineEndingHandler(
+		$sut = new PageHistoryLineEndingHookHandler(
 			true,
 			$this->getMockLinkRenderer( null ),
 			$this->getMockPermissionManager( null ),
@@ -115,7 +115,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiUnitTestCase {
 	public function testDoesNothingIfUserCannotEdit(): void {
 		$user = $this->createStub( User::class );
 		$title = $this->getEntitySchemaTitle();
-		$sut = new PageHistoryLineEndingHandler(
+		$sut = new PageHistoryLineEndingHookHandler(
 			true,
 			$this->getMockLinkRenderer( null ),
 			$this->getMockPermissionManager( false, $user, $title ),

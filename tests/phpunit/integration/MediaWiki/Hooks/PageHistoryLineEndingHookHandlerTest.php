@@ -19,12 +19,12 @@ use MediaWiki\Request\FauxRequest;
 use MediaWikiIntegrationTestCase;
 
 /**
- * @covers \EntitySchema\MediaWiki\Hooks\PageHistoryLineEndingHandler
+ * @covers \EntitySchema\MediaWiki\Hooks\PageHistoryLineEndingHookHandler
  *
  * @license GPL-2.0-or-later
  * @group Database
  */
-class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
+class PageHistoryLineEndingHookHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testOneRestoreLink(): void {
 		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {

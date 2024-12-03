@@ -18,7 +18,7 @@ use Wikibase\Repo\WikibaseRepo;
  * Integration test making sure that entity schema links in Wikibase statements
  * are added as links to the ParserOutput.
  *
- * @covers \EntitySchema\Wikibase\Hooks\ParserOutputUpdaterConstructionHandler
+ * @covers \EntitySchema\Wikibase\Hooks\WikibaseRepoOnParserOutputUpdaterConstructionHookHandler
  * @covers \EntitySchema\Wikibase\ParserOutputUpdater\EntitySchemaStatementDataUpdater
  *
  * @group Database

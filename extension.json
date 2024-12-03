@@ -29,7 +29,7 @@
 	},
 	"HookHandlers": {
 		"PageHistoryLineEnding": {
-			"class": "\\EntitySchema\\MediaWiki\\Hooks\\PageHistoryLineEndingHandler",
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\PageHistoryLineEndingHookHandler",
 			"services": [
 				"EntitySchema.EntitySchemaIsRepo"
 			],
@@ -51,10 +51,10 @@
 			]
 		},
 		"WikibaseClientDataTypes": {
-			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseClientDataTypesHandler"
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseClientDataTypesHookHandler"
 		},
 		"WikibaseRepoDataTypes": {
-			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoDataTypesHandler",
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoDataTypesHookHandler",
 			"services": [
 				"LinkRenderer",
 				"TitleFactory",
@@ -68,7 +68,7 @@
 			]
 		},
 		"WikibaseRepoEntitySearchHelperCallbacks": {
-			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoEntitySearchHelperCallbacksHandler",
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoEntitySearchHelperCallbacksHookHandler",
 			"services": [
 				"EntitySchema.EntitySchemaIsRepo"
 			],
@@ -77,7 +77,7 @@
 			]
 		},
 		"WikibaseRepoOnParserOutputUpdaterConstruction": {
-			"class": "\\EntitySchema\\Wikibase\\Hooks\\ParserOutputUpdaterConstructionHandler",
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoOnParserOutputUpdaterConstructionHookHandler",
 			"services": [
 				"EntitySchema.EntitySchemaIsRepo"
 			],
@@ -85,8 +85,8 @@
 				"WikibaseRepo.PropertyDataTypeLookup"
 			]
 		},
-		"AddConceptLinkToSidebar": {
-			"class": "\\EntitySchema\\MediaWiki\\Hooks\\SidebarHookHandler",
+		"SidebarBeforeOutput": {
+			"class": "\\EntitySchema\\MediaWiki\\Hooks\\SidebarBeforeOutputHookHandler",
 			"services": [
 				"EntitySchema.EntitySchemaIsRepo"
 			],
@@ -154,14 +154,14 @@
 				"EntitySchema.EntitySchemaIsRepo"
 			]
 		},
-		"EntitySchemaHooks": {
-			"class": "EntitySchema\\MediaWiki\\EntitySchemaHooks",
+		"SkinTemplateNavigationUniversal": {
+			"class": "EntitySchema\\MediaWiki\\SkinTemplateNavigationUniversalHookHandler",
 			"services": [
 				"EntitySchema.EntitySchemaIsRepo"
 			]
 		},
-		"NamespaceRegistrationHandler": {
-			"class": "EntitySchema\\MediaWiki\\Hooks\\NamespaceRegistrationHandler"
+		"CanonicalNamespaces": {
+			"class": "EntitySchema\\MediaWiki\\Hooks\\CanonicalNamespacesHookHandler"
 		}
 	},
 	"QUnitTestModule": {
@@ -184,7 +184,7 @@
 		]
 	},
 	"Hooks": {
-		"SkinTemplateNavigation::Universal": "EntitySchemaHooks",
+		"SkinTemplateNavigation::Universal": "SkinTemplateNavigationUniversal",
 		"LoadExtensionSchemaUpdates": "LoadExtensionSchemaUpdates",
 		"ExtensionTypes": "ExtensionTypes",
 		"BeforeDisplayNoArticleText": "BeforeDisplayNoArticleText",
@@ -194,11 +194,11 @@
 		"ContentModelCanBeUsedOn": "ContentModelCanBeUsedOn",
 		"ImportHandleRevisionXMLTag": "ImportHandleRevisionXMLTag",
 		"TitleGetRestrictionTypes": "TitleGetRestrictionTypes",
-		"CanonicalNamespaces": "NamespaceRegistrationHandler",
+		"CanonicalNamespaces": "CanonicalNamespaces",
 		"WikibaseRepoEntitySearchHelperCallbacks": "WikibaseRepoEntitySearchHelperCallbacks",
 		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes",
 		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepoOnParserOutputUpdaterConstruction",
-		"SidebarBeforeOutput": "AddConceptLinkToSidebar",
+		"SidebarBeforeOutput": "SidebarBeforeOutput",
 		"WikibaseClientDataTypes": "WikibaseClientDataTypes",
 		"SpecialPage_initList": "SpecialPageInitList",
 		"GetContentModels": "GetContentModels",

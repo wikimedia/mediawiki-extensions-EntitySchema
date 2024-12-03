@@ -12,7 +12,7 @@ use Wikimedia\Assert\Assert;
 /**
  * @license GPL-2.0-or-later
  */
-class SidebarHookHandler implements SidebarBeforeOutputHook {
+class SidebarBeforeOutputHookHandler implements SidebarBeforeOutputHook {
 
 	private bool $entitySchemaIsRepo;
 	private ?EntitySource $localEntitySource;

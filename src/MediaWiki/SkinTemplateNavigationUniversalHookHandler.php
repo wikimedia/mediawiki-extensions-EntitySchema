@@ -9,11 +9,11 @@ namespace EntitySchema\MediaWiki;
 use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
 
 /**
- * Hooks utilized by the EntitySchema extension
+ * Implementation of the `SkinTemplateNavigation__UniversalHook` handler
  *
  * @license GPL-2.0-or-later
  */
-final class EntitySchemaHooks implements SkinTemplateNavigation__UniversalHook {
+final class SkinTemplateNavigationUniversalHookHandler implements SkinTemplateNavigation__UniversalHook {
 
 	private bool $entitySchemaIsRepo;
 

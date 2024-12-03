@@ -4,17 +4,17 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 
-use EntitySchema\Wikibase\Hooks\ParserOutputUpdaterConstructionHandler;
+use EntitySchema\Wikibase\Hooks\WikibaseRepoOnParserOutputUpdaterConstructionHookHandler;
 use EntitySchema\Wikibase\ParserOutputUpdater\EntitySchemaStatementDataUpdater;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Services\Lookup\PropertyDataTypeLookup;
 use Wikibase\Repo\ParserOutput\CompositeStatementDataUpdater;
 
 /**
- * @covers \EntitySchema\Wikibase\Hooks\ParserOutputUpdaterConstructionHandler
+ * @covers \EntitySchema\Wikibase\Hooks\WikibaseRepoOnParserOutputUpdaterConstructionHookHandler
  * @license GPL-2.0-or-later
  */
-class ParserOutputUpdaterConstructionHandlerTest extends MediaWikiUnitTestCase {
+class WikibaseRepoParserOutputUpdaterConstructionHookHandlerTest extends MediaWikiUnitTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -25,7 +25,7 @@ class ParserOutputUpdaterConstructionHandlerTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testOnWikibaseRepoOnParserOutputUpdaterConstruction() {
-		$handler = new ParserOutputUpdaterConstructionHandler(
+		$handler = new WikibaseRepoOnParserOutputUpdaterConstructionHookHandler(
 			true,
 			$this->createMock( PropertyDataTypeLookup::class )
 		);

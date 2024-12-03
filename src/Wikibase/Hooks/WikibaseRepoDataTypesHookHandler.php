@@ -23,7 +23,7 @@ use Wikimedia\Assert\Assert;
 /**
  * @license GPL-2.0-or-later
  */
-class WikibaseRepoDataTypesHandler {
+class WikibaseRepoDataTypesHookHandler {
 
 	private bool $entitySchemaIsRepo;
 	private LinkRenderer $linkRenderer;

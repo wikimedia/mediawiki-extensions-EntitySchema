@@ -6,7 +6,7 @@ namespace EntitySchema\Tests\Integration\Wikibase\Hooks;
 
 use EntitySchema\DataAccess\DescriptionLookup;
 use EntitySchema\DataAccess\LabelLookup;
-use EntitySchema\Wikibase\Hooks\WikibaseRepoEntitySearchHelperCallbacksHandler;
+use EntitySchema\Wikibase\Hooks\WikibaseRepoEntitySearchHelperCallbacksHookHandler;
 use EntitySchema\Wikibase\Search\EntitySchemaIdSearchHelper;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
 use MediaWiki\Config\ConfigFactory;
@@ -19,11 +19,11 @@ use Wikibase\Repo\Api\CombinedEntitySearchHelper;
 use Wikibase\Search\Elastic\WikibaseSearchConfig;
 
 /**
- * @covers \EntitySchema\Wikibase\Hooks\WikibaseRepoEntitySearchHelperCallbacksHandler
+ * @covers \EntitySchema\Wikibase\Hooks\WikibaseRepoEntitySearchHelperCallbacksHookHandler
  * @covers \EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory
  * @license GPL-2.0-or-later
  */
-class WikibaseRepoEntitySearchHelperCallbacksHandlerTest extends MediaWikiIntegrationTestCase {
+class WikibaseRepoEntitySearchHelperCallbacksHookHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testOnWikibaseRepoEntitySearchHelperCallbacks_wbcsEnabled(): void {
 		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
@@ -49,7 +49,7 @@ class WikibaseRepoEntitySearchHelperCallbacksHandlerTest extends MediaWikiIntegr
 			$this->createMock( LabelLookup::class )
 		);
 
-		( new WikibaseRepoEntitySearchHelperCallbacksHandler( true, $factory ) )
+		( new WikibaseRepoEntitySearchHelperCallbacksHookHandler( true, $factory ) )
 			->onWikibaseRepoEntitySearchHelperCallbacks( $callbacks );
 
 		$this->assertSame( $callback1, $callbacks['unrelated'] );
@@ -81,7 +81,7 @@ class WikibaseRepoEntitySearchHelperCallbacksHandlerTest extends MediaWikiIntegr
 			$this->createMock( LabelLookup::class )
 		);
 
-		( new WikibaseRepoEntitySearchHelperCallbacksHandler( true, $factory ) )
+		( new WikibaseRepoEntitySearchHelperCallbacksHookHandler( true, $factory ) )
 			->onWikibaseRepoEntitySearchHelperCallbacks( $callbacks );
 
 		$this->assertArrayHasKey( EntitySchemaSearchHelperFactory::ENTITY_TYPE, $callbacks );
@@ -108,7 +108,7 @@ class WikibaseRepoEntitySearchHelperCallbacksHandlerTest extends MediaWikiIntegr
 			$this->createMock( LabelLookup::class )
 		);
 
-		( new WikibaseRepoEntitySearchHelperCallbacksHandler( true, $factory ) )
+		( new WikibaseRepoEntitySearchHelperCallbacksHookHandler( true, $factory ) )
 			->onWikibaseRepoEntitySearchHelperCallbacks( $callbacks );
 
 		$this->assertArrayHasKey( EntitySchemaSearchHelperFactory::ENTITY_TYPE, $callbacks );

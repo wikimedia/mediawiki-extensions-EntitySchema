@@ -11,7 +11,7 @@ use Wikibase\Lib\WikibaseSettings;
 /**
  * @license GPL-2.0-or-later
  */
-class NamespaceRegistrationHandler implements CanonicalNamespacesHook {
+class CanonicalNamespacesHookHandler implements CanonicalNamespacesHook {
 
 	/**
 	 * Hook to register the default namespace names.

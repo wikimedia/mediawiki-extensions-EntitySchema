@@ -4,17 +4,17 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Hooks;
 
-use EntitySchema\MediaWiki\Hooks\NamespaceRegistrationHandler;
+use EntitySchema\MediaWiki\Hooks\CanonicalNamespacesHookHandler;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWikiIntegrationTestCase;
 
 /**
- * @covers \EntitySchema\MediaWiki\Hooks\NamespaceRegistrationHandler
+ * @covers \EntitySchema\MediaWiki\Hooks\CanonicalNamespacesHookHandler
  *
  * @license GPL-2.0-or-later
  * @group Database
  */
-class NamespaceRegistrationHandlerTest extends MediaWikiIntegrationTestCase {
+class CanonicalNamespacesHookHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testOnCanonicalNamespaces() {
 		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
@@ -26,7 +26,7 @@ class NamespaceRegistrationHandlerTest extends MediaWikiIntegrationTestCase {
 		];
 		$this->overrideConfigValue( 'EntitySchemaIsRepo', true );
 
-		$handler = new NamespaceRegistrationHandler();
+		$handler = new CanonicalNamespacesHookHandler();
 		$handler->onCanonicalNamespaces( $namespaces );
 		// This should not mess up state when invoked multiple times.
 		$handler->onCanonicalNamespaces( $namespaces );
@@ -42,7 +42,7 @@ class NamespaceRegistrationHandlerTest extends MediaWikiIntegrationTestCase {
 		];
 		$this->overrideConfigValue( 'EntitySchemaIsRepo', false );
 
-		( new NamespaceRegistrationHandler )->onCanonicalNamespaces( $namespaces );
+		( new CanonicalNamespacesHookHandler )->onCanonicalNamespaces( $namespaces );
 
 		$this->assertSame( [ NS_MAIN => '' ], $namespaces );
 	}

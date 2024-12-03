@@ -12,7 +12,7 @@ use Wikimedia\Assert\Assert;
 /**
  * @license GPL-2.0-or-later
  */
-class ParserOutputUpdaterConstructionHandler {
+class WikibaseRepoOnParserOutputUpdaterConstructionHookHandler {
 
 	private bool $entitySchemaIsRepo;
 	private ?PropertyDataTypeLookup $propertyDataTypeLookup;
