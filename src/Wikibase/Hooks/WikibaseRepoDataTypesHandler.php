@@ -7,7 +7,6 @@ namespace EntitySchema\Wikibase\Hooks;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValueParser;
-use EntitySchema\Wikibase\FeatureConfiguration;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
@@ -28,7 +27,6 @@ class WikibaseRepoDataTypesHandler {
 
 	private bool $entitySchemaIsRepo;
 	private LinkRenderer $linkRenderer;
-	private ?FeatureConfiguration $features;
 	private ?EntitySchemaExistsValidator $entitySchemaExistsValidator;
 	private ?LanguageNameLookupFactory $languageNameLookupFactory;
 	private ?DatabaseEntitySource $localEntitySource;
@@ -42,11 +40,9 @@ class WikibaseRepoDataTypesHandler {
 		?LanguageNameLookupFactory $languageNameLookupFactory,
 		?DatabaseEntitySource $localEntitySource,
 		?EntitySchemaExistsValidator $entitySchemaExistsValidator,
-		?FeatureConfiguration $features,
 		?LabelLookup $labelLookup
 	) {
 		$this->linkRenderer = $linkRenderer;
-		$this->features = $features;
 		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
 		$this->entitySchemaExistsValidator = $entitySchemaExistsValidator;
 		$this->languageNameLookupFactory = $languageNameLookupFactory;
@@ -65,16 +61,12 @@ class WikibaseRepoDataTypesHandler {
 				$entitySchemaExistsValidator,
 				'$entitySchemaExistsValidator'
 			);
-			Assert::parameterType( FeatureConfiguration::class, $features, '$features' );
 			Assert::parameterType( LabelLookup::class, $labelLookup, '$labelLookup' );
 		}
 	}
 
 	public function onWikibaseRepoDataTypes( array &$dataTypeDefinitions ): void {
 		if ( !$this->entitySchemaIsRepo ) {
-			return;
-		}
-		if ( !$this->features->entitySchemaDataTypeEnabled() ) {
 			return;
 		}
 		$dataTypeDefinitions['PT:entity-schema'] = [

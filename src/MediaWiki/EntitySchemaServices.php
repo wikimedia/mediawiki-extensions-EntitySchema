@@ -10,7 +10,6 @@ use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\Presentation\AutocommentFormatter;
-use EntitySchema\Wikibase\FeatureConfiguration;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\MediaWikiServices;
@@ -42,13 +41,6 @@ class EntitySchemaServices {
 	): EntitySchemaSearchHelperFactory {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'EntitySchema.EntitySchemaSearchHelperFactory' );
-	}
-
-	public static function getFeatureConfiguration(
-		?ContainerInterface $services = null
-	): FeatureConfiguration {
-		return ( $services ?: MediaWikiServices::getInstance() )
-			->get( 'EntitySchema.FeatureConfiguration' );
 	}
 
 	public static function getFullViewSchemaDataLookup(

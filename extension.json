@@ -51,10 +51,7 @@
 			]
 		},
 		"WikibaseClientDataTypes": {
-			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseClientDataTypesHandler",
-			"services": [
-				"EntitySchema.FeatureConfiguration"
-			]
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseClientDataTypesHandler"
 		},
 		"WikibaseRepoDataTypes": {
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoDataTypesHandler",
@@ -67,7 +64,6 @@
 				"WikibaseRepo.LanguageNameLookupFactory",
 				"WikibaseRepo.LocalEntitySource",
 				"EntitySchema.EntitySchemaExistsValidator",
-				"EntitySchema.FeatureConfiguration",
 				"EntitySchema.LabelLookup"
 			]
 		},
@@ -255,11 +251,6 @@
 			"value": [],
 			"description": "A list of integers to skip when generating new IDs. These must be pure integer numbers, _not_ strings starting with an E!",
 			"public": true
-		},
-		"EntitySchemaEnableDatatype": {
-			"value": false,
-			"description": "Enable the upcoming EntitySchema Datatype for Wikibase",
-			"public": false
 		}
 	},
 	"manifest_version": 2,

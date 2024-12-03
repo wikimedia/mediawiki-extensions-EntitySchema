@@ -10,7 +10,6 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Presentation\AutocommentFormatter;
-use EntitySchema\Wikibase\FeatureConfiguration;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\MediaWikiServices;
@@ -57,14 +56,6 @@ return [
 			WikibaseRepo::getLocalEntitySource( $services )->getConceptBaseUri(),
 			EntitySchemaServices::getDescriptionLookup( $services ),
 			EntitySchemaServices::getLabelLookup( $services )
-		);
-	},
-
-	'EntitySchema.FeatureConfiguration' => static function (
-		MediaWikiServices $services
-	): FeatureConfiguration {
-		return new FeatureConfiguration(
-			$services->getMainConfig()
 		);
 	},
 

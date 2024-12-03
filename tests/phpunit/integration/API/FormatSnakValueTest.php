@@ -38,8 +38,6 @@ class FormatSnakValueTest extends ApiTestCase {
 		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
 			$this->markTestSkipped( 'WikibaseRepo not enabled' );
 		}
-
-		$this->overrideConfigValue( 'EntitySchemaEnableDatatype', true );
 	}
 
 	public static function provideApiRequest() {
