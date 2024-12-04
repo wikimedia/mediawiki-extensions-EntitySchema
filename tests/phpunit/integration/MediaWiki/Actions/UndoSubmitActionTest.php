@@ -8,6 +8,7 @@ use Article;
 use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWiki\Block\DatabaseBlock;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Request\FauxRequest;
@@ -15,6 +16,7 @@ use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use PermissionsError;
+use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
@@ -47,6 +49,17 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 		parent::tearDown();
 	}
 
+	private function getUndoSubmitAction( WikiPage $page, IContextSource $context ) {
+		$services = $this->getServiceContainer();
+		return new UndoSubmitAction(
+			Article::newFromWikiPage( $page, $context ),
+			$context,
+			$services->getReadOnlyMode(),
+			$services->getPermissionManager(),
+			$services->getRevisionStore()
+		);
+	}
+
 	public function testUndoSubmit() {
 		$schemaId = 'E123';
 		$page = $this->getServiceContainer()->getWikiPageFactory()
@@ -65,10 +78,7 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 			], true )
 		);
 
-		$undoSubmitAction = new UndoSubmitAction(
-			Article::newFromWikiPage( $page, $context ),
-			$context
-		);
+		$undoSubmitAction = $this->getUndoSubmitAction( $page, $context );
 
 		$undoSubmitAction->show();
 
@@ -92,10 +102,7 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 			], false )
 		);
 
-		$undoSubmitAction = new UndoSubmitAction(
-			Article::newFromWikiPage( $page, $context ),
-			$context
-		);
+		$undoSubmitAction = $this->getUndoSubmitAction( $page, $context );
 
 		$undoSubmitAction->show();
 
@@ -130,10 +137,7 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 		);
 		$context->setUser( $testuser );
 
-		$undoSubmitAction = new UndoSubmitAction(
-			Article::newFromWikiPage( $page, $context ),
-			$context
-		);
+		$undoSubmitAction = $this->getUndoSubmitAction( $page, $context );
 
 		$this->expectException( PermissionsError::class );
 
@@ -158,10 +162,7 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 			], true )
 		);
 
-		$undoSubmitAction = new UndoSubmitAction(
-			Article::newFromWikiPage( $page, $context ),
-			$context
-		);
+		$undoSubmitAction = $this->getUndoSubmitAction( $page, $context );
 
 		$this->expectException( PermissionsError::class );
 
@@ -192,10 +193,7 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 		);
 		$context->setUser( $services->getUserFactory()->newAnonymous() );
 
-		$undoSubmitAction = new UndoSubmitAction(
-			Article::newFromWikiPage( $page, $context ),
-			$context
-		);
+		$undoSubmitAction = $this->getUndoSubmitAction( $page, $context );
 
 		$undoSubmitAction->show();
 

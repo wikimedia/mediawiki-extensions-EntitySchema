@@ -4,16 +4,20 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
+use Article;
 use EntitySchema\DataAccess\EntitySchemaStatus;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\EntitySchemaRedirectTrait;
 use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use MediaWiki\CommentStore\CommentStoreComment;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\Permissions\PermissionManager;
+use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Status\Status;
 use PermissionsError;
 use ReadOnlyError;
+use ReadOnlyMode;
 use UserBlockedError;
 
 /**
@@ -22,6 +26,21 @@ use UserBlockedError;
 class UndoSubmitAction extends AbstractUndoAction {
 
 	use EntitySchemaRedirectTrait;
+
+	private PermissionManager $permissionManager;
+	private ReadOnlyMode $readOnlyMode;
+
+	public function __construct(
+		Article $article,
+		IContextSource $context,
+		ReadOnlyMode $readOnlyMode,
+		PermissionManager $permissionManager,
+		RevisionStore $revisionStore
+	) {
+		parent::__construct( $article, $context, $revisionStore );
+		$this->permissionManager = $permissionManager;
+		$this->readOnlyMode = $readOnlyMode;
+	}
 
 	public function getName(): string {
 		return 'submit';
@@ -58,10 +77,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 			return Status::newFatal( 'entityschema-error-not-post' );
 		}
 
-		$services = MediaWikiServices::getInstance();
-		$pm = $services->getPermissionManager();
-
-		$permissionErrors = $pm->getPermissionErrors(
+		$permissionErrors = $this->permissionManager->getPermissionErrors(
 			$this->getRestriction(),
 			$this->getUser(),
 			$this->getTitle()
@@ -70,7 +86,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 			throw new PermissionsError( $this->getRestriction(), $permissionErrors );
 		}
 
-		if ( $services->getReadOnlyMode()->isReadOnly() ) {
+		if ( $this->readOnlyMode->isReadOnly() ) {
 			throw new ReadOnlyError;
 		}
 
@@ -117,9 +133,7 @@ class UndoSubmitAction extends AbstractUndoAction {
 	}
 
 	private function createSummaryCommentForUndoRev( string $userSummary, int $undoRevId ): CommentStoreComment {
-		$revToBeUndone = MediaWikiServices::getInstance()
-			->getRevisionStore()
-			->getRevisionById( $undoRevId );
+		$revToBeUndone = $this->revisionStore->getRevisionById( $undoRevId );
 		$userName = $revToBeUndone->getUser()->getName();
 		$autoComment = MediaWikiRevisionEntitySchemaUpdater::AUTOCOMMENT_UNDO
 			. ':' . $undoRevId

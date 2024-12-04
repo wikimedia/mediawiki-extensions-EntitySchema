@@ -36,7 +36,8 @@ class UndoViewActionTest extends MediaWikiIntegrationTestCase {
 
 		// arrange
 		$schemaId = 'E123';
-		$page = $this->getServiceContainer()->getWikiPageFactory()
+		$services = $this->getServiceContainer();
+		$page = $services->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId ) );
 
 		$firstID = $this->saveSchemaPageContent( $page, [ 'schemaText' => 'abc', 'id' => $schemaId ] )->getId();
@@ -56,8 +57,7 @@ class UndoViewActionTest extends MediaWikiIntegrationTestCase {
 			)
 		);
 
-		$textSlotDiffRenderer = $this->getServiceContainer()
-			->getContentHandlerFactory()
+		$textSlotDiffRenderer = $services->getContentHandlerFactory()
 			->getContentHandler( CONTENT_MODEL_TEXT )
 			->getSlotDiffRenderer( $context );
 		$textSlotDiffRenderer->setEngine( TextSlotDiffRenderer::ENGINE_PHP );
@@ -68,7 +68,8 @@ class UndoViewActionTest extends MediaWikiIntegrationTestCase {
 		$undoViewAction = new UndoViewAction(
 			Article::newFromWikiPage( $page, $context ),
 			$context,
-			$diffRenderer
+			$diffRenderer,
+			$services->getRevisionStore()
 		);
 
 		// act
