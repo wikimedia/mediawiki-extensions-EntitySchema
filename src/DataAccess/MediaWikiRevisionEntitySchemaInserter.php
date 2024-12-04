@@ -7,10 +7,10 @@ namespace EntitySchema\DataAccess;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
+use EntitySchema\MediaWiki\HookRunner;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Context\IContextSource;
-use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Storage\PageUpdater;
@@ -26,7 +26,7 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 	private WatchlistUpdater $watchListUpdater;
 	private IContextSource $context;
 	private LanguageFactory $languageFactory;
-	private HookContainer $hookContainer;
+	private HookRunner $hookRunner;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
@@ -34,14 +34,14 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 		IdGenerator $idGenerator,
 		IContextSource $context,
 		LanguageFactory $languageFactory,
-		HookContainer $hookContainer
+		HookRunner $hookRunner
 	) {
 		$this->idGenerator = $idGenerator;
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
 		$this->watchListUpdater = $watchListUpdater;
 		$this->context = $context;
 		$this->languageFactory = $languageFactory;
-		$this->hookContainer = $hookContainer;
+		$this->hookRunner = $hookRunner;
 	}
 
 	/**
@@ -120,9 +120,8 @@ class MediaWikiRevisionEntitySchemaInserter implements EntitySchemaInserter {
 		CommentStoreComment $summary
 	): void {
 		$context = $status->getContext();
-		if ( !$this->hookContainer->run(
-			'EditFilterMergedContent',
-			[ $context, $content, $status, $summary->text, $context->getUser(), false ]
+		if ( !$this->hookRunner->onEditFilterMergedContent(
+			$context, $content, $status, $summary->text, $context->getUser(), false
 		) ) {
 			return;
 		}

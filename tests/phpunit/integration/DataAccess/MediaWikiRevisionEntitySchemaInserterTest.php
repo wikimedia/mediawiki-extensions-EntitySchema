@@ -10,11 +10,11 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\EntitySchemaServices;
+use EntitySchema\MediaWiki\HookRunner;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Content\Content;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Page\PageIdentityValue;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Request\FauxRequest;
@@ -78,7 +78,7 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			$idGenerator,
 			new RequestContext(),
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
+			$this->createConfiguredMock( HookRunner::class, [ 'onEditFilterMergedContent' => true ] )
 		);
 
 		$this->assertStatusGood( $inserter->insertSchema( $language,
@@ -112,7 +112,7 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			$idGenerator,
 			new RequestContext(),
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
+			$this->createConfiguredMock( HookRunner::class, [ 'onEditFilterMergedContent' => true ] )
 		);
 
 		$this->assertStatusGood( $inserter->insertSchema(
@@ -180,7 +180,7 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			$this->createConfiguredMock( IdGenerator::class, [ 'getNewId' => 123 ] ),
 			$originalContext,
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->getServiceContainer()->getHookContainer()
+			EntitySchemaServices::getHookRunner( $this->getServiceContainer() )
 		);
 
 		$status = $inserter->insertSchema( 'en', 'test label' );
@@ -197,7 +197,7 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			$this->createConfiguredMock( IdGenerator::class, [ 'getNewId' => 123 ] ),
 			new RequestContext(),
 			$services->getLanguageFactory(),
-			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
+			$this->createConfiguredMock( HookRunner::class, [ 'onEditFilterMergedContent' => true ] )
 		);
 
 		$status = $inserter->insertSchema( 'en' );
@@ -262,7 +262,7 @@ class MediaWikiRevisionEntitySchemaInserterTest extends MediaWikiIntegrationTest
 			$idGenerator,
 			new RequestContext(),
 			$this->getServiceContainer()->getLanguageFactory(),
-			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
+			$this->createConfiguredMock( HookRunner::class, [ 'onEditFilterMergedContent' => true ] )
 		);
 	}
 

@@ -11,13 +11,13 @@ use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\EntitySchemaServices;
+use EntitySchema\MediaWiki\HookRunner;
 use EntitySchema\Services\Converter\NameBadge;
 use InvalidArgumentException;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Content\Content;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Page\PageIdentityValue;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Request\FauxRequest;
@@ -139,7 +139,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 	}
 
@@ -190,7 +190,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			$originalContext,
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 	}
 
@@ -207,7 +207,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$status = $schemaUpdater->overwriteWholeSchema(
@@ -261,7 +261,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( $exceptionMessage );
@@ -311,7 +311,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 		$this->assertStatusGood( $schemaUpdater->overwriteWholeSchema(
 			new EntitySchemaId( 'E1' ),
@@ -371,7 +371,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$this->createMockRevisionLookup( [ $this->parentRevision ] ),
 			$services->getLanguageFactory(),
-			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
+			$this->createConfiguredMock( HookRunner::class, [ 'onEditFilterMergedContent' => true ] )
 		);
 
 		$status = $schemaUpdater->overwriteWholeSchema(
@@ -423,7 +423,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$this->expectException( InvalidArgumentException::class );
@@ -459,7 +459,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$this->expectException( DomainException::class );
@@ -492,7 +492,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$status = $schemaUpdater->updateSchemaText(
@@ -540,7 +540,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$this->assertStatusGood( $schemaUpdater->updateSchemaText(
@@ -602,7 +602,7 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 		$this->assertStatusGood( $schemaUpdater->updateSchemaText(
 			new EntitySchemaId( $id ),
@@ -696,7 +696,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 		$this->assertStatusGood( $schemaUpdater->updateSchemaText(
 			new EntitySchemaId( $id ),
@@ -762,7 +762,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$this->assertStatusGood( $schemaUpdater->updateSchemaText(
@@ -794,7 +794,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$this->assertStatusGood( $schemaUpdater->updateSchemaText(
@@ -817,7 +817,7 @@ SHEXC;
 			new RequestContext(),
 			$this->createMockRevisionLookup( [ $this->parentRevision ] ),
 			$services->getLanguageFactory(),
-			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
+			$this->createConfiguredMock( HookRunner::class, [ 'onEditFilterMergedContent' => true ] )
 		);
 
 		$status = $schemaUpdater->updateSchemaText(
@@ -868,7 +868,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$this->assertStatusGood( $schemaUpdater->updateSchemaNameBadge(
@@ -934,7 +934,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$this->assertStatusGood( $schemaUpdater->updateSchemaNameBadge(
@@ -999,7 +999,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$writer->updateSchemaNameBadge(
@@ -1123,7 +1123,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$status = $schemaUpdater->updateSchemaNameBadge(
@@ -1185,7 +1185,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$this->assertStatusGood( $updater->updateSchemaNameBadge(
@@ -1250,7 +1250,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 		$this->assertStatusGood( $schemaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
@@ -1315,7 +1315,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 		$this->assertStatusGood( $schemaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
@@ -1379,7 +1379,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 		$this->assertStatusGood( $schemaUpdater->updateSchemaNameBadge(
 			new EntitySchemaId( $id ),
@@ -1442,7 +1442,7 @@ SHEXC;
 			new RequestContext(),
 			$mockRevLookup,
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 
 		$schemaUpdater->updateSchemaNameBadge(
@@ -1468,7 +1468,7 @@ SHEXC;
 			new RequestContext(),
 			$this->createMockRevisionLookup( [ $this->parentRevision ] ),
 			$services->getLanguageFactory(),
-			$this->createConfiguredMock( HookContainer::class, [ 'run' => true ] )
+			$this->createConfiguredMock( HookRunner::class, [ 'onEditFilterMergedContent' => true ] )
 		);
 
 		$status = $schemaUpdater->updateSchemaNameBadge(

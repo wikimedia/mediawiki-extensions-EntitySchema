@@ -8,11 +8,11 @@ use Diff\Patcher\PatcherException;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\EntitySchemaServices;
+use EntitySchema\MediaWiki\HookRunner;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Context\IContextSource;
-use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionLookup;
@@ -38,7 +38,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 	private IContextSource $context;
 	private RevisionLookup $revisionLookup;
 	private LanguageFactory $languageFactory;
-	private HookContainer $hookContainer;
+	private HookRunner $hookRunner;
 
 	public function __construct(
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory,
@@ -46,14 +46,14 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		IContextSource $context,
 		RevisionLookup $revisionLookup,
 		LanguageFactory $languageFactory,
-		HookContainer $hookContainer
+		HookRunner $hookRunner
 	) {
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
 		$this->watchListUpdater = $watchListUpdater;
 		$this->context = $context;
 		$this->revisionLookup = $revisionLookup;
 		$this->languageFactory = $languageFactory;
-		$this->hookContainer = $hookContainer;
+		$this->hookRunner = $hookRunner;
 	}
 
 	// TODO this should probably be a service in the service container
@@ -65,7 +65,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 			$context,
 			$services->getRevisionLookup(),
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 	}
 
@@ -348,9 +348,8 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 		CommentStoreComment $summary
 	): void {
 		$context = $status->getContext();
-		if ( !$this->hookContainer->run(
-			'EditFilterMergedContent',
-			[ $context, $content, $status, $summary->text, $context->getUser(), false ]
+		if ( !$this->hookRunner->onEditFilterMergedContent(
+			$context, $content, $status, $summary->text, $context->getUser(), false
 		) ) {
 			return;
 		}

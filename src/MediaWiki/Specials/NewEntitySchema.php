@@ -113,7 +113,7 @@ class NewEntitySchema extends SpecialPage {
 			$this->idGenerator,
 			$this->getContext(),
 			$services->getLanguageFactory(),
-			$services->getHookContainer()
+			EntitySchemaServices::getHookRunner( $services )
 		);
 		return $schemaInserter->insertSchema(
 			$data[self::FIELD_LANGUAGE],

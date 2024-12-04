@@ -78,4 +78,12 @@ class EntitySchemaServices {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'EntitySchema.WatchlistUpdater' );
 	}
+
+	public static function getHookRunner(
+		?ContainerInterface $services = null
+	): HookRunner {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'EntitySchema.HookRunner' );
+	}
+
 }

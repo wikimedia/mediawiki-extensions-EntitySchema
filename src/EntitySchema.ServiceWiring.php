@@ -9,6 +9,7 @@ use EntitySchema\DataAccess\SqlIdGenerator;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\EntitySchemaServices;
+use EntitySchema\MediaWiki\HookRunner;
 use EntitySchema\Presentation\AutocommentFormatter;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
@@ -65,6 +66,12 @@ return [
 		return new FullViewSchemaDataLookup(
 			$services->getTitleFactory(),
 			$services->getWikiPageFactory()
+		);
+	},
+
+	'EntitySchema.HookRunner' => static function ( MediaWikiServices $services ): HookRunner {
+		return new HookRunner(
+			$services->getHookContainer()
 		);
 	},
 

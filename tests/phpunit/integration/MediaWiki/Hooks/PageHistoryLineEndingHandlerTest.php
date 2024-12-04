@@ -10,8 +10,8 @@ use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\MediaWiki\EntitySchemaServices;
+use EntitySchema\MediaWiki\HookRunner;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Language\Language;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Registration\ExtensionRegistry;
@@ -41,15 +41,15 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 			[ 'truncateForVisual' => '' ] );
 		$languageFactory = $this->createConfiguredMock( LanguageFactory::class,
 			[ 'getLanguage' => $language ] );
-		$hookContainer = $this->createConfiguredMock( HookContainer::class,
-			[ 'run' => true ] );
+		$hookRunner = $this->createConfiguredMock( HookRunner::class,
+			[ 'onEditFilterMergedContent' => true ] );
 		$schemaInserter = new MediaWikiRevisionEntitySchemaInserter(
 			$updaterFactory,
 			$watchListUpdater,
 			$this->createConfiguredMock( IdGenerator::class, [ 'getNewId' => 1 ] ),
 			$context,
 			$languageFactory,
-			$hookContainer
+			$hookRunner
 		);
 		$status = $schemaInserter->insertSchema( 'en' );
 		$this->assertStatusGood( $status );
@@ -62,7 +62,7 @@ class PageHistoryLineEndingHandlerTest extends MediaWikiIntegrationTestCase {
 			$context,
 			$revisionLookup,
 			$languageFactory,
-			$hookContainer
+			$hookRunner
 		);
 		$schemaTitle = $services
 			->getTitleFactory()
