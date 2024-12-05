@@ -57,11 +57,11 @@ class ServiceWiringTestCase extends TestCase {
 		$this->disallowHttpAccess();
 	}
 
-	protected function tearDown(): void {
+	protected function assertPostConditions(): void {
 		$this->assertEqualsCanonicalizing( array_keys( $this->mockedServices ), array_keys( $this->accessedServices ),
 			'Expected every mocked service to be used' );
 
-		parent::tearDown();
+		parent::assertPostConditions();
 	}
 
 	private function getDefinition( $name ): callable {
