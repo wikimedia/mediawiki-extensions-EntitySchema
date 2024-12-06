@@ -4,31 +4,56 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
+use Article;
 use Diff\DiffOp\Diff\Diff;
 use DomainException;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\UndoHandler;
+use FormlessAction;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\WebRequest;
+use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
-use ViewAction;
 
 /**
  * @license GPL-2.0-or-later
  */
-abstract class AbstractUndoAction extends ViewAction {
+abstract class AbstractUndoAction extends FormlessAction {
+
+	protected RevisionStore $revisionStore;
+
+	public function __construct(
+		Article $article,
+		IContextSource $context,
+		RevisionStore $revisionStore
+	) {
+		parent::__construct( $article, $context );
+		$this->revisionStore = $revisionStore;
+	}
+
+	public function getName() {
+		return 'view';
+	}
+
+	public function onView() {
+		return null;
+	}
+
+	public function needsReadRights() {
+		// Pages in $wgWhitelistRead can be viewed without having the 'read'
+		// right. We rely on Article::view() to properly check read access.
+		return false;
+	}
 
 	public function getRestriction(): string {
 		return $this->getName();
 	}
 
 	protected function getDiffFromRequest( WebRequest $req ): Status {
-
-		$revStore = MediaWikiServices::getInstance()->getRevisionStore();
-
-		$newerRevision = $revStore->getRevisionById( $req->getInt( 'undo' ) );
-		$olderRevision = $revStore->getRevisionById( $req->getInt( 'undoafter' ) );
+		$newerRevision = $this->revisionStore->getRevisionById( $req->getInt( 'undo' ) );
+		$olderRevision = $this->revisionStore->getRevisionById( $req->getInt( 'undoafter' ) );
 
 		if ( $newerRevision === null || $olderRevision === null ) {
 			return Status::newFatal( 'entityschema-undo-bad-revisions' );

@@ -10,6 +10,7 @@ use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use EntitySchema\Presentation\ConfirmationFormRenderer;
 use EntitySchema\Presentation\DiffRenderer;
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Revision\RevisionStore;
 
 /**
  * @license GPL-2.0-or-later
@@ -21,9 +22,10 @@ class UndoViewAction extends AbstractUndoAction {
 	public function __construct(
 		Article $article,
 		IContextSource $context,
-		EntitySchemaSlotDiffRenderer $slotDiffRenderer
+		EntitySchemaSlotDiffRenderer $slotDiffRenderer,
+		RevisionStore $revisionStore
 	) {
-		parent::__construct( $article, $context );
+		parent::__construct( $article, $context, $revisionStore );
 		$this->slotDiffRenderer = $slotDiffRenderer;
 	}
 

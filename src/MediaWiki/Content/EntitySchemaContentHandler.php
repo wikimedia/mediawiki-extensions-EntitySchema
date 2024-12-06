@@ -18,20 +18,26 @@ use EntitySchema\MediaWiki\UndoHandler;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use LogicException;
+use MediaWiki\Config\Config;
 use MediaWiki\Content\Content;
 use MediaWiki\Content\JsonContentHandler;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Language\Language;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
+use MediaWiki\User\Options\UserOptionsLookup;
+use MediaWiki\User\TempUser\TempUserConfig;
+use ReadOnlyMode;
 use SearchEngine;
 use SearchIndexField;
-use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Lib\SettingsArray;
 use Wikibase\Search\Elastic\Fields\DescriptionsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
 use WikiPage;
@@ -102,24 +108,87 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 
 	public function getActionOverrides(): array {
 		return [
-			'edit' => function ( Article $article, IContextSource $context ) {
-				return $this->getActionOverridesEdit( $article, $context );
-			},
-			'submit' => function ( Article $article, IContextSource $context ) {
-				return $this->getActionOverridesSubmit( $article, $context );
-			},
+			'edit' => [
+				'factory' => function (
+					Article $article,
+					IContextSource $context,
+					RevisionStore $revisionStore,
+					Config $mainConfig,
+					LanguageNameUtils $languageNameUtils,
+					UserOptionsLookup $userOptionsLookup,
+					SettingsArray $repoSettings,
+					TempUserConfig $tempUserConfig
+				) {
+					return $this->getActionOverridesEdit(
+						$article,
+						$context,
+						$revisionStore,
+						$mainConfig,
+						$languageNameUtils,
+						$userOptionsLookup,
+						$repoSettings,
+						$tempUserConfig
+					);
+				},
+				'services' => [
+					'RevisionStore',
+					'MainConfig',
+					'LanguageNameUtils',
+					'UserOptionsLookup',
+					'WikibaseRepo.Settings',
+					'TempUserConfig',
+				],
+			],
+			'submit' => [
+				'factory' => function (
+					Article $article,
+					IContextSource $context,
+					ReadOnlyMode $readOnlyMode,
+					RevisionStore $revisionStore,
+					PermissionManager $permissionManager,
+					Config $mainConfig,
+					LanguageNameUtils $languageNameUtils,
+					UserOptionsLookup $userOptionsLookup,
+					SettingsArray $repoSettings,
+					TempUserConfig $tempUserConfig
+				) {
+					return $this->getActionOverridesSubmit(
+						$article,
+						$context,
+						$readOnlyMode,
+						$revisionStore,
+						$permissionManager,
+						$mainConfig,
+						$languageNameUtils,
+						$userOptionsLookup,
+						$repoSettings,
+						$tempUserConfig
+					);
+				},
+				'services' => [
+					'ReadOnlyMode',
+					'RevisionStore',
+					'PermissionManager',
+					'MainConfig',
+					'LanguageNameUtils',
+					'UserOptionsLookup',
+					'WikibaseRepo.Settings',
+					'TempUserConfig',
+				],
+			],
 		];
 	}
 
-	/**
-	 * @param Article $article
-	 * @param IContextSource $context
-	 * @return Action|callable
-	 */
 	private function getActionOverridesEdit(
 		Article $article,
-		IContextSource $context
-	) {
+		IContextSource $context,
+		RevisionStore $revisionStore,
+		Config $mainConfig,
+		LanguageNameUtils $languageNameUtils,
+		UserOptionsLookup $userOptionsLookup,
+		SettingsArray $repoSettings,
+		TempUserConfig $tempUserConfig
+	): Action {
 		global $wgEditSubmitButtonLabelPublish;
 
 		if ( $article->getPage()->getRevisionRecord() === null ) {
@@ -135,7 +204,8 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			return new UndoViewAction(
 				$article,
 				$context,
-				$this->getSlotDiffRendererWithOptions( $context )
+				$this->getSlotDiffRendererWithOptions( $context ),
+				$revisionStore
 			);
 		}
 
@@ -149,46 +219,60 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 
 		// TODo: check redirect?
 		// !$article->isRedirect()
-		$repoSettings = WikibaseRepo::getSettings();
 		return new EntitySchemaEditAction(
 			$article,
 			$context,
-			new InputValidator(
-				$context,
-				MediaWikiServices::getInstance()->getMainConfig(),
-				MediaWikiServices::getInstance()->getLanguageNameUtils()
-			),
+			new InputValidator( $context, $mainConfig, $languageNameUtils ),
 			$wgEditSubmitButtonLabelPublish,
-			MediaWikiServices::getInstance()->getUserOptionsLookup(),
+			$userOptionsLookup,
 			$repoSettings->getSetting( 'dataRightsUrl' ),
 			$repoSettings->getSetting( 'dataRightsText' ),
-			MediaWikiServices::getInstance()->getTempUserConfig()
+			$tempUserConfig
 		);
 	}
 
-	/**
-	 * @param Article $article
-	 * @param IContextSource $context
-	 * @return RestoreSubmitAction|UndoSubmitAction|string
-	 */
 	private function getActionOverridesSubmit(
 		Article $article,
-		IContextSource $context
-	) {
+		IContextSource $context,
+		ReadOnlyMode $readOnlyMode,
+		RevisionStore $revisionStore,
+		PermissionManager $permissionManager,
+		Config $mainConfig,
+		LanguageNameUtils $languageNameUtils,
+		UserOptionsLookup $userOptionsLookup,
+		SettingsArray $repoSettings,
+		TempUserConfig $tempUserConfig
+	): Action {
+		global $wgEditSubmitButtonLabelPublish;
 		$req = $context->getRequest();
 
 		if (
 			$req->getCheck( 'undo' )
 			|| $req->getCheck( 'undoafter' )
 		) {
-			return new UndoSubmitAction( $article, $context );
+			return new UndoSubmitAction(
+				$article,
+				$context,
+				$readOnlyMode,
+				$permissionManager,
+				$revisionStore
+			);
 		}
 
 		if ( $req->getCheck( 'restore' ) ) {
 			return new RestoreSubmitAction( $article, $context );
 		}
 
-		return EntitySchemaSubmitAction::class;
+		return new EntitySchemaSubmitAction(
+			$article,
+			$context,
+			new InputValidator( $context, $mainConfig, $languageNameUtils ),
+			$wgEditSubmitButtonLabelPublish,
+			$userOptionsLookup,
+			$repoSettings->getSetting( 'dataRightsUrl' ),
+			$repoSettings->getSetting( 'dataRightsText' ),
+			$tempUserConfig
+		);
 	}
 
 	public function supportsDirectApiEditing(): bool {
