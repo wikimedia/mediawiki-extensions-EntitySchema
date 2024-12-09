@@ -52,8 +52,10 @@ return [
 			return null;
 		}
 		return new EntitySchemaSearchHelperFactory(
+			$services->getConfigFactory(),
 			$services->getTitleFactory(),
 			$services->getWikiPageFactory(),
+			WikibaseRepo::getLanguageFallbackChainFactory( $services ),
 			WikibaseRepo::getLocalEntitySource( $services )->getConceptBaseUri(),
 			EntitySchemaServices::getDescriptionLookup( $services ),
 			EntitySchemaServices::getLabelLookup( $services )

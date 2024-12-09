@@ -7,7 +7,6 @@ namespace EntitySchema\Wikibase\Search;
 use EntitySchema\DataAccess\DescriptionLookup;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
-use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use InvalidArgumentException;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\TitleFactory;
@@ -19,10 +18,7 @@ use Wikibase\Repo\Api\EntitySearchHelper;
 /**
  * @license GPL-2.0-or-later
  */
-class EntitySchemaSearchHelper implements EntitySearchHelper {
-
-	/** @var string Not a real entity type, but registered under this name in wbsearchentities. */
-	public const ENTITY_TYPE = EntitySchemaValue::TYPE;
+class EntitySchemaIdSearchHelper implements EntitySearchHelper {
 
 	private TitleFactory $titleFactory;
 	private WikiPageFactory $wikiPageFactory;
@@ -56,7 +52,7 @@ class EntitySchemaSearchHelper implements EntitySearchHelper {
 		$strictLanguage,
 		?string $profileContext
 	) {
-		if ( $entityType !== self::ENTITY_TYPE ) {
+		if ( $entityType !== EntitySchemaSearchHelperFactory::ENTITY_TYPE ) {
 			return [];
 		}
 

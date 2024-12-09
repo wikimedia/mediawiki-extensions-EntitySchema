@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Wikibase\Hooks;
 
-use EntitySchema\Wikibase\Search\EntitySchemaSearchHelper;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Request\WebRequest;
@@ -40,7 +39,7 @@ class WikibaseRepoEntitySearchHelperCallbacksHandler {
 		if ( !$this->entitySchemaIsRepo ) {
 			return;
 		}
-		$callbacks[EntitySchemaSearchHelper::ENTITY_TYPE] = function ( WebRequest $request ) {
+		$callbacks[EntitySchemaSearchHelperFactory::ENTITY_TYPE] = function ( WebRequest $request ) {
 			// TODO would be nice if Wikibase injected the context for us
 			// ($request is unfortunately not very useful)
 			return $this->factory->newForContext( RequestContext::getMain() );

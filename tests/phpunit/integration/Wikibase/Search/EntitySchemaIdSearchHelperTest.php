@@ -8,7 +8,8 @@ use EntitySchema\DataAccess\DescriptionLookup;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
-use EntitySchema\Wikibase\Search\EntitySchemaSearchHelper;
+use EntitySchema\Wikibase\Search\EntitySchemaIdSearchHelper;
+use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\Title;
@@ -19,11 +20,11 @@ use Wikibase\Repo\Api\ConceptUriSearchHelper;
 use WikiPage;
 
 /**
- * @covers \EntitySchema\Wikibase\Search\EntitySchemaSearchHelper
+ * @covers \EntitySchema\Wikibase\Search\EntitySchemaIdSearchHelper
  * @group Database
  * @license GPL-2.0-or-later
  */
-class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
+class EntitySchemaIdSearchHelperTest extends MediaWikiIntegrationTestCase {
 	use EntitySchemaIntegrationTestCaseTrait;
 
 	protected function setUp(): void {
@@ -43,7 +44,7 @@ class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
 			'labels' => [ 'en' => 'human' ],
 			'descriptions' => [ 'en' => 'schema for humans' ],
 		] );
-		$helper = new EntitySchemaSearchHelper(
+		$helper = new EntitySchemaIdSearchHelper(
 			$services->getTitleFactory(),
 			$wikiPageFactory,
 			'https://wiki.example/entity/',
@@ -55,7 +56,7 @@ class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
 		$results = $helper->getRankedSearchResults(
 			$id,
 			'en',
-			EntitySchemaSearchHelper::ENTITY_TYPE,
+			EntitySchemaSearchHelperFactory::ENTITY_TYPE,
 			10,
 			true,
 			null
@@ -78,7 +79,7 @@ class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testNoResults_otherEntityType(): void {
-		$helper = new EntitySchemaSearchHelper(
+		$helper = new EntitySchemaIdSearchHelper(
 			$this->createNoOpMock( TitleFactory::class ),
 			$this->createNoOpMock( WikiPageFactory::class ),
 			'https://wiki.example/entity/',
@@ -100,7 +101,7 @@ class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testNoResults_notEntitySchemaId(): void {
-		$helper = new EntitySchemaSearchHelper(
+		$helper = new EntitySchemaIdSearchHelper(
 			$this->createNoOpMock( TitleFactory::class ),
 			$this->createNoOpMock( WikiPageFactory::class ),
 			'https://wiki.example/entity/',
@@ -112,7 +113,7 @@ class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
 		$results = $helper->getRankedSearchResults(
 			'Q1',
 			'en',
-			EntitySchemaSearchHelper::ENTITY_TYPE,
+			EntitySchemaSearchHelperFactory::ENTITY_TYPE,
 			10,
 			true,
 			null
@@ -124,7 +125,7 @@ class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
 	public function testNoResults_noTitle(): void {
 		$titleFactory = $this->createConfiguredMock( TitleFactory::class,
 			[ 'newFromText' => null ] ); // can’t really happen but test it anyway
-		$helper = new EntitySchemaSearchHelper(
+		$helper = new EntitySchemaIdSearchHelper(
 			$titleFactory,
 			$this->createNoOpMock( WikiPageFactory::class ),
 			'https://wiki.example/entity/',
@@ -136,7 +137,7 @@ class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
 		$results = $helper->getRankedSearchResults(
 			'E1',
 			'en',
-			EntitySchemaSearchHelper::ENTITY_TYPE,
+			EntitySchemaSearchHelperFactory::ENTITY_TYPE,
 			10,
 			true,
 			null
@@ -150,7 +151,7 @@ class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
 			[ 'exists' => false ] );
 		$wikiPageFactory = $this->createConfiguredMock( WikiPageFactory::class,
 			[ 'newFromTitle' => $wikiPage ] );
-		$helper = new EntitySchemaSearchHelper(
+		$helper = new EntitySchemaIdSearchHelper(
 			$this->getServiceContainer()->getTitleFactory(),
 			$wikiPageFactory,
 			'https://wiki.example/entity/',
@@ -162,7 +163,7 @@ class EntitySchemaSearchHelperTest extends MediaWikiIntegrationTestCase {
 		$results = $helper->getRankedSearchResults(
 			'E1000000000',
 			'en',
-			EntitySchemaSearchHelper::ENTITY_TYPE,
+			EntitySchemaSearchHelperFactory::ENTITY_TYPE,
 			10,
 			true,
 			null
