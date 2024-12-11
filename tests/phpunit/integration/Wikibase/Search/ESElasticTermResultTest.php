@@ -20,8 +20,12 @@ use Wikimedia\TestingAccessWrapper;
  */
 class ESElasticTermResultTest extends MediaWikiIntegrationTestCase {
 
-	public function testGetTermSearchResult_invalidTitle(): void {
+	public function setUp(): void {
+		parent::setUp();
 		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseCirrusSearch' );
+	}
+
+	public function testGetTermSearchResult_invalidTitle(): void {
 		$result = new ESElasticTermResult(
 			$this->createNoOpMock( TitleFactory::class ),
 			'',
@@ -38,7 +42,6 @@ class ESElasticTermResultTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testGetTermSearchResult_missingTitle(): void {
-		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseCirrusSearch' );
 		$titleFactory = $this->createMock( TitleFactory::class );
 		$titleFactory->expects( $this->once() )
 			->method( 'newFromText' )
@@ -60,7 +63,6 @@ class ESElasticTermResultTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testGetTermSearchResult_existingTitle(): void {
-		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseCirrusSearch' );
 		$title = $this->createConfiguredMock( Title::class, [
 			'getFullText' => 'EntitySchema:E123',
 			'getId' => 123,
