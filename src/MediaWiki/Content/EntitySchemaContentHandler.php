@@ -8,6 +8,7 @@ use Action;
 use Article;
 use CirrusSearch\CirrusSearch;
 use EntitySchema\DataAccess\EntitySchemaEncoder;
+use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Actions\EntitySchemaEditAction;
 use EntitySchema\MediaWiki\Actions\EntitySchemaSubmitAction;
 use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
@@ -37,6 +38,7 @@ use MediaWiki\User\TempUser\TempUserConfig;
 use ReadOnlyMode;
 use SearchEngine;
 use SearchIndexField;
+use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Search\Elastic\Fields\DescriptionsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
@@ -61,13 +63,21 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 	 */
 	private ?DescriptionsProviderFieldDefinitions $descriptionsFieldDefinitions;
 
+	private LanguageNameLookupFactory $languageNameLookupFactory;
+
+	private LabelLookup $labelLookup;
+
 	public function __construct(
 		string $modelId,
+		LabelLookup $labelLookup,
+		LanguageNameLookupFactory $languageNameLookupFactory,
 		?LabelsProviderFieldDefinitions $labelsFieldDefinitions,
 		?DescriptionsProviderFieldDefinitions $descriptionsFieldDefinitions
 	) {
 		// $modelId is typically EntitySchemaContent::CONTENT_MODEL_ID
 		parent::__construct( $modelId );
+		$this->labelLookup = $labelLookup;
+		$this->languageNameLookupFactory = $languageNameLookupFactory;
 		$this->labelsFieldDefinitions = $labelsFieldDefinitions;
 		$this->descriptionsFieldDefinitions = $descriptionsFieldDefinitions;
 	}
@@ -368,10 +378,14 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		$generateHtml = $cpoParams->getGenerateHtml();
 		if ( $generateHtml && $content->isValid() ) {
 			$languageCode = $parserOptions->getUserLang();
-			$renderer = new EntitySchemaSlotViewRenderer( $languageCode );
+			$renderer = new EntitySchemaSlotViewRenderer(
+				$languageCode,
+				$this->labelLookup,
+				$this->languageNameLookupFactory
+			);
 			$renderer->fillParserOutput(
 				( new EntitySchemaConverter() )
-					->getFullViewSchemaData( $content->getText(), [ $languageCode ] ),
+					->getFullViewSchemaData( $content->getText() ),
 				$cpoParams->getPage(),
 				$parserOutput
 			);

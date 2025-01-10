@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Wikibase\Search;
 
 use EntitySchema\DataAccess\DescriptionLookup;
-use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use InvalidArgumentException;
 use MediaWiki\Page\WikiPageFactory;
@@ -24,7 +24,7 @@ class EntitySchemaIdSearchHelper implements EntitySearchHelper {
 	private WikiPageFactory $wikiPageFactory;
 	private string $wikibaseConceptBaseUri;
 	private DescriptionLookup $descriptionLookup;
-	private LabelLookup $labelLookup;
+	private SchemaDataResolvingLabelLookup $labelLookup;
 	private string $userLanguageCode;
 
 	public function __construct(
@@ -32,7 +32,7 @@ class EntitySchemaIdSearchHelper implements EntitySearchHelper {
 		WikiPageFactory $wikiPageFactory,
 		string $wikibaseConceptBaseUri,
 		DescriptionLookup $descriptionLookup,
-		LabelLookup $labelLookup,
+		SchemaDataResolvingLabelLookup $labelLookup,
 		string $userLanguageCode
 	) {
 		$this->titleFactory = $titleFactory;

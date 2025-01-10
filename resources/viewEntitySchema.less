@@ -34,6 +34,18 @@
 		color: @color-subtle;
 		font-size: 60%;
 	}
+
+	/**
+	 * Make the title's fallback hint look the same as other fallback hints
+	 * This is hacky and vector-specific
+	 * It basically overrides MediaWiki's h1 styling with Vector's .mw-body styling
+	 */
+	.wb-language-fallback-indicator {
+		/* 0.8 (.wb-language-fallback-indicator) * 0.875 (.mw-body-content) / 1.875 (.mw-body h1) */
+		font-size: 0.3888em;
+		font-family: sans-serif;
+		color: #202122;
+	}
 }
 
 .entityschema-section {

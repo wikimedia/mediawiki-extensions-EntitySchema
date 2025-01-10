@@ -6,6 +6,7 @@ namespace EntitySchema\Tests\Unit\DataAccess;
 
 use EntitySchema\DataAccess\FullViewSchemaDataLookup;
 use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\Services\Converter\FullViewEntitySchemaData;
 use EntitySchema\Services\Converter\NameBadge;
 use MediaWiki\Page\PageIdentity;
@@ -17,15 +18,17 @@ use Wikibase\Lib\TermLanguageFallbackChain;
  * @covers \EntitySchema\DataAccess\LabelLookup
  * @license GPL-2.0-or-later
  */
-class LabelLookupTest extends MediaWikiUnitTestCase {
+class SchemaDataResolvingLabelLookupTest extends MediaWikiUnitTestCase {
 
 	public function testTitleDoesNotExist(): void {
 		$stubDataLookup = $this->createConfiguredMock(
 			FullViewSchemaDataLookup::class,
 			[ 'getFullViewSchemaDataForTitle' => null ]
 		);
-		$stubLanguageFallbackChainFactory = $this->createStub( LanguageFallbackChainFactory::class );
-		$labelLookup = new LabelLookup( $stubDataLookup, $stubLanguageFallbackChainFactory );
+		$labelLookup = new SchemaDataResolvingLabelLookup(
+			$this->createMock( FullViewSchemaDataLookup::class ),
+			$this->createMock( LabelLookup::class )
+		);
 
 		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'en' );
 
@@ -47,8 +50,9 @@ class LabelLookupTest extends MediaWikiUnitTestCase {
 			LanguageFallbackChainFactory::class,
 			[ 'newFromLanguageCode' => $stubLanguageFallbackChain ]
 		);
+		$wrappedLabelLookup = new LabelLookup( $stubLanguageFallbackChainFactory );
 
-		$labelLookup = new LabelLookup( $stubDataLookup, $stubLanguageFallbackChainFactory );
+		$labelLookup = new SchemaDataResolvingLabelLookup( $stubDataLookup, $wrappedLabelLookup );
 
 		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'en' );
 
@@ -75,7 +79,8 @@ class LabelLookupTest extends MediaWikiUnitTestCase {
 			[ 'newFromLanguageCode' => $stubLanguageFallbackChain ]
 		);
 
-		$labelLookup = new LabelLookup( $stubDataLookup, $stubLanguageFallbackChainFactory );
+		$wrappedLabelLookup = new LabelLookup( $stubLanguageFallbackChainFactory );
+		$labelLookup = new SchemaDataResolvingLabelLookup( $stubDataLookup, $wrappedLabelLookup );
 
 		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'de' );
 
@@ -104,7 +109,8 @@ class LabelLookupTest extends MediaWikiUnitTestCase {
 			[ 'newFromLanguageCode' => $stubLanguageFallbackChain ]
 		);
 
-		$labelLookup = new LabelLookup( $stubDataLookup, $stubLanguageFallbackChainFactory );
+		$wrappedLabelLookup = new LabelLookup( $stubLanguageFallbackChainFactory );
+		$labelLookup = new SchemaDataResolvingLabelLookup( $stubDataLookup, $wrappedLabelLookup );
 
 		$actualResult = $labelLookup->getLabelForTitle( $this->createMock( PageIdentity::class ), 'de-at' );
 

@@ -15,7 +15,7 @@ use MediaWikiIntegrationTestCase;
  * @covers \EntitySchema\DataAccess\LabelLookup
  * @group Database
  */
-class LabelLookupTest extends MediaWikiIntegrationTestCase {
+class SchemaDataResolvingLabelLookupTest extends MediaWikiIntegrationTestCase {
 	use EntitySchemaIntegrationTestCaseTrait;
 
 	protected function setUp(): void {
@@ -34,7 +34,7 @@ class LabelLookupTest extends MediaWikiIntegrationTestCase {
 		$this->saveSchemaPageContent( $page, [
 			'labels' => [ 'en' => $englishLabel ],
 		] );
-		$labelLookup = EntitySchemaServices::getLabelLookup( $this->getServiceContainer() );
+		$labelLookup = EntitySchemaServices::getSchemaDataResolvingLabelLookup( $this->getServiceContainer() );
 
 		$actualLabelTerm = $labelLookup->getLabelForTitle( $title, 'en' );
 
@@ -51,7 +51,7 @@ class LabelLookupTest extends MediaWikiIntegrationTestCase {
 		$this->saveSchemaPageContent( $page, [
 			'labels' => [ 'en' => $englishLabel ],
 		] );
-		$labelLookup = EntitySchemaServices::getLabelLookup( $this->getServiceContainer() );
+		$labelLookup = EntitySchemaServices::getSchemaDataResolvingLabelLookup( $this->getServiceContainer() );
 
 		$actualLabelTerm = $labelLookup->getLabelForTitle( $title, 'de' );
 
@@ -68,7 +68,7 @@ class LabelLookupTest extends MediaWikiIntegrationTestCase {
 		$this->saveSchemaPageContent( $page, [
 			'labels' => [ 'de' => $germanLabel ],
 		] );
-		$labelLookup = EntitySchemaServices::getLabelLookup( $this->getServiceContainer() );
+		$labelLookup = EntitySchemaServices::getSchemaDataResolvingLabelLookup( $this->getServiceContainer() );
 
 		$actualLabelTerm = $labelLookup->getLabelForTitle( $title, 'en' );
 
@@ -78,7 +78,7 @@ class LabelLookupTest extends MediaWikiIntegrationTestCase {
 	public function testGetLabel_SchemaDoesNotExist() {
 		$id = 'E45678';
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id );
-		$labelLookup = EntitySchemaServices::getLabelLookup( $this->getServiceContainer() );
+		$labelLookup = EntitySchemaServices::getSchemaDataResolvingLabelLookup( $this->getServiceContainer() );
 
 		$actualLabelTerm = $labelLookup->getLabelForTitle( $title, 'en' );
 

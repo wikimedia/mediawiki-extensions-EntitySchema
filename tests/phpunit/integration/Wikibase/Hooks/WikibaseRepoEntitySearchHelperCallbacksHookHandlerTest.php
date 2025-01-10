@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\Wikibase\Hooks;
 
 use EntitySchema\DataAccess\DescriptionLookup;
-use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\Wikibase\Hooks\WikibaseRepoEntitySearchHelperCallbacksHookHandler;
 use EntitySchema\Wikibase\Search\EntitySchemaIdSearchHelper;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
@@ -46,7 +46,7 @@ class WikibaseRepoEntitySearchHelperCallbacksHookHandlerTest extends MediaWikiIn
 			$this->createMock( LanguageFallbackChainFactory::class ),
 			'https://wiki.example/',
 			$this->createMock( DescriptionLookup::class ),
-			$this->createMock( LabelLookup::class )
+			$this->createMock( SchemaDataResolvingLabelLookup::class )
 		);
 
 		( new WikibaseRepoEntitySearchHelperCallbacksHookHandler( true, $factory ) )
@@ -78,7 +78,7 @@ class WikibaseRepoEntitySearchHelperCallbacksHookHandlerTest extends MediaWikiIn
 			$this->createMock( LanguageFallbackChainFactory::class ),
 			'https://wiki.example/',
 			$this->createMock( DescriptionLookup::class ),
-			$this->createMock( LabelLookup::class )
+			$this->createMock( SchemaDataResolvingLabelLookup::class )
 		);
 
 		( new WikibaseRepoEntitySearchHelperCallbacksHookHandler( true, $factory ) )
@@ -105,7 +105,7 @@ class WikibaseRepoEntitySearchHelperCallbacksHookHandlerTest extends MediaWikiIn
 			$this->createMock( LanguageFallbackChainFactory::class ),
 			'https://wiki.example/',
 			$this->createMock( DescriptionLookup::class ),
-			$this->createMock( LabelLookup::class )
+			$this->createMock( SchemaDataResolvingLabelLookup::class )
 		);
 
 		( new WikibaseRepoEntitySearchHelperCallbacksHookHandler( true, $factory ) )

@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Wikibase\Hooks;
 
-use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValueParser;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
@@ -31,7 +31,7 @@ class WikibaseRepoDataTypesHookHandler {
 	private ?LanguageNameLookupFactory $languageNameLookupFactory;
 	private ?DatabaseEntitySource $localEntitySource;
 	private TitleFactory $titleFactory;
-	private ?LabelLookup $labelLookup;
+	private ?SchemaDataResolvingLabelLookup $labelLookup;
 
 	public function __construct(
 		LinkRenderer $linkRenderer,
@@ -40,7 +40,7 @@ class WikibaseRepoDataTypesHookHandler {
 		?LanguageNameLookupFactory $languageNameLookupFactory,
 		?DatabaseEntitySource $localEntitySource,
 		?EntitySchemaExistsValidator $entitySchemaExistsValidator,
-		?LabelLookup $labelLookup
+		?SchemaDataResolvingLabelLookup $labelLookup
 	) {
 		$this->linkRenderer = $linkRenderer;
 		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
@@ -61,7 +61,7 @@ class WikibaseRepoDataTypesHookHandler {
 				$entitySchemaExistsValidator,
 				'$entitySchemaExistsValidator'
 			);
-			Assert::parameterType( LabelLookup::class, $labelLookup, '$labelLookup' );
+			Assert::parameterType( SchemaDataResolvingLabelLookup::class, $labelLookup, '$labelLookup' );
 		}
 	}
 

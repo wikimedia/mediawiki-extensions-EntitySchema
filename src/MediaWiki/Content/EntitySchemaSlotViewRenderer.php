@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Content;
 
+use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\SpecificLanguageMessageLocalizer;
 use EntitySchema\Services\Converter\FullViewEntitySchemaData;
 use EntitySchema\Services\Converter\NameBadge;
@@ -21,6 +22,8 @@ use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\SyntaxHighlight\SyntaxHighlight;
 use MediaWiki\Title\TitleFormatter;
 use MessageLocalizer;
+use Wikibase\Lib\LanguageFallbackIndicator;
+use Wikibase\Lib\LanguageNameLookupFactory;
 
 /**
  * @license GPL-2.0-or-later
@@ -39,11 +42,19 @@ class EntitySchemaSlotViewRenderer {
 
 	private string $dir;
 
+	private string $currentLangCode;
+
+	private LabelLookup $labelLookup;
+
+	private LanguageNameLookupFactory $languageNameLookupFactory;
+
 	/**
 	 * @param string $languageCode The language in which to render the view.
 	 */
 	public function __construct(
 		string $languageCode,
+		LabelLookup $labelLookup,
+		LanguageNameLookupFactory $languageNameLookupFactory,
 		?LinkRenderer $linkRenderer = null,
 		?Config $config = null,
 		?TitleFormatter $titleFormatter = null,
@@ -61,6 +72,9 @@ class EntitySchemaSlotViewRenderer {
 			null;
 		$this->dir = MediaWikiServices::getInstance()->getLanguageFactory()
 			->getLanguage( $languageCode )->getDir();
+		$this->currentLangCode = $languageCode;
+		$this->labelLookup = $labelLookup;
+		$this->languageNameLookupFactory = $languageNameLookupFactory;
 	}
 
 	private function msg( string $key ): Message {
@@ -82,7 +96,7 @@ class EntitySchemaSlotViewRenderer {
 			$this->renderSchemaSection( $page, $schemaData->schemaText )
 		);
 		$parserOutput->setDisplayTitle(
-			$this->renderHeading( reset( $schemaData->nameBadges ), $page )
+			$this->renderHeading( $schemaData, $page )
 		);
 	}
 
@@ -90,6 +104,14 @@ class EntitySchemaSlotViewRenderer {
 		$html = Html::openElement( 'table', [ 'class' => 'wikitable' ] );
 		$html .= $this->renderNameBadgeHeader();
 		$html .= Html::openElement( 'tbody' );
+		if ( !array_key_exists( $this->currentLangCode, $nameBadges ) ) {
+			$html .= "\n";
+			$html .= $this->renderNameBadge(
+				new NameBadge( '', '', [] ),
+				$this->currentLangCode,
+				$page->getDBkey()
+			);
+		}
 		foreach ( $nameBadges as $langCode => $nameBadge ) {
 			$html .= "\n";
 			$html .= $this->renderNameBadge(
@@ -309,15 +331,24 @@ class EntitySchemaSlotViewRenderer {
 		);
 	}
 
-	private function renderHeading( NameBadge $nameBadge, PageReference $page ): string {
-		if ( $nameBadge->label !== '' ) {
-			$label = Html::element(
-				'span',
-				[ 'class' => 'entityschema-title-label' ],
-				$nameBadge->label
+	private function renderHeading( FullViewEntitySchemaData $schemaData, PageReference $page ): string {
+		$label = $this->labelLookup->getLabelForSchemaData( $schemaData, $this->currentLangCode );
+		if ( $label !== null ) {
+			$labelElement = Html::element(
+				'span', [
+					'class' => 'entityschema-title-label',
+					'lang' => $label->getActualLanguageCode(),
+					'dir' => MediaWikiServices::getInstance()->getLanguageFactory()
+						->getLanguage( $label->getActualLanguageCode() )->getDir(),
+				],
+				$label->getText()
 			);
+			$languageFallbackIndicator = new LanguageFallbackIndicator(
+				$this->languageNameLookupFactory->getForLanguageCode( $this->currentLangCode )
+			);
+			$labelElement .= $languageFallbackIndicator->getHtml( $label );
 		} else {
-			$label = Html::element(
+			$labelElement = Html::element(
 				'span',
 				[ 'class' => 'entityschema-title-label-empty' ],
 				$this->msg( 'entityschema-label-empty' )
@@ -325,7 +356,7 @@ class EntitySchemaSlotViewRenderer {
 			);
 		}
 
-		$id = Html::element(
+		$idElement = Html::element(
 			'span',
 			[ 'class' => 'entityschema-title-id' ],
 			$this->msg( 'parentheses' )
@@ -336,7 +367,7 @@ class EntitySchemaSlotViewRenderer {
 		return Html::rawElement(
 			'span',
 			[ 'class' => 'entityschema-title' ],
-			$label . ' ' . $id
+			$labelElement . ' ' . $idElement
 		);
 	}
 

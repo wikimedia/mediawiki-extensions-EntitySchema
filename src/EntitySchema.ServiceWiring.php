@@ -5,6 +5,7 @@ use EntitySchema\DataAccess\DescriptionLookup;
 use EntitySchema\DataAccess\FullViewSchemaDataLookup;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\DataAccess\SqlIdGenerator;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
@@ -58,7 +59,7 @@ return [
 			WikibaseRepo::getLanguageFallbackChainFactory( $services ),
 			WikibaseRepo::getLocalEntitySource( $services )->getConceptBaseUri(),
 			EntitySchemaServices::getDescriptionLookup( $services ),
-			EntitySchemaServices::getLabelLookup( $services )
+			EntitySchemaServices::getSchemaDataResolvingLabelLookup( $services )
 		);
 	},
 
@@ -93,7 +94,6 @@ return [
 			return null;
 		}
 		return new LabelLookup(
-			EntitySchemaServices::getFullViewSchemaDataLookup( $services ),
 			WikibaseRepo::getLanguageFallbackChainFactory( $services )
 		);
 	},
@@ -108,6 +108,17 @@ return [
 			$services->getWikiPageFactory()
 		);
 	},
+
+	'EntitySchema.SchemaDataResolvingLabelLookup' =>
+		static function ( MediaWikiServices $services ): ?SchemaDataResolvingLabelLookup {
+			if ( !$services->getMainConfig()->get( 'EntitySchemaIsRepo' ) ) {
+				return null;
+			}
+			return new SchemaDataResolvingLabelLookup(
+				EntitySchemaServices::getFullViewSchemaDataLookup( $services ),
+				EntitySchemaServices::getLabelLookup( $services )
+			);
+		},
 
 	'EntitySchema.WatchlistUpdater' => static function (
 		MediaWikiServices $services

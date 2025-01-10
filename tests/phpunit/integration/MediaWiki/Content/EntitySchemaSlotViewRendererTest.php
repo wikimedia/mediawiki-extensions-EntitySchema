@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
+use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer;
 use EntitySchema\Services\Converter\FullViewEntitySchemaData;
 use EntitySchema\Services\Converter\NameBadge;
@@ -15,6 +16,8 @@ use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWikiIntegrationTestCase;
+use Wikibase\DataModel\Term\TermFallback;
+use Wikibase\Lib\LanguageNameLookupFactory;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaSlotViewRenderer
@@ -35,7 +38,15 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 	 * @dataProvider provideSchemaDataAndHtmlFragments
 	 */
 	public function testFillParserOutput( FullViewEntitySchemaData $schemaData, array $fragments ) {
-		$renderer = new EntitySchemaSlotViewRenderer( 'en', null, null, null, false );
+		$renderer = new EntitySchemaSlotViewRenderer(
+			'en',
+			$this->createMock( LabelLookup::class ),
+			$this->createMock( LanguageNameLookupFactory::class ),
+			null,
+			null,
+			null,
+			false
+		);
 
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
@@ -135,6 +146,8 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		], '' );
 		$renderer = new EntitySchemaSlotViewRenderer(
 			'qqx', // use (message-key) instead of real translations
+			$this->createMock( LabelLookup::class ),
+			$this->createMock( LanguageNameLookupFactory::class ),
 			null,
 			null,
 			null,
@@ -162,11 +175,36 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideLabelsAndHeadings
 	 */
-	public function testFillParserOutput_heading( string $label, string $expected ) {
+	public function testFillParserOutput_heading(
+		string $languageCode,
+		string $englishLabel,
+		array $fallbackChain,
+		string $expected
+	) {
 		$schemaData = new FullViewEntitySchemaData( [
-			'en' => new NameBadge( $label, 'description', [ 'alias' ] ),
+			'en' => new NameBadge( $englishLabel, 'description', [ 'alias' ] ),
+			'de' => new NameBadge( '', 'description', [ 'alias' ] ),
 		], '' );
-		$renderer = new EntitySchemaSlotViewRenderer( 'en', null, null, null, false );
+		$labelLookupMock = $this->createMock( LabelLookup::class );
+		if ( $languageCode === 'en' && $englishLabel !== '' ) {
+			$labelLookupMock->method( 'getLabelForSchemaData' )
+				->willReturn( new TermFallback( 'en', $englishLabel, 'en', null ) );
+		} elseif ( in_array( $languageCode, $fallbackChain ) && $englishLabel !== '' ) {
+			$labelLookupMock->method( 'getLabelForSchemaData' )
+				->willReturn( new TermFallback( $languageCode, $englishLabel, 'en', null ) );
+		} else {
+			$labelLookupMock->method( 'getLabelForSchemaData' )
+				->willReturn( null );
+		}
+		$renderer = new EntitySchemaSlotViewRenderer(
+			$languageCode,
+			$labelLookupMock,
+			$this->createMock( LanguageNameLookupFactory::class ),
+			null,
+			null,
+			null,
+			false
+		);
 
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(
@@ -181,18 +219,31 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 
 	public static function provideLabelsAndHeadings(): iterable {
 		yield 'simple case' => [
+			'en',
 			'english label',
+			[],
 			'english label',
 		];
 
 		yield 'no HTML injection' => [
+			'en',
 			'<script>alert("english label")</script>',
+			[],
 			'&lt;script',
 		];
 
-		yield 'fallback if label missing' => [
+		yield 'empty label message if label missing' => [
+			'en',
 			'',
+			[],
 			'No label defined',
+		];
+
+		yield 'fallback label if available' => [
+			'de',
+			'english label',
+			[ 'de', 'en' ],
+			'english label',
 		];
 	}
 
@@ -203,6 +254,8 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		);
 		$renderer = new EntitySchemaSlotViewRenderer(
 			'qqx',
+			$this->createMock( LabelLookup::class ),
+			$this->createMock( LanguageNameLookupFactory::class ),
 			null,
 			new MultiConfig( [
 				new HashConfig( [ 'EntitySchemaShExSimpleUrl' => 'http://my.test?foo=bar#fragment' ] ),
@@ -238,7 +291,11 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			[ 'en' => new NameBadge( '', '', [] ) ],
 			'schema text'
 		);
-		$renderer = new EntitySchemaSlotViewRenderer( 'qqx' );
+		$renderer = new EntitySchemaSlotViewRenderer(
+			'qqx',
+			$this->createMock( LabelLookup::class ),
+			$this->createMock( LanguageNameLookupFactory::class )
+		);
 
 		$parserOutput = new ParserOutput();
 		$renderer->fillParserOutput(

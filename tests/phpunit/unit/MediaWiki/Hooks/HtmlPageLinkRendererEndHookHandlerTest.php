@@ -3,7 +3,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 
-use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\MediaWiki\Hooks\HtmlPageLinkRendererEndHookHandler;
 use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
 use HtmlArmor;
@@ -129,7 +129,7 @@ class HtmlPageLinkRendererEndHookHandlerTest extends MediaWikiUnitTestCase {
 				] );
 			} );
 
-		$stubLabelLookup = $this->createStub( LabelLookup::class );
+		$stubLabelLookup = $this->createStub( SchemaDataResolvingLabelLookup::class );
 		$stubLabelLookup->method( 'getLabelForTitle' )
 			->willReturn( $labelReturnedByLookup
 				? new TermFallback( 'en', $labelReturnedByLookup, 'en', null )

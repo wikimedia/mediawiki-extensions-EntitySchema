@@ -22,7 +22,7 @@ class EntitySchemaContent extends JsonContent {
 
 	public function getTextForSearchIndex(): string {
 		$converter = new EntitySchemaConverter();
-		$schemaData = $converter->getFullViewSchemaData( $this->getText(), [] );
+		$schemaData = $converter->getFullViewSchemaData( $this->getText() );
 		$textForSearchIndex = '';
 
 		foreach ( $schemaData->nameBadges as $nameBadge ) {
