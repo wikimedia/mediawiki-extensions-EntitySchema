@@ -18,21 +18,18 @@ class EntitySchemaConverter {
 
 	/**
 	 * @param string $schemaJSON
-	 * @param string[] $preferredLanguages Name badges for these language codes will always be present,
-	 * even if there is no data for them, and they will also be ordered before other languages.
 	 *
 	 * @return FullViewEntitySchemaData
 	 *
 	 * @throws LogicException
 	 */
 	public function getFullViewSchemaData(
-		string $schemaJSON,
-		array $preferredLanguages
+		string $schemaJSON
 	): FullViewEntitySchemaData {
 		$schema = json_decode( $schemaJSON, true );
 
 		return new FullViewEntitySchemaData(
-			$this->getNameBadgesFromSchema( $schema, $preferredLanguages ),
+			$this->getNameBadgesFromSchema( $schema ),
 			$this->getSchemaTextFromSchema( $schema )
 		);
 	}
@@ -143,7 +140,7 @@ class EntitySchemaConverter {
 	}
 
 	public function getSearchEntitySchemaAdapter( string $schemaJSON ): SearchEntitySchemaAdapter {
-		$viewData = $this->getFullViewSchemaData( $schemaJSON, [] );
+		$viewData = $this->getFullViewSchemaData( $schemaJSON );
 		$labels = new TermList();
 		$descriptions = new TermList();
 		$aliases = new AliasGroupList();
@@ -160,15 +157,17 @@ class EntitySchemaConverter {
 	}
 
 	/**
+	 * Returns an array of NameBadges containing label, description and alias
+	 * data for the schema in each language for which data is available.
+	 *
 	 * @param array $schema
-	 * @param string[] $preferredLanguages
 	 *
 	 * @return NameBadge[]
 	 *
 	 * @throws DomainException
 	 */
-	private function getNameBadgesFromSchema( array $schema, array $preferredLanguages ): array {
-		$langs = $this->getSchemaLanguages( $schema, $preferredLanguages );
+	private function getNameBadgesFromSchema( array $schema ): array {
+		$langs = $this->getSchemaLanguages( $schema );
 		$nameBadges = [];
 		foreach ( $langs as $langCode ) {
 			$nameBadges[$langCode] = new NameBadge(
@@ -181,13 +180,15 @@ class EntitySchemaConverter {
 	}
 
 	/**
+	 * Return an array of language codes for all languages that are present
+	 * in the schema
+	 *
 	 * @param array $schema
-	 * @param string[] $preferredLanguages
 	 *
 	 * @return string[]
 	 */
-	private function getSchemaLanguages( array $schema, array $preferredLanguages = [] ): array {
-		$langs = $preferredLanguages;
+	private function getSchemaLanguages( array $schema ): array {
+		$langs = [];
 		if ( !empty( $schema['labels'] ) ) {
 			$langs = array_merge(
 				$langs,

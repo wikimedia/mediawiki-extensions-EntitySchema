@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Hooks;
 
-use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use HtmlArmor;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Languages\LanguageFactory;
@@ -20,13 +20,13 @@ class HtmlPageLinkRendererEndHookHandler implements HtmlPageLinkRendererEndHook 
 
 	private bool $entitySchemaIsRepo;
 	private LanguageFactory $languageFactory;
-	private ?LabelLookup $labelLookup;
+	private ?SchemaDataResolvingLabelLookup $labelLookup;
 	private RequestContext $context;
 
 	public function __construct(
 		bool $entitySchemaIsRepo,
 		LanguageFactory $languageFactory,
-		?LabelLookup $labelLookup,
+		?SchemaDataResolvingLabelLookup $labelLookup,
 		RequestContext $context
 	) {
 		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
@@ -34,14 +34,14 @@ class HtmlPageLinkRendererEndHookHandler implements HtmlPageLinkRendererEndHook 
 		$this->labelLookup = $labelLookup;
 		$this->context = $context;
 		if ( $entitySchemaIsRepo ) {
-			Assert::parameterType( LabelLookup::class, $labelLookup, '$labelLookup' );
+			Assert::parameterType( SchemaDataResolvingLabelLookup::class, $labelLookup, '$labelLookup' );
 		}
 	}
 
 	public static function factory(
 		LanguageFactory $languageFactory,
 		bool $entitySchemaIsRepo,
-		?LabelLookup $labelLookup
+		?SchemaDataResolvingLabelLookup $labelLookup
 	): self {
 		return new self(
 			$entitySchemaIsRepo,

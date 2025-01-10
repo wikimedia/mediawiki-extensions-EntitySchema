@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\Wikibase\Search;
 
 use EntitySchema\DataAccess\DescriptionLookup;
-use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use EntitySchema\Wikibase\Search\EntitySchemaIdSearchHelper;
@@ -49,7 +49,7 @@ class EntitySchemaIdSearchHelperTest extends MediaWikiIntegrationTestCase {
 			$wikiPageFactory,
 			'https://wiki.example/entity/',
 			EntitySchemaServices::getDescriptionLookup( $services ),
-			EntitySchemaServices::getLabelLookup( $services ),
+			EntitySchemaServices::getSchemaDataResolvingLabelLookup( $services ),
 			'en'
 		);
 
@@ -84,7 +84,7 @@ class EntitySchemaIdSearchHelperTest extends MediaWikiIntegrationTestCase {
 			$this->createNoOpMock( WikiPageFactory::class ),
 			'https://wiki.example/entity/',
 			$this->createNoOpMock( DescriptionLookup::class ),
-			$this->createNoOpMock( LabelLookup::class ),
+			$this->createNoOpMock( SchemaDataResolvingLabelLookup::class ),
 			'en'
 		);
 
@@ -106,7 +106,7 @@ class EntitySchemaIdSearchHelperTest extends MediaWikiIntegrationTestCase {
 			$this->createNoOpMock( WikiPageFactory::class ),
 			'https://wiki.example/entity/',
 			$this->createNoOpMock( DescriptionLookup::class ),
-			$this->createNoOpMock( LabelLookup::class ),
+			$this->createNoOpMock( SchemaDataResolvingLabelLookup::class ),
 			'en'
 		);
 
@@ -130,7 +130,7 @@ class EntitySchemaIdSearchHelperTest extends MediaWikiIntegrationTestCase {
 			$this->createNoOpMock( WikiPageFactory::class ),
 			'https://wiki.example/entity/',
 			$this->createNoOpMock( DescriptionLookup::class ),
-			$this->createNoOpMock( LabelLookup::class ),
+			$this->createNoOpMock( SchemaDataResolvingLabelLookup::class ),
 			'en'
 		);
 
@@ -156,7 +156,7 @@ class EntitySchemaIdSearchHelperTest extends MediaWikiIntegrationTestCase {
 			$wikiPageFactory,
 			'https://wiki.example/entity/',
 			$this->createNoOpMock( DescriptionLookup::class ),
-			$this->createNoOpMock( LabelLookup::class ),
+			$this->createNoOpMock( SchemaDataResolvingLabelLookup::class ),
 			'en'
 		);
 

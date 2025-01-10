@@ -6,7 +6,7 @@ namespace EntitySchema\Tests\Integration\Wikibase\Hooks;
 
 use DataValues\DataValue;
 use DataValues\StringValue;
-use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
@@ -50,7 +50,7 @@ class WikibaseRepoDataTypesHookHandlerTest extends MediaWikiIntegrationTestCase 
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
-			$this->createStub( LabelLookup::class )
+			$this->createStub( SchemaDataResolvingLabelLookup::class )
 		);
 
 		$dataTypeDefinitions = [ 'PT:wikibase-item' => [] ];
@@ -96,7 +96,7 @@ class WikibaseRepoDataTypesHookHandlerTest extends MediaWikiIntegrationTestCase 
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$stubExistsValidator,
-			$this->createStub( LabelLookup::class )
+			$this->createStub( SchemaDataResolvingLabelLookup::class )
 		);
 		$dataTypeDefinitions = [];
 		$handler->onWikibaseRepoDataTypes( $dataTypeDefinitions );

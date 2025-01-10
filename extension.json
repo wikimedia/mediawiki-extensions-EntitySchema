@@ -47,7 +47,7 @@
 				"EntitySchema.EntitySchemaIsRepo"
 			],
 			"optional_services": [
-				"EntitySchema.LabelLookup"
+				"EntitySchema.SchemaDataResolvingLabelLookup"
 			]
 		},
 		"WikibaseClientDataTypes": {
@@ -64,7 +64,7 @@
 				"WikibaseRepo.LanguageNameLookupFactory",
 				"WikibaseRepo.LocalEntitySource",
 				"EntitySchema.EntitySchemaExistsValidator",
-				"EntitySchema.LabelLookup"
+				"EntitySchema.SchemaDataResolvingLabelLookup"
 			]
 		},
 		"WikibaseRepoEntitySearchHelperCallbacks": {
@@ -146,6 +146,10 @@
 				"ConfigFactory",
 				"LanguageNameUtils",
 				"EntitySchema.EntitySchemaIsRepo"
+			],
+			"optional_services": [
+				"EntitySchema.LabelLookup",
+				"WikibaseRepo.LanguageNameLookupFactory"
 			]
 		},
 		"ResourceLoaderRegisterModules": {

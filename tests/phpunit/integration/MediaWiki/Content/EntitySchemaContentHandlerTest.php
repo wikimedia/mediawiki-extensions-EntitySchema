@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 
 use CirrusSearch\CirrusSearch;
+use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\Parser\ParserOptions;
@@ -16,6 +17,7 @@ use MediaWikiIntegrationTestCase;
 use SearchEngine;
 use Wikibase\DataModel\Term\DescriptionsProvider;
 use Wikibase\DataModel\Term\LabelsProvider;
+use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Search\Elastic\Fields\AllLabelsField;
 use Wikibase\Search\Elastic\Fields\DescriptionsField;
 use Wikibase\Search\Elastic\Fields\DescriptionsProviderFieldDefinitions;
@@ -114,6 +116,8 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 	public function testGetFieldsForSearchIndex_noFieldDefinitions(): void {
 		$contentHandler = new EntitySchemaContentHandler(
 			'EntitySchema',
+			$this->createMock( LabelLookup::class ),
+			$this->createMock( LanguageNameLookupFactory::class ),
 			null,
 			null
 		);
@@ -136,6 +140,8 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 		);
 		$contentHandler = new EntitySchemaContentHandler(
 			'EntitySchema',
+			$this->createMock( LabelLookup::class ),
+			$this->createMock( LanguageNameLookupFactory::class ),
 			$labelsFieldDefinitions,
 			$descriptionsFieldDefinitions
 		);
@@ -163,6 +169,8 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 		);
 		$contentHandler = new EntitySchemaContentHandler(
 			'EntitySchema',
+			$this->createMock( LabelLookup::class ),
+			$this->createMock( LanguageNameLookupFactory::class ),
 			$labelsFieldDefinitions,
 			$descriptionsFieldDefinitions
 		);
@@ -229,6 +237,8 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 			->willReturn( [ 'descriptionsField' => $descriptionsField, 'no field' => null ] );
 		$contentHandler = new EntitySchemaContentHandler(
 			'EntitySchema',
+			$this->createMock( LabelLookup::class ),
+			$this->createMock( LanguageNameLookupFactory::class ),
 			$labelsFieldDefinitions,
 			$descriptionsFieldDefinitions
 		);

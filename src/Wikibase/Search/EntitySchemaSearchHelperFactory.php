@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Wikibase\Search;
 
 use EntitySchema\DataAccess\DescriptionLookup;
-use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Context\IContextSource;
@@ -30,7 +30,7 @@ class EntitySchemaSearchHelperFactory {
 	private LanguageFallbackChainFactory $languageFallbackChainFactory;
 	private string $wikibaseConceptBaseUri;
 	private DescriptionLookup $descriptionLookup;
-	private LabelLookup $labelLookup;
+	private SchemaDataResolvingLabelLookup $labelLookup;
 
 	public function __construct(
 		ConfigFactory $configFactory,
@@ -39,7 +39,7 @@ class EntitySchemaSearchHelperFactory {
 		LanguageFallbackChainFactory $languageFallbackChainFactory,
 		string $wikibaseConceptBaseUri,
 		DescriptionLookup $descriptionLookup,
-		LabelLookup $labelLookup
+		SchemaDataResolvingLabelLookup $labelLookup
 	) {
 		$this->configFactory = $configFactory;
 		$this->titleFactory = $titleFactory;

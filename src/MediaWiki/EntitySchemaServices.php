@@ -7,6 +7,7 @@ use EntitySchema\DataAccess\DescriptionLookup;
 use EntitySchema\DataAccess\FullViewSchemaDataLookup;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\DataAccess\MediaWikiPageUpdaterFactory;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\DataAccess\WatchlistUpdater;
 use EntitySchema\Domain\Storage\IdGenerator;
 use EntitySchema\Presentation\AutocommentFormatter;
@@ -58,6 +59,13 @@ class EntitySchemaServices {
 	public static function getLabelLookup( ?ContainerInterface $services = null ): LabelLookup {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'EntitySchema.LabelLookup' );
+	}
+
+	public static function getSchemaDataResolvingLabelLookup(
+		?ContainerInterface $services = null
+	): SchemaDataResolvingLabelLookup {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'EntitySchema.SchemaDataResolvingLabelLookup' );
 	}
 
 	public static function getEntitySchemaIsRepo( ?ContainerInterface $services = null ): bool {

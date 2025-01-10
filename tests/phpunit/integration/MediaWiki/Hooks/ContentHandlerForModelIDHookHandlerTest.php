@@ -4,9 +4,11 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 
+use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use EntitySchema\MediaWiki\Hooks\ContentHandlerForModelIDHookHandler;
 use MediaWikiIntegrationTestCase;
+use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -21,7 +23,9 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 		$handler = new ContentHandlerForModelIDHookHandler(
 			$services->getConfigFactory(),
 			$services->getLanguageNameUtils(),
-			true
+			true,
+			$this->createMock( LabelLookup::class ),
+			$this->createMock( LanguageNameLookupFactory::class )
 		);
 
 		$contentHandler = null;
@@ -38,7 +42,9 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 		$handler = new ContentHandlerForModelIDHookHandler(
 			$services->getConfigFactory(),
 			$services->getLanguageNameUtils(),
-			false
+			false,
+			null,
+			null,
 		);
 
 		$contentHandler = null;
@@ -52,7 +58,9 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 		$handler = new ContentHandlerForModelIDHookHandler(
 			$services->getConfigFactory(),
 			$services->getLanguageNameUtils(),
-			true
+			true,
+			$this->createMock( LabelLookup::class ),
+			$this->createMock( LanguageNameLookupFactory::class )
 		);
 
 		$contentHandler = null;

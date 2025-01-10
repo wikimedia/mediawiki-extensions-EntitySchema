@@ -5,7 +5,7 @@ declare( strict_types=1 );
 namespace EntitySchema\Tests\Integration\Wikibase;
 
 use DataValues\StringValue;
-use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHookHandler;
@@ -55,7 +55,7 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 			$this->createStub( LanguageNameLookupFactory::class ),
 			$stubDatabaseEntitySource,
 			$existsValidator,
-			$this->createStub( LabelLookup::class )
+			$this->createStub( SchemaDataResolvingLabelLookup::class )
 		);
 		$dataTypeDefinitions = [];
 		$handler->onWikibaseRepoDataTypes( $dataTypeDefinitions );

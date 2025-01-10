@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\Wikibase\Formatters;
 
-use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
@@ -33,7 +33,7 @@ class EntitySchemaFormatterTest extends MediaWikiIntegrationTestCase {
 	private $mockLinkRenderer;
 
 	/**
-	 * @var LabelLookup|MockObject
+	 * @var SchemaDataResolvingLabelLookup|MockObject
 	 */
 	private $mockLabelLookup;
 
@@ -44,7 +44,7 @@ class EntitySchemaFormatterTest extends MediaWikiIntegrationTestCase {
 
 	public function setUp(): void {
 		$this->mockLinkRenderer = $this->createMock( LinkRenderer::class );
-		$this->mockLabelLookup = $this->createMock( LabelLookup::class );
+		$this->mockLabelLookup = $this->createMock( SchemaDataResolvingLabelLookup::class );
 		$this->mockTitleFactory = $this->createMock( TitleFactory::class );
 	}
 

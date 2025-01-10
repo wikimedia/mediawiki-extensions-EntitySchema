@@ -60,7 +60,7 @@ class FullViewSchemaDataLookup {
 		$schema = $content->getText();
 
 		$converter = new EntitySchemaConverter();
-		return $converter->getFullViewSchemaData( $schema, [] );
+		return $converter->getFullViewSchemaData( $schema );
 	}
 
 }

@@ -37,7 +37,6 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 					'serializationVersion' => '3.0',
 				]
 			),
-			[ 'en' ],
 			new FullViewEntitySchemaData(
 				[
 					'en' => new NameBadge(
@@ -72,7 +71,6 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 					'serializationVersion' => '3.0',
 				]
 			),
-			[ 'en', 'de' ],
 			new FullViewEntitySchemaData(
 				[
 					'en' => new NameBadge(
@@ -95,45 +93,6 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 			),
 		];
 
-		yield 'schema not in preferred languages' => [
-			json_encode(
-				[
-					'labels' => [
-						'de' => 'deutsche Testbezeichnung',
-					],
-					'descriptions' => [
-						'de' => 'deutsche Testbeschreibung',
-					],
-					'aliases' => [
-						'de' => [ 'deutsch', 'Testalias' ],
-					],
-					'schemaText' => 'abc',
-					'serializationVersion' => '3.0',
-				]
-			),
-			[ 'en', 'ru' ],
-			new FullViewEntitySchemaData(
-				[
-					'en' => new NameBadge(
-						'',
-						'',
-						[]
-					),
-					'ru' => new NameBadge(
-						'',
-						'',
-						[]
-					),
-					'de' => new NameBadge(
-						'deutsche Testbezeichnung',
-						'deutsche Testbeschreibung',
-						[ 'deutsch', 'Testalias' ]
-					),
-				],
-				'abc'
-			),
-		];
-
 		yield 'serializationVersion 2.0' => [
 			json_encode(
 				[
@@ -150,7 +109,6 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 					'serializationVersion' => '2.0',
 				]
 			),
-			[ 'en' ],
 			new FullViewEntitySchemaData(
 				[
 					'en' => new NameBadge(
@@ -194,7 +152,6 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 					'serializationVersion' => '1.0',
 				]
 			),
-			[ 'en' ],
 			new FullViewEntitySchemaData(
 				[
 					'en' => new NameBadge(
@@ -212,17 +169,15 @@ class EntitySchemaConverterTest extends MediaWikiIntegrationTestCase {
 	 * @dataProvider validFullViewDataProvider
 	 *
 	 * @param string $schemaJSON
-	 * @param string[] $preferredLanguages
 	 * @param FullViewEntitySchemaData $expectedSchemaData
 	 */
 	public function testFullViewSchemaData(
 		string $schemaJSON,
-		array $preferredLanguages,
 		FullViewEntitySchemaData $expectedSchemaData
 	) {
 		$converter = new EntitySchemaConverter();
 
-		$actualSchema = $converter->getFullViewSchemaData( $schemaJSON, $preferredLanguages );
+		$actualSchema = $converter->getFullViewSchemaData( $schemaJSON );
 
 		$this->assertInstanceOf( FullViewEntitySchemaData::class, $actualSchema );
 		$this->assertEquals( $expectedSchemaData, $actualSchema );

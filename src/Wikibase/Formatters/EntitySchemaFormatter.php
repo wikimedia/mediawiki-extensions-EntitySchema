@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Wikibase\Formatters;
 
 use DataValues\StringValue;
-use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use InvalidArgumentException;
@@ -27,7 +27,7 @@ class EntitySchemaFormatter implements ValueFormatter {
 	private string $format;
 	private LinkRenderer $linkRenderer;
 
-	private LabelLookup $labelLookup;
+	private SchemaDataResolvingLabelLookup $labelLookup;
 
 	private FormatterOptions $options;
 	private TitleFactory $titleFactory;
@@ -37,7 +37,7 @@ class EntitySchemaFormatter implements ValueFormatter {
 		string $format,
 		FormatterOptions $options,
 		LinkRenderer $linkRenderer,
-		LabelLookup $labelLookup,
+		SchemaDataResolvingLabelLookup $labelLookup,
 		TitleFactory $titleFactory,
 		LanguageNameLookupFactory $languageNameLookupFactory
 	) {
