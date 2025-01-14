@@ -29,6 +29,7 @@
 	"entityschema-diff-schema": "Schéma",
 	"entityschema-edit": "editovat",
 	"entityschema-check-entities": "zkontrolovat entity vůči tomuto schématu",
+	"entityschema-summary-update-schema-label": "Změněn štítek schématu v jazyce $1",
 	"entityschema-undo-heading-failed": "Vrácení editace zpět se nezdařilo",
 	"entityschema-schematext-text": "Tato stránka poskytuje rozhraní k syrovému textu schématu. Uveďte ID schématu v URL pomocí syntaxe pro podstránky.",
 	"entityschema-special-id-submit": "Nastavit štítek, popis a aliasy",
