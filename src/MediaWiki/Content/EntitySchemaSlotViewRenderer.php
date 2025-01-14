@@ -35,7 +35,7 @@ class EntitySchemaSlotViewRenderer {
 
 	private TitleFormatter $titleFormatter;
 
-	private bool $useSyntaxHighlight;
+	private ?SyntaxHighlight $syntaxHighlight;
 
 	private string $dir;
 
@@ -56,7 +56,9 @@ class EntitySchemaSlotViewRenderer {
 		if ( $useSyntaxHighlight === null ) {
 			$useSyntaxHighlight = ExtensionRegistry::getInstance()->isLoaded( 'SyntaxHighlight' );
 		}
-		$this->useSyntaxHighlight = $useSyntaxHighlight;
+		$this->syntaxHighlight = $useSyntaxHighlight ?
+			MediaWikiServices::getInstance()->getService( 'SyntaxHighlight.SyntaxHighlight' ) :
+			null;
 		$this->dir = MediaWikiServices::getInstance()->getLanguageFactory()
 			->getLanguage( $languageCode )->getDir();
 	}
@@ -72,7 +74,7 @@ class EntitySchemaSlotViewRenderer {
 	): void {
 		$parserOutput->addModules( [ 'ext.EntitySchema.action.view.trackclicks' ] );
 		$parserOutput->addModuleStyles( [ 'ext.EntitySchema.view' ] );
-		if ( $this->useSyntaxHighlight ) {
+		if ( $this->syntaxHighlight ) {
 			$parserOutput->addModuleStyles( [ 'ext.pygments' ] );
 		}
 		$parserOutput->setText(
@@ -205,8 +207,8 @@ class EntitySchemaSlotViewRenderer {
 			'class' => 'entityschema-schema-text',
 		];
 
-		if ( $this->useSyntaxHighlight ) {
-			$highlighted = SyntaxHighlight::highlight( $schemaText, 'shex' );
+		if ( $this->syntaxHighlight ) {
+			$highlighted = $this->syntaxHighlight->syntaxHighlight( $schemaText, 'shex' );
 
 			if ( $highlighted->isOK() ) {
 				return Html::rawElement(
