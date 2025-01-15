@@ -92,7 +92,8 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 				'by' => $testuser,
 			]
 		);
-		$this->block->insert();
+		$this->getServiceContainer()->getDatabaseBlockStore()
+			->insertBlock( $this->block );
 
 		$testLabel = uniqid( 'testLabel_' . __FUNCTION__ . '_' );
 

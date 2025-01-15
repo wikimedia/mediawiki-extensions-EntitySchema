@@ -119,7 +119,8 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 				'by' => $testuser,
 			]
 		);
-		$this->block->insert();
+		$this->getServiceContainer()->getDatabaseBlockStore()
+			->insertBlock( $this->block );
 
 		$page = $this->getServiceContainer()->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
