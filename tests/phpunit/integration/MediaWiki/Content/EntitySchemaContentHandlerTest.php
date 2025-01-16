@@ -8,6 +8,7 @@ use CirrusSearch\CirrusSearch;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
+use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Registration\ExtensionRegistry;
@@ -25,6 +26,7 @@ use Wikibase\Search\Elastic\Fields\LabelsField;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\WikibaseDescriptionsIndexField;
 use Wikibase\Search\Elastic\Fields\WikibaseLabelsIndexField;
+use Wikimedia\ObjectFactory\ObjectFactory;
 use WikiPage;
 
 /**
@@ -118,6 +120,8 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 			'EntitySchema',
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class ),
+			$this->createMock( ObjectFactory::class ),
+			$this->createMock( HookContainer::class ),
 			null,
 			null
 		);
@@ -142,6 +146,8 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 			'EntitySchema',
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class ),
+			$this->createMock( ObjectFactory::class ),
+			$this->createMock( HookContainer::class ),
 			$labelsFieldDefinitions,
 			$descriptionsFieldDefinitions
 		);
@@ -171,6 +177,8 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 			'EntitySchema',
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class ),
+			$this->createMock( ObjectFactory::class ),
+			$this->createMock( HookContainer::class ),
 			$labelsFieldDefinitions,
 			$descriptionsFieldDefinitions
 		);
@@ -239,6 +247,8 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 			'EntitySchema',
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class ),
+			$this->createMock( ObjectFactory::class ),
+			$this->createMock( HookContainer::class ),
 			$labelsFieldDefinitions,
 			$descriptionsFieldDefinitions
 		);
