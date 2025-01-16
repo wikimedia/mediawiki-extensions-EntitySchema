@@ -8,12 +8,14 @@ use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Content\Hook\ContentHandlerForModelIDHook;
+use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\Registration\ExtensionRegistry;
 use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Search\Elastic\Fields\DescriptionsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
 use Wikimedia\Assert\Assert;
+use Wikimedia\ObjectFactory\ObjectFactory;
 
 /**
  * @license GPL-2.0-or-later
@@ -23,12 +25,16 @@ class ContentHandlerForModelIDHookHandler implements ContentHandlerForModelIDHoo
 	private ConfigFactory $configFactory;
 	private LanguageNameUtils $languageNameUtils;
 	private bool $entitySchemaIsRepo;
+	private ObjectFactory $objectFactory;
+	private HookContainer $hookContainer;
 	private ?LanguageNameLookupFactory $languageNameLookupFactory;
 	private ?LabelLookup $labelLookup;
 
 	public function __construct(
 		ConfigFactory $configFactory,
+		HookContainer $hookContainer,
 		LanguageNameUtils $languageNameUtils,
+		ObjectFactory $objectFactory,
 		bool $entitySchemaIsRepo,
 		?LabelLookup $labelLookup,
 		?LanguageNameLookupFactory $languageNameLookupFactory
@@ -38,6 +44,8 @@ class ContentHandlerForModelIDHookHandler implements ContentHandlerForModelIDHoo
 		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
 		$this->labelLookup = $labelLookup;
 		$this->languageNameLookupFactory = $languageNameLookupFactory;
+		$this->objectFactory = $objectFactory;
+		$this->hookContainer = $hookContainer;
 	}
 
 	/**
@@ -70,6 +78,8 @@ class ContentHandlerForModelIDHookHandler implements ContentHandlerForModelIDHoo
 			$modelName,
 			$this->labelLookup,
 			$this->languageNameLookupFactory,
+			$this->objectFactory,
+			$this->hookContainer,
 			$labelsFieldDefinitions,
 			$descriptionsFieldDefinitions
 		);

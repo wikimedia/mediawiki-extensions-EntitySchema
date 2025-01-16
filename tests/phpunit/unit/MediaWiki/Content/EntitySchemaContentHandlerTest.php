@@ -7,8 +7,10 @@ namespace EntitySchema\Tests\Unit\MediaWiki\Content;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
+use MediaWiki\HookContainer\HookContainer;
 use MediaWikiUnitTestCase;
 use Wikibase\Lib\LanguageNameLookupFactory;
+use Wikimedia\ObjectFactory\ObjectFactory;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler
@@ -22,6 +24,8 @@ class EntitySchemaContentHandlerTest extends MediaWikiUnitTestCase {
 			EntitySchemaContent::CONTENT_MODEL_ID,
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class ),
+			$this->createMock( ObjectFactory::class ),
+			$this->createMock( HookContainer::class ),
 			null,
 			null
 		);
@@ -34,6 +38,8 @@ class EntitySchemaContentHandlerTest extends MediaWikiUnitTestCase {
 			EntitySchemaContent::CONTENT_MODEL_ID,
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class ),
+			$this->createMock( ObjectFactory::class ),
+			$this->createMock( HookContainer::class ),
 			null,
 			null
 		);

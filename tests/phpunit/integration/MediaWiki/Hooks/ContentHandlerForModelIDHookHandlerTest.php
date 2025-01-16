@@ -22,7 +22,9 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 		$services = $this->getServiceContainer();
 		$handler = new ContentHandlerForModelIDHookHandler(
 			$services->getConfigFactory(),
+			$services->getHookContainer(),
 			$services->getLanguageNameUtils(),
+			$services->getObjectFactory(),
 			true,
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class )
@@ -41,7 +43,9 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 		$services = $this->getServiceContainer();
 		$handler = new ContentHandlerForModelIDHookHandler(
 			$services->getConfigFactory(),
+			$services->getHookContainer(),
 			$services->getLanguageNameUtils(),
+			$services->getObjectFactory(),
 			false,
 			null,
 			null,
@@ -57,7 +61,9 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 		$services = $this->getServiceContainer();
 		$handler = new ContentHandlerForModelIDHookHandler(
 			$services->getConfigFactory(),
+			$services->getHookContainer(),
 			$services->getLanguageNameUtils(),
+			$services->getObjectFactory(),
 			true,
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class )

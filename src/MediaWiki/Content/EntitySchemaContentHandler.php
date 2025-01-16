@@ -15,6 +15,7 @@ use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
 use EntitySchema\MediaWiki\Actions\RestoreViewAction;
 use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
 use EntitySchema\MediaWiki\Actions\UndoViewAction;
+use EntitySchema\MediaWiki\Actions\ViewEntitySchemaAction;
 use EntitySchema\MediaWiki\UndoHandler;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
@@ -25,6 +26,7 @@ use MediaWiki\Content\JsonContentHandler;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Language\Language;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\Parser\ParserOutput;
@@ -42,6 +44,7 @@ use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Search\Elastic\Fields\DescriptionsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
+use Wikimedia\ObjectFactory\ObjectFactory;
 use WikiPage;
 
 /**
@@ -67,10 +70,16 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 
 	private LabelLookup $labelLookup;
 
+	private ObjectFactory $objectFactory;
+
+	private HookContainer $hookContainer;
+
 	public function __construct(
 		string $modelId,
 		LabelLookup $labelLookup,
 		LanguageNameLookupFactory $languageNameLookupFactory,
+		ObjectFactory $objectFactory,
+		HookContainer $hookContainer,
 		?LabelsProviderFieldDefinitions $labelsFieldDefinitions,
 		?DescriptionsProviderFieldDefinitions $descriptionsFieldDefinitions
 	) {
@@ -80,6 +89,8 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		$this->languageNameLookupFactory = $languageNameLookupFactory;
 		$this->labelsFieldDefinitions = $labelsFieldDefinitions;
 		$this->descriptionsFieldDefinitions = $descriptionsFieldDefinitions;
+		$this->objectFactory = $objectFactory;
+		$this->hookContainer = $hookContainer;
 	}
 
 	protected function getContentClass(): string {
@@ -186,6 +197,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 					'TempUserConfig',
 				],
 			],
+			'view' => ViewEntitySchemaAction::class,
 		];
 	}
 

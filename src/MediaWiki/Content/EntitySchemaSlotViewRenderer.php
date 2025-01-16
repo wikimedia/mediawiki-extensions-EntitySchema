@@ -93,9 +93,9 @@ class EntitySchemaSlotViewRenderer {
 			$this->renderNameBadges( $page, $schemaData->nameBadges ) .
 			$this->renderSchemaSection( $page, $schemaData->schemaText )
 		);
-		$parserOutput->setDisplayTitle(
-			$this->renderHeading( $schemaData, $page )
-		);
+		[ $headingHtml, $headingText ] = $this->renderHeadingToHtmlAndText( $schemaData, $page );
+		$parserOutput->setExtensionData( 'entityschema-meta-tags', [ 'title' => $headingText ] );
+		$parserOutput->setDisplayTitle( $headingHtml );
 	}
 
 	private function renderNameBadges( PageReference $page, array $nameBadges ): string {
@@ -329,7 +329,7 @@ class EntitySchemaSlotViewRenderer {
 		);
 	}
 
-	private function renderHeading( FullViewEntitySchemaData $schemaData, PageReference $page ): string {
+	private function renderHeadingToHtmlAndText( FullViewEntitySchemaData $schemaData, PageReference $page ): array {
 		$label = $this->labelLookup->getLabelForSchemaData( $schemaData, $this->currentLangCode );
 		if ( $label !== null ) {
 			$labelElement = Html::element(
@@ -341,32 +341,37 @@ class EntitySchemaSlotViewRenderer {
 				],
 				$label->getText()
 			);
+			$labelText = $label->getText();
 			$languageFallbackIndicator = new LanguageFallbackIndicator(
 				$this->languageNameLookupFactory->getForLanguageCode( $this->currentLangCode )
 			);
-			$labelElement .= $languageFallbackIndicator->getHtml( $label );
+			$languageFallbackIndicatorElement = $languageFallbackIndicator->getHtml( $label );
 		} else {
+			$labelText = $this->msg( 'entityschema-label-empty' )->text();
 			$labelElement = Html::element(
 				'span',
 				[ 'class' => 'entityschema-title-label-empty' ],
-				$this->msg( 'entityschema-label-empty' )
-					->text()
+				$labelText
 			);
+			$languageFallbackIndicatorElement = '';
 		}
 
+		$idText = $this->msg( 'parentheses' )
+			->plaintextParams( $this->titleFormatter->getText( $page ) )
+			->text();
 		$idElement = Html::element(
 			'span',
 			[ 'class' => 'entityschema-title-id' ],
-			$this->msg( 'parentheses' )
-				->plaintextParams( $this->titleFormatter->getText( $page ) )
-				->text()
+			$idText
 		);
 
-		return Html::rawElement(
+		$htmlTitle = Html::rawElement(
 			'span',
 			[ 'class' => 'entityschema-title' ],
-			$labelElement . ' ' . $idElement
+			$labelElement . $languageFallbackIndicatorElement . ' ' . $idElement
 		);
+		$textTitle = $labelText . ' ' . $idText;
+		return [ $htmlTitle, $textTitle ];
 	}
 
 }

@@ -144,13 +144,18 @@
 			"class": "EntitySchema\\MediaWiki\\Hooks\\ContentHandlerForModelIDHookHandler",
 			"services": [
 				"ConfigFactory",
+				"HookContainer",
 				"LanguageNameUtils",
+				"ObjectFactory",
 				"EntitySchema.EntitySchemaIsRepo"
 			],
 			"optional_services": [
 				"EntitySchema.LabelLookup",
 				"WikibaseRepo.LanguageNameLookupFactory"
 			]
+		},
+		"OutputPageParserOutput": {
+			"class": "EntitySchema\\MediaWiki\\Hooks\\OutputPageParserOutputHookHandler"
 		},
 		"ResourceLoaderRegisterModules": {
 			"class": "EntitySchema\\MediaWiki\\Hooks\\ResourceLoaderRegisterModulesHookHandler",
@@ -207,6 +212,7 @@
 		"SpecialPage_initList": "SpecialPageInitList",
 		"GetContentModels": "GetContentModels",
 		"ContentHandlerForModelID": "ContentHandlerForModelID",
+		"OutputPageParserOutput": "OutputPageParserOutput",
 		"ResourceLoaderRegisterModules": "ResourceLoaderRegisterModules"
 	},
 	"namespaces": [

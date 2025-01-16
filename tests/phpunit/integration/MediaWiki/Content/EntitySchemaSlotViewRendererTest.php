@@ -179,7 +179,8 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 		string $languageCode,
 		string $englishLabel,
 		array $fallbackChain,
-		string $expected
+		string $expectedLabel,
+		string $expectedHtmlTitle
 	) {
 		$schemaData = new FullViewEntitySchemaData( [
 			'en' => new NameBadge( $englishLabel, 'description', [ 'alias' ] ),
@@ -212,9 +213,13 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			PageReferenceValue::localReference( NS_ENTITYSCHEMA_JSON, 'E1' ),
 			$parserOutput
 		);
+		$this->assertEquals(
+			$expectedHtmlTitle,
+			$parserOutput->getExtensionData( 'entityschema-meta-tags' )['title']
+		);
 		$html = $parserOutput->getDisplayTitle();
 
-		$this->assertStringContainsString( $expected, $html );
+		$this->assertStringContainsString( $expectedLabel, $html );
 	}
 
 	public static function provideLabelsAndHeadings(): iterable {
@@ -223,6 +228,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			'english label',
 			[],
 			'english label',
+			'english label (E1)',
 		];
 
 		yield 'no HTML injection' => [
@@ -230,6 +236,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			'<script>alert("english label")</script>',
 			[],
 			'&lt;script',
+			'<script>alert("english label")</script> (E1)',
 		];
 
 		yield 'empty label message if label missing' => [
@@ -237,6 +244,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			'',
 			[],
 			'No label defined',
+			'No label defined (E1)',
 		];
 
 		yield 'fallback label if available' => [
@@ -244,6 +252,7 @@ class EntitySchemaSlotViewRendererTest extends MediaWikiIntegrationTestCase {
 			'english label',
 			[ 'de', 'en' ],
 			'english label',
+			'english label (E1)',
 		];
 	}
 
