@@ -38,8 +38,6 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	use EntitySchemaIntegrationTestCaseTrait;
 	use TempUserTestTrait;
 
-	private DatabaseBlock $block;
-
 	protected function setUp(): void {
 		parent::setUp();
 
@@ -85,15 +83,14 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 
 	public function testNewSchemaIsNotCreatedWhenBlocked() {
 		$testuser = self::getTestUser()->getUser();
-		$this->block = new DatabaseBlock(
-			[
-				'address' => $testuser,
-				'reason' => 'testing in ' . __CLASS__,
-				'by' => $testuser,
-			]
-		);
 		$this->getServiceContainer()->getDatabaseBlockStore()
-			->insertBlock( $this->block );
+			->insertBlock( new DatabaseBlock(
+				[
+					'address' => $testuser,
+					'reason' => 'testing in ' . __CLASS__,
+					'by' => $testuser,
+				]
+			) );
 
 		$testLabel = uniqid( 'testLabel_' . __FUNCTION__ . '_' );
 
@@ -241,14 +238,6 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 		$this->assertTrue( $services->getUserIdentityUtils()->isTemp( $user ) );
 		$redirectUrl = $webResponse->getHeader( 'location' );
 		$this->assertRedirectToEntitySchema( $lastTitle, $redirectUrl );
-	}
-
-	protected function tearDown(): void {
-		if ( isset( $this->block ) ) {
-			$this->block->delete();
-		}
-
-		parent::tearDown();
 	}
 
 	/**

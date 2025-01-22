@@ -31,22 +31,12 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 	use EntitySchemaIntegrationTestCaseTrait;
 	use TempUserTestTrait;
 
-	private DatabaseBlock $block;
-
 	protected function setUp(): void {
 		parent::setUp();
 
 		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
 			$this->markTestSkipped( 'WikibaseRepo not enabled' );
 		}
-	}
-
-	protected function tearDown(): void {
-		if ( isset( $this->block ) ) {
-			$this->block->delete();
-		}
-
-		parent::tearDown();
 	}
 
 	private function getUndoSubmitAction( WikiPage $page, IContextSource $context ) {
@@ -112,15 +102,14 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 
 	public function testUndoSubmitBlocked() {
 		$testuser = self::getTestUser()->getUser();
-		$this->block = new DatabaseBlock(
-			[
-				'address' => $testuser,
-				'reason' => 'testing in ' . __CLASS__,
-				'by' => $testuser,
-			]
-		);
 		$this->getServiceContainer()->getDatabaseBlockStore()
-			->insertBlock( $this->block );
+			->insertBlock( new DatabaseBlock(
+				[
+					'address' => $testuser,
+					'reason' => 'testing in ' . __CLASS__,
+					'by' => $testuser,
+				]
+			) );
 
 		$page = $this->getServiceContainer()->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
