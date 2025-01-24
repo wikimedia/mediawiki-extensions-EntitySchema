@@ -11,7 +11,6 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutput;
-use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
@@ -39,10 +38,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 	}
 
 	public function testGetParserOutput_usesUserLangAndSplitsParserCache() {

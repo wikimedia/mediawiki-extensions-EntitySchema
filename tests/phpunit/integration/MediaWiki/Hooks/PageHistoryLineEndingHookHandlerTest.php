@@ -14,7 +14,6 @@ use EntitySchema\MediaWiki\HookRunner;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Language\Language;
 use MediaWiki\Languages\LanguageFactory;
-use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Request\FauxRequest;
 use MediaWikiIntegrationTestCase;
 
@@ -27,9 +26,7 @@ use MediaWikiIntegrationTestCase;
 class PageHistoryLineEndingHookHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testOneRestoreLink(): void {
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 
 		$context = new RequestContext();
 		$context->setRequest( new FauxRequest() );

@@ -5,7 +5,6 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\MediaWiki\Hooks;
 
 use EntitySchema\MediaWiki\Hooks\CanonicalNamespacesHookHandler;
-use MediaWiki\Registration\ExtensionRegistry;
 use MediaWikiIntegrationTestCase;
 
 /**
@@ -17,9 +16,7 @@ use MediaWikiIntegrationTestCase;
 class CanonicalNamespacesHookHandlerTest extends MediaWikiIntegrationTestCase {
 
 	public function testOnCanonicalNamespaces() {
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 
 		$namespaces = [
 			NS_MAIN => '',

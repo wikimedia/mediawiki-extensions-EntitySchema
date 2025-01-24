@@ -7,7 +7,6 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 use EntitySchema\MediaWiki\Specials\EntitySchemaText;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use HttpError;
-use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Request\WebResponse;
 use MediaWiki\Title\Title;
@@ -25,10 +24,7 @@ class EntitySchemaTextTest extends SpecialPageTestBase {
 
 	protected function setUp(): void {
 		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 	}
 
 	public function testExistingSchema() {

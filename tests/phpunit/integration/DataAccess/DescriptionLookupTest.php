@@ -6,7 +6,6 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
-use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 
@@ -20,10 +19,7 @@ class DescriptionLookupTest extends MediaWikiIntegrationTestCase {
 
 	public function setUp(): void {
 		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 	}
 
 	public function testGetDescription_DescriptionExistsInLanguage() {

@@ -5,7 +5,6 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\DataAccess\SqlIdGenerator;
-use MediaWiki\Registration\ExtensionRegistry;
 use MediaWikiIntegrationTestCase;
 use RuntimeException;
 use Wikimedia\Rdbms\DBReadOnlyError;
@@ -25,10 +24,7 @@ class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 	}
 
 	public function testGetNewId() {
