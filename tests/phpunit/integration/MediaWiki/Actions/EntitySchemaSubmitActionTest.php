@@ -8,7 +8,6 @@ use Action;
 use Article;
 use EntitySchema\MediaWiki\Actions\EntitySchemaSubmitAction;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 
@@ -23,10 +22,7 @@ final class EntitySchemaSubmitActionTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 	}
 
 	public function testActionName() {

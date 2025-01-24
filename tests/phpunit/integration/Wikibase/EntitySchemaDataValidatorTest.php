@@ -11,7 +11,6 @@ use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHookHandler;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
 use MediaWiki\Linker\LinkRenderer;
-use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
 use ValueValidators\Result;
@@ -34,9 +33,7 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 	}
 
 	private function createValidator( bool $validatesSuccessfully = true ): ValueValidator {

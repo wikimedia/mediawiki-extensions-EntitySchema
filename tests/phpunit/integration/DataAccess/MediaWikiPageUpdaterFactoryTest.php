@@ -6,7 +6,6 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\User\TempUser\CreateStatus;
 use MediaWiki\User\TempUser\TempUserCreator;
@@ -25,10 +24,7 @@ class MediaWikiPageUpdaterFactoryTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 	}
 
 	public function testGetPageUpdater() {

@@ -11,7 +11,6 @@ use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use EntitySchema\Wikibase\Search\EntitySchemaIdSearchHelper;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
 use MediaWiki\Page\WikiPageFactory;
-use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
@@ -29,10 +28,7 @@ class EntitySchemaIdSearchHelperTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 	}
 
 	public function testGetRankedSearchResults(): void {

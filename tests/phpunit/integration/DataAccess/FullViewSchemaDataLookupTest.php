@@ -9,7 +9,6 @@ use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Services\Converter\FullViewEntitySchemaData;
 use EntitySchema\Services\Converter\NameBadge;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
-use MediaWiki\Registration\ExtensionRegistry;
 use MediaWikiIntegrationTestCase;
 
 /**
@@ -22,10 +21,7 @@ class FullViewSchemaDataLookupTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 	}
 
 	public function testGetFullViewSchemaData(): void {
