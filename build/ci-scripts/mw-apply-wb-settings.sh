@@ -13,8 +13,8 @@ echo '$wgUsePathInfo = false;' >> LocalSettings.php
 echo 'if ( !defined( "MW_QUIBBLE_CI" ) ) define( "MW_QUIBBLE_CI", true );' >> LocalSettings.php
 echo '$wgShowExceptionDetails = true;' >> LocalSettings.php
 echo '$wgDevelopmentWarnings = true;' >> LocalSettings.php
-echo '$wgLanguageCode = "'$LANG'";' >> LocalSettings.php
-echo '$wgDebugLogFile = "'$LOG_DIR'/mw-debug.log";' >> LocalSettings.php
+echo "\$wgLanguageCode = \"$LANG\";" >> LocalSettings.php
+echo "\$wgDebugLogFile = \"$LOG_DIR/mw-debug.log\";" >> LocalSettings.php
 
 echo '$wgEnableWikibaseRepo = true;' >> LocalSettings.php
 echo '$wgEnableWikibaseClient = true;' >> LocalSettings.php

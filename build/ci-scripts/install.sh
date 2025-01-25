@@ -6,25 +6,25 @@ originalDirectory=$(pwd)
 
 cd ..
 
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/core.git mediawiki --depth 1
+git clone -b "$MW_BRANCH" https://gerrit.wikimedia.org/r/mediawiki/core.git mediawiki --depth 1
 
 cd mediawiki
 
 cd skins
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/skins/Vector --depth 1
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/skins/MinervaNeue --depth 1
+git clone -b "$MW_BRANCH" https://gerrit.wikimedia.org/r/mediawiki/skins/Vector --depth 1
+git clone -b "$MW_BRANCH" https://gerrit.wikimedia.org/r/mediawiki/skins/MinervaNeue --depth 1
 
 cd ../extensions
 
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Scribunto.git --depth 1
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/cldr --depth 1
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/MobileFrontend --depth 1
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/SyntaxHighlight_GeSHi --depth 1
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Wikibase --depth 1
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Elastica --depth 1
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/EventBus --depth 1
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/CirrusSearch --depth 1
-git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/WikibaseCirrusSearch --depth 1
+git clone -b "$MW_BRANCH" https://gerrit.wikimedia.org/r/mediawiki/extensions/Scribunto.git --depth 1
+git clone -b "$MW_BRANCH" https://gerrit.wikimedia.org/r/mediawiki/extensions/cldr --depth 1
+git clone -b "$MW_BRANCH" https://gerrit.wikimedia.org/r/mediawiki/extensions/MobileFrontend --depth 1
+git clone -b "$MW_BRANCH" https://gerrit.wikimedia.org/r/mediawiki/extensions/SyntaxHighlight_GeSHi --depth 1
+git clone -b "$MW_BRANCH" https://gerrit.wikimedia.org/r/mediawiki/extensions/Wikibase --depth 1
+git clone -b "$MW_BRANCH" https://gerrit.wikimedia.org/r/mediawiki/extensions/Elastica --depth 1
+git clone -b "$MW_BRANCH" https://gerrit.wikimedia.org/r/mediawiki/extensions/EventBus --depth 1
+git clone -b "$MW_BRANCH" https://gerrit.wikimedia.org/r/mediawiki/extensions/CirrusSearch --depth 1
+git clone -b "$MW_BRANCH" https://gerrit.wikimedia.org/r/mediawiki/extensions/WikibaseCirrusSearch --depth 1
 cd Wikibase
 # work around GitHub Actions being blocked from Phabricator (T372626)
 git apply << 'EOF'
@@ -53,11 +53,11 @@ EOF
 git submodule update --init
 cd .. # back to extensions/
 
-cp -rT $originalDirectory EntitySchema
+cp -rT "$originalDirectory" EntitySchema
 
 cd .. # back to mediawiki/
 
-cp $originalDirectory/build/ci-scripts/composer.local.json composer.local.json
+cp "$originalDirectory/build/ci-scripts/composer.local.json" composer.local.json
 
 composer install
 
@@ -66,13 +66,13 @@ if [ $? -gt 0 ]; then
 	composer install
 fi
 
-mysql -e 'create database test_db_wiki;' -uroot -proot -h"127.0.0.1"
+mysql -e 'create database test_db_wiki;' -uroot -proot -h127.0.0.1
 php maintenance/install.php \
-    --dbtype $DBTYPE \
+    --dbtype "$DBTYPE" \
     --dbserver 127.0.0.1 \
     --dbuser root \
     --dbpass root \
-    --dbpath $(pwd) \
+    --dbpath "$(pwd)" \
     --server http://127.0.0.1:8080/ \
-    --pass ${MEDIAWIKI_PASSWORD} \
-    TestWiki ${MEDIAWIKI_USER}
+    --pass "$MEDIAWIKI_PASSWORD" \
+    TestWiki "$MEDIAWIKI_USER"
