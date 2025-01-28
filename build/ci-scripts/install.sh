@@ -19,6 +19,10 @@ git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Scri
 git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/cldr --depth 1
 git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/SyntaxHighlight_GeSHi --depth 1
 git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Wikibase --depth 1
+git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Elastica --depth 1
+git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/EventBus --depth 1
+git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/CirrusSearch --depth 1
+git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/WikibaseCirrusSearch --depth 1
 cd Wikibase
 # work around GitHub Actions being blocked from Phabricator (T372626)
 git apply << 'EOF'

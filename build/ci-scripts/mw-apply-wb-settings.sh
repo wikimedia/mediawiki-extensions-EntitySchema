@@ -26,4 +26,8 @@ echo 'wfLoadExtension( "EntitySchema" );' >> LocalSettings.php
 echo 'wfLoadExtension( "cldr" );' >> LocalSettings.php
 echo 'wfLoadExtension( "SyntaxHighlight_GeSHi" );' >> LocalSettings.php
 echo 'wfLoadExtension( "Scribunto" );' >> LocalSettings.php
+echo 'wfLoadExtension( "Elastica" );' >> LocalSettings.php
+echo 'wfLoadExtension( "EventBus" );' >> LocalSettings.php
+echo 'wfLoadExtension( "CirrusSearch" );' >> LocalSettings.php
+echo 'wfLoadExtension( "WikibaseCirrusSearch" );' >> LocalSettings.php
 echo 'require_once __DIR__ . "/extensions/Wikibase/Wikibase.php";' >> LocalSettings.php
