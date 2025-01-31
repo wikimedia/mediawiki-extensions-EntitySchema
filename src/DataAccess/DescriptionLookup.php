@@ -43,7 +43,7 @@ class DescriptionLookup {
 
 		$chain = $this->languageFallbackChainFactory->newFromLanguageCode( $langCode );
 		$preferredDescription = $chain->extractPreferredValue( array_map(
-			fn ( $nameBadge ) => $nameBadge->description,
+			static fn ( $nameBadge ) => $nameBadge->description,
 			$schemaData->nameBadges
 		) );
 		if ( $preferredDescription !== null ) {

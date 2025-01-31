@@ -35,7 +35,7 @@ class WikibaseRepoEntitySearchHelperCallbacksHookHandlerTest extends MediaWikiIn
 				'enabled' => true,
 			] ),
 		] );
-		$callback1 = fn () => null;
+		$callback1 = static fn () => null;
 		$callbacks = [
 			'unrelated' => $callback1,
 		];

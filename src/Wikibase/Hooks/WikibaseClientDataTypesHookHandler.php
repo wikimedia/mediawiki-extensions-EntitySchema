@@ -19,7 +19,7 @@ class WikibaseClientDataTypesHookHandler {
 				'PT:entity-schema' => [
 					'value-type' => 'wikibase-entityid',
 					'deserializer-builder' => EntitySchemaValue::class,
-					'formatter-factory-callback' => fn () => new class implements ValueFormatter {
+					'formatter-factory-callback' => static fn () => new class implements ValueFormatter {
 						/** @inheritDoc */
 						public function format( $value ) {
 							return "Entity schema not supported yet ({$value->getSchemaId()})";

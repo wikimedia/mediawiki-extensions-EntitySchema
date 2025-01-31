@@ -226,7 +226,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 		$labelsField = $this->createMock( WikibaseLabelsIndexField::class );
 		$labelsField->expects( $this->once() )
 			->method( 'getLabelsIndexedData' )
-			->willReturnCallback( fn ( LabelsProvider $l ) => $l->getLabels()->toTextArray() );
+			->willReturnCallback( static fn ( LabelsProvider $l ) => $l->getLabels()->toTextArray() );
 		$labelsFieldDefinitions = $this->createMock( LabelsProviderFieldDefinitions::class );
 		$labelsFieldDefinitions->expects( $this->once() )
 			->method( 'getFields' )
@@ -234,7 +234,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 		$descriptionsField = $this->createMock( WikibaseDescriptionsIndexField::class );
 		$descriptionsField->expects( $this->once() )
 			->method( 'getDescriptionsIndexedData' )
-			->willReturnCallback( fn ( DescriptionsProvider $d ) => $d->getDescriptions()->toTextArray() );
+			->willReturnCallback( static fn ( DescriptionsProvider $d ) => $d->getDescriptions()->toTextArray() );
 		$descriptionsFieldDefinitions = $this->createMock( DescriptionsProviderFieldDefinitions::class );
 		$descriptionsFieldDefinitions->expects( $this->once() )
 			->method( 'getFields' )

@@ -99,7 +99,7 @@ class WikibaseRepoDataTypesHookHandler {
 					$this->localEntitySource->getConceptBaseUri()
 				);
 			},
-			'parser-factory-callback' => fn () => new EntitySchemaValueParser(),
+			'parser-factory-callback' => static fn () => new EntitySchemaValueParser(),
 			'deserializer-builder' => EntitySchemaValue::class,
 			'search-index-data-formatter-callback' => static function ( EntitySchemaValue $value ): string {
 				return $value->getSchemaId();

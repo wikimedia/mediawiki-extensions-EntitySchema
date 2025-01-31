@@ -37,7 +37,7 @@ class LabelLookup {
 	): ?TermFallback {
 		$chain = $this->languageFallbackChainFactory->newFromLanguageCode( $langCode );
 		$preferredLabel = $chain->extractPreferredValue( array_map(
-			fn ( $nameBadge ) => $nameBadge->label,
+			static fn ( $nameBadge ) => $nameBadge->label,
 			$schemaData->nameBadges
 		) );
 		if ( $preferredLabel !== null ) {
