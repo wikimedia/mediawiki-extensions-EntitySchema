@@ -35,7 +35,9 @@ class ViewEntitySchemaAction extends FormlessAction {
 		$this->getArticle()->view();
 
 		$meta = $this->getOutput()->getProperty( 'entityschema-meta-tags' );
-		$this->getOutput()->setHTMLTitle( $meta['title'] );
+		if ( $meta !== null ) {
+			$this->getOutput()->setHTMLTitle( $meta['title'] );
+		}
 	}
 
 }
