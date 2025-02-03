@@ -58,4 +58,28 @@ class ViewEntitySchemaActionTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
+	public function testDontSetTitleIfAbsentFromMetadata(): void {
+		$context = RequestContext::getMain();
+		$services = $this->getServiceContainer();
+		$id = 'E123';
+		$title = $services->getTitleFactory()->makeTitle( NS_ENTITYSCHEMA_JSON, $id );
+		$context->setTitle( $title );
+		$wikiPage = $services->getWikiPageFactory()->newFromTitle( $title );
+		$this->saveSchemaPageContent( $wikiPage, [
+			'schemaText' => 'schema text',
+			'id' => $id,
+		] );
+
+		$article = Article::newFromTitle(
+			Title::newFromDBkey( 'EntitySchema:' . $id ),
+			$context
+		);
+		$article->getParserOutput()->setExtensionData( 'entityschema-meta-tags', null );
+		$action = new ViewEntitySchemaAction( $article, $context );
+
+		$action->show();
+		// the main assertion is that nothing crashed (like in T385272)
+		$this->assertStringContainsString( $id, $action->getOutput()->getHTMLTitle() );
+	}
+
 }
