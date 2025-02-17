@@ -77,7 +77,7 @@ class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 
 	public function testNoRights() {
 		$restrictionStore = $this->createMock( RestrictionStore::class );
-		$restrictionStore->method( 'getCascadeProtectionSources' )->willReturn( [ [], [] ] );
+		$restrictionStore->method( 'getCascadeProtectionSources' )->willReturn( [ [], [], [], [] ] );
 		$this->setService( 'RestrictionStore', $restrictionStore );
 		$this->setService( 'BlockManager', $this->createMock( BlockManager::class ) );
 		$this->setGroupPermissions( [ '*' => [ 'edit' => false ] ] );
@@ -142,7 +142,7 @@ class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 		$this->setupRenderingMocks();
 		$this->setService( 'PermissionManager', $this->createMock( PermissionManager::class ) );
 		$restrictionStore = $this->createMock( RestrictionStore::class );
-		$restrictionStore->method( 'getCascadeProtectionSources' )->willReturn( [ [], [] ] );
+		$restrictionStore->method( 'getCascadeProtectionSources' )->willReturn( [ [], [], [], [] ] );
 		$this->setService( 'RestrictionStore', $restrictionStore );
 		$this->setService( 'BlockManager', $this->createMock( BlockManager::class ) );
 	}
