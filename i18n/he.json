@@ -25,7 +25,7 @@
 	"entityschema-error-schemadeleted": "הסכֵמה שניסית לערוך לא קיימת. אולי היא נמחקה?",
 	"entityschema-error-schemaupdate-failed": "הסכֵמה לא הייתה יכולה להתעדכן",
 	"entityschema-error-schematext-conflict": "הסכֵמה הזאת השתנתה בינתיים. נא לחזור לדף הסכֵמה ולנסות לערוך אותה שוב.",
-	"entityschema-error-namebadge-conflict": "הסכֵמה הזאת השתנתה בינתיים. נא לחזור לדף הסכֵמה ולנסות לערוך שוב את התוויות, התיאורים והכינויים בשפה זאת.",
+	"entityschema-error-namebadge-conflict": "הסכֵמה הזאת השתנתה בינתיים. נא לחזור לדף הסכֵמה ולנסות לערוך שוב את התוויות, התיאורים והכינויים בשפה הזאת.",
 	"entityschema-error-saving-failed": "שמירת הסכֵמה נכשלה בעקבות ההודעה הבאה: $1",
 	"entityschema-error-not-post": "הפעולה חייבת להתבצע עם בקשת post.",
 	"entityschema-error-inconsistent-id": "הגרסאות שסופקו אינן שייכות כולן לכותרת שצוינה.",
