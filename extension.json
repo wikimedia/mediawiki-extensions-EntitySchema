@@ -85,6 +85,12 @@
 				"WikibaseRepo.PropertyDataTypeLookup"
 			]
 		},
+		"WikibaseRepoSearchableEntityScopes": {
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoSearchableEntityScopesHookHandler"
+		},
+		"WikibaseRepoSearchableEntityScopesMessages": {
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoSearchableEntityScopesMessagesHookHandler"
+		},
 		"SidebarBeforeOutput": {
 			"class": "\\EntitySchema\\MediaWiki\\Hooks\\SidebarBeforeOutputHookHandler",
 			"services": [
@@ -207,6 +213,8 @@
 		"WikibaseRepoEntitySearchHelperCallbacks": "WikibaseRepoEntitySearchHelperCallbacks",
 		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes",
 		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepoOnParserOutputUpdaterConstruction",
+		"WikibaseRepoSearchableEntityScopes": "WikibaseRepoSearchableEntityScopes",
+		"WikibaseRepoSearchableEntityScopesMessages": "WikibaseRepoSearchableEntityScopesMessages",
 		"SidebarBeforeOutput": "SidebarBeforeOutput",
 		"WikibaseClientDataTypes": "WikibaseClientDataTypes",
 		"SpecialPage_initList": "SpecialPageInitList",
