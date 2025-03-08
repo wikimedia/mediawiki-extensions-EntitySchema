@@ -12,18 +12,22 @@ use FormlessAction;
  */
 class ViewEntitySchemaAction extends FormlessAction {
 
+	/** @inheritDoc */
 	public function getName() {
 		return 'view';
 	}
 
+	/** @inheritDoc */
 	public function onView() {
 		return null;
 	}
 
+	/** @inheritDoc */
 	public function needsReadRights() {
 		return false;
 	}
 
+	/** @inheritDoc */
 	public function show() {
 		if ( $this->getOutput()->checkLastModified(
 			$this->getWikiPage()->getTouched()

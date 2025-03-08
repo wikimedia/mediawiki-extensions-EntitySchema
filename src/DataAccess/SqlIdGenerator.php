@@ -28,8 +28,8 @@ class SqlIdGenerator implements IdGenerator {
 
 	/**
 	 * @param ILoadBalancer $loadBalancer
-	 * @param string        $tableName
-	 * @param int[]         $idsToSkip
+	 * @param string $tableName
+	 * @param int[] $idsToSkip
 	 */
 	public function __construct( ILoadBalancer $loadBalancer, string $tableName, array $idsToSkip = [] ) {
 		$this->loadBalancer = $loadBalancer;

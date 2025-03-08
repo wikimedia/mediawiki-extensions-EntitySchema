@@ -90,6 +90,9 @@ class InputValidator {
 		return true;
 	}
 
+	/**
+	 * @return true|Message returns true on success and Message on failure
+	 */
 	public function validateAliasesLength( string $aliasesInput ) {
 		$maxLengthChars = $this->configService->get( 'EntitySchemaNameBadgeMaxSizeChars' );
 		$cleanAliasesString = implode( '', array_map( 'trim', explode( '|', $aliasesInput ) ) );
@@ -102,6 +105,9 @@ class InputValidator {
 		return true;
 	}
 
+	/**
+	 * @return true|Message returns true on success and Message on failure
+	 */
 	public function validateStringInputLength( string $labelOrDescriptionInput ) {
 		$maxLengthChars = $this->configService->get( 'EntitySchemaNameBadgeMaxSizeChars' );
 		$numInputChars = mb_strlen( $labelOrDescriptionInput );

@@ -13,6 +13,7 @@ use MediaWiki\Html\Html;
 use MediaWiki\Language\LanguageCode;
 use MediaWiki\Linker\Linker;
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
 use MediaWiki\Page\PageReference;
@@ -283,6 +284,14 @@ class EntitySchemaSlotViewRenderer {
 	/**
 	 * Wrapper around {@see Linker::makeExternalLink} ensuring that the external link style
 	 * is applied even though our whole output does not have class="mw-parser-output"
+	 *
+	 * @param string $url
+	 * @param string $text
+	 * @param bool $escape
+	 * @param string $linktype
+	 * @param array $attribs
+	 * @param LinkTarget|null $title
+	 * @return string
 	 */
 	private function makeExternalLink(
 		$url,

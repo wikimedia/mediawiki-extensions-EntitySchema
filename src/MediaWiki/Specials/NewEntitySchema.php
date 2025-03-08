@@ -71,6 +71,7 @@ class NewEntitySchema extends SpecialPage {
 		$this->pageUpdaterFactory = $pageUpdaterFactory;
 	}
 
+	/** @inheritDoc */
 	public function execute( $subPage ): void {
 		parent::execute( $subPage );
 

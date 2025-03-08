@@ -72,6 +72,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$this->tempUserConfig = $tempUserConfig;
 	}
 
+	/** @inheritDoc */
 	public function execute( $subPage ): void {
 		parent::execute( $subPage );
 

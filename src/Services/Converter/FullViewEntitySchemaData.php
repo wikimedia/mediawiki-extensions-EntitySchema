@@ -14,7 +14,7 @@ class FullViewEntitySchemaData {
 
 	public string $schemaText;
 
-	public function __construct( array $nameBadges, $schemaText ) {
+	public function __construct( array $nameBadges, string $schemaText ) {
 		$this->nameBadges = $nameBadges;
 		$this->schemaText = $schemaText;
 	}

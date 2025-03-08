@@ -10,10 +10,10 @@ namespace EntitySchema\DataAccess;
 class EntitySchemaCleaner {
 
 	/**
-	 * @param string[] $labels
-	 * @param string[] $descriptions
-	 * @param array<string,string[]> $aliasGroups
-	 * @param string $schemaText
+	 * @param string[] &$labels
+	 * @param string[] &$descriptions
+	 * @param array<string,string[]> &$aliasGroups
+	 * @param string &$schemaText
 	 */
 	public static function cleanupParameters(
 		array &$labels,

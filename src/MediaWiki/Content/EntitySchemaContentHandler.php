@@ -97,6 +97,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		return EntitySchemaContent::class;
 	}
 
+	/** @inheritDoc */
 	protected function getSlotDiffRendererWithOptions(
 		IContextSource $context,
 		$options = []

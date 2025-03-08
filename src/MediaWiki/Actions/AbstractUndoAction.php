@@ -33,14 +33,17 @@ abstract class AbstractUndoAction extends FormlessAction {
 		$this->revisionStore = $revisionStore;
 	}
 
+	/** @inheritDoc */
 	public function getName() {
 		return 'view';
 	}
 
+	/** @inheritDoc */
 	public function onView() {
 		return null;
 	}
 
+	/** @inheritDoc */
 	public function needsReadRights() {
 		// Pages in $wgWhitelistRead can be viewed without having the 'read'
 		// right. We rely on Article::view() to properly check read access.

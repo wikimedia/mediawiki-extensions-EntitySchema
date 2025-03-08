@@ -16,11 +16,11 @@ use MediaWiki\User\User;
 class AutocommentFormatter {
 
 	/**
-	 * @param bool   $pre  Whether any text appears in the summary before this autocomment.
+	 * @param bool $pre Whether any text appears in the summary before this autocomment.
 	 *                     If true, we insert the autocomment-prefix before the autocomment
 	 *                     (outside the two <span>s) to separate it from that.
 	 * @param string $auto The autocomment content (without the surrounding comment marks)
-	 * @param bool   $post Whether any text appears in the summary after this autocomment.
+	 * @param bool $post Whether any text appears in the summary after this autocomment.
 	 *                     If true, we append the colon-separator after the autocomment
 	 *                     (still inside the two <span>s) to separate it from that.
 	 *

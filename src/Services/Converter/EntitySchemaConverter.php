@@ -95,11 +95,11 @@ class EntitySchemaConverter {
 		return $persistenceSchemaData;
 	}
 
-	public function getSchemaID( string $schemaJSON ) {
+	public function getSchemaID( string $schemaJSON ): ?string {
 		return $this->getIdFromSchema( json_decode( $schemaJSON, true ) );
 	}
 
-	private function getIdFromSchema( array $schema ) {
+	private function getIdFromSchema( array $schema ): ?string {
 		if ( !isset( $schema['serializationVersion'] ) ) {
 			return null;
 		}

@@ -35,11 +35,11 @@ interface EntitySchemaUpdater {
 
 	/**
 	 * @param EntitySchemaId $id
-	 * @param string   $langCode
-	 * @param string   $label
-	 * @param string   $description
+	 * @param string $langCode
+	 * @param string $label
+	 * @param string $description
 	 * @param string[] $aliases
-	 * @param int      $baseRevId
+	 * @param int $baseRevId
 	 */
 	public function updateSchemaNameBadge(
 		EntitySchemaId $id,

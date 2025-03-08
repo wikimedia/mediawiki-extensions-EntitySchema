@@ -18,6 +18,7 @@ class SpecificLanguageMessageLocalizer implements MessageLocalizer {
 		$this->languageCode = $languageCode;
 	}
 
+	/** @inheritDoc */
 	public function msg( $key, ...$params ): Message {
 		$message = ( new Message( $key, [] ) )->inLanguage( $this->languageCode );
 

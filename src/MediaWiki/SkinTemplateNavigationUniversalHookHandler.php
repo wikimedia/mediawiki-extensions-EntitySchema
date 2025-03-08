@@ -21,6 +21,7 @@ final class SkinTemplateNavigationUniversalHookHandler implements SkinTemplateNa
 		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
 	}
 
+	/** @inheritDoc */
 	public function onSkinTemplateNavigation__Universal( $skinTemplate, &$links ): void {
 		if ( !$this->entitySchemaIsRepo ) {
 			return;

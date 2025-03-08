@@ -26,6 +26,7 @@ class EntitySchemaText extends SpecialPage {
 		);
 	}
 
+	/** @inheritDoc */
 	public function execute( $subPage ): void {
 		parent::execute( $subPage );
 		$entitySchemaId = $this->getIdFromSubpage( $subPage );

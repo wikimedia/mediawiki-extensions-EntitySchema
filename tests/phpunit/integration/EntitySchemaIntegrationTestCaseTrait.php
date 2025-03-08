@@ -81,7 +81,10 @@ trait EntitySchemaIntegrationTestCaseTrait {
 	/** @return MediaWikiServices */
 	abstract protected function getServiceContainer();
 
-	/** @return \TestUser */
+	/**
+	 * @param string|string[] $groups
+	 * @return \TestUser
+	 */
 	abstract protected function getTestUser( $groups = [] );
 
 }

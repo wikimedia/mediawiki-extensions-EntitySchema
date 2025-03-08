@@ -60,6 +60,7 @@ class EntitySchemaSlotDiffRenderer extends SlotDiffRenderer {
 		return $this->renderSchemaDiffRows( $diff );
 	}
 
+	/** @inheritDoc */
 	public function localizeDiff( string $diff, array $options = [] ) {
 		return $this->textSlotDiffRenderer->localizeDiff( $diff, $options );
 	}

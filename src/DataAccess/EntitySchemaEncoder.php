@@ -15,10 +15,10 @@ class EntitySchemaEncoder {
 
 	/**
 	 * @param EntitySchemaId $id
-	 * @param array    $labels       labels  with langCode as key, e.g. [ 'en' => 'Cat' ]
-	 * @param array    $descriptions descriptions with langCode as key, e.g. [ 'en' => 'A cat' ]
-	 * @param array    $aliases      aliases with langCode as key, e.g. [ 'en' => [ 'tiger' ], ]
-	 * @param string   $schemaText
+	 * @param array $labels labels  with langCode as key, e.g. [ 'en' => 'Cat' ]
+	 * @param array $descriptions descriptions with langCode as key, e.g. [ 'en' => 'A cat' ]
+	 * @param array $aliases aliases with langCode as key, e.g. [ 'en' => [ 'tiger' ], ]
+	 * @param string $schemaText
 	 *
 	 * @throws InvalidArgumentException if bad parameters are passed
 	 *

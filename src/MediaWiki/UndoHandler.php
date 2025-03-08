@@ -29,7 +29,9 @@ final class UndoHandler {
 	): EntitySchemaId {
 		$converter = new EntitySchemaConverter();
 		$firstID = $converter->getSchemaID( $undoFromContent->getText() );
-		if ( $firstID !== $converter->getSchemaID( $undoToContent->getText() ) ) {
+		if ( $firstID === null ||
+			$firstID !== $converter->getSchemaID( $undoToContent->getText() )
+		) {
 			throw new DomainException( 'ID must be the same for all contents' );
 		}
 
