@@ -7,7 +7,6 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Specials;
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\MediaWiki\Specials\NewEntitySchema;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
-use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Content\Content;
 use MediaWiki\Content\TextContent;
 use MediaWiki\Context\IContextSource;
@@ -80,13 +79,11 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	public function testNewSchemaIsNotCreatedWhenBlocked() {
 		$testuser = self::getTestUser()->getUser();
 		$this->getServiceContainer()->getDatabaseBlockStore()
-			->insertBlock( new DatabaseBlock(
-				[
-					'address' => $testuser,
-					'reason' => 'testing in ' . __CLASS__,
-					'by' => $testuser,
-				]
-			) );
+			->insertBlockWithParams( [
+				'targetUser' => $testuser,
+				'reason' => 'testing in ' . __CLASS__,
+				'by' => $testuser,
+			] );
 
 		$testLabel = uniqid( 'testLabel_' . __FUNCTION__ . '_' );
 

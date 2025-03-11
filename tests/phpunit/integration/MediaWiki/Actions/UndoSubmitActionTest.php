@@ -7,7 +7,6 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 use Article;
 use EntitySchema\MediaWiki\Actions\UndoSubmitAction;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
-use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Request\FauxRequest;
@@ -99,13 +98,11 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 	public function testUndoSubmitBlocked() {
 		$testuser = self::getTestUser()->getUser();
 		$this->getServiceContainer()->getDatabaseBlockStore()
-			->insertBlock( new DatabaseBlock(
-				[
-					'address' => $testuser,
-					'reason' => 'testing in ' . __CLASS__,
-					'by' => $testuser,
-				]
-			) );
+			->insertBlockWithParams( [
+				'targetUser' => $testuser,
+				'reason' => 'testing in ' . __CLASS__,
+				'by' => $testuser,
+			] );
 
 		$page = $this->getServiceContainer()->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
