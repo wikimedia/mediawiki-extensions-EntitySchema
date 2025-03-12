@@ -15,7 +15,7 @@ use Wikibase\Repo\Api\EntitySearchException;
 use Wikibase\Repo\Api\EntitySearchHelper;
 use Wikibase\Search\Elastic\EntitySearchElastic;
 use Wikibase\Search\Elastic\Query\LabelsCompletionQuery;
-use Wikibase\Search\Elastic\WikibasePrefixSearcher;
+use Wikibase\Search\Elastic\WikibaseEntitySearcher;
 
 /**
  * @license GPL-2.0-or-later
@@ -95,7 +95,7 @@ class EntitySchemaElasticSearchHelper implements EntitySearchHelper {
 			return [];
 		}
 		$profileContext ??= EntitySearchElastic::CONTEXT_WIKIBASE_PREFIX;
-		$searcher = new WikibasePrefixSearcher( 0, $limit );
+		$searcher = new WikibaseEntitySearcher( 0, $limit, 'wikibase_prefix', 'wikibase-prefix' );
 		$searcher->getSearchContext()->setProfileContext(
 			$profileContext,
 			[ 'language' => $languageCode ] );
