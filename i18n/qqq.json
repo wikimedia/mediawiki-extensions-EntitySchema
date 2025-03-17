@@ -78,6 +78,7 @@
 	"special-schematext": "Title for the Special Page that gives access to the raw Schema text.",
 	"entityschema-schematext-text": "Explanatory text to access the raw Schema text on Special:SchemaText.",
 	"entityschema-schematext-missing": "Error message if raw text of a non-existant Schema is requested.\n\nParameters:\n* $1 - The ID of the requested Schema.",
+	"entityschema-scoped-search-scope-name": "The label shown in the scope dropdown of the scoped typeahead search for the EntitySchema scope",
 	"entityschema-special-setlabeldescriptionaliases": "The title for Special:SetSchemaLabelDescriptionAliases in which the label, description and aliases of a Schema could be added or edited",
 	"entityschema-special-id-inputlabel": "Field label for the ID field of Special:SetSchemaLabelDescriptionAliases",
 	"entityschema-special-language-inputlabel": "Field label for the language code field of Special:SetSchemaLabelDescriptionAliases",

@@ -72,6 +72,7 @@
 	"special-schematext": "EntitySchema text",
 	"entityschema-schematext-text": "This page provides an interface to the raw text of a Schema. Please provide the Schema ID in the URL, using subpage syntax.",
 	"entityschema-schematext-missing": "Missing or deleted Schema: $1.",
+	"entityschema-scoped-search-scope-name": "Entity Schema",
 	"entityschema-special-setlabeldescriptionaliases": "Set label, description and aliases for EntitySchema",
 	"entityschema-special-id-inputlabel": "EntitySchema ID",
 	"entityschema-special-language-inputlabel": "Language Code",
