@@ -8,7 +8,6 @@ use Action;
 use Article;
 use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
-use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
@@ -94,13 +93,11 @@ final class RestoreSubmitActionTest extends MediaWikiIntegrationTestCase {
 	public function testRestoreSubmitBlocked() {
 		$testuser = self::getTestUser()->getUser();
 		$this->getServiceContainer()->getDatabaseBlockStore()
-			->insertBlock( new DatabaseBlock(
-				[
-					'address' => $testuser,
+			->insertBlockWithParams( [
+					'targetUser' => $testuser,
 					'reason' => 'testing in ' . __CLASS__,
 					'by' => $testuser,
-				]
-			) );
+				] );
 
 		$page = $this->getServiceContainer()->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E123' ) );
