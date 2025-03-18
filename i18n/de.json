@@ -74,6 +74,7 @@
 	"special-schematext": "EntitySchema-Text",
 	"entityschema-schematext-text": "Diese Seite stellt eine Oberfläche für den Rohtext eines Schemas bereit. Gib bitte die Kennung des Schemas in der URL an und verwende die Unterseitensyntax.",
 	"entityschema-schematext-missing": "Fehlendes oder gelöschtes Schema: $1.",
+	"entityschema-scoped-search-scope-name": "Entitäten-Schema",
 	"entityschema-special-setlabeldescriptionaliases": "Bezeichnung, Beschreibung und Aliasse für das Schema festlegen",
 	"entityschema-special-id-inputlabel": "EntitySchema-Kennung",
 	"entityschema-special-language-inputlabel": "Sprachcode",

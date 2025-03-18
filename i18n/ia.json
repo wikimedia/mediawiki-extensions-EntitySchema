@@ -72,6 +72,7 @@
 	"special-schematext": "Texto de EntitySchema",
 	"entityschema-schematext-text": "Iste pagina forni un interfacie pro le texto brute de un Schema. Per favor forni le ID del Schema in le URL, usante le syntaxe de subpagina.",
 	"entityschema-schematext-missing": "Schema mancante o delite: $1",
+	"entityschema-scoped-search-scope-name": "Schema de entitate",
 	"entityschema-special-setlabeldescriptionaliases": "Definir etiquetta, description e aliases pro EntitySchema",
 	"entityschema-special-id-inputlabel": "ID de EntitySchema",
 	"entityschema-special-language-inputlabel": "Codice de lingua",
