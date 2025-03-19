@@ -76,6 +76,7 @@
 	"special-schematext": "טקסט סכֵמת ישות",
 	"entityschema-schematext-text": "הדף הזה מספק ממשק לטקסט הגולמי של סכֵמה. נא לספק מזהה סכֵמה ב־URL באמצעות תחביר דף־משנה.",
 	"entityschema-schematext-missing": "סכֵמה חסרה או מחוקה: $1.",
+	"entityschema-scoped-search-scope-name": "סכמת ישות",
 	"entityschema-special-setlabeldescriptionaliases": "הגדרת תווית, תיאור וכינויים עבור סכֵמת ישות",
 	"entityschema-special-id-inputlabel": "מזהה סכֵמת ישות",
 	"entityschema-special-language-inputlabel": "קוד שפה",

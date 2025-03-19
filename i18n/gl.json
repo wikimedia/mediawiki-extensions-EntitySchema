@@ -72,6 +72,7 @@
 	"special-schematext": "Texto do esquema de entidade",
 	"entityschema-schematext-text": "Esta páxina ofrece unha interface para o texto en bruto dun esquema. Indica o identificador do esquema no enderezo URL, utilizando a sintaxe de subpáxina.",
 	"entityschema-schematext-missing": "Falta ou eliminouse o esquema: $1.",
+	"entityschema-scoped-search-scope-name": "Esquema de entidade",
 	"entityschema-special-setlabeldescriptionaliases": "Establecer a etiqueta, a descrición e os pseudónimos para o esquema de entidade",
 	"entityschema-special-id-inputlabel": "Identificador do esquema de entidade",
 	"entityschema-special-language-inputlabel": "Código de lingua",

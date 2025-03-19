@@ -73,6 +73,7 @@
 	"special-schematext": "Текст на шемата",
 	"entityschema-schematext-text": "Оваа страница дава посредник за сировиот текст на една шема. Укажете ја назнаката на шемата во адресата (URL), користејќи синтакса за потстраници.",
 	"entityschema-schematext-missing": "Отустна или избришана шема: $1.",
+	"entityschema-scoped-search-scope-name": "Единична шема",
 	"entityschema-special-setlabeldescriptionaliases": "Задај натпис, опис и истозначници за шемата",
 	"entityschema-special-id-inputlabel": "Назнака на шемата",
 	"entityschema-special-language-inputlabel": "Јазичен код",
