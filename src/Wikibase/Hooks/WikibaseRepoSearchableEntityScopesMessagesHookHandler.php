@@ -11,7 +11,7 @@ use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
  */
 class WikibaseRepoSearchableEntityScopesMessagesHookHandler {
 
-	public const ENTITY_SCHEMA_SCOPE_MESSAGE = 'wikibase-scoped-search-entity-schema-scope-name';
+	public const ENTITY_SCHEMA_SCOPE_MESSAGE = 'entityschema-scoped-search-scope-name';
 
 	public function onWikibaseRepoSearchableEntityScopesMessages( array &$messages ): void {
 		if ( !array_key_exists( EntitySchemaSearchHelperFactory::ENTITY_TYPE, $messages ) ) {
