@@ -48,10 +48,10 @@ module.exports = {
 				}, 'POST' );
 
 				if ( !blockResult.block ) {
-					return Promise.reject( new Error( 'Failed to block user.' ) );
+					throw new Error( 'Failed to block user.' );
 				}
 
-				return Promise.resolve( null );
+				return null;
 			},
 			async 'MwApi:CreateUser'( { usernamePrefix } ) {
 				const rootUser = await root();
@@ -59,7 +59,7 @@ module.exports = {
 				const password = utils.uniq();
 				await rootUser.createAccount( { username: username, password: password } );
 
-				return Promise.resolve( { username, password } );
+				return { username, password };
 			},
 		};
 	},
