@@ -75,7 +75,7 @@
 	"special-schematext": "EntitySchema-tekst",
 	"entityschema-schematext-text": "Deze pagina biedt een interface voor de brontekst van een schema. Geef de schema-ID op in de URL en gebruik daarbij de syntaxis voor subpagina’s.",
 	"entityschema-schematext-missing": "Schema ontbreekt of is verwijderd: $1.",
-	"entityschema-scoped-search-scope-name": "Entiteitsschema",
+	"entityschema-scoped-search-scope-name": "Entiteitsschema’s",
 	"entityschema-special-setlabeldescriptionaliases": "Label, beschrijving en aliassen instellen voor EntitySchema",
 	"entityschema-special-id-inputlabel": "EntitySchema-ID",
 	"entityschema-special-language-inputlabel": "Taalcode",
