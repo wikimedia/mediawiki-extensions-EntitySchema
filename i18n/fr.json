@@ -77,7 +77,7 @@
 	"special-schematext": "Texte d’entité de schéma",
 	"entityschema-schematext-text": "Cette page fournit une interface pour le texte brut d’un schéma. Veuillez fournir l’identifiant du schéma dans l’URL, en utilisant la syntaxe d’une sous-page.",
 	"entityschema-schematext-missing": "Schéma manquant ou supprimé : $1.",
-	"entityschema-scoped-search-scope-name": "Schéma d’entité",
+	"entityschema-scoped-search-scope-name": "Schémas d’entité",
 	"entityschema-special-setlabeldescriptionaliases": "Définir le libellé, la description et les alias pour le schéma d’entités",
 	"entityschema-special-id-inputlabel": "Identifiant de schéma d’entités",
 	"entityschema-special-language-inputlabel": "Code de langue",
