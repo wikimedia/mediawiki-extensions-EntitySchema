@@ -24,7 +24,7 @@ class InputValidator {
 	private Config $configService;
 	private LanguageNameUtils $languageNameUtils;
 
-	public static function newFromGlobalState() {
+	public static function newFromGlobalState(): self {
 		return new self(
 			RequestContext::getMain(),
 			MediaWikiServices::getInstance()->getMainConfig(),
