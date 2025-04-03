@@ -74,7 +74,7 @@
 	"special-schematext": "نص مخطط الكيان",
 	"entityschema-schematext-text": "توفر هذه الصفحة واجهة للنص الخام للمخطط، الرجاء تقديم معرف المخطط في المسار، باستخدام بناء جملة الصفحة الفرعية.",
 	"entityschema-schematext-missing": "مخطط مفقود أو محذوف: $1.",
-	"entityschema-scoped-search-scope-name": "مخطط الكيان",
+	"entityschema-scoped-search-scope-name": "مخططات الكيان",
 	"entityschema-special-setlabeldescriptionaliases": "تعيين التسمية والوصف والأسماء المستعارة لمخطط",
 	"entityschema-special-id-inputlabel": "معرف مخطط الكيان",
 	"entityschema-special-language-inputlabel": "رمز اللغة",
