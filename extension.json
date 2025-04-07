@@ -57,7 +57,6 @@
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoDataTypesHookHandler",
 			"services": [
 				"LinkRenderer",
-				"MainConfig",
 				"TitleFactory",
 				"EntitySchema.EntitySchemaIsRepo"
 			],
@@ -269,11 +268,6 @@
 		"EntitySchemaSkippedIDs": {
 			"value": [],
 			"description": "A list of integers to skip when generating new IDs. These must be pure integer numbers, _not_ strings starting with an E!",
-			"public": true
-		},
-		"EntitySchemaTmpFixRdfUri": {
-			"value": false,
-			"description": "Temporary: whether to use the correct (wikibase:WikibaseEntitySchema) RDF URI for the data type rather than the wrong (wikibase:EntitySchema) one.",
 			"public": true
 		}
 	},
