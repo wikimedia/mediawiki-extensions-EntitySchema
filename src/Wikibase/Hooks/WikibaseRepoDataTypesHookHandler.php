@@ -10,6 +10,7 @@ use EntitySchema\Wikibase\DataValues\EntitySchemaValueParser;
 use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
+use MediaWiki\Config\Config;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
 use ValueFormatters\FormatterOptions;
@@ -32,9 +33,11 @@ class WikibaseRepoDataTypesHookHandler {
 	private ?DatabaseEntitySource $localEntitySource;
 	private TitleFactory $titleFactory;
 	private ?SchemaDataResolvingLabelLookup $labelLookup;
+	private Config $config;
 
 	public function __construct(
 		LinkRenderer $linkRenderer,
+		Config $config,
 		TitleFactory $titleFactory,
 		bool $entitySchemaIsRepo,
 		?LanguageNameLookupFactory $languageNameLookupFactory,
@@ -49,6 +52,7 @@ class WikibaseRepoDataTypesHookHandler {
 		$this->localEntitySource = $localEntitySource;
 		$this->titleFactory = $titleFactory;
 		$this->labelLookup = $labelLookup;
+		$this->config = $config;
 		if ( $entitySchemaIsRepo ) {
 			Assert::parameterType(
 				LanguageNameLookupFactory::class,
@@ -105,5 +109,9 @@ class WikibaseRepoDataTypesHookHandler {
 				return $value->getSchemaId();
 			},
 		];
+
+		if ( $this->config->get( 'EntitySchemaTmpFixRdfUri' ) ) {
+			$dataTypeDefinitions['PT:entity-schema']['rdf-uri'] = 'http://wikiba.se/ontology#WikibaseEntitySchema';
+		}
 	}
 }
