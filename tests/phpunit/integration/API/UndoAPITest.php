@@ -8,11 +8,11 @@ use EntitySchema\DataAccess\EntitySchemaEncoder;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use MediaWiki\CommentStore\CommentStoreComment;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
-use WikiPage;
 
 /**
  * @group Database

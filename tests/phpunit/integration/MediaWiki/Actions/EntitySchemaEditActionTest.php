@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
-use Article;
 use EntitySchema\MediaWiki\Actions\EntitySchemaEditAction;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Presentation\InputValidator;
@@ -13,6 +12,9 @@ use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWiki\Block\BlockManager;
 use MediaWiki\Context\DerivativeContext;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Exception\PermissionsError;
+use MediaWiki\Exception\ReadOnlyError;
+use MediaWiki\Page\Article;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Permissions\RestrictionStore;
@@ -24,8 +26,6 @@ use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use MessageCache;
-use PermissionsError;
-use ReadOnlyError;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 use Wikimedia\Rdbms\ReadOnlyMode;
 use Wikimedia\TestingAccessWrapper;

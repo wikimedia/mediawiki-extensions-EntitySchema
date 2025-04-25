@@ -9,6 +9,7 @@ use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\HookContainer\HookContainer;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Revision\RevisionRecord;
@@ -26,7 +27,6 @@ use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\WikibaseDescriptionsIndexField;
 use Wikibase\Search\Elastic\Fields\WikibaseLabelsIndexField;
 use Wikimedia\ObjectFactory\ObjectFactory;
-use WikiPage;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler

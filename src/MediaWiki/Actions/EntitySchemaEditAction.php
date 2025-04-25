@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
-use Article;
 use EntitySchema\DataAccess\EntitySchemaStatus;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
@@ -12,10 +11,11 @@ use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\EntitySchemaRedirectTrait;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
-use FormAction;
+use MediaWiki\Actions\FormAction;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\HTMLForm\HTMLForm;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\Article;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
 use MediaWiki\User\Options\UserOptionsLookup;

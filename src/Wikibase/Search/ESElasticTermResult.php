@@ -6,7 +6,7 @@ namespace EntitySchema\Wikibase\Search;
 
 use EntitySchema\Domain\Model\EntitySchemaId;
 use InvalidArgumentException;
-use TitleFactory;
+use MediaWiki\Title\TitleFactory;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lib\Interactors\TermSearchResult;
 use Wikibase\Lib\TermLanguageFallbackChain;

@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Hooks;
 
-use Article;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\DataAccess\WatchlistUpdater;
@@ -14,6 +13,7 @@ use EntitySchema\MediaWiki\HookRunner;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Language\Language;
 use MediaWiki\Languages\LanguageFactory;
+use MediaWiki\Page\Article;
 use MediaWiki\Request\FauxRequest;
 use MediaWikiIntegrationTestCase;
 

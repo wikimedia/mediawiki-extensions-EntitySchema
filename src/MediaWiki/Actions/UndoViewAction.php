@@ -4,12 +4,12 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
-use Article;
 use Diff\DiffOp\Diff\Diff;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use EntitySchema\Presentation\ConfirmationFormRenderer;
 use EntitySchema\Presentation\DiffRenderer;
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Page\Article;
 use MediaWiki\Revision\RevisionStore;
 
 /**

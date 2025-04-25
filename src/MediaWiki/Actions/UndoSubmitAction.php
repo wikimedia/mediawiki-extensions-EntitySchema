@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
-use Article;
 use EntitySchema\DataAccess\EntitySchemaStatus;
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater;
 use EntitySchema\Domain\Model\EntitySchemaId;
@@ -12,13 +11,14 @@ use EntitySchema\MediaWiki\EntitySchemaRedirectTrait;
 use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Exception\PermissionsError;
+use MediaWiki\Exception\ReadOnlyError;
+use MediaWiki\Exception\UserBlockedError;
+use MediaWiki\Page\Article;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Status\Status;
-use PermissionsError;
-use ReadOnlyError;
-use ReadOnlyMode;
-use UserBlockedError;
+use Wikimedia\Rdbms\ReadOnlyMode;
 
 /**
  * @license GPL-2.0-or-later

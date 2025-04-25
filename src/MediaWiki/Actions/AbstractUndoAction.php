@@ -4,14 +4,14 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
-use Article;
 use Diff\DiffOp\Diff\Diff;
 use DomainException;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\UndoHandler;
-use FormlessAction;
+use MediaWiki\Actions\FormlessAction;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\Article;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Revision\SlotRecord;

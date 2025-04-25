@@ -4,15 +4,15 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
-use EditAction;
+use MediaWiki\Actions\EditAction;
+use MediaWiki\Exception\PermissionsError;
+use MediaWiki\Exception\ReadOnlyError;
+use MediaWiki\Exception\UserBlockedError;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Status\Status;
-use PermissionsError;
-use ReadOnlyError;
-use UserBlockedError;
 
 /**
  * @license GPL-2.0-or-later

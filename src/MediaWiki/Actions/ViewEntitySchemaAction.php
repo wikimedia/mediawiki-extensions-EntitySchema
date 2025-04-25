@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
-use FormlessAction;
+use MediaWiki\Actions\FormlessAction;
 
 /**
  * Handles the view action for EntitySchemas.

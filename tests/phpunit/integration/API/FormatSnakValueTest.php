@@ -7,6 +7,7 @@ namespace EntitySchema\Tests\Integration\API;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use MediaWiki\CommentStore\CommentStoreComment;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Tests\Api\ApiTestCase;
@@ -14,7 +15,6 @@ use MediaWiki\Title\Title;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\Lib\Formatters\SnakFormatter;
 use Wikibase\Repo\WikibaseRepo;
-use WikiPage;
 
 /**
  * @covers \Wikibase\Repo\Api\FormatSnakValue

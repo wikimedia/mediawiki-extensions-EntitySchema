@@ -4,8 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Content;
 
-use Action;
-use Article;
 use CirrusSearch\CirrusSearch;
 use EntitySchema\DataAccess\EntitySchemaEncoder;
 use EntitySchema\DataAccess\LabelLookup;
@@ -20,6 +18,7 @@ use EntitySchema\MediaWiki\UndoHandler;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use LogicException;
+use MediaWiki\Actions\Action;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\Content;
 use MediaWiki\Content\JsonContentHandler;
@@ -29,6 +28,8 @@ use MediaWiki\Context\RequestContext;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Language\Language;
 use MediaWiki\Languages\LanguageNameUtils;
+use MediaWiki\Page\Article;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Revision\RevisionRecord;
@@ -37,7 +38,6 @@ use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\TempUser\TempUserConfig;
-use ReadOnlyMode;
 use SearchEngine;
 use SearchIndexField;
 use Wikibase\Lib\LanguageNameLookupFactory;
@@ -45,7 +45,7 @@ use Wikibase\Lib\SettingsArray;
 use Wikibase\Search\Elastic\Fields\DescriptionsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
 use Wikimedia\ObjectFactory\ObjectFactory;
-use WikiPage;
+use Wikimedia\Rdbms\ReadOnlyMode;
 
 /**
  * Content handler for the EntitySchema content

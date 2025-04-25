@@ -6,11 +6,11 @@ namespace EntitySchema\Tests\Integration\DataAccess;
 
 use EntitySchema\MediaWiki\EntitySchemaServices;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\RecentChanges\RecentChange;
 use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\User\TempUser\CreateStatus;
 use MediaWiki\User\TempUser\TempUserCreator;
 use MediaWikiIntegrationTestCase;
-use RecentChange;
 use Wikimedia\TestingAccessWrapper;
 
 /**

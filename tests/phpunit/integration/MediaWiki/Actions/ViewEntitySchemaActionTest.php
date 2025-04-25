@@ -4,10 +4,10 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
-use Article;
 use EntitySchema\MediaWiki\Actions\ViewEntitySchemaAction;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Page\Article;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 

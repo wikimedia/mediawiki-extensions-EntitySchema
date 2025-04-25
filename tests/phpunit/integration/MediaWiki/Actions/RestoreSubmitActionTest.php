@@ -4,16 +4,16 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Integration\MediaWiki\Actions;
 
-use Action;
-use Article;
 use EntitySchema\MediaWiki\Actions\RestoreSubmitAction;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
+use MediaWiki\Actions\Action;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Exception\PermissionsError;
+use MediaWiki\Page\Article;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
-use PermissionsError;
 
 /**
  * @license GPL-2.0-or-later

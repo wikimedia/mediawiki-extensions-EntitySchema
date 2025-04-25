@@ -16,6 +16,7 @@ use MediaWiki\Content\Content;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Page\PageIdentityValue;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
@@ -25,7 +26,6 @@ use MediaWiki\Storage\PageUpdateStatus;
 use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
-use WikiPage;
 
 /**
  * @license GPL-2.0-or-later

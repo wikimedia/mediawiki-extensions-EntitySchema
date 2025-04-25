@@ -8,10 +8,10 @@ use EntitySchema\DataAccess\FullViewSchemaDataLookup;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
 use MediaWiki\Content\JsonContent;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiUnitTestCase;
-use WikiPage;
 
 /**
  * @covers \EntitySchema\DataAccess\FullViewSchemaDataLookup

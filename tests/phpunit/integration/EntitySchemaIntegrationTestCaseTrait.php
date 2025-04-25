@@ -9,12 +9,12 @@ use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReference;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Session\Session;
 use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
-use WikiPage;
 
 /**
  * @license GPL-2.0-or-later

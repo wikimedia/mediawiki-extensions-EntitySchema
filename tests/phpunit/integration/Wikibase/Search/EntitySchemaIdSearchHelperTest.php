@@ -10,13 +10,13 @@ use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use EntitySchema\Wikibase\Search\EntitySchemaIdSearchHelper;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Repo\Api\ConceptUriSearchHelper;
-use WikiPage;
 
 /**
  * @covers \EntitySchema\Wikibase\Search\EntitySchemaIdSearchHelper

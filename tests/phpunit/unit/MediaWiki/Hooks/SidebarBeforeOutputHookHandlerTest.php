@@ -7,9 +7,9 @@ namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 use EntitySchema\MediaWiki\Hooks\SidebarBeforeOutputHookHandler;
 use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
 use MediaWiki\Message\Message;
+use MediaWiki\Skin\Skin;
 use MediaWiki\Title\Title;
 use MediaWikiUnitTestCase;
-use Skin;
 use Wikibase\DataAccess\EntitySource;
 
 /**

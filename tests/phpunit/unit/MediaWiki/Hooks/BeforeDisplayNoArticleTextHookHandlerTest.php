@@ -4,12 +4,12 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 
-use Article;
 use EntitySchema\MediaWiki\Hooks\BeforeDisplayNoArticleTextHookHandler;
 use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Language\Language;
 use MediaWiki\Output\OutputPage;
+use MediaWiki\Page\Article;
 use MediaWiki\Title\Title;
 use MediaWikiUnitTestCase;
 

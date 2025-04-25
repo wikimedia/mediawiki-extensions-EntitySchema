@@ -19,6 +19,7 @@ use MediaWiki\Content\Content;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Page\PageIdentityValue;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\RevisionLookup;
@@ -30,7 +31,6 @@ use MediaWiki\Storage\PageUpdateStatus;
 use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
-use WikiPage;
 
 /**
  * @covers \EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaUpdater

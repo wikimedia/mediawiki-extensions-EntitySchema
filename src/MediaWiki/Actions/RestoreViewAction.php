@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Actions;
 
-use Article;
 use Diff\DiffOp\Diff\Diff;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
@@ -14,6 +13,7 @@ use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\Article;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
