@@ -10,7 +10,6 @@ use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHookHandler;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
-use MediaWiki\Config\HashConfig;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
@@ -48,7 +47,6 @@ class EntitySchemaDataValidatorTest extends MediaWikiIntegrationTestCase {
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 		$handler = new WikibaseRepoDataTypesHookHandler(
 			$stubLinkRenderer,
-			new HashConfig( [ 'EntitySchemaTmpFixRdfUri' => true ] ),
 			$this->createStub( TitleFactory::class ),
 			true,
 			$this->createStub( LanguageNameLookupFactory::class ),

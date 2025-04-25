@@ -13,8 +13,6 @@ use EntitySchema\Wikibase\Formatters\EntitySchemaFormatter;
 use EntitySchema\Wikibase\Hooks\WikibaseRepoDataTypesHookHandler;
 use EntitySchema\Wikibase\Rdf\EntitySchemaRdfBuilder;
 use EntitySchema\Wikibase\Validators\EntitySchemaExistsValidator;
-use MediaWiki\Config\Config;
-use MediaWiki\Config\HashConfig;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
@@ -37,27 +35,13 @@ class WikibaseRepoDataTypesHookHandlerTest extends MediaWikiIntegrationTestCase 
 		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 	}
 
-	public static function provideConfigAndRdfUri(): iterable {
-		yield 'config false' => [
-			new HashConfig( [ 'EntitySchemaTmpFixRdfUri' => false ] ),
-			null,
-		];
-
-		yield 'config true' => [
-			new HashConfig( [ 'EntitySchemaTmpFixRdfUri' => true ] ),
-			'http://wikiba.se/ontology#WikibaseEntitySchema',
-		];
-	}
-
-	/** @dataProvider provideConfigAndRdfUri */
-	public function testOnWikibaseRepoDataTypes( Config $config, ?string $expectedRdfUri ): void {
+	public function testOnWikibaseRepoDataTypes(): void {
 		$stubLinkRenderer = $this->createStub( LinkRenderer::class );
 		$stubExistsValidator = $this->createStub( EntitySchemaExistsValidator::class );
 		$stubDatabaseEntitySource = $this->createStub( DatabaseEntitySource::class );
 
 		$sut = new WikibaseRepoDataTypesHookHandler(
 			$stubLinkRenderer,
-			$config,
 			$this->createStub( TitleFactory::class ),
 			true,
 			$this->createStub( LanguageNameLookupFactory::class ),
@@ -75,6 +59,8 @@ class WikibaseRepoDataTypesHookHandlerTest extends MediaWikiIntegrationTestCase 
 			EntitySchemaFormatter::class,
 			$dataTypeDefinitions['PT:entity-schema']['formatter-factory-callback']( 'html', new FormatterOptions() )
 		);
+		$this->assertSame( 'http://wikiba.se/ontology#WikibaseEntitySchema',
+			$dataTypeDefinitions['PT:entity-schema']['rdf-uri'] );
 		$this->assertInstanceOf(
 			EntitySchemaRdfBuilder::class,
 			$dataTypeDefinitions['PT:entity-schema']['rdf-builder-factory-callback'](
@@ -83,11 +69,6 @@ class WikibaseRepoDataTypesHookHandlerTest extends MediaWikiIntegrationTestCase 
 				$this->createStub( RdfWriter::class )
 			)
 		);
-		if ( $expectedRdfUri !== null ) {
-			$this->assertSame( $expectedRdfUri, $dataTypeDefinitions['PT:entity-schema']['rdf-uri'] );
-		} else {
-			$this->assertArrayNotHasKey( 'rdf-uri', $dataTypeDefinitions['PT:entity-schema'] );
-		}
 	}
 
 	/**
@@ -109,7 +90,6 @@ class WikibaseRepoDataTypesHookHandlerTest extends MediaWikiIntegrationTestCase 
 
 		$handler = new WikibaseRepoDataTypesHookHandler(
 			$stubLinkRenderer,
-			new HashConfig( [ 'EntitySchemaTmpFixRdfUri' => true ] ),
 			$this->createStub( TitleFactory::class ),
 			true,
 			$this->createStub( LanguageNameLookupFactory::class ),
