@@ -5,7 +5,7 @@
 		"fix": "npm-run-all fix:*",
 		"test": "npm-run-all test:*",
 		"test:lint": "eslint --cache --no-fix --max-warnings 0 --ignore-path .gitignore .",
-		"test:lintcss": "stylelint \"**/*.{css,less}\" --ignore-path .gitignore",
+		"test:lintcss": "stylelint --cache \"**/*.{css,less}\" --ignore-path .gitignore",
 		"test:linti18n": "banana-checker i18n/",
 		"fix:js": "eslint --fix --ignore-path .gitignore .",
 		"fix:css": "stylelint --fix \"**/*.{css,less}\" --ignore-path .gitignore",

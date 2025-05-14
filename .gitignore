@@ -5,6 +5,7 @@
 /vendor
 /node_modules
 .eslintcache
+/.stylelintcache
 
 cypress/.cache
 cypress/videos
