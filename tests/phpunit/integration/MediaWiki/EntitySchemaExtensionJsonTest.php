@@ -20,7 +20,7 @@ use MediaWiki\Tests\ExtensionJsonTestBase;
  */
 class EntitySchemaExtensionJsonTest extends ExtensionJsonTestBase {
 
-	protected string $extensionJsonPath = __DIR__ . '/../../../../extension.json';
+	protected static string $extensionJsonPath = __DIR__ . '/../../../../extension.json';
 
 	protected ?string $serviceNamePrefix = 'EntitySchema.';
 
@@ -30,7 +30,7 @@ class EntitySchemaExtensionJsonTest extends ExtensionJsonTestBase {
 	}
 
 	public function testHookHandlersAreNamedHookHandler() {
-		$extension = $this->getExtensionJson();
+		$extension = self::getExtensionJson();
 		foreach ( $extension['Hooks'] as $hookName => $hookDetails ) {
 			if ( !is_string( $hookDetails ) ) {
 				continue;
