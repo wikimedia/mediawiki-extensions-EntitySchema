@@ -32,6 +32,9 @@
 	"entityschema-error-unsupported-langcode": "ХӀара меттан код лелош йац.",
 	"entityschema-error-one-more-message-available": "Цхьаболчу ахьа беллачу хаамашца проблемаш йу. ГӀалатан хаам лахахь хьажа.",
 	"entityschema-error-possibly-multiple-messages-available": "Цхьаболчу ахьа беллачу хаамашца проблемаш йу. ГӀалатан хаам лахахь хьажа.",
+	"entityschema-error-schematext-too-long": "Ахь йазйина схемин текст тӀех йеха йу. Максимум йохалла йу {{PLURAL:$1|цхьа байт|$1 байт}}. Хьан текстан йохалла {{PLURAL:$2|$2 байт}}.",
+	"entityschema-error-input-too-long": "Ахь йазйина текст тӀех йеха йу. Максимум йохалла {{PLURAL:$1|цхьа хьаьрк}} ду. Хьан текстан йохалла {{PLURAL:$2|цхьа хьаьрк|$2 хьаьрк}}.",
+	"entityschema-noschema": "Кхузахь схема йац. [[Special:NewEntitySchema]] чу гӀо, керланиг кхолла.",
 	"entityschema-summary-generated": "Йоца аннотаци (автокечбина хааман тӀетухура йу):",
 	"entityschema-label-empty": "ЦӀе йац",
 	"entityschema-namebadge-header-language-code": "меттан код.",
@@ -80,5 +83,6 @@
 	"entityschema-special-aliases": "Псевдонимаш, дӀасакъаьстина верт. сизал:",
 	"wikibase-listdatatypes-entity-schema-head": "Субъектан схема",
 	"wikibase-listdatatypes-entity-schema-body": "Оццу вики чохь конфигураци йинчу цӀерийн меттигехь Ӏалашйина йолчу Entity Schemas тӀе хьажорг. МаьӀна хила деза \"EntitySchema:\" цӀерийн меттиган префикс йоцуш",
-	"wikibase-validator-illegal-entity-schema-title": "МаьӀна дӀадоладала деза <code>E</code> тӀера, дисинарг терахьаш бен ца хила деза."
+	"wikibase-validator-illegal-entity-schema-title": "МаьӀна дӀадоладала деза <code>E</code> тӀера, дисинарг терахьаш бен ца хила деза.",
+	"wikibase-validator-no-such-entity-schema": "EntitySchema $1 йац."
 }
