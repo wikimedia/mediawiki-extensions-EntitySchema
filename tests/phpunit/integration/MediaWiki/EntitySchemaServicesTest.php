@@ -15,7 +15,7 @@ use MediaWiki\Tests\ExtensionServicesTestBase;
  */
 class EntitySchemaServicesTest extends ExtensionServicesTestBase {
 
-	protected string $className = EntitySchemaServices::class;
+	protected static string $className = EntitySchemaServices::class;
 
 	protected string $serviceNamePrefix = 'EntitySchema.';
 
