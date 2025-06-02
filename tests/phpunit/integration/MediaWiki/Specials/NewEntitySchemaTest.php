@@ -12,12 +12,12 @@ use MediaWiki\Content\TextContent;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Exception\PermissionsError;
 use MediaWiki\Exception\ReadOnlyError;
-use MediaWiki\Linker\LinkTarget;
+use MediaWiki\Page\PageIdentity;
+use MediaWiki\Page\PageIdentityValue;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
 use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
-use MediaWiki\Title\TitleValue;
 use MediaWiki\User\User;
 use SpecialPageTestBase;
 use Wikibase\Lib\SettingsArray;
@@ -236,9 +236,9 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 	/**
 	 * Gets the last created page (if any).
 	 */
-	private function getLastCreatedTitle(): ?LinkTarget {
+	private function getLastCreatedTitle(): ?PageIdentity {
 		$row = $this->getDb()->newSelectQueryBuilder()
-			->select( [ 'page_namespace', 'page_title' ] )
+			->select( [ 'page_id', 'page_namespace', 'page_title' ] )
 			->from( 'page' )
 			->orderBy( [ 'page_id' ], SelectQueryBuilder::SORT_DESC )
 			->caller( __METHOD__ )
@@ -246,7 +246,11 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 		if ( $row === false ) {
 			return null;
 		}
-		return new TitleValue( (int)$row->page_namespace, $row->page_title );
+		return PageIdentityValue::localIdentity(
+			(int)$row->page_id,
+			(int)$row->page_namespace,
+			$row->page_title
+		);
 	}
 
 	/**
