@@ -12,7 +12,7 @@ env:
   MW_LOG_DIR: ${{ github.workspace }}/logs
   MW_BRANCH: master
   DBTYPE: mysql
-  PHP_VERSION: 7.4
+  PHP_VERSION: 8.1
   LANG: en
   COMPOSER_HOME: ${{ github.workspace }}/.composer
 
