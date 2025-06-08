@@ -6,3 +6,4 @@
 /node_modules
 /tests/selenium/log
 .eslintcache
+/.stylelintcache
