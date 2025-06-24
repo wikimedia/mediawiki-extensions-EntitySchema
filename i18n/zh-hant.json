@@ -5,7 +5,8 @@
 			"Kly",
 			"S8321414",
 			"Winston Sung",
-			"Xiplus"
+			"Xiplus",
+			"SupaplexTW"
 		]
 	},
 	"datatypes-type-entity-schema": "實體架構",
@@ -76,7 +77,7 @@
 	"special-schematext": "實體架構文字",
 	"entityschema-schematext-text": "此頁面提供出架構原始文字的介面。請使用子頁面語法在 URL 提供架構 ID。",
 	"entityschema-schematext-missing": "缺少或刪除架構：$1。",
-	"entityschema-special-setlabeldescriptionaliases": "設定架構的標籤、描述與別名",
+	"entityschema-special-setlabeldescriptionaliases": "設定實體架構的標籤、描述與別名",
 	"entityschema-special-id-inputlabel": "實體架構 ID",
 	"entityschema-special-language-inputlabel": "語言代碼",
 	"entityschema-special-id-submit": "設定標籤、描述與別名",
