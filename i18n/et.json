@@ -4,8 +4,11 @@
 			"Pikne"
 		]
 	},
+	"datatypes-type-entity-schema": "Olemiskeem",
 	"entityschema-desc": "Vikibaasi olemiskeemide talletamiseks ja aruteluks nende üle",
 	"special-newschema": "Uue olemiskeemi loomine",
+	"nstab-entityschema": "Olemiskeem",
+	"tooltip-ca-nstab-entityschema": "Olemiskeemi definitsioon",
 	"entityschema-newschema-label": "Silt:",
 	"entityschema-newschema-description": "Kirjeldus:",
 	"entityschema-newschema-aliases": "Rööpkujud, eraldatud püstkriipsuga:",
@@ -44,6 +47,7 @@
 	"special-schematext": "Olemiskeemi tekst",
 	"entityschema-schematext-text": "Sellel leheküljel on liides skeemi toorteksti juurde. Palun too internetiaadressis ära skeemi identifikaator, kasutades alamlehekülje süntaksit.",
 	"entityschema-schematext-missing": "Puuduv või kustutatud skeem: $1.",
+	"entityschema-scoped-search-scope-name": "Olemiskeemid",
 	"entityschema-special-setlabeldescriptionaliases": "Olemiskeemi sildi, kirjelduse ja rööpkujude määramine",
 	"entityschema-special-id-inputlabel": "Olemiskeemi identifikaator",
 	"entityschema-special-language-inputlabel": "Keelekood",
@@ -51,5 +55,7 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "Oled määramas antud keeles ($1) skeemi [[$3|$2]] silti, kirjeldust ja rööpkujusid.",
 	"entityschema-special-label": "Silt:",
 	"entityschema-special-description": "Kirjeldus:",
-	"entityschema-special-aliases": "Rööpkujud, eraldatud püstkriipsuga:"
+	"entityschema-special-aliases": "Rööpkujud, eraldatud püstkriipsuga:",
+	"wikibase-listdatatypes-entity-schema-head": "Olemiskeem",
+	"wikibase-listdatatypes-entity-schema-body": "Link olemiskeemidele, mida hoitakse samas vikis selleks häälestatud nimeruumis. Väärtus peab olema ilma nimeruumi eesliiteta \"EntitySchema:\"."
 }
