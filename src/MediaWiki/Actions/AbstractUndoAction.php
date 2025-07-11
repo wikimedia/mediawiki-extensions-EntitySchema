@@ -71,7 +71,7 @@ abstract class AbstractUndoAction extends FormlessAction {
 		$undoHandler = new UndoHandler();
 		try {
 			$undoHandler->validateContentIds( $undoFromContent, $undoToContent );
-		} catch ( DomainException $e ) {
+		} catch ( DomainException ) {
 			return Status::newFatal( 'entityschema-error-inconsistent-id' );
 		}
 

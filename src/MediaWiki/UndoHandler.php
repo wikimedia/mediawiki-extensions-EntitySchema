@@ -69,7 +69,7 @@ final class UndoHandler {
 				$converter->getFullArraySchemaData( $baseContent->getText() ),
 				$diff
 			);
-		} catch ( PatcherException $e ) {
+		} catch ( PatcherException ) {
 			// show error here
 			return Status::newFatal( 'entityschema-undo-cannot-apply-patch' );
 		}

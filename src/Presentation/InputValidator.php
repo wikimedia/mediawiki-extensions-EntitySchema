@@ -50,7 +50,7 @@ class InputValidator {
 	public function validateIDExists( string $id ) {
 		try {
 			$entitySchemaId = new EntitySchemaId( $id );
-		} catch ( InvalidArgumentException $e ) {
+		} catch ( InvalidArgumentException ) {
 			return $this->msgLocalizer->msg( 'entityschema-error-invalid-id' );
 		}
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $entitySchemaId->getId() );

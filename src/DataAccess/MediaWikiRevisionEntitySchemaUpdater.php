@@ -174,7 +174,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 					$schemaData->data['aliases'][$langCode] = $aliases;
 				}
 			);
-		} catch ( PatcherException $e ) {
+		} catch ( PatcherException ) {
 			return EntitySchemaStatus::newFatal( 'edit-conflict' );
 		}
 
@@ -300,7 +300,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 					$schemaData->data['schemaText'] = $schemaText;
 				}
 			);
-		} catch ( PatcherException $e ) {
+		} catch ( PatcherException ) {
 			$status->fatal( 'edit-conflict' );
 			return $status;
 		}

@@ -79,7 +79,7 @@ class EntitySchemaText extends SpecialPage {
 		}
 		try {
 			$entitySchemaId = new EntitySchemaId( $subPage );
-		} catch ( InvalidArgumentException $e ) {
+		} catch ( InvalidArgumentException ) {
 			return null;
 		}
 		return $entitySchemaId;

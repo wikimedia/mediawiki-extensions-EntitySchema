@@ -39,7 +39,7 @@ class EntitySchemaStatementDataUpdater implements StatementDataUpdater {
 				$dataTypeId = $this->propertyDataTypeLookup->getDataTypeIdForProperty(
 					$snak->getPropertyId()
 				);
-			} catch ( PropertyDataTypeLookupException $e ) {
+			} catch ( PropertyDataTypeLookupException ) {
 				$dataTypeId = null;
 			}
 

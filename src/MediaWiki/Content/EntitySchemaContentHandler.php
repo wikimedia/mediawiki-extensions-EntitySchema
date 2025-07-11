@@ -337,7 +337,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 		$undoHandler = new UndoHandler();
 		try {
 			$schemaId = $undoHandler->validateContentIds( $undoToContent, $undoFromContent, $baseContent );
-		} catch ( LogicException $e ) {
+		} catch ( LogicException ) {
 			return false;
 		}
 

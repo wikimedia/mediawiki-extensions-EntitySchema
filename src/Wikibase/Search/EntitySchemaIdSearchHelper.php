@@ -58,7 +58,7 @@ class EntitySchemaIdSearchHelper implements EntitySearchHelper {
 
 		try {
 			$id = new EntitySchemaId( $text );
-		} catch ( InvalidArgumentException $e ) {
+		} catch ( InvalidArgumentException ) {
 			return [];
 		}
 

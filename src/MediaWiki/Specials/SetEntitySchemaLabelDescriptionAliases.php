@@ -94,7 +94,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 	public function submitEditFormCallback( array $data ): Status {
 		try {
 			$id = new EntitySchemaId( $data[self::FIELD_ID] );
-		} catch ( InvalidArgumentException $e ) {
+		} catch ( InvalidArgumentException ) {
 			return Status::newFatal( 'entityschema-error-schemaupdate-failed' );
 		}
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id->getId() );

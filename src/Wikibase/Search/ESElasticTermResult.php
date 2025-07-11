@@ -45,7 +45,7 @@ class ESElasticTermResult extends ElasticTermResult {
 		try {
 			$id = new EntitySchemaId( $sourceData['title'] );
 			$entityId = $id->getId();
-		} catch ( InvalidArgumentException $e ) {
+		} catch ( InvalidArgumentException ) {
 			// Can not parse entity ID - skip it
 			return null;
 		}

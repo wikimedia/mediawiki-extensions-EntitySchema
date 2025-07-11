@@ -73,7 +73,7 @@ class EntitySchemaElasticSearchHelper implements EntitySearchHelper {
 			static function ( string $text ): ?string {
 				try {
 					$id = new EntitySchemaId( $text );
-				} catch ( InvalidArgumentException $e ) {
+				} catch ( InvalidArgumentException ) {
 					return null;
 				}
 				return $id->getId();
