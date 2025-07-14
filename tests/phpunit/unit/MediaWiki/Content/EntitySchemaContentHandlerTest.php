@@ -7,10 +7,10 @@ namespace EntitySchema\Tests\Unit\MediaWiki\Content;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
-use MediaWiki\HookContainer\HookContainer;
+use MediaWiki\Parser\Parsoid\ParsoidParserFactory;
+use MediaWiki\Title\TitleFactory;
 use MediaWikiUnitTestCase;
 use Wikibase\Lib\LanguageNameLookupFactory;
-use Wikimedia\ObjectFactory\ObjectFactory;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler
@@ -22,10 +22,10 @@ class EntitySchemaContentHandlerTest extends MediaWikiUnitTestCase {
 	public function testSupportsDirectApiEditing() {
 		$contentHandler = new EntitySchemaContentHandler(
 			EntitySchemaContent::CONTENT_MODEL_ID,
+			$this->createMock( ParsoidParserFactory::class ),
+			$this->createMock( TitleFactory::class ),
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class ),
-			$this->createMock( ObjectFactory::class ),
-			$this->createMock( HookContainer::class ),
 			null,
 			null
 		);
@@ -36,10 +36,10 @@ class EntitySchemaContentHandlerTest extends MediaWikiUnitTestCase {
 	public function testIsParserCacheSupported() {
 		$contentHandler = new EntitySchemaContentHandler(
 			EntitySchemaContent::CONTENT_MODEL_ID,
+			$this->createMock( ParsoidParserFactory::class ),
+			$this->createMock( TitleFactory::class ),
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class ),
-			$this->createMock( ObjectFactory::class ),
-			$this->createMock( HookContainer::class ),
 			null,
 			null
 		);

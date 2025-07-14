@@ -150,9 +150,9 @@
 			"class": "EntitySchema\\MediaWiki\\Hooks\\ContentHandlerForModelIDHookHandler",
 			"services": [
 				"ConfigFactory",
-				"HookContainer",
 				"LanguageNameUtils",
-				"ObjectFactory",
+				"ParsoidParserFactory",
+				"TitleFactory",
 				"EntitySchema.EntitySchemaIsRepo"
 			],
 			"optional_services": [

@@ -8,14 +8,14 @@ use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Content\Hook\ContentHandlerForModelIDHook;
-use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Languages\LanguageNameUtils;
+use MediaWiki\Parser\Parsoid\ParsoidParserFactory;
 use MediaWiki\Registration\ExtensionRegistry;
+use MediaWiki\Title\TitleFactory;
 use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Search\Elastic\Fields\DescriptionsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
 use Wikimedia\Assert\Assert;
-use Wikimedia\ObjectFactory\ObjectFactory;
 
 /**
  * @license GPL-2.0-or-later
@@ -24,28 +24,28 @@ class ContentHandlerForModelIDHookHandler implements ContentHandlerForModelIDHoo
 
 	private ConfigFactory $configFactory;
 	private LanguageNameUtils $languageNameUtils;
+	private ParsoidParserFactory $parsoidParserFactory;
+	private TitleFactory $titleFactory;
 	private bool $entitySchemaIsRepo;
-	private ObjectFactory $objectFactory;
-	private HookContainer $hookContainer;
 	private ?LanguageNameLookupFactory $languageNameLookupFactory;
 	private ?LabelLookup $labelLookup;
 
 	public function __construct(
 		ConfigFactory $configFactory,
-		HookContainer $hookContainer,
 		LanguageNameUtils $languageNameUtils,
-		ObjectFactory $objectFactory,
+		ParsoidParserFactory $parsoidParserFactory,
+		TitleFactory $titleFactory,
 		bool $entitySchemaIsRepo,
 		?LabelLookup $labelLookup,
 		?LanguageNameLookupFactory $languageNameLookupFactory
 	) {
 		$this->configFactory = $configFactory;
 		$this->languageNameUtils = $languageNameUtils;
+		$this->parsoidParserFactory = $parsoidParserFactory;
+		$this->titleFactory = $titleFactory;
 		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
 		$this->labelLookup = $labelLookup;
 		$this->languageNameLookupFactory = $languageNameLookupFactory;
-		$this->objectFactory = $objectFactory;
-		$this->hookContainer = $hookContainer;
 	}
 
 	/**
@@ -76,10 +76,10 @@ class ContentHandlerForModelIDHookHandler implements ContentHandlerForModelIDHoo
 		}
 		$handler = new EntitySchemaContentHandler(
 			$modelName,
+			$this->parsoidParserFactory,
+			$this->titleFactory,
 			$this->labelLookup,
 			$this->languageNameLookupFactory,
-			$this->objectFactory,
-			$this->hookContainer,
 			$labelsFieldDefinitions,
 			$descriptionsFieldDefinitions
 		);

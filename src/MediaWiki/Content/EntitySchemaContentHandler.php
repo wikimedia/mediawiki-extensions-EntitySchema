@@ -25,17 +25,18 @@ use MediaWiki\Content\JsonContentHandler;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Language\Language;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\Page\Article;
 use MediaWiki\Page\WikiPage;
 use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Parser\Parsoid\ParsoidParserFactory;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\TempUser\TempUserConfig;
 use SearchEngine;
@@ -44,7 +45,6 @@ use Wikibase\Lib\LanguageNameLookupFactory;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Search\Elastic\Fields\DescriptionsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
-use Wikimedia\ObjectFactory\ObjectFactory;
 use Wikimedia\Rdbms\ReadOnlyMode;
 
 /**
@@ -70,27 +70,25 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 
 	private LabelLookup $labelLookup;
 
-	private ObjectFactory $objectFactory;
-
-	private HookContainer $hookContainer;
-
 	public function __construct(
 		string $modelId,
+		ParsoidParserFactory $parsoidParserFactory,
+		TitleFactory $titleFactory,
 		LabelLookup $labelLookup,
 		LanguageNameLookupFactory $languageNameLookupFactory,
-		ObjectFactory $objectFactory,
-		HookContainer $hookContainer,
 		?LabelsProviderFieldDefinitions $labelsFieldDefinitions,
 		?DescriptionsProviderFieldDefinitions $descriptionsFieldDefinitions
 	) {
 		// $modelId is typically EntitySchemaContent::CONTENT_MODEL_ID
-		parent::__construct( $modelId );
+		parent::__construct(
+			$modelId,
+			$parsoidParserFactory,
+			$titleFactory
+		);
 		$this->labelLookup = $labelLookup;
 		$this->languageNameLookupFactory = $languageNameLookupFactory;
 		$this->labelsFieldDefinitions = $labelsFieldDefinitions;
 		$this->descriptionsFieldDefinitions = $descriptionsFieldDefinitions;
-		$this->objectFactory = $objectFactory;
-		$this->hookContainer = $hookContainer;
 	}
 
 	protected function getContentClass(): string {

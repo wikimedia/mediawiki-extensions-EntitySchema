@@ -8,12 +8,13 @@ use CirrusSearch\CirrusSearch;
 use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
-use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Page\WikiPage;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Parser\Parsoid\ParsoidParserFactory;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
 use SearchEngine;
 use Wikibase\DataModel\Term\DescriptionsProvider;
@@ -26,7 +27,6 @@ use Wikibase\Search\Elastic\Fields\LabelsField;
 use Wikibase\Search\Elastic\Fields\LabelsProviderFieldDefinitions;
 use Wikibase\Search\Elastic\Fields\WikibaseDescriptionsIndexField;
 use Wikibase\Search\Elastic\Fields\WikibaseLabelsIndexField;
-use Wikimedia\ObjectFactory\ObjectFactory;
 
 /**
  * @covers \EntitySchema\MediaWiki\Content\EntitySchemaContentHandler
@@ -114,10 +114,10 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 	public function testGetFieldsForSearchIndex_noFieldDefinitions(): void {
 		$contentHandler = new EntitySchemaContentHandler(
 			'EntitySchema',
+			$this->createMock( ParsoidParserFactory::class ),
+			$this->createMock( TitleFactory::class ),
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class ),
-			$this->createMock( ObjectFactory::class ),
-			$this->createMock( HookContainer::class ),
 			null,
 			null
 		);
@@ -140,10 +140,10 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 		);
 		$contentHandler = new EntitySchemaContentHandler(
 			'EntitySchema',
+			$this->createMock( ParsoidParserFactory::class ),
+			$this->createMock( TitleFactory::class ),
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class ),
-			$this->createMock( ObjectFactory::class ),
-			$this->createMock( HookContainer::class ),
 			$labelsFieldDefinitions,
 			$descriptionsFieldDefinitions
 		);
@@ -171,10 +171,10 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 		);
 		$contentHandler = new EntitySchemaContentHandler(
 			'EntitySchema',
+			$this->createMock( ParsoidParserFactory::class ),
+			$this->createMock( TitleFactory::class ),
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class ),
-			$this->createMock( ObjectFactory::class ),
-			$this->createMock( HookContainer::class ),
 			$labelsFieldDefinitions,
 			$descriptionsFieldDefinitions
 		);
@@ -241,10 +241,10 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 			->willReturn( [ 'descriptionsField' => $descriptionsField, 'no field' => null ] );
 		$contentHandler = new EntitySchemaContentHandler(
 			'EntitySchema',
+			$this->createMock( ParsoidParserFactory::class ),
+			$this->createMock( TitleFactory::class ),
 			$this->createMock( LabelLookup::class ),
 			$this->createMock( LanguageNameLookupFactory::class ),
-			$this->createMock( ObjectFactory::class ),
-			$this->createMock( HookContainer::class ),
 			$labelsFieldDefinitions,
 			$descriptionsFieldDefinitions
 		);
