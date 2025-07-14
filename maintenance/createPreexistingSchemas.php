@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Maintenance;
 
+// @codeCoverageIgnoreStart
 $basePath = getenv( 'MW_INSTALL_PATH' ) !== false
 	? getenv( 'MW_INSTALL_PATH' )
 	: __DIR__ . '/../../..';
@@ -11,6 +12,7 @@ $basePath = getenv( 'MW_INSTALL_PATH' ) !== false
 require_once $basePath . '/maintenance/Maintenance.php';
 require_once $basePath . '/extensions/EntitySchema/src/Domain/Storage/IdGenerator.php';
 require_once 'FixedIdGenerator.php';
+// @codeCoverageIgnoreEnd
 
 use EntitySchema\DataAccess\MediaWikiRevisionEntitySchemaInserter;
 use EntitySchema\MediaWiki\EntitySchemaServices;
@@ -196,5 +198,7 @@ class CreatePreexistingSchemas extends Maintenance {
 
 }
 
+// @codeCoverageIgnoreStart
 $maintClass = CreatePreexistingSchemas::class;
 require_once RUN_MAINTENANCE_IF_MAIN;
+// @codeCoverageIgnoreEnd
