@@ -3,7 +3,8 @@
 		"authors": [
 			"Jon Harald Søby",
 			"Kingu",
-			"Telaneo"
+			"Telaneo",
+			"EdoAug"
 		]
 	},
 	"datatypes-type-entity-schema": "Entitetsskjema",
@@ -74,6 +75,7 @@
 	"special-schematext": "Entitetsskjematekst",
 	"entityschema-schematext-text": "Denne siden gir et grensesnitt for å redigere den råe teksten til et skjema. Angi en skjema-ID i URL-en, med undersidesyntaks.",
 	"entityschema-schematext-missing": "Manglende eller slettet skjema: $1.",
+	"entityschema-scoped-search-scope-name": "Entitetsskjemaer",
 	"entityschema-special-setlabeldescriptionaliases": "Sett etikett, beskrivelse og aliaser for entitetsskjema",
 	"entityschema-special-id-inputlabel": "Entitetsskjema-ID",
 	"entityschema-special-language-inputlabel": "Språkkode",
