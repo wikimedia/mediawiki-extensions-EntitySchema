@@ -84,6 +84,7 @@ final class RestoreViewAction extends AbstractRestoreAction {
 		$this->getOutput()->addHTML( $confFormHTML );
 	}
 
+	/** @return Status<Diff> */
 	private function getDiffFromRevision( RevisionRecord $revToRestore ): Status {
 
 		/** @var EntitySchemaContent $contentToRestore */

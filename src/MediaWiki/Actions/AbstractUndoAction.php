@@ -54,6 +54,7 @@ abstract class AbstractUndoAction extends FormlessAction {
 		return $this->getName();
 	}
 
+	/** @return Status<Diff> */
 	protected function getDiffFromRequest( WebRequest $req ): Status {
 		$newerRevision = $this->revisionStore->getRevisionById( $req->getInt( 'undo' ) );
 		$olderRevision = $this->revisionStore->getRevisionById( $req->getInt( 'undoafter' ) );
@@ -84,6 +85,7 @@ abstract class AbstractUndoAction extends FormlessAction {
 	 * @param Diff $diff
 	 *
 	 * @return Status contains array of the patched schema data and the revision that was patched
+	 * @phan-return Status<array{0:\EntitySchema\Services\Converter\FullArrayEntitySchemaData,1:int}>
 	 */
 	protected function tryPatching( Diff $diff ): Status {
 		$revStore = MediaWikiServices::getInstance()->getRevisionStore();
@@ -99,6 +101,7 @@ abstract class AbstractUndoAction extends FormlessAction {
 			return Status::newGood( [ $status->getValue(), $baseRevId ] );
 		}
 
+		// @phan-suppress-next-line PhanTypeMismatchReturn -- error status, different type parameter is irrelevant
 		return $status;
 	}
 

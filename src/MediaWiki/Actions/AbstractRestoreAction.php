@@ -23,6 +23,7 @@ abstract class AbstractRestoreAction extends EditAction {
 		return 'edit';
 	}
 
+	/** @return Status<RevisionRecord> */
 	protected function getRevisionFromRequest( WebRequest $req ): Status {
 		$restoreID = $req->getInt( 'restore' );
 		$revStore = MediaWikiServices::getInstance()->getRevisionStore();

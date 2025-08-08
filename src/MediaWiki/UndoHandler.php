@@ -10,6 +10,7 @@ use DomainException;
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
+use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use EntitySchema\Services\Diff\EntitySchemaPatcher;
 use MediaWiki\Status\Status;
@@ -44,6 +45,7 @@ final class UndoHandler {
 		return new EntitySchemaId( $firstID );
 	}
 
+	/** @return Status<Diff> */
 	public function getDiffFromContents(
 		EntitySchemaContent $undoFromContent,
 		EntitySchemaContent $undoToContent
@@ -59,6 +61,7 @@ final class UndoHandler {
 		return Status::newGood( $diff );
 	}
 
+	/** @return Status<FullArrayEntitySchemaData> */
 	public function tryPatching( Diff $diff, EntitySchemaContent $baseContent ): Status {
 
 		$patcher = new EntitySchemaPatcher();
