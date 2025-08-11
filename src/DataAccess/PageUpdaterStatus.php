@@ -7,7 +7,6 @@ namespace EntitySchema\DataAccess;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Storage\PageUpdater;
 use MediaWiki\User\UserIdentity;
-use StatusValue;
 use Wikibase\Repo\TempUserStatus;
 use Wikimedia\Assert\Assert;
 
@@ -28,19 +27,6 @@ class PageUpdaterStatus extends TempUserStatus {
 		return self::newTempUserStatus( [
 			'pageUpdater' => $pageUpdater,
 		], $savedTempUser, $context );
-	}
-
-	/**
-	 * @param StatusValue $sv
-	 * @return static
-	 */
-	public static function wrap( $sv ) {
-		// This implementation only exists to change the declared return type,
-		// from Status to static (i.e. EditEntityStatus);
-		// it would become redundant if Ic1a8eccc53 is merged.
-		// (Note that the parent *implementation* already returns static,
-		// it just isn’t declared as such yet.)
-		return parent::wrap( $sv );
 	}
 
 	/**
