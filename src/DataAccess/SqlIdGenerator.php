@@ -102,6 +102,7 @@ class SqlIdGenerator implements IdGenerator {
 		}
 
 		if ( in_array( $id, $this->idsToSkip ) ) {
+			// @phan-suppress-next-line PhanPossiblyInfiniteRecursionSameParams
 			$id = $this->generateNewId( $database, $retry );
 		}
 
