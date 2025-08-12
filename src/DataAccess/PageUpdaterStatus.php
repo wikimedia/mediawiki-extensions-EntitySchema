@@ -15,6 +15,7 @@ use Wikimedia\Assert\Assert;
  * A Status representing the result of a {@link MediaWikiPageUpdaterFactory}:
  * the PageUpdater, and possibly any temporary account that was created.
  *
+ * @inherits TempUserStatus<array{savedTempUser:?UserIdentity,context:IContextSource,pageUpdater:PageUpdater}>
  * @license GPL-2.0-or-later
  */
 class PageUpdaterStatus extends TempUserStatus {
@@ -39,7 +40,6 @@ class PageUpdaterStatus extends TempUserStatus {
 		// it would become redundant if Ic1a8eccc53 is merged.
 		// (Note that the parent *implementation* already returns static,
 		// it just isn’t declared as such yet.)
-		// @phan-suppress-next-line PhanTypeMismatchReturnSuperType
 		return parent::wrap( $sv );
 	}
 

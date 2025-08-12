@@ -17,6 +17,7 @@ use Wikimedia\Assert\Assert;
  * Note that even an OK status does not necessarily mean that a new edit was made
  * (it might have been a null edit).
  *
+ * @inherits TempUserStatus<array{savedTempUser:?UserIdentity,context:IContextSource,id:EntitySchemaId}>
  * @license GPL-2.0-or-later
  */
 class EntitySchemaStatus extends TempUserStatus {
@@ -41,7 +42,6 @@ class EntitySchemaStatus extends TempUserStatus {
 		// it would become redundant if Ic1a8eccc53 is merged.
 		// (Note that the parent *implementation* already returns static,
 		// it just isn’t declared as such yet.)
-		// @phan-suppress-next-line PhanTypeMismatchReturnSuperType
 		return parent::wrap( $sv );
 	}
 
