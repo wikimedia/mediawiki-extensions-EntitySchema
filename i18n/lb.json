@@ -3,7 +3,8 @@
 		"authors": [
 			"Robby",
 			"Soued031",
-			"Volvox"
+			"Volvox",
+			"GilPe"
 		]
 	},
 	"entityschema-newschema-label": "Etikett:",
@@ -26,7 +27,7 @@
 	"entityschema-error-schematext-too-long": "De Scheematext, deen Dir aginn hutt, ass ze laang. Déi maximal Längt ass {{PLURAL:$1|ee Byte|$1 Byte}}. Ären Text huet eng Längt {{PLURAL:$2|vun engem Byte|vu(n) $2 Byte}}.",
 	"entityschema-error-input-too-long": "Den Text, deen Dir aginn hutt, ass ze laang. Déi maximal Längt ass {{PLURAL:$1|een Zeechen|$1 Zeechen}}. Ären Text huet eng Längt {{PLURAL:$2|vun engem Zeechen|vu(n) $2 Zeechen}}.",
 	"entityschema-noschema": "Hei gëtt et kee Scheema. Gitt op [[Special:NewEntitySchema]] fir en neit unzeleeën.",
-	"entityschema-summary-generated": "Resumé (gëtt un en automatesch generéierte Resumé ugehaangen):",
+	"entityschema-summary-generated": "Resümmee (gëtt un en automatesch generéierte Resümmee ugehaangen):",
 	"entityschema-label-empty": "Keng Etikett definéiert",
 	"entityschema-namebadge-header-language-code": "Sproochcode",
 	"entityschema-namebadge-header-label": "Etikett",
