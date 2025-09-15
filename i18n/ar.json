@@ -3,7 +3,8 @@
 		"authors": [
 			"Meno25",
 			"ديفيد",
-			"Alshamiri1"
+			"Alshamiri1",
+			"Mohammed Qays"
 		]
 	},
 	"entityschema-desc": "تخزين ومناقشة المخططات لكيانات قاعدة الويكي",
@@ -36,7 +37,7 @@
 	"entityschema-error-input-too-long": "نص المخطط الذي أدخلته طويل جدا؛ الحد الأقصى للطول هو {{PLURAL:$1|بايت واحد|$1 بايت}}، يبلغ طول النص {{PLURAL:$2|بايت واحد|$1 بايت}}.",
 	"entityschema-noschema": "لا يوجد مخطط هنا، انتقل إلى [[Special:NewSchema]] لإنشاء واحد جديد.",
 	"entityschema-summary-generated": "ملخص (سيتم إلحاقه بملخص مولد تلقائيا):",
-	"entityschema-label-empty": "لم يتم تحديد التسمية",
+	"entityschema-label-empty": "لم تُضف التسمية",
 	"entityschema-namebadge-header-language-code": "رمز اللغة",
 	"entityschema-namebadge-header-label": "التسمية",
 	"entityschema-namebadge-header-description": "الوصف",
