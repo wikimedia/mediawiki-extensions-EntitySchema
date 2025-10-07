@@ -92,7 +92,7 @@ class EntitySchemaSlotViewRenderer {
 		if ( $this->syntaxHighlight ) {
 			$parserOutput->addModuleStyles( [ 'ext.pygments' ] );
 		}
-		$parserOutput->setText(
+		$parserOutput->setContentHolderText(
 			$this->renderNameBadges( $page, $schemaData->nameBadges ) .
 			$this->renderSchemaSection( $page, $schemaData->schemaText )
 		);

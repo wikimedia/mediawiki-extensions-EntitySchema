@@ -401,7 +401,7 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 				$parserOutput
 			);
 		} else {
-			$parserOutput->setText( '' );
+			$parserOutput->setContentHolderText( '' );
 		}
 	}
 
