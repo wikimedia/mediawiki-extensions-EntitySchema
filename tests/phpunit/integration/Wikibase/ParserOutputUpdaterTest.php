@@ -6,6 +6,7 @@ namespace EntitySchema\Tests\Integration\Wikibase;
 
 use EntitySchema\Domain\Model\EntitySchemaId;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
+use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWikiIntegrationTestCase;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Tests\NewItem;
@@ -49,12 +50,19 @@ class ParserOutputUpdaterTest extends MediaWikiIntegrationTestCase {
 			/* $generateHtml = */ false
 		);
 
-		$pageLinks = $parserOutput->getLinks();
-		$this->assertArrayHasKey( NS_ENTITYSCHEMA_JSON, $pageLinks );
+		$pageLinks = array_map(
+			static fn ( $item ) => ( [ 'link' => $item['link']->getDBkey() ] + $item ),
+			$parserOutput->getLinkList( ParserOutputLinkTypes::LOCAL, NS_ENTITYSCHEMA_JSON )
+		);
 		$this->assertSame(
-			// 0 means the page does not exist
-			[ 'E123' => 0 ],
-			$pageLinks[NS_ENTITYSCHEMA_JSON]
+			[
+				[
+					'link' => 'E123',
+					// 0 means the page does not exist
+					'pageid' => 0,
+				],
+			],
+			$pageLinks
 		);
 	}
 
