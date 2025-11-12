@@ -60,7 +60,7 @@ final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 
 		$actualItems = array_unique(
 			array_map( static function ( WatchedItem $watchedItem ) {
-				return $watchedItem->getLinkTarget()->getText();
+				return $watchedItem->getTarget()->getDBkey();
 			}, $actualItems )
 		);
 
@@ -137,7 +137,7 @@ final class WatchListUpdaterTest extends MediaWikiIntegrationTestCase {
 
 		$actualItems = array_unique(
 			array_map( static function ( WatchedItem $watchedItem ) {
-				return $watchedItem->getLinkTarget()->getText();
+				return $watchedItem->getTarget()->getDBkey();
 			}, $actualItems )
 		);
 
