@@ -11,7 +11,8 @@
 			"Xiplus",
 			"Yfdyh000",
 			"Zazzzz",
-			"沈澄心"
+			"沈澄心",
+			"Peterxy12"
 		]
 	},
 	"datatypes-type-entity-schema": "实体架构",
@@ -82,6 +83,7 @@
 	"special-schematext": "实体架构文本",
 	"entityschema-schematext-text": "此页面提供了架构原始文本的接口。请使用子页面语法在URL中提供架构ID。",
 	"entityschema-schematext-missing": "丢失或已删除的架构：$1。",
+	"entityschema-scoped-search-scope-name": "实体架构",
 	"entityschema-special-setlabeldescriptionaliases": "为实体架构设置标签、描述和别名",
 	"entityschema-special-id-inputlabel": "实体架构ID",
 	"entityschema-special-language-inputlabel": "语言代码",
