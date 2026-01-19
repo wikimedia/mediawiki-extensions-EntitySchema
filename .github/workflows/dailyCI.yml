@@ -12,7 +12,7 @@ env:
   MW_LOG_DIR: ${{ github.workspace }}/logs
   MW_BRANCH: master
   DBTYPE: mysql
-  PHP_VERSION: 8.1
+  PHP_VERSION: 8.3
   LANG: en
   COMPOSER_HOME: ${{ github.workspace }}/.composer
 
@@ -41,7 +41,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: "16"
+        node-version: "20"
     - name: Install Dependencies
       run: npm ci
     - name: install.sh
