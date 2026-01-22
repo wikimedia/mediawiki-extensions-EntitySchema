@@ -56,7 +56,7 @@
 	"entityschema-summary-update-schema-label": "Etiquetta del Schema in $1 actualisate",
 	"entityschema-summary-update-schema-description": "Description del Schema in $1 actualisate",
 	"entityschema-summary-update-schema-aliases": "Aliases del Schema in $1 actualisate",
-	"entityschema-summary-undo-autocomment": "Disfacite le version $1 per [[Special:Contributions/$2|$2]] ([[User talk:$2|discussion]])",
+	"entityschema-summary-undo-autocomment": "Disface le version $1 per [[Special:Contributions/$2|$2]] ([[User talk:$2|discussion]])",
 	"entityschema-summary-restore-autocomment": "Restaurate le version $1 per [[Special:Contributions/$2|$2]]",
 	"entityschema-undo-heading": "Disfacer modification de $1",
 	"entityschema-undo-heading-failed": "Disfaction fallite",
