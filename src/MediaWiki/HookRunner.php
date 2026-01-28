@@ -10,6 +10,7 @@ use MediaWiki\Hook\EditFilterMergedContentHook;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Status\Status;
 use MediaWiki\User\User;
+use StatusValue;
 
 /**
  * @license GPL-2.0-or-later
@@ -25,7 +26,7 @@ class HookRunner implements EditFilterMergedContentHook {
 	/**
 	 * @param IContextSource $context
 	 * @param Content $content
-	 * @param Status $status
+	 * @param StatusValue $status
 	 * @param string $summary
 	 * @param User $user
 	 * @param bool $minoredit
@@ -34,11 +35,12 @@ class HookRunner implements EditFilterMergedContentHook {
 	public function onEditFilterMergedContent(
 		IContextSource $context,
 		Content $content,
-		Status $status,
+		StatusValue $status,
 		$summary,
 		User $user,
 		$minoredit
 	) {
+		$status = Status::wrap( $status );  // Status::wrap() takes references to all internal variables
 		return $this->hookContainer->run(
 			'EditFilterMergedContent',
 			[ $context, $content, $status, $summary, $user, $minoredit ]

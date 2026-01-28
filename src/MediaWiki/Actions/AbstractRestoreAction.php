@@ -13,6 +13,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Status\Status;
+use StatusValue;
 
 /**
  * @license GPL-2.0-or-later
@@ -67,9 +68,9 @@ abstract class AbstractRestoreAction extends EditAction {
 	/**
 	 * Output an error page showing the given status
 	 *
-	 * @param Status $status The status to report.
+	 * @param StatusValue $status The status to report.
 	 */
-	protected function showRestoreErrorPage( Status $status ): void {
+	protected function showRestoreErrorPage( StatusValue $status ): void {
 		$this->getOutput()->prepareErrorPage();
 		$this->getOutput()->setPageTitleMsg(
 			$this->msg( 'entityschema-restore-heading-failed' )
@@ -78,7 +79,7 @@ abstract class AbstractRestoreAction extends EditAction {
 			$this->msg( 'errorpagetitle' )
 		);
 
-		$this->getOutput()->addHTML( Html::errorBox( $status->getMessage()->parse() ) );
+		$this->getOutput()->addHTML( Html::errorBox( Status::cast( $status )->getMessage()->parse() ) );
 
 		$this->getOutput()->returnToMain( null, $this->getTitle() );
 	}

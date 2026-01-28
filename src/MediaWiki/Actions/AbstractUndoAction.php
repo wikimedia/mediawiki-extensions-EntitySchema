@@ -16,6 +16,7 @@ use MediaWiki\Request\WebRequest;
 use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Status\Status;
+use StatusValue;
 
 /**
  * @license GPL-2.0-or-later
@@ -108,9 +109,9 @@ abstract class AbstractUndoAction extends FormlessAction {
 	/**
 	 * Output an error page showing the given status
 	 *
-	 * @param Status $status The status to report.
+	 * @param StatusValue $status The status to report.
 	 */
-	protected function showUndoErrorPage( Status $status ): void {
+	protected function showUndoErrorPage( StatusValue $status ): void {
 		$this->getOutput()->prepareErrorPage();
 		$this->getOutput()->setPageTitleMsg(
 			$this->msg( 'entityschema-undo-heading-failed' )
@@ -119,7 +120,7 @@ abstract class AbstractUndoAction extends FormlessAction {
 			$this->msg( 'errorpagetitle' )
 		);
 
-		$this->getOutput()->addHTML( $status->getMessage()->parse() );
+		$this->getOutput()->addHTML( Status::cast( $status )->getMessage()->parse() );
 
 		$this->getOutput()->returnToMain();
 	}

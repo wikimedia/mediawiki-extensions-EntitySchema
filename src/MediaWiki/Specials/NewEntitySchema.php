@@ -20,6 +20,7 @@ use MediaWiki\Output\OutputPage;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
 use MediaWiki\User\TempUser\TempUserConfig;
+use StatusValue;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Repo\CopyrightMessageBuilder;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
@@ -92,8 +93,8 @@ class NewEntitySchema extends SpecialPage {
 		$submitStatus = $form->tryAuthorizedSubmit();
 
 		if ( $submitStatus && $submitStatus->isGood() ) {
-			// wrap it, in case HTMLForm turned it into a generic Status
-			$submitStatus = EntitySchemaStatus::wrap( $submitStatus );
+			// cast it, in case HTMLForm turned it into a generic Status
+			$submitStatus = EntitySchemaStatus::cast( $submitStatus );
 			$this->redirectToEntitySchema( $submitStatus );
 			return;
 		}
@@ -104,7 +105,7 @@ class NewEntitySchema extends SpecialPage {
 		$form->displayForm( $submitStatus ?: Status::newGood() );
 	}
 
-	public function submitCallback( array $data, HTMLForm $form ): Status {
+	public function submitCallback( array $data, HTMLForm $form ): StatusValue {
 		// TODO: no form data validation??
 
 		$services = MediaWikiServices::getInstance();

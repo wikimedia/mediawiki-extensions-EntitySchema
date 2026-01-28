@@ -96,7 +96,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 	): EntitySchemaStatus {
 		$updaterStatus = $this->pageUpdaterFactory->getPageUpdater( $id->getId(), $this->context );
 		if ( !$updaterStatus->isOK() ) {
-			return EntitySchemaStatus::wrap( $updaterStatus );
+			return EntitySchemaStatus::cast( $updaterStatus );
 		}
 		$status = EntitySchemaStatus::newEdit(
 			$id,
@@ -142,7 +142,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 	): EntitySchemaStatus {
 		$updaterStatus = $this->pageUpdaterFactory->getPageUpdater( $id->getId(), $this->context );
 		if ( !$updaterStatus->isOK() ) {
-			return EntitySchemaStatus::wrap( $updaterStatus );
+			return EntitySchemaStatus::cast( $updaterStatus );
 		}
 		$status = EntitySchemaStatus::newEdit(
 			$id,
@@ -275,7 +275,7 @@ class MediaWikiRevisionEntitySchemaUpdater implements EntitySchemaUpdater {
 	): EntitySchemaStatus {
 		$updaterStatus = $this->pageUpdaterFactory->getPageUpdater( $id->getId(), $this->context );
 		if ( !$updaterStatus->isOK() ) {
-			return EntitySchemaStatus::wrap( $updaterStatus );
+			return EntitySchemaStatus::cast( $updaterStatus );
 		}
 		$status = EntitySchemaStatus::newEdit(
 			$id,

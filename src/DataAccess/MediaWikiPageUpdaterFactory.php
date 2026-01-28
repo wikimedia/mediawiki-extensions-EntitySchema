@@ -64,7 +64,7 @@ class MediaWikiPageUpdaterFactory {
 				$user = $savedTempUser;
 				$context->setUser( $savedTempUser );
 			} else {
-				return PageUpdaterStatus::wrap( $status );
+				return PageUpdaterStatus::cast( $status );
 			}
 		}
 

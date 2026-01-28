@@ -25,6 +25,7 @@ use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use MediaWiki\User\TempUser\TempUserConfig;
+use StatusValue;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Repo\CopyrightMessageBuilder;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
@@ -91,11 +92,11 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		$this->displaySchemaLanguageSelectionForm( $id, $language );
 	}
 
-	public function submitEditFormCallback( array $data ): Status {
+	public function submitEditFormCallback( array $data ): StatusValue {
 		try {
 			$id = new EntitySchemaId( $data[self::FIELD_ID] );
 		} catch ( InvalidArgumentException ) {
-			return Status::newFatal( 'entityschema-error-schemaupdate-failed' );
+			return StatusValue::newFatal( 'entityschema-error-schemaupdate-failed' );
 		}
 		$title = Title::makeTitle( NS_ENTITYSCHEMA_JSON, $id->getId() );
 		$this->checkBlocked( $title );
@@ -168,8 +169,8 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 
 			$submitStatus = $form->tryAuthorizedSubmit();
 			if ( $submitStatus && $submitStatus->isGood() ) {
-				// wrap it, in case HTMLForm turned it into a generic Status
-				$submitStatus = EntitySchemaStatus::wrap( $submitStatus );
+				// cast it, in case HTMLForm turned it into a generic Status
+				$submitStatus = EntitySchemaStatus::cast( $submitStatus );
 				$this->redirectToEntitySchema( $submitStatus );
 				return;
 			}

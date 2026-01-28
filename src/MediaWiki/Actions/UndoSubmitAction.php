@@ -98,12 +98,12 @@ class UndoSubmitAction extends AbstractUndoAction {
 
 		$diffStatus = $this->getDiffFromRequest( $req );
 		if ( !$diffStatus->isOK() ) {
-			return EntitySchemaStatus::wrap( $diffStatus );
+			return EntitySchemaStatus::cast( $diffStatus );
 		}
 
 		$patchStatus = $this->tryPatching( $diffStatus->getValue() );
 		if ( !$patchStatus->isOK() ) {
-			return EntitySchemaStatus::wrap( $patchStatus );
+			return EntitySchemaStatus::cast( $patchStatus );
 		}
 
 		[ $patchedSchema, $baseRevId ] = $patchStatus->getValue();
