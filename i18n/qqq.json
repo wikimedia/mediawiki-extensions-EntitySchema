@@ -7,7 +7,8 @@
 			"Raymond",
 			"Robby",
 			"The Wikidata Team",
-			"Umherirrender"
+			"Umherirrender",
+			"Woytecr"
 		]
 	},
 	"datatypes-type-entity-schema": "The name of a data type for entity schemas in Wikibase.\n{{related|Datatypes-type}}",
@@ -62,8 +63,8 @@
 	"entityschema-summary-update-schema-label": "Edit summary message used when a Schema's label has been updated. \n\nParameters:\n* $1 - the language in which the edit was made.",
 	"entityschema-summary-update-schema-description": "Edit summary message used when a Schema's description has been updated. \n\nParameters:\n* $1 - the language in which the edit was made.",
 	"entityschema-summary-update-schema-aliases": "Edit summary message used when a Schema's aliases have been updated. \n\nParameters:\n* $1 - the language in which the edit was made.",
-	"entityschema-summary-undo-autocomment": "Summary message for an undo to be shown in Schema history, recent changes etc. If the user left a custom summary, it will be appended to this message.\n\nParameters:\n* $1 - The ID of the revision that is undone\n* $2 Name of the user that created that revision",
-	"entityschema-summary-restore-autocomment": "Summary message for a restore to be shown in Schema history, recent changes etc. If the user left a custom summary, it will be appended to this message.\n\nParameters:\n* $1 - The ID of the revision that is restored\n* $2 Name of the user that created that revision",
+	"entityschema-summary-undo-autocomment": "Summary message for an undo to be shown in Schema history, recent changes etc. If the user left a custom summary, it will be appended to this message.\n\nParameters:\n* $1 - The ID of the revision that is undone\n* $2 - Name of the user that created that revision",
+	"entityschema-summary-restore-autocomment": "Summary message for a restore to be shown in Schema history, recent changes etc. If the user left a custom summary, it will be appended to this message.\n\nParameters:\n* $1 - The ID of the revision that is restored\n* $2 - Name of the user that created that revision",
 	"entityschema-undo-heading": "Heading for the undo view.\n\nParameters:\n* $1 - The ID of the Schema",
 	"entityschema-undo-heading-failed": "Heading if the change cannot be undone for some reason",
 	"entityschema-undo-bad-revisions": "Error message saying that the given revision versions don't work out.",
