@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Renessaince"
+			"Renessaince",
+			"Ucukor"
 		]
 	},
 	"datatypes-type-entity-schema": "Схема існасьці",
@@ -56,7 +57,7 @@
 	"entityschema-summary-update-schema-label": "Абноўленая метка схемы мовай $1",
 	"entityschema-summary-update-schema-description": "Абноўленае апісаньне схемы мовай $1",
 	"entityschema-summary-update-schema-aliases": "Абноўленыя сынонімы схемы мовай $1",
-	"entityschema-summary-undo-autocomment": "Скасаваньне рэдагаваньня $1 аўтарства [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|гутаркі]])",
+	"entityschema-summary-undo-autocomment": "Скасавана на вэрсію $1 аўтарства [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|гутаркі]])",
 	"entityschema-summary-restore-autocomment": "Аднавіць вэрсію $1 {{GENDER:$2|карыстальніка|карыстальніцы}} [[Special:Contributions/$2|$2]]",
 	"entityschema-special-id-submit": "Вызначыць метку, апісаньне і псэўданімы",
 	"entityschema-special-aliases": "Сынонімы, падзеленыя вэртыкальнай рысай:",
