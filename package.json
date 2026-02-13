@@ -13,9 +13,9 @@
 		"cypress:open": "CYPRESS_CACHE_FOLDER=./cypress/.cache cypress open"
 	},
 	"devDependencies": {
-		"api-testing": "1.7.2",
 		"cypress": "^13.17.0",
 		"cypress-terminal-report": "^7.1.0",
+		"cypress-wikibase-api": "^0.0.9",
 		"eslint-config-wikimedia": "0.32.3",
 		"eslint-plugin-chai-friendly": "^1.0.1",
 		"eslint-plugin-cypress": "^3.4.0",

@@ -1,6 +1,6 @@
 /* eslint-env node */
 const { defineConfig } = require( 'cypress' );
-const { mwApiCommands } = require( './cypress/support/MwApiPlugin.js' );
+const { mwApiCommands } = require( 'cypress-wikibase-api' );
 
 const envLogDir = process.env.LOG_DIR ? process.env.LOG_DIR + '/EntitySchema' : null;
 
