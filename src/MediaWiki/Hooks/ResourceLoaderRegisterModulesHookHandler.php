@@ -6,6 +6,7 @@ namespace EntitySchema\MediaWiki\Hooks;
 
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderRegisterModulesHook;
 use MediaWiki\ResourceLoader\ResourceLoader;
+use Wikibase\Lib\SettingsArray;
 
 /**
  * @license GPL-2.0-or-later
@@ -13,8 +14,10 @@ use MediaWiki\ResourceLoader\ResourceLoader;
 class ResourceLoaderRegisterModulesHookHandler implements ResourceLoaderRegisterModulesHook {
 
 	private bool $entitySchemaIsRepo;
+	private ?SettingsArray $settings;
 
-	public function __construct( bool $entitySchemaIsRepo ) {
+	public function __construct( bool $entitySchemaIsRepo, ?SettingsArray $settings ) {
+		$this->settings = $settings;
 		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
 	}
 
@@ -84,6 +87,29 @@ class ResourceLoaderRegisterModulesHookHandler implements ResourceLoaderRegister
 				'remoteExtPath' => 'EntitySchema/resources',
 			],
 		] );
+
+		if ( $this->settings ) {
+			// temporarily register this RL module only if the feature flag for mobile editing or its beta feature are
+			// enabled, so that wikis without either feature flag don't even pay the small cost of loading the module
+			// *definition* (when the feature stabilizes, this should move into repo/resources/Resources.php: T395783)
+			if (
+				$this->settings->getSetting( 'tmpMobileEditingUI' ) ||
+				$this->settings->getSetting( 'tmpEnableMobileEditingUIBetaFeature' )
+			) {
+				$rl->register( [ 'entitySchema.wbui2025.entityViewInit' =>
+					[
+						'localBasePath' => $localBasePath,
+						'remoteExtPath' => 'EntitySchema/resources',
+						'packageFiles' => [
+							'entitySchema.wbui2025.entityViewInit.js',
+						],
+						'dependencies' => [
+							'wikibase.wbui2025.lib',
+						],
+					],
+				] );
+			}
+		}
 	}
 
 }

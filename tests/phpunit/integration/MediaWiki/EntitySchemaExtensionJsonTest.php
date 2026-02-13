@@ -54,6 +54,9 @@ class EntitySchemaExtensionJsonTest extends ExtensionJsonTestBase {
 				'HookHandler ' . $handlerName . ' must define "class" element'
 			);
 			$klass = $handlerDetails['class'];
+			if ( str_ends_with( $handlerName, 'Hook' ) ) {
+				$handlerName = substr( $handlerName, 0, -strlen( 'Hook' ) );
+			}
 			$this->assertSame(
 				$handlerName . 'HookHandler',
 				array_slice( explode( '\\', $klass ), -1, 1 )[0],

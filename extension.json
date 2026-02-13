@@ -91,6 +91,9 @@
 		"WikibaseRepoSearchableEntityScopesMessages": {
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoSearchableEntityScopesMessagesHookHandler"
 		},
+		"WikibaseRepoWbui2025InitResourceDependenciesHook": {
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoWbui2025InitResourceDependenciesHookHandler"
+		},
 		"SidebarBeforeOutput": {
 			"class": "\\EntitySchema\\MediaWiki\\Hooks\\SidebarBeforeOutputHookHandler",
 			"services": [
@@ -167,6 +170,9 @@
 			"class": "EntitySchema\\MediaWiki\\Hooks\\ResourceLoaderRegisterModulesHookHandler",
 			"services": [
 				"EntitySchema.EntitySchemaIsRepo"
+			],
+			"optional_services": [
+				"WikibaseRepo.Settings"
 			]
 		},
 		"SkinTemplateNavigationUniversal": {
@@ -215,6 +221,7 @@
 		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepoOnParserOutputUpdaterConstruction",
 		"WikibaseRepoSearchableEntityScopes": "WikibaseRepoSearchableEntityScopes",
 		"WikibaseRepoSearchableEntityScopesMessages": "WikibaseRepoSearchableEntityScopesMessages",
+		"WikibaseRepoWbui2025InitResourceDependenciesHook": "WikibaseRepoWbui2025InitResourceDependenciesHook",
 		"SidebarBeforeOutput": "SidebarBeforeOutput",
 		"WikibaseClientDataTypes": "WikibaseClientDataTypes",
 		"SpecialPage_initList": "SpecialPageInitList",
