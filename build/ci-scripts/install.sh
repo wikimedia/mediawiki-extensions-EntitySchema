@@ -12,11 +12,13 @@ cd mediawiki
 
 cd skins
 git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/skins/Vector --depth 1
+git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/skins/MinervaNeue --depth 1
 
 cd ../extensions
 
 git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Scribunto.git --depth 1
 git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/cldr --depth 1
+git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/MobileFrontend --depth 1
 git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/SyntaxHighlight_GeSHi --depth 1
 git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Wikibase --depth 1
 git clone -b $MW_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Elastica --depth 1
