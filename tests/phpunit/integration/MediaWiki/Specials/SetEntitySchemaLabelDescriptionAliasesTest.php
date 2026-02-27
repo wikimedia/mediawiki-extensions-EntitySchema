@@ -73,7 +73,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$setSchemaInfo = $this->newSpecialPage();
 		$infoGood = $setSchemaInfo->submitEditFormCallback( $dataGood );
 
-		$this->assertTrue( $infoGood->isOK() );
+		$this->assertStatusOK( $infoGood );
 	}
 
 	public function testSubmitEditFormCallbackNonEnglish() {
@@ -92,7 +92,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 
 		$setSchemaInfo = $this->newSpecialPage();
 		$infoGood = $setSchemaInfo->submitEditFormCallback( $dataGood );
-		$this->assertTrue( $infoGood->isOK() );
+		$this->assertStatusOK( $infoGood );
 
 		$schemaContent = $this->getCurrentSchemaContent( $dataGood['ID'] );
 		$expectedLabels = array_merge(
@@ -137,7 +137,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$setSchemaInfo = $this->newSpecialPage();
 		$infoGood = $setSchemaInfo->submitEditFormCallback( $dataGood );
 
-		$this->assertTrue( $infoGood->isOK() );
+		$this->assertStatusOK( $infoGood );
 		$schemaContent = $this->getCurrentSchemaContent( $dataGood['ID'] );
 		$this->assertSame( [ 'foo', 'bar', 'baz' ], $schemaContent['aliases']['en'] );
 	}
@@ -156,7 +156,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$setSchemaInfo = $this->newSpecialPage();
 		$infoFalse = $setSchemaInfo->submitEditFormCallback( $dataWrong );
 
-		$this->assertFalse( $infoFalse->isOK() );
+		$this->assertStatusNotOK( $infoFalse );
 		$this->assertSame( 'error',
 			$infoFalse->getErrors()[0]['type'],
 			'The object $infoIncomplete should contain an error'
@@ -177,7 +177,7 @@ class SetEntitySchemaLabelDescriptionAliasesTest extends SpecialPageTestBase {
 		$setSchemaInfo = $this->newSpecialPage();
 		$infoIncomplete = $setSchemaInfo->submitEditFormCallback( $dataIncomplete );
 
-		$this->assertFalse( $infoIncomplete->isOK() );
+		$this->assertStatusNotOK( $infoIncomplete );
 	}
 
 	public function testValidateSchemaSelectionFormData() {
