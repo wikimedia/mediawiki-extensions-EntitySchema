@@ -79,16 +79,6 @@ $ mw docker mediawiki composer phpunit extensions/EntitySchema/tests/phpunit/
 
 All tests should pass on the `master` branch.
 
-However, note that Wikimedia CI runs a subset of the PHPUnit tests, the tests in the _unit_ subdirectory,
-with a slightly different command that asserts some more restrictions:
-
-```bash
-$ mw docker mediawiki exec php vendor/bin/phpunit extensions/EntitySchema/tests/phpunit/unit/
-```
-
-Though this will not work for integration test.
-Use that command to reproduce CI failures when working with _unit_ tests specifically.
-
 ### Running JS linting
 
 In the `EntitySchema/` directory:
