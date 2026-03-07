@@ -30,7 +30,7 @@ final class RestoreSubmitAction extends AbstractRestoreAction {
 	public function show(): void {
 		$checkMethodStatus = $this->checkMethod();
 		if ( !$checkMethodStatus->isOK() ) {
-			$this->showRestoreErrorPage( Status::newFatal( $checkMethodStatus ) );
+			$this->showRestoreErrorPage( $checkMethodStatus );
 		}
 
 		$this->checkPermissions();
