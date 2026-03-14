@@ -139,7 +139,7 @@ class EntitySchemaEditAction extends FormAction {
 			trim( $data[self::FIELD_EDIT_SUMMARY] )
 		);
 		$this->status->replaceMessage( 'edit-conflict', 'entityschema-error-schematext-conflict' );
-		return $this->status;
+		return Status::wrap( $this->status );
 	}
 
 	protected function alterForm( HTMLForm $form ): void {
