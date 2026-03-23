@@ -7,6 +7,7 @@
 	"entityschema-newschema-label": "ليبل:",
 	"entityschema-newschema-description": "تشريح:",
 	"entityschema-namebadge-header-label": "ليبل",
+	"entityschema-diff-label": "ليبل",
 	"entityschema-summary-undo-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|ڳالھ]]) پاران ورجاءُ $1 اڻڪريو",
 	"entityschema-summary-restore-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]] پاران ورجاءُ $1 موٽايو",
 	"entityschema-restore-heading": "\"$1\" جي پراڻي ورجاءَ کي بحال ڪندي",
