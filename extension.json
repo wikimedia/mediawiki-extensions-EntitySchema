@@ -53,6 +53,15 @@
 		"WikibaseClientDataTypes": {
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseClientDataTypesHookHandler"
 		},
+
+		"WikibaseRepoControllers": {
+			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoControllersHookHandler",
+			"services": [ "EntitySchema.EntitySchemaIsRepo" ],
+			"optional_services": [
+				"EntitySchema.EntitySchemaSearchHelperFactory"
+			]
+		},
+
 		"WikibaseRepoDataTypes": {
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoDataTypesHookHandler",
 			"services": [
@@ -65,15 +74,6 @@
 				"WikibaseRepo.LocalEntitySource",
 				"EntitySchema.EntitySchemaExistsValidator",
 				"EntitySchema.SchemaDataResolvingLabelLookup"
-			]
-		},
-		"WikibaseRepoEntitySearchHelperCallbacks": {
-			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoEntitySearchHelperCallbacksHookHandler",
-			"services": [
-				"EntitySchema.EntitySchemaIsRepo"
-			],
-			"optional_services": [
-				"EntitySchema.EntitySchemaSearchHelperFactory"
 			]
 		},
 		"WikibaseRepoOnParserOutputUpdaterConstruction": {
@@ -216,7 +216,7 @@
 		"ImportHandleRevisionXMLTag": "ImportHandleRevisionXMLTag",
 		"TitleGetRestrictionTypes": "TitleGetRestrictionTypes",
 		"CanonicalNamespaces": "CanonicalNamespaces",
-		"WikibaseRepoEntitySearchHelperCallbacks": "WikibaseRepoEntitySearchHelperCallbacks",
+		"WikibaseRepoControllers": "WikibaseRepoControllers",
 		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes",
 		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepoOnParserOutputUpdaterConstruction",
 		"WikibaseRepoSearchableEntityScopes": "WikibaseRepoSearchableEntityScopes",

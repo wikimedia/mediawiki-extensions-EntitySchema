@@ -5,15 +5,12 @@ declare( strict_types = 1 );
 namespace EntitySchema\Wikibase\Hooks;
 
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
-use MediaWiki\Context\RequestContext;
-use MediaWiki\Request\WebRequest;
 use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
  */
-class WikibaseRepoEntitySearchHelperCallbacksHookHandler {
-
+class WikibaseRepoControllersHookHandler {
 	private bool $entitySchemaIsRepo;
 	private ?EntitySchemaSearchHelperFactory $factory;
 
@@ -32,18 +29,14 @@ class WikibaseRepoEntitySearchHelperCallbacksHookHandler {
 		}
 	}
 
-	/**
-	 * @inheritDoc
-	 */
-	public function onWikibaseRepoEntitySearchHelperCallbacks( array &$callbacks ): void {
+	public function onWikibaseRepoControllers( array &$controllersDefinitions ): void {
 		if ( !$this->entitySchemaIsRepo ) {
 			return;
 		}
-		$callbacks[EntitySchemaSearchHelperFactory::ENTITY_TYPE] = function ( WebRequest $request ) {
-			// TODO would be nice if Wikibase injected the context for us
-			// ($request is unfortunately not very useful)
-			return $this->factory->newForContext( RequestContext::getMain() );
-		};
-	}
 
+		$controllersDefinitions = array_merge(
+			$controllersDefinitions,
+			require __DIR__ . '/../../../WikibaseEntitySchema.controllers.php'
+		);
+	}
 }
