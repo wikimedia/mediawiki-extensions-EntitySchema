@@ -8,7 +8,6 @@ use EntitySchema\DataAccess\DescriptionLookup;
 use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
 use MediaWiki\Config\ConfigFactory;
-use MediaWiki\Context\IContextSource;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\TitleFactory;
 use Wikibase\Lib\LanguageFallbackChainFactory;
@@ -50,14 +49,14 @@ class EntitySchemaSearchHelperFactory {
 		$this->labelLookup = $labelLookup;
 	}
 
-	public function newForContext( IContextSource $context ): EntitySearchHelper {
+	public function newForLanguage( string $language ): EntitySearchHelper {
 		$idHelper = new EntitySchemaIdSearchHelper(
 			$this->titleFactory,
 			$this->wikiPageFactory,
 			$this->wikibaseConceptBaseUri,
 			$this->descriptionLookup,
 			$this->labelLookup,
-			$context->getLanguage()->getCode()
+			$language
 		);
 
 		if ( $this->isWBCSEnabled() ) {
@@ -65,7 +64,7 @@ class EntitySchemaSearchHelperFactory {
 				$this->titleFactory,
 				$this->languageFallbackChainFactory,
 				$this->wikibaseConceptBaseUri,
-				$context->getLanguage()->getCode()
+				$language
 			);
 			return new CombinedEntitySearchHelper( [ $idHelper, $elasticHelper ] );
 		} else {

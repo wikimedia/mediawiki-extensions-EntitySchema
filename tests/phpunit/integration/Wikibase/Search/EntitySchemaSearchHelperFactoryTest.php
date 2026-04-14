@@ -8,7 +8,6 @@ use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\Wikibase\Search\EntitySchemaIdSearchHelper;
 use EntitySchema\Wikibase\Search\EntitySchemaSearchHelperFactory;
 use MediaWiki\Config\ConfigFactory;
-use MediaWiki\Context\RequestContext;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\TitleFactory;
 use MediaWikiIntegrationTestCase;
@@ -34,7 +33,7 @@ class EntitySchemaSearchHelperFactoryTest extends MediaWikiIntegrationTestCase {
 		] );
 
 		$this->assertInstanceOf( CombinedEntitySearchHelper::class,
-			$this->newFactory( $configFactory )->newForContext( new RequestContext() )
+			$this->newFactory( $configFactory )->newForLanguage( 'en' )
 		);
 	}
 
@@ -50,7 +49,7 @@ class EntitySchemaSearchHelperFactoryTest extends MediaWikiIntegrationTestCase {
 		] );
 
 		$this->assertInstanceOf( EntitySchemaIdSearchHelper::class,
-			$this->newFactory( $configFactory )->newForContext( new RequestContext() )
+			$this->newFactory( $configFactory )->newForLanguage( 'en' )
 		);
 	}
 
@@ -62,7 +61,7 @@ class EntitySchemaSearchHelperFactoryTest extends MediaWikiIntegrationTestCase {
 		] );
 
 		$this->assertInstanceOf( EntitySchemaIdSearchHelper::class,
-			$this->newFactory( $configFactory )->newForContext( new RequestContext() )
+			$this->newFactory( $configFactory )->newForLanguage( 'en' )
 		);
 	}
 
