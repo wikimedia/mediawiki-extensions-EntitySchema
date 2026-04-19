@@ -12,7 +12,7 @@ use EntitySchema\MediaWiki\EntitySchemaServices;
 use EntitySchema\MediaWiki\HookRunner;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Language\Language;
-use MediaWiki\Languages\LanguageFactory;
+use MediaWiki\Language\LanguageFactory;
 use MediaWiki\Page\Article;
 use MediaWiki\Request\FauxRequest;
 use MediaWikiIntegrationTestCase;

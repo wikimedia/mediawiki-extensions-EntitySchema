@@ -8,7 +8,7 @@ use EntitySchema\DataAccess\LabelLookup;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Content\Hook\ContentHandlerForModelIDHook;
-use MediaWiki\Languages\LanguageNameUtils;
+use MediaWiki\Language\LanguageNameUtils;
 use MediaWiki\Parser\Parsoid\ParsoidParserFactory;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\TitleFactory;

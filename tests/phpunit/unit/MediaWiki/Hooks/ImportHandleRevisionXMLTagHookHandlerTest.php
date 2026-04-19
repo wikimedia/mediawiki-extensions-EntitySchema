@@ -6,9 +6,9 @@ namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Hooks\ImportHandleRevisionXMLTagHookHandler;
+use MediaWiki\Import\WikiImporter;
 use MediaWikiUnitTestCase;
 use RuntimeException;
-use WikiImporter;
 
 /**
  * @license GPL-2.0-or-later

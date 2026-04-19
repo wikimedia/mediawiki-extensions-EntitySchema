@@ -6,15 +6,15 @@ namespace EntitySchema\Tests\Unit\MediaWiki\Hooks;
 use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
 use EntitySchema\MediaWiki\Hooks\HtmlPageLinkRendererEndHookHandler;
 use EntitySchema\Tests\Unit\EntitySchemaUnitTestCaseTrait;
-use HtmlArmor;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Language\Language;
-use MediaWiki\Languages\LanguageFactory;
+use MediaWiki\Language\LanguageFactory;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Tests\Unit\FakeQqxMessageLocalizer;
 use MediaWiki\Title\Title;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Term\TermFallback;
+use Wikimedia\HtmlArmor\HtmlArmor;
 
 /**
  * @covers \EntitySchema\MediaWiki\Hooks\HtmlPageLinkRendererEndHookHandler

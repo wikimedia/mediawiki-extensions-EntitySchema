@@ -5,13 +5,13 @@ declare( strict_types = 1 );
 namespace EntitySchema\MediaWiki\Hooks;
 
 use EntitySchema\DataAccess\SchemaDataResolvingLabelLookup;
-use HtmlArmor;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\Languages\LanguageFactory;
+use MediaWiki\Language\LanguageFactory;
 use MediaWiki\Linker\Hook\HtmlPageLinkRendererEndHook;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\Title;
 use Wikimedia\Assert\Assert;
+use Wikimedia\HtmlArmor\HtmlArmor;
 
 /**
  * @license GPL-2.0-or-later

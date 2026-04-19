@@ -7,10 +7,10 @@ namespace EntitySchema\Tests\Integration\Presentation;
 use EntitySchema\Presentation\InputValidator;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWiki\Config\HashConfig;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
-use MessageLocalizer;
 
 /**
  * @license GPL-2.0-or-later

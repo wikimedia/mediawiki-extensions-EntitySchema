@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Hooks;
 
-use MediaWiki\Hook\CanonicalNamespacesHook;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Hook\CanonicalNamespacesHook;
 use Wikibase\Lib\WikibaseSettings;
 
 /**

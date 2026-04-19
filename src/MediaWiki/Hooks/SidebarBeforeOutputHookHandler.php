@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Hooks;
 
-use MediaWiki\Hook\SidebarBeforeOutputHook;
+use MediaWiki\Skin\Hook\SidebarBeforeOutputHook;
 use MediaWiki\Skin\Skin;
 use Wikibase\DataAccess\EntitySource;
 use Wikimedia\Assert\Assert;

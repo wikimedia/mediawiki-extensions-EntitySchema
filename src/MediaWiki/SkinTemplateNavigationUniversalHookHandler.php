@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki;
 
-use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
+use MediaWiki\Skin\Hook\SkinTemplateNavigation__UniversalHook;
 
 /**
  * Implementation of the `SkinTemplateNavigation__UniversalHook` handler

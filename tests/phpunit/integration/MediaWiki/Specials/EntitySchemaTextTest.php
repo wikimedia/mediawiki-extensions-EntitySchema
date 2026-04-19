@@ -9,8 +9,8 @@ use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWiki\Exception\HttpError;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Request\WebResponse;
+use MediaWiki\Tests\Specials\SpecialPageTestBase;
 use MediaWiki\Title\Title;
-use SpecialPageTestBase;
 
 /**
  * @covers \EntitySchema\MediaWiki\Specials\EntitySchemaText

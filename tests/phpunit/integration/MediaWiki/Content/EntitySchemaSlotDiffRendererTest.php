@@ -7,8 +7,8 @@ namespace EntitySchema\Tests\Integration\MediaWiki\Content;
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Diff\TextSlotDiffRenderer;
 use MediaWikiIntegrationTestCase;
-use TextSlotDiffRenderer;
 
 /**
  * @license GPL-2.0-or-later

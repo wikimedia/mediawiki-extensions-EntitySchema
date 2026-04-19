@@ -8,11 +8,11 @@ use EntitySchema\MediaWiki\Actions\RestoreViewAction;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
 use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Diff\TextSlotDiffRenderer;
 use MediaWiki\Page\Article;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
-use TextSlotDiffRenderer;
 
 /**
  * @license GPL-2.0-or-later

@@ -14,10 +14,10 @@ use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Diff\EntitySchemaDiffer;
 use MediaWiki\Content\Content;
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Diff\SlotDiffRenderer;
+use MediaWiki\Diff\TextSlotDiffRenderer;
 use MediaWiki\Html\Html;
-use MessageLocalizer;
-use SlotDiffRenderer;
-use TextSlotDiffRenderer;
+use MediaWiki\Language\MessageLocalizer;
 
 /**
  * @license GPL-2.0-or-later

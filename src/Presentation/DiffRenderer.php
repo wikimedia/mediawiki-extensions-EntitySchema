@@ -4,10 +4,10 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Presentation;
 
-use DifferenceEngine;
 use EntitySchema\MediaWiki\Content\EntitySchemaSlotDiffRenderer;
+use MediaWiki\Diff\DifferenceEngine;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Message\Message;
-use MessageLocalizer;
 
 /**
  * @license GPL-2.0-or-later

@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\MediaWiki\Hooks;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use MediaWiki\Hook\PageHistoryLineEndingHook;
+use MediaWiki\Actions\Hook\PageHistoryLineEndingHook;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Revision\RevisionRecord;

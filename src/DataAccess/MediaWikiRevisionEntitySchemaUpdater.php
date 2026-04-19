@@ -13,7 +13,7 @@ use EntitySchema\Services\Converter\EntitySchemaConverter;
 use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Context\IContextSource;
-use MediaWiki\Languages\LanguageFactory;
+use MediaWiki\Language\LanguageFactory;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;

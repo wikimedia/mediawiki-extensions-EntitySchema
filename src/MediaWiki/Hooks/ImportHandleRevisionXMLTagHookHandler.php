@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\MediaWiki\Hooks;
 
 use EntitySchema\MediaWiki\Content\EntitySchemaContent;
-use MediaWiki\Hook\ImportHandleRevisionXMLTagHook;
+use MediaWiki\Import\Hook\ImportHandleRevisionXMLTagHook;
 use RuntimeException;
 
 /**

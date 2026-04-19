@@ -11,6 +11,7 @@ use EntitySchema\Services\Converter\NameBadge;
 use MediaWiki\Config\Config;
 use MediaWiki\Html\Html;
 use MediaWiki\Language\LanguageCode;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Linker\Linker;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Linker\LinkTarget;
@@ -22,7 +23,6 @@ use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\SyntaxHighlight\SyntaxHighlight;
 use MediaWiki\Title\TitleFormatter;
-use MessageLocalizer;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\LanguageNameLookupFactory;
 

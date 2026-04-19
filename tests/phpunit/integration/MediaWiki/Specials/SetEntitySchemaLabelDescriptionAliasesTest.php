@@ -9,9 +9,9 @@ use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use EntitySchema\Tests\Mocks\HTMLFormSpy;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Tests\Specials\SpecialPageTestBase;
 use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\Title\Title;
-use SpecialPageTestBase;
 use Wikibase\Lib\SettingsArray;
 use Wikimedia\TestingAccessWrapper;
 

@@ -11,7 +11,7 @@ use EntitySchema\MediaWiki\HookRunner;
 use EntitySchema\Services\Converter\EntitySchemaConverter;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Context\IContextSource;
-use MediaWiki\Languages\LanguageFactory;
+use MediaWiki\Language\LanguageFactory;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Storage\PageUpdater;
 
