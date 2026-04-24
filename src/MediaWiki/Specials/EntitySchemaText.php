@@ -20,10 +20,7 @@ use MediaWiki\Title\Title;
 class EntitySchemaText extends SpecialPage {
 
 	public function __construct() {
-		parent::__construct(
-			'EntitySchemaText',
-			'read'
-		);
+		parent::__construct( 'EntitySchemaText' );
 	}
 
 	/** @inheritDoc */
@@ -56,6 +53,10 @@ class EntitySchemaText extends SpecialPage {
 
 	protected function getGroupName(): string {
 		return 'wikibase';
+	}
+
+	public function getRestriction(): string {
+		return 'read';
 	}
 
 	private function sendContentSchemaText( EntitySchemaContent $schemaContent, EntitySchemaId $id ): void {

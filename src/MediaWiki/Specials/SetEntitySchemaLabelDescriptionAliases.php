@@ -59,10 +59,7 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 		SettingsArray $repoSettings,
 		string $htmlFormProvider = HTMLForm::class
 	) {
-		parent::__construct(
-			'SetEntitySchemaLabelDescriptionAliases',
-			'edit'
-		);
+		parent::__construct( 'SetEntitySchemaLabelDescriptionAliases' );
 
 		$this->htmlFormProvider = $htmlFormProvider;
 		$this->copyrightView = new SpecialPageCopyrightView(
@@ -404,6 +401,10 @@ class SetEntitySchemaLabelDescriptionAliases extends SpecialPage {
 
 	protected function getGroupName(): string {
 		return 'wikibase';
+	}
+
+	public function getRestriction(): string {
+		return 'edit';
 	}
 
 	private function checkBlocked( LinkTarget $title ): void {

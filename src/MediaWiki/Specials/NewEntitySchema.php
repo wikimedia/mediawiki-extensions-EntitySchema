@@ -58,10 +58,7 @@ class NewEntitySchema extends SpecialPage {
 		IdGenerator $idGenerator,
 		MediaWikiPageUpdaterFactory $pageUpdaterFactory
 	) {
-		parent::__construct(
-			'NewEntitySchema',
-			'createpage'
-		);
+		parent::__construct( 'NewEntitySchema' );
 		$this->idGenerator = $idGenerator;
 		$this->copyrightView = new SpecialPageCopyrightView(
 			new CopyrightMessageBuilder(),
@@ -132,6 +129,10 @@ class NewEntitySchema extends SpecialPage {
 
 	protected function getGroupName(): string {
 		return 'wikibase';
+	}
+
+	public function getRestriction(): string {
+		return 'createpage';
 	}
 
 	private function getFormFields(): array {
