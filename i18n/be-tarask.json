@@ -59,7 +59,9 @@
 	"entityschema-summary-update-schema-aliases": "Абноўленыя сынонімы схемы мовай $1",
 	"entityschema-summary-undo-autocomment": "Скасаваньне рэдагаваньня $1 аўтарства [[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|гутаркі]])",
 	"entityschema-summary-restore-autocomment": "Аднавіць вэрсію $1 {{GENDER:$2|карыстальніка|карыстальніцы}} [[Special:Contributions/$2|$2]]",
+	"entityschema-scoped-search-scope-name": "Схемы існасьцяў",
 	"entityschema-special-id-submit": "Вызначыць метку, апісаньне і псэўданімы",
 	"entityschema-special-aliases": "Сынонімы, падзеленыя вэртыкальнай рысай:",
+	"wikibase-listdatatypes-entity-schema-head": "Схема існасьці",
 	"wikibase-validator-no-such-entity-schema": "Схемы існасьці $1 не існуе."
 }
