@@ -8,7 +8,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "wikibase",
 	"requires": {
-		"MediaWiki": ">= 1.46"
+		"MediaWiki": ">= 1.47.0"
 	},
 	"load_composer_autoloader": true,
 	"AutoloadNamespaces": {
@@ -53,15 +53,15 @@
 		"WikibaseClientDataTypes": {
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseClientDataTypesHookHandler"
 		},
-
 		"WikibaseRepoControllers": {
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoControllersHookHandler",
-			"services": [ "EntitySchema.EntitySchemaIsRepo" ],
+			"services": [
+				"EntitySchema.EntitySchemaIsRepo"
+			],
 			"optional_services": [
 				"EntitySchema.EntitySchemaSearchHelperFactory"
 			]
 		},
-
 		"WikibaseRepoDataTypes": {
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoDataTypesHookHandler",
 			"services": [
