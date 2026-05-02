@@ -54,7 +54,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 
 		$contentRenderer = $this->getServiceContainer()->getContentRenderer();
 		$parserOutput = $contentRenderer->getParserOutput( $content, $title, null, $parserOptions );
-		$html = $parserOutput->getRawText();
+		$html = $parserOutput->getContentHolderText();
 
 		$this->assertStringContainsString( '(entityschema-namebadge-header-label)', $html );
 		$this->assertContains( 'userlang', $parserOutput->getUsedOptions() );
@@ -68,7 +68,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 
 		$contentRenderer = $this->getServiceContainer()->getContentRenderer();
 		$parserOutput = $contentRenderer->getParserOutput( $content, $title, null, null, false );
-		$html = $parserOutput->getRawText();
+		$html = $parserOutput->getContentHolderText();
 
 		$this->assertSame( '', $html );
 	}
@@ -88,7 +88,7 @@ class EntitySchemaContentHandlerTest extends MediaWikiIntegrationTestCase {
 
 		$contentRenderer = $this->getServiceContainer()->getContentRenderer();
 		$parserOutput = $contentRenderer->getParserOutput( $content, Title::makeTitle( NS_ENTITYSCHEMA_JSON, 'E1' ) );
-		$html = $parserOutput->getRawText();
+		$html = $parserOutput->getContentHolderText();
 
 		if ( $expected === false ) {
 			$this->assertStringNotContainsString( 'entityschema-check-entities', $html );
