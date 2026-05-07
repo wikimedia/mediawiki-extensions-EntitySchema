@@ -4,6 +4,7 @@
 			"Bluehill",
 			"Kwj2772",
 			"MemphisA5",
+			"Tensama0415",
 			"Ykhwong"
 		]
 	},
@@ -37,6 +38,15 @@
 	"entityschema-add-schema-text": "스키마 텍스트 추가",
 	"entityschema-check-entities": "엔티티를 이 스키마에 대해 검사하기",
 	"entityschema-summary-newschema-nolabel": "새 스키마를 만듦",
+	"entityschema-summary-update": "엄데이트된 스키마",
+	"entityschema-summary-update-schema-text": "엄데이트된 스키마 텍스트",
+	"entityschema-summary-update-schema-text-user": "엄데이트된 스키마: $1",
+	"entityschema-summary-update-schema-namebadge": "업데이트 된 $1 레이블, 설명 또는 별명",
+	"entityschema-summary-update-schema-label": "엄데이트된 스키마 $1 레이블",
+	"entityschema-summary-update-schema-description": "엄데이트된 스키마 $1 설명",
+	"entityschema-summary-update-schema-aliases": "엄데이트된 스키마 $1 별명",
+	"entityschema-summary-undo-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]] ([[User talk:$2|토론]])의 $1판을 되돌림",
+	"entityschema-summary-restore-autocomment": "[[Special:Contributions/$2|{{GENDER:$2|$2}}]]의 $1판을 복구함",
 	"entityschema-undo-heading": "$1(으)로 편집을 되돌립니다",
 	"entityschema-undo-heading-failed": "실행 취소를 실패했습니다",
 	"entityschema-undo-bad-revisions": "이 편집은 존재하지 않거나 삭제되었기 때문에 취소하지 못했습니다.",
