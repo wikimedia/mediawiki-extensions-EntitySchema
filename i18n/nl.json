@@ -4,6 +4,7 @@
 			"Elroy",
 			"Mainframe98",
 			"McDutchie",
+			"Siebrand",
 			"Sjoerddebruin"
 		]
 	},
@@ -30,7 +31,7 @@
 	"entityschema-error-not-post": "Deze handeling moet worden verricht met een POST-aanvraag.",
 	"entityschema-error-inconsistent-id": "De opgegeven versies behoren niet allemaal tot de opgegeven titel.",
 	"entityschema-error-wrong-page-revisions": "De opgegeven versie hoort niet bij de huidige pagina.",
-	"entityschema-error-invalid-id": "Deze ID is ongeldig.",
+	"entityschema-error-invalid-id": "Deze ID is onjuist.",
 	"entityschema-error-unsupported-langcode": "Deze taalcode wordt niet ondersteund.",
 	"entityschema-error-one-more-message-available": "Er zijn problemen met een deel van uw invoer. Bekijk de onderstaande foutmelding.",
 	"entityschema-error-possibly-multiple-messages-available": "Er zijn problemen met een deel van uw invoer. Bekijk de onderstaande foutmelding(en).",
