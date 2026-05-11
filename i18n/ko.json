@@ -8,8 +8,10 @@
 			"Ykhwong"
 		]
 	},
-	"datatypes-type-entity-schema": "엔티티 스키마",
+	"datatypes-type-entity-schema": "엔티티스키마",
 	"special-newschema": "새 엔티티스키마 만들기",
+	"nstab-entityschema": "엔티티스키마",
+	"tooltip-ca-nstab-entityschema": "엔티티스키마 정의",
 	"entityschema-newschema-label": "레이블:",
 	"entityschema-newschema-description": "설명:",
 	"entityschema-newschema-aliases": "다른 이름 (파이프로 구분):",
@@ -20,9 +22,15 @@
 	"entityschema-editpage-schema-inputlabel": "ShEx:",
 	"entityschema-error-schemadeleted": "당신이 편집하려 한 스키마가 존재하지 않습니다. 이것이 혹시 삭제되었나요?",
 	"entityschema-error-schemaupdate-failed": "스키마를 업데이트할 수 없습니다",
+	"entityschema-error-schematext-conflict": "이 스키마는 그 사이에 변경되었습니다. 스키마 문서로 돌아가서 편집을 다시 시도하세요.",
+	"entityschema-error-namebadge-conflict": "이 스키마는 그 사이에 변경되었습니다. 스키마 문서로 돌아가서 이 언어의 레이블, 설명, 다른 이름의 편집을 다시 시도하세요.",
 	"entityschema-error-not-post": "이 동작은 POST 요청으로 완료되어야 합니다.",
+	"entityschema-error-inconsistent-id": "제공된 판들이 모두 해당 제목에 속하지 않습니다.",
+	"entityschema-error-wrong-page-revisions": "제공된 판들이 헌재 문서에 속하지 않습니다.",
 	"entityschema-error-invalid-id": "이 ID는 유효하지 않습니다.",
 	"entityschema-error-unsupported-langcode": "이 언어 코드는 지원되지 않습니다.",
+	"entityschema-error-one-more-message-available": "당신의 입력에 문제가 있습니다. 아래의 오류 메시지를 확인해 주세요.",
+	"entityschema-error-possibly-multiple-messages-available": "당신의 입력에 문제가 있습니다. 아래의 오류 메시지를 확인해 주세요.",
 	"entityschema-summary-generated": "요약 (자동으로 생성되는 요약 뒤에 추가됩니다):",
 	"entityschema-label-empty": "정의된 레이블이 없습니다",
 	"entityschema-namebadge-header-language-code": "언어 코드",
@@ -52,8 +60,11 @@
 	"entityschema-undo-bad-revisions": "이 편집은 존재하지 않거나 삭제되었기 때문에 취소하지 못했습니다.",
 	"entityschema-undo-cannot-apply-patch": "이 편집은 변경되었기 때문에 취소하지 못했습니다.",
 	"entityschema-undo-old-revision": "편집을 취소할 판",
+	"entityschema-restore-heading-failed": "복구 실패",
+	"entityschema-restoreold": "복구",
 	"special-schematext": "엔티티스키마 텍스트",
 	"entityschema-schematext-missing": "존재하지 않거나 삭제된 스키마: $1.",
+	"entityschema-scoped-search-scope-name": "엔티티스키마",
 	"entityschema-special-setlabeldescriptionaliases": "엔티티스키마의 레이블, 설명, 다른 이름 설정하기",
 	"entityschema-special-id-inputlabel": "엔티티스키마 ID",
 	"entityschema-special-language-inputlabel": "언어 코드",
@@ -61,5 +72,7 @@
 	"entityschema-special-setlabeldescriptionaliases-info": "[[$3|$2]] 스키마의 '''$1'''의 레이블, 설명, 다른 이름을 설정하고 있습니다.",
 	"entityschema-special-label": "레이블:",
 	"entityschema-special-description": "설명:",
-	"entityschema-special-aliases": "다른 이름, 파이프로 구분:"
+	"entityschema-special-aliases": "다른 이름, 파이프로 구분:",
+	"wikibase-listdatatypes-entity-schema-head": "엔티티 스키마",
+	"wikibase-validator-no-such-entity-schema": "엔티티스키마 $1이(가) 존재하지 않습니다."
 }
