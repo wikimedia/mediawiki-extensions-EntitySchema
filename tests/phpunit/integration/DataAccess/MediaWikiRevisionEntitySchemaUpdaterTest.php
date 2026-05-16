@@ -551,6 +551,8 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 	}
 
 	public function testUpdateSchemaText_mergesChangesInNameBadge() {
+		$this->markTestSkippedIfNoDiff3();
+
 		$id = 'E1';
 		$oldLabels = [ 'en' => 'old label' ];
 		$newLabels = [ 'en' => 'new label' ];
@@ -612,6 +614,8 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 	}
 
 	public function testUpdateSchemaText_mergesChangesInSchemaText() {
+		$this->markTestSkippedIfNoDiff3();
+
 		$id = 'E1';
 		$labels = [ 'en' => 'label' ];
 		$descriptions = [ 'en' => 'description' ];

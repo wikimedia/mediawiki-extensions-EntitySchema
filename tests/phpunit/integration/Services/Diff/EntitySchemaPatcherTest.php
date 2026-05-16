@@ -11,7 +11,7 @@ use Diff\DiffOp\DiffOpRemove;
 use Diff\Patcher\PatcherException;
 use EntitySchema\Services\Converter\FullArrayEntitySchemaData;
 use EntitySchema\Services\Diff\EntitySchemaPatcher;
-use PHPUnit\Framework\TestCase;
+use MediaWikiIntegrationTestCase;
 
 /**
  * @license GPL-2.0-or-later
@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
  * @covers \EntitySchema\Services\Diff\EntitySchemaPatcher
  * @covers \EntitySchema\Services\Diff\AliasGroupListPatcher
  */
-class EntitySchemaPatcherTest extends TestCase {
+class EntitySchemaPatcherTest extends MediaWikiIntegrationTestCase {
 
 	public static function provideValidSchemaPatches(): iterable {
 
@@ -122,6 +122,8 @@ class EntitySchemaPatcherTest extends TestCase {
 	 * @dataProvider provideValidSchemaPatches
 	 */
 	public function testPatchSchema( array $currentSchema, Diff $patch, array $expected ) {
+		$this->markTestSkippedIfNoDiff3();
+
 		$schemaPatcher = new EntitySchemaPatcher();
 
 		$actualPatched = $schemaPatcher->patchSchema( new FullArrayEntitySchemaData( $currentSchema ), $patch );

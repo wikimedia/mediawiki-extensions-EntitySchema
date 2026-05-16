@@ -46,6 +46,8 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testUndoSubmit() {
+		$this->markTestSkippedIfNoDiff3();
+
 		$schemaId = 'E123';
 		$page = $this->getServiceContainer()->getWikiPageFactory()
 			->newFromTitle( Title::makeTitle( NS_ENTITYSCHEMA_JSON, $schemaId ) );
@@ -153,6 +155,7 @@ class UndoSubmitActionTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testUndoSubmitCreateTempUser(): void {
+		$this->markTestSkippedIfNoDiff3();
 		$this->enableAutoCreateTempUser();
 		$this->addTempUserHook();
 		$schemaId = 'E123';

@@ -30,6 +30,7 @@ class UndoViewActionTest extends MediaWikiIntegrationTestCase {
 
 	public function test_UndoView() {
 		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
+		$this->markTestSkippedIfNoDiff3();
 
 		// arrange
 		$schemaId = 'E123';
