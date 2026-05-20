@@ -28,7 +28,7 @@
 	"entityschema-error-schemaupdate-failed": "스키마를 업데이트할 수 없습니다",
 	"entityschema-error-schematext-conflict": "이 스키마는 그 사이에 변경되었습니다. 스키마 문서로 돌아가서 편집을 다시 시도하세요.",
 	"entityschema-error-namebadge-conflict": "이 스키마는 그 사이에 변경되었습니다. 스키마 문서로 돌아가서 이 언어의 레이블, 설명, 다른 이름의 편집을 다시 시도하세요.",
-	"entityschema-error-not-post": "이 동작은 POST 요청으로 완료되어야 합니다.",
+	"entityschema-error-not-post": "이 작업은 POST 요청으로 완료되어야 합니다.",
 	"entityschema-error-inconsistent-id": "제공된 판들이 모두 해당 제목에 속하지 않습니다.",
 	"entityschema-error-wrong-page-revisions": "제공된 판들이 헌재 문서에 속하지 않습니다.",
 	"entityschema-error-invalid-id": "이 ID는 유효하지 않습니다.",
