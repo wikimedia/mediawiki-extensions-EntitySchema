@@ -57,6 +57,7 @@
 	"entityschema-restore-heading": "Al Versioun vun „$1“ restauréieren",
 	"entityschema-restore-bad-revisions": "D'Ännerung konnt net restauréiert ginn, well et se net gëtt oder well se geläscht gouf.",
 	"entityschema-restoreold": "restauréieren",
+	"entityschema-special-setlabeldescriptionaliases": "EntitySchema-Etikett, -Beschreiwung an -Aliase festleeën",
 	"entityschema-special-id-inputlabel": "EntitySchema-ID",
 	"entityschema-special-language-inputlabel": "Sproochcode",
 	"entityschema-special-id-submit": "Etikett, Beschreiwung an Aliase festleeën",
