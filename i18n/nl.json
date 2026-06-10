@@ -65,7 +65,7 @@
 	"entityschema-undo-heading": "De bewerking naar $1 ongedaan maken",
 	"entityschema-undo-heading-failed": "Ongedaan maken mislukt",
 	"entityschema-undo-bad-revisions": "De bewerking kon niet ongedaan gemaakt worden, omdat die niet bestaat of is verwijderd.",
-	"entityschema-undo-cannot-apply-patch": "De bewerking kon niet ongedaan gemaakt worden, omdat die is veranderd.",
+	"entityschema-undo-cannot-apply-patch": "De bewerking kon niet ongedaan gemaakt worden, omdat die is gewijzigd.",
 	"entityschema-undo-old-revision": "De ongedaan te maken versie",
 	"entityschema-restore-heading": "Herstellen eerdere versie van “$1”",
 	"entityschema-restore-bad-revisions": "De bewerking kon niet hersteld worden, omdat die niet bestaat of is verwijderd.",
