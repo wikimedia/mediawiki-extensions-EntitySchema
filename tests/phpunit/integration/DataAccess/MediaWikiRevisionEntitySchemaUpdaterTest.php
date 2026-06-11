@@ -99,12 +99,13 @@ class MediaWikiRevisionEntitySchemaUpdaterTest extends MediaWikiIntegrationTestC
 	}
 
 	private function getPageUpdaterFactory( ?PageUpdater $pageUpdater = null ): MediaWikiPageUpdaterFactory {
-		$wikiPage = $this->createConfiguredMock( WikiPage::class, [
-			'newPageUpdater' => $pageUpdater ?? $this->createMock( PageUpdater::class ),
-		] );
-		$wikiPageFactory = $this->createConfiguredMock( WikiPageFactory::class, [
-			'newFromTitle' => $wikiPage,
-		] );
+		$wikiPageFactory = $this->createMock( WikiPageFactory::class );
+		$wikiPageFactory->method( 'newFromTitle' )->willReturnCallback( function ( $title ) use ( $pageUpdater ) {
+			return $this->createConfiguredMock( WikiPage::class, [
+				'getTitle' => $title,
+				'newPageUpdater' => $pageUpdater ?? $this->createMock( PageUpdater::class ),
+			] );
+		} );
 		$this->setService( 'WikiPageFactory', $wikiPageFactory );
 		return EntitySchemaServices::getMediaWikiPageUpdaterFactory( $this->getServiceContainer() );
 	}
