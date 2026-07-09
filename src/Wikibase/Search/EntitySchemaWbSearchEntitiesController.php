@@ -3,14 +3,14 @@
 namespace EntitySchema\Wikibase\Search;
 
 use EntitySchema\Wikibase\DataValues\EntitySchemaValue;
-use Wikibase\Repo\Domains\Search\Infrastructure\Controllers\PaginatingWbSearchEntitiesController;
+use Wikibase\Repo\Domains\Search\Infrastructure\Controllers\WbSearchEntitiesController;
 use Wikibase\Repo\Domains\Search\Infrastructure\Controllers\WbSearchEntitiesRequest;
 use Wikibase\Repo\Domains\Search\Infrastructure\Controllers\WbSearchEntitiesResponse;
 
 /**
  * @license GPL-2.0-or-later
  */
-class EntitySchemaWbSearchEntitiesController implements PaginatingWbSearchEntitiesController {
+class EntitySchemaWbSearchEntitiesController implements WbSearchEntitiesController {
 
 	public function __construct(
 		private readonly EntitySchemaSearchHelperFactory $searchHelperFactory
