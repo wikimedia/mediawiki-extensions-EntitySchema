@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"شاه زمان پټان"
+		]
+	},
+	"datatypes-type-entity-schema": "شتونتيا‌جوړښتي‌گارليک",
+	"entityschema-desc": "د ويکي‌اډانې شتوتنياوو لپاره جوړښتي‌گارليک شننه او ساتنه کوي",
+	"special-newschema": "يوه نوې شتونتيا‌جوړښتي‌گارليک جوړول",
+	"nstab-entityschema": "شتونتيا‌جوړښتي‌گارليک",
+	"tooltip-ca-nstab-entityschema": "شتونتيا‌جوړښتي‌گارليک پېژندون",
+	"entityschema-newschema-label": "نښکه:",
+	"entityschema-newschema-description": "څرگنداوی:",
+	"entityschema-newschema-aliases": "بل‌نومونه، نل-بېل شوي:"
+}
