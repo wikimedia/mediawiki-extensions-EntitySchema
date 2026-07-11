@@ -110,7 +110,7 @@ class EntitySchemaEditAction extends FormAction {
 		$output = $this->getOutput();
 		$context = $this->getContext();
 		$revisionStore = MediaWikiServices::getInstance()->getRevisionStore();
-		$currentRevision = $revisionStore->getKnownCurrentRevision( $context->getTitle() );
+		$currentRevision = $revisionStore->getKnownLatestRevision( $context->getTitle() );
 		if ( !$currentRevision ) {
 			return Status::newFatal( $this->msg( 'entityschema-error-schemadeleted' ) );
 		}
@@ -186,7 +186,7 @@ class EntitySchemaEditAction extends FormAction {
 	protected function getFormFields(): array {
 		$context = $this->getContext();
 		$revisionStore = MediaWikiServices::getInstance()->getRevisionStore();
-		$currentRevRecord = $revisionStore->getKnownCurrentRevision( $context->getTitle() );
+		$currentRevRecord = $revisionStore->getKnownLatestRevision( $context->getTitle() );
 		if ( !$currentRevRecord ) {
 			throw new RuntimeException( $this->msg( 'entityschema-error-schemadeleted' )->text() );
 		}

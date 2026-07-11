@@ -65,7 +65,7 @@ class PageHistoryLineEndingHookHandlerTest extends MediaWikiIntegrationTestCase 
 			->getTitleFactory()
 			->makeTitleSafe( NS_ENTITYSCHEMA_JSON, $schemaId->getId() );
 		$context->setTitle( $schemaTitle );
-		$baseRevId = $revisionLookup->getKnownCurrentRevision( $schemaTitle )->getId();
+		$baseRevId = $revisionLookup->getKnownLatestRevision( $schemaTitle )->getId();
 		$schemaUpdater->updateSchemaText( $schemaId, 'a', $baseRevId );
 
 		$action = $services

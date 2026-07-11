@@ -115,7 +115,7 @@ class EntitySchemaEditActionTest extends MediaWikiIntegrationTestCase {
 			->willReturn( $content );
 		$revisionStore = $this->createMock( RevisionStore::class );
 		$revisionStore->expects( $this->once() )
-			->method( 'getKnownCurrentRevision' )
+			->method( 'getKnownLatestRevision' )
 			->willReturn( $revisionRecord );
 		$messageCache = $this->createMock( MessageCache::class );
 		$messageCache->expects( $this->any() )
