@@ -6,8 +6,8 @@ namespace EntitySchema\DataAccess;
 
 use EntitySchema\Domain\Storage\IdGenerator;
 use RuntimeException;
+use Wikimedia\Rdbms\IConnectionProvider;
 use Wikimedia\Rdbms\IDatabase;
-use Wikimedia\Rdbms\ILoadBalancer;
 
 /**
  * Unique Id generator implemented using an SQL table.
@@ -19,7 +19,7 @@ use Wikimedia\Rdbms\ILoadBalancer;
  */
 class SqlIdGenerator implements IdGenerator {
 
-	private ILoadBalancer $loadBalancer;
+	private IConnectionProvider $connectionProvider;
 
 	private string $tableName;
 
@@ -27,12 +27,12 @@ class SqlIdGenerator implements IdGenerator {
 	private array $idsToSkip;
 
 	/**
-	 * @param ILoadBalancer $loadBalancer
+	 * @param IConnectionProvider $connectionProvider
 	 * @param string $tableName
 	 * @param int[] $idsToSkip
 	 */
-	public function __construct( ILoadBalancer $loadBalancer, string $tableName, array $idsToSkip = [] ) {
-		$this->loadBalancer = $loadBalancer;
+	public function __construct( IConnectionProvider $connectionProvider, string $tableName, array $idsToSkip = [] ) {
+		$this->connectionProvider = $connectionProvider;
 		$this->tableName = $tableName;
 		$this->idsToSkip = $idsToSkip;
 	}
@@ -41,7 +41,7 @@ class SqlIdGenerator implements IdGenerator {
 	 * @throws RuntimeException
 	 */
 	public function getNewId(): int {
-		$database = $this->loadBalancer->getConnection( DB_PRIMARY );
+		$database = $this->connectionProvider->getPrimaryDatabase();
 
 		$id = $this->generateNewId( $database );
 		return $id;

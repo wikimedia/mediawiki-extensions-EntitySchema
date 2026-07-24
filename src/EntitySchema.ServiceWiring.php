@@ -83,7 +83,7 @@ return [
 			return null;
 		}
 		return new SqlIdGenerator(
-			$services->getDBLoadBalancer(),
+			$services->getConnectionProvider(),
 			'entityschema_id_counter',
 			$services->getMainConfig()->get( 'EntitySchemaSkippedIDs' )
 		);

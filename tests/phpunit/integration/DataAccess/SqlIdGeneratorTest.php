@@ -8,8 +8,8 @@ use EntitySchema\DataAccess\SqlIdGenerator;
 use MediaWikiIntegrationTestCase;
 use RuntimeException;
 use Wikimedia\Rdbms\DBReadOnlyError;
+use Wikimedia\Rdbms\IConnectionProvider;
 use Wikimedia\Rdbms\IDatabase;
-use Wikimedia\Rdbms\ILoadBalancer;
 use Wikimedia\Rdbms\InsertQueryBuilder;
 use Wikimedia\Rdbms\SelectQueryBuilder;
 
@@ -29,7 +29,7 @@ class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 
 	public function testGetNewId() {
 		$generator = new SqlIdGenerator(
-			$this->getServiceContainer()->getDBLoadBalancer(),
+			$this->getServiceContainer()->getConnectionProvider(),
 			'entityschema_id_counter'
 		);
 
@@ -42,8 +42,8 @@ class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testIdsSkipped() {
-		$loadbalancer = $this->getServiceContainer()->getDBLoadBalancer();
-		$db = $loadbalancer->getConnection( DB_PRIMARY );
+		$connectionProvider = $this->getServiceContainer()->getConnectionProvider();
+		$db = $connectionProvider->getPrimaryDatabase();
 		$currentId = $db->newSelectQueryBuilder()->select( [ 'id_value' ] )
 			->from( 'entityschema_id_counter' )
 			->caller( __METHOD__ )
@@ -52,7 +52,7 @@ class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 		$currentId = $currentId->id_value ?? 0;
 
 		$testGenerator = new SqlIdGenerator(
-			$this->getServiceContainer()->getDBLoadBalancer(),
+			$this->getServiceContainer()->getConnectionProvider(),
 			'entityschema_id_counter',
 			[ $currentId + 1, $currentId + 2 ]
 		);
@@ -73,11 +73,11 @@ class SqlIdGeneratorTest extends MediaWikiIntegrationTestCase {
 			->willReturn(
 				new InsertQueryBuilder( $database )
 			);
-		$loadBalancer = $this->createMock( ILoadBalancer::class );
-		$loadBalancer->method( 'getConnection' )
+		$connectionProvider = $this->createMock( IConnectionProvider::class );
+		$connectionProvider->method( 'getPrimaryDatabase' )
 			->willReturn( $database );
 		$generator = new SqlIdGenerator(
-			$loadBalancer,
+			$connectionProvider,
 			'entityschema_id_counter'
 		);
 
