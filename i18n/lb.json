@@ -7,6 +7,7 @@
 			"Volvox"
 		]
 	},
+	"datatypes-type-entity-schema": "Entitéite-Scheema",
 	"entityschema-newschema-label": "Etikett:",
 	"entityschema-newschema-description": "Beschreiwung:",
 	"entityschema-newschema-aliases": "Aliasen, mat „|“ getrennt:",
@@ -57,6 +58,7 @@
 	"entityschema-restore-heading": "Al Versioun vun „$1“ restauréieren",
 	"entityschema-restore-bad-revisions": "D'Ännerung konnt net restauréiert ginn, well et se net gëtt oder well se geläscht gouf.",
 	"entityschema-restoreold": "restauréieren",
+	"entityschema-scoped-search-scope-name": "Entitéite-Scheemaen",
 	"entityschema-special-setlabeldescriptionaliases": "EntitySchema-Etikett, -Beschreiwung an -Aliase festleeën",
 	"entityschema-special-id-inputlabel": "EntitySchema-ID",
 	"entityschema-special-language-inputlabel": "Sproochcode",
@@ -65,5 +67,6 @@
 	"entityschema-special-label": "Etikett:",
 	"entityschema-special-description": "Beschreiwung:",
 	"entityschema-special-aliases": "Aliasen, mat „|“ getrennt:",
+	"wikibase-listdatatypes-entity-schema-head": "Entitéite-Scheema",
 	"wikibase-validator-illegal-entity-schema-title": "De Wäert muss mat <code>E</code> ufänken an de Rescht däerfe just Ziffere sinn."
 }
