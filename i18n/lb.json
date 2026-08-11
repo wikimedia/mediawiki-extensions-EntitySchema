@@ -7,6 +7,7 @@
 			"GilPe"
 		]
 	},
+	"datatypes-type-entity-schema": "Entitéite-Scheema",
 	"entityschema-newschema-label": "Etikett:",
 	"entityschema-newschema-description": "Beschreiwung:",
 	"entityschema-newschema-aliases": "Aliasen, mat „|“ getrennt:",
@@ -65,5 +66,6 @@
 	"entityschema-special-label": "Etikett:",
 	"entityschema-special-description": "Beschreiwung:",
 	"entityschema-special-aliases": "Aliasen, mat „|“ getrennt:",
+	"wikibase-listdatatypes-entity-schema-head": "Entitéite-Scheema",
 	"wikibase-validator-illegal-entity-schema-title": "De Wäert muss mat <code>E</code> ufänken an de Rescht däerfe just Ziffere sinn."
 }
