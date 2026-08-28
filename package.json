@@ -13,15 +13,15 @@
 		"cypress:open": "CYPRESS_CACHE_FOLDER=./cypress/.cache cypress open"
 	},
 	"devDependencies": {
-		"cypress": "^13.17.0",
+		"cypress": "^15.21.1",
 		"cypress-axe": "^1.7.0",
 		"cypress-terminal-report": "^7.1.0",
-		"cypress-wikibase-api": "^0.0.9",
+		"cypress-wikibase-api": "^0.0.10",
 		"eslint-config-wikimedia": "0.32.5",
-		"eslint-plugin-chai-friendly": "^1.0.1",
-		"eslint-plugin-cypress": "^3.4.0",
+		"eslint-plugin-chai-friendly": "^1.2.1",
+		"eslint-plugin-cypress": "^3.6.0",
 		"grunt-banana-checker": "^0.13.0",
-		"lint-staged": "^15.2.11",
+		"lint-staged": "^16.4.0",
 		"npm-run-all": "^4.1.5",
 		"stylelint-config-wikimedia": "0.19.3"
 	},

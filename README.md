@@ -135,6 +135,11 @@ All dependencies should generally be updated to the latest version.
 If you discover that a dependency should not be updated for some reason, please amend this section with the dependency and the reason.
 If a dependency can only be updated with substantial manual work, you can create a new task for it and skip it in the context of the current chore.
 
+Dependencies currently pinned below latest:
+* `eslint-plugin-cypress` is pinned to `^3.6.0` instead of the latest 7.x. Starting with 4.0.0 it requires `eslint >=9`,
+but `eslint-config-wikimedia` (currently 0.32.5) still requires `eslint ^8.57.0`. Updating further requires migrating
+the extension's ESLint config to flat config / ESLint 9+. A follow-up task should fix the migration [T436331](https://phabricator.wikimedia.org/T436331).
+
 ## Troubleshooting
 
 ### I get `tempnam(): file created in the system's temporary directory` when running the phpunit tests?
