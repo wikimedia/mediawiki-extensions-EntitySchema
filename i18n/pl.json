@@ -4,7 +4,8 @@
 			"Chrumps",
 			"Nux",
 			"Rzuwig",
-			"Woytecr"
+			"Woytecr",
+			"PanWor"
 		]
 	},
 	"entityschema-desc": "Przechowuj i omawiaj Schematy dla encji Wikibase",
@@ -14,8 +15,8 @@
 	"entityschema-newschema-aliases": "Aliasy, oddzielone pionową kreską:",
 	"entityschema-newschema-submit": "Utwórz",
 	"entityschema-anonymouseditwarning": "Uwaga: Nie jesteś zalogowany. Twój adres IP zostanie zapisany w historii edycji strony tego Schematu.",
-	"entityschema-label-edit-placeholder": "podaj etykietę w języku $1",
-	"entityschema-description-edit-placeholder": "podaj opis w języku $1",
+	"entityschema-label-edit-placeholder": "podaj etykietę (język $1)",
+	"entityschema-description-edit-placeholder": "podaj opis (język $1)",
 	"entityschema-aliases-edit-placeholder": "podaj alternatywne nazwy w języku $1",
 	"entityschema-id-edit-placeholder": "Identyfikator schematu",
 	"entityschema-error-schemadeleted": "Schemat, który próbowałeś edytować, nie istnieje. Może został usunięty?",
