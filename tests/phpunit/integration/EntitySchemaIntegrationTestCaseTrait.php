@@ -34,7 +34,7 @@ trait EntitySchemaIntegrationTestCaseTrait {
 
 	private function getCurrentSchemaContent( string $pageName ): array {
 		/** @var EntitySchemaContent $content */
-		$rev = MediaWikiServices::getInstance()
+		$rev = $this->getServiceContainer()
 			->getRevisionStore()
 			->getRevisionById( $this->getCurrentSchemaRevisionId( $pageName ) );
 		return json_decode( $rev->getContent( SlotRecord::MAIN )->getText(), true );
