@@ -24,8 +24,6 @@ use MediaWiki\Content\Content;
 use MediaWiki\Content\JsonContentHandler;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Context\IContextSource;
-use MediaWiki\Context\RequestContext;
-use MediaWiki\Language\Language;
 use MediaWiki\Language\LanguageNameUtils;
 use MediaWiki\Page\Article;
 use MediaWiki\Page\WikiPage;
@@ -104,22 +102,6 @@ class EntitySchemaContentHandler extends JsonContentHandler {
 			$context,
 			$this->createTextSlotDiffRenderer( $options )
 		);
-	}
-
-	/**
-	 * @see ContentHandler::getPageViewLanguage
-	 *
-	 * This implementation returns the user language, because Schemas get rendered in
-	 * the user's language. The PageContentLanguage hook is bypassed.
-	 *
-	 * @param Title $title (unused) the page to determine the language for.
-	 * @param Content|null $content (unused) the page's content
-	 *
-	 * @return Language The page's language
-	 */
-	public function getPageViewLanguage( Title $title, ?Content $content = null ): Language {
-		$context = RequestContext::getMain();
-		return $context->getLanguage();
 	}
 
 	public function canBeUsedOn( Title $title ): bool {
