@@ -14,7 +14,7 @@
 	"entityschema-newschema-description": "Opis:",
 	"entityschema-newschema-aliases": "Aliasy, oddzielone pionową kreską:",
 	"entityschema-newschema-submit": "Utwórz",
-	"entityschema-anonymouseditwarning": "Uwaga: Nie jesteś zalogowany. Twój adres IP zostanie zapisany w historii edycji strony tego Schematu.",
+	"entityschema-anonymouseditwarning": "Uwaga: nie zalogowano się. Twój adres IP zostanie zapisany w historii edycji strony tego schematu.",
 	"entityschema-label-edit-placeholder": "podaj etykietę (język $1)",
 	"entityschema-description-edit-placeholder": "podaj opis (język $1)",
 	"entityschema-aliases-edit-placeholder": "podaj alternatywne nazwy w języku $1",
