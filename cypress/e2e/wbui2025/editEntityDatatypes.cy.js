@@ -101,7 +101,7 @@ describe( 'wbui2025 entity schema datatype', () => {
 			itemViewPage.editLinks().first().click();
 
 			const editFormPage = new EditStatementFormPage();
-			editFormPage.formHeading().should( 'exist' );
+			editFormPage.root().should( 'exist' );
 			editFormPage.propertyName().should( 'have.text', propertyName );
 
 			selectEntityById( editFormPage, secondEntitySchemaId, secondEntitySchemaLabel );
@@ -109,7 +109,7 @@ describe( 'wbui2025 entity schema datatype', () => {
 			editFormPage.publishButton().click();
 
 			/* Wait for the form to close, and check the value is changed */
-			editFormPage.formHeading().should( 'not.exist' );
+			editFormPage.root().should( 'not.exist' );
 			itemViewPage.mainSnakValues().first().should( 'contain.text', secondEntitySchemaLabel );
 		} );
 	} );
