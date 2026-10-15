@@ -103,9 +103,6 @@ class EntitySchemaEditAction extends FormAction {
 	 * @return bool|string|array|Status Must return as documented for HTMLForm::trySubmit
 	 */
 	public function onSubmit( $data ) {
-		/**
-		 * @var $content EntitySchemaContent
-		 */
 		$request = $this->getContext()->getRequest();
 		$output = $this->getOutput();
 		$context = $this->getContext();

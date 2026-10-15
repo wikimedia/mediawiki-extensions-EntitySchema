@@ -33,11 +33,12 @@ trait EntitySchemaIntegrationTestCaseTrait {
 	}
 
 	private function getCurrentSchemaContent( string $pageName ): array {
-		/** @var EntitySchemaContent $content */
 		$rev = $this->getServiceContainer()
 			->getRevisionStore()
 			->getRevisionById( $this->getCurrentSchemaRevisionId( $pageName ) );
-		return json_decode( $rev->getContent( SlotRecord::MAIN )->getText(), true );
+		/** @var EntitySchemaContent $content */
+		$content = $rev->getContent( SlotRecord::MAIN );
+		return json_decode( $content->getText(), true );
 	}
 
 	private function getCurrentSchemaRevisionId( string $pageName ): int {

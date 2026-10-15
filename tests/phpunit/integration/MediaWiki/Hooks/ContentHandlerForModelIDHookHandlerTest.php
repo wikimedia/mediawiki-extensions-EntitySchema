@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 
 use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use EntitySchema\MediaWiki\Hooks\ContentHandlerForModelIDHookHandler;
 use MediaWikiIntegrationTestCase;
@@ -31,7 +32,7 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 		);
 
 		$contentHandler = null;
-		$handler->onContentHandlerForModelID( 'EntitySchema', $contentHandler );
+		$handler->onContentHandlerForModelID( EntitySchemaContent::CONTENT_MODEL_ID, $contentHandler );
 		$this->assertInstanceOf( EntitySchemaContentHandler::class, $contentHandler );
 
 		$contentHandler = null;
@@ -52,7 +53,7 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 		);
 
 		$contentHandler = null;
-		$handler->onContentHandlerForModelID( 'EntitySchema', $contentHandler );
+		$handler->onContentHandlerForModelID( EntitySchemaContent::CONTENT_MODEL_ID, $contentHandler );
 		$this->assertNull( $contentHandler );
 	}
 
@@ -70,7 +71,7 @@ class ContentHandlerForModelIDHookHandlerTest extends MediaWikiIntegrationTestCa
 		);
 
 		$contentHandler = null;
-		$handler->onContentHandlerForModelID( 'EntitySchema', $contentHandler );
+		$handler->onContentHandlerForModelID( EntitySchemaContent::CONTENT_MODEL_ID, $contentHandler );
 		$contentHandlerWrapper = TestingAccessWrapper::newFromObject( $contentHandler );
 
 		$this->assertNotNull( $contentHandlerWrapper->labelsFieldDefinitions );

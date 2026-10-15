@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace EntitySchema\MediaWiki\Hooks;
 
 use EntitySchema\DataAccess\LabelLookup;
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Content\EntitySchemaContentHandler;
 use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Content\Hook\ContentHandlerForModelIDHook;
@@ -55,7 +56,7 @@ class ContentHandlerForModelIDHookHandler implements ContentHandlerForModelIDHoo
 		if ( !$this->entitySchemaIsRepo ) {
 			return;
 		}
-		if ( $modelName !== 'EntitySchema' ) {
+		if ( $modelName !== EntitySchemaContent::CONTENT_MODEL_ID ) {
 			return;
 		}
 		Assert::invariant(

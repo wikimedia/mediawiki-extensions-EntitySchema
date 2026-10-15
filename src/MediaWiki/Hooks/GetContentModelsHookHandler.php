@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\MediaWiki\Hooks;
 
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use MediaWiki\Content\Hook\GetContentModelsHook;
 
 /**
@@ -21,10 +22,9 @@ class GetContentModelsHookHandler implements GetContentModelsHook {
 	 * @inheritDoc
 	 */
 	public function onGetContentModels( &$models ) {
-		if ( !$this->entitySchemaIsRepo ) {
-			return;
+		if ( $this->entitySchemaIsRepo ) {
+			$models[] = EntitySchemaContent::CONTENT_MODEL_ID;
 		}
-		$models[] = 'EntitySchema';
 	}
 
 }

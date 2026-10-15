@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace EntitySchema\Tests\Unit\Wikibase\Hooks;
 
+use EntitySchema\MediaWiki\Content\EntitySchemaContent;
 use EntitySchema\MediaWiki\Hooks\GetContentModelsHookHandler;
 use MediaWikiUnitTestCase;
 
@@ -19,7 +20,7 @@ class GetContentModelsHookHandlerTest extends MediaWikiUnitTestCase {
 		$list = [ 'a' ];
 		$handler->onGetContentModels( $list );
 
-		$this->assertSame( [ 'a', 'EntitySchema' ], $list );
+		$this->assertSame( [ 'a', EntitySchemaContent::CONTENT_MODEL_ID ], $list );
 	}
 
 	public function testOnGetContentModels_client() {

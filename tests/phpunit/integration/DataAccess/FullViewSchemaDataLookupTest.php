@@ -12,7 +12,7 @@ use EntitySchema\Tests\Integration\EntitySchemaIntegrationTestCaseTrait;
 use MediaWikiIntegrationTestCase;
 
 /**
- * @covers EntitySchema\DataAccess\FullViewSchemaDataLookup
+ * @covers \EntitySchema\DataAccess\FullViewSchemaDataLookup
  * @license GPL-2.0-or-later
  * @group Database
  */
