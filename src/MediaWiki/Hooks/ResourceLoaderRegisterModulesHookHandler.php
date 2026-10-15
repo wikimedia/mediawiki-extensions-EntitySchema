@@ -13,12 +13,10 @@ use Wikibase\Lib\SettingsArray;
  */
 class ResourceLoaderRegisterModulesHookHandler implements ResourceLoaderRegisterModulesHook {
 
-	private bool $entitySchemaIsRepo;
-	private ?SettingsArray $settings;
-
-	public function __construct( bool $entitySchemaIsRepo, ?SettingsArray $settings ) {
-		$this->settings = $settings;
-		$this->entitySchemaIsRepo = $entitySchemaIsRepo;
+	public function __construct(
+		private readonly bool $entitySchemaIsRepo,
+		private readonly ?SettingsArray $settings,
+	) {
 	}
 
 	public function onResourceLoaderRegisterModules( ResourceLoader $rl ): void {
@@ -88,27 +86,22 @@ class ResourceLoaderRegisterModulesHookHandler implements ResourceLoaderRegister
 			],
 		] );
 
-		if ( $this->settings ) {
-			// temporarily register this RL module only if the feature flag for mobile editing or its beta feature are
-			// enabled, so that wikis without either feature flag don't even pay the small cost of loading the module
-			// *definition* (when the feature stabilizes, this should move into repo/resources/Resources.php: T395783)
-			if (
-				$this->settings->getSetting( 'tmpMobileEditingUI' ) ||
-				$this->settings->getSetting( 'tmpEnableMobileEditingUIBetaFeature' )
-			) {
-				$rl->register( [ 'entitySchema.wbui2025.entityViewInit' =>
-					[
-						'localBasePath' => $localBasePath,
-						'remoteExtPath' => 'EntitySchema/resources',
-						'packageFiles' => [
-							'entitySchema.wbui2025.entityViewInit.js',
-						],
-						'dependencies' => [
-							'wikibase.wbui2025.lib',
-						],
+		// Temporarily register this RL module only if the feature flag for mobile editing is
+		// enabled, so that wikis without either feature flag don't even pay the small cost of loading the module
+		// *definition* (when the feature stabilizes, this should move into repo/resources/Resources.php: T395783)
+		if ( $this->settings?->getSetting( 'tmpMobileEditingUI' ) ) {
+			$rl->register( [ 'entitySchema.wbui2025.entityViewInit' =>
+				[
+					'localBasePath' => $localBasePath,
+					'remoteExtPath' => 'EntitySchema/resources',
+					'packageFiles' => [
+						'entitySchema.wbui2025.entityViewInit.js',
 					],
-				] );
-			}
+					'dependencies' => [
+						'wikibase.wbui2025.lib',
+					],
+				],
+			] );
 		}
 	}
 
