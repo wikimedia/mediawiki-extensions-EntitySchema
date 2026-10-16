@@ -43,6 +43,22 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: "20"
+    - name: configure Git to prefer GitHub over Wikimedia Gerrit to avoid clone errors (403/429)
+      run: |
+        cat >> ~/.gitconfig << 'EOF'
+
+        [url "https://github.com/wikimedia/mediawiki.git"]
+        insteadOf = "https://gerrit.wikimedia.org/r/mediawiki/core.git"
+
+        [url "https://github.com/wikimedia/mediawiki-extensions-"]
+        insteadOf = "https://gerrit.wikimedia.org/r/mediawiki/extensions/"
+
+        [url "https://github.com/wikimedia/mediawiki-skins-"]
+        insteadOf = "https://gerrit.wikimedia.org/r/mediawiki/skins/"
+
+        [url "https://github.com/wikimedia/wikibase-termbox.git"]
+        insteadOf = "https://gerrit.wikimedia.org/r/wikibase/termbox"
+        EOF
     - name: Install Dependencies
       run: npm ci
     - name: install.sh
