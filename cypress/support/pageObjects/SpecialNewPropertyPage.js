@@ -15,7 +15,7 @@ export class SpecialNewPropertyPage {
 	}
 
 	submit() {
-		cy.get( 'button[name=submit]' ).click();
+		cy.get( 'button[name=wikibase-newentity-submit]' ).click();
 		return this;
 	}
 }
