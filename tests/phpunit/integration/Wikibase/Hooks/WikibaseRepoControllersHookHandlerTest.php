@@ -24,7 +24,6 @@ class WikibaseRepoControllersHookHandlerTest extends MediaWikiIntegrationTestCas
 		$controllers = [ 'unrelated' => $controller ];
 		$handler = new WikibaseRepoControllersHookHandler(
 			true,
-			$this->createStub( EntitySchemaSearchHelperFactory::class )
 		);
 		$handler->onWikibaseRepoControllers( $controllers );
 		$this->assertArrayHasKey( 'unrelated', $controllers );
@@ -36,7 +35,7 @@ class WikibaseRepoControllersHookHandlerTest extends MediaWikiIntegrationTestCas
 	}
 
 	public function testOnWikibaseRepoControllers_notInRepoContext(): void {
-		$handler = new WikibaseRepoControllersHookHandler( false, null );
+		$handler = new WikibaseRepoControllersHookHandler( false );
 		$controllers = [];
 		$handler->onWikibaseRepoControllers( $controllers );
 		$this->assertEquals( [], $controllers );

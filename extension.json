@@ -57,9 +57,6 @@
 			"class": "\\EntitySchema\\Wikibase\\Hooks\\WikibaseRepoControllersHookHandler",
 			"services": [
 				"EntitySchema.EntitySchemaIsRepo"
-			],
-			"optional_services": [
-				"EntitySchema.EntitySchemaSearchHelperFactory"
 			]
 		},
 		"WikibaseRepoDataTypes": {
