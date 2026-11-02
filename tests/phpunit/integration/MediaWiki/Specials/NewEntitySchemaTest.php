@@ -272,7 +272,10 @@ class NewEntitySchemaTest extends SpecialPageTestBase {
 		$services = $this->getServiceContainer();
 		return new NewEntitySchema(
 			$services->getTempUserConfig(),
-			$this->createMock( SettingsArray::class ),
+			new SettingsArray( [
+				'dataRightsUrl' => '',
+				'dataRightsText' => '',
+			] ),
 			EntitySchemaServices::getIdGenerator( $services ),
 			EntitySchemaServices::getMediaWikiPageUpdaterFactory( $services )
 		);
