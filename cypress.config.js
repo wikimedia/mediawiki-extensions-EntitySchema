@@ -1,4 +1,5 @@
-/* eslint-env node */
+'use strict';
+
 const { defineConfig } = require( 'cypress' );
 const { mwApiCommands } = require( 'cypress-wikibase-api' );
 
