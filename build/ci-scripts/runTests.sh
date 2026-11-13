@@ -13,7 +13,7 @@ cd mediawiki
 
 composer phpunit -- --verbose extensions/EntitySchema/tests/phpunit/
 
-cd extensions/EntitySchema
+cd ../mediawiki-extensions-EntitySchema
 
 npm run test
 
