@@ -7,7 +7,6 @@
 .eslintcache
 /.stylelintcache
 
-cypress/.cache
 cypress/videos
 cypress/screenshots
 cypress/downloads

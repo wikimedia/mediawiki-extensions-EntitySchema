@@ -9,8 +9,8 @@
 		"test:linti18n": "banana-checker i18n/",
 		"fix:js": "eslint --fix --ignore-path .gitignore .",
 		"fix:css": "stylelint --fix \"**/*.{css,less}\" --ignore-path .gitignore",
-		"selenium-test": "CYPRESS_CACHE_FOLDER=./cypress/.cache cypress run",
-		"cypress:open": "CYPRESS_CACHE_FOLDER=./cypress/.cache cypress open"
+		"selenium-test": "cypress run",
+		"cypress:open": "cypress open"
 	},
 	"devDependencies": {
 		"cypress": "^15.21.1",
